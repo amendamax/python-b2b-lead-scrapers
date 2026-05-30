@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Operating System
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Media files
+*.mp4
+*.png
+*.jpg
+*.jpeg
+
+# Databases & SQLite
+*.db
+*.sqlite
+
+# Excel, CSV, PDF reports (to keep repository clean of scraped data)
+*.xlsx
+*.xls
+*.csv
+*.pdf
+
+# Temporary files & logs
+*.log
+response.txt
+find_response.py
+search_fiverr_exps.py
+test_yp_pw.py
+C:\Users\bratu\Documents\antigravity\amazing-borg\response.txt

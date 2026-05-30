@@ -1,0 +1,68 @@
+import win32com.client
+import os
+import sys
+
+def convert_excel_to_pdf(xlsx_path, pdf_path):
+    """
+    Converts the Emerald Green styled leads Excel sheet into a crisp landscape PDF.
+    Ensures all columns are fitted to exactly 1 page wide while letting rows flow
+    naturally over pages to maintain maximum font readability.
+    """
+    abs_xlsx = os.path.abspath(xlsx_path)
+    abs_pdf = os.path.abspath(pdf_path)
+    
+    if not os.path.exists(abs_xlsx):
+        print(f"[!] Error: Source file not found: {abs_xlsx}")
+        sys.exit(1)
+        
+    print(f"[>] Connecting to Excel Engine and opening: {os.path.basename(abs_xlsx)}")
+    
+    excel = None
+    wb = None
+    try:
+        # Initialize the Excel COM Application
+        excel = win32com.client.Dispatch("Excel.Application")
+        excel.Visible = False
+        excel.DisplayAlerts = False
+        
+        # Open workbook (ReadOnly=True prevents sharing violations)
+        wb = excel.Workbooks.Open(abs_xlsx, ReadOnly=True)
+        ws = wb.ActiveSheet
+        
+        print("[>] Configuring page setup (Landscape, Narrow Margins, Fit to 1 Page Wide)...")
+        # Page Setup Configurations
+        ws.PageSetup.Orientation = 2 # 2 = Landscape (1 = Portrait)
+        
+        # Fit to Page scaling rules
+        ws.PageSetup.Zoom = False
+        ws.PageSetup.FitToPagesWide = 1 # Force all columns to fit on 1 page wide
+        
+        # Set professional narrow margins (0.5 inches = 36 points)
+        ws.PageSetup.LeftMargin = 36
+        ws.PageSetup.RightMargin = 36
+        ws.PageSetup.TopMargin = 36
+        ws.PageSetup.BottomMargin = 36
+        
+        # Center horizontally
+        ws.PageSetup.CenterHorizontally = True
+        
+        print("[>] Printing sheet to PDF vector format...")
+        # 0 = xlTypePDF
+        ws.ExportAsFixedFormat(0, abs_pdf)
+        print(f"[+] SUCCESS: Perfect PDF generated successfully!")
+        print(f"    File Path: {abs_pdf}")
+        
+    except Exception as e:
+        print(f"[!] COM Error: {str(e)}")
+        sys.exit(1)
+    finally:
+        # Clean shutdown of Excel COM objects
+        if wb:
+            wb.Close(SaveChanges=False)
+        if excel:
+            excel.Quit()
+
+if __name__ == "__main__":
+    xlsx_file = "scraped_leads_pipeline.xlsx"
+    pdf_file = "scraped_leads_pipeline.pdf"
+    convert_excel_to_pdf(xlsx_file, pdf_file)
