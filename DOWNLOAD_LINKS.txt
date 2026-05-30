@@ -1,0 +1,22 @@
+=======================================================================
+🔗 LINK-URI DE DESCĂRCARE DIRECTĂ PENTRU NOUL LAPTOP
+=======================================================================
+
+Pentru a instala tot ce ai nevoie pe noul tău laptop Victus, deschide 
+acest fișier direct pe laptop și dă click (sau copiază în browser) 
+link-urile de mai jos:
+
+1. PYTHON 3.12.3 (Recomandat și ultra-stabil):
+   https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe
+
+2. PYTHON 3.12.8 (Cea mai recentă versiune stabilă 3.12):
+   https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe
+
+3. VS CODE (Editor de cod):
+   https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user
+
+-----------------------------------------------------------------------
+⚠️ REAMINTIRE INSTALARE PYTHON:
+În timpul instalării, bifează neapărat căsuța:
+[x] Add python.exe to PATH
+=======================================================================
