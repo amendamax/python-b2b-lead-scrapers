@@ -59,9 +59,9 @@ If your company is spending valuable manual hours collecting competitor prices, 
 *   📊 **Executive Reporting:** Stunning, print-ready custom dashboards designed for stakeholders.
 
 📨 **Contact me today to discuss your automation needs:**
-*   **Email:** info@vasilebdev.com *(or your preferred direct email)*
-*   **Upwork Profile:** [Vasile B Dev on Upwork](https://www.upwork.com/freelancers/~0123456789abcdef)
-*   **Fiverr Profile:** [Vasile B Dev on Fiverr](https://www.fiverr.com/amendamax)
+*   **Email:** vasile79bratu@gmail.com
+*   **Upwork Profile:** [Vasile Bratu on Upwork](https://www.upwork.com/freelancers/amendamax)
+*   **Fiverr Profile:** [amendamax on Fiverr](https://www.fiverr.com/amendamax)
 
 ---
-*Developed by Vasile B Dev © 2026. High-Performance Software Engineering.*
+*Developed by Vasile Bratu © 2026. High-Performance Software Engineering.*
