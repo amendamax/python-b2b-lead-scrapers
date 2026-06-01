@@ -50,6 +50,15 @@ link_font = Font(name="Segoe UI", size=10, underline="single", color="1B4D3E")  
 
 ---
 
+## 📖 Case Studies & Technical Publications
+
+For deep-dives into the inner workings of web scraping security and database automation, check out my published guides on major developer platforms:
+
+*   **[Medium | Cloudflare WAF Bypass Guide](https://medium.com/@amendamax)**: A comprehensive analysis of modern Web Application Firewalls (WAFs), SSL/TLS socket handshakes, JA3 fingerprinting, and programmatic stealth requests.
+*   **[dev.to | High-Performance Scraping & Reporting with curl_cffi](https://dev.to/amendamax2025)**: An in-depth case study on using `curl_cffi` for secure connections and using `openpyxl` to build premium, executive-ready Excel reports.
+
+---
+
 ## 🛡️ Need a Production-Grade Data Pipeline for Your Business?
 
 If your company is spending valuable manual hours collecting competitor prices, directory listings, or B2B lead databases, or if your current web scrapers are constantly crashing or getting blocked by Cloudflare/Akamai, I can build a fully automated, cloud-deployed, maintenance-free data engine for you.
@@ -59,9 +68,10 @@ If your company is spending valuable manual hours collecting competitor prices, 
 *   📊 **Executive Reporting:** Stunning, print-ready custom dashboards designed for stakeholders.
 
 📨 **Contact me today to discuss your automation needs:**
-*   **Email:** info@vasilebdev.com *(or your preferred direct email)*
-*   **Upwork Profile:** [Vasile B Dev on Upwork](https://www.upwork.com/freelancers/~0123456789abcdef)
-*   **Fiverr Profile:** [Vasile B Dev on Fiverr](https://www.fiverr.com/amendamax)
+*   **Email:** [amendamax@gmail.com](mailto:amendamax@gmail.com)
+*   **Upwork Profile:** [Vasile Bratu on Upwork](https://www.upwork.com/freelancers/amendamax)
+*   **Fiverr Profile:** [Vasile Bratu on Fiverr](https://www.fiverr.com/amendamax)
 
 ---
-*Developed by Vasile B Dev © 2026. High-Performance Software Engineering.*
+*Developed by Vasile Bratu © 2026. High-Performance Software Engineering.*
+
