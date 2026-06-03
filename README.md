@@ -54,7 +54,7 @@ link_font = Font(name="Segoe UI", size=10, underline="single", color="1B4D3E")  
 
 For deep-dives into the inner workings of web scraping security, database automation, and quantitative systems, check out my published guides on major developer platforms:
 
-*   **[Medium | Cloudflare WAF Bypass Guide](https://medium.com/@amendamax)**: A comprehensive analysis of modern Web Application Firewalls (WAFs), SSL/TLS socket handshakes, JA3 fingerprinting, and programmatic stealth requests.
+*   **[Medium | Cloudflare WAF Bypass Guide](https://medium.com/@amendamax/bypassing-cloudflare-waf-and-akamai-in-python-using-tls-fingerprinting-the-curl-cffi-guide-f0edc09a1838)**: A comprehensive analysis of modern Web Application Firewalls (WAFs), SSL/TLS socket handshakes, JA3 fingerprinting, and programmatic stealth requests.
 *   **[dev.to | High-Performance Scraping & Reporting with curl_cffi](https://dev.to/amendamax2025)**: An in-depth case study on using `curl_cffi` for secure connections and using `openpyxl` to build premium, executive-ready Excel reports.
 
 ### 📚 Multilingual Strategy & Authority Publications (4 Topics × 3 Languages)
@@ -78,7 +78,7 @@ I have authored a series of 12 authoritative, highly localized publications deta
 
 #### 4. Ethical Web Scraping & GDPR Compliance
 *   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_ro.md)**: *Web Scraping Etic și GDPR: Cum companiile pot colecta date publice online în deplină siguranță legală și tehnică*
-*   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_it.md)**: *Web Scraping Etico e GDPR: Come le aziende possono raccogliere dati pubblici online in totale sicurezza legale e tecnica*
+*   **[Italian (IT) on Medium](https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0)**: *Web Scraping Etico e GDPR: Come le aziende possono raccogliere dati pubblici online in totale sicurezza legale e tecnica*
 *   **[English (EN) on dev.to](https://dev.to/amendamax2025/ethical-web-scraping-gdpr-how-enterprises-extract-public-web-data-with-absolute-legal--1fb9)**: *Ethical Web Scraping & GDPR: How Enterprises Extract Public Web Data with Absolute Legal & Technical Security*
 
 ---
