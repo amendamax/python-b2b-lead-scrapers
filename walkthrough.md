@@ -84,3 +84,16 @@ When showing these samples to prospective buyers, emphasize these selling points
 * **"Multi-Language Support"**: You offer professional development and setup in English, Italian, and Romanian.
 
 To showcase these files to a client, simply send them the clean Excel spreadsheets (`.xlsx`) or print-ready PDFs (`.pdf`) listed in the folder structure above. They will be immediately blown away by the level of visual excellence!
+
+---
+
+## ✉️ Professional B2B Email & Deliverability Configuration
+
+To perform cold outreach with maximum reply rates and zero spam filtering, a custom email domain and deliverability suite have been configured:
+*   **Outreach Domain:** `vasiledev.com` (Registered via Namecheap)
+*   **Outreach Email:** [amendamax@vasiledev.com](mailto:amendamax@vasiledev.com) (Hosted via Zoho Mail Forever Free Plan)
+*   **Deliverability Security Standards Configured in DNS:**
+    *   **MX Records:** Routed to `mx.zoho.eu`, `mx2.zoho.eu`, and `mx3.zoho.eu` for receiving incoming replies.
+    *   **SPF (Sender Policy Framework):** Configured TXT record `v=spf1 include:zoho.eu ~all` to authorize Zoho servers to send mail.
+    *   **DKIM (DomainKeys Identified Mail):** Configured `zmail._domainkey` with a 1024-bit cryptographic key to digitally sign outgoing emails.
+    *   **DMARC (Domain-based Message Authentication):** Configured `_dmarc` TXT record with `v=DMARC1; p=none;` to pass compliance checks of Google, Yahoo, and Outlook.
