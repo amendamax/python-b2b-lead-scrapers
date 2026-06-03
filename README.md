@@ -62,24 +62,24 @@ For deep-dives into the inner workings of web scraping security, database automa
 I have authored a series of 12 authoritative, highly localized publications detailing the business impact and software architectures of my automation systems. Access the full-text drafts below:
 
 #### 1. PropTech & Real Estate Data Automation
-*   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_proptech_ro.md)**: *PropTech în 2026: Cum automatizarea datelor imobiliare elimină munca manuală a agenților și le crește vânzările cu 40%*
+*   **[Romanian (RO) on Medium](https://medium.com/@amendamax/proptech-%C3%AEn-2026-cum-automatizarea-datelor-imobiliare-elimin%C4%83-munca-manual%C4%83-a-agen%C8%9Bilor-%C8%99i-le-e897e6c7b233)**: *PropTech în 2026: Cum automatizarea datelor imobiliare elimină munca manuală a agenților și le crește vânzările cu 40%*
 *   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_proptech_it.md)**: *PropTech nel 2026: Come l'automazione dei dati immobiliari elimina il lavoro manuale degli agenti e aumenta le vendite del 40%*
 *   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_proptech_en.md)**: *PropTech in 2026: How Real Estate Data Automation Eliminates Broker Grunt Work and Boosts Sales by 40%*
 
 #### 2. E-commerce Competitor Price Intelligence
-*   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_ro.md)**: *Inteligența Prețurilor în E-commerce: Cum automatizarea monitorizării competitorilor protejează marjele și crește vânzările cu 25%*
+*   **[Romanian (RO) on Medium](https://medium.com/@amendamax/inteligen%C8%9Ba-pre%C8%9Burilor-%C3%AEn-e-commerce-cum-automatizarea-monitoriz%C4%83rii-competitorilor-protejeaz%C4%83-7abde4e1e508)**: *Inteligența Prețurilor în E-commerce: Cum automatizarea monitorizării competitorilor protejează marjele și crește vânzările cu 25%*
 *   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_it.md)**: *E-commerce Price Intelligence: Come l'automatizzazione del monitoraggio dei prezzi protegge i margini e aumenta le vendite del 25%*
 *   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_en.md)**: *E-commerce Price Intelligence: How Automated Competitor Monitoring Protects Margins and Boosts Sales by 25%*
 
 #### 3. FinTech & Algorithmic Risk Control
 *   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_ro.md)**: *FinTech și Controlul Algoritmic al Riscului: Cum automatizarea VPS și integrarea API protejează capitalul și elimină erorile umane în tranzacționare*
 *   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_it.md)**: *FinTech e Controllo Algoritmico del Rischio: Come l'automatizzazione VPS e l'integrazione API proteggono il capitale ed eliminano gli errori umani nel trading*
-*   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_en.md)**: *FinTech & Algorithmic Risk Control: How VPS Automation and API Integration Protect Capital and Eliminate Human Execution Errors in Trading*
+*   **[English (EN) on dev.to](https://dev.to/amendamax2025/fintech-algorithmic-risk-control-how-vps-automation-and-api-integration-protect-capital-and-25c8)**: *FinTech & Algorithmic Risk Control: How VPS Automation and API Integration Protect Capital and Eliminate Human Execution Errors in Trading*
 
 #### 4. Ethical Web Scraping & GDPR Compliance
 *   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_ro.md)**: *Web Scraping Etic și GDPR: Cum companiile pot colecta date publice online în deplină siguranță legală și tehnică*
 *   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_it.md)**: *Web Scraping Etico e GDPR: Come le aziende possono raccogliere dati pubblici online in totale sicurezza legale e tecnica*
-*   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_en.md)**: *Ethical Web Scraping & GDPR: How Enterprises Extract Public Web Data with Absolute Legal & Technical Security*
+*   **[English (EN) on dev.to](https://dev.to/amendamax2025/ethical-web-scraping-gdpr-how-enterprises-extract-public-web-data-with-absolute-legal--1fb9)**: *Ethical Web Scraping & GDPR: How Enterprises Extract Public Web Data with Absolute Legal & Technical Security*
 
 ---
 
