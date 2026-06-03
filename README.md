@@ -92,7 +92,7 @@ If your company is spending valuable manual hours collecting competitor prices, 
 *   📊 **Executive Reporting:** Stunning, print-ready custom dashboards designed for stakeholders.
 
 📨 **Contact me today to discuss your automation needs:**
-*   **Email:** [amendamax@gmail.com](mailto:amendamax@gmail.com)
+*   **Email:** [amendamax@vasiledev.com](mailto:amendamax@vasiledev.com)
 *   **Upwork Profile:** [Vasile Bratu on Upwork](https://www.upwork.com/freelancers/amendamax)
 *   **Fiverr Profile:** [Vasile Bratu on Fiverr](https://www.fiverr.com/amendamax)
 
