@@ -548,11 +548,13 @@ def main():
                 company_name=l["company_name"]
             )
             
-            # URL encode subject and body for Gmail web link
+            # URL encode subject and body for mailto link
             encoded_subj = urllib.parse.quote(formatted_subj)
+            # Replace '+' with '%20' if any, though quote uses %20. mailto requires %20 for spaces
             encoded_body = urllib.parse.quote(formatted_body)
             
-            gmail_link = f"https://mail.google.com/mail/?view=cm&fs=1&to={l['email']}&su={encoded_subj}&body={encoded_body}"
+            # Using standard mailto: link to open the system's default mail client (e.g. Zoho Mail app)
+            mail_link = f"mailto:{l['email']}?subject={encoded_subj}&body={encoded_body}"
             if l["country"] == "italy":
                 badge_class = "badge-it"
                 country_lbl = "Italia 🇮🇹"
@@ -583,7 +585,7 @@ def main():
                         </div>
                     </div>
                     <div class="card-actions">
-                        <a href="{gmail_link}" target="_blank" class="btn btn-send" onclick="markAutoSent('{l['company_name']}')">Trimite Email ✉️</a>
+                        <a href="{mail_link}" class="btn btn-send" onclick="markAutoSent('{l['company_name']}')">Trimite Email ✉️</a>
                         <button class="btn-sent-toggle">Marchează ca Trimis</button>
                     </div>
                 </div>
