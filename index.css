@@ -531,6 +531,26 @@ footer p {
     font-size: 0.9rem;
 }
 
+/* Language Switcher */
+.lang-switcher {
+    color: var(--border-focus);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.lang-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+    padding: 0 0.2rem;
+}
+.lang-link:hover {
+    color: var(--primary) !important;
+}
+.lang-link.active-lang {
+    color: var(--primary);
+    font-weight: 700;
+}
+
 /* Responsiveness */
 @media (max-width: 968px) {
     .hero-title {
