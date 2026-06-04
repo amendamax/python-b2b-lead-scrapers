@@ -38,15 +38,28 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <span class="badge-intro">Data Engineering & Automation</span>
-            <h1 class="hero-title">Automatizări Date Premium & <br><span>Stealth Web Scraping</span></h1>
-            <p class="hero-description">
-                Ajut companiile B2B și magazinele online să elimine munca manuală, să monitorizeze concurența în timp real și să obțină rapoarte de business impecabile prin motoare de date securizate și rezistente la blocaje.
-            </p>
-            <div class="cta-group">
-                <a href="#projects" class="btn btn-primary">Vezi Proiecte Elite ↗</a>
-                <a href="#contact" class="btn btn-secondary">Discută Proiectul Tău 📨</a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="badge-intro">Data Engineering & Automation</span>
+                <h1 class="hero-title">Automatizări Date Premium & <br><span>Stealth Web Scraping</span></h1>
+                <p class="hero-description">
+                    Ajut companiile B2B și magazinele online să elimine munca manuală, să monitorizeze concurența în timp real și să obțină rapoarte de business impecabile prin motoare de date securizate și rezistente la blocaje.
+                </p>
+                <div class="cta-group">
+                    <a href="#projects" class="btn btn-primary">Vezi Proiecte Elite ↗</a>
+                    <a href="#contact" class="btn btn-secondary">Discută Proiectul Tău 📨</a>
+                </div>
+            </div>
+            <div class="hero-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="t-btn t-close"></span>
+                        <span class="t-btn t-minimize"></span>
+                        <span class="t-btn t-maximize"></span>
+                    </div>
+                    <div class="terminal-title">stealth_bot.py — activ</div>
+                </div>
+                <div class="terminal-body" id="terminal-console"></div>
             </div>
         </div>
     </section>
@@ -280,5 +293,59 @@
         <p>© 2026 Vasile Bratu. High-Performance Software Engineering. Toate drepturile rezervate.</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const consoleEl = document.getElementById("terminal-console");
+            if (!consoleEl) return;
+
+            const lines = [
+                { text: "> python stealth_bot.py --target=competitor.com", type: "cmd" },
+                { text: "[system] Pornire motor securizat de automatizare...", type: "sys" },
+                { text: "[system] Inițializare amprentă TLS (simulare Chrome 124)...", type: "sys" },
+                { text: "[securitate] Protecție Cloudflare detectată pe site-ul țintă.", type: "sec" },
+                { text: "[securitate] Ocolire protecție anti-bot în curs...", type: "sec" },
+                { text: "[securitate] Conexiune stabilită. Ocolire reușită [SUCCES] (Cod: 200)", type: "ok" },
+                { text: "[date] Extragere catalog: pagina 1 (50 produse), pagina 2 (50 produse)", type: "sys" },
+                { text: "[date] Extrase 142 produse. Validare structură...", type: "sys" },
+                { text: "[date] Curățare regex telefoane și email-uri finalizată.", type: "ok" },
+                { text: "[raport] Generare raport Excel: raport_final.xlsx", type: "sys" },
+                { text: "[raport] Aplicare temă \"Midnight Gold\". Padding rânduri: 35pt.", type: "ok" },
+                { text: "[system] Sincronizare Cloud via Google Sheets API...", type: "sys" },
+                { text: "[system] Operațiune finalizată. Așteptare 15 secunde...", type: "ok" }
+            ];
+
+            let lineIndex = 0;
+
+            function addLine() {
+                if (lineIndex >= lines.length) {
+                    setTimeout(() => {
+                        consoleEl.innerHTML = "";
+                        lineIndex = 0;
+                        addLine();
+                    }, 15000);
+                    return;
+                }
+
+                const item = lines[lineIndex];
+                const div = document.createElement("div");
+                div.className = "term-line term-" + item.type;
+                div.textContent = item.text;
+                consoleEl.appendChild(div);
+                
+                consoleEl.scrollTop = consoleEl.scrollHeight;
+
+                lineIndex++;
+
+                let delay = 1000;
+                if (item.type === "cmd") delay = 800;
+                else if (item.type === "sec" && lineIndex === 5) delay = 2000;
+                else if (item.type === "sys" && lineIndex === 8) delay = 1500;
+                
+                setTimeout(addLine, delay);
+            }
+
+            addLine();
+        });
+    </script>
 </body>
 </html>
