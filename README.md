@@ -72,12 +72,12 @@ I have authored a series of 12 authoritative, highly localized publications deta
 *   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_en.md)**: *E-commerce Price Intelligence: How Automated Competitor Monitoring Protects Margins and Boosts Sales by 25%*
 
 #### 3. FinTech & Algorithmic Risk Control
-*   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_ro.md)**: *FinTech și Controlul Algoritmic al Riscului: Cum automatizarea VPS și integrarea API protejează capitalul și elimină erorile umane în tranzacționare*
+*   **[Romanian (RO) on Medium](https://medium.com/@amendamax/fintech-%C8%99i-controlul-algoritmic-al-riscului-cum-automatizarea-vps-%C8%99i-integrarea-api-protejeaz%C4%83-11d74527edcb)**: *FinTech și Controlul Algoritmic al Riscului: Cum automatizarea VPS și integrarea API protejează capitalul și elimină erorile umane în tranzacționare*
 *   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_it.md)**: *FinTech e Controllo Algoritmico del Rischio: Come l'automatizzazione VPS e l'integrazione API proteggono il capitale ed eliminano gli errori umani nel trading*
 *   **[English (EN) on dev.to](https://dev.to/amendamax2025/fintech-algorithmic-risk-control-how-vps-automation-and-api-integration-protect-capital-and-25c8)**: *FinTech & Algorithmic Risk Control: How VPS Automation and API Integration Protect Capital and Eliminate Human Execution Errors in Trading*
 
 #### 4. Ethical Web Scraping & GDPR Compliance
-*   **[Romanian (RO)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_gdpr_ro.md)**: *Web Scraping Etic și GDPR: Cum companiile pot colecta date publice online în deplină siguranță legală și tehnică*
+*   **[Romanian (RO) on Medium](https://medium.com/@amendamax/web-scraping-etic-%C8%99i-gdpr-cum-companiile-pot-colecta-date-publice-online-%C3%AEn-deplin%C4%83-siguran%C8%9B%C4%83-42d685139dd6)**: *Web Scraping Etic și GDPR: Cum companiile pot colecta date publice online în deplină siguranță legală și tehnică*
 *   **[Italian (IT) on Medium](https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0)**: *Web Scraping Etico e GDPR: Come le aziende possono raccogliere dati pubblici online in totale sicurezza legale e tecnica*
 *   **[English (EN) on dev.to](https://dev.to/amendamax2025/ethical-web-scraping-gdpr-how-enterprises-extract-public-web-data-with-absolute-legal--1fb9)**: *Ethical Web Scraping & GDPR: How Enterprises Extract Public Web Data with Absolute Legal & Technical Security*
 
