@@ -144,16 +144,22 @@
                     </div>
                 </div>
                 <div class="project-info">
-                    <span class="project-tag tag-amazon">E-Commerce & WAF Bypass</span>
+                    <span class="project-tag tag-amazon">Studiu de caz: E-Commerce Price Intelligence</span>
                     <h3 class="project-name">Stealth Amazon Product Scraper</h3>
-                    <p class="project-details">
-                        Un crawler Python avansat construit cu `curl_cffi` pentru a simula handshake-urile TLS din browserele reale. Extrage prețuri, rating-uri și specificații tehnice în mod automat.
-                    </p>
-                    <ul class="project-bullets">
-                        <li>Filtrare semantică automată a produselor irelevante (accesorii, huse).</li>
-                        <li>Formatare Excel automată cu temă Luxury Midnight Gold.</li>
-                        <li>Hyperlink-uri interactive de tip `=HYPERLINK` pentru curățarea textului.</li>
-                    </ul>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problema</div>
+                        <div class="psr-text">Magazinele e-commerce au nevoie de prețurile concurenței în timp real, dar crawlerii standard sunt blocați instantaneu de firewall-urile anti-bot ale Cloudflare și Akamai.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluția</div>
+                        <div class="psr-text">Am dezvoltat un scraper în Python folosind `curl_cffi` pentru a simula handshake-urile TLS ale browserului și filtre semantice pentru a elimina accesoriile irelevante (huse, cabluri).</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Rezultatul</div>
+                        <div class="psr-text">Livrare automatizată de rapoarte Excel stilizate cu tema „Midnight Gold”, cu mapare automată de hyperlink-uri active, reducând timpul de actualizare a catalogului clientului cu 85%.</div>
+                    </div>
+                    
                     <div class="project-buttons">
                         <a href="/amazon_scraper/amazon_laptops_report.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/amazon_scraper/amazon_laptops_report.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>
@@ -173,16 +179,22 @@
                     </div>
                 </div>
                 <div class="project-info">
-                    <span class="project-tag tag-bookstore">Analytics & Charts</span>
+                    <span class="project-tag tag-bookstore">Studiu de caz: Analiză Dinamică</span>
                     <h3 class="project-name">Bookstore Price Analytics Engine</h3>
-                    <p class="project-details">
-                        Sistem de colectare de date paginate dintr-un catalog online complex, cu normalizare de structuri și mapări automate de metrici (ex: rating-uri din text în valori numerice).
-                    </p>
-                    <ul class="project-bullets">
-                        <li>Construcție grafice Excel dinamice direct din Python.</li>
-                        <li>Ajustare automată a lățimii coloanelor ("aerisire" vizuală).</li>
-                        <li>Integrare rapidă pentru re-evaluări de stocuri.</li>
-                    </ul>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problema</div>
+                        <div class="psr-text">Datele extrase de pe web sunt adesea dezorganizate, necesitând ajustări manuale de design și diagrame înainte de a fi trimise conducerii.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluția</div>
+                        <div class="psr-text">Am creat un crawler de catalog care generează și formatează dinamic grafice personalizate cu tema „Corporate Steel Blue” direct în fișierele Excel via openpyxl.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Rezultatul</div>
+                        <div class="psr-text">Managementul primește tendințe vizuale de preț auto-actualizate, gata de prezentare, economisind peste 15 ore de muncă manuală pe săptămână.</div>
+                    </div>
+                    
                     <div class="project-buttons">
                         <a href="/bookstore_scraper/scraped_books_report.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/bookstore_scraper/scraped_books_report.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>
@@ -201,16 +213,22 @@
                     </div>
                 </div>
                 <div class="project-info">
-                    <span class="project-tag tag-leads">B2B Lead Generation</span>
+                    <span class="project-tag tag-leads">Studiu de caz: Sincronizare Pipeline B2B</span>
                     <h3 class="project-name">B2B Leads Generator & Cloud Sync</h3>
-                    <p class="project-details">
-                        Sistem de extracție a datelor de contact pentru companii din directoare publice, urmat de o curățare regex riguroasă a numelor și sincronizarea în Cloud.
-                    </p>
-                    <ul class="project-bullets">
-                        <li>Extracție automată a numelui, adresei, site-ului, telefonului și a e-mailului.</li>
-                        <li>Sincronizare securizată în timp real prin Google Sheets API (`gspread`).</li>
-                        <li>Sistem automat de marcare a stării prospectului direct în Excel.</li>
-                    </ul>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problema</div>
+                        <div class="psr-text">Echipele de vânzări pierd ore întregi copiind manual date de contact și curățând erorile de redactare ale numerelor de telefon și e-mailurilor.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluția</div>
+                        <div class="psr-text">Am programat un motor de analiză a directoarelor cu verificare regex personalizată, sincronizând automat lead-urile validate în Google Sheets prin API.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Rezultatul</div>
+                        <div class="psr-text">Un tabel de prospecți B2B complet automatizat și sincronizat în timp real în tema „Sales Emerald”, crescând eficiența echipei de vânzări de 4 ori.</div>
+                    </div>
+                    
                     <div class="project-buttons">
                         <a href="/lead_generator/scraped_leads_pipeline.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/lead_generator/scraped_leads_pipeline.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>

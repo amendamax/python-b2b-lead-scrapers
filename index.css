@@ -689,6 +689,32 @@ section {
     transform: translateY(-2px);
 }
 
+/* PSR (Problem-Solution-Result) Case Study Styles */
+.psr-block {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+.psr-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.psr-problem { color: #f87171; } /* Light red */
+.psr-solution { color: #38bdf8; } /* Corporate Blue */
+.psr-result { color: #10b981; } /* Premium Green */
+
+.psr-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 /* Footer */
 footer {
     border-top: 1px solid var(--border-color);
