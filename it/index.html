@@ -249,6 +249,31 @@
         </div>
     </section>
 
+    <!-- Free Audit Section -->
+    <section id="audit" class="audit-section">
+        <div class="audit-container">
+            <span class="section-subtitle">Prova prima dell'acquisto</span>
+            <h2 class="section-title">Audit Dati Gratuito</h2>
+            <p class="section-desc">Ti stai chiedendo se i tuoi siti target possono essere estratti in modo sicuro? Invia fino a 3 link di prodotti o categorie e la tua e-mail. Ti invierò un report Excel personalizzato e pronto all'uso entro 24 ore—completamente gratuito, senza alcun impegno.</p>
+            
+            <form id="audit-form" class="audit-form">
+                <div class="form-group">
+                    <label for="audit-email" class="form-label">La tua email aziendale</label>
+                    <input type="email" id="audit-email" class="form-input" placeholder="tua@azienda.it" required>
+                </div>
+                <div class="form-group">
+                    <label for="audit-urls" class="form-label">URL dei Concorrenti (fino a 3 link)</label>
+                    <textarea id="audit-urls" class="form-input form-textarea" placeholder="https://concorrente.it/prodotto-1&#10;https://concorrente.it/categoria-2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="audit-details" class="form-label">Dati Richiesti e Note (Opzionale)</label>
+                    <textarea id="audit-details" class="form-input form-textarea" placeholder="Ad es. Estrai il prezzo, lo stato dello stock e le recensioni del prodotto."></textarea>
+                </div>
+                <button type="submit" class="btn audit-btn">Ottieni il Report Excel Gratuito 📊</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Contact CTA Block -->
     <section id="contact" style="padding-bottom: 9rem;">
         <div class="contact-cta">
@@ -319,6 +344,29 @@
             }
 
             addLine();
+
+            // Form Submit Redirect to mailto
+            const form = document.getElementById("audit-form");
+            if (form) {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById("audit-email").value;
+                    const urls = document.getElementById("audit-urls").value;
+                    const details = document.getElementById("audit-details").value;
+                    
+                    const subject = encodeURIComponent("Richiesta Audit Gratuito Dati - vasiledev.com");
+                    const body = encodeURIComponent(
+                        "Gentile Vasile,\n\n" +
+                        "Vorrei richiedere un audit gratuito di web scraping per i seguenti dati.\n\n" +
+                        "La mia Email: " + email + "\n\n" +
+                        "URL Concorrenti:\n" + urls + "\n\n" +
+                        "Dati Richiesti / Note:\n" + details + "\n\n" +
+                        "Cordiali saluti,"
+                    );
+                    
+                    window.location.href = "mailto:amendamax@vasiledev.com?subject=" + subject + "&body=" + body;
+                });
+            }
         });
     </script>
 </body>

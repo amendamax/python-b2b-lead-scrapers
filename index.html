@@ -249,6 +249,31 @@
         </div>
     </section>
 
+    <!-- Free Audit Section -->
+    <section id="audit" class="audit-section">
+        <div class="audit-container">
+            <span class="section-subtitle">Proof Before Purchase</span>
+            <h2 class="section-title">Free Competitor Data Audit</h2>
+            <p class="section-desc">Wondering if your target competitor sites can be scraped securely? Provide up to 3 product or category URLs, and I will deliver a styled, executive-ready Excel report of the data within 24 hours—completely free, with no obligation.</p>
+            
+            <form id="audit-form" class="audit-form">
+                <div class="form-group">
+                    <label for="audit-email" class="form-label">Your Professional Email</label>
+                    <input type="email" id="audit-email" class="form-input" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="audit-urls" class="form-label">Competitor URLs (up to 3 links)</label>
+                    <textarea id="audit-urls" class="form-input form-textarea" placeholder="https://competitor.com/product-1&#10;https://competitor.com/category-2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="audit-details" class="form-label">Target Data & Notes (Optional)</label>
+                    <textarea id="audit-details" class="form-input form-textarea" placeholder="e.g. Please extract price, stock status, and product reviews."></textarea>
+                </div>
+                <button type="submit" class="btn audit-btn">Get My Free Excel Report 📊</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Contact CTA Block -->
     <section id="contact" style="padding-bottom: 9rem;">
         <div class="contact-cta">
@@ -319,6 +344,29 @@
             }
 
             addLine();
+
+            // Form Submit Redirect to mailto
+            const form = document.getElementById("audit-form");
+            if (form) {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById("audit-email").value;
+                    const urls = document.getElementById("audit-urls").value;
+                    const details = document.getElementById("audit-details").value;
+                    
+                    const subject = encodeURIComponent("Free Data Audit Request - vasiledev.com");
+                    const body = encodeURIComponent(
+                        "Hello Vasile,\n\n" +
+                        "I would like to request a free web scraping audit.\n\n" +
+                        "My Email: " + email + "\n\n" +
+                        "Target URLs:\n" + urls + "\n\n" +
+                        "Details / Target Data:\n" + details + "\n\n" +
+                        "Regards,"
+                    );
+                    
+                    window.location.href = "mailto:amendamax@vasiledev.com?subject=" + subject + "&body=" + body;
+                });
+            }
         });
     </script>
 </body>

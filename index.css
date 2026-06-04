@@ -611,6 +611,84 @@ section {
 .btn-fiverr { background-color: #1dbf73; color: #fff; }
 .btn-fiverr:hover { background-color: #10a861; box-shadow: 0 0 20px rgba(29, 191, 115, 0.3); }
 
+/* Audit Section styling */
+.audit-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.audit-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 3.5rem 3rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.audit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.form-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-white);
+}
+
+.form-input {
+    background: #07090e;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    color: var(--text-white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.audit-btn {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--bg-dark);
+    border: none;
+    padding: 1.1rem;
+    font-size: 1.05rem;
+}
+
+.audit-btn:hover {
+    background-color: #ffdf85;
+    box-shadow: 0 0 25px var(--primary-glow);
+    transform: translateY(-2px);
+}
+
 /* Footer */
 footer {
     border-top: 1px solid var(--border-color);

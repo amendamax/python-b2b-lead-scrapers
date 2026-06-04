@@ -275,6 +275,31 @@
         </div>
     </section>
 
+    <!-- Free Audit Section -->
+    <section id="audit" class="audit-section">
+        <div class="audit-container">
+            <span class="section-subtitle">Dovada înainte de achiziție</span>
+            <h2 class="section-title">Audit Gratuit de Date</h2>
+            <p class="section-desc">Te întrebi dacă site-urile concurente pot fi extrase securizat? Trimite-mi până la 3 link-uri de produse sau categorii și adresa ta de e-mail. Îți voi trimite un raport Excel stilizat și gata de analizat în 24 de ore—complet gratuit, fără nicio obligație.</p>
+            
+            <form id="audit-form" class="audit-form">
+                <div class="form-group">
+                    <label for="audit-email" class="form-label">E-mailul tău profesional</label>
+                    <input type="email" id="audit-email" class="form-input" placeholder="nume@companie.ro" required>
+                </div>
+                <div class="form-group">
+                    <label for="audit-urls" class="form-label">URL-uri Concurenți (până la 3 link-uri)</label>
+                    <textarea id="audit-urls" class="form-input form-textarea" placeholder="https://concurent.ro/produs-1&#10;https://concurent.ro/categorie-2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="audit-details" class="form-label">Date Vizate & Mențiuni (Opțional)</label>
+                    <textarea id="audit-details" class="form-input form-textarea" placeholder="Ex: Vă rog să extrageți prețul, starea stocului și recenziile produsului."></textarea>
+                </div>
+                <button type="submit" class="btn audit-btn">Obține Raportul Excel Gratuit 📊</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Contact CTA Block -->
     <section id="contact" style="padding-bottom: 9rem;">
         <div class="contact-cta">
@@ -345,6 +370,29 @@
             }
 
             addLine();
+
+            // Form Submit Redirect to mailto
+            const form = document.getElementById("audit-form");
+            if (form) {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById("audit-email").value;
+                    const urls = document.getElementById("audit-urls").value;
+                    const details = document.getElementById("audit-details").value;
+                    
+                    const subject = encodeURIComponent("Cerere Audit Gratuit Date - vasiledev.com");
+                    const body = encodeURIComponent(
+                        "Bună Vasile,\n\n" +
+                        "Aș dori să solicit un audit gratuit de web scraping pentru următoarele date.\n\n" +
+                        "E-mail de contact: " + email + "\n\n" +
+                        "Link-uri concurenți:\n" + urls + "\n\n" +
+                        "Detalii / Date vizate:\n" + details + "\n\n" +
+                        "Cu stimă,"
+                    );
+                    
+                    window.location.href = "mailto:amendamax@vasiledev.com?subject=" + subject + "&body=" + body;
+                });
+            }
         });
     </script>
 </body>
