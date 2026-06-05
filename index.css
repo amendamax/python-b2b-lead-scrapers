@@ -563,6 +563,12 @@ section {
     text-decoration: underline;
 }
 
+.articles-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.5rem;
+}
+
 /* Contact CTA Block */
 .contact-cta {
     background: linear-gradient(135deg, #0f131a 0%, #07090e 100%);
@@ -610,6 +616,9 @@ section {
 
 .btn-fiverr { background-color: #1dbf73; color: #fff; }
 .btn-fiverr:hover { background-color: #10a861; box-shadow: 0 0 20px rgba(29, 191, 115, 0.3); }
+
+.btn-medium { background-color: #191919; color: #fff; border: 1px solid var(--border-color); }
+.btn-medium:hover { background-color: #2b2b2b; box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
 
 /* Audit Section styling */
 .audit-section {
