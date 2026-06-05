@@ -56,7 +56,7 @@ link_font = Font(name="Segoe UI", size=10, underline="single", color="1B4D3E")  
 
 For deep-dives into the inner workings of web scraping security, database automation, and quantitative systems, check out my published guides on major developer platforms:
 
-*   **[Medium | Cloudflare WAF Bypass Guide](https://medium.com/@amendamax/bypassing-cloudflare-waf-and-akamai-in-python-using-tls-fingerprinting-the-curl-cffi-guide-f0edc09a1838)**: A comprehensive analysis of modern Web Application Firewalls (WAFs), SSL/TLS socket handshakes, JA3 fingerprinting, and programmatic stealth requests.
+*   **[Medium | Cloudflare WAF Bypass Guide](https://medium.com/@amendamax/bypassing-cloudflare-waf-and-akamai-in-python-using-tls-fingerprinting-the-curl-cffi-guide-2b4110127669)**: A comprehensive analysis of modern Web Application Firewalls (WAFs), SSL/TLS socket handshakes, JA3 fingerprinting, and programmatic stealth requests.
 *   **[dev.to | High-Performance Scraping & Reporting with curl_cffi](https://dev.to/amendamax2025)**: An in-depth case study on using `curl_cffi` for secure connections and using `openpyxl` to build premium, executive-ready Excel reports.
 
 ### 📚 Multilingual Strategy & Authority Publications (4 Topics × 3 Languages)
@@ -65,7 +65,7 @@ I have authored a series of 12 authoritative, highly localized publications deta
 
 #### 1. PropTech & Real Estate Data Automation
 *   **[Romanian (RO) on Medium](https://medium.com/@amendamax/proptech-%C3%AEn-2026-cum-automatizarea-datelor-imobiliare-elimin%C4%83-munca-manual%C4%83-a-agen%C8%9Bilor-%C8%99i-le-e897e6c7b233)**: *PropTech în 2026: Cum automatizarea datelor imobiliare elimină munca manuală a agenților și le crește vânzările cu 40%*
-*   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_proptech_it.md)**: *PropTech nel 2026: Come l'automazione dei dati immobiliari elimina il lavoro manuale degli agenti e aumenta le vendite del 40%*
+*   **[Italian (IT) on Medium](https://medium.com/@amendamax/proptech-nel-2026-come-lautomazione-dei-dati-immobiliari-elimina-il-lavoro-manuale-degli-agenti-e-eb1b54d9c220)**: *PropTech nel 2026: come l'automazione dei dati immobiliari elimina il lavoro manuale degli agenti e aumenta le vendite del 40%*
 *   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_proptech_en.md)**: *PropTech in 2026: How Real Estate Data Automation Eliminates Broker Grunt Work and Boosts Sales by 40%*
 
 #### 2. E-commerce Competitor Price Intelligence
