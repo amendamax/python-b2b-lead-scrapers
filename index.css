@@ -617,6 +617,9 @@ section {
 .btn-fiverr { background-color: #1dbf73; color: #fff; }
 .btn-fiverr:hover { background-color: #10a861; box-shadow: 0 0 20px rgba(29, 191, 115, 0.3); }
 
+.btn-linkedin { background-color: #0077b5; color: #fff; }
+.btn-linkedin:hover { background-color: #005a87; box-shadow: 0 0 20px rgba(0, 119, 181, 0.3); }
+
 .btn-medium { background-color: #191919; color: #fff; border: 1px solid var(--border-color); }
 .btn-medium:hover { background-color: #2b2b2b; box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
 
