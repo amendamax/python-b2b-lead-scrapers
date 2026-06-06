@@ -37,6 +37,9 @@ def get_leads_from_excel(file_path, niche):
         elif "bucuresti" in file_name_lower:
             city = "București"
             country = "romania"
+        elif "roma" in file_name_lower:
+            city = "Roma"
+            country = "italy"
         elif "london" in file_name_lower:
             city = "London"
             country = "uk"
@@ -58,9 +61,8 @@ def get_leads_from_excel(file_path, niche):
             "email": email
         })
     return leads
-
 def get_templates():
-    # Real estate
+    # Real estate Outreach
     re_it_subject = "Automazione dati e reportistica Excel premium per il vostro business"
     re_it_body = """Gentile {owner},
 
@@ -74,6 +76,9 @@ Aiuto le agenzie immobiliari a risparmiare tempo e a battere la concorrenza sul 
 1. Estrattori automatici in tempo reale: Per essere sempre i primi a sapere quando un proprietario pubblica un nuovo annuncio sui portali.
 2. Dashboard Excel di livello Executive: Report ordinati e spaziosi con formule di hyperlink cliccabili per accedere direttamente agli annunci e alle foto con un solo clic.
 3. Sincronizzazione Cloud automatica: Integrazione diretta e sicura con il vostro CRM aziendale o Google Sheets.
+
+Inoltre, ho recentemente pubblicato una guida tecnica approfondita su Medium riguardante la conformità GDPR e lo scraping etico dei dati, che garantisce che le nostre operazioni siano sicure al 100% dal punto di vista legale e tecnico:
+👉 https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0
 
 Potete visionare una demo dei miei report premium e i miei progetti open-source sul mio portfolio GitHub qui:
 👉 https://github.com/amendamax/python-b2b-lead-scrapers
@@ -102,6 +107,9 @@ Iata ce pot implementa pentru afacerea dumneavoastra:
 2. Rapoarte Excel premium (Executive Dashboards): Livrarea datelor in tabele extrem de aerisite si organizate, cu formule di hyperlink active pentru o navigare extrem de rapida.
 3. Sincronizare Cloud: Integrare automata directa in CRM-ul agentiei dumneavoastra sau in Google Sheets.
 
+De asemenea, am publicat recent o analiză pe Medium despre impactul automatizării datelor imobiliare (PropTech în 2026) și cum aceasta elimină munca manuală, crescând eficiența:
+👉 https://medium.com/@amendamax/proptech-%C3%AEn-2026-cum-automatizarea-datelor-imobiliare-elimin%C4%83-munca-manual%C4%83-a-agen%C8%9Bilor-%C8%99i-le-e897e6c7b233
+
 Puteti analiza o mostra a calitatii muncii mele si a codului meu pe portofoliul meu GitHub:
 👉 https://github.com/amendamax/python-b2b-lead-scrapers
 
@@ -117,7 +125,7 @@ Senior Python & Data Automation Engineer
 amendamax@vasiledev.com
 GitHub Portfolio: https://github.com/amendamax"""
 
-    # E-commerce
+    # E-commerce Outreach
     eco_it_subject = "Monitoraggio automatico dei prezzi concorrenti per il vostro e-commerce"
     eco_it_body = """Gentile {owner},
 
@@ -131,6 +139,9 @@ Aiuto gli e-commerce di medie dimensioni ad automatizzare il monitoraggio dei pr
 1. Scraping dei prezzi della concorrenza: Monitoraggio automatico e giornaliero dei listini dei vostri concorrenti.
 2. Executive Price Dashboard: Report Excel ordinati ed eleganti (in formato "Midnight Gold") con variazioni percentuali, grafici e link rapidi ai prodotti.
 3. Riconciliazione automatica nel vostro store: Sincronizzazione dei dati direttamente su Shopify, WooCommerce o Google Sheets.
+
+Inoltre, ho pubblicato una guida tecnica su Medium sulla legalità dello scraping e la conformità al GDPR nell'estrazione di dati pubblici nell'UE:
+👉 https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0
 
 Potete visionare una demo dei miei report premium e i miei progetti open-source sul mio portfolio GitHub qui:
 👉 https://github.com/amendamax/python-b2b-lead-scrapers
@@ -158,6 +169,9 @@ Iata ce pot implementa pentru magazinul dumneavoastra online:
 1. Scrapere de preturi in timp real: Urmarirea automata a schimbarilor de pret de pe site-urile concurente sau marketplace-uri.
 2. Rapoarte Excel premium (Midnight Gold Dashboards): Tabele aerisite si organizate cu semnalari vizuale pentru oportunitatile de crestere a pretului sau reduceri de pret necesare.
 3. Sincronizare automata: Integrare directa in platforma dumneavoastra e-commerce (Shopify/WooCommerce) sau in Google Sheets.
+
+De asemenea, am publicat recent un articol detaliat pe Medium despre inteligența prețurilor în e-commerce și modul în care urmărirea automată a concurenței vă protejează marja de profit:
+👉 https://medium.com/@amendamax/inteligen%C8%9Ba-pre%C8%9Burilor-%C3%AEn-e-commerce-cum-automatizarea-monitoriz%C4%83rii-competitorilor-protejeaz%C4%83-7abde4e1e508
 
 Puteti analiza o mostra a calitatii muncii mele si a codului meu pe portofoliul meu GitHub:
 👉 https://github.com/amendamax/python-b2b-lead-scrapers
@@ -240,18 +254,311 @@ Senior Python & Data Automation Engineer
 amendamax@vasiledev.com
 GitHub Portfolio: https://github.com/amendamax"""
 
+    # === FOLLOW-UP TEMPLATES ===
+    # Real estate Follow-up
+    re_it_followup_subj = "Re: Automazione dati e reportistica Excel premium per il vostro business"
+    re_it_followup_body = """Gentile {owner},
+
+Le scrivo per un breve follow-up al mio messaggio precedente. Mi scuso per l'invio da un indirizzo diverso; ho recentemente migrato le mie comunicazioni sulla mia email aziendale ufficiale (amendamax@vasiledev.com) e volevo assicurarmi che il mio messaggio precedente fosse arrivato.
+
+Se il team di {company_name} desidera ancora automatizzare il monitoraggio degli annunci o la raccolta dei dati di mercato in {city}, la mia proposta per una demo gratuita con 5 dati reali rimane valida.
+
+Se le interessa vedere come strutturo questi dati, può leggere il mio ultimo articolo su come generare report Excel premium pronti per i clienti direttamente in Python:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Mi faccia sapere se desidera che prepari la demo gratuita!
+
+Cordiali saluti,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    re_ro_followup_subj = "Re: Automatizare date si rapoarte Excel inteligente pentru afacerea dumneavoastra"
+    re_ro_followup_body = """Bună ziua {owner},
+
+Revin cu un scurt follow-up la mesajul meu anterior. Scuze pentru trimiterea de pe o adresă diferită; tocmai am migrat comunicarea pe adresa mea profesională oficială (amendamax@vasiledev.com) și am vrut să mă asigur că mesajul meu a ajuns cu bine la dumneavoastră.
+
+Dacă echipa {company_name} dorește în continuare să elimine munca manuală cu monitorizarea proprietăților din {city}, rămâne valabilă oferta mea de a crea un test/demo gratuit cu 5 date reale. 
+
+De asemenea, am publicat recent un ghid tehnic despre cum generez aceste rapoarte Excel premium (design, grafice și structură) pe care îl puteți parcurge aici:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Spuneți-mi dacă v-ar interesa acest test gratuit!
+
+Cu stimă,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    re_en_followup_subj = "Re: Automating your property data pipeline & custom Excel reporting"
+    re_en_followup_body = """Hi {owner},
+
+I wanted to quickly follow up on my previous email. Apologies for sending from a different address; I recently migrated to my official professional domain (amendamax@vasiledev.com) and wanted to make sure my message reached you.
+
+If the team at {company_name} is still looking to automate your property data pipeline in {city}, my offer for a free 5-lead custom sample is still open.
+
+You can also check out my latest guide on how I programmatically build these clean, client-ready Excel reporting systems:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Let me know if you'd like me to build this free sample for you!
+
+Best regards,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    # E-commerce Follow-up
+    eco_it_followup_subj = "Re: Monitoraggio automatico dei prezzi concorrenti per il vostro e-commerce"
+    eco_it_followup_body = """Gentile {owner},
+
+Le scrivo per un breve follow-up al mio messaggio precedente. Mi scuso per l'invio da un indirizzo diverso; ho recentemente migrato le mie comunicazioni sulla mia email aziendale ufficiale (amendamax@vasiledev.com) e volevo assicurarmi che il mio messaggio precedente fosse arrivato.
+
+Se il team di {company_name} desidera ancora automatizzare il monitoraggio dei prezzi dei concorrenti per proteggere i margini di profitto, la mia proposta per una demo gratuita con il tracciamento di 5 prodotti concorrenti rimane valida.
+
+Se le interessa vedere la qualità tecnica del report Excel che genero, ho pubblicato una guida completa a riguardo qui:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Mi faccia sapere se desidera che prepari la demo gratuita!
+
+Cordiali saluti,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    eco_ro_followup_subj = "Re: Monitorizare automata preturi concurenta pentru e-commerce"
+    eco_ro_followup_body = """Bună ziua {owner},
+
+Revin cu un scurt follow-up la mesajul meu anterior. Scuze pentru trimiterea de pe o adresă diferită; tocmai am migrat comunicarea pe adresa mea profesională oficială (amendamax@vasiledev.com) și am vrut să mă asigur că mesajul meu a ajuns cu bine la dumneavoastră.
+
+Dacă echipa {company_name} dorește în continuare să monitorizeze automat prețurile concurenței, rămâne valabilă oferta mea de a crea o monitorizare demo gratuită pentru 5 produse la alegere.
+
+Puteți analiza calitatea tehnică a rapoartelor mele și în ghidul pe care l-am scris recent despre automatizarea Excel:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Spuneți-mi dacă sunteți interesat de demo-ul gratuit!
+
+Cu stimă,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    eco_en_followup_subj = "Re: Automating your competitor price monitoring & e-commerce reporting"
+    eco_en_followup_body = """Hi {owner},
+
+I wanted to quickly follow up on my previous email. Apologies for sending from a different address; I recently migrated to my official professional domain (amendamax@vasiledev.com) and wanted to make sure my message reached you.
+
+If the team at {company_name} is still looking to automate competitor price monitoring to protect your margins, my offer for a free 5-product custom price tracking sample is still open.
+
+You can also check out my latest guide on how I programmatically format these B2B executive reports in Python:
+👉 https://dev.to/amendamax2025/how-to-build-executive-ready-excel-reports-directly-in-python-using-openpyxl-393c
+
+Let me know if you'd like me to build this free sample for you!
+
+Best regards,
+
+Vasile Bratu
+https://vasiledev.com
+amendamax@vasiledev.com"""
+
+    wa_it_subject = "Supporto tecnico Python / Web Scraping per i progetti di {company_name}"
+    wa_it_body = """Gentile {owner},
+
+Spero che questa email vi trovi bene.
+
+Sono Vasile Bratu, uno sviluppatore Python senior specializzato in Web Scraping, automazione dati ed estrazioni complesse, residente in Italia (Cuneo).
+
+Nel corso dei miei progetti, collaboro spesso con agenzie web e di digital marketing come {company_name} per supportare lo sviluppo tecnico di soluzioni che richiedono la raccolta automatizzata di dati, l'integrazione di API personalizzate o il superamento di barriere anti-bot complesse (Cloudflare, Akamai, Datadome).
+
+Se il vostro team si trova a dover gestire richieste di scraping di dati, migrazioni complesse di database e-commerce, monitoraggio costante dei prezzi per conto dei vostri clienti o reporting automatizzato in Excel/Google Sheets, posso offrirvi un supporto esterno rapido e professionale per:
+1. Sviluppo di scraper custom robusti (Scrapy, Playwright, Selenium).
+2. Bypass di protezioni anti-bot avanzate tramite tecniche di impersonazione e proxy rotation.
+3. Generazione di report Excel di livello executive direttamente via script (con libreria openpyxl).
+
+Ho recentemente pubblicato due guide tecniche di rilievo per sviluppatori ed agenzie su Medium:
+- Come bypassare Cloudflare & WAF in modo etico e sicuro:
+  👉 https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0
+- Generazione di report Excel professionali con Python:
+  👉 https://medium.com/@amendamax/generazione-di-report-excel-premium-in-python-con-openpyxl-una-guida-per-sviluppatori-c44bbff633ee
+
+Potete visionare i miei scraper open-source ed esempi di report sul mio profilo GitHub:
+👉 https://github.com/amendamax/python-b2b-lead-scrapers
+
+La mia proposta per voi:
+Offro la mia disponibilità per realizzare un piccolo test/demo gratuito di scraping su un sito target a vostra scelta (ad esempio, estrarre i primi dati da un portale che i vostri clienti monitorano), per dimostrarvi la qualità del codice e dei dati estratti senza alcun impegno da parte vostra.
+
+Sarei felice di fare una breve chiamata conoscitiva se ritenete che possa nascere una collaborazione.
+
+Un cordiale saluto,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com
+GitHub: https://github.com/amendamax"""
+
+    wa_it_followup_subj = "Re: Supporto tecnico Python / Web Scraping per {company_name}"
+    wa_it_followup_body = """Gentile {owner},
+
+Mi permetto di fare un breve seguito alla mia email di qualche giorno fa riguardo al supporto esterno per lo sviluppo di scraper custom e automazioni dati in Python per {company_name}.
+
+Se in questo periodo il vostro team è impegnato nello sviluppo di nuove funzionalità o ha progetti legati all'estrazione dati (ad es. per e-commerce, real estate o lead generation) in cui necessitate di una risorsa esterna specializzata per velocizzare il lavoro, sono a vostra disposizione.
+
+In particolare, per i progetti in cui i clienti richiedono reportistica Excel avanzata, ho descritto in questo recente articolo come automatizzarla in modo elegante tramite script:
+👉 https://medium.com/@amendamax/generazione-di-report-excel-premium-in-python-con-openpyxl-una-guida-per-sviluppatori-c44bbff633ee
+
+Se desiderate effettuare la demo gratuita (un'estrazione di prova su un sito a vostra scelta per testare il bypass delle protezioni), basta che mi rispondiate indicandomi il link del sito target.
+
+Vi ringrazio per il tempo dedicato e vi auguro una buona giornata.
+
+Un cordiale saluto,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com"""
+
+    wa_ro_subject = "Colaborare tehnica Python / Web Scraping pentru proiectele {company_name}"
+    wa_ro_body = """Buna ziua {owner},
+
+Numele meu este Vasile Bratu si sunt inginer software senior specializat in Web Scraping, automatizari de date si integrari de sisteme in Python.
+
+Colaborez frecvent cu agentii web si agentii de digital marketing pentru a le ajuta sa externalizeze sarcini tehnice complexe legate de extragerea automatizata a datelor, migrarea bazelor de date, monitorizarea concurentei pentru clientii lor sau bypass-ul protectiilor anti-bot (Cloudflare, Akamai).
+
+Va pot sustine echipa de la {company_name} ca partener tehnic extern pentru:
+1. Dezvoltarea de scraper-e custom, rezistente la blocaje (Scrapy, Playwright).
+2. Automatizarea rapoartelor de business direct in format Excel premium (folosind openpyxl).
+3. Integrarea API-urilor si sincronizarea datelor in Cloud/CRM.
+
+Portofoliul meu open-source si mostre de rapoarte pot fi consultate pe GitHub:
+👉 https://github.com/amendamax/python-b2b-lead-scrapers
+
+Propunerea mea gratuita:
+Sunt bucuros sa realizez un test/demo gratuit (extragerea catorva date dintr-un site target ales de dumneavoastra), pentru a va convinge de calitatea datelor livrate si a codului meu, fara nicio obligatie.
+
+Daca doriti o scurta discutie sau un test gratuit, va rog sa imi lasati un mesaj.
+
+Cu stima,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com
+GitHub: https://github.com/amendamax"""
+
+    wa_ro_followup_subj = "Re: Colaborare tehnica Python / Web Scraping pentru {company_name}"
+    wa_ro_followup_body = """Buna ziua {owner},
+
+Revin cu un mesaj scurt in completarea emailului trimis recent cu privire la serviciile de dezvoltare software Python si web scraping pentru proiectele {company_name}.
+
+Daca in prezent lucrati la integrari de date, monitorizare concurenti sau aveti clienti care au nevoie de extrageri masive de date si echipa interna are nevoie de suport specializat, as fi bucuros sa va ajut ca partener extern.
+
+In special pentru proiectele care necesita rapoarte Excel executive avansate, am documentat o parte din fluxul de lucru in acest articol de pe Medium:
+👉 https://medium.com/@amendamax/generazione-di-report-excel-premium-in-python-con-openpyxl-una-guida-per-sviluppatori-c44bbff633ee
+
+Putem face oricand un test gratuit (extragerea catorva randuri dintr-un site dificil) ca sa va convingeti de fiabilitatea solutiilor mele.
+
+Va multumesc pentru atentie si va doresc o zi excelenta.
+
+Cu stima,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com"""
+
+    wa_en_subject = "Python / Web Scraping technical support for {company_name} projects"
+    wa_en_body = """Hi {owner},
+
+Hope you are doing well.
+
+I am Vasile Bratu, a senior Python developer specializing in web scraping, data pipeline automation, and anti-bot bypass (Cloudflare, Akamai).
+
+I frequently collaborate with web development and SEO agencies like {company_name} as an external technical partner, handling complex web scraping, database migrations, competitor price monitoring for their clients, and automated Excel reporting.
+
+I can support your team with:
+1. Development of robust, production-grade custom scrapers (Scrapy, Playwright).
+2. Advanced anti-bot bypass strategies (impersonation, proxy rotation).
+3. Automating high-end Excel executive reports via Python scripting.
+
+I recently published a couple of technical articles on Medium regarding GDPR compliance in scraping and professional Excel formatting:
+- Web scraping ethics & GDPR:
+  👉 https://medium.com/@amendamax/web-scraping-etico-e-gdpr-come-le-aziende-possono-raccogliere-dati-pubblici-online-in-totale-24715b5c76e0
+- Generating premium Excel reports with Openpyxl:
+  👉 https://medium.com/@amendamax/generazione-di-report-excel-premium-in-python-con-openpyxl-una-guida-per-sviluppatori-c44bbff633ee
+
+You can review my open-source scrapers and report samples on my GitHub profile:
+👉 https://github.com/amendamax/python-b2b-lead-scrapers
+
+My free offer for you:
+I'm happy to write a free proof-of-concept (POC) script to scrape a small sample from a target website of your choice, so you can evaluate the quality of the data and delivery with zero commitments.
+
+Let me know if you would be open to a quick introductory call!
+
+Best regards,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com
+GitHub: https://github.com/amendamax"""
+
+    wa_en_followup_subj = "Re: Python / Web Scraping technical support for {company_name}"
+    wa_en_followup_body = """Hi {owner},
+
+I'm following up on my email from a few days ago regarding external Python development and web scraping support for {company_name}.
+
+If your team is currently handling data-heavy projects, competitor price monitoring, or requires assistance with complex anti-bot systems, I'd be happy to step in as a specialized technical partner to accelerate your deliveries.
+
+If you have a challenging target site in mind, I can build a free extraction sample to demonstrate my capabilities. Simply reply with the target URL!
+
+Thank you for your time, and have a great day.
+
+Best regards,
+
+Vasile Bratu
+Senior Python & Data Automation Engineer
+amendamax@vasiledev.com"""
+
     return {
-        "Imobiliare": {
-            "italy": (re_it_subject, re_it_body),
-            "romania": (re_ro_subject, re_ro_body),
-            "usa": (re_en_subject, re_en_body),
-            "uk": (re_en_subject, re_en_body)
+        "outreach": {
+            "Imobiliare": {
+                "italy": (re_it_subject, re_it_body),
+                "romania": (re_ro_subject, re_ro_body),
+                "usa": (re_en_subject, re_en_body),
+                "uk": (re_en_subject, re_en_body)
+            },
+            "E-commerce": {
+                "italy": (eco_it_subject, eco_it_body),
+                "romania": (eco_ro_subject, eco_ro_body),
+                "usa": (eco_en_subject, eco_en_body),
+                "uk": (eco_en_subject, eco_en_body)
+            },
+            "Web Agency": {
+                "italy": (wa_it_subject, wa_it_body),
+                "romania": (wa_ro_subject, wa_ro_body),
+                "usa": (wa_en_subject, wa_en_body),
+                "uk": (wa_en_subject, wa_en_body)
+            }
         },
-        "E-commerce": {
-            "italy": (eco_it_subject, eco_it_body),
-            "romania": (eco_ro_subject, eco_ro_body),
-            "usa": (eco_en_subject, eco_en_body),
-            "uk": (eco_en_subject, eco_en_body)
+        "followup": {
+            "Imobiliare": {
+                "italy": (re_it_followup_subj, re_it_followup_body),
+                "romania": (re_ro_followup_subj, re_ro_followup_body),
+                "usa": (re_en_followup_subj, re_en_followup_body),
+                "uk": (re_en_followup_subj, re_en_followup_body)
+            },
+            "E-commerce": {
+                "italy": (eco_it_followup_subj, eco_it_followup_body),
+                "romania": (eco_ro_followup_subj, eco_ro_followup_body),
+                "usa": (eco_en_followup_subj, eco_en_followup_body),
+                "uk": (eco_en_followup_subj, eco_en_followup_body)
+            },
+            "Web Agency": {
+                "italy": (wa_it_followup_subj, wa_it_followup_body),
+                "romania": (wa_ro_followup_subj, wa_ro_followup_body),
+                "usa": (wa_en_followup_subj, wa_en_followup_body),
+                "uk": (wa_en_followup_subj, wa_en_followup_body)
+            }
         }
     }
 
@@ -266,6 +573,8 @@ def main():
         filename = os.path.basename(file_path).lower()
         if "ecommerce" in filename:
             niche_type = "E-commerce"
+        elif "webagency" in filename or "agency" in filename:
+            niche_type = "Web Agency"
         else:
             niche_type = "Imobiliare"
         leads.extend(get_leads_from_excel(file_path, niche_type))
@@ -374,6 +683,7 @@ def main():
         .badge-ro { background-color: #dc2626; color: #fef2f2; }
         .badge-re { background-color: #059669; color: #ecfdf5; }
         .badge-eco { background-color: #d97706; color: #fffbeb; }
+        .badge-wa { background-color: #6366f1; color: #e0e7ff; }
         .badge-uk { background-color: #1e3a8a; color: #dbeafe; }
         .badge-usa { background-color: #3b82f6; color: #eff6ff; }
         .details {
@@ -393,7 +703,7 @@ def main():
             padding: 12px;
             border-radius: 8px;
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 10px;
             transition: background-color 0.2s;
         }
         .btn:hover {
@@ -401,9 +711,26 @@ def main():
         }
         .btn-send {
             background-color: #10b981;
+            margin-top: 15px;
         }
         .btn-send:hover {
             background-color: #059669;
+        }
+        .btn-followup {
+            background-color: #d97706;
+        }
+        .btn-followup:hover {
+            background-color: #b45309;
+        }
+        /* State sent styles */
+        .card.state-sent .btn-send {
+            background-color: #065f46 !important;
+            color: #a7f3d0;
+        }
+        /* State followup styles */
+        .card.state-followup .btn-followup {
+            background-color: #065f46 !important;
+            color: #a7f3d0;
         }
         
         /* Tabs Styling */
@@ -530,17 +857,29 @@ def main():
     def render_leads_group(group_leads):
         group_html = ""
         for l in group_leads:
-            subj, body = templates[l["niche"]][l["country"]]
+            subj, body = templates["outreach"][l["niche"]][l["country"]]
+            followup_subj, followup_body = templates["followup"][l["niche"]][l["country"]]
             
             # Handle empty/None owner gracefully
             owner_val = l["owner"]
             if not owner_val or owner_val == "None" or str(owner_val).strip() == "":
                 if l["country"] == "italy":
-                    owner_val = f"Team di {l['company_name']}"
+                    if l["niche"] == "Web Agency":
+                        owner_val = "Responsabile Tecnico"
+                    else:
+                        owner_val = "Responsabile"
+                elif l["country"] == "romania":
+                    if l["niche"] == "Web Agency":
+                        owner_val = "Responsabil Tehnic"
+                    else:
+                        owner_val = f"Echipa {l['company_name']}"
                 else:
-                    owner_val = f"Echipa {l['company_name']}"
+                    if l["niche"] == "Web Agency":
+                        owner_val = "Technical Lead"
+                    else:
+                        owner_val = f"Team at {l['company_name']}"
             
-            # Populate template parameters
+            # Populate template parameters (Outreach)
             formatted_subj = subj
             formatted_body = body.format(
                 owner=owner_val,
@@ -550,11 +889,20 @@ def main():
             
             # URL encode subject and body for mailto link
             encoded_subj = urllib.parse.quote(formatted_subj)
-            # Replace '+' with '%20' if any, though quote uses %20. mailto requires %20 for spaces
             encoded_body = urllib.parse.quote(formatted_body)
-            
-            # Using standard mailto: link to open the system's default mail client (e.g. Zoho Mail app)
             mail_link = f"mailto:{l['email']}?subject={encoded_subj}&body={encoded_body}"
+
+            # Populate template parameters (Followup)
+            formatted_followup_subj = followup_subj
+            formatted_followup_body = followup_body.format(
+                owner=owner_val,
+                city=l["city"],
+                company_name=l["company_name"]
+            )
+            encoded_followup_subj = urllib.parse.quote(formatted_followup_subj)
+            encoded_followup_body = urllib.parse.quote(formatted_followup_body)
+            followup_mail_link = f"mailto:{l['email']}?subject={encoded_followup_subj}&body={encoded_followup_body}"
+            
             if l["country"] == "italy":
                 badge_class = "badge-it"
                 country_lbl = "Italia 🇮🇹"
@@ -567,7 +915,7 @@ def main():
             else: # usa
                 badge_class = "badge-usa"
                 country_lbl = "SUA 🇺🇸"
-            niche_badge_class = "badge-re" if l["niche"] == "Imobiliare" else "badge-eco"
+            niche_badge_class = "badge-wa" if l["niche"] == "Web Agency" else "badge-re" if l["niche"] == "Imobiliare" else "badge-eco"
             
             group_html += f"""
                 <div class="card" data-company="{l['company_name']}">
@@ -586,6 +934,7 @@ def main():
                     </div>
                     <div class="card-actions">
                         <a href="{mail_link}" class="btn btn-send" onclick="markAutoSent('{l['company_name']}')">Trimite Email ✉️</a>
+                        <a href="{followup_mail_link}" class="btn btn-followup" onclick="markAutoFollowup('{l['company_name']}')">Trimite Follow-up 🔁</a>
                         <button class="btn-sent-toggle">Marchează ca Trimis</button>
                     </div>
                 </div>
@@ -648,11 +997,29 @@ def main():
             if (card) {
                 const sentBtn = card.querySelector('.btn-sent-toggle');
                 card.classList.add('card-sent');
+                card.classList.add('state-sent');
+                card.classList.remove('state-followup');
                 if (sentBtn) {
                     sentBtn.classList.add('btn-sent-active');
                     sentBtn.innerHTML = 'Trimis ✔️';
                 }
                 localStorage.setItem('sent_' + companyName, 'true');
+            }
+        }
+
+        // Auto mark as follow-up sent
+        function markAutoFollowup(companyName) {
+            const card = document.querySelector(`[data-company="${companyName}"]`);
+            if (card) {
+                const sentBtn = card.querySelector('.btn-sent-toggle');
+                card.classList.add('card-sent');
+                card.classList.remove('state-sent');
+                card.classList.add('state-followup');
+                if (sentBtn) {
+                    sentBtn.classList.add('btn-sent-active');
+                    sentBtn.innerHTML = 'Follow-up Trimis ✔️';
+                }
+                localStorage.setItem('sent_' + companyName, 'followup');
             }
         }
         
@@ -681,11 +1048,20 @@ def main():
                 const sentBtn = card.querySelector('.btn-sent-toggle');
                 
                 // Check if already sent in localStorage
-                if (localStorage.getItem('sent_' + companyName) === 'true') {
+                const sentState = localStorage.getItem('sent_' + companyName);
+                if (sentState === 'true') {
                     card.classList.add('card-sent');
+                    card.classList.add('state-sent');
                     if (sentBtn) {
                         sentBtn.classList.add('btn-sent-active');
                         sentBtn.innerHTML = 'Trimis ✔️';
+                    }
+                } else if (sentState === 'followup') {
+                    card.classList.add('card-sent');
+                    card.classList.add('state-followup');
+                    if (sentBtn) {
+                        sentBtn.classList.add('btn-sent-active');
+                        sentBtn.innerHTML = 'Follow-up Trimis ✔️';
                     }
                 }
                 
@@ -698,9 +1074,29 @@ def main():
                         sentBtn.classList.toggle('btn-sent-active');
                         
                         if (isSent) {
-                            sentBtn.innerHTML = 'Trimis ✔️';
-                            localStorage.setItem('sent_' + companyName, 'true');
+                            // Cycle state: unsent -> sent -> followup -> unsent
+                            const currentState = localStorage.getItem('sent_' + companyName);
+                            if (!currentState) {
+                                sentBtn.innerHTML = 'Trimis ✔️';
+                                card.classList.add('state-sent');
+                                card.classList.remove('state-followup');
+                                localStorage.setItem('sent_' + companyName, 'true');
+                            } else if (currentState === 'true') {
+                                sentBtn.innerHTML = 'Follow-up Trimis ✔️';
+                                card.classList.remove('state-sent');
+                                card.classList.add('state-followup');
+                                localStorage.setItem('sent_' + companyName, 'followup');
+                            } else {
+                                card.classList.remove('card-sent');
+                                card.classList.remove('state-sent');
+                                card.classList.remove('state-followup');
+                                sentBtn.classList.remove('btn-sent-active');
+                                sentBtn.innerHTML = 'Marchează ca Trimis';
+                                localStorage.removeItem('sent_' + companyName);
+                            }
                         } else {
+                            card.classList.remove('state-sent');
+                            card.classList.remove('state-followup');
                             sentBtn.innerHTML = 'Marchează ca Trimis';
                             localStorage.removeItem('sent_' + companyName);
                         }

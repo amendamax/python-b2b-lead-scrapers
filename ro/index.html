@@ -16,8 +16,15 @@
     <meta name="description" content="Servicii premium de web scraping, ocolire Cloudflare/Akamai, curățare date și rapoarte Excel executive. Programator Python Senior.">
     <meta name="author" content="Vasile Bratu">
     <meta property="article:author" content="https://www.linkedin.com/in/vasiledev/">
-    <meta property="article:published_time" content="2026-06-05T11:00:00Z">
     <link rel="stylesheet" href="/index.css">
+    <link rel="canonical" href="https://vasiledev.com/ro/">
+    <link rel="alternate" hreflang="en" href="https://vasiledev.com/">
+    <link rel="alternate" hreflang="ro" href="https://vasiledev.com/ro/">
+    <link rel="alternate" hreflang="it" href="https://vasiledev.com/it/">
+    <link rel="alternate" hreflang="x-default" href="https://vasiledev.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
     <!-- Open Graph / Facebook -->
@@ -85,6 +92,11 @@
                     <a href="/it/" class="lang-link">IT</a>
                 </li>
             </ul>
+            <button class="hamburger-menu" aria-label="Toggle Menu" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>
 
@@ -182,6 +194,7 @@
                     <div class="project-buttons">
                         <a href="/amazon_scraper/amazon_laptops_report.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/amazon_scraper/amazon_laptops_report.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>
+                        <a href="https://www.fiverr.com/amendamax/build-a-high-speed-web-scraper-using-python-and-scrapy" class="btn btn-secondary btn-fiverr" target="_blank">Comandă Scraper pe Fiverr 🚀</a>
                     </div>
                 </div>
             </div>
@@ -217,6 +230,7 @@
                     <div class="project-buttons">
                         <a href="/bookstore_scraper/scraped_books_report.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/bookstore_scraper/scraped_books_report.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>
+                        <a href="https://www.fiverr.com/amendamax/build-a-high-speed-web-scraper-using-python-and-scrapy" class="btn btn-secondary btn-fiverr" target="_blank">Comandă Scraper pe Fiverr 🚀</a>
                     </div>
                 </div>
             </div>
@@ -251,6 +265,7 @@
                     <div class="project-buttons">
                         <a href="/lead_generator/scraped_leads_pipeline.xlsx" class="btn btn-primary" download>Descarcă Excel (.xlsx) 📊</a>
                         <a href="/lead_generator/scraped_leads_pipeline.pdf" class="btn btn-secondary" target="_blank">Vezi Raport PDF (.pdf) 📄</a>
+                        <a href="https://www.fiverr.com/amendamax/build-a-high-speed-web-scraper-using-python-and-scrapy" class="btn btn-secondary btn-fiverr" target="_blank">Comandă Scraper pe Fiverr 🚀</a>
                     </div>
                 </div>
             </div>
@@ -396,7 +411,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const consoleEl = document.getElementById("terminal-console");
             if (!consoleEl) return;
-
+ 
             const lines = [
                 { text: "> python stealth_bot.py --target=competitor.com", type: "cmd" },
                 { text: "[system] Pornire motor securizat de automatizare...", type: "sys" },
@@ -412,9 +427,9 @@
                 { text: "[system] Sincronizare Cloud via Google Sheets API...", type: "sys" },
                 { text: "[system] Operațiune finalizată. Așteptare 15 secunde...", type: "ok" }
             ];
-
+ 
             let lineIndex = 0;
-
+ 
             function addLine() {
                 if (lineIndex >= lines.length) {
                     setTimeout(() => {
@@ -424,7 +439,7 @@
                     }, 15000);
                     return;
                 }
-
+ 
                 const item = lines[lineIndex];
                 const div = document.createElement("div");
                 div.className = "term-line term-" + item.type;
@@ -432,9 +447,9 @@
                 consoleEl.appendChild(div);
                 
                 consoleEl.scrollTop = consoleEl.scrollHeight;
-
+ 
                 lineIndex++;
-
+ 
                 let delay = 1000;
                 if (item.type === "cmd") delay = 800;
                 else if (item.type === "sec" && lineIndex === 5) delay = 2000;
@@ -442,29 +457,122 @@
                 
                 setTimeout(addLine, delay);
             }
-
+ 
             addLine();
-
-            // Form Submit Redirect to mailto
+ 
+            // Mobile Menu Toggle
+            const hamburgerBtn = document.getElementById("hamburger-btn");
+            const navLinks = document.querySelector(".nav-links");
+            
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener("click", function() {
+                    hamburgerBtn.classList.toggle("active");
+                    navLinks.classList.toggle("active");
+                });
+                
+                // Close mobile menu when a link is clicked
+                document.querySelectorAll(".nav-links a").forEach(link => {
+                    link.addEventListener("click", function() {
+                        hamburgerBtn.classList.remove("active");
+                        navLinks.classList.remove("active");
+                    });
+                });
+            }
+ 
+            // Form Submit via AJAX (FormSubmit.co)
             const form = document.getElementById("audit-form");
-            if (form) {
+            const modal = document.getElementById("success-modal");
+            const closeBtn = document.getElementById("modal-close-btn");
+            const copyBtn = document.getElementById("modal-copy-btn");
+            
+            if (form && modal) {
                 form.addEventListener("submit", function(e) {
                     e.preventDefault();
+                    
                     const email = document.getElementById("audit-email").value;
                     const urls = document.getElementById("audit-urls").value;
                     const details = document.getElementById("audit-details").value;
                     
-                    const subject = encodeURIComponent("Cerere Audit Gratuit Date - vasiledev.com");
-                    const body = encodeURIComponent(
-                        "Bună Vasile,\n\n" +
-                        "Aș dori să solicit un audit gratuit de web scraping pentru următoarele date.\n\n" +
-                        "E-mail de contact: " + email + "\n\n" +
-                        "Link-uri concurenți:\n" + urls + "\n\n" +
-                        "Detalii / Date vizate:\n" + details + "\n\n" +
-                        "Cu stimă,"
-                    );
-                    
-                    window.location.href = "mailto:amendamax@vasiledev.com?subject=" + subject + "&body=" + body;
+                    // Show loading state on button
+                    const submitBtn = form.querySelector("button[type='submit']");
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = "Trimitere Cerere... ⏳";
+                    submitBtn.disabled = true;
+ 
+                    // Send request using Fetch API to FormSubmit.co
+                    fetch("https://formsubmit.co/ajax/amendamax@vasiledev.com", {
+                        method: "POST",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            Email: email,
+                            "Competitor URLs": urls,
+                            "Target Data / Notes": details,
+                            "_subject": "Cerere Audit Gratuit Date - vasiledev.com"
+                        })
+                    })
+                    .then(response => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Show modal
+                        modal.classList.add("active");
+                        form.reset();
+                    })
+                    .catch(error => {
+                        console.error("Error submitting form:", error);
+                        // Fallback: Use mailto if AJAX fails
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        const subject = encodeURIComponent("Cerere Audit Gratuit Date - vasiledev.com");
+                        const body = encodeURIComponent(
+                            "Bună Vasile,\n\n" +
+                            "Aș dori să solicit un audit gratuit de web scraping pentru următoarele date.\n\n" +
+                            "E-mail de contact: " + email + "\n\n" +
+                            "Link-uri concurenți:\n" + urls + "\n\n" +
+                            "Detalii / Date vizate:\n" + details + "\n\n" +
+                            "Cu stimă,"
+                        );
+                        window.location.href = "mailto:amendamax@vasiledev.com?subject=" + subject + "&body=" + body;
+                    });
+                });
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function() {
+                        modal.classList.remove("active");
+                    });
+                }
+                
+                if (copyBtn) {
+                    copyBtn.addEventListener("click", function() {
+                        const email = document.getElementById("audit-email").value;
+                        const urls = document.getElementById("audit-urls").value;
+                        const details = document.getElementById("audit-details").value;
+                        
+                        const textToCopy = `Solicitare Audit Date Gratuit\nEmail: ${email}\nURLs:\n${urls}\nNote: ${details}`;
+                        
+                        navigator.clipboard.writeText(textToCopy)
+                            .then(() => {
+                                const originalText = copyBtn.textContent;
+                                copyBtn.textContent = "Copiat în clipboard! ✔️";
+                                setTimeout(() => {
+                                    copyBtn.textContent = originalText;
+                                }, 2500);
+                            })
+                            .catch(err => {
+                                console.error("Could not copy text: ", err);
+                            });
+                    });
+                }
+                
+                // Close modal on click outside
+                modal.addEventListener("click", function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove("active");
+                    }
                 });
             }
         });

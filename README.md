@@ -70,12 +70,12 @@ I have authored a series of 12 authoritative, highly localized publications deta
 
 #### 2. E-commerce Competitor Price Intelligence
 *   **[Romanian (RO) on Medium](https://medium.com/@amendamax/inteligen%C8%9Ba-pre%C8%9Burilor-%C3%AEn-e-commerce-cum-automatizarea-monitoriz%C4%83rii-competitorilor-protejeaz%C4%83-7abde4e1e508)**: *Inteligența Prețurilor în E-commerce: Cum automatizarea monitorizării competitorilor protejează marjele și crește vânzările cu 25%*
-*   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_it.md)**: *E-commerce Price Intelligence: Come l'automatizzazione del monitoraggio dei prezzi protegge i margini e aumenta le vendite del 25%*
+*   **[Italian (IT) on Medium](https://medium.com/@amendamax/e-commerce-price-intelligence-come-lautomatizzazione-del-monitoraggio-dei-prezzi-protegge-i-e5f68cf2aefd)**: *E-commerce Price Intelligence: Come l'automatizzazione del monitoraggio dei prezzi protegge i margini e aumenta le vendite del 25%*
 *   **[English (EN)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_ecommerce_en.md)**: *E-commerce Price Intelligence: How Automated Competitor Monitoring Protects Margins and Boosts Sales by 25%*
 
 #### 3. FinTech & Algorithmic Risk Control
 *   **[Romanian (RO) on Medium](https://medium.com/@amendamax/fintech-%C8%99i-controlul-algoritmic-al-riscului-cum-automatizarea-vps-%C8%99i-integrarea-api-protejeaz%C4%83-11d74527edcb)**: *FinTech și Controlul Algoritmic al Riscului: Cum automatizarea VPS și integrarea API protejează capitalul și elimină erorile umane în tranzacționare*
-*   **[Italian (IT)](file:///C:/Users/bratu/.gemini/antigravity/brain/9bd01f8c-3a81-42f5-99f3-c521cfe09c9c/article_fintech_it.md)**: *FinTech e Controllo Algoritmico del Rischio: Come l'automatizzazione VPS e l'integrazione API proteggono il capitale ed eliminano gli errori umani nel trading*
+*   **[Italian (IT) on Medium](https://medium.com/@amendamax/fintech-e-controllo-algoritmico-del-rischio-come-lautomatizzazione-vps-e-l-integrazione-api-dae3d3dbba98)**: *FinTech e Controllo Algoritmico del Rischio: Come l'automatizzazione VPS e l'integrazione API proteggono il capitale ed eliminano gli errori umani nel trading*
 *   **[English (EN) on dev.to](https://dev.to/amendamax2025/fintech-algorithmic-risk-control-how-vps-automation-and-api-integration-protect-capital-and-25c8)**: *FinTech & Algorithmic Risk Control: How VPS Automation and API Integration Protect Capital and Eliminate Human Execution Errors in Trading*
 
 #### 4. Ethical Web Scraping & GDPR Compliance

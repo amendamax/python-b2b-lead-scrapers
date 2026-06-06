@@ -151,6 +151,7 @@ For your permanent records, here are the titles and covers of the 4 active Gigs 
    * **Cover Image on Desktop:** `C:\Users\bratu\Desktop\fiverr_web_automation.png`
 4. **Active Gig 4: High-Speed Web Scraper using Python & Scrapy (Tech & Performance)**
    * **Title on Fiverr:** `build a high speed web scraper using python and scrapy`
+   * **Live Gig Link:** [Fiverr Gig](https://www.fiverr.com/amendamax/build-a-high-speed-web-scraper-using-python-and-scrapy)
    * **Cover Image on Desktop:** `C:\Users\bratu\Desktop\fiverr_scrapy_scraper.png`
 
 ---
