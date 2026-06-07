@@ -138,7 +138,7 @@ def main():
         if "italy" in location_low or "milano" in location_low:
             lang = "italian"
             city_filter = "Milano"
-        elif "romania" in location_low or "bucurești" in location_low:
+        elif "romania" in location_low or "bucurești" in location_low or "bucuresti" in location_low:
             lang = "romanian"
             city_filter = "București"
         elif "london" in location_low:
