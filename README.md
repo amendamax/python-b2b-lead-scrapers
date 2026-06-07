@@ -35,6 +35,9 @@ Instead of basic, unstyled CSV text dumps that wrap awkwardly in Excel, this sui
 *   **`bookstore_scraper/`**: Generalist paginated scraper generating the **"Steel Blue"** corporate styled spreadsheet with embedded price charting.
 *   **`lead_generator/`**: Yellowpages lead generation scraper featuring direct **Google Sheets API Sync** via `gspread` and a local **"Forest Emerald Green"** CRM-ready pipeline output.
 *   **`utah_scraper/`**: Stateful Playwright B2B scraper built specifically to crawl the Utah DOPL database, resolve corporate registrations on the Utah BES registry, and bypass Recaptcha challenges.
+*   **`playwright_stealth_boilerplate/`**: Open-source starter template demonstrating headless browser emulation with stealth overrides to bypass basic bot detections.
+*   **`openpyxl_template_boilerplate/`**: Python formatting boilerplate demonstrating how to build executive-ready spreadsheets with fonts, row heights, zebra fills, and hyperlinks.
+*   **`github_lead_magnet/`**: Basic BS4 & Requests scraper showing how to build a basic crawler and output data.
 
 ---
 
