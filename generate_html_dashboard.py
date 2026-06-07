@@ -506,19 +506,18 @@ def main():
                                 📝 Deschide Formular Contact Sursă
                             </a>
                         `}
-                        
                         <div class="action-row">
-                            <button class="btn" onclick="copyText('${cleanJSString(lead.email)}', 'Email Copiat!')">
+                            <button class="btn" onclick="copyLeadField(${lead.id}, 'email', 'Email Copiat!')">
                                 📋 Copiază Email
                             </button>
-                            <button class="btn" onclick="copyText('${cleanJSString(lead.subject)}', 'Subiect Copiat!')">
+                            <button class="btn" onclick="copyLeadField(${lead.id}, 'subject', 'Subiect Copiat!')">
                                 📋 Copiază Subiect
                             </button>
                         </div>
                         
                         <div class="action-row">
-                            <button class="btn" style="grid-column: span 2;" onclick="copyText('${cleanJSString(lead.body)}', 'Mesaj Copiat!')">
-                                📋 Copiază Corp Mesaj Completo
+                            <button class="btn" style="grid-column: span 2;" onclick="copyLeadField(${lead.id}, 'body', 'Mesaj Copiat!')">
+                                📋 Copiază Corp Mesaj Complet
                             </button>
                         </div>
                         
@@ -559,6 +558,13 @@ def main():
             }
         }
 
+        function copyLeadField(id, field, message) {
+            const lead = leadsData.find(l => l.id === id);
+            if (lead) {
+                copyText(lead[field], message);
+            }
+        }
+
         function copyText(text, message) {
             if (text === 'N/A') {
                 showToast('Nu există date de copiat!');
@@ -589,8 +595,9 @@ def main():
 
     # Escape leads data and insert into html
     leads_json = []
-    for lead in leads:
+    for idx, lead in enumerate(leads):
         leads_json.append({
+            "id": idx,
             "company": lead["company"],
             "location": lead["location"],
             "city_filter": lead["city_filter"],
@@ -600,8 +607,8 @@ def main():
             "decident": lead["decident"],
             "linkedin": lead["linkedin"],
             "source_url": lead["source_url"],
-            "subject": clean_js_string(lead["subject"]),
-            "body": clean_js_string(lead["body"])
+            "subject": lead["subject"],
+            "body": lead["body"]
         })
         
     leads_json_str = json.dumps(leads_json)
