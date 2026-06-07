@@ -2,6 +2,7 @@ import os
 import json
 import urllib.parse
 import openpyxl
+import re
 
 def clean_js_string(text):
     if not text:
@@ -9,8 +10,23 @@ def clean_js_string(text):
     # Escape single quotes and backslashes for JS strings
     return text.replace("\\", "\\\\").replace("'", "\\'").replace("\n", "\\n").replace("\r", "")
 
+def clean_decident_name(name):
+    if not name or name == "N/A":
+        return "N/A"
+    stop_words = {
+        "read", "bio", "view", "profile", "click", "more", "learn", "about", 
+        "contact", "team", "at", "crif", "svolgimento", "non", "raccoglie", 
+        "newly", "controlling", "is", "operates", "allo", "di", "quindi", 
+        "bar", "iqo", "am", "are", "the", "and", "for", "to", "or", "in", "page"
+    }
+    words = re.sub(r'[^\w\s]', ' ', name).split()
+    cleaned_parts = [w for w in words if w.lower() not in stop_words]
+    final_parts = [p for p in cleaned_parts if p[0].isupper() and len(p) >= 2]
+    return " ".join(final_parts) if final_parts else "N/A"
+
 def get_email_templates(company_name, decident, language):
-    salutation = decident.split()[0] if (decident and decident != "N/A") else ""
+    clean_name = clean_decident_name(decident)
+    salutation = clean_name.split()[0] if (clean_name and clean_name != "N/A") else ""
     
     if language == "italian":
         salute = f"Ciao {salutation}" if salutation else "Gentile Team de"
@@ -95,6 +111,11 @@ def main():
         location = ws.cell(row=row, column=2).value
         website = ws.cell(row=row, column=3).value
         email_addr = ws.cell(row=row, column=4).value
+        if email_addr:
+            email_addr_low = str(email_addr).lower().strip()
+            placeholders = ["exemplu.ro", "example.com", "yourdomain.com", "domain.com", "email.com", "numecomerciant", "numesite", "numedomeniu", "email@email"]
+            if any(p in email_addr_low for p in placeholders) or email_addr_low == "n/a":
+                email_addr = "N/A"
         phone = ws.cell(row=row, column=5).value
         decident = ws.cell(row=row, column=6).value
         linkedin = ws.cell(row=row, column=7).value
@@ -654,6 +675,9 @@ def main():
     # Escape leads data and insert into html
     leads_json = []
     for idx, lead in enumerate(leads):
+        clean_name = clean_decident_name(lead["decident"])
+        # Update subject and body using cleaned name
+        subject, body = get_email_templates(lead["company"], clean_name, lead["city_filter"].lower())
         leads_json.append({
             "id": idx,
             "company": lead["company"],
@@ -662,11 +686,11 @@ def main():
             "website": lead["website"],
             "email": lead["email"],
             "phone": lead["phone"],
-            "decident": lead["decident"],
+            "decident": clean_name,
             "linkedin": lead["linkedin"],
             "source_url": lead["source_url"],
-            "subject": lead["subject"],
-            "body": lead["body"]
+            "subject": subject,
+            "body": body
         })
         
     leads_json_str = json.dumps(leads_json)
