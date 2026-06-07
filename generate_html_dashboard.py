@@ -309,6 +309,22 @@ def main():
             font-weight: 600;
         }
 
+        .contacted-badge {
+            background: #2e7d32;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .card.contacted {
+            opacity: 0.45;
+            filter: grayscale(30%);
+            border-color: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
         /* Contact Details */
         .details-section {
             background: rgba(0, 0, 0, 0.2);
@@ -451,6 +467,8 @@ def main():
             let emailCount = 0;
             let formCount = 0;
             
+            const contactedLeads = JSON.parse(localStorage.getItem('contactedLeads') || '{}');
+            
             data.forEach((lead, index) => {
                 if (lead.email && lead.email !== 'N/A') {
                     emailCount++;
@@ -458,8 +476,10 @@ def main():
                     formCount++;
                 }
                 
+                const isContacted = contactedLeads[lead.company] || false;
                 const card = document.createElement('div');
-                card.className = 'card';
+                card.className = `card ${isContacted ? 'contacted' : ''}`;
+                card.id = `card-${lead.id}`;
                 card.setAttribute('data-city', lead.city_filter);
                 
                 const hasEmail = lead.email && lead.email !== 'N/A';
@@ -472,7 +492,10 @@ def main():
                     <div>
                         <div class="card-header">
                             <div>
-                                <h3 class="company-name">${lead.company}</h3>
+                                <h3 class="company-name" style="display: flex; align-items: center; gap: 0.5rem; justify-content: space-between;">
+                                    ${lead.company}
+                                    <span class="contacted-badge" id="badge-${lead.id}" style="display: ${isContacted ? 'inline-block' : 'none'};">Trimis ✓</span>
+                                </h3>
                                 <div class="company-meta">
                                     <span class="badge-city">${lead.city_filter}</span>
                                     <span>${lead.location}</span>
@@ -525,6 +548,12 @@ def main():
                             <a href="${lead.website}" target="_blank" class="btn">🌐 Vizitează Site</a>
                             ${lead.linkedin !== 'N/A' ? `<a href="${lead.linkedin}" target="_blank" class="btn">💼 LinkedIn</a>` : '<button class="btn" disabled style="opacity:0.3">💼 LinkedIn N/A</button>'}
                         </div>
+                        
+                        <div class="action-row" style="margin-top: 0.5rem;">
+                            <button class="btn" id="btn-toggle-${lead.id}" onclick="toggleContacted(${lead.id}, '${cleanJSString(lead.company)}')" style="grid-column: span 2; background: rgba(255, 255, 255, 0.02); border-color: rgba(27, 77, 62, 0.15); color: var(--text-muted); font-size: 0.75rem;">
+                                ${isContacted ? '↩️ Resetează Status' : '☑️ Marchează ca Trimis'}
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -555,6 +584,35 @@ def main():
             } else {
                 const filtered = leadsData.filter(lead => lead.city_filter === city);
                 renderLeads(filtered);
+            }
+        }
+
+        function toggleContacted(id, company) {
+            const contactedLeads = JSON.parse(localStorage.getItem('contactedLeads') || '{}');
+            const isContacted = !contactedLeads[company];
+            
+            if (isContacted) {
+                contactedLeads[company] = true;
+            } else {
+                delete contactedLeads[company];
+            }
+            
+            localStorage.setItem('contactedLeads', JSON.stringify(contactedLeads));
+            
+            const card = document.getElementById(`card-${id}`);
+            const badge = document.getElementById(`badge-${id}`);
+            const button = document.getElementById(`btn-toggle-${id}`);
+            
+            if (isContacted) {
+                card.classList.add('contacted');
+                badge.style.display = 'inline-block';
+                button.innerHTML = '↩️ Resetează Status';
+                showToast('Marcat ca trimis!');
+            } else {
+                card.classList.remove('contacted');
+                badge.style.display = 'none';
+                button.innerHTML = '☑️ Marchează ca Trimis';
+                showToast('Status resetat!');
             }
         }
 
