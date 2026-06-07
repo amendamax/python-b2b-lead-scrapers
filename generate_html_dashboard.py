@@ -109,7 +109,9 @@ def main():
     for row in range(2, ws.max_row + 1):
         company = ws.cell(row=row, column=1).value
         location = ws.cell(row=row, column=2).value
-        website = ws.cell(row=row, column=3).value
+        website_cell = ws.cell(row=row, column=3)
+        website = website_cell.hyperlink.target if (website_cell.hyperlink and website_cell.hyperlink.target) else website_cell.value
+        
         email_addr = ws.cell(row=row, column=4).value
         if email_addr:
             email_addr_low = str(email_addr).lower().strip()
@@ -118,8 +120,16 @@ def main():
                 email_addr = "N/A"
         phone = ws.cell(row=row, column=5).value
         decident = ws.cell(row=row, column=6).value
-        linkedin = ws.cell(row=row, column=7).value
-        source_url = ws.cell(row=row, column=8).value
+        
+        linkedin_cell = ws.cell(row=row, column=7)
+        linkedin = linkedin_cell.hyperlink.target if (linkedin_cell.hyperlink and linkedin_cell.hyperlink.target) else linkedin_cell.value
+        if not linkedin or linkedin == "LinkedIn Profile ↗":
+            linkedin = "N/A"
+            
+        source_cell = ws.cell(row=row, column=8)
+        source_url = source_cell.hyperlink.target if (source_cell.hyperlink and source_cell.hyperlink.target) else source_cell.value
+        if not source_url or source_url == "Pagina Sursă ↗":
+            source_url = website
         
         if not company:
             continue
