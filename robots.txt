@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Disallow crawling of raw PDF and Excel report files to prevent non-indexed asset warnings
+Disallow: /amazon_scraper/*.xlsx$
+Disallow: /amazon_scraper/*.pdf$
+Disallow: /bookstore_scraper/*.xlsx$
+Disallow: /bookstore_scraper/*.pdf$
+Disallow: /lead_generator/*.xlsx$
+Disallow: /lead_generator/*.pdf$
+
+Sitemap: https://vasiledev.com/sitemap.xml
