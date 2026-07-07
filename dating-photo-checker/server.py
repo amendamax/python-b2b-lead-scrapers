@@ -97,24 +97,24 @@ init_db()
 async def get_index(request: Request):
     host = request.headers.get("host", "").lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
-        if os.path.exists("../broker-verifier/index.html"):
-            return FileResponse("../broker-verifier/index.html")
+        if os.path.exists("broker-verifier/index.html"):
+            return FileResponse("broker-verifier/index.html")
     return FileResponse("index.html")
 
 @app.get("/style.css")
 async def get_css(request: Request):
     host = request.headers.get("host", "").lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
-        if os.path.exists("../broker-verifier/style.css"):
-            return FileResponse("../broker-verifier/style.css")
+        if os.path.exists("broker-verifier/style.css"):
+            return FileResponse("broker-verifier/style.css")
     return FileResponse("style.css")
 
 @app.get("/app.js")
 async def get_js(request: Request):
     host = request.headers.get("host", "").lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
-        if os.path.exists("../broker-verifier/app.js"):
-            return FileResponse("../broker-verifier/app.js")
+        if os.path.exists("broker-verifier/app.js"):
+            return FileResponse("broker-verifier/app.js")
     return FileResponse("app.js")
 
 @app.get("/catfish_profile.png")
@@ -143,8 +143,8 @@ async def get_promo():
 
 # Mount the broker-verifier directory statically
 # This makes it accessible at verifydating.com/broker-verifier/
-if os.path.exists("../broker-verifier"):
-    app.mount("/broker-verifier", StaticFiles(directory="../broker-verifier", html=True), name="broker-verifier")
+if os.path.exists("broker-verifier"):
+    app.mount("/broker-verifier", StaticFiles(directory="broker-verifier", html=True), name="broker-verifier")
 
 # ==========================================================================
 # DATING SCAN LOGIC & SCHEMAS
