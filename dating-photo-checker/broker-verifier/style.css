@@ -724,3 +724,61 @@ h1, h2, h3, h4 {
     line-height: 1.5;
 }
 
+/* Reviews Section styling */
+.reviews-section {
+    padding: 2.5rem !important;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .reviews-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.review-stars {
+    color: #fbbf24;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.review-text {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.review-author {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.review-meta {
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-left: 0.4rem;
+}
+
