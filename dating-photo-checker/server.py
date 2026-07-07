@@ -8,7 +8,7 @@ import socket
 import re
 import io
 from datetime import datetime
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -91,18 +91,30 @@ def init_db():
 init_db()
 
 # ==========================================================================
-# STATIC FILES SERVING
+# DYNAMIC STATIC FILES SERVING (DOMAIN-BASED ROUTING)
 # ==========================================================================
 @app.get("/")
-async def get_index():
+async def get_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "broker" in host:
+        if os.path.exists("../broker-verifier/index.html"):
+            return FileResponse("../broker-verifier/index.html")
     return FileResponse("index.html")
 
 @app.get("/style.css")
-async def get_css():
+async def get_css(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "broker" in host:
+        if os.path.exists("../broker-verifier/style.css"):
+            return FileResponse("../broker-verifier/style.css")
     return FileResponse("style.css")
 
 @app.get("/app.js")
-async def get_js():
+async def get_js(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "broker" in host:
+        if os.path.exists("../broker-verifier/app.js"):
+            return FileResponse("../broker-verifier/app.js")
     return FileResponse("app.js")
 
 @app.get("/catfish_profile.png")
