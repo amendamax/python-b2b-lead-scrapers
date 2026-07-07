@@ -96,7 +96,7 @@ init_db()
 @app.get("/")
 async def get_index(request: Request):
     host = request.headers.get("host", "").lower()
-    if "broker" in host:
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("../broker-verifier/index.html"):
             return FileResponse("../broker-verifier/index.html")
     return FileResponse("index.html")
@@ -104,7 +104,7 @@ async def get_index(request: Request):
 @app.get("/style.css")
 async def get_css(request: Request):
     host = request.headers.get("host", "").lower()
-    if "broker" in host:
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("../broker-verifier/style.css"):
             return FileResponse("../broker-verifier/style.css")
     return FileResponse("style.css")
@@ -112,7 +112,7 @@ async def get_css(request: Request):
 @app.get("/app.js")
 async def get_js(request: Request):
     host = request.headers.get("host", "").lower()
-    if "broker" in host:
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("../broker-verifier/app.js"):
             return FileResponse("../broker-verifier/app.js")
     return FileResponse("app.js")
