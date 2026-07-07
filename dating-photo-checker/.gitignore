@@ -1,0 +1,18 @@
+# Stripe / Credentials
+config.json
+
+# Databases
+database.db
+database.db-journal
+database.db-wal
+database.db-shm
+
+# User Uploads
+uploads/
+
+# Python cache / virtual envs
+__pycache__/
+*.pyc
+.env
+venv/
+.venv/

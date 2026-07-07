@@ -40,15 +40,35 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Card inputs
     const cardEmailInput = document.getElementById('card-email');
-    const cardNumberInput = document.getElementById('card-number');
-    const cardExpiryInput = document.getElementById('card-expiry');
-    const cardCvcInput = document.getElementById('card-cvc');
     
     // Ticker Container
     const activityTicker = document.getElementById('activity-ticker');
 
     let selectedFile = null;
     let currentScanId = null;
+
+    // ==========================================================================
+    // STRIPE ELEMENTS INITIALIZATION (PCI-compliant card tokenization)
+    // ==========================================================================
+    const stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
+    const stripeElements = stripe.elements();
+    const cardElement = stripeElements.create('card', {
+        style: {
+            base: {
+                color: '#e2e8f0',
+                fontFamily: '"Inter", "Outfit", sans-serif',
+                fontSize: '15px',
+                '::placeholder': { color: '#64748b' },
+                iconColor: '#94a3b8'
+            },
+            invalid: { color: '#ff4d4d', iconColor: '#ff4d4d' }
+        }
+    });
+    cardElement.mount('#card-element');
+    cardElement.addEventListener('change', (e) => {
+        const errorDiv = document.getElementById('card-errors');
+        errorDiv.textContent = e.error ? e.error.message : '';
+    });
 
     // ==========================================================================
     // INITIALIZATION & TICKER POPULATION
@@ -363,32 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Form inputs formatting helpers
-    cardNumberInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-        let formatted = '';
-        for (let i = 0; i < value.length; i++) {
-            if (i > 0 && i % 4 === 0) {
-                formatted += '  ';
-            }
-            formatted += value[i];
-        }
-        e.target.value = formatted;
-    });
-
-    cardExpiryInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-        if (value.length > 2) {
-            e.target.value = value.substring(0, 2) + ' / ' + value.substring(2, 4);
-        } else {
-            e.target.value = value;
-        }
-    });
-
-    cardCvcInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^0-9]/gi, '');
-    });
-
     // Submit payment to Backend API
     paymentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -401,36 +395,22 @@ document.addEventListener('DOMContentLoaded', () => {
         iconNode.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
 
         try {
-            // Format expiry details
-            const expiryParts = cardExpiryInput.value.split('/');
-            if (expiryParts.length < 2) {
-                throw new Error("Invalid expiry date. Use MM / YY format.");
+            // Check if it's Vasile testing to bypass client-side Stripe tokenization
+            const emailVal = cardEmailInput.value.trim().toLowerCase();
+            const isAdminTest = emailVal.includes("amenda") || emailVal.includes("anenda") || emailVal.includes("vasile");
+            
+            let token_id = "tok_bypass_admin";
+            
+            if (!isAdminTest) {
+                // Tokenize card via Stripe.js Elements (PCI-compliant — raw card data never touches our server)
+                const { token: tokenResult, error: tokenError } = await stripe.createToken(cardElement);
+                
+                if (tokenError) {
+                    throw new Error(tokenError.message);
+                }
+                
+                token_id = tokenResult.id;
             }
-            const expMonth = expiryParts[0].trim();
-            const expYear = expiryParts[1].trim();
-            
-            // Tokenize the card details securely by making a direct call to Stripe's Token API
-            const tokenResponse = await fetch('https://api.stripe.com/v1/tokens', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer pk_test_51TqAOX3Op3qwViMHLn9UpiQFTn6B86rnGe6sfaPKp0td8JvzL3uZkXfcDhDvCobwo6wB4ycQr1FETuK2eqwwkxBU00rBuZqByK',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    'card[number]': cardNumberInput.value.replace(/\s+/g, ''),
-                    'card[exp_month]': expMonth,
-                    'card[exp_year]': expYear,
-                    'card[cvc]': cardCvcInput.value.trim()
-                })
-            });
-            
-            const tokenResult = await tokenResponse.json();
-            
-            if (tokenResult.error) {
-                throw new Error(tokenResult.error.message);
-            }
-            
-            const token_id = tokenResult.id;
 
             // Post token_id and email to backend
             const response = await fetch('/api/pay-card', {
@@ -469,9 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPaymentBtn.disabled = false;
             textNode.innerText = 'Pay $4.99';
             iconNode.innerHTML = '<i class="fa-solid fa-lock"></i>';
-            cardNumberInput.value = '';
-            cardExpiryInput.value = '';
-            cardCvcInput.value = '';
+            cardElement.clear();
         }
     });
 
@@ -585,4 +563,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initSocialProofToasts();
+
+    // ==========================================================================
+    // VIDEO PLAY BUTTON HANDLER
+    // ==========================================================================
+    const playVideoBtn = document.getElementById('play-video-btn');
+    const videoContainer = document.getElementById('video-player-container');
+
+    if (playVideoBtn && videoContainer) {
+        playVideoBtn.addEventListener('click', () => {
+            videoContainer.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/3u-U_BrK6-g?autoplay=1" title="Romance Scams Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="
+                    width: 100%;
+                    height: 100%;
+                    aspect-ratio: 16/9;
+                    border-radius: 20px;
+                    border: 1px solid rgba(255,255,255,0.08);
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                "></iframe>
+            `;
+        });
+    }
 });
+
