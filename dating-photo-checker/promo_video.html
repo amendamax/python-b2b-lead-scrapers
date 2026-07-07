@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyDating TikTok Video Generator</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #09070f;
+            --primary: #ff2a5f;
+            --secondary: #a855f7;
+            --text: #ffffff;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #12101a;
+            color: var(--text);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 42, 95, 0.6);
+        }
+
+        /* 9:16 Phone Frame (TikTok Aspect Ratio) */
+        .video-container {
+            width: 360px;
+            height: 640px;
+            background-color: var(--bg);
+            border-radius: 32px;
+            border: 6px solid #201a30;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Video Scenes */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .scene.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Background elements */
+        .bg-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,42,95,0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(30px);
+            z-index: 1;
+        }
+
+        /* Typography & elements */
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 28px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+            z-index: 2;
+        }
+
+        .highlight-primary {
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255,42,95,0.4);
+        }
+
+        .highlight-secondary {
+            color: var(--secondary);
+            text-shadow: 0 0 15px rgba(168,85,247,0.4);
+        }
+
+        p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+            z-index: 2;
+        }
+
+        /* Scene specific elements */
+        .tinder-card {
+            background: #1e1b29;
+            border-radius: 20px;
+            width: 100%;
+            height: 320px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 20px;
+            z-index: 2;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .tinder-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .tinder-info {
+            z-index: 3;
+            color: white;
+            text-align: left;
+        }
+
+        .tinder-name {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* Scanning Overlay */
+        .scanner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 42, 95, 0.1);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            animation: scanAnim 2s infinite ease-in-out;
+            top: 0;
+        }
+
+        .alert-box {
+            background: rgba(255, 42, 95, 0.15);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 5;
+            animation: pulse 1s infinite alternate;
+        }
+
+        /* Results simulator */
+        .results-mockup {
+            background: #13111c;
+            border-radius: 20px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            z-index: 2;
+        }
+
+        .risk-gauge {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 8px solid rgba(255,42,95,0.2);
+            border-top-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+
+        /* Animations */
+        @keyframes scanAnim {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255,42,95,0.3); }
+            100% { transform: scale(1.03); box-shadow: 0 0 15px rgba(255,42,95,0.6); }
+        }
+
+        /* Footer watermark */
+        .watermark {
+            position: absolute;
+            bottom: 20px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button class="btn" id="start-btn"><i class="fa-solid fa-play"></i> Start Video Presentation</button>
+        <p style="margin-top: 10px; font-size: 14px; color: rgba(255,255,255,0.5);">
+            Start your screen recording tool before pressing play!
+        </p>
+    </div>
+
+    <div class="video-container">
+        <!-- Watermark visible across scenes -->
+        <div class="watermark"><i class="fa-solid fa-shield-heart" style="color: var(--primary);"></i> verifydating.net</div>
+
+        <!-- SCENE 1: Tinder Swiping -->
+        <div class="scene active" id="scene-1">
+            <div class="bg-glow" style="top: 10%; left: 10%;"></div>
+            <h2>Too Good to be <span class="highlight-secondary">True?</span></h2>
+            
+            <div class="tinder-card">
+                <img class="tinder-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Profile Match">
+                <div class="tinder-info">
+                    <div class="tinder-name">Gabriela, 24 <i class="fa-solid fa-circle-check" style="color: #00d2ff;"></i></div>
+                    <div style="font-size: 14px; opacity: 0.8;"><i class="fa-solid fa-location-dot"></i> 2 miles away</div>
+                </div>
+            </div>
+            
+            <p>Swiping on Tinder and you find the perfect match...</p>
+        </div>
+
+        <!-- SCENE 2: The Doubt (Catfish Alert) -->
+        <div class="scene" id="scene-2">
+            <div class="bg-glow" style="top: 40%; right: 10%;"></div>
+            <h2>Is it a <span class="highlight-primary">CATFISH?</span></h2>
+            
+            <div class="tinder-card">
+                <img class="tinder-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Profile Match">
+                <div class="scanner-overlay">
+                    <div class="scan-line"></div>
+                    <i class="fa-solid fa-face-viewfinder" style="font-size: 80px; color: var(--primary);"></i>
+                </div>
+            </div>
+            
+            <div class="alert-box">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; color: var(--primary);"></i>
+                <div style="text-align: left;">
+                    <div style="font-weight: 700; color: white;">Identity Risk Detected</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Multiple matches found on stock sites</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3: The Solution (verifydating.net UI) -->
+        <div class="scene" id="scene-3">
+            <div class="bg-glow" style="bottom: 10%; left: 10%;"></div>
+            <h2>Run a <span class="highlight-secondary">Fast Scan</span></h2>
+            
+            <div class="results-mockup">
+                <div class="risk-gauge">98%</div>
+                <div style="font-weight: 700; margin-bottom: 10px; color: var(--primary);">CRITICAL DATING RISK</div>
+                <p style="font-size: 13px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">
+                    This photo matches publicly indexed stock portfolios and profiles under different names.
+                </p>
+                <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; font-size: 12px; text-align: left;">
+                    <i class="fa-solid fa-link" style="color: var(--secondary);"></i> Pinterest Match (Stolen Photo)<br>
+                    <i class="fa-solid fa-link" style="color: var(--secondary);"></i> Stock Portfolio Link
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px;">Reveal the truth instantly.</p>
+        </div>
+
+        <!-- SCENE 4: Outro CTA -->
+        <div class="scene" id="scene-4">
+            <div class="bg-glow" style="top: 20%; left: 20%;"></div>
+            <i class="fa-solid fa-shield-heart" style="font-size: 80px; color: var(--primary); margin-bottom: 30px; animation: pulse 1s infinite alternate;"></i>
+            
+            <h2>Verify Before You <span class="highlight-primary">Trust</span></h2>
+            
+            <p style="font-size: 18px; margin-bottom: 40px; font-weight: 600;">
+                Go to:<br>
+                <span class="highlight-secondary" style="font-size: 24px; font-family: var(--font-display); font-weight: 900;">verifydating.net</span>
+            </p>
+            
+            <div class="alert-box" style="border-color: var(--secondary); background: rgba(168,85,247,0.15);">
+                <i class="fa-solid fa-gift" style="color: var(--secondary); font-size: 20px;"></i>
+                <div style="font-size: 14px; text-align: left; font-weight: 600;">
+                    Link in Bio / Description!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Audio API Synth Sound Generator -->
+    <script>
+        const scenes = [
+            document.getElementById('scene-1'),
+            document.getElementById('scene-2'),
+            document.getElementById('scene-3'),
+            document.getElementById('scene-4')
+        ];
+        
+        let audioCtx = null;
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function playSound(type) {
+            if (!audioCtx) return;
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'next') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.5);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.5);
+            } else if (type === 'alert') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } else if (type === 'success') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.6);
+            }
+        }
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            initAudio();
+            
+            scenes.forEach(s => s.classList.remove('active'));
+            scenes[0].classList.add('active');
+            playSound('next');
+
+            const intervals = [
+                { time: 6000, trigger: () => {
+                    scenes[0].classList.remove('active');
+                    scenes[1].classList.add('active');
+                    playSound('alert');
+                }},
+                { time: 13000, trigger: () => {
+                    scenes[1].classList.remove('active');
+                    scenes[2].classList.add('active');
+                    playSound('success');
+                }},
+                { time: 21000, trigger: () => {
+                    scenes[2].classList.remove('active');
+                    scenes[3].classList.add('active');
+                    playSound('next');
+                }}
+            ];
+
+            intervals.forEach(step => {
+                setTimeout(step.trigger, step.time);
+            });
+        });
+    </script>
+</body>
+</html>

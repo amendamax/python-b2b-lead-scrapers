@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romance Scam Detector | Verify Dating Profile Photos</title>
+    <meta name="description" content="Instantly verify if the person you are chatting with on Tinder, Bumble, or Social Media is real. Detect fake profiles and romance scams using smart AI image scanning.">
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body class="dark-theme">
+    
+    <!-- Background Gradient Glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-heart-crack"></i></span>
+            <span class="logo-text">Verify<span class="highlight">Dating</span></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#redflags" class="nav-link">Red Flags</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+        </nav>
+        <div class="header-action">
+            <span class="badge badge-live"><span class="pulse-dot"></span> Live Scan Active</span>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="app-container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 id="main-title">Verify Before You Fall</h1>
+            <p class="hero-subtitle">Don't get catfished by a fake profile. Scan your dating partner's profile photo and instantly find out if they are an impostor using stolen internet photos.</p>
+        </section>
+
+        <!-- Main Workspace: Scanner & Results -->
+        <section class="scanner-section" id="scanner-workspace">
+            <div class="scanner-grid">
+                
+                <!-- Left Side: Interactive Dropzone -->
+                <div class="scanner-card upload-card" id="upload-panel">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Scan Profile Now</h2>
+                        <span class="price-badge">Full Report $4.99</span>
+                    </div>
+                    
+                    <div class="drop-zone" id="drop-zone-area">
+                        <input type="file" id="image-input" accept="image/*" class="file-input-hidden">
+                        <div class="drop-zone-prompt">
+                            <div class="upload-icon-container">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <h3>Drag & drop photo here or browse from device</h3>
+                            <p>Supports PNG, JPG, WEBP. Max 5MB.</p>
+                        </div>
+                        <div class="drop-zone-preview" id="preview-container" style="display: none;">
+                            <img id="image-preview" src="#" alt="Profile Photo Preview">
+                            <div class="scanner-line" id="scan-laser"></div>
+                            <button class="remove-btn" id="remove-img-btn" title="Remove image"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="url-input-container">
+                        <div class="divider"><span>or enter image URL</span></div>
+                        <div class="input-group">
+                            <span class="input-icon"><i class="fa-solid fa-link"></i></span>
+                            <input type="url" id="image-url" placeholder="https://example.com/photo.jpg">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="start-scan-btn" disabled>
+                        <span class="btn-text">Analyze Profile Photo</span>
+                        <span class="btn-icon"><i class="fa-solid fa-bolt"></i></span>
+                    </button>
+                </div>
+
+                <!-- Right Side: Real-time Scanning Progress / Results -->
+                <div class="scanner-card status-card" id="results-panel">
+                    <!-- Default Idle State -->
+                    <div class="panel-state" id="state-idle">
+                        <div class="idle-graphic">
+                            <div class="shield-container">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div class="dots-animation">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <h3>System is ready</h3>
+                        <p class="desc">Upload an image in the left panel to launch the cross-network detection algorithm.</p>
+                        
+                        <div class="trust-stats">
+                            <div class="stat-item">
+                                <span class="stat-val">10ms</span>
+                                <span class="stat-lbl">Response Time</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">99.2%</span>
+                                <span class="stat-lbl">Accuracy</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">1.2M+</span>
+                                <span class="stat-lbl">Photos Scanned</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scanning / Progress State -->
+                    <div class="panel-state" id="state-scanning" style="display: none;">
+                        <div class="scanner-spinner">
+                            <div class="spinner-ring"></div>
+                            <i class="fa-solid fa-heart-pulse heartbeat"></i>
+                        </div>
+                        <h3>Running security analysis...</h3>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="scan-progress-fill"></div>
+                            </div>
+                            <span class="progress-percent" id="scan-progress-text">0%</span>
+                        </div>
+
+                        <ul class="scanning-steps">
+                            <li class="step-item" id="step-facial"><i class="fa-solid fa-circle-notch fa-spin"></i> Determining facial geometry...</li>
+                            <li class="step-item" id="step-reverse"><i class="fa-solid fa-circle"></i> Reverse searching web database...</li>
+                            <li class="step-item" id="step-social"><i class="fa-solid fa-circle"></i> Scanning social profiles & networks...</li>
+                            <li class="step-item" id="step-scamdb"><i class="fa-solid fa-circle"></i> Matching global scammer blacklist...</li>
+                        </ul>
+                    </div>
+
+                    <!-- Scan Results State (Hidden / Blurred initially for paywall demo) -->
+                    <div class="panel-state" id="state-results" style="display: none;">
+                        <div class="results-header" id="risk-banner">
+                            <div class="risk-badge" id="risk-badge-element">High Risk</div>
+                            <h3 id="risk-title">Fake Profile Detected</h3>
+                        </div>
+
+                        <div class="results-body">
+                            <!-- Score Dashboard -->
+                            <div class="score-grid">
+                                <div class="score-widget">
+                                    <span class="score-label">Scam Probability</span>
+                                    <span class="score-value text-danger" id="scam-prob-val">94%</span>
+                                </div>
+                                <div class="score-widget">
+                                    <span class="score-label">Internet Matches</span>
+                                    <span class="score-value text-warning" id="matches-found-val">12 sites</span>
+                                </div>
+                            </div>
+
+                            <!-- Match Preview & Map -->
+                            <div class="match-details">
+                                <h4>FaceMatch Analysis Summary</h4>
+                                <ul class="details-list">
+                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on 4 other websites under different names.</li>
+                                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
+                                    <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Paywall / Lock Overlay (Crucial for Monetization Demo) -->
+                            <div class="paywall-overlay" id="results-paywall">
+                                <div class="paywall-content">
+                                    <i class="fa-solid fa-lock paywall-lock-icon"></i>
+                                    <h3>Unlock Full Security Report</h3>
+                                    <p>Reveal the exact links of matched profiles, social media pages where photos were stolen, and scammer location footprints.</p>
+                                    
+                                    <div class="pricing-options">
+                                        <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
+                                            <span class="btn-text">Unlock Report - $4.99</span>
+                                            <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
+                                        </button>
+                                        <p class="paywall-guarantee"><i class="fa-solid fa-shield-check"></i> Secure payment via Stripe. 100% money-back guarantee.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Unlocked Premium Details (Visible only after mock checkout) -->
+                            <div class="premium-results" id="unlocked-premium-details" style="display: none;">
+                                <div class="success-payment-alert">
+                                    <i class="fa-solid fa-circle-check"></i> Payment confirmed! Report unlocked successfully.
+                                </div>
+                                
+                                <h4><i class="fa-solid fa-link-slash"></i> Identified Matches (Exact URLs):</h4>
+                                <div class="match-links-container">
+                                    <div class="match-link-card">
+                                        <span class="platform-badge platform-pinterest">Pinterest</span>
+                                        <a href="https://pinterest.com/pin/fake-user-profile-stolen" target="_blank" class="match-url">pinterest.com/pin/fake-user-profile... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                    </div>
+                                    <div class="match-link-card">
+                                        <span class="platform-badge platform-vk">VKontakte</span>
+                                        <a href="https://vk.com/id84729104" target="_blank" class="match-url">vk.com/id84729104 (Real name: Anastasia) <i class="fa-solid fa-up-right-from-square"></i></a>
+                                    </div>
+                                    <div class="match-link-card">
+                                        <span class="platform-badge platform-forum">Russian Forum</span>
+                                        <a href="https://examp-ru-forum.com/users/8372" target="_blank" class="match-url">examp-ru-forum.com/users/8372... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="scammer-profile-card">
+                                    <h4><i class="fa-solid fa-user-ninja"></i> Scammer Signature Detected</h4>
+                                    <p>This set of images is associated with known <strong>Romance Scam</strong> campaigns originating from West Africa, using proxy networks to mask their real location.</p>
+                                </div>
+                                
+                                <!-- Print PDF Report Action Button -->
+                                <button class="btn btn-primary btn-block" onclick="window.print()" style="margin-top: 22px;">
+                                    <span class="btn-text">Download Official PDF Report</span>
+                                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Live Scan Feed / Activity Ticker (Premium Design Touch) -->
+        <section class="live-activity-section">
+            <div class="section-title">
+                <h3><span class="live-dot"></span> Live Security Feed</h3>
+            </div>
+            <div class="ticker-wrapper">
+                <div class="ticker-scroll" id="activity-ticker">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: About the Technology -->
+        <section class="info-section" id="about">
+            <h2 class="section-heading"><i class="fa-solid fa-microchip highlight"></i> How It Works</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 600px; margin: -15px auto 30px; line-height: 1.6;">
+                Our security scanner uses biometric facial landmark analysis paired with multi-threaded web index crawlers to determine profile authenticity in seconds.
+            </p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fa-solid fa-face-viewfinder about-icon"></i>
+                    <h3>1. Biometric Mapping</h3>
+                    <p>We analyze 68 unique facial biometrics (jaw structure, eye positioning, nose width) to establish a mathematical model of the profile photo.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fa-solid fa-magnifying-glass-nodes about-icon"></i>
+                    <h3>2. Cross-Network Scan</h3>
+                    <p>Our crawlers search through billions of social profiles, stock sites, and public directories to find duplicate copies of the face.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fa-solid fa-shield-virus about-icon"></i>
+                    <h3>3. Blacklist Verification</h3>
+                    <p>The image fingerprint is checked against active romance scammer indices, catfish profiles, and historical impostor blacklists.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Romance Scam Red Flags -->
+        <section class="info-section" id="redflags">
+            <h2 class="section-heading"><i class="fa-solid fa-triangle-exclamation highlight"></i> 10 Red Flags You're Talking to a Romance Scammer</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">1. Declares eternal love way too quickly <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>The scammer will bombard you with affection and compliments ("love bombing") within days of starting the chat. The goal is to build emotional dependency before making financial requests.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">2. Always refuses video calls or in-person meetings <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>Their webcam is always "broken", connection is "too weak", or they are constantly traveling. If someone refuses video chat in 2026, they are using stolen photos.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">3. Has a complex, dramatic life story (military, oil rig engineer) <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>Their jobs justify why they cannot meet you. Typical roles include engineers on remote offshore rigs, military personnel deployed abroad, or doctors on foreign missions.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">4. Asks for money for "emergencies" or "travel tickets" <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>Suddenly, an emergency arises: they need urgent medical funds, their bank accounts are frozen, or they need cash for a plane ticket to see you. This is when the scam is triggered.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: FAQ -->
+        <section class="info-section" id="faq">
+            <h2 class="section-heading"><i class="fa-solid fa-circle-question highlight"></i> Frequently Asked Questions</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Is my uploaded photo private and secure? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>Yes, absolutely. We prioritize your privacy above all. Uploaded photos are processed securely over encrypted SSL connections and are automatically deleted from our servers within 24 hours of scanning. We never store, share, or sell your data.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">How accurate is the biometric scanning? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>Our biometric facial mapping algorithms achieve an accuracy rate of 99.2% in identifying identical or heavily modified matches. The system detects matches even if the photo was cropped, mirrored, or filtered by the scammer.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">What is included in the $4.99 Premium Report? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>The premium report unlocks the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found. It also provides scammer signature data and known IP/location proxy indicators.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Is this a subscription or a one-time fee? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="accordion-content">
+                        <p>It is a one-time payment of $4.99 per unlocked report. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You only pay for the reports you choose to unlock.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Stripe-like Checkout Demo -->
+    <div class="modal-backdrop" id="checkout-modal">
+        <div class="checkout-card">
+            <div class="checkout-header">
+                <div class="merchant-info">
+                    <span class="app-icon"><i class="fa-solid fa-heart-crack"></i></span>
+                    <div>
+                        <h3>Dating Security Report</h3>
+                        <p>VerifyDating Inc.</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="checkout-body">
+                <div class="payment-summary">
+                    <span class="summary-label">Total due</span>
+                    <span class="summary-amount">$4.99</span>
+                </div>
+                
+                <div class="payment-methods">
+                    <button class="btn-pay btn-apple-pay"><i class="fa-brands fa-apple"></i> Pay with Apple Pay</button>
+                    <button class="btn-pay btn-google-pay"><i class="fa-brands fa-google"></i> Pay with GPay</button>
+                    <div class="checkout-divider"><span>or pay with credit card</span></div>
+                </div>
+
+                <form id="payment-form" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="card-email">Email Address</label>
+                        <input type="email" id="card-email" required placeholder="amendamax@vasiledev.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Card Details</label>
+                        <div class="card-input-wrapper">
+                            <span class="card-brand"><i class="fa-regular fa-credit-card"></i></span>
+                            <input type="text" id="card-number" required placeholder="4242  4242  4242  4242" maxlength="22">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="card-expiry">Expiration Date</label>
+                            <input type="text" id="card-expiry" required placeholder="MM / YY" maxlength="7">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="card-cvc">CVC</label>
+                            <input type="text" id="card-cvc" required placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-lg btn-block" id="confirm-payment-btn">
+                        <span class="btn-text">Pay $4.99</span>
+                        <span class="btn-icon"><i class="fa-solid fa-lock"></i></span>
+                    </button>
+                </form>
+            </div>
+            <div class="checkout-divider"></div>
+            <div class="checkout-footer">
+                <p><i class="fa-solid fa-shield-halved"></i> 256-bit encrypted SSL connection. Your details are secure.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Proof Toast Container -->
+    <div id="social-proof-toast" class="toast-notification"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2026 VerifyDating. All rights reserved. Created to protect users against romance scams.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

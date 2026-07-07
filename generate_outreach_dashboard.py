@@ -10,45 +10,113 @@ def get_leads_from_excel(file_path, niche):
     ws = wb.active
     leads = []
     
+    file_name_lower = os.path.basename(file_path).lower()
+    is_outreach_file = "prospecte_agentii_outreach" in file_name_lower
+    
     # Read rows starting from row 2 (skipping header)
     for row in range(2, ws.max_row + 1):
         name = ws.cell(row=row, column=1).value
         # If row is empty, skip
         if not name:
             continue
-        
-        category = ws.cell(row=row, column=2).value
-        address = ws.cell(row=row, column=3).value
-        # Reconstruct website URL from hyperlink if possible
-        cell_web = ws.cell(row=row, column=4)
-        website = cell_web.hyperlink.target if cell_web.hyperlink else cell_web.value
-        phone = ws.cell(row=row, column=5).value
-        owner = ws.cell(row=row, column=6).value
-        email = ws.cell(row=row, column=7).value
-        
-        # Deduce city and country dynamically
-        file_name_lower = os.path.basename(file_path).lower()
-        if "torino" in file_name_lower:
-            city = "Torino"
-            country = "italy"
-        elif "milano" in file_name_lower:
-            city = "Milano"
-            country = "italy"
-        elif "bucuresti" in file_name_lower:
-            city = "București"
-            country = "romania"
-        elif "roma" in file_name_lower:
-            city = "Roma"
-            country = "italy"
-        elif "london" in file_name_lower:
-            city = "London"
-            country = "uk"
-        elif "new york" in file_name_lower:
-            city = "New York"
-            country = "usa"
+            
+        if is_outreach_file:
+            # Col 1: Name, Col 2: Location/City/Country, Col 3: Website, Col 4: Email, Col 5: Phone, Col 6: Owner
+            address = ws.cell(row=row, column=2).value
+            cell_web = ws.cell(row=row, column=3)
+            website = cell_web.hyperlink.target if cell_web.hyperlink else cell_web.value
+            email = ws.cell(row=row, column=4).value
+            phone = ws.cell(row=row, column=5).value
+            owner = ws.cell(row=row, column=6).value
         else:
-            city = "Global"
-            country = "usa"
+            category = ws.cell(row=row, column=2).value
+            address = ws.cell(row=row, column=3).value
+            # Reconstruct website URL from hyperlink if possible
+            cell_web = ws.cell(row=row, column=4)
+            website = cell_web.hyperlink.target if cell_web.hyperlink else cell_web.value
+            phone = ws.cell(row=row, column=5).value
+            owner = ws.cell(row=row, column=6).value
+            email = ws.cell(row=row, column=7).value
+            
+        # Filter out placeholder emails
+        email_str = str(email).strip()
+        ignore_domains = ['example.com', 'domain.com', 'yourcompany.co.uk', 'yourdomain.com', 'yourdomain', 'example']
+        is_placeholder = any(ig in email_str.lower() for ig in ignore_domains)
+        if is_placeholder or not email_str or email_str == "N/A" or email_str == "None" or "@" not in email_str:
+            continue
+
+        # Clean fake owners
+        owner_str = str(owner).strip()
+        fake_owners = [
+            "mario rossi", "giuseppe bianchi", "andrei popescu", "mihai ionescu", "john smith", "david davis", 
+            "google", "marketing", "google review", "of mt salons", "to collect all the inform", 
+            "colaborare bun", "to collect all the info"
+        ]
+        is_owner_fake = (
+            owner_str.lower() in fake_owners or 
+            owner_str.lower() == "none" or 
+            owner_str.lower() == "n/a" or 
+            len(owner_str) < 3 or 
+            any(w in owner_str.lower() for w in ["review", "salon", "collect", "review count"])
+        )
+        if is_owner_fake:
+            owner = "None"
+
+        # Deduce city and country dynamically
+        if is_outreach_file:
+            loc_val = str(address).lower()
+            if "milano" in loc_val or "italy" in loc_val:
+                city = "Milano"
+                country = "italy"
+            elif "bucuresti" in loc_val or "romania" in loc_val or "bucurești" in loc_val:
+                city = "București"
+                country = "romania"
+            elif "london" in loc_val or "uk" in loc_val:
+                city = "London"
+                country = "uk"
+            elif "new york" in loc_val or "usa" in loc_val:
+                city = "New York"
+                country = "usa"
+            else:
+                city = "Global"
+                country = "usa"
+        else:
+            if "torino" in file_name_lower:
+                city = "Torino"
+                country = "italy"
+            elif "milano" in file_name_lower:
+                city = "Milano"
+                country = "italy"
+            elif "bucuresti" in file_name_lower:
+                city = "București"
+                country = "romania"
+            elif "roma" in file_name_lower:
+                city = "Roma"
+                country = "italy"
+            elif "london" in file_name_lower:
+                city = "London"
+                country = "uk"
+            elif "new york" in file_name_lower:
+                city = "New York"
+                country = "usa"
+            elif "cluj" in file_name_lower:
+                city = "Cluj"
+                country = "romania"
+            elif "iasi" in file_name_lower:
+                city = "Iași"
+                country = "romania"
+            elif "timisoara" in file_name_lower:
+                city = "Timișoara"
+                country = "romania"
+            elif "manchester" in file_name_lower:
+                city = "Manchester"
+                country = "uk"
+            elif "miami" in file_name_lower:
+                city = "Miami"
+                country = "usa"
+            else:
+                city = "Global"
+                country = "usa"
         
         leads.append({
             "company_name": name,
@@ -569,6 +637,9 @@ def main():
     import glob
     leads = []
     excel_files = glob.glob(os.path.join(workspace_dir, "leads_*.xlsx"))
+    outreach_file = os.path.join(workspace_dir, "PROSPECTE_AGENTII_OUTREACH.xlsx")
+    if os.path.exists(outreach_file):
+        excel_files.append(outreach_file)
     for file_path in excel_files:
         filename = os.path.basename(file_path).lower()
         if "ecommerce" in filename:

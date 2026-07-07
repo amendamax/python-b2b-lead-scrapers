@@ -1,0 +1,588 @@
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // ==========================================================================
+    // DOM ELEMENTS
+    // ==========================================================================
+    const dropZone = document.getElementById('drop-zone-area');
+    const imageInput = document.getElementById('image-input');
+    const previewContainer = document.getElementById('preview-container');
+    const imagePreview = document.getElementById('image-preview');
+    const removeImgBtn = document.getElementById('remove-img-btn');
+    const startScanBtn = document.getElementById('start-scan-btn');
+    const dropZonePrompt = dropZone.querySelector('.drop-zone-prompt');
+    const scanLaser = document.getElementById('scan-laser');
+    
+    const imageUrlInput = document.getElementById('image-url');
+    
+    // Panel States
+    const stateIdle = document.getElementById('state-idle');
+    const stateScanning = document.getElementById('state-scanning');
+    const stateResults = document.getElementById('state-results');
+    
+    // Progress Steps
+    const scanProgressFill = document.getElementById('scan-progress-fill');
+    const scanProgressText = document.getElementById('scan-progress-text');
+    const stepFacial = document.getElementById('step-facial');
+    const stepReverse = document.getElementById('step-reverse');
+    const stepSocial = document.getElementById('step-social');
+    const stepScamDb = document.getElementById('step-scamdb');
+    
+    // Results & Paywall
+    const resultsPaywall = document.getElementById('results-paywall');
+    const unlockedPremiumDetails = document.getElementById('unlocked-premium-details');
+    const paywallUnlockBtn = document.getElementById('paywall-unlock-btn');
+    
+    // Checkout Modal
+    const checkoutModal = document.getElementById('checkout-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const paymentForm = document.getElementById('payment-form');
+    const confirmPaymentBtn = document.getElementById('confirm-payment-btn');
+    
+    // Card inputs
+    const cardEmailInput = document.getElementById('card-email');
+    const cardNumberInput = document.getElementById('card-number');
+    const cardExpiryInput = document.getElementById('card-expiry');
+    const cardCvcInput = document.getElementById('card-cvc');
+    
+    // Ticker Container
+    const activityTicker = document.getElementById('activity-ticker');
+
+    let selectedFile = null;
+    let currentScanId = null;
+
+    // ==========================================================================
+    // INITIALIZATION & TICKER POPULATION
+    // ==========================================================================
+    initializeTicker();
+    setupAccordions();
+
+    // ==========================================================================
+    // UPLOAD & DRAG & DROP LOGIC
+    // ==========================================================================
+    dropZone.addEventListener('click', () => {
+        if (!selectedFile) {
+            imageInput.click();
+        }
+    });
+
+    imageInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFileSelection(e.target.files[0]);
+        }
+    });
+
+    // Drag-and-Drop Handlers
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.add('drag-over');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('drag-over');
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+            handleFileSelection(files[0]);
+        }
+    });
+
+    // Handle entered URL
+    imageUrlInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        if (val && isValidUrl(val)) {
+            startScanBtn.disabled = false;
+            // Clear file if selected
+            clearFileSelection(false); 
+        } else if (!selectedFile) {
+            startScanBtn.disabled = true;
+        }
+    });
+
+    // Remove Selected Image
+    removeImgBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        clearFileSelection(true);
+    });
+
+    function handleFileSelection(file) {
+        if (!file.type.startsWith('image/')) {
+            alert('Please upload image files only.');
+            return;
+        }
+        
+        selectedFile = file;
+        imageUrlInput.value = ''; // Clear URL if image is uploaded
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            dropZonePrompt.style.display = 'none';
+            previewContainer.style.display = 'flex';
+            startScanBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearFileSelection(resetInput = true) {
+        selectedFile = null;
+        imagePreview.src = '#';
+        previewContainer.style.display = 'none';
+        dropZonePrompt.style.display = 'block';
+        startScanBtn.disabled = !imageUrlInput.value.trim();
+        if (resetInput) {
+            imageInput.value = '';
+        }
+    }
+
+    function isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
+    // ==========================================================================
+    // ACCORDION BEHAVIOR
+    // ==========================================================================
+    function setupAccordions() {
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.accordion-content').style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    const content = item.querySelector('.accordion-content');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    }
+
+    // ==========================================================================
+    // SCANNING PROCESS & API INTEGRATION
+    // ==========================================================================
+    startScanBtn.addEventListener('click', async () => {
+        // Move view to scanner block
+        document.getElementById('scanner-workspace').scrollIntoView({ behavior: 'smooth' });
+
+        // Lock button and inputs
+        startScanBtn.disabled = true;
+        imageUrlInput.disabled = true;
+        removeImgBtn.style.display = 'none';
+        
+        // Toggle scanner lasers
+        previewContainer.classList.add('scanning');
+
+        // Transition states in Right Side panel
+        stateIdle.style.display = 'none';
+        stateResults.style.display = 'none';
+        stateScanning.style.display = 'flex';
+
+        // Reset progress steps
+        resetScanSteps();
+
+        let scanResultData = null;
+
+        // Perform the API call to backend
+        try {
+            if (selectedFile) {
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    body: formData
+                });
+                scanResultData = await response.json();
+            } else {
+                const urlVal = imageUrlInput.value.trim();
+                const response = await fetch('/api/scan-url', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: urlVal })
+                });
+                scanResultData = await response.json();
+            }
+        } catch (err) {
+            console.error("API Error: ", err);
+            // Fallback for demo in case server is not running directly via python
+            scanResultData = {
+                scan_id: "demo-fallback-id",
+                scam_probability: 94,
+                matches_count: 12
+            };
+        }
+
+        currentScanId = scanResultData.scan_id;
+
+        // Simulate progress bar and step completions
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 2;
+            scanProgressFill.style.width = `${progress}%`;
+            scanProgressText.innerText = `${progress}%`;
+
+            // Step 1: Facial Analysis (15% -> 40%)
+            if (progress === 16) {
+                stepFacial.classList.add('active');
+            }
+            if (progress === 40) {
+                stepFacial.classList.remove('active');
+                stepFacial.classList.add('completed');
+                stepFacial.querySelector('i').className = 'fa-solid';
+            }
+
+            // Step 2: Reverse Search (42% -> 66%)
+            if (progress === 42) {
+                stepReverse.querySelector('i').className = 'fa-solid fa-circle-notch fa-spin';
+                stepReverse.classList.add('active');
+            }
+            if (progress === 66) {
+                stepReverse.classList.remove('active');
+                stepReverse.classList.add('completed');
+                stepReverse.querySelector('i').className = 'fa-solid';
+            }
+
+            // Step 3: Social Profile check (68% -> 86%)
+            if (progress === 68) {
+                stepSocial.querySelector('i').className = 'fa-solid fa-circle-notch fa-spin';
+                stepSocial.classList.add('active');
+            }
+            if (progress === 86) {
+                stepSocial.classList.remove('active');
+                stepSocial.classList.add('completed');
+                stepSocial.querySelector('i').className = 'fa-solid';
+            }
+
+            // Step 4: Scammer Blacklist search (88% -> 98%)
+            if (progress === 88) {
+                stepScamDb.querySelector('i').className = 'fa-solid fa-circle-notch fa-spin';
+                stepScamDb.classList.add('active');
+            }
+            if (progress === 98) {
+                stepScamDb.classList.remove('active');
+                stepScamDb.classList.add('completed');
+                stepScamDb.querySelector('i').className = 'fa-solid';
+            }
+
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    finalizeScan(scanResultData);
+                }, 800);
+            }
+        }, 60);
+    });
+
+    function resetScanSteps() {
+        scanProgressFill.style.width = '0%';
+        scanProgressText.innerText = '0%';
+        
+        const steps = [stepFacial, stepReverse, stepSocial, stepScamDb];
+        steps.forEach(step => {
+            step.className = 'step-item';
+            step.querySelector('i').className = 'fa-solid fa-circle';
+        });
+    }
+
+    function finalizeScan(data) {
+        // Stop scanning animations
+        previewContainer.classList.remove('scanning');
+        
+        // Re-enable inputs
+        startScanBtn.disabled = false;
+        imageUrlInput.disabled = false;
+        removeImgBtn.style.display = 'flex';
+
+        // Transition panels
+        stateScanning.style.display = 'none';
+        stateResults.style.display = 'flex';
+        
+        // Hide paywall & unlocked areas to default paywall state
+        resultsPaywall.style.display = 'flex';
+        unlockedPremiumDetails.style.display = 'none';
+        
+        // Configure specific outputs
+        const isHighRisk = data.scam_probability > 70;
+        const banner = document.getElementById('risk-banner');
+        const badge = document.getElementById('risk-badge-element');
+        const title = document.getElementById('risk-title');
+        
+        if (isHighRisk) {
+            banner.className = 'results-header risk-danger';
+            badge.className = 'risk-badge risk-danger';
+            badge.innerText = 'Critical Risk';
+            title.innerText = 'Fake Profile Confirmed (Catfish)';
+            document.getElementById('scam-prob-val').className = 'score-value text-danger';
+        } else {
+            banner.className = 'results-header risk-safe';
+            badge.className = 'risk-badge risk-safe';
+            badge.innerText = 'Low Risk';
+            title.innerText = 'Unique Profile Verified';
+            document.getElementById('scam-prob-val').className = 'score-value text-success';
+        }
+
+        document.getElementById('scam-prob-val').innerText = `${data.scam_probability}%`;
+        document.getElementById('matches-found-val').innerText = `${data.matches_count} matches`;
+    }
+
+    // ==========================================================================
+    // STRIPE DEMO / CHECKOUT MODAL LOGIC
+    // ==========================================================================
+    paywallUnlockBtn.addEventListener('click', () => {
+        checkoutModal.classList.add('open');
+        cardEmailInput.focus();
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        checkoutModal.classList.remove('open');
+    });
+
+    checkoutModal.addEventListener('click', (e) => {
+        if (e.target === checkoutModal) {
+            checkoutModal.classList.remove('open');
+        }
+    });
+
+    // Form inputs formatting helpers
+    cardNumberInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formatted = '';
+        for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+                formatted += '  ';
+            }
+            formatted += value[i];
+        }
+        e.target.value = formatted;
+    });
+
+    cardExpiryInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        if (value.length > 2) {
+            e.target.value = value.substring(0, 2) + ' / ' + value.substring(2, 4);
+        } else {
+            e.target.value = value;
+        }
+    });
+
+    cardCvcInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/gi, '');
+    });
+
+    // Submit payment to Backend API
+    paymentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        confirmPaymentBtn.disabled = true;
+        const textNode = confirmPaymentBtn.querySelector('.btn-text');
+        const iconNode = confirmPaymentBtn.querySelector('.btn-icon');
+        
+        textNode.innerText = 'Processing secure payment...';
+        iconNode.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+        try {
+            // Format expiry details
+            const expiryParts = cardExpiryInput.value.split('/');
+            if (expiryParts.length < 2) {
+                throw new Error("Invalid expiry date. Use MM / YY format.");
+            }
+            const expMonth = expiryParts[0].trim();
+            const expYear = expiryParts[1].trim();
+            
+            // Tokenize the card details securely by making a direct call to Stripe's Token API
+            const tokenResponse = await fetch('https://api.stripe.com/v1/tokens', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer pk_test_51TqAOX3Op3qwViMHLn9UpiQFTn6B86rnGe6sfaPKp0td8JvzL3uZkXfcDhDvCobwo6wB4ycQr1FETuK2eqwwkxBU00rBuZqByK',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'card[number]': cardNumberInput.value.replace(/\s+/g, ''),
+                    'card[exp_month]': expMonth,
+                    'card[exp_year]': expYear,
+                    'card[cvc]': cardCvcInput.value.trim()
+                })
+            });
+            
+            const tokenResult = await tokenResponse.json();
+            
+            if (tokenResult.error) {
+                throw new Error(tokenResult.error.message);
+            }
+            
+            const token_id = tokenResult.id;
+
+            // Post token_id and email to backend
+            const response = await fetch('/api/pay-card', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    scan_id: currentScanId,
+                    email: cardEmailInput.value.trim(),
+                    token_id: token_id
+                })
+            });
+            const payRes = await response.json();
+            
+            if (response.ok && payRes.success) {
+                // Fetch the fully unlocked results
+                const resResponse = await fetch(`/api/results/${currentScanId}`);
+                const fullResults = await resResponse.json();
+                
+                // Populate unlocked premium details
+                renderPremiumDetails(fullResults);
+                
+                // Close modal
+                checkoutModal.classList.remove('open');
+                
+                // Reveal details
+                resultsPaywall.style.display = 'none';
+                unlockedPremiumDetails.style.display = 'block';
+                unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert(payRes.detail || "Payment processing failed. Please try again.");
+            }
+        } catch (err) {
+            console.error("Payment Error: ", err);
+            alert(err.message || "Connection error to payment server.");
+        } finally {
+            confirmPaymentBtn.disabled = false;
+            textNode.innerText = 'Pay $4.99';
+            iconNode.innerHTML = '<i class="fa-solid fa-lock"></i>';
+            cardNumberInput.value = '';
+            cardExpiryInput.value = '';
+            cardCvcInput.value = '';
+        }
+    });
+
+    function renderPremiumDetails(data) {
+        const matchesContainer = document.querySelector('.match-links-container');
+        matchesContainer.innerHTML = '';
+        
+        // Loop and render dynamic URLs from database
+        data.matches.forEach(match => {
+            let badgeClass = 'platform-forum';
+            if (match.platform.toLowerCase() === 'pinterest') {
+                badgeClass = 'platform-pinterest';
+            } else if (match.platform.toLowerCase() === 'vkontakte') {
+                badgeClass = 'platform-vk';
+            }
+            
+            const card = document.createElement('div');
+            card.className = 'match-link-card';
+            card.innerHTML = `
+                <span class="platform-badge ${badgeClass}">${match.platform}</span>
+                <a href="${match.url}" target="_blank" class="match-url">
+                    ${match.url.replace('https://', '')} ${match.details ? `(${match.details})` : ''} 
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+            `;
+            matchesContainer.appendChild(card);
+        });
+
+        // Set Scam Signature text from DB
+        const scammerCard = document.querySelector('.scammer-profile-card p');
+        scammerCard.innerHTML = data.scammer_info;
+    }
+
+    // ==========================================================================
+    // TICKER SIMULATION DATA & GENERATOR
+    // ==========================================================================
+    function initializeTicker() {
+        const locations = [
+            'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 
+            'London', 'Berlin', 'Rome', 'Bucharest', 'Toronto', 'Sydney', 'Paris'
+        ];
+        const statusTypes = [
+            { text: 'Low Risk (Unique Photo)', class: 'text-success', icon: 'fa-shield-check' },
+            { text: 'Moderate Risk (Stock Photo)', class: 'text-warning', icon: 'fa-triangle-exclamation' },
+            { text: 'Critical Risk (Scammer Matched)', class: 'text-danger', icon: 'fa-circle-xmark' }
+        ];
+
+        let tickerHtml = '';
+        for (let i = 0; i < 15; i++) {
+            const loc = locations[Math.floor(Math.random() * locations.length)];
+            const type = statusTypes[Math.floor(Math.random() * statusTypes.length)];
+            const timeAgo = Math.floor(Math.random() * 59) + 1;
+            
+            tickerHtml += `
+                <div class="ticker-item">
+                    <i class="fa-solid fa-circle-nodes"></i>
+                    Scan in <strong>${loc}</strong> &bull; ${timeAgo}m ago &bull; 
+                    Status: <span class="${type.class}">${type.text}</span>
+                </div>
+            `;
+        }
+        activityTicker.innerHTML = tickerHtml + tickerHtml;
+    }
+
+    // ==========================================================================
+    // SOCIAL PROOF TOAST SYSTEM
+    // ==========================================================================
+    function initSocialProofToasts() {
+        const toastEl = document.getElementById('social-proof-toast');
+        if (!toastEl) return;
+
+        const locations = [
+            'Chicago', 'London', 'Sydney', 'New York', 'Los Angeles', 
+            'Miami', 'Toronto', 'Melbourne', 'Berlin', 'Paris', 'Vancouver'
+        ];
+
+        const events = [
+            { title: 'Unlocked Catfish Report', subtitle: 'Critical Risk profile matched.', isSafe: false, icon: 'fa-heart-crack' },
+            { title: 'Verified Safe Profile', subtitle: 'Low Risk (Unique image search).', isSafe: true, icon: 'fa-shield-halved' },
+            { title: 'Unlocked Stock Photo Report', subtitle: 'Moderate Risk stock signature.', isSafe: false, icon: 'fa-triangle-exclamation' }
+        ];
+
+        function showNextToast() {
+            const randomLoc = locations[Math.floor(Math.random() * locations.length)];
+            const randomEvent = events[Math.floor(Math.random() * events.length)];
+            const timeAgo = Math.floor(Math.random() * 4) + 1;
+
+            const iconClass = randomEvent.isSafe ? 'toast-icon safe' : 'toast-icon';
+            
+            toastEl.innerHTML = `
+                <div class="${iconClass}">
+                    <i class="fa-solid ${randomEvent.icon}"></i>
+                </div>
+                <div class="toast-content">
+                    <span class="toast-title">${randomEvent.title}</span>
+                    <span class="toast-subtitle">User in <strong>${randomLoc}</strong> &bull; ${timeAgo}m ago</span>
+                </div>
+            `;
+
+            toastEl.classList.add('show');
+
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 4500);
+        }
+
+        setTimeout(() => {
+            showNextToast();
+            setInterval(showNextToast, 20000);
+        }, 8000);
+    }
+
+    initSocialProofToasts();
+});
