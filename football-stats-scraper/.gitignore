@@ -1,0 +1,17 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Output files
+output/*.csv
+output/*.xlsx
+output/*.json
+
+# IDE
+.vscode/
+.idea/
+
+# Virtual environment
+venv/
+.env
