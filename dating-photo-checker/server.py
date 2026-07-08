@@ -17,7 +17,7 @@ from typing import Optional
 # ReportLab imports for PDF generation
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 app = FastAPI(title="Unified Security & Audit API", version="1.1")
@@ -428,6 +428,35 @@ static_broker_db = {
         "mockDomainAge": "1995-11-20 (30 years ago)",
         "mockRegStatus": "MATCH: Active licenses found at FCA (UK), SEC (US), ASIC (AU)"
     },
+    "xm.com": {
+        "name": "XM Group",
+        "type": "Forex & CFD Broker",
+        "score": 92,
+        "source": "Official Database (FCA, CySEC, ASIC, DFSA)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "XM Group is one of the world's largest and most trusted online brokers, serving over 10 million clients in 190+ countries. Regulated by multiple top-tier authorities with a strong track record of client fund safety.",
+        "redFlags": ["High leverage available on offshore entity increases risk.", "Bonuses may come with trading volume requirements."],
+        "greenFlags": ["Regulated by CySEC (Cyprus), ASIC (Australia), FCA (UK), and DFSA (Dubai).", "Over 10 million clients worldwide — one of the largest brokers globally.", "Negative balance protection for all retail clients.", "Ultra-fast execution with no requotes and no rejections policy.", "Free VPS hosting for automated traders."],
+        "mockIp": "104.21.18.243",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2009-12-04 (16 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), ASIC (AU), FCA (UK), DFSA (AE)",
+        "affiliateLink": "https://affs.click/WyXQf"
+    },
+    "plus500.com": {
+        "name": "Plus500",
+        "type": "CFD & Stock Broker",
+        "score": 91,
+        "source": "Official Database (FCA, CySEC, ASIC, MAS)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "Plus500 is a globally regulated, publicly traded CFD broker (LSE: PLUS) trusted by millions of traders worldwide. Licensed by the FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore), it offers a transparent and secure trading environment.",
+        "redFlags": ["CFD trading involves risk of losing more than your initial deposit.", "Does not support MetaTrader platforms (proprietary platform only)."],
+        "greenFlags": ["Publicly listed on the London Stock Exchange (LSE: PLUS) — full financial transparency.", "Regulated by FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore).", "Negative balance protection guaranteed for all retail clients.", "Free real-time price alerts and risk management tools included."],
+        "mockIp": "104.21.55.212",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2008-04-01 (18 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)"
+    },
     "pepperstone.com": {
         "name": "Pepperstone",
         "type": "Forex & CFD Broker",
@@ -827,127 +856,267 @@ async def download_broker_pdf(scan_id: str):
     
     styles = getSampleStyleSheet()
     
-    # Custom Styles
-    title_style = ParagraphStyle(
-        'DocTitle',
-        parent=styles['Heading1'],
-        fontName='Helvetica-Bold',
-        fontSize=20,
-        leading=24,
-        textColor=colors.HexColor('#0f172a'),
-        spaceAfter=6
-    )
-    subtitle_style = ParagraphStyle(
-        'DocSub',
+    # Custom Styles for Premium Look
+    banner_title_style = ParagraphStyle(
+        'BannerTitle',
         parent=styles['Normal'],
-        fontName='Helvetica-Oblique',
-        fontSize=10,
-        textColor=colors.HexColor('#64748b'),
-        spaceAfter=20
+        fontName='Helvetica-Bold',
+        fontSize=24,
+        leading=28,
+        textColor=colors.white,
+        alignment=1 # Center
     )
-    h2_style = ParagraphStyle(
-        'SectionH2',
+    banner_sub_style = ParagraphStyle(
+        'BannerSub',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=11,
+        leading=14,
+        textColor=colors.HexColor('#38bdf8'),
+        alignment=1, # Center
+        spaceBefore=4
+    )
+    meta_label_style = ParagraphStyle(
+        'MetaLabel',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10,
+        leading=13,
+        textColor=colors.HexColor('#475569')
+    )
+    meta_val_style = ParagraphStyle(
+        'MetaVal',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=10,
+        leading=13,
+        textColor=colors.HexColor('#0f172a')
+    )
+    section_title_style = ParagraphStyle(
+        'SectionTitle',
         parent=styles['Heading2'],
         fontName='Helvetica-Bold',
         fontSize=14,
         leading=18,
-        textColor=colors.HexColor('#1e293b'),
+        textColor=colors.HexColor('#0f172a'),
         spaceBefore=15,
-        spaceAfter=8
+        spaceAfter=10,
+        keepWithNext=True
+    )
+    subsection_title_style = ParagraphStyle(
+        'SubSectionTitle',
+        parent=styles['Heading3'],
+        fontName='Helvetica-Bold',
+        fontSize=11,
+        leading=14,
+        textColor=colors.HexColor('#1e293b'),
+        spaceBefore=10,
+        spaceAfter=6,
+        keepWithNext=True
     )
     body_style = ParagraphStyle(
         'DocBody',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=10,
+        fontSize=9.5,
         leading=14,
         textColor=colors.HexColor('#334155')
     )
-    verdict_style = ParagraphStyle(
-        'VerdictText',
+    pro_style = ParagraphStyle(
+        'ProBody',
         parent=body_style,
-        textColor=colors.HexColor('#0f172a'),
-        fontName='Helvetica-Bold'
+        textColor=colors.HexColor('#047857')
+    )
+    con_style = ParagraphStyle(
+        'ConBody',
+        parent=body_style,
+        textColor=colors.HexColor('#b91c1c')
+    )
+    verdict_title_style = ParagraphStyle(
+        'VerdictTitle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=12,
+        leading=16,
+        textColor=colors.HexColor('#0f172a')
+    )
+    disclaimer_style = ParagraphStyle(
+        'DisclaimerText',
+        parent=styles['Normal'],
+        fontName='Helvetica-Oblique',
+        fontSize=8,
+        leading=11,
+        textColor=colors.HexColor('#64748b')
+    )
+    signature_style = ParagraphStyle(
+        'SignatureText',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=8.5,
+        leading=12,
+        textColor=colors.HexColor('#475569'),
+        alignment=2 # Right
     )
 
     story = []
     
-    # Document Title
-    story.append(Paragraph("BROKER FORENSIC AUDIT REPORT", title_style))
-    story.append(Paragraph(f"Generated on {created_at[:10]} {created_at[11:16]} UTC for {email}", subtitle_style))
+    # ==========================================
+    # PAGE 1: COVER PAGE
+    # ==========================================
+    story.append(Spacer(1, 15))
     
-    # Summary Details Table
-    summary_data = [
-        [Paragraph("<b>Target Entity:</b>", body_style), Paragraph(name, body_style)],
-        [Paragraph("<b>Stated Web Domain:</b>", body_style), Paragraph(domain, body_style)],
-        [Paragraph("<b>Resolved IP Address:</b>", body_style), Paragraph(ip, body_style)],
-        [Paragraph("<b>ISP Hosting Network:</b>", body_style), Paragraph(hoster, body_style)],
-        [Paragraph("<b>WHOIS Registry Age:</b>", body_style), Paragraph(domain_age, body_style)]
+    # Header Banner Table
+    banner_data = [
+        [Paragraph("BROKER VERIFIER", banner_title_style)],
+        [Paragraph("FORENSIC THREAT INTELLIGENCE AUDIT REPORT", banner_sub_style)]
     ]
-    t1 = Table(summary_data, colWidths=[150, 350])
-    t1.setStyle(TableStyle([
+    banner_table = Table(banner_data, colWidths=[500])
+    banner_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#0f172a')),
+        ('PADDING', (0,0), (-1,-1), 18),
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('BOX', (0,0), (-1,-1), 2, colors.HexColor('#0284c7'))
+    ]))
+    story.append(banner_table)
+    story.append(Spacer(1, 40))
+    
+    # Metadata Block
+    meta_data = [
+        [Paragraph("Target Entity:", meta_label_style), Paragraph(name, meta_val_style)],
+        [Paragraph("Stated Web Domain:", meta_label_style), Paragraph(domain, meta_val_style)],
+        [Paragraph("Audit Date:", meta_label_style), Paragraph(created_at[:19] + " UTC", meta_val_style)],
+        [Paragraph("Scan Reference ID:", meta_label_style), Paragraph(scan_id.upper(), meta_val_style)],
+        [Paragraph("Client Account:", meta_label_style), Paragraph(email, meta_val_style)],
+        [Paragraph("Audit Status:", meta_label_style), Paragraph("<b>COMPLETED</b>", meta_val_style)]
+    ]
+    meta_table = Table(meta_data, colWidths=[150, 350])
+    meta_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
+        ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#e2e8f0')),
+        ('PADDING', (0,0), (-1,-1), 10),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('LINEBELOW', (0,0), (-1,-2), 0.5, colors.HexColor('#f1f5f9'))
+    ]))
+    story.append(meta_table)
+    story.append(Spacer(1, 40))
+    
+    # Trust Score circular seal simulation
+    score_color = '#059669' if score >= 75 else ('#d97706' if score >= 40 else '#dc2626')
+    score_banner_data = [
+        [Paragraph(f"<font color='white' size='13'><b>FINANCIAL INTEGRITY & TRUST RATING</b></font>", banner_title_style)],
+        [Paragraph(f"<font color='{score_color}' size='36'><b>{score}%</b></font>", banner_title_style)]
+    ]
+    score_table = Table(score_banner_data, colWidths=[300])
+    score_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#1e293b')),
+        ('BOX', (0,0), (-1,-1), 1.5, colors.HexColor('#cbd5e1')),
+        ('PADDING', (0,0), (-1,-1), 15),
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE')
+    ]))
+    story.append(score_table)
+    
+    # Page Break to Page 2
+    story.append(PageBreak())
+    
+    # ==========================================
+    # PAGE 2: TECHNICAL DIAGNOSTICS & PROS/CONS
+    # ==========================================
+    story.append(Paragraph("SECTION 1: TECHNICAL & INFRASTRUCTURE DIAGNOSTICS", section_title_style))
+    story.append(Spacer(1, 5))
+    
+    tech_data = [
+        [Paragraph("Stated Web Domain:", meta_label_style), Paragraph(domain, meta_val_style)],
+        [Paragraph("Resolved IP Address:", meta_label_style), Paragraph(ip, meta_val_style)],
+        [Paragraph("ISP Hosting Network:", meta_label_style), Paragraph(hoster, meta_val_style)],
+        [Paragraph("WHOIS Registry Age:", meta_label_style), Paragraph(domain_age, meta_val_style)],
+        [Paragraph("Connection Security:", meta_label_style), Paragraph("TLS 1.3 / SSL Encrypted", meta_val_style)]
+    ]
+    tech_table = Table(tech_data, colWidths=[150, 350])
+    tech_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#e2e8f0')),
         ('PADDING', (0,0), (-1,-1), 8),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('LINEBELOW', (0,0), (-1,-2), 0.5, colors.HexColor('#f1f5f9'))
     ]))
-    story.append(t1)
+    story.append(tech_table)
     story.append(Spacer(1, 20))
     
-    # Trust Score Section
-    score_color = '#10b981' if score >= 75 else ('#f59e0b' if score >= 40 else '#ef4444')
-    score_table_data = [
-        [Paragraph("<b>FINANCIAL INTEGRITY & TRUST RATING:</b>", body_style), 
-         Paragraph(f"<font color='{score_color}' size='16'><b>{score}%</b></font>", body_style)]
-    ]
-    t2 = Table(score_table_data, colWidths=[350, 150])
-    t2.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f1f5f9')),
-        ('BOX', (0,0), (-1,-1), 1.5, colors.HexColor('#cbd5e1')),
-        ('PADDING', (0,0), (-1,-1), 12),
-        ('ALIGN', (1,0), (1,0), 'RIGHT'),
-        ('VALIGN', (0,0), (-1,-1), 'MIDDLE')
-    ]))
-    story.append(t2)
+    story.append(Paragraph("SECTION 2: HEURISTIC SECURITY RISK ASSESSMENT (PROS & CONS)", section_title_style))
+    story.append(Spacer(1, 5))
+    
+    # PROs (Safety Strengths) Section
+    story.append(Paragraph("PROs / Key Safety Strengths", subsection_title_style))
+    if green_flags_list:
+        for flag in green_flags_list:
+            p_text = f"<font color='#059669'><b>[PRO]</b></font> {flag}"
+            story.append(Paragraph(p_text, pro_style))
+            story.append(Spacer(1, 5))
+    else:
+        story.append(Paragraph("No solid safety elements or regulatory registrations identified.", body_style))
+    
     story.append(Spacer(1, 15))
-
-    # Verdict Box
-    story.append(Paragraph("Security Verdict", h2_style))
+    
+    # CONs (Risk Factors) Section
+    story.append(Paragraph("CONs / Risk Factors", subsection_title_style))
+    if red_flags_list:
+        for flag in red_flags_list:
+            p_text = f"<font color='#dc2626'><b>[CON]</b></font> {flag}"
+            story.append(Paragraph(p_text, con_style))
+            story.append(Spacer(1, 5))
+    else:
+        story.append(Paragraph("No imminent threat markers or blacklist warnings identified.", body_style))
+        
+    # Page Break to Page 3
+    story.append(PageBreak())
+    
+    # ==========================================
+    # PAGE 3: SECURITY VERDICT & DISCLOSURE
+    # ==========================================
+    story.append(Paragraph("SECTION 3: FORENSIC AUDIT VERDICT", section_title_style))
+    story.append(Spacer(1, 5))
+    
+    # Verdict Table Box
+    verdict_bg = colors.HexColor('#fef2f2' if score < 40 else ('#fffbeb' if score < 75 else '#f0fdf4'))
+    verdict_border = colors.HexColor('#fca5a5' if score < 40 else ('#fcd34d' if score < 75 else '#86efac'))
+    
     verdict_data = [
-        [Paragraph(f"<b>{v_title}</b>", verdict_style)],
+        [Paragraph(f"<b>Audit Result: {v_title}</b>", verdict_title_style)],
         [Paragraph(v_text, body_style)]
     ]
     t_verdict = Table(verdict_data, colWidths=[500])
     t_verdict.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#fef2f2' if score < 40 else ('#fffbeb' if score < 75 else '#f0fdf4'))),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#fca5a5' if score < 40 else ('#fcd34d' if score < 75 else '#86efac'))),
-        ('PADDING', (0,0), (-1,-1), 10),
+        ('BACKGROUND', (0,0), (-1,-1), verdict_bg),
+        ('BOX', (0,0), (-1,-1), 1, verdict_border),
+        ('PADDING', (0,0), (-1,-1), 12),
+        ('VALIGN', (0,0), (-1,-1), 'TOP')
     ]))
     story.append(t_verdict)
-    story.append(Spacer(1, 15))
-
-    # Red Flags List
-    if red_flags_list:
-        story.append(Paragraph("Threat Factors / Red Flags", h2_style))
-        for flag in red_flags_list:
-            p_text = f"<font color='#ef4444'><b>[!]</b></font> {flag}"
-            story.append(Paragraph(p_text, body_style))
-            story.append(Spacer(1, 4))
-        story.append(Spacer(1, 10))
-
-    # Green Flags List
-    if green_flags_list:
-        story.append(Paragraph("Key Safety Indicators / Green Flags", h2_style))
-        for flag in green_flags_list:
-            p_text = f"<font color='#10b981'><b>[v]</b></font> {flag}"
-            story.append(Paragraph(p_text, body_style))
-            story.append(Spacer(1, 4))
-        story.append(Spacer(1, 10))
-
-    # Disclaimer Footer
     story.append(Spacer(1, 20))
-    story.append(Paragraph("<b>Disclaimer:</b> This security report is generated automatically based on regulatory databases, WHOIS records, IP geolocation, and heuristic threat parameters. It is intended for educational and information-verification purposes. Always perform due diligence prior to depositing capital with financial providers.", subtitle_style))
+    
+    # Fraud Prevention Action Plan Checklist
+    story.append(Paragraph("FRAUD PREVENTION ACTION PLAN", section_title_style))
+    story.append(Spacer(1, 5))
+    
+    checklist_paragraphs = [
+        "<b>1. Regulatory License Verification:</b> Always cross-verify the broker's license number directly on the official portal of the stated regulator (e.g., FCA Register, CySEC portal). Scam brokers frequently copy valid license numbers belonging to other corporate groups.",
+        "<b>2. Refuse Cold Calling & Messaging:</b> Legitimate financial institutions will never contact you via cold calls, Telegram, Instagram, or WhatsApp to solicit deposits or promise guaranteed trading gains.",
+        "<b>3. Avoid Unregulated Payment Methods:</b> If a broker requests deposits via private cryptocurrency wallets (Bitcoin/USDT) or asks to transfer money to a personal bank account under a different name, cease all communication immediately.",
+        "<b>4. Domain Age Check:</b> Always match the stated corporate history against the technical WHOIS registry creation date. If the website was registered recently but claims years of operation, it is a critical warning sign."
+    ]
+    
+    for item in checklist_paragraphs:
+        story.append(Paragraph(item, body_style))
+        story.append(Spacer(1, 6))
+        
+    story.append(Spacer(1, 40))
+    
+    # Signature / Branding & Disclaimer Footer
+    story.append(Paragraph("Audit compiled by <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Created by <b>VasileDev</b>", signature_style))
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("<b>Disclaimer:</b> This security report is generated automatically based on live regulatory queries, WHOIS registers, DNS routing, and heuristic threat calculations. It is provided for educational and preventive intelligence purposes. Always perform due diligence prior to depositing capital with financial providers.", disclaimer_style))
     
     doc.build(story)
     

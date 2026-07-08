@@ -15,25 +15,37 @@ const brokerDatabase = [
 const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:8000" : "";
 
 // Stripe Initialization using the live publishable key from romance scam detector config
-const stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
-const stripeElements = stripe.elements();
-const cardElement = stripeElements.create('card', {
-    style: {
-        base: {
-            color: '#ffffff',
-            fontFamily: '"Outfit", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '15px',
-            '::placeholder': {
-                color: '#64748b'
+let stripe = null;
+let stripeElements = null;
+let cardElement = null;
+
+try {
+    if (typeof Stripe !== 'undefined') {
+        stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
+        stripeElements = stripe.elements();
+        cardElement = stripeElements.create('card', {
+            style: {
+                base: {
+                    color: '#ffffff',
+                    fontFamily: '"Outfit", sans-serif',
+                    fontSmoothing: 'antialiased',
+                    fontSize: '15px',
+                    '::placeholder': {
+                        color: '#64748b'
+                    }
+                },
+                invalid: {
+                    color: '#ef4444',
+                    iconColor: '#ef4444'
+                }
             }
-        },
-        invalid: {
-            color: '#ef4444',
-            iconColor: '#ef4444'
-        }
+        });
+    } else {
+        console.warn("Stripe SDK is not loaded. Card payments disabled.");
     }
-});
+} catch (e) {
+    console.error("Stripe initialization failed:", e);
+}
 
 // UI Elements
 const searchInput = document.getElementById("broker-search");
@@ -109,6 +121,22 @@ searchInput.addEventListener("input", function() {
     });
 
     suggestionsBox.style.display = "block";
+});
+
+// Execute search when pressing Enter in the search input
+searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        const val = this.value.trim();
+        if (val) {
+            suggestionsBox.style.display = "none";
+            // Guess a domain if the user didn't enter one (e.g. "plus500" -> "plus500.com")
+            let domain = val.toLowerCase();
+            if (!domain.includes(".")) {
+                domain = domain + ".com";
+            }
+            executeScan(val, domain);
+        }
+    }
 });
 
 // Close suggestions dropdown when clicking outside
@@ -330,12 +358,19 @@ async function fetchResults(scanId) {
 // Open checkout modal when clicking paywall unlock button
 paywallUnlockBtn.addEventListener("click", () => {
     cardErrors.textContent = "";
-    checkoutModal.style.display = "flex";
+    checkoutModal.classList.add("active");
 });
 
 // Close checkout modal
 closeCheckoutBtn.addEventListener("click", () => {
-    checkoutModal.style.display = "none";
+    checkoutModal.classList.remove("active");
+});
+
+// Click outside checkout modal closes it
+checkoutModal.addEventListener("click", (e) => {
+    if (e.target === checkoutModal) {
+        checkoutModal.classList.remove("active");
+    }
 });
 
 // Submit Stripe Payment Form
@@ -390,7 +425,7 @@ async function sendPaymentToken(scanId, email, tokenId) {
         }
 
         // Close modal, clear payment inputs, reload dashboard
-        checkoutModal.style.display = "none";
+        checkoutModal.classList.remove("active");
         cardElement.clear();
         document.getElementById("card-email").value = "";
         
@@ -559,7 +594,9 @@ function completeWizardAndAnalyze() {
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     // Mount Stripe Card Element
-    cardElement.mount('#card-element');
+    if (cardElement) {
+        cardElement.mount('#card-element');
+    }
 
     // Load default broker (Pepperstone) on startup with API integration
     executeScan("Pepperstone", "pepperstone.com");

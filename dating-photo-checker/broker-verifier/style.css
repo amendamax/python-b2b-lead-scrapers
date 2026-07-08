@@ -782,3 +782,208 @@ h1, h2, h3, h4 {
     margin-left: 0.4rem;
 }
 
+/* Footer Styles */
+.app-footer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 30px 15px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13.5px;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.footer-copyright {
+    margin: 0;
+}
+.footer-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+.contact-title {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+.contact-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition-smooth);
+}
+.contact-link i {
+    font-size: 15px;
+}
+.contact-link:hover {
+    color: white;
+    background: rgba(56, 189, 248, 0.08);
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    transform: translateY(-2px);
+}
+.contact-link i.fa-whatsapp {
+    color: #25d366;
+}
+.contact-link i.fa-envelope {
+    color: var(--color-primary);
+}
+@media (max-width: 600px) {
+    .footer-contact {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* =====================================================
+   Plus500 Affiliate Banner
+   ===================================================== */
+.affiliate-banner-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 0 15px;
+}
+.affiliate-banner-inner {
+    background: linear-gradient(135deg, rgba(0, 180, 216, 0.08) 0%, rgba(5, 8, 15, 0.95) 60%, rgba(0, 71, 255, 0.08) 100%);
+    border: 1px solid rgba(0, 180, 216, 0.35);
+    border-radius: 16px;
+    padding: 32px 36px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 180, 216, 0.08), 0 8px 32px rgba(0,0,0,0.4);
+}
+.affiliate-banner-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00b4d8, #0047ff, transparent);
+}
+.affiliate-badge {
+    display: inline-block;
+    background: rgba(0, 180, 216, 0.15);
+    border: 1px solid rgba(0, 180, 216, 0.4);
+    color: #00b4d8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.affiliate-banner-content {
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    gap: 32px;
+    align-items: start;
+}
+.affiliate-logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.affiliate-logo-text {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+.affiliate-regulated-tag {
+    font-size: 11px;
+    color: rgba(0, 180, 216, 0.85);
+    font-weight: 600;
+    border: 1px solid rgba(0, 180, 216, 0.25);
+    border-radius: 6px;
+    padding: 3px 8px;
+}
+.affiliate-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+.affiliate-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 0 12px;
+}
+.affiliate-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+}
+.affiliate-features li {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+.affiliate-cta-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+.btn-affiliate {
+    display: inline-block;
+    background: linear-gradient(135deg, #00b4d8, #0047ff);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 13px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(0, 180, 216, 0.35);
+    width: 100%;
+}
+.btn-affiliate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0, 180, 216, 0.5);
+    color: #fff;
+}
+.affiliate-disclaimer {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.5;
+    opacity: 0.75;
+    margin: 0;
+    max-width: 180px;
+}
+@media (max-width: 768px) {
+    .affiliate-banner-content {
+        grid-template-columns: 1fr;
+    }
+    .affiliate-logo-area { align-items: center; }
+    .affiliate-text-area { text-align: center; }
+    .affiliate-features { justify-content: center; }
+    .affiliate-cta-area { width: 100%; }
+    .affiliate-disclaimer { max-width: 100%; }
+}
