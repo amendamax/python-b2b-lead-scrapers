@@ -1,0 +1,21 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Output files
+output/*.csv
+output/*.xlsx
+output/*.json
+
+# Temp files
+temp.html
+test_bet.py
+
+# IDE
+.vscode/
+.idea/
+
+# Virtual environment
+venv/
+.env
