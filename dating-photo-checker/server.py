@@ -59,9 +59,26 @@ def init_db():
             scam_probability INTEGER,
             matches_count INTEGER,
             matches_data TEXT,
-            scammer_info TEXT
+            scammer_info TEXT,
+            email TEXT
         )
     """)
+    
+    # Run migration to add email column if it doesn't exist in scans
+    try:
+        cursor.execute("ALTER TABLE scans ADD COLUMN email TEXT")
+    except sqlite3.OperationalError:
+        pass
+        
+    # Table for user credits
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            email TEXT PRIMARY KEY,
+            credits_remaining INTEGER DEFAULT 0,
+            created_at TEXT
+        )
+    """)
+    
     # Table for Broker Verifier scans
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS broker_scans (
@@ -262,6 +279,10 @@ async def scan_url(request: UrlScanRequest):
         "matches_count": matches_count
     }
 
+class UseCreditRequest(BaseModel):
+    scan_id: str
+    email: str
+
 @app.post("/api/pay-card")
 async def pay_card(request: PaymentRequest):
     if not request.email or "@" not in request.email:
@@ -302,36 +323,120 @@ async def pay_card(request: PaymentRequest):
             conn.close()
             raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {str(e)}")
 
-    cursor.execute("UPDATE scans SET payment_status = 'paid' WHERE id = ?", (request.scan_id,))
+    # Update/Create User credits
+    cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
+    user_row = cursor.fetchone()
+    if not user_row:
+        # Create user with 5 credits
+        cursor.execute("INSERT INTO users (email, credits_remaining, created_at) VALUES (?, ?, ?)", 
+                       (request.email, 5, datetime.now().isoformat()))
+        new_credits = 5
+    else:
+        # Add 5 credits
+        new_credits = user_row[0] + 5
+        cursor.execute("UPDATE users SET credits_remaining = ? WHERE email = ?", (new_credits, request.email))
+
+    # Consume 1 credit for the current scan
+    new_credits = max(0, new_credits - 1)
+    cursor.execute("UPDATE users SET credits_remaining = ? WHERE email = ?", (new_credits, request.email))
+    
+    # Mark scan as paid and link to email
+    cursor.execute("UPDATE scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
+    
     conn.commit()
     conn.close()
     
-    return {"success": True, "message": "Payment processed successfully."}
+    return {
+        "success": True, 
+        "message": "Payment processed successfully. 5 credits added, 1 credit used for this report.",
+        "credits_remaining": new_credits
+    }
+
+@app.post("/api/use-credit")
+async def use_credit(request: UseCreditRequest):
+    if not request.email or "@" not in request.email:
+        raise HTTPException(status_code=400, detail="Invalid email address.")
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # Check scan
+    cursor.execute("SELECT id, payment_status FROM scans WHERE id = ?", (request.scan_id,))
+    scan_row = cursor.fetchone()
+    if not scan_row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Scan record not found.")
+        
+    # Check if scan is already paid
+    if scan_row[1] == "paid":
+        conn.close()
+        return {"success": True, "message": "Scan already unlocked."}
+        
+    # Check user credits
+    cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
+    user_row = cursor.fetchone()
+    if not user_row or user_row[0] <= 0:
+        conn.close()
+        raise HTTPException(status_code=400, detail="No credits remaining for this email. Please purchase credits.")
+        
+    new_credits = user_row[0] - 1
+    cursor.execute("UPDATE users SET credits_remaining = ? WHERE email = ?", (new_credits, request.email))
+    cursor.execute("UPDATE scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
+    
+    conn.commit()
+    conn.close()
+    
+    return {
+        "success": True,
+        "message": "1 credit consumed successfully.",
+        "credits_remaining": new_credits
+    }
+
+@app.get("/api/credits/{email}")
+async def get_credits(email: str):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (email,))
+    row = cursor.fetchone()
+    conn.close()
+    
+    credits_remaining = row[0] if row else 0
+    return {"email": email, "credits_remaining": credits_remaining}
 
 @app.get("/api/results/{scan_id}")
 async def get_results(scan_id: str):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    cursor.execute("SELECT payment_status, scam_probability, matches_count, matches_data, scammer_info FROM scans WHERE id = ?", (scan_id,))
+    cursor.execute("SELECT payment_status, scam_probability, matches_count, matches_data, scammer_info, email FROM scans WHERE id = ?", (scan_id,))
     row = cursor.fetchone()
-    conn.close()
     
     if not row:
+        conn.close()
         raise HTTPException(status_code=404, detail="Scan record not found.")
         
-    payment_status, scam_probability, matches_count, matches_data, scammer_info = row
+    payment_status, scam_probability, matches_count, matches_data, scammer_info, email = row
     
+    credits_remaining = 0
     if payment_status == "paid":
+        if email:
+            cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (email,))
+            user_row = cursor.fetchone()
+            if user_row:
+                credits_remaining = user_row[0]
+        conn.close()
         return {
             "scan_id": scan_id,
             "payment_status": payment_status,
             "scam_probability": scam_probability,
             "matches_count": matches_count,
             "matches": json.loads(matches_data),
-            "scammer_info": scammer_info
+            "scammer_info": scammer_info,
+            "email": email,
+            "credits_remaining": credits_remaining
         }
     else:
+        conn.close()
         return {
             "scan_id": scan_id,
             "payment_status": payment_status,

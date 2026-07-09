@@ -865,6 +865,82 @@ html, body {
     gap: 6px;
 }
 
+/* Credits section inside paywall */
+.use-credits-section {
+    width: 100%;
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 15px;
+}
+
+.credits-divider {
+    text-align: center;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.credits-divider::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.credits-divider span {
+    background: #14121f;
+    padding: 0 10px;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+}
+
+.credits-input-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.credit-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    color: white;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.credit-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 42, 116, 0.1);
+}
+
+.btn-credit {
+    padding: 10px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.credit-error {
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 8px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
 /* Premium / Unlocked details styling */
 .premium-results {
     border-top: 1px dashed var(--card-border);
@@ -2178,3 +2254,156 @@ html, body {
     }
 }
 
+/* ==========================================================================
+   PRINT MEDIA STYLES (Clean PDF Report Output)
+   ========================================================================== */
+@media print {
+    /* Hide everything on the page */
+    body * {
+        visibility: hidden;
+    }
+    
+    /* Set page background to white and text to dark for clean printing */
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    /* Show only the scanner section and its descendants */
+    #scanner-workspace,
+    #scanner-workspace * {
+        visibility: visible;
+    }
+    
+    /* Position the scanner workspace at the top-left */
+    #scanner-workspace {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .scanner-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+        width: 100% !important;
+    }
+    
+    /* Left Panel print layout */
+    #upload-panel {
+        flex: 1 !important;
+        background: transparent !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        padding: 15px !important;
+    }
+    
+    /* Hide headers and inputs in left panel during print */
+    #upload-panel .card-header,
+    #upload-panel .drop-zone-prompt,
+    #upload-panel .url-input-container,
+    #upload-panel #start-scan-btn,
+    #upload-panel #remove-img-btn,
+    #upload-panel #scan-laser {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    #preview-container {
+        display: block !important;
+        border: none !important;
+        height: auto !important;
+    }
+    
+    #image-preview {
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px !important;
+    }
+    
+    /* Right Panel print layout */
+    #results-panel {
+        flex: 1.5 !important;
+        background: transparent !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        padding: 15px !important;
+    }
+    
+    /* Hide state-idle, state-scanning, paywall, print button in print */
+    #state-idle,
+    #state-scanning,
+    #results-paywall,
+    #unlocked-premium-details button {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Print color adjustments for dark theme overrides */
+    .risk-badge {
+        background: #fee2e2 !important;
+        color: #991b1b !important;
+        border: 1px solid #f87171 !important;
+    }
+    .risk-badge.risk-safe {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+        border: 1px solid #34d399 !important;
+    }
+    .risk-danger {
+        background: #fee2e2 !important;
+        color: #991b1b !important;
+    }
+    .risk-safe {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    #risk-title {
+        color: black !important;
+    }
+    .score-label {
+        color: #4b5563 !important;
+    }
+    .score-value.text-danger {
+        color: #dc2626 !important;
+    }
+    .score-value.text-warning {
+        color: #d97706 !important;
+    }
+    .score-value.text-success {
+        color: #059669 !important;
+    }
+    .match-details h4,
+    .premium-results h4 {
+        color: black !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        padding-bottom: 5px !important;
+    }
+    .details-list li {
+        color: #374151 !important;
+    }
+    .match-link-card {
+        background: #f9fafb !important;
+        border: 1px solid #e5e7eb !important;
+        padding: 8px !important;
+        margin-bottom: 6px !important;
+    }
+    .match-url {
+        color: #2563eb !important;
+    }
+    .scammer-profile-card {
+        background: #fff5f5 !important;
+        border: 1px solid #fee2e2 !important;
+        color: #991b1b !important;
+    }
+    .scammer-profile-card h4 {
+        color: #991b1b !important;
+    }
+    .scammer-profile-card p {
+        color: #7f1d1d !important;
+    }
+}

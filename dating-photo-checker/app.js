@@ -31,7 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsPaywall = document.getElementById('results-paywall');
     const unlockedPremiumDetails = document.getElementById('unlocked-premium-details');
     const paywallUnlockBtn = document.getElementById('paywall-unlock-btn');
-    
+    const creditEmailInput = document.getElementById('credit-email');
+    const useCreditBtn = document.getElementById('use-credit-btn');
+    const creditErrorMsg = document.getElementById('credit-error-msg');
+    const successAlertText = document.getElementById('success-alert-text');
+
     // Checkout Modal
     const checkoutModal = document.getElementById('checkout-modal');
     const closeModalBtn = document.getElementById('close-modal-btn');
@@ -425,6 +429,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const payRes = await response.json();
             
             if (response.ok && payRes.success) {
+                // Save email to LocalStorage
+                localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
+
                 // Fetch the fully unlocked results
                 const resResponse = await fetch(`/api/results/${currentScanId}`);
                 const fullResults = await resResponse.json();
@@ -432,6 +439,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Populate unlocked premium details
                 renderPremiumDetails(fullResults);
                 
+                // Update success alert text
+                if (successAlertText) {
+                    successAlertText.innerHTML = `Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>${payRes.credits_remaining} credits left</strong>.`;
+                }
+
                 // Close modal
                 checkoutModal.classList.remove('open');
                 
@@ -447,11 +459,78 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(err.message || "Connection error to payment server.");
         } finally {
             confirmPaymentBtn.disabled = false;
-            textNode.innerText = 'Pay $4.99';
+            textNode.innerText = 'Pay $4.99 (5 Scans)';
             iconNode.innerHTML = '<i class="fa-solid fa-lock"></i>';
             cardElement.clear();
         }
     });
+
+    // Use credits listener
+    if (useCreditBtn) {
+        useCreditBtn.addEventListener('click', async () => {
+            const emailVal = creditEmailInput.value.trim();
+            if (!emailVal || !emailVal.includes('@')) {
+                showCreditError("Please enter a valid email address.");
+                return;
+            }
+            
+            useCreditBtn.disabled = true;
+            useCreditBtn.innerText = 'Checking...';
+            if (creditErrorMsg) creditErrorMsg.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/use-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        scan_id: currentScanId,
+                        email: emailVal
+                    })
+                });
+                const res = await response.json();
+                
+                if (response.ok && res.success) {
+                    // Save email
+                    localStorage.setItem('dating_verify_email', emailVal);
+                    
+                    const resResponse = await fetch(`/api/results/${currentScanId}`);
+                    const fullResults = await resResponse.json();
+                    
+                    renderPremiumDetails(fullResults);
+                    
+                    if (successAlertText) {
+                        successAlertText.innerHTML = `Report unlocked using 1 credit. You have <strong>${res.credits_remaining} credits left</strong>.`;
+                    }
+                    
+                    resultsPaywall.style.display = 'none';
+                    unlockedPremiumDetails.style.display = 'block';
+                    unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    showCreditError(res.detail || "No credits remaining for this email.");
+                }
+            } catch (err) {
+                console.error("Credit Error: ", err);
+                showCreditError("Connection error. Please try again later.");
+            } finally {
+                useCreditBtn.disabled = false;
+                useCreditBtn.innerText = 'Use Credit';
+            }
+        });
+    }
+
+    function showCreditError(msg) {
+        if (creditErrorMsg) {
+            creditErrorMsg.innerText = msg;
+            creditErrorMsg.style.display = 'block';
+        }
+    }
+
+    // Load saved email on page load
+    const savedEmail = localStorage.getItem('dating_verify_email');
+    if (savedEmail) {
+        if (creditEmailInput) creditEmailInput.value = savedEmail;
+        if (cardEmailInput) cardEmailInput.value = savedEmail;
+    }
 
     function renderPremiumDetails(data) {
         const matchesContainer = document.querySelector('.match-links-container');

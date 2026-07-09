@@ -105,7 +105,7 @@
                 <div class="scanner-card upload-card" id="upload-panel">
                     <div class="card-header">
                         <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Scan Profile Now</h2>
-                        <span class="price-badge">Full Report $4.99</span>
+                        <span class="price-badge">5 Scans for $4.99</span>
                     </div>
                     
                     <div class="drop-zone" id="drop-zone-area">
@@ -231,10 +231,21 @@
                                     
                                     <div class="pricing-options">
                                         <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                            <span class="btn-text">Unlock Report - $4.99</span>
+                                            <span class="btn-text">Unlock Report (5 Scans for $4.99)</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
                                         <p class="paywall-guarantee"><i class="fa-solid fa-shield-check"></i> Secure payment via Stripe. 100% money-back guarantee.</p>
+                                        <p class="credits-explanation" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.4;"><i class="fa-solid fa-circle-info"></i> Unlocks this report instantly and links 4 additional scan credits to your email for future checks.</p>
+                                    </div>
+
+                                    <!-- Use Existing Credits Section -->
+                                    <div class="use-credits-section">
+                                        <div class="credits-divider"><span>or use existing credits</span></div>
+                                        <div class="credits-input-group">
+                                            <input type="email" id="credit-email" placeholder="Enter email to use credit" class="credit-input">
+                                            <button id="use-credit-btn" class="btn btn-primary btn-credit">Use Credit</button>
+                                        </div>
+                                        <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +253,7 @@
                             <!-- Unlocked Premium Details (Visible only after mock checkout) -->
                             <div class="premium-results" id="unlocked-premium-details" style="display: none;">
                                 <div class="success-payment-alert">
-                                    <i class="fa-solid fa-circle-check"></i> Payment confirmed! Report unlocked successfully.
+                                    <i class="fa-solid fa-circle-check"></i> <span id="success-alert-text">Payment confirmed! Report unlocked successfully.</span>
                                 </div>
                                 
                                 <h4><i class="fa-solid fa-link-slash"></i> Identified Matches (Exact URLs):</h4>
@@ -397,15 +408,15 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">What is included in the $4.99 Premium Report? <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="accordion-header">What is included in the $4.99 Premium Package? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>The premium report unlocks the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found. It also provides scammer signature data and known IP/location proxy indicators.</p>
+                        <p>The premium package gives you 5 scan credits for $4.99. Each credit can be used to unlock a full report, which reveals the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">Is this a subscription or a one-time fee? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>It is a one-time payment of $4.99 per unlocked report. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You only pay for the reports you choose to unlock.</p>
+                        <p>It is a one-time payment of $4.99 for 5 scan credits. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You can use your credits whenever you want.</p>
                     </div>
                 </div>
             </div>
@@ -430,7 +441,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Price per scan</td>
-                            <td class="us-cell"><strong class="price-highlight">$4.99</strong></td>
+                            <td class="us-cell"><strong class="price-highlight">$4.99 (5 Scans)</strong></td>
                             <td><span class="comp-bad">$26.99/mo</span></td>
                             <td><span class="comp-bad">$29.99/mo</span></td>
                             <td><span class="comp-bad">$6–$597</span></td>
@@ -609,7 +620,10 @@
             <div class="checkout-body">
                 <div class="payment-summary">
                     <span class="summary-label">Total due</span>
-                    <span class="summary-amount">$4.99</span>
+                    <div style="text-align: right;">
+                        <span class="summary-amount">$4.99</span>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Package includes 5 scans</p>
+                    </div>
                 </div>
                 
                 <div class="payment-methods">
@@ -622,7 +636,9 @@
                     <div class="form-group">
                         <label for="card-email">Email Address</label>
                         <input type="email" id="card-email" required placeholder="amendamax@vasiledev.com">
+                        <small style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Your 5 scan credits will be linked to this email address.</small>
                     </div>
+
                     <div class="form-group">
                         <label>Card Details</label>
                         <div id="card-element" class="card-element-stripe"></div>
@@ -630,7 +646,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success btn-lg btn-block" id="confirm-payment-btn">
-                        <span class="btn-text">Pay $4.99</span>
+                        <span class="btn-text">Pay $4.99 (5 Scans)</span>
                         <span class="btn-icon"><i class="fa-solid fa-lock"></i></span>
                     </button>
                 </form>
