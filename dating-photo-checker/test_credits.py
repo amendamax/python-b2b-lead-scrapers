@@ -95,7 +95,7 @@ def test_credits_flow():
         print("FAILED: Expected HTTP 400 Bad Request.")
         sys.exit(1)
         
-    print("\nALL TESTS PASSED SUCCESSFULLY! ✅")
+    print("\nALL TESTS PASSED SUCCESSFULLY! [OK]")
 
 if __name__ == "__main__":
     test_credits_flow()

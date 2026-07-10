@@ -1029,6 +1029,26 @@ html, body {
     line-height: 1.45;
 }
 
+.scammer-profile-card.verdict-safe {
+    background: rgba(0, 184, 148, 0.05);
+    border-color: rgba(0, 184, 148, 0.15);
+}
+
+.scammer-profile-card.verdict-safe h4 {
+    color: var(--success);
+}
+
+.scammer-profile-card.verdict-warning {
+    background: rgba(241, 196, 15, 0.05);
+    border-color: rgba(241, 196, 15, 0.15);
+}
+
+.scammer-profile-card.verdict-warning h4 {
+    color: var(--warning);
+}
+
+
+
 /* ==========================================================================
    LIVE ACTIVITY TICKER
    ========================================================================== */
@@ -2258,32 +2278,47 @@ html, body {
    PRINT MEDIA STYLES (Clean PDF Report Output)
    ========================================================================== */
 @media print {
-    /* Hide everything on the page */
-    body * {
-        visibility: hidden;
+    /* Hide all non-scanner sections completely to avoid blank pages */
+    .app-header,
+    .hero-section,
+    .press-section,
+    .live-activity-section,
+    .video-section,
+    .info-section,
+    .testimonials-section,
+    .app-footer,
+    #checkout-modal,
+    #social-proof-toast,
+    #state-idle,
+    #state-scanning,
+    #results-paywall,
+    #unlocked-premium-details button {
+        display: none !important;
     }
-    
-    /* Set page background to white and text to dark for clean printing */
-    body {
+
+    /* Set html and body elements to be white and auto height */
+    html, body {
         background: white !important;
         color: black !important;
-    }
-    
-    /* Show only the scanner section and its descendants */
-    #scanner-workspace,
-    #scanner-workspace * {
-        visibility: visible;
-    }
-    
-    /* Position the scanner workspace at the top-left */
-    #scanner-workspace {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: transparent !important;
+        height: auto !important;
+        min-height: 100% !important;
+        overflow: visible !important;
         padding: 0 !important;
         margin: 0 !important;
+    }
+
+    /* Make the workspace container fully visible and reset positioning */
+    #scanner-workspace {
+        display: block !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
     }
     
     .scanner-grid {
@@ -2405,5 +2440,27 @@ html, body {
     }
     .scammer-profile-card p {
         color: #7f1d1d !important;
+    }
+    .scammer-profile-card.verdict-safe {
+        background: #e6fffa !important;
+        border-color: #b2f5ea !important;
+        color: #006b54 !important;
+    }
+    .scammer-profile-card.verdict-safe h4 {
+        color: #006b54 !important;
+    }
+    .scammer-profile-card.verdict-safe p {
+        color: #004d3c !important;
+    }
+    .scammer-profile-card.verdict-warning {
+        background: #fffaf0 !important;
+        border-color: #feebc8 !important;
+        color: #dd6b20 !important;
+    }
+    .scammer-profile-card.verdict-warning h4 {
+        color: #dd6b20 !important;
+    }
+    .scammer-profile-card.verdict-warning p {
+        color: #7b341e !important;
     }
 }

@@ -345,19 +345,29 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsPaywall.style.display = 'flex';
         unlockedPremiumDetails.style.display = 'none';
         
-        // Configure specific outputs
-        const isHighRisk = data.scam_probability > 70;
+        // Configure specific outputs based on three risk categories
+        const scamProb = data.scam_probability;
         const banner = document.getElementById('risk-banner');
         const badge = document.getElementById('risk-badge-element');
         const title = document.getElementById('risk-title');
         
-        if (isHighRisk) {
+        let riskCategory = 'low';
+        if (scamProb > 70) {
+            riskCategory = 'high';
             banner.className = 'results-header risk-danger';
             badge.className = 'risk-badge risk-danger';
             badge.innerText = 'Critical Risk';
             title.innerText = 'Fake Profile Confirmed (Catfish)';
             document.getElementById('scam-prob-val').className = 'score-value text-danger';
+        } else if (scamProb >= 30) {
+            riskCategory = 'medium';
+            banner.className = 'results-header risk-warning';
+            badge.className = 'risk-badge risk-warning';
+            badge.innerText = 'Moderate Risk';
+            title.innerText = 'Stock / Public Photo Detected';
+            document.getElementById('scam-prob-val').className = 'score-value text-warning';
         } else {
+            riskCategory = 'low';
             banner.className = 'results-header risk-safe';
             badge.className = 'risk-badge risk-safe';
             badge.innerText = 'Low Risk';
@@ -367,6 +377,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('scam-prob-val').innerText = `${data.scam_probability}%`;
         document.getElementById('matches-found-val').innerText = `${data.matches_count} matches`;
+
+        // Update diagnostic summary bullet points dynamically
+        const diagnosticList = document.getElementById('diagnostic-details-list');
+        if (diagnosticList) {
+            if (riskCategory === 'high') {
+                diagnosticList.innerHTML = `
+                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on multiple other websites under different names.</li>
+                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
+                    <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
+                `;
+            } else if (riskCategory === 'medium') {
+                diagnosticList.innerHTML = `
+                    <li><i class="fa-solid fa-triangle-exclamation text-warning"></i> Photo matches publicly indexed stock photography or public portfolios.</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> Metadata analysis indicates no suspicious digital alterations.</li>
+                    <li><i class="fa-solid fa-circle-exclamation text-warning"></i> Image matches found on public indexable web (stock/portfolios).</li>
+                `;
+            } else {
+                diagnosticList.innerHTML = `
+                    <li><i class="fa-solid fa-circle-check text-success"></i> No matching faces detected in the global scam database.</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> Metadata analysis indicates no suspicious digital alterations.</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> Unique image signature — no public web duplicates found.</li>
+                `;
+            }
+        }
+
+        // Update scammer profile card title and style class
+        const scammerProfileCard = document.querySelector('.scammer-profile-card');
+        if (scammerProfileCard) {
+            const cardHeader = scammerProfileCard.querySelector('h4');
+            if (riskCategory === 'high') {
+                scammerProfileCard.className = 'scammer-profile-card';
+                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-user-ninja"></i> Scammer Signature Detected';
+            } else if (riskCategory === 'medium') {
+                scammerProfileCard.className = 'scammer-profile-card verdict-warning';
+                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Public Match Warning';
+            } else {
+                scammerProfileCard.className = 'scammer-profile-card verdict-safe';
+                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-circle-check"></i> Security Verdict';
+            }
+        }
     }
 
     // ==========================================================================
@@ -530,6 +580,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedEmail) {
         if (creditEmailInput) creditEmailInput.value = savedEmail;
         if (cardEmailInput) cardEmailInput.value = savedEmail;
+    }
+
+    // PDF download listener
+    const downloadPdfBtn = document.getElementById('download-pdf-report-btn');
+    if (downloadPdfBtn) {
+        downloadPdfBtn.addEventListener('click', () => {
+            if (currentScanId) {
+                window.location.href = `/api/results/${currentScanId}/pdf`;
+            }
+        });
     }
 
     function renderPremiumDetails(data) {

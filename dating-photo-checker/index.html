@@ -215,7 +215,7 @@
                             <!-- Match Preview & Map -->
                             <div class="match-details">
                                 <h4>FaceMatch Analysis Summary</h4>
-                                <ul class="details-list">
+                                <ul class="details-list" id="diagnostic-details-list">
                                     <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on 4 other websites under different names.</li>
                                     <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
                                     <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
@@ -276,9 +276,8 @@
                                     <h4><i class="fa-solid fa-user-ninja"></i> Scammer Signature Detected</h4>
                                     <p>This set of images is associated with known <strong>Romance Scam</strong> campaigns originating from West Africa, using proxy networks to mask their real location.</p>
                                 </div>
-                                
                                 <!-- Print PDF Report Action Button -->
-                                <button class="btn btn-primary btn-block" onclick="window.print()" style="margin-top: 22px;">
+                                <button class="btn btn-primary btn-block" id="download-pdf-report-btn" style="margin-top: 22px;">
                                     <span class="btn-text">Download Official PDF Report</span>
                                     <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
                                 </button>
