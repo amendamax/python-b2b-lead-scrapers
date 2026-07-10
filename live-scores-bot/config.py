@@ -15,7 +15,7 @@ LEAGUES = {
 
 # Telegram Bot settings
 # If the user does not set an environment variable, they can paste their token here
-TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN_HERE"
+TELEGRAM_BOT_TOKEN = "8798726145:AAHj6U0raPtC9u1gpyF5a01nE98wTDjKxoE"
 
 # Refresh rate for live polling (seconds)
 LIVE_REFRESH_RATE = 60

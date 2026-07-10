@@ -248,6 +248,6 @@ def text_routing(message):
 
 
 if __name__ == "__main__":
-    print("🤖 Live Scores Bot is starting...")
+    print("[INFO] Live Scores Bot is starting...")
     print("Ready and listening for messages...")
     bot.infinity_polling()
