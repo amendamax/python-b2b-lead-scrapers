@@ -222,6 +222,12 @@ def cmd_tomorrow(message):
     show_matches_for_date(message.chat.id, date_str, "⏱️ *Tomorrow's Fixtures:*", args)
 
 
+@bot.message_handler(commands=["test"])
+def cmd_test(message):
+    # Query May 17, 2026 (a busy matchday in the past to demonstrate format)
+    show_matches_for_date(message.chat.id, "20260517", "🧪 *Test Matchday Results (17 May 2026):*")
+
+
 # ─────────────────────────────────────────────
 #  REPLY KEYBOARD TEXT ROUTING
 # ─────────────────────────────────────────────
