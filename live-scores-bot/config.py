@@ -4,6 +4,7 @@
 
 # Mapping of user-friendly league names to ESPN competition codes
 LEAGUES = {
+    "worldcup": {"code": "fifa.world", "name": "FIFA World Cup"},
     "pl":      {"code": "eng.1", "name": "English Premier League"},
     "seriea":  {"code": "ita.1", "name": "Italian Serie A"},
     "laliga":  {"code": "esp.1", "name": "Spanish La Liga"},

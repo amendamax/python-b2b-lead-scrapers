@@ -110,6 +110,7 @@ def send_welcome(message):
         "👉 `/results [league]` - Show yesterday's results\n"
         "👉 `/tomorrow [league]` - Show tomorrow's fixtures\n\n"
         "*Supported League Codes:*\n"
+        "• `worldcup` - FIFA World Cup\n"
         "• `pl` - Premier League\n"
         "• `seriea` - Serie A\n"
         "• `laliga` - La Liga\n"
