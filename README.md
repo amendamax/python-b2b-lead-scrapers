@@ -48,6 +48,9 @@ Instead of basic, unstyled CSV text dumps that wrap awkwardly in Excel, this sui
 *   **`playwright_stealth_boilerplate/`**: Open-source starter template demonstrating headless browser emulation with stealth overrides to bypass basic bot detections.
 *   **`openpyxl_template_boilerplate/`**: Python formatting boilerplate demonstrating how to build executive-ready spreadsheets with fonts, row heights, zebra fills, and hyperlinks.
 *   **`github_lead_magnet/`**: Basic BS4 & Requests scraper showing how to build a basic crawler and output data.
+*   **`live-scores-bot/`**: Interactive Soccer Live Scores & Fixtures Telegram Bot powered by the free public ESPN API. Supports custom mobile reply keyboards.
+*   **`betting-odds-aggregator/`**: Headless Selenium scraper for BetExplorer that aggregates 1X2 odds, calculates Value Bets, and triggers Surebet (arbitrage) alerts.
+*   **`football-stats-scraper/`**: Transfermarkt & FBref crawler extracting player stats, standings, and market values into CSV/Excel/JSON formats.
 
 ---
 
