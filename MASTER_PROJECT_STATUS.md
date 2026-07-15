@@ -1,5 +1,15 @@
 # 👑 MASTER PROJECT STATUS & CONVERSATIONS INDEX
-*Last Updated: 2026-07-14 21:43:04*
+*Last Updated: 2026-07-15 12:42:00*
+
+> [!IMPORTANT]
+> **CRITICAL REPOSITORY ARCHITECTURE & DEPLOYMENT WARNING:**
+> This workspace contains **two nested Git repositories**:
+> 1. **Parent Repo (`amazing-borg`):** Mapped to `amendamax/python-b2b-lead-scrapers`.
+> 2. **Child Repo (`dating-photo-checker`):** Mapped to `amendamax/dating-photo-checker`.
+> 
+> **Render is connected directly to `amendamax/dating-photo-checker`**. 
+> - Any changes targeting `isbrokersafe.com` or the backend server must be committed and pushed **inside the `dating-photo-checker/` subdirectory** for Render to deploy the updates live! 
+> - Committing to the root parent repo will **NOT** trigger Render deploys for the web service.
 
 This file provides a summary of all recent Antigravity developer sessions. Use this to quickly understand the project state and where we left off.
 
