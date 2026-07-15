@@ -191,8 +191,59 @@ async def get_promo():
         return FileResponse("promo_video.html")
     return JSONResponse(status_code=404, content={"message": "Promo video file not found"})
 
+@app.get("/reviews/{broker_name}")
+async def get_broker_review(broker_name: str, request: Request):
+    broker_clean = broker_name.lower().strip()
+    if broker_clean in ["xm", "exness"]:
+        file_path = f"broker-verifier/reviews/{broker_clean}.html"
+        if os.path.exists(file_path):
+            return FileResponse(file_path)
+    return JSONResponse(status_code=404, content={"message": "Review not found"})
+
+@app.get("/robots.txt")
+async def get_robots(request: Request):
+    host = request.headers.get("host", "").lower()
+    domain = "verifydating.net" if "dating" in host or "localhost" in host or "127.0.0.1" in host else "isbrokersafe.com"
+    robots_content = f"User-agent: *\nAllow: /\nSitemap: https://{domain}/sitemap.xml\n"
+    from fastapi.responses import Response
+    return Response(content=robots_content, media_type="text/plain")
+
+@app.get("/sitemap.xml")
+async def get_sitemap(request: Request):
+    host = request.headers.get("host", "").lower()
+    is_dating = "dating" in host or "verifydating" in host
+    domain = "verifydating.net" if is_dating else "isbrokersafe.com"
+    
+    additional_urls = ""
+    if not is_dating:
+        additional_urls = f"""
+   <url>
+      <loc>https://{domain}/reviews/xm</loc>
+      <lastmod>2026-07-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/reviews/exness</loc>
+      <lastmod>2026-07-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>"""
+
+    sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://{domain}/</loc>
+      <lastmod>2026-07-11</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>{additional_urls}
+</urlset>"""
+    from fastapi.responses import Response
+    return Response(content=sitemap_content, media_type="application/xml")
+
 # Mount the broker-verifier directory statically
-# This makes it accessible at verifydating.com/broker-verifier/
+# This makes it accessible at verifydating.net/broker-verifier/
 if os.path.exists("broker-verifier"):
     app.mount("/broker-verifier", StaticFiles(directory="broker-verifier", html=True), name="broker-verifier")
 
@@ -262,10 +313,11 @@ def get_deterministic_mock_data(seed_bytes: bytes, filename: str = "", image_url
     elif risk_type == 1:
         scam_probability = random.randint(45, 68)
         matches_count = random.randint(2, 5)
-        # If we have a public image URL, construct real working Google Lens & TinEye search redirects!
+        # If we have a public image URL, construct real working Google Lens, Yandex & TinEye search redirects!
         if image_url:
             matches_data = [
                 {"platform": "Google Lens Search", "url": f"https://lens.google.com/uploadbyurl?url={image_url}"},
+                {"platform": "Yandex Image Search", "url": f"https://yandex.com/images/search?rpt=imageview&url={image_url}"},
                 {"platform": "TinEye Reverse Search", "url": f"https://tineye.com/search?url={image_url}"}
             ]
         else:
@@ -282,6 +334,7 @@ def get_deterministic_mock_data(seed_bytes: bytes, filename: str = "", image_url
         if image_url:
             matches_data = [
                 {"platform": "Google Lens Search", "url": f"https://lens.google.com/uploadbyurl?url={image_url}"},
+                {"platform": "Yandex Image Search", "url": f"https://yandex.com/images/search?rpt=imageview&url={image_url}"},
                 {"platform": "TinEye Reverse Search", "url": f"https://tineye.com/search?url={image_url}"},
                 {"platform": "FTC Romance Scam Report", "url": "https://reportfraud.ftc.gov/"}
             ]
@@ -394,7 +447,7 @@ async def pay_card(request: PaymentRequest):
         conn.close()
         raise HTTPException(status_code=404, detail="Scan record not found.")
 
-    is_admin_test = any(x in request.email.lower() for x in ["amenda", "anenda", "amend", "anend", "vasile"])
+    is_admin_test = "amendamax" in request.email.lower()
     
     if STRIPE_SECRET_KEY and not is_admin_test:
         try:
@@ -786,12 +839,17 @@ async def download_dating_pdf(scan_id: str):
         story.append(Spacer(1, 5))
         
         matches_table_data = []
+        import html
         for match in matches_list:
             platform = match.get("platform", "Web Match")
             url_str = match.get("url", "")
+            # Only replace the first occurrence of https:// to keep nested URLs readable
+            display_url = url_str.replace('https://', '', 1)
+            escaped_display = html.escape(display_url)
+            escaped_url = html.escape(url_str)
             matches_table_data.append([
                 Paragraph(f"<b>{platform.upper()}</b>", bullet_style),
-                Paragraph(f"<font color='#0984e3'>{url_str.replace('https://', '')}</font>", bullet_style)
+                Paragraph(f"<a href='{escaped_url}'><font color='#0984e3'>{escaped_display}</font></a>", bullet_style)
             ])
             
         matches_table = Table(matches_table_data, colWidths=[150, 350])
@@ -852,7 +910,7 @@ async def get_admin_scans(token: str = None):
 
 @app.get("/api/debug-email")
 async def debug_email(email: str):
-    is_admin = any(x in email.lower() for x in ["amenda", "anenda", "amend", "anend", "vasile"])
+    is_admin = "amendamax" in email.lower()
     return {
         "email": email,
         "is_admin_test": is_admin
@@ -915,7 +973,7 @@ static_broker_db = {
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2009-12-04 (16 years ago)",
         "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), ASIC (AU), FCA (UK), DFSA (AE)",
-        "affiliateLink": "https://affs.click/WyXQf"
+        "affiliateLink": "https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1"
     },
     "plus500.com": {
         "name": "Plus500",
@@ -1225,7 +1283,7 @@ async def pay_broker_card(request: BrokerPaymentRequest):
         raise HTTPException(status_code=404, detail="Scan record not found.")
         
     broker_name = row[1]
-    is_admin_test = any(x in request.email.lower() for x in ["amenda", "anenda", "amend", "anend", "vasile"])
+    is_admin_test = "amendamax" in request.email.lower()
     
     # Charge $9.99 for Broker Audit Report
     if STRIPE_SECRET_KEY and not is_admin_test:
@@ -1326,7 +1384,7 @@ async def download_broker_pdf(scan_id: str):
 
     # Compile PDF in memory
     buffer = io.BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=54, leftMargin=54, topMargin=54, bottomMargin=54)
+    doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40)
     
     styles = getSampleStyleSheet()
     
@@ -1437,23 +1495,23 @@ async def download_broker_pdf(scan_id: str):
     # ==========================================
     # PAGE 1: COVER PAGE
     # ==========================================
-    story.append(Spacer(1, 15))
+    story.append(Spacer(1, 10))
     
     # Header Banner Table
     banner_data = [
         [Paragraph("BROKER VERIFIER", banner_title_style)],
         [Paragraph("FORENSIC THREAT INTELLIGENCE AUDIT REPORT", banner_sub_style)]
     ]
-    banner_table = Table(banner_data, colWidths=[500])
+    banner_table = Table(banner_data, colWidths=[530])
     banner_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#0f172a')),
-        ('PADDING', (0,0), (-1,-1), 18),
+        ('PADDING', (0,0), (-1,-1), 12),
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('BOX', (0,0), (-1,-1), 2, colors.HexColor('#0284c7'))
     ]))
     story.append(banner_table)
-    story.append(Spacer(1, 40))
+    story.append(Spacer(1, 15))
     
     # Metadata Block
     meta_data = [
@@ -1464,41 +1522,39 @@ async def download_broker_pdf(scan_id: str):
         [Paragraph("Client Account:", meta_label_style), Paragraph(email, meta_val_style)],
         [Paragraph("Audit Status:", meta_label_style), Paragraph("<b>COMPLETED</b>", meta_val_style)]
     ]
-    meta_table = Table(meta_data, colWidths=[150, 350])
+    meta_table = Table(meta_data, colWidths=[150, 380])
     meta_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#e2e8f0')),
-        ('PADDING', (0,0), (-1,-1), 10),
+        ('PADDING', (0,0), (-1,-1), 8),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('LINEBELOW', (0,0), (-1,-2), 0.5, colors.HexColor('#f1f5f9'))
     ]))
     story.append(meta_table)
-    story.append(Spacer(1, 40))
+    story.append(Spacer(1, 15))
     
     # Trust Score circular seal simulation
     score_color = '#059669' if score >= 75 else ('#d97706' if score >= 40 else '#dc2626')
     score_banner_data = [
-        [Paragraph(f"<font color='white' size='13'><b>FINANCIAL INTEGRITY & TRUST RATING</b></font>", banner_title_style)],
-        [Paragraph(f"<font color='{score_color}' size='36'><b>{score}%</b></font>", banner_title_style)]
+        [Paragraph(f"<font color='white' size='11'><b>FINANCIAL INTEGRITY & TRUST RATING</b></font>", banner_title_style)],
+        [Paragraph(f"<font color='{score_color}' size='28'><b>{score}%</b></font>", banner_title_style)]
     ]
-    score_table = Table(score_banner_data, colWidths=[300])
+    score_table = Table(score_banner_data, colWidths=[350])
     score_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#1e293b')),
         ('BOX', (0,0), (-1,-1), 1.5, colors.HexColor('#cbd5e1')),
-        ('PADDING', (0,0), (-1,-1), 15),
+        ('PADDING', (0,0), (-1,-1), 10),
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE')
     ]))
     story.append(score_table)
-    
-    # Page Break to Page 2
-    story.append(PageBreak())
+    story.append(Spacer(1, 15))
     
     # ==========================================
-    # PAGE 2: TECHNICAL DIAGNOSTICS & PROS/CONS
+    # PAGE 1 - SECTION 1: TECHNICAL DIAGNOSTICS
     # ==========================================
     story.append(Paragraph("SECTION 1: TECHNICAL & INFRASTRUCTURE DIAGNOSTICS", section_title_style))
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 4))
     
     tech_data = [
         [Paragraph("Stated Web Domain:", meta_label_style), Paragraph(domain, meta_val_style)],
@@ -1507,19 +1563,24 @@ async def download_broker_pdf(scan_id: str):
         [Paragraph("WHOIS Registry Age:", meta_label_style), Paragraph(domain_age, meta_val_style)],
         [Paragraph("Connection Security:", meta_label_style), Paragraph("TLS 1.3 / SSL Encrypted", meta_val_style)]
     ]
-    tech_table = Table(tech_data, colWidths=[150, 350])
+    tech_table = Table(tech_data, colWidths=[150, 380])
     tech_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#e2e8f0')),
-        ('PADDING', (0,0), (-1,-1), 8),
+        ('PADDING', (0,0), (-1,-1), 7),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('LINEBELOW', (0,0), (-1,-2), 0.5, colors.HexColor('#f1f5f9'))
     ]))
     story.append(tech_table)
-    story.append(Spacer(1, 20))
     
+    # Page Break to Page 2
+    story.append(PageBreak())
+    
+    # ==========================================
+    # PAGE 2: SECURITY RISK ASSESSMENT & VERDICT
+    # ==========================================
     story.append(Paragraph("SECTION 2: HEURISTIC SECURITY RISK ASSESSMENT (PROS & CONS)", section_title_style))
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 4))
     
     # PROs (Safety Strengths) Section
     story.append(Paragraph("PROs / Key Safety Strengths", subsection_title_style))
@@ -1527,11 +1588,11 @@ async def download_broker_pdf(scan_id: str):
         for flag in green_flags_list:
             p_text = f"<font color='#059669'><b>[PRO]</b></font> {flag}"
             story.append(Paragraph(p_text, pro_style))
-            story.append(Spacer(1, 5))
+            story.append(Spacer(1, 4))
     else:
         story.append(Paragraph("No solid safety elements or regulatory registrations identified.", body_style))
     
-    story.append(Spacer(1, 15))
+    story.append(Spacer(1, 10))
     
     # CONs (Risk Factors) Section
     story.append(Paragraph("CONs / Risk Factors", subsection_title_style))
@@ -1539,18 +1600,14 @@ async def download_broker_pdf(scan_id: str):
         for flag in red_flags_list:
             p_text = f"<font color='#dc2626'><b>[CON]</b></font> {flag}"
             story.append(Paragraph(p_text, con_style))
-            story.append(Spacer(1, 5))
+            story.append(Spacer(1, 4))
     else:
         story.append(Paragraph("No imminent threat markers or blacklist warnings identified.", body_style))
         
-    # Page Break to Page 3
-    story.append(PageBreak())
+    story.append(Spacer(1, 15))
     
-    # ==========================================
-    # PAGE 3: SECURITY VERDICT & DISCLOSURE
-    # ==========================================
     story.append(Paragraph("SECTION 3: FORENSIC AUDIT VERDICT", section_title_style))
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 4))
     
     # Verdict Table Box
     verdict_bg = colors.HexColor('#fef2f2' if score < 40 else ('#fffbeb' if score < 75 else '#f0fdf4'))

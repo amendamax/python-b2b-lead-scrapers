@@ -167,12 +167,12 @@ caddy run
 
 ## 🔒 PASUL 8 (Opțional) — HTTPS cu domeniu propriu
 
-Când adaugi un domeniu (ex: `verifydating.com`):
+Când adaugi un domeniu (ex: `verifydating.net`):
 
 1. Îndreaptă DNS-ul domeniului spre IP-ul VPS
 2. Modifică `Caddyfile`:
 ```
-verifydating.com {
+verifydating.net {
     reverse_proxy localhost:8000
 }
 ```

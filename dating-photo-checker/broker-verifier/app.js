@@ -5,7 +5,7 @@
 // Curated Database of Brokers (Autocomplete suggestions & Fallbacks)
 const brokerDatabase = [
     { name: "Interactive Brokers", domain: "interactivebrokers.com" },
-    { name: "Pepperstone", domain: "pepperstone.com" },
+    { name: "XM Group", domain: "xm.com" },
     { name: "IC Markets", domain: "icmarkets.com" },
     { name: "ApexCryptoFX", domain: "apexcryptofx.com" },
     { name: "FxTradersGold", domain: "fxtradersgold.com" }
@@ -598,6 +598,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cardElement.mount('#card-element');
     }
 
-    // Load default broker (Pepperstone) on startup with API integration
-    executeScan("Pepperstone", "pepperstone.com");
+    // Load default broker (XM Group) on startup with API integration
+    executeScan("XM Group", "xm.com");
 });
