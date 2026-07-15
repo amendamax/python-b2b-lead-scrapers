@@ -1,8 +1,18 @@
 # 👑 Python B2B Lead Scrapers & Data Automation Suite
 
+> [!IMPORTANT]
+> **CRITICAL REPOSITORY ARCHITECTURE & DEPLOYMENT WARNING:**
+> This workspace contains **two nested Git repositories**:
+> 1. **Parent Repo (`amazing-borg`):** Mapped to `amendamax/python-b2b-lead-scrapers`.
+> 2. **Child Repo (`dating-photo-checker`):** Mapped to `amendamax/dating-photo-checker`.
+> 
+> **Render is connected directly to `amendamax/dating-photo-checker`**. 
+> - Any changes targeting `isbrokersafe.com` or the backend server must be committed and pushed **inside the `dating-photo-checker/` subdirectory** for Render to deploy the updates live! 
+> - Committing to the root parent repo will **NOT** trigger Render deploys for the web service.
+
 Welcome to the ultimate production-grade Python web scraping, WAF bypass, and data engineering automation suite. This repository houses modular, scalable, and resilient data extraction engines designed to bypass enterprise-level firewalls and format raw data into executive-ready, highly visual business intelligence dashboards.
 
-🌐 **Live Portfolio & Active Demos:** [vasiledev.com](https://vasiledev.com) | 💼 **Upwork Profile:** [Vasile Bratu on Upwork](https://www.upwork.com/freelancers/amendamax)
+🌐 **Live Portfolio & Active Demos:** [vasiledev.com](https://isbrokersafe.com) | 💼 **Upwork Profile:** [Vasile Bratu on Upwork](https://www.upwork.com/freelancers/amendamax)
 
 ---
 
