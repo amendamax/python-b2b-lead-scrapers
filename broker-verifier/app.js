@@ -12,7 +12,11 @@ const brokerDatabase = [
 ];
 
 // Determine the API base dynamically (useful if index.html is loaded via file:// protocol during local tests)
-const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:8000" : "";
+const API_BASE = (window.location.protocol === "file:") 
+    ? "http://127.0.0.1:8000" 
+    : (window.location.hostname.includes("vasiledev.com") 
+        ? "https://isbrokersafe.com" 
+        : "");
 
 // Stripe Initialization using the live publishable key from romance scam detector config
 const stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
