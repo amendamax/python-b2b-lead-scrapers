@@ -65,4 +65,4 @@ This project is built for **educational and portfolio demonstration use only**.
 ## 👨‍💻 Developer & Author
 
 Built with passion by **VasileDev** — Web Scraping & Data Engineering Specialist.  
-📧 amendamax@gmail.com | 🌐 [isbrokersafe.com](https://isbrokersafe.com)
+📧 amendamax@vasiledev.com | 🌐 [vasiledev.com](https://vasiledev.com)

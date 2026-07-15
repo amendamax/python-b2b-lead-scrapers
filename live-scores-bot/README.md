@@ -77,4 +77,4 @@ MIT License — free to use, customize, and commercialize.
 ## 👨‍💻 Author
 
 Built by **VasileDev** — Bot & Web Automation Engineer.  
-📧 amendamax@gmail.com | 🌐 [isbrokersafe.com](https://isbrokersafe.com)
+📧 amendamax@vasiledev.com | 🌐 [vasiledev.com](https://vasiledev.com)

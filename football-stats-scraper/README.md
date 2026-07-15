@@ -102,4 +102,4 @@ MIT License — free to use, modify, and distribute.
 ## 👨‍💻 Author
 
 Built by **VasileDev** — Python scraping specialist.  
-📧 amendamax@gmail.com | 🌐 [isbrokersafe.com](https://isbrokersafe.com)
+📧 amendamax@vasiledev.com | 🌐 [vasiledev.com](https://vasiledev.com)

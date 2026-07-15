@@ -109,4 +109,4 @@ MIT License — free to use and adapt.
 ## 👨‍💻 Author
 
 Built by **VasileDev** — Web Scraping & Data Engineering Specialist.  
-📧 amendamax@gmail.com | 🌐 [isbrokersafe.com](https://isbrokersafe.com)
+📧 amendamax@vasiledev.com | 🌐 [vasiledev.com](https://vasiledev.com)
