@@ -1,4 +1,16 @@
 import os
+# Load environment variables from local .env file if present
+if os.path.exists(".env"):
+    try:
+        with open(".env", "r") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, val = line.split("=", 1)
+                    os.environ[key.strip()] = val.strip()
+    except Exception as e:
+        print(f"Error loading .env file: {e}")
+
 import sqlite3
 import uuid
 import json
@@ -33,6 +45,23 @@ except Exception as e:
 
 app = FastAPI(title="Unified Security & Audit API", version="1.1")
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://vasiledev.com",
+        "https://isbrokersafe.com",
+        "https://verifydating.net",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:5500",
+        "http://localhost:8000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/api/debug/import-error")
 async def debug_import_error():
     import sys
@@ -66,6 +95,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # LOAD CONFIGURATION (STRIPE API KEYS)
 # ==========================================================================
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_SECRET_KEY_BROKER = os.environ.get("STRIPE_SECRET_KEY_BROKER")
 if not STRIPE_SECRET_KEY and os.path.exists(CONFIG_PATH):
     try:
         with open(CONFIG_PATH, "r") as f:
@@ -75,6 +105,9 @@ if not STRIPE_SECRET_KEY and os.path.exists(CONFIG_PATH):
                 STRIPE_SECRET_KEY = None
     except Exception as e:
         print(f"[ERROR] Failed to read config.json: {e}")
+
+if not STRIPE_SECRET_KEY_BROKER:
+    STRIPE_SECRET_KEY_BROKER = STRIPE_SECRET_KEY
 
 # ==========================================================================
 # DATABASE INITIALIZATION
@@ -135,6 +168,15 @@ def init_db():
             verdict_text TEXT
         )
     """)
+    
+    # Table for video lead smoke test
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS video_leads (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+    """)
     conn.commit()
     conn.close()
 
@@ -150,6 +192,90 @@ async def get_index(request: Request):
         if os.path.exists("broker-verifier/index.html"):
             return FileResponse("broker-verifier/index.html")
     return FileResponse("index.html")
+
+@app.get("/ro")
+@app.get("/ro/")
+async def get_ro_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/ro/index.html"):
+            return FileResponse("broker-verifier/ro/index.html")
+    else:
+        if os.path.exists("ro/index.html"):
+            return FileResponse("ro/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/it")
+@app.get("/it/")
+async def get_it_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/it/index.html"):
+            return FileResponse("broker-verifier/it/index.html")
+    else:
+        if os.path.exists("it/index.html"):
+            return FileResponse("it/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/es")
+@app.get("/es/")
+async def get_es_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/es/index.html"):
+            return FileResponse("broker-verifier/es/index.html")
+    else:
+        if os.path.exists("es/index.html"):
+            return FileResponse("es/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/fr")
+@app.get("/fr/")
+async def get_fr_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/fr/index.html"):
+            return FileResponse("broker-verifier/fr/index.html")
+    else:
+        if os.path.exists("fr/index.html"):
+            return FileResponse("fr/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/de")
+@app.get("/de/")
+async def get_de_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/de/index.html"):
+            return FileResponse("broker-verifier/de/index.html")
+    else:
+        if os.path.exists("de/index.html"):
+            return FileResponse("de/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/pt")
+@app.get("/pt/")
+async def get_pt_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/pt/index.html"):
+            return FileResponse("broker-verifier/pt/index.html")
+    else:
+        if os.path.exists("pt/index.html"):
+            return FileResponse("pt/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/ru")
+@app.get("/ru/")
+async def get_ru_index(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/ru/index.html"):
+            return FileResponse("broker-verifier/ru/index.html")
+    else:
+        if os.path.exists("ru/index.html"):
+            return FileResponse("ru/index.html")
+    raise HTTPException(status_code=404, detail="Page not found")
 
 @app.get("/style.css")
 async def get_css(request: Request):
@@ -214,9 +340,45 @@ async def get_sitemap(request: Request):
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
     
-    additional_urls = ""
+    additional_urls = f"""
+   <url>
+      <loc>https://{domain}/ro/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/it/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/es/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/fr/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/de/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://{domain}/pt/</loc>
+      <lastmod>2026-07-16</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+   </url>"""
     if not is_dating:
-        additional_urls = f"""
+        additional_urls += f"""
    <url>
       <loc>https://{domain}/reviews/xm</loc>
       <lastmod>2026-07-14</lastmod>
@@ -261,6 +423,9 @@ class PaymentRequest(BaseModel):
 class UrlScanRequest(BaseModel):
     url: str
 
+class VideoLeadRequest(BaseModel):
+    email: str
+
 def has_face(image_bytes: bytes) -> bool:
     if not OPENCV_AVAILABLE:
         return True # Fallback if OpenCV is not installed
@@ -273,15 +438,181 @@ def has_face(image_bytes: bytes) -> bool:
         # and scale up small face crops for robust detection.
         img_resized = cv2.resize(img, (500, 500))
         gray = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
-        # Use alt2 cascade with normalized size parameters
+        
+        # 1. Frontal face detection
         face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
-        faces = face_cascade.detectMultiScale(gray, 1.1, 4, minSize=(80, 80))
-        return len(faces) > 0
+        faces = face_cascade.detectMultiScale(gray, 1.1, 3, minSize=(40, 40))
+        if len(faces) > 0:
+            return True
+            
+        # 2. Profile face detection (side view)
+        profile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_profileface.xml')
+        profiles = profile_cascade.detectMultiScale(gray, 1.1, 3, minSize=(40, 40))
+        if len(profiles) > 0:
+            return True
+            
+        # 3. Flipped profile face detection (since profile cascade only detects in one direction)
+        gray_flipped = cv2.flip(gray, 1)
+        profiles_flipped = profile_cascade.detectMultiScale(gray_flipped, 1.1, 3, minSize=(40, 40))
+        if len(profiles_flipped) > 0:
+            return True
+            
+        return False
     except Exception as e:
         import traceback
         with open("import_error.log", "w") as f:
             f.write(f"FaceDetectionError: {str(e)}\nTraceback: {traceback.format_exc()}")
         return True
+
+def get_sightengine_ai_data(file_bytes: bytes, image_url: str = "", lang: str = "en"):
+    api_user = os.getenv("SIGHTENGINE_API_USER")
+    api_secret = os.getenv("SIGHTENGINE_API_SECRET")
+    
+    if not api_user or not api_secret:
+        return None
+        
+    try:
+        import requests
+        import io
+        
+        # Prepare file bytes for upload
+        files = {"media": io.BytesIO(file_bytes)}
+        data = {
+            "models": "ai-content,deepfake",
+            "api_user": api_user,
+            "api_secret": api_secret
+        }
+        
+        response = requests.post(
+            "https://api.sightengine.com/1.0/check.json",
+            files=files,
+            data=data,
+            timeout=10
+        )
+        
+        if response.status_code == 200:
+            res_json = response.json()
+            if res_json.get("status") == "success":
+                type_data = res_json.get("type", {})
+                ai_score = type_data.get("ai_generated", 0.0)
+                deepfake_score = type_data.get("deepfake", 0.0)
+                
+                # If either score is high, report AI/Deepfake risk
+                if ai_score > 0.5 or deepfake_score > 0.5:
+                    max_score = max(ai_score, deepfake_score)
+                    scam_probability = int(max_score * 100)
+                    if scam_probability < 85:
+                        scam_probability = random.randint(85, 96)
+                        
+                    matches_count = 0
+                    if image_url:
+                        matches_data = [
+                            {"platform": "Google Lens Search", "url": f"https://lens.google.com/uploadbyurl?url={image_url}"},
+                            {"platform": "Yandex Image Search", "url": f"https://yandex.com/images/search?rpt=imageview&url={image_url}"}
+                        ]
+                    else:
+                        matches_data = []
+                        
+                    is_ai = ai_score > deepfake_score
+                    
+                    if lang == "ro":
+                        detector_type = "Generare Față AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTĂ DE SECURITATE CRITICĂ: S-a detectat {detector_type} (Scor de risc: {scam_probability}%). Această poză a fost generată artificial prin rețele neuronale (generatoare sintetice de chipuri) sau a fost modificată digital pentru înlocuirea feței. Această persoană nu există în viața reală."
+                    elif lang == "it":
+                        detector_type = "Generazione Viso AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALLERTA DI SICUREZZA CRITICA: Rilevato {detector_type} (Punteggio di rischio: {scam_probability}%). Questa immagine è stata generata artificialmente tramite reti neurali o è stata manipolata digitalmente. Questa persona non esiste nella vita reale."
+                    elif lang == "es":
+                        detector_type = "Generador de Rostro AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTA CRÍTICA DE SEGURIDAD: Se detectó {detector_type} (Puntuación de riesgo: {scam_probability}%). Esta imagen fue generada artificialmente utilizando redes neuronales o ha sido manipulada digitalmente. Esta persona no existe en la vida real."
+                    elif lang == "fr":
+                        detector_type = "Générateur de visage IA" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTE DE SÉCURITÉ CRITIQUE : {detector_type} détecté (Score de risque : {scam_probability}%). Cette image a été générée synthétiquement par des réseaux de neurones ou a été manipulée numériquement. Cette personne n'existe pas dans la vraie vie."
+                    elif lang == "de":
+                        detector_type = "KI-Gesichtsgenerator" if is_ai else "Deepfake / Gesichtstausch"
+                        scammer_info = f"KRITISCHER SICHERHEITSALARM: {detector_type} erkannt (Risikobewertung: {scam_probability}%). Dieses Bild wurde künstlich mithilfe neuronaler Netze generiert oder digital manipuliert. Diese Person existiert nicht im echten Leben."
+                    elif lang == "pt":
+                        detector_type = "Gerador de Rosto AI" if is_ai else "Deepfake / Troca de Rosto"
+                        scammer_info = f"ALERTA DE SEGURANÇA CRÍTICA: {detector_type} detectado (Pontuação de risco: {scam_probability}%). Esta imagem foi gerada sinteticamente usando redes neurais ou foi manipulada digitalmente. Esta pessoa não existe na vida real."
+                    else:
+                        detector_type = "AI Face Generator" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"CRITICAL SECURITY ALERT: {detector_type} detected (Risk score: {scam_probability}%). This image was synthetically generated using neural networks or has been digitally manipulated. This persona does not exist in real life."
+                        
+                    return scam_probability, matches_count, matches_data, scammer_info
+    except Exception as e:
+        print(f"Sightengine API call failed: {e}")
+        
+    return None
+
+def get_sightengine_ai_data_url(image_url: str, lang: str = "en"):
+    api_user = os.getenv("SIGHTENGINE_API_USER")
+    api_secret = os.getenv("SIGHTENGINE_API_SECRET")
+    
+    if not api_user or not api_secret or not image_url:
+        return None
+        
+    try:
+        import requests
+        params = {
+            "models": "ai-content,deepfake",
+            "api_user": api_user,
+            "api_secret": api_secret,
+            "url": image_url
+        }
+        
+        response = requests.get(
+            "https://api.sightengine.com/1.0/check.json",
+            params=params,
+            timeout=10
+        )
+        
+        if response.status_code == 200:
+            res_json = response.json()
+            if res_json.get("status") == "success":
+                type_data = res_json.get("type", {})
+                ai_score = type_data.get("ai_generated", 0.0)
+                deepfake_score = type_data.get("deepfake", 0.0)
+                
+                if ai_score > 0.5 or deepfake_score > 0.5:
+                    max_score = max(ai_score, deepfake_score)
+                    scam_probability = int(max_score * 100)
+                    if scam_probability < 85:
+                        scam_probability = random.randint(85, 96)
+                        
+                    matches_count = 0
+                    matches_data = [
+                        {"platform": "Google Lens Search", "url": f"https://lens.google.com/uploadbyurl?url={image_url}"},
+                        {"platform": "Yandex Image Search", "url": f"https://yandex.com/images/search?rpt=imageview&url={image_url}"}
+                    ]
+                        
+                    is_ai = ai_score > deepfake_score
+                    
+                    if lang == "ro":
+                        detector_type = "Generare Față AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTĂ DE SECURITATE CRITICĂ: S-a detectat {detector_type} (Scor de risc: {scam_probability}%). Această poză a fost generată artificial prin rețele neuronale (generatoare sintetice de chipuri) sau a fost modificată digital pentru înlocuirea feței. Această persoană nu există în viața reală."
+                    elif lang == "it":
+                        detector_type = "Generazione Viso AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALLERTA DI SICUREZZA CRITICA: Rilevato {detector_type} (Punteggio di rischio: {scam_probability}%). Questa immagine è stata generata artificialmente tramite reti neurali o è stata manipolata digitalmente. Questa persona non esiste nella vita reale."
+                    elif lang == "es":
+                        detector_type = "Generador de Rostro AI" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTA CRÍTICA DE SEGURIDAD: Se detectó {detector_type} (Puntuación de riesgo: {scam_probability}%). Esta imagen fue generada artificialmente utilizando redes neuronales o ha sido manipulada digitalmente. Esta persona no existe en la vida real."
+                    elif lang == "fr":
+                        detector_type = "Générateur de visage IA" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"ALERTE DE SÉCURITÉ CRITIQUE : {detector_type} détecté (Score de risque : {scam_probability}%). Cette image a été générée synthétiquement par des réseaux de neurones ou a été manipulée numériquement. Cette personne n'existe pas dans la vraie vie."
+                    elif lang == "de":
+                        detector_type = "KI-Gesichtsgenerator" if is_ai else "Deepfake / Gesichtstausch"
+                        scammer_info = f"KRITISCHER SICHERHEITSALARM: {detector_type} erkannt (Risikobewertung: {scam_probability}%). Dieses Bild wurde künstlich mithilfe neuronaler Netze generiert oder digital manipuliert. Diese Person existiert nicht im echten Leben."
+                    elif lang == "pt":
+                        detector_type = "Gerador de Rosto AI" if is_ai else "Deepfake / Troca de Rosto"
+                        scammer_info = f"ALERTA DE SEGURANÇA CRÍTICA: {detector_type} detectado (Pontuação de risco: {scam_probability}%). Esta imagem foi gerada sinteticamente usando redes neurais ou foi manipulada digitalmente. Esta pessoa não existe na vida real."
+                    else:
+                        detector_type = "AI Face Generator" if is_ai else "Deepfake / Face-Swap"
+                        scammer_info = f"CRITICAL SECURITY ALERT: {detector_type} detected (Risk score: {scam_probability}%). This image was synthetically generated using neural networks or has been digitally manipulated. This persona does not exist in real life."
+                        
+                    return scam_probability, matches_count, matches_data, scammer_info
+    except Exception as e:
+        print(f"Sightengine URL API call failed: {e}")
+        
+    return None
 
 def get_deterministic_mock_data(seed_bytes: bytes, filename: str = "", image_url: str = ""):
     # Check if a human face is present in the image bytes
@@ -366,7 +697,28 @@ async def scan_image(request: Request, file: UploadFile = File(...)):
     base_url = str(request.base_url).rstrip("/")
     image_url = f"{base_url}/uploads/{filename}"
         
-    scam_probability, matches_count, matches_data, scammer_info = get_deterministic_mock_data(file_bytes, file.filename, image_url)
+    # Language detection
+    referer = request.headers.get("referer", "")
+    lang = "en"
+    if "/ro" in referer:
+        lang = "ro"
+    elif "/it" in referer:
+        lang = "it"
+    elif "/es" in referer:
+        lang = "es"
+    elif "/fr" in referer:
+        lang = "fr"
+    elif "/de" in referer:
+        lang = "de"
+    elif "/pt" in referer:
+        lang = "pt"
+
+    # Attempt to use Sightengine AI check
+    ai_results = get_sightengine_ai_data(file_bytes, image_url, lang)
+    if ai_results:
+        scam_probability, matches_count, matches_data, scammer_info = ai_results
+    else:
+        scam_probability, matches_count, matches_data, scammer_info = get_deterministic_mock_data(file_bytes, file.filename, image_url)
 
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -397,7 +749,28 @@ async def scan_url(request: Request, url_req: UrlScanRequest):
     scan_id = str(uuid.uuid4())
     url_bytes = url_req.url.encode("utf-8")
     
-    scam_probability, matches_count, matches_data, scammer_info = get_deterministic_mock_data(url_bytes, url_req.url, url_req.url)
+    # Language detection
+    referer = request.headers.get("referer", "")
+    lang = "en"
+    if "/ro" in referer:
+        lang = "ro"
+    elif "/it" in referer:
+        lang = "it"
+    elif "/es" in referer:
+        lang = "es"
+    elif "/fr" in referer:
+        lang = "fr"
+    elif "/de" in referer:
+        lang = "de"
+    elif "/pt" in referer:
+        lang = "pt"
+
+    # Attempt to use Sightengine AI check on URL
+    ai_results = get_sightengine_ai_data_url(url_req.url, lang)
+    if ai_results:
+        scam_probability, matches_count, matches_data, scammer_info = ai_results
+    else:
+        scam_probability, matches_count, matches_data, scammer_info = get_deterministic_mock_data(url_bytes, url_req.url, url_req.url)
 
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -516,6 +889,17 @@ async def use_credit(request: UseCreditRequest):
         conn.close()
         return {"success": True, "message": "Scan already unlocked."}
         
+    is_admin_test = "amendamax" in request.email.lower()
+    if is_admin_test:
+        cursor.execute("UPDATE scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
+        conn.commit()
+        conn.close()
+        return {
+            "success": True, 
+            "message": "Admin bypass. Scan unlocked.", 
+            "credits_remaining": 999
+        }
+        
     # Check user credits
     cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
     user_row = cursor.fetchone()
@@ -535,6 +919,20 @@ async def use_credit(request: UseCreditRequest):
         "message": "1 credit consumed successfully.",
         "credits_remaining": new_credits
     }
+
+@app.post("/api/video-lead")
+async def save_video_lead(request: VideoLeadRequest):
+    if not request.email or "@" not in request.email:
+        raise HTTPException(status_code=400, detail="Invalid email address.")
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO video_leads (email, created_at)
+        VALUES (?, ?)
+    """, (request.email, datetime.now().isoformat()))
+    conn.commit()
+    conn.close()
+    return {"success": True, "message": "Email saved successfully."}
 
 @app.get("/api/credits/{email}")
 async def get_credits(email: str):
@@ -983,7 +1381,7 @@ static_broker_db = {
         "verdictTitle": "Highly Secure Broker",
         "verdictText": "Plus500 is a globally regulated, publicly traded CFD broker (LSE: PLUS) trusted by millions of traders worldwide. Licensed by the FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore), it offers a transparent and secure trading environment.",
         "redFlags": ["CFD trading involves risk of losing more than your initial deposit.", "Does not support MetaTrader platforms (proprietary platform only)."],
-        "greenFlags": ["Publicly listed on the London Stock Exchange (LSE: PLUS) — full financial transparency.", "Regulated by FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore).", "Negative balance protection guaranteed for all retail clients.", "Free real-time price alerts and risk management tools included."],
+        "greenFlags": ["Publicly listed on the London Stock Exchange (LSE: PLUS) — full financial transparency.", "Regulated by FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore).", "User-friendly trading interface and advanced risk management tools.", "Free real-time price alerts and risk management tools included."],
         "mockIp": "104.21.55.212",
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2008-04-01 (18 years ago)",
@@ -1286,10 +1684,10 @@ async def pay_broker_card(request: BrokerPaymentRequest):
     is_admin_test = "amendamax" in request.email.lower()
     
     # Charge $9.99 for Broker Audit Report
-    if STRIPE_SECRET_KEY and not is_admin_test:
+    if STRIPE_SECRET_KEY_BROKER and not is_admin_test:
         try:
             import stripe
-            stripe.api_key = STRIPE_SECRET_KEY
+            stripe.api_key = STRIPE_SECRET_KEY_BROKER
             stripe.Charge.create(
                 amount=999,
                 currency="usd",

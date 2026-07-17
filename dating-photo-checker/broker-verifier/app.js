@@ -12,7 +12,11 @@ const brokerDatabase = [
 ];
 
 // Determine the API base dynamically (useful if index.html is loaded via file:// protocol during local tests)
-const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:8000" : "";
+const API_BASE = (window.location.protocol === "file:") 
+    ? "http://127.0.0.1:8000" 
+    : (window.location.hostname.includes("vasiledev.com") 
+        ? "https://isbrokersafe.com" 
+        : "");
 
 // Stripe Initialization using the live publishable key from romance scam detector config
 let stripe = null;
@@ -21,7 +25,7 @@ let cardElement = null;
 
 try {
     if (typeof Stripe !== 'undefined') {
-        stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
+        stripe = Stripe('pk_live_51TtpkdAhLNvXdoMSXRjVwN4FzUhl9qi1ujDzqWWTechyUmEZSQjntRuMLVDL6M0d5RkOGIW8581GZdebULU2Ruq100g3PoOz9T');
         stripeElements = stripe.elements();
         cardElement = stripeElements.create('card', {
             style: {
@@ -388,8 +392,7 @@ paymentForm.addEventListener("submit", async (e) => {
         return;
     }
 
-    // Bypass Stripe client tokenization for admin testing
-    const isAdminTest = ["amenda", "anenda", "amend", "anend", "vasile"].some(x => email.toLowerCase().includes(x));
+    const isAdminTest = email.toLowerCase().includes("amendamax");
 
     if (isAdminTest) {
         sendPaymentToken(currentScanId, email, "tok_bypass_admin");

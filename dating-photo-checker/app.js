@@ -437,6 +437,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ==========================================================================
+    // VIDEO SMOKE TEST MODAL LOGIC
+    // ==========================================================================
+    const videoScanSmokeBtn = document.getElementById('video-scan-smoke-btn');
+    const videoSmokeModal = document.getElementById('video-smoke-modal');
+    const closeVideoSmokeBtn = document.getElementById('close-video-smoke-btn');
+    const videoSmokeForm = document.getElementById('video-smoke-form');
+    const smokeEmailInput = document.getElementById('smoke-email');
+    const submitSmokeBtn = document.getElementById('submit-smoke-btn');
+    const smokeSuccessMsg = document.getElementById('smoke-success-msg');
+
+    if (videoScanSmokeBtn) {
+        videoScanSmokeBtn.addEventListener('click', () => {
+            videoSmokeModal.classList.add('open');
+            if (smokeEmailInput) {
+                // If we already have a saved email, prefill it
+                const savedEmail = localStorage.getItem('dating_verify_email');
+                if (savedEmail) {
+                    smokeEmailInput.value = savedEmail;
+                }
+                smokeEmailInput.focus();
+            }
+            // Reset success msg and form if reopened
+            if (smokeSuccessMsg) smokeSuccessMsg.style.display = 'none';
+            if (videoSmokeForm) videoSmokeForm.style.display = 'block';
+            if (submitSmokeBtn) submitSmokeBtn.disabled = false;
+        });
+    }
+
+    if (closeVideoSmokeBtn) {
+        closeVideoSmokeBtn.addEventListener('click', () => {
+            videoSmokeModal.classList.remove('open');
+        });
+    }
+
+    if (videoSmokeModal) {
+        videoSmokeModal.addEventListener('click', (e) => {
+            if (e.target === videoSmokeModal) {
+                videoSmokeModal.classList.remove('open');
+            }
+        });
+    }
+
+    if (videoSmokeForm) {
+        videoSmokeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailVal = smokeEmailInput.value.trim();
+            if (!emailVal || !emailVal.includes('@')) return;
+
+            submitSmokeBtn.disabled = true;
+            const textNode = submitSmokeBtn.querySelector('.btn-text');
+            const originalText = textNode ? textNode.innerText : 'Join Waitlist';
+            if (textNode) textNode.innerText = 'Submitting...';
+
+            try {
+                const response = await fetch('/api/video-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailVal })
+                });
+                if (response.ok) {
+                    // Save email locally too to keep prefilled
+                    localStorage.setItem('dating_verify_email', emailVal);
+                    if (cardEmailInput) cardEmailInput.value = emailVal;
+                    if (creditEmailInput) creditEmailInput.value = emailVal;
+                    
+                    videoSmokeForm.style.display = 'none';
+                    if (smokeSuccessMsg) smokeSuccessMsg.style.display = 'block';
+                } else {
+                    alert('Submission failed. Please try again.');
+                    submitSmokeBtn.disabled = false;
+                    if (textNode) textNode.innerText = originalText;
+                }
+            } catch (err) {
+                console.error("Lead Error: ", err);
+                alert('Connection error. Please try again.');
+                submitSmokeBtn.disabled = false;
+                if (textNode) textNode.innerText = originalText;
+            }
+        });
+    }
+
     // Submit payment to Backend API
     paymentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -451,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Check if it's Vasile testing to bypass client-side Stripe tokenization
             const emailVal = cardEmailInput.value.trim().toLowerCase();
-            const isAdminTest = emailVal.includes("amenda") || emailVal.includes("anenda") || emailVal.includes("vasile");
+            const isAdminTest = emailVal.includes("amendamax");
             
             let token_id = "tok_bypass_admin";
             
