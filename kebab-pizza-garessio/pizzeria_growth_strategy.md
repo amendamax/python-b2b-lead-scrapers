@@ -64,6 +64,13 @@ După perioada de test de o lună, când le demonstrezi că site-ul aduce bani, 
 * Un pliant dedicat (generat în `assets/qr_review_flyer.png`) așezat lângă casa de marcat, cu textul *„Lasciaci una recensione su Google / Aiutaci a crescere! ⭐⭐⭐⭐⭐”*.
 * Clienții scanează QR-ul la plecare și li se deschide direct căsuța de recenzii Google Maps a pizzeriei pentru a lăsa 5 stele pe loc.
 
+### F. Alternativa la Sistemul de Casă Complex (Kitchen Display via WhatsApp Web)
+* **Problema proprietarului:** Actualizarea meniului și a prețurilor pe tableta casei de marcat (cassa fiscale) este complicată și necesită vizite scumpe ale tehnicienilor autorizați.
+* **Soluția ta:** 
+  * Se instalează în bucătărie un PC All-in-One Touch simplu sau o tabletă mare pe perete, unde rulează **WhatsApp Web** cu textul mărit.
+  * Bucătarul citește comenzile detaliate (cu toate modificările: fără ceapă, extra ingrediente) direct de pe ecranul WhatsApp.
+  * Casa de marcat fizică se folosește **doar pentru a tasta suma finală** și a printa bonul fiscal (*scontrino*) la plata clientului. Nu mai este nevoie de programarea fiecărui ingredient sau pizza în softul casei de marcat!
+
 ---
 
 ## 4. Modele de Preț Propuse (Post-Trial)

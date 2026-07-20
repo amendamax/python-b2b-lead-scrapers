@@ -57,6 +57,7 @@
 > *Con questo pacchetto, potremo aggiungere anche funzioni avanzate:*
 > * * **Carrello completo**: Il cliente sceglie più prodotti, bevande, salse e invia tutto in un unico messaggio ordinato.*
 > * * **Modulo di personalizzazione**: Il cliente può selezionare 'SENZA cipolla' o 'EXTRA mozzarella', e il pizzaiolo vede scritto esattamente cosa preparare. Zero errori in cucina.*
-> * * **QR dedicati per tavolo**: Il cliente al tavolo 3 scansiona, ordina e su WhatsApp vi arriva scritto 'Ordine al Tavolo 3'. Il cameriere deve solo portare i piatti.*
+> * * **QR dedicati per tavolo**: Il cliente al tavolo 3 scansiona, ordina e su WhatsApp vi arriva scritto 'Ordine al Tavolo 3'. Il cameriere deve solo portare i piatti.
+* * **Alternativa alla Cassa Fiscale**: Possiamo mettere uno schermo touch in cucina con WhatsApp Web. Il cuoco legge gli ordini con tutte le personalizzazioni direttamente dallo schermo, e la cassa la usate solo per battere l'importo totale e stampare lo scontrino. Non dovrete più pagare tecnici per programmare prezzi o ingredienti nella cassa touch!*
 > 
 > *Inoltre, come bonus simbolico e per assicurarci che tutto funzioni al meglio, mi preparate una pizza o un kebab da asporto quando passo a trovarvi! 😄”*

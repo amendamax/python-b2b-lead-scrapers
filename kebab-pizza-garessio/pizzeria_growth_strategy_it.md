@@ -64,6 +64,13 @@ Dopo il periodo di prova di un mese, quando avrai dimostrato con i fatti che il 
 * Un cartello dedicato (generato in `assets/qr_review_flyer.png`) posizionato vicino alla cassa, con il testo *„Lasciaci una recensione su Google / Aiutaci a crescere! ⭐⭐⭐⭐⭐”*.
 * I clienti scansionano il QR al momento del pagamento e aprono all'istante la schermata per lasciare una recensione a 5 stelle su Google Maps.
 
+### F. Alternativa al Sistema di Cassa Complesso (Kitchen Display via WhatsApp Web)
+* **Il problema dei proprietari:** Aggiornare il menu e i prezzi sul tablet della cassa fiscale è complicato e richiede visite costose da parte dei tecnici autorizzati.
+* **La tua soluzione:**
+  * Si installa in cucina un PC All-in-One Touch o un tablet grande a parete, su cui gira **WhatsApp Web** con testo ingrandito.
+  * Il cuoco legge gli ordini dettagliati (con tutte le modifiche: senza cipolla, extra) direttamente dallo schermo.
+  * La cassa fiscale fisica si usa **solo per battere l'importo totale finale** e stampare lo scontrino fiscale al pagamento del cliente. Questo elimina la necessità di programmare ogni singolo ingrediente o pizza nel software della cassa!
+
 ---
 
 ## 4. Modelli di Prezzo Proposti (Post-Trial)

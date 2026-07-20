@@ -57,6 +57,7 @@
 > *La acest pachet, vă pot adăuga și funcționalități avansate:*
 > * * **Coș de cumpărături complet**: Clientul alege mai multe produse, băuturile, sosurile și le trimite pe toate într-un singur mesaj.*
 > * * **Modal de personalizare**: Clientul poate bifa 'FĂRĂ ceapă' sau 'EXTRA mozzarella', iar bucătarul vede scris exact ce să prepare. Se elimină greșelile din bucătărie.*
-> * * **Mese cu QR dedicat**: Clientul de la masa 3 scanează, comandă, iar pe WhatsApp-ul vostru scrie 'Comandă la Masa 3'. Chelnerul doar duce mâncarea.*
+> * * **Mese cu QR dedicat**: Clientul de la masa 3 scanează, comandă, iar pe WhatsApp-ul vostru scrie 'Comandă la Masa 3'. Chelnerul doar duce mâncarea.
+* * **Alternativa la Casa de Marcat**: Putem pune un ecran touch în bucătărie cu WhatsApp Web. Bucătarul citește comenzile cu toate personalizările direct de pe ecran, iar casa de marcat o folosiți doar ca să bateți suma totală și să scoateți bonul fiscal (*scontrino*). Nu mai trebuie să plătiți tehnicieni să vă programeze prețurile sau ingredientele în casa de marcat!*
 > 
 > *În plus, ca bonus pentru administrare și să ne asigurăm că totul merge brici, îmi pregătiți și mie câte o pizza din partea casei când trec pe la voi! 😄”*
