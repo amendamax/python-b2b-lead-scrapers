@@ -293,6 +293,16 @@ async def get_js(request: Request):
             return FileResponse("broker-verifier/app.js")
     return FileResponse("app.js")
 
+@app.get("/guides/{filename}")
+async def get_guide(filename: str, request: Request):
+    host = request.headers.get("host", "").lower()
+    is_dating = "dating" in host or "verifydating" in host
+    if not is_dating:
+        file_path = f"broker-verifier/guides/{filename}"
+        if os.path.exists(file_path):
+            return FileResponse(file_path, media_type="application/pdf")
+    return JSONResponse(status_code=404, content={"message": "Guide not found"})
+
 @app.get("/catfish_profile.png")
 async def get_test_photo():
     if os.path.exists("catfish_profile.png"):
@@ -320,7 +330,7 @@ async def get_promo():
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
     broker_clean = broker_name.lower().strip()
-    if broker_clean in ["xm", "exness"]:
+    if broker_clean in ["xm", "exness", "avatrade"]:
         file_path = f"broker-verifier/reviews/{broker_clean}.html"
         if os.path.exists(file_path):
             return FileResponse(file_path)
@@ -379,6 +389,12 @@ async def get_sitemap(request: Request):
    </url>"""
     if not is_dating:
         additional_urls += f"""
+   <url>
+      <loc>https://{domain}/reviews/avatrade</loc>
+      <lastmod>2026-07-19</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
    <url>
       <loc>https://{domain}/reviews/xm</loc>
       <lastmod>2026-07-14</lastmod>
@@ -1385,7 +1401,8 @@ static_broker_db = {
         "mockIp": "104.21.55.212",
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2008-04-01 (18 years ago)",
-        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)"
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)",
+        "affiliateLink": "https://www.500affiliates.com/Home.aspx?id=139742"
     },
     "pepperstone.com": {
         "name": "Pepperstone",
