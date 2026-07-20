@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horus Pizza & Kebab Garessio — Menu Cotto a Pietra</title>
+    <meta name="description" content="Il vero kebab artigianale e le pizze a lievitazione naturale di Horus Pizza & Kebab a Garessio. Cotti nel forno a pietra. Ordina da asporto.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <!-- Eye of Horus Custom SVG Logo -->
+                <svg viewBox="0 0 100 60" width="40" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="logo-eye">
+                    <path d="M 15,12 C 35,5 65,5 85,12" stroke-width="4" stroke="var(--color-primary)" />
+                    <path d="M 10,30 C 30,18 70,18 90,30" />
+                    <path d="M 10,30 C 30,42 70,42 90,30" />
+                    <circle cx="50" cy="30" r="7" fill="currentColor" />
+                    <path d="M 50,38 L 50,55" />
+                    <path d="M 62,35 C 65,48 55,53 45,50 C 38,47 38,40 45,37 C 50,35 55,38 52,43" />
+                </svg>
+                <span>HORUS</span> Pizza & Kebab
+            </a>
+            <div class="nav-contact-desktop">
+                <a href="tel:+390174803005" class="nav-phone-btn">📞 0174 803 005</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-badge">
+                <span class="badge-icon">🇪🇬</span> Da Ceva a Garessio — Specialità Cotte nel Forno a Pietra
+            </div>
+            
+            <h1 class="hero-title">
+                Il Vero Gusto di <span>Horus</span> <br>Pizza & Kebab Artigianale
+            </h1>
+            
+            <p class="hero-desc">
+                Sforniamo panini, piadine arrotolate e oltre 50 tipi di pizze cotte a pietra. Tutto preparato sul momento con ingredienti freschi e salse artigianali.
+            </p>
+
+            <div class="status-wrapper">
+                <div id="shop-status" class="status-badge checking">
+                    <span class="status-dot"></span>Verifica orari...
+                </div>
+            </div>
+
+            <div class="hero-cta-group">
+                <a href="#menu" class="btn btn-primary">📖 Scopri il Menu</a>
+                <a href="tel:+390174803005" class="btn btn-secondary">📞 Chiama 0174 803 005</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section (Features) -->
+    <section class="info-section">
+        <div class="info-grid">
+            <div class="info-card">
+                <span class="info-icon">🥙</span>
+                <h3>Specialità Kebab</h3>
+                <p>Carni selezionate, tagliate al momento e servite in pane artigianale sfornato ogni giorno.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🍕</span>
+                <h3>Oltre 50 Pizze</h3>
+                <p>Cotte su pietra con impasto a lenta lievitazione. Disponibili in formato Baby e Normale.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🛍️</span>
+                <h3>Servizio d'Asporto</h3>
+                <p>Ordina telefonicamente o via WhatsApp per ritirare i tuoi piatti caldi all'orario concordato, senza attese.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="menu-header">
+            <span class="menu-subtitle">I Nostri Sapori</span>
+            <h2>Il Menu di Horus</h2>
+            <p>Esplora le nostre specialità. Cerca un ingrediente o seleziona una categoria. Clicca sui piatti per avviare l'ordine su WhatsApp!</p>
+            
+            <!-- Search Input -->
+            <div class="menu-search-wrapper">
+                <input type="text" id="menu-search" placeholder="🔍 Cerca pizza o ingrediente... (es: speck, salame, kebab)">
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="menu-tabs">
+                <button class="tab-btn active" data-category="all">Tutti</button>
+                <button class="tab-btn" data-category="kebab">🥙 Kebab & Panini</button>
+                <button class="tab-btn" data-category="classiche">🍕 Pizze Classiche</button>
+                <button class="tab-btn" data-category="bianche">⚪ Pizze Bianche</button>
+                <button class="tab-btn" data-category="speciali">⭐️ Speciali & Focacce</button>
+                <button class="tab-btn" data-category="piatti">🍽️ Piatti & Sfizi</button>
+            </div>
+        </div>
+
+        <div class="menu-grid" id="menu-grid">
+            <!-- === KEBAB & PANINI === -->
+            <div class="menu-item" data-category="kebab">
+                <div class="item-img-container">
+                    <img src="assets/panino_kebab.png" alt="Panino Kebab">
+                    <span class="item-badge">Bestseller</span>
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Panino Kebab</h3>
+                        <span class="item-price">€ 6,00 / € 7,00</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Carne kebab saporita, cipolle fresche e verdure a scelta racchiuse in pane artigianale croccante fatto in casa.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Panino Kebab', 6.00, 7.00, 'Piccolo', 'Grande')" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-img-container">
+                    <img src="assets/kebab.png" alt="Arrotolato Kebab">
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Arrotolato Kebab</h3>
+                        <span class="item-price">€ 6,00</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Carne kebab, insalata croccante, pomodoro fresco, cipolle, salsa bianca allo yogurt e salsa piccante avvolte in una piadina calda.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Arrotolato Kebab', 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Panino Cotoletta</h3>
+                        <span class="item-price">€ 6,00</span>
+                    </div>
+                    <p class="item-desc">Pane artigianale farcito con cotoletta di pollo croccante, insalata fresca, pomodoro e maionese.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Panino Cotoletta', 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Panino Kofta</h3>
+                        <span class="item-price">€ 6,00</span>
+                    </div>
+                    <p class="item-desc">Polpette di carne speziate (kofta) con insalata, pomodoro fresco e salse saporite.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Panino Kofta', 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Panino Falafel</h3>
+                        <span class="item-price">€ 6,00</span>
+                    </div>
+                    <p class="item-desc">Falafel dorati e speziati (polpette di ceci), accompagnati da insalata, pomodoro e salsa yogurt, ideale per vegetariani.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Panino Falafel', 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Hotdog</h3>
+                        <span class="item-price">€ 4,00</span>
+                    </div>
+                    <p class="item-desc">Panino soffice con würstel grigliato di prima scelta, ketchup e senape.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Hotdog', 4.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Menu Hamburger</h3>
+                        <span class="item-price">€ 9,00</span>
+                    </div>
+                    <p class="item-desc">Panino con hamburger succoso, insalata, pomodoro + porzione di patatine fritte + bibita fresca in lattina da 33cl.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Menu Hamburger (Hamburger + Patatine + Bibita)', 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Menu Kebab</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Panino kebab o arrotolato + porzione abbondante di patatine fritte dorate + bibita a scelta in lattina da 33cl.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Menu Kebab (Panino Kebab + Patatine + Bibita)', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === PIZZE CLASSICHE === -->
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella origano margherita">
+                <div class="item-img-container">
+                    <img src="assets/pizza.png" alt="Pizza Margherita">
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Margherita</h3>
+                        <span class="item-price">€ 4,50 / € 6,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, origano.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Margherita', 4.50, 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella patatine fritte margherita patate">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Margherita + Patate</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, patatine fritte.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Margherita con Patate', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro aglio origano marinara">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Marinara</h3>
+                        <span class="item-price">€ 3,50 / € 5,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, aglio, origano.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Marinara', 3.50, 5.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella prosciutto cotto">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Prosciutto Cotto</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Prosciutto Cotto', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella wurstel">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Würstel</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, würstel.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Würstel', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella salame piccante diavola">
+                <div class="item-img-container">
+                    <img src="assets/pizza_diavola.png" alt="Pizza Diavola">
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Diavola</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, salame piccante.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Diavola', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella gorgonzola">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Gorgonzola</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, gorgonzola.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Gorgonzola', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella salsiccia">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Salsiccia</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, salsiccia locale.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Salsiccia', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella tonno">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Tonno</h3>
+                        <span class="item-price">€ 5,00 / € 7,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, tonno all'olio d'oliva.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Tonno', 5.00, 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella gorgonzola fontina parmigiano 4 formaggi quattro formaggi">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Quattro Formaggi</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, gorgonzola, fontina, parmigiano.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Quattro Formaggi', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto carciofi funghi olive 4 stagioni quattro stagioni">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Quattro Stagioni</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, carciofi, funghi, olive.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Quattro Stagioni', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto carciofi funghi parmigiano quattro gusti 4 gusti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Quattro Gusti</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, cotto, carciofi, funghi, parmigiano.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Quattro Gusti', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella prosciutto cotto funghi">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Prosciutto Cotto & Funghi</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, funghi.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Prosciutto Cotto e Funghi', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto carciofi funghi olive wurstel capricciosa">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Capricciosa</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, carciofi, funghi, olive, würstel.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Capricciosa', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella salsiccia cotto solita">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Solita</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, salsiccia, prosciutto cotto.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Solita', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella crudo parma prosciutto crudo">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Pros. Crudo di Parma</h3>
+                        <span class="item-price">€ 5,50 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto crudo di Parma.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Prosciutto Crudo di Parma', 5.50, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella speck">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Speck</h3>
+                        <span class="item-price">€ 5,50 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, speck saporito.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Speck', 5.50, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella stracchino">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Stracchino</h3>
+                        <span class="item-price">€ 5,50 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, formaggio stracchino cremoso.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza allo Stracchino', 5.50, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella gorgonzola cipolla cipolle">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Gorgo & Cipolle</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, gorgonzola, cipolle dolci.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Gorgo e Cipolle', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella tonno cipolla cipolle">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Tonno & Cipolle</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, tonno, cipolle.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Tonno e Cipolle', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella wurstel salsiccia patatine fritte americana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Americana</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, würstel, salsiccia, patatine fritte.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Americana', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella prosciutto cotto patatine fritte usa u.s.a.">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>U.S.A.</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, patatine fritte.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza U.S.A.', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto funghi calzone ripieno">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Calzone</h3>
+                        <span class="item-price">€ 5,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Pizza chiusa farcita con pomodoro, mozzarella, prosciutto cotto e funghi champignon.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Calzone Classico', 5.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto carciofi funghi wurstel calzone farcito ripieno">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Calzone Farcito</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Farcito con pomodoro, mozzarella, cotto, carciofi, funghi e würstel.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Calzone Farcito', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto uovo bismark uova">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Bismark</h3>
+                        <span class="item-price">€ 5,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, uovo fresco al forno.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Bismark', 5.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella acciughe napoli acciuga">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Napoli</h3>
+                        <span class="item-price">€ 5,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, acciughe saporite in olio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Napoli', 5.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella acciughe olive capperi siciliana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Siciliana</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, acciughe, olive nere, capperi.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Siciliana', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella verdure grigliate melanzane zucchine peperoni vegetariana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Vegetariana</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, verdure fresche grigliate di stagione.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Vegetariana', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella salumi misti diavola cotto crudo salame 4 salumi quattro salumi">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>4 Salumi</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, salumi misti scelti di alta qualità.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza 4 Salumi', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella cotto salsiccia salame piccante wurstel doc d.o.c.">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>DOC</h3>
+                        <span class="item-price">€ 5,50 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, prosciutto cotto, salsiccia, salame piccante, würstel.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza DOC', 5.50, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella scamorza affumicata pancetta affumicata">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Affumicata</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, scamorza affumicata, pancetta affumicata.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Affumicata', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella salame piccante cipolla fagioli salsa piccante messicana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Messicana</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, salame piccante, cipolla, fagioli neri, salsa piccante.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Messicana', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella parmigiano melanzane parmigiana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Parmigiana</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, formaggio grattugiato parmigiano, melanzane grigliate.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Parmigiana', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella olive nere capperi salame piccante acciughe giusy">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Giusy</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, olive nere, capperi, salame piccante, acciughe.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Giusy', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro mozzarella pesto basilico prosciutto cotto vulcano">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Vulcano</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella, pesto genovese, prosciutto cotto.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Vulcano', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="classiche" data-ingredients="pomodoro frutti di mare pesce calamari cozze vongole gamberi">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Frutti di Mare</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: salsa di pomodoro italiano condita e misto frutti di mare freschi saporiti (senza mozzarella).</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Frutti di Mare', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === PIZZE BIANCHE === -->
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella sale biancaneve bianca">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Biancaneve</h3>
+                        <span class="item-price">€ 4,50 / € 6,00</span>
+                    </div>
+                    <p class="item-desc">La pizza bianca per eccellenza: solo mozzarella filante e un pizzico di sale.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Biancaneve', 4.50, 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella gorgonzola pere noci miele gorgo pere">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Gorgo & Pere</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Pizza bianca con mozzarella, gorgonzola cremoso, pere fresche a fette, noci e miele.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Gorgo e Pere', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella stracchino rucola scaglie grana parmigiano">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Stracchino & Rucola</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, stracchino fresco cremoso, rucola selvatica, scaglie di grana.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Stracchino e Rucola', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella gorgonzola noci gorgo noci">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Gorgo & Noci</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, formaggio gorgonzola piccante e noci sgusciate croccanti.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Gorgo e Noci', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella salmone affumicato panna olio">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Salmone & Panna</h3>
+                        <span class="item-price">€ 6,00 / € 10,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, salmone affumicato nordico, panna fresca da cucina, olio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Salmone e Panna', 6.00, 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella stracchino speck brie olio stronata">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Stronata</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, stracchino, speck tirolese, formaggio brie, olio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Stronata', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella speck brie speck e brie">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Speck & Brie</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, speck saporito, fette di formaggio brie fondente.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Speck e Brie', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="pomodoro mozzarella bufala crudo olio bufalina">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Bufalina</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella di bufala campana DOP, prosciutto crudo, olio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Bufalina', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella pomodorini scaglie grana olio parmigiano annabella">
+                <div class="item-img-container">
+                    <img src="assets/pizza_bianca.png" alt="Pizza Annabella">
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Annabella</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodorini ciliegino freschi, scaglie di grana, olio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Annabella', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella pomodorini rucola crudo sorrentina">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Sorrentina</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodorini ciliegino freschi, rucola, prosciutto crudo.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Sorrentina', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella pesto rucola pomodorini freschi burrata genovese">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Genovese</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pesto basilico genovese, rucola, pomodorini freschi, burrata.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Genovese', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella panna cotto mais mimosa">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Mimosa</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, panna da cucina, prosciutto cotto, mais dolce.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Mimosa', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella gorgonzola cotto noci gorgo delizia">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Delizia</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, gorgonzola, prosciutto cotto, noci tritate.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Delizia', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="pomodoro mozzarella bufala pomodorini freschi rucola campana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Campana</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: pomodoro, mozzarella di bufala campana, pomodorini ciliegino, rucola fresca.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Campana', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="bianche" data-ingredients="mozzarella pomodoro cotto fontina valdostana">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Valdostana</h3>
+                        <span class="item-price">€ 6,00 / € 8,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, salsa di pomodoro, prosciutto cotto, formaggio fontina.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Valdostana', 6.00, 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === SPECIALI & FOCACCE === -->
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella stracchino crudo rucola pomodorini grana stella di horus speciale">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>La Stella di Horus</h3>
+                        <span class="item-price">€ 10,00</span>
+                        <span class="item-badge">Speciale ⭐️</span>
+                    </div>
+                    <p class="item-desc">Specialità unica a forma di stella farcita con mozzarella, stracchino, prosciutto crudo, rucola, pomodorini freschi e scaglie di grana.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('La Stella di Horus', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella pomodoro kebab cipolla insalata salsa yogurt piccante pizza kebab">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Pizza Kebab</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                        <span class="item-badge">Consigliata</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodoro, carne kebab, cipolla, insalata fresca, salsa bianca, salsa piccante.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Kebab', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella pomodoro carciofini funghi olive cotto uovo salame piccante sfiziosa">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Sfiziosa</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodoro, carciofini, funghi, olive, prosciutto cotto, uovo, salame piccante.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Sfiziosa', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella pomodoro scamorza speck spiritosa">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Spiritosa</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodoro, formaggio scamorza affumicato fondente, speck tirolese.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Spiritosa', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella pomodoro funghi speck boscaiola">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Boscaiola</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, pomodoro, funghi prataioli trifolati, speck saporito.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Boscaiola', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella bresaola rucola scaglie grana parmigiano valtellina">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Valtellina</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                    </div>
+                    <p class="item-desc">Ingredienti: mozzarella, bresaola della Valtellina IGP, rucola, scaglie di grana.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Valtellina', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="mozzarella scamorza affumicata pomodorini freschi rucola voglia di pizza">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Voglia di Pizza</h3>
+                        <span class="item-price">€ 6,00 / € 8,50</span>
+                    </div>
+                    <p class="item-desc">Base bianca con mozzarella, formaggio scamorza affumicato, pomodorini ciliegino, rucola.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Pizza Voglia di Pizza', 6.00, 8.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item pizza-card" data-category="speciali" data-ingredients="pomodoro mozzarella kebab salse calzone kebab ripieno">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Calzone Kebab</h3>
+                        <span class="item-price">€ 6,00 / € 9,00</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Calzone chiuso ripieno di pomodoro, mozzarella filante, abbondante carne kebab salse yogurt e piccante.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Calzone Kebab', 6.00, 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focacce -->
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia olio origano sale pane semplice">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia Olio & Origano</h3>
+                        <span class="item-price">€ 4,00</span>
+                    </div>
+                    <p class="item-desc">Impasto steso sottile, spennellato con olio d'oliva, sale grosso e origano profumato.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia Olio e Origano', 4.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia prosciutto crudo parma crudo">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia con Crudo</h3>
+                        <span class="item-price">€ 7,00</span>
+                    </div>
+                    <p class="item-desc">Focaccia calda spaccata a metà e farcita con prosciutto crudo di Parma dolce.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia con Prosciutto Crudo', 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia speck tirolese speck">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia con Speck</h3>
+                        <span class="item-price">€ 7,00</span>
+                    </div>
+                    <p class="item-desc">Focaccia farcita con dell'ottimo speck saporito a fette sottili.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia con Speck', 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia pomodorini rucola scaglie grana parmigiano tipica">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia Tipica</h3>
+                        <span class="item-price">€ 7,50</span>
+                    </div>
+                    <p class="item-desc">Farcita a freddo con pomodorini freschi ciliegina, rucola selvatica croccante e scaglie di grana.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia Tipica', 7.50)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia pomodorini rucola mozzarella bufala inventata">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia Inventata</h3>
+                        <span class="item-price">€ 8,00</span>
+                    </div>
+                    <p class="item-desc">Farcita con pomodorini freschi, rucola e fette cremose di mozzarella di bufala.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia Inventata', 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia cotto mozzarella crudo speck farcita ripiena">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia Farcita</h3>
+                        <span class="item-price">€ 7,00</span>
+                    </div>
+                    <p class="item-desc">Farcita calda. Scegli l'abbinamento que preferisci: Cotto & Mozzarella, Crudo & Mozzarella o Speck & Mozzarella.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia Farcita (Cotto/Crudo/Speck + Mozzarella)', 7.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia pomodorini cipolla mozzarella bufala olive nere pugliese">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia Pugliese</h3>
+                        <span class="item-price">€ 8,00</span>
+                    </div>
+                    <p class="item-desc">Farcita con pomodorini fresco, cipolla affettata fine, mozzarella di bufala, olive nere dolci.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia Pugliese', 8.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="speciali" data-ingredients="focaccia dolce nutella chocolate nocciole dolce">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Focaccia alla Nutella</h3>
+                        <span class="item-price">€ 6,00</span>
+                    </div>
+                    <p class="item-desc">Focaccia dolce spalmata all'interno con abbondante Nutella calda e zucchero a velo.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Focaccia alla Nutella', 6.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === PIATTI & SFIZI === -->
+            <div class="menu-item" data-category="piatti">
+                <div class="item-img-container">
+                    <img src="assets/piatto_kebab.png" alt="Piatto Kebab">
+                    <span class="item-badge">Consigliato</span>
+                </div>
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Piatto Kebab</h3>
+                        <span class="item-price">€ 10,00</span>
+                        <span class="item-badge badge-spicy">🌶️</span>
+                    </div>
+                    <p class="item-desc">Carne kebab servita al piatto con contorno di insalata fresca pomodori, cipolle, patatine fritte e salse assortite.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Piatto Kebab', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Piatto Kofta</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Polpette di carne speziate mediorientali (kofta) al piatto con contorno di patatine fritte, insalata fresca saporita e salse.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Piatto Kofta', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Piatto Falafel</h3>
+                        <span class="item-price">€ 9,00</span>
+                    </div>
+                    <p class="item-desc">Porzione di polpette di ceci speziate (falafel) servite al piatto con contorno di verdure fresche, patatine e salsa allo yogurt.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Piatto Falafel', 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Piatto Hamburger</h3>
+                        <span class="item-price">€ 9,00</span>
+                    </div>
+                    <p class="item-desc">Hamburger di manzo servito al piatto con patatine fritte, insalata mista fresca di stagione e salse a scelta.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Piatto Hamburger', 9.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Grigliata Mista di Carne</h3>
+                        <span class="item-price">€ 16,00</span>
+                    </div>
+                    <p class="item-desc">Un assortimento saporito di varie carni grigliate servito con contorno caldo.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Grigliata Mista di Carne', 16.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Frittura Mista di Pesce</h3>
+                        <span class="item-price">€ 17,00</span>
+                    </div>
+                    <p class="item-desc">Un fritto croccante e saporito di pesce azzurro misto, calamari e gamberetti con limone fresco.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Frittura Mista di Pesce', 17.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Frittura di Calamari</h3>
+                        <span class="item-price">€ 12,00</span>
+                    </div>
+                    <p class="item-desc">Anelli di calamaro freschi panati e fritti alla doratura perfetta, serviti croccanti.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Frittura di Calamari', 12.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Capocollo alla Griglia</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Fette di capocollo di maiale grigliate alla brace con aromi naturali.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Capocollo alla Griglia', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Salsiccia alla Griglia</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Saporite salsicce locali grigliate al momento servite con contorno caldo.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Salsiccia alla Griglia', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Spiedini alla Griglia</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Spiedini di carni miste e peperoni cotti alla piastra.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Spiedini alla Griglia', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Cotoletta Milanese</h3>
+                        <span class="item-price">€ 10,00</span>
+                    </div>
+                    <p class="item-desc">Fetta di carne panata dorata servita croccante con spicchio di limone fresco.</p>
+                    <div class="item-actions">
+                        <button onclick="orderDirect('Cotoletta Milanese', 10.00)" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="piatti" data-ingredients="patate fritte patatine sfiziosi contorni">
+                <div class="item-info">
+                    <div class="item-title-row">
+                        <h3>Patatine Fritte</h3>
+                        <span class="item-price">€ 3,00 / € 4,00</span>
+                    </div>
+                    <p class="item-desc">Porzione di patatine fritte dorate e salate. Disponibile in formato Piccolo e Medio.</p>
+                    <div class="item-actions">
+                        <button onclick="openSizeModal('Patatine Fritte', 3.00, 4.00, 'Piccola', 'Media')" class="order-btn">
+                            💬 Ordina su WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Hours Section -->
+    <section class="location-section">
+        <div class="location-container">
+            <div class="location-info">
+                <span class="location-subtitle">Contatti & Orari</span>
+                <h2>Vieni a Trovarci</h2>
+                <p class="address">📍 Via Lepetit, 121, 12075 Garessio (CN)</p>
+                <p class="info-text">Siamo situati in Via Lepetit, a Garessio. Passa a trovarci o chiamaci per ordinare d'asporto!</p>
+                
+                <div class="hours-table">
+                    <div class="hours-row">
+                        <span class="day">Martedì - Domenica</span>
+                        <span class="time">11:30 - 14:30 | 17:30 - 23:30</span>
+                    </div>
+                    <div class="hours-row closed">
+                        <span class="day">Lunedì</span>
+                        <span class="time">Chiuso per Riposo Settimanale</span>
+                    </div>
+                </div>
+
+                <div class="delivery-notice">
+                    📢 <strong>Ordinazione d'asporto:</strong> prenota i tuoi piatti telefonicamente al numero fisso <strong>0174 803 005</strong> per ritirarli caldi all'orario desiderato.
+                </div>
+            </div>
+            <div class="location-map">
+                <div class="map-placeholder">
+                    <div class="map-glow"></div>
+                    <span class="map-pin">📍</span>
+                    <p class="map-text">HORUS PIZZA & KEBAB<br><span style="font-size:0.85rem;color:var(--color-text-muted);">Via Lepetit, 121, Garessio</span></p>
+                    <a href="https://maps.google.com/?q=Via+Lepetit+121,+Garessio" target="_blank" class="btn btn-secondary">🧭 Apri Navigatore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Selection Modal (Dialog) -->
+    <div id="size-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modal-item-name">Scegli la dimensione</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 20px;">Scegli la taglia da inserire nella pre-compilazione del messaggio WhatsApp:</p>
+            <div class="modal-options">
+                <button id="modal-btn-small" class="modal-opt-btn">
+                    <span class="opt-tag" id="small-label">Baby</span>
+                    <span class="opt-price" id="small-price">€ 4,50</span>
+                </button>
+                <button id="modal-btn-large" class="modal-opt-btn">
+                    <span class="opt-tag" id="large-label">Normale</span>
+                    <span class="opt-price" id="large-price">€ 6,00</span>
+                </button>
+            </div>
+            <button onclick="closeSizeModal()" class="btn btn-secondary modal-close-btn">Annulla</button>
+        </div>
+    </div>
+
+    <!-- Mobile Sticky Call to Actions -->
+    <div class="sticky-cta">
+        <a href="tel:+390174803005" class="sticky-btn sticky-call">
+            📞 Chiama Fisso
+        </a>
+        <a href="https://wa.me/393456789012?text=Ciao!%20Vorrei%20fare%20un%20ordine." target="_blank" class="sticky-btn sticky-wa">
+            💬 Ordina su WhatsApp
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>© 2026 Horus Pizza & Kebab. Tutti i diritti riservati.</p>
+            <p class="dev-credits">Sviluppato da Vasile Bratu — Senior Web Developer & Automation Specialist</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript code -->
+    <script>
+        // Opening Hours Checker
+        function updateShopStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            const timeVal = hour * 100 + minute;
+            
+            let isOpen = false;
+            
+            // Lunedì chiuso (1)
+            if (day !== 1) { 
+                // Pranzo: 11:30 - 14:30 (1130 - 1430)
+                // Cena: 17:30 - 23:30 (1730 - 2330)
+                if ((timeVal >= 1130 && timeVal <= 1430) || (timeVal >= 1730 && timeVal <= 2330)) {
+                    isOpen = true;
+                }
+            }
+            
+            const badge = document.getElementById('shop-status');
+            if (badge) {
+                if (isOpen) {
+                    badge.innerHTML = '<span class="status-dot open"></span>Aperto Ora (Ordina Subito!)';
+                    badge.className = 'status-badge open';
+                } else {
+                    let nextOpenText = "Apre oggi alle 17:30";
+                    if (day === 1) {
+                        nextOpenText = "Apre Martedì alle 11:30";
+                    } else if (timeVal > 1430 && timeVal < 1730) {
+                        nextOpenText = "Apre stasera alle 17:30";
+                    } else {
+                        nextOpenText = "Apre domani alle 11:30";
+                    }
+                    badge.innerHTML = '<span class="status-dot closed"></span>Chiuso Ora (' + nextOpenText + ')';
+                    badge.className = 'status-badge closed';
+                }
+            }
+        }
+
+        // WhatsApp Ordering Configurations
+        // Pizzeria WhatsApp Number (replace with the owners' mobile for WhatsApp, e.g., +39 345 678 9012)
+        const pizzeriaWhatsAppPhone = "393456789012"; 
+
+        function orderDirect(itemName, price) {
+            const message = "Ciao! Vorrei ordinare *" + itemName + "* (prezzo: € " + price.toFixed(2).replace('.', ',') + ") d'asporto. Potete confermarmi quando posso passare a ritirarlo? Grazie!";
+            const encodedMessage = encodeURIComponent(message);
+            window.open("https://wa.me/" + pizzeriaWhatsAppPhone + "?text=" + encodedMessage, '_blank');
+        }
+
+        // Interactive Modal for Size Selection (Baby vs Normale)
+        let currentModalItem = "";
+        let currentModalPriceSmall = 0;
+        let currentModalPriceLarge = 0;
+        let currentModalLabelSmall = "Baby";
+        let currentModalLabelLarge = "Normale";
+
+        function openSizeModal(itemName, priceSmall, priceLarge, labelSmall = "Baby", labelLarge = "Normale") {
+            currentModalItem = itemName;
+            currentModalPriceSmall = priceSmall;
+            currentModalPriceLarge = priceLarge;
+            currentModalLabelSmall = labelSmall;
+            currentModalLabelLarge = labelLarge;
+
+            document.getElementById('modal-item-name').innerText = itemName;
+            
+            document.getElementById('small-label').innerText = labelSmall;
+            document.getElementById('small-price').innerText = "€ " + priceSmall.toFixed(2).replace('.', ',');
+            
+            document.getElementById('large-label').innerText = labelLarge;
+            document.getElementById('large-price').innerText = "€ " + priceLarge.toFixed(2).replace('.', ',');
+            
+            const modal = document.getElementById('size-modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeSizeModal() {
+            document.getElementById('size-modal').style.display = 'none';
+        }
+
+        document.getElementById('modal-btn-small').addEventListener('click', function() {
+            closeSizeModal();
+            const fullItemDescription = currentModalItem + " (" + currentModalLabelSmall + ")";
+            orderDirect(fullItemDescription, currentModalPriceSmall);
+        });
+
+        document.getElementById('modal-btn-large').addEventListener('click', function() {
+            closeSizeModal();
+            const fullItemDescription = currentModalItem + " (" + currentModalLabelLarge + ")";
+            orderDirect(fullItemDescription, currentModalPriceLarge);
+        });
+
+        // Search and Filter JavaScript Logic
+        document.addEventListener("DOMContentLoaded", function() {
+            updateShopStatus();
+            setInterval(updateShopStatus, 60000);
+
+            const tabButtons = document.querySelectorAll(".tab-btn");
+            const menuItems = document.querySelectorAll(".menu-item");
+            const searchInput = document.getElementById("menu-search");
+
+            let currentCategory = "all";
+
+            function filterMenu() {
+                const query = searchInput.value.toLowerCase().trim();
+
+                menuItems.forEach(item => {
+                    // Category check
+                    const itemCategory = item.getAttribute("data-category");
+                    const categoryMatches = (currentCategory === "all") || (itemCategory === currentCategory);
+
+                    // Search check
+                    let searchMatches = true;
+                    if (query !== "") {
+                        const itemName = item.querySelector("h3").innerText.toLowerCase();
+                        const itemDesc = item.querySelector("p").innerText.toLowerCase();
+                        const itemIngredients = item.getAttribute("data-ingredients") || "";
+                        const itemBadge = item.querySelector(".item-badge") ? item.querySelector(".item-badge").innerText.toLowerCase() : "";
+                        
+                        // Spicy search helper
+                        const isSpicy = item.querySelector(".badge-spicy") !== null;
+                        const queryIsSpicy = query.includes("picant") || query.includes("spicy") || query === "🌶️" || query.includes("iute");
+                        
+                        searchMatches = itemName.includes(query) || 
+                                        itemDesc.includes(query) || 
+                                        itemIngredients.toLowerCase().includes(query) ||
+                                        itemBadge.includes(query) ||
+                                        (isSpicy && queryIsSpicy);
+                    }
+
+                    if (categoryMatches && searchMatches) {
+                        item.style.display = "flex";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+            }
+
+            // Tab Click Events
+            tabButtons.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    tabButtons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    currentCategory = btn.getAttribute("data-category");
+                    filterMenu();
+                });
+            });
+
+            // Search Typing Events
+            searchInput.addEventListener("input", filterMenu);
+        });
+    </script>
+</body>
+</html>
