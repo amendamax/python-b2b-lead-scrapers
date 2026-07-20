@@ -1402,7 +1402,7 @@ static_broker_db = {
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2008-04-01 (18 years ago)",
         "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)",
-        "affiliateLink": "https://www.500affiliates.com/Home.aspx?id=139742"
+        "affiliateLink": "https://www.plus500.com/Home.aspx?id=139742"
     },
     "pepperstone.com": {
         "name": "Pepperstone",
