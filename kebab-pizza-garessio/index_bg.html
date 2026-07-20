@@ -1632,6 +1632,7 @@
 
             function filterMenu() {
                 const query = searchInput.value.toLowerCase().trim();
+                const queryWords = query.split(/\s+/).filter(w => w !== "");
 
                 menuItems.forEach(item => {
                     // Category check
@@ -1640,21 +1641,26 @@
 
                     // Search check
                     let searchMatches = true;
-                    if (query !== "") {
+                    if (queryWords.length > 0) {
                         const itemName = item.querySelector("h3").innerText.toLowerCase();
                         const itemDesc = item.querySelector("p").innerText.toLowerCase();
-                        const itemIngredients = item.getAttribute("data-ingredients") || "";
+                        const itemIngredients = (item.getAttribute("data-ingredients") || "").toLowerCase();
                         const itemBadge = item.querySelector(".item-badge") ? item.querySelector(".item-badge").innerText.toLowerCase() : "";
-                        
-                        // Spicy search helper
                         const isSpicy = item.querySelector(".badge-spicy") !== null;
-                        const queryIsSpicy = query.includes("picant") || query.includes("spicy") || query === "🌶️" || query.includes("iute");
-                        
-                        searchMatches = itemName.includes(query) || 
-                                        itemDesc.includes(query) || 
-                                        itemIngredients.toLowerCase().includes(query) ||
-                                        itemBadge.includes(query) ||
-                                        (isSpicy && queryIsSpicy);
+
+                        const prepositions = ["con", "col", "alla", "allo", "alle", "per", "del", "dei", "dal", "dai", "nel", "nei", "di", "da", "al", "il", "la", "i", "gli", "le", "un", "una", "uno"];
+
+                        searchMatches = queryWords.every(word => {
+                            if (prepositions.includes(word)) return true;
+                            
+                            const wordIsSpicy = word.includes("picant") || word.includes("spicy") || word === "🌶️" || word.includes("iute");
+                            
+                            return itemName.includes(word) || 
+                                   itemDesc.includes(word) || 
+                                   itemIngredients.includes(word) ||
+                                   itemBadge.includes(word) ||
+                                   (isSpicy && wordIsSpicy);
+                        });
                     }
 
                     if (categoryMatches && searchMatches) {
