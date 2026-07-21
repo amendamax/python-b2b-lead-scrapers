@@ -53,52 +53,53 @@ a {
 }
 
 /* ==========================================================================
-   NAVBAR & TOP CONTROLS (RESPONSIVE FOR MOBILE & DESKTOP)
+   NAVBAR & TOP CONTROLS (RESPONSIVE & MOBILE FLEXIBLE)
    ========================================================================== */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    min-height: 65px;
     background: rgba(10, 11, 14, 0.96);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(223, 185, 97, 0.2);
     z-index: 1000;
-    padding: 6px 0;
+    padding: 8px 0;
 }
 
 .nav-container {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 0 12px;
+    padding: 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
 }
 
 .logo-brand {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .logo-brand img {
-    height: 38px;
+    height: 32px;
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
 }
 
-/* Hide extra subtitle text on small mobile screens to prevent overlapping */
 .brand-text span {
     display: none;
 }
 
 .brand-text h1 {
     font-family: var(--font-heading);
-    font-size: 1.15rem;
+    font-size: 0.9rem;
     font-weight: 800;
     color: var(--color-gold);
     line-height: 1.1;
@@ -126,13 +127,13 @@ a {
 .lang-btn {
     display: flex;
     align-items: center;
-    gap: 3px;
-    padding: 4px 7px;
-    border-radius: 6px;
+    gap: 2px;
+    padding: 3px 5px;
+    border-radius: 4px;
     border: none;
     background: transparent;
     color: var(--color-text-muted);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition-smooth);
@@ -143,15 +144,15 @@ a {
     color: #000;
 }
 
-/* Hide WhatsApp text on small mobile nav, icon remains */
+/* WhatsApp Nav Button Mobile Icon Only */
 .whatsapp-nav-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(16, 185, 129, 0.18);
+    background: rgba(16, 185, 129, 0.2);
     border: 1px solid rgba(16, 185, 129, 0.4);
     color: #34d399;
-    padding: 6px 10px;
+    padding: 5px 8px;
     border-radius: 30px;
     font-family: var(--font-heading);
     font-weight: 600;
@@ -169,17 +170,22 @@ a {
     color: #fff;
 }
 
-/* Responsive tweaks for desktop nav */
-@media (min-width: 768px) {
+/* Desktop Styles Overrides */
+@media (min-width: 650px) {
     .navbar {
-        height: 75px;
-        padding: 0;
+        padding: 10px 0;
+    }
+    .nav-container {
+        padding: 0 20px;
+    }
+    .logo-brand {
+        gap: 12px;
     }
     .logo-brand img {
-        height: 48px;
+        height: 46px;
     }
     .brand-text h1 {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
     .brand-text span {
         display: block;
@@ -199,13 +205,16 @@ a {
         padding: 4px 10px;
         font-size: 0.8rem;
     }
+    .nav-right-controls {
+        gap: 12px;
+    }
 }
 
 /* ==========================================================================
    HERO SECTION
    ========================================================================== */
 .hero-section {
-    padding: 110px 15px 40px 15px;
+    padding: 100px 15px 40px 15px;
     text-align: center;
 }
 
@@ -230,7 +239,7 @@ a {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 14px;
@@ -246,7 +255,7 @@ a {
 
 .hero-subtitle {
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     max-width: 650px;
     margin: 0 auto 24px auto;
 }
@@ -357,7 +366,7 @@ a {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
 }
 
@@ -373,7 +382,7 @@ a {
 /* E-Shop Products Grid (150g Vacuum Packs) */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 16px;
 }
 
@@ -503,13 +512,13 @@ a {
     border: 1px solid rgba(223, 185, 97, 0.3);
     backdrop-filter: blur(14px);
     border-radius: var(--border-radius-md);
-    padding: 20px;
+    padding: 18px;
     margin: 25px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 12px;
+    gap: 10px;
     box-shadow: var(--shadow-glass);
 }
 
@@ -524,12 +533,12 @@ a {
 }
 
 .shipping-icon {
-    font-size: 2.2rem;
+    font-size: 2rem;
 }
 
 .shipping-text h3 {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--color-gold);
     margin-bottom: 4px;
 }
@@ -545,7 +554,7 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(14px);
     border-radius: var(--border-radius-lg);
-    padding: 20px;
+    padding: 18px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
@@ -562,7 +571,7 @@ a {
 
 .location-info h3 {
     font-family: var(--font-heading);
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: #fff;
     margin-bottom: 10px;
 }
