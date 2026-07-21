@@ -60,65 +60,55 @@ a {
     top: 0;
     left: 0;
     right: 0;
-    min-height: 70px;
-    background: rgba(10, 11, 14, 0.92);
+    min-height: 65px;
+    background: rgba(10, 11, 14, 0.96);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(223, 185, 97, 0.15);
+    border-bottom: 1px solid rgba(223, 185, 97, 0.2);
     z-index: 1000;
-    padding: 8px 0;
+    padding: 6px 0;
 }
 
 .nav-container {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
 }
 
 .logo-brand {
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 0;
 }
 
 .logo-brand img {
-    height: 40px;
+    height: 38px;
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
 }
 
+/* Hide extra subtitle text on small mobile screens to prevent overlapping */
+.brand-text span {
+    display: none;
+}
+
 .brand-text h1 {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: var(--color-gold);
     line-height: 1.1;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.brand-text span {
-    font-size: 0.65rem;
-    color: var(--color-text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .nav-right-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-shrink: 0;
 }
 
@@ -126,8 +116,8 @@ a {
 .lang-switcher {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(223, 185, 97, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(223, 185, 97, 0.3);
     border-radius: var(--border-radius-sm);
     padding: 2px;
     gap: 2px;
@@ -136,8 +126,8 @@ a {
 .lang-btn {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
+    gap: 3px;
+    padding: 4px 7px;
     border-radius: 6px;
     border: none;
     background: transparent;
@@ -153,20 +143,25 @@ a {
     color: #000;
 }
 
+/* Hide WhatsApp text on small mobile nav, icon remains */
 .whatsapp-nav-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(16, 185, 129, 0.15);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    justify-content: center;
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.4);
     color: #34d399;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border-radius: 30px;
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 0.75rem;
     transition: var(--transition-smooth);
     white-space: nowrap;
+}
+
+.whatsapp-nav-btn #nav-wa-text {
+    display: none;
 }
 
 .whatsapp-nav-btn:hover {
@@ -187,11 +182,18 @@ a {
         font-size: 1.3rem;
     }
     .brand-text span {
+        display: block;
         font-size: 0.75rem;
+        color: var(--color-text-muted);
+        font-weight: 500;
+        text-transform: uppercase;
     }
     .whatsapp-nav-btn {
         padding: 8px 16px;
         font-size: 0.85rem;
+    }
+    .whatsapp-nav-btn #nav-wa-text {
+        display: inline;
     }
     .lang-btn {
         padding: 4px 10px;
@@ -203,7 +205,7 @@ a {
    HERO SECTION
    ========================================================================== */
 .hero-section {
-    padding: 120px 15px 50px 15px;
+    padding: 110px 15px 40px 15px;
     text-align: center;
 }
 
@@ -228,7 +230,7 @@ a {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.75rem;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 14px;
@@ -244,7 +246,7 @@ a {
 
 .hero-subtitle {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     max-width: 650px;
     margin: 0 auto 24px auto;
 }
@@ -328,7 +330,7 @@ a {
 .section-container {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 30px 15px;
+    padding: 25px 12px;
 }
 
 @media (min-width: 768px) {
@@ -355,7 +357,7 @@ a {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 800;
 }
 
@@ -502,7 +504,7 @@ a {
     backdrop-filter: blur(14px);
     border-radius: var(--border-radius-md);
     padding: 20px;
-    margin: 30px 0;
+    margin: 25px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
