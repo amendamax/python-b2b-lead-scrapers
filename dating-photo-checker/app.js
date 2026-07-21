@@ -564,6 +564,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Save email to LocalStorage
                 localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
 
+                // Trigger Conversion Event for Google Ads & GA4
+                if (typeof gtag === 'function') {
+                    gtag('event', 'purchase', {
+                        'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
+                        'value': 4.99,
+                        'currency': 'USD',
+                        'items': [{
+                            'item_id': 'report_5_credits',
+                            'item_name': 'VerifyDating 5 Scan Credits',
+                            'price': 4.99,
+                            'quantity': 1
+                        }]
+                    });
+                    gtag('event', 'conversion', {
+                        'value': 4.99,
+                        'currency': 'USD',
+                        'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now())
+                    });
+                }
+
                 // Fetch the fully unlocked results
                 const resResponse = await fetch(`/api/results/${currentScanId}`);
                 const fullResults = await resResponse.json();

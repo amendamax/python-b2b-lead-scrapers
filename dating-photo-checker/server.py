@@ -21,7 +21,7 @@ import re
 import io
 from datetime import datetime
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
@@ -1284,6 +1284,112 @@ async def download_dating_pdf(scan_id: str):
         'Content-Disposition': f'attachment; filename="romance_scam_report_{scan_id[:8]}.pdf"'
     }
     return StreamingResponse(buffer, headers=headers, media_type="application/pdf")
+
+@app.get("/admin", response_class=HTMLResponse)
+@app.get("/admin/dashboard", response_class=HTMLResponse)
+async def get_admin_dashboard(token: str = None):
+    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
+    if not token or token != admin_token:
+        return HTMLResponse("<h2 style='color:#ef4444;font-family:sans-serif;'>403 Unauthorized Access Token</h2>", status_code=403)
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email 
+        FROM scans 
+        ORDER BY created_at DESC
+    """)
+    rows = cursor.fetchall()
+    conn.close()
+    
+    total_scans = len(rows)
+    total_paid = sum(1 for r in rows if r[2] == 'paid')
+    revenue = total_paid * 4.99
+    
+    cards_html = ""
+    for row in rows:
+        scan_id, created_at, payment_status, scam_prob, matches, img_path, email = row
+        img_name = os.path.basename(img_path) if img_path else ""
+        img_url = f"/uploads/{img_name}" if img_name else "#"
+        
+        status_badge = '<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ($4.99)</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
+        
+        prob_color = "#EF4444" if scam_prob >= 70 else "#F59E0B" if scam_prob >= 40 else "#10B981"
+        
+        formatted_date = created_at.replace("T", " ")[:19] if created_at else "N/A"
+        
+        cards_html += f"""
+        <div style="background:#1E293B;border-radius:16px;overflow:hidden;border:1px solid #334155;display:flex;flex-direction:column;box-shadow:0 4px 6px -1px rgba(0,0,0,0.3);">
+            <div style="height:220px;background:#0F172A;display:flex;align-align:center;justify-content:center;overflow:hidden;position:relative;padding:10px;">
+                <a href="{img_url}" target="_blank" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                    <img src="{img_url}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;" alt="Uploaded Scan"/>
+                </a>
+            </div>
+            <div style="padding:16px;flex:1;display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    {status_badge}
+                    <span style="font-size:12px;color:#94A3B8;">{formatted_date}</span>
+                </div>
+                <div style="font-size:13px;color:#CBD5E1;font-weight:600;word-break:break-all;">
+                    ID: <code style="background:#0F172A;padding:2px 6px;border-radius:4px;color:#38BDF8;">{scan_id[:13]}...</code>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:4px;">
+                    <div style="background:#0F172A;padding:6px 12px;border-radius:8px;font-size:13px;color:#F8FAFC;flex:1;text-align:center;border:1px solid #334155;">
+                        Risk: <strong style="color:{prob_color};">{scam_prob}%</strong>
+                    </div>
+                    <div style="background:#0F172A;padding:6px 12px;border-radius:8px;font-size:13px;color:#F8FAFC;flex:1;text-align:center;border:1px solid #334155;">
+                        Matches: <strong style="color:#38BDF8;">{matches}</strong>
+                    </div>
+                </div>
+                {f'<div style="font-size:12px;color:#10B981;margin-top:4px;word-break:break-all;">📧 {email}</div>' if email else ''}
+            </div>
+        </div>
+        """
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyDating Live Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Inter', sans-serif; background: #0F172A; color: #F8FAFC; margin: 0; padding: 24px; }}
+        .header {{ max-width: 1200px; margin: 0 auto 28px auto; display: flex; justify-content: space-between; align-items: center; background: #1E293B; padding: 24px 32px; border-radius: 20px; border: 1px solid #334155; flex-wrap: wrap; gap: 16px; }}
+        .stats {{ display: flex; gap: 20px; flex-wrap: wrap; }}
+        .stat-box {{ background: #0F172A; padding: 14px 24px; border-radius: 14px; border: 1px solid #334155; text-align: center; min-width: 100px; }}
+        .stat-value {{ font-size: 24px; font-weight: 700; color: #38BDF8; }}
+        .stat-label {{ font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }}
+        .grid {{ max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1 style="margin:0;font-size:26px;color:#F8FAFC;display:flex;align-items:center;gap:10px;">🔍 VerifyDating Live Scans</h1>
+            <p style="margin:6px 0 0 0;font-size:14px;color:#94A3B8;">Real-time visual gallery of user uploaded photos, AI biometric risk & payment status</p>
+        </div>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value">{total_scans}</div>
+                <div class="stat-label">Total Scans</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">{total_paid}</div>
+                <div class="stat-label">Paid Scans</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" style="color:#10B981;">${revenue:.2f}</div>
+                <div class="stat-label">Est. Revenue</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        {cards_html if cards_html else '<p style="color:#94A3B8;grid-column:1/-1;text-align:center;padding:40px;background:#1E293B;border-radius:16px;">No scans recorded yet.</p>'}
+    </div>
+</body>
+</html>"""
+    return HTMLResponse(content=html_content)
 
 @app.get("/api/admin/scans")
 async def get_admin_scans(token: str = None):
