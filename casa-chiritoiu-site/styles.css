@@ -1,0 +1,512 @@
+/* ==========================================================================
+   CASA CHIRIȚOIU - DESIGN SYSTEM & STYLES (GLASSMORPHIC FIXED BG)
+   ========================================================================== */
+:root {
+    --bg-dark: #0a0b0e;
+    --bg-glass: rgba(15, 17, 23, 0.78);
+    --bg-glass-card: rgba(22, 26, 36, 0.72);
+    --bg-glass-hover: rgba(30, 36, 50, 0.85);
+    
+    --color-gold: #dfb961;
+    --color-gold-hover: #f5cf76;
+    --color-gold-glow: rgba(223, 185, 97, 0.2);
+    
+    --color-text-main: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-success: #10b981;
+    
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius-sm: 8px;
+    --border-radius-md: 14px;
+    --border-radius-lg: 24px;
+    
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    --shadow-gold-glow: 0 0 20px rgba(223, 185, 97, 0.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: linear-gradient(rgba(10, 11, 14, 0.82), rgba(10, 11, 14, 0.85)), url('assets/images/afumaturi-rumeni-Torino-italia-960x640.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   NAVBAR & TOP CONTROLS
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    background: rgba(10, 11, 14, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(223, 185, 97, 0.15);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1240px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-brand img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-text h1 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.brand-text span {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.nav-right-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Language Switcher Flags */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(223, 185, 97, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 4px;
+    gap: 4px;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.lang-btn.active, .lang-btn:hover {
+    background: var(--color-gold);
+    color: #000;
+}
+
+.whatsapp-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+.whatsapp-nav-btn:hover {
+    background: #10b981;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero-section {
+    padding: 150px 20px 70px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(223, 185, 97, 0.1);
+    border: 1px solid rgba(223, 185, 97, 0.25);
+    color: var(--color-gold);
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+}
+
+.hero-title span {
+    color: var(--color-gold);
+    background: linear-gradient(120deg, var(--color-gold), #f5cf76);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    max-width: 650px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: var(--color-gold);
+    color: #000;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-gold-glow);
+}
+
+.btn-primary:hover {
+    background: var(--color-gold-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   GLASSMORPHIC SECTIONS & CARDS
+   ========================================================================== */
+.section-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-tag {
+    color: var(--color-gold);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* E-Shop Products Grid (150g Vacuum Packs) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.product-card {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-glass);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-gold);
+    background: var(--bg-glass-hover);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/11;
+    overflow: hidden;
+    background: #000;
+}
+
+.card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.product-card:hover .card-img-wrap img {
+    transform: scale(1.06);
+}
+
+.weight-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(10, 11, 14, 0.85);
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.card-content {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.card-price {
+    color: var(--color-gold);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.card-desc {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.btn-order-wa {
+    width: 100%;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #34d399;
+    padding: 10px;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-order-wa:hover {
+    background: #10b981;
+    color: #fff;
+}
+
+/* Cold Shipping Banner */
+.shipping-banner {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(223, 185, 97, 0.3);
+    backdrop-filter: blur(14px);
+    border-radius: var(--border-radius-md);
+    padding: 24px;
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: var(--shadow-glass);
+}
+
+.shipping-icon {
+    font-size: 2.5rem;
+}
+
+.shipping-text h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-gold);
+    margin-bottom: 4px;
+}
+
+.shipping-text p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Location Card */
+.location-card {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .location-card {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.location-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.address-line {
+    color: var(--color-gold);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+}
+
+/* ==========================================================================
+   FOOTER (VASILEDEV CREDIT)
+   ========================================================================== */
+.site-footer {
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(10, 11, 14, 0.95);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.site-footer a {
+    color: var(--color-gold);
+    font-weight: 600;
+}
+
+/* Floating WhatsApp Widget */
+.floating-wa-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    z-index: 1000;
+    transition: var(--transition-smooth);
+}
+
+.floating-wa-btn:hover {
+    transform: scale(1.1);
+}

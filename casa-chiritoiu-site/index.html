@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Chirițoiu - Salumificio & Gastronomia Artigianale dal Piemonte</title>
+    <meta name="description" content="Produse din carne artizanale, afumate la lemn și proaspete. Producție proprie în San Michele Mondovì (Cuneo). Livrare frigorifică în toată Italia.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Additional Dynamic Elements & Interactive Filters */
+        .category-filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(223, 185, 97, 0.25);
+            color: var(--color-text-muted);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--color-gold);
+            color: #000;
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold-glow);
+        }
+
+        /* Dynamic Live Counter Banner */
+        .live-counter-strip {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: var(--border-radius-md);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+            color: #34d399;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulseLive 1.5s infinite;
+        }
+
+        @keyframes pulseLive {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+
+        /* Interactive Taste Selector Carousel Slider */
+        .interactive-carousel {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(223, 185, 97, 0.2);
+            backdrop-filter: blur(14px);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .carousel-title {
+            font-family: var(--font-heading);
+            color: var(--color-gold);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .carousel-display {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-item-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 6px 0;
+        }
+
+        .carousel-item-desc {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            max-width: 600px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-btn:hover {
+            background: var(--color-gold);
+            color: #000;
+        }
+
+        /* Video / Craftsmanship Section Styles */
+        .video-craft-card {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(223, 185, 97, 0.25);
+            backdrop-filter: blur(14px);
+            border-radius: var(--border-radius-lg);
+            padding: 35px;
+            margin: 50px 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (min-width: 850px) {
+            .video-craft-card {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .video-frame-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .video-frame-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: var(--transition-smooth);
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            background: rgba(223, 185, 97, 0.9);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(223, 185, 97, 0.6);
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .video-frame-container:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #fff;
+        }
+
+        .craft-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .craft-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .craft-icon {
+            background: rgba(223, 185, 97, 0.15);
+            color: var(--color-gold);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR WITH LANGUAGE SWITCHER & WHATSAPP -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-brand">
+                <img src="assets/images/cropped-casa-chiritoiu-1-12.png" alt="Casa Chirițoiu Logo">
+                <div class="brand-text">
+                    <h1 id="nav-brand-title">Casa Chirițoiu</h1>
+                    <span id="nav-brand-tag">Salumificio Artigianale dal Piemonte</span>
+                </div>
+            </div>
+            
+            <div class="nav-right-controls">
+                <!-- Language Switcher Flags -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btn-ro" onclick="switchLanguage('ro')">
+                        <span>🇷🇴</span> RO
+                    </button>
+                    <button class="lang-btn" id="btn-it" onclick="switchLanguage('it')">
+                        <span>🇮🇹</span> IT
+                    </button>
+                </div>
+
+                <a href="https://wa.me/3901119225078?text=Buna%20ziua!%20Doresc%20informatii%20despre%20produsele%20si%20livrarea%20Casa%20Chiritoiu." target="_blank" class="whatsapp-nav-btn">
+                    💬 <span id="nav-wa-text">Comandă WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                ✨ <span id="hero-badge-text">Producție Artizanală în San Michele Mondovì (CN)</span>
+            </div>
+            <h1 class="hero-title" id="hero-main-title">
+                Gustul Autentic de Acasă, <span>Carne Premium din Piemonte</span>
+            </h1>
+            <p class="hero-subtitle" id="hero-sub-title">
+                Preparate tradiționale din carne proaspătă, afumate la lemn de fag. Fără aditivi prisosnici. Livrare în cutii termoizolante în toată Italia.
+            </p>
+            <div class="hero-actions">
+                <a href="#eshop" class="btn-primary" id="btn-eshop-text">🛍️ Vezi Pachetele 150g (E-Shop)</a>
+                <a href="#laborator" class="btn-secondary" id="btn-lab-text">🏭 Vizitează Laboratorul din Cuneo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE INTERACTIVE COUNTER BANNER (DYNAMIC JS) -->
+    <div class="section-container">
+        <div class="live-counter-strip">
+            <div class="pulse-dot"></div>
+            <span id="live-text">🔥 Peste <b>142 de comenzi frigorifice</b> expediate în ultimele 7 zile în Piemonte & Lombardia!</span>
+        </div>
+    </div>
+
+    <!-- DYNAMIC INTERACTIVE CAROUSEL SLIDER (JS DRIVEN) -->
+    <div class="section-container">
+        <div class="interactive-carousel">
+            <span class="carousel-title" id="carousel-header">🌟 Specialitatea Zilei (Selecția Maestrului Macelar)</span>
+            <div class="carousel-display" id="carousel-display-box">
+                <div class="carousel-item-name" id="c-name">Salam Victoria Artizanal (150g Vid)</div>
+                <div class="carousel-item-desc" id="c-desc">Carne macră de porc din Piemonte cu conținut redus de grăsime, marinată cu condimente naturale. Ambalat proaspăt la vid.</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide()">❮</button>
+                <button class="carousel-btn" onclick="nextSlide()">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO CRAFTSMANSHIP SHOWCASE SECTION -->
+    <div class="section-container">
+        <div class="video-craft-card">
+            <div class="video-frame-container" id="video-box">
+                <img src="assets/images/produse-traditionale-romanesti-Torino.jpg" alt="Laborator Afumatoare Casa Chiritoiu">
+                <button class="video-play-btn" onclick="alert('Secțiune pregătită pentru integrarea videoclipurilor reale din laboratorul din San Michele Mondovì!')">▶</button>
+            </div>
+            <div class="craft-info">
+                <span class="section-tag" id="v-tag">Transparență & Pasiune</span>
+                <h2 class="section-title" style="font-size: 1.7rem; margin-bottom: 12px;" id="v-title">Cum Preparăm Mezelurile în Laboratorul Propriu</h2>
+                <p style="color: var(--color-text-muted); font-size: 0.95rem;" id="v-desc">
+                    Vă invităm în spatele ușilor laboratorului nostru din San Michele Mondovì! Urmăriți procesul autentic de preparare: de la tranșarea cărnii proaspete locale, până la marinarea cu mirodenii și afumatul lent în cuptoarele cu lemn de fag.
+                </p>
+                <div class="craft-features">
+                    <div class="craft-feature-item">
+                        <div class="craft-icon">✓</div>
+                        <div><b style="color: #fff;" id="v-f1-title">Carne 100% din Crescătoriile din Cuneo</b><br/><span style="color: var(--color-text-muted); font-size: 0.85rem;" id="v-f1-desc">Carne de porc proaspătă, selecționată zilnic pentru gust și textura optimă.</span></div>
+                    </div>
+                    <div class="craft-feature-item">
+                        <div class="craft-icon">✓</div>
+                        <div><b style="color: #fff;" id="v-f2-title">Afumătoare Tradițională la Lemn de Fag</b><br/><span style="color: var(--color-text-muted); font-size: 0.85rem;" id="v-f2-desc">Fum natural de lemn fără arome chimice artificiale.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLD SHIPPING BANNER -->
+    <div class="section-container">
+        <div class="shipping-banner">
+            <div class="shipping-icon">❄️📦</div>
+            <div class="shipping-text">
+                <h3 id="ship-title">Livrare Frigorifică Garantată în Toată Italia (24/48h)</h3>
+                <p id="ship-desc">Toate preparatele noastre sunt ambalate individual la vid în <b>gramaje ideale de 150g</b> și expediate în cutii termoizolante speciale cu gel refrigerent, menținând temperatura sub 4°C de la laborator până la ușa dumneavoastră.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- E-SHOP PRODUCTS SECTION WITH DYNAMIC FILTERS (JS) -->
+    <section id="eshop" class="section-container">
+        <div class="section-header">
+            <span class="section-tag" id="tag-eshop">Magazin Online & Selecții Degustare</span>
+            <h2 class="section-title" id="title-eshop">Preparate Ambalate la Vid (Format 150g)</h2>
+        </div>
+
+        <!-- DYNAMIC FILTER CHIPS (JS DRIVEN) -->
+        <div class="category-filter-bar">
+            <button class="filter-chip active" id="f-all" onclick="filterCategory('all')">Toate (12)</button>
+            <button class="filter-chip" id="f-afumate" onclick="filterCategory('afumate')">🔥 Afumături la Lemn</button>
+            <button class="filter-chip" id="f-carnati" onclick="filterCategory('carnati')">🌭 Cârnați & Salsiccia</button>
+            <button class="filter-chip" id="f-mici" onclick="filterCategory('mici')">🧆 Mici & Grătar</button>
+            <button class="filter-chip" id="f-salam" onclick="filterCategory('salam')">🥩 Salamuri & Specialități</button>
+        </div>
+
+        <div class="product-grid" id="main-product-grid">
+
+            <!-- Product 1: Salam Victoria -->
+            <div class="product-card" data-cat="salam">
+                <div class="card-img-wrap">
+                    <img src="assets/images/salam-victoria.png" alt="Salam Victoria">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p1-title">Salam Victoria Artizanal</h3>
+                        <span class="card-price">3.90 €</span>
+                    </div>
+                    <p class="card-desc" id="p1-desc">Rețetă tradițională curată, carne macră de porc din Piemonte cu conținut redus de grăsime. Ambalat proaspăt la vid.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p1')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2: Kaizer -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/kaizer.png" alt="Kaizer Afumat">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p2-title">Kaizer Țărănesc Afumat</h3>
+                        <span class="card-price">4.20 €</span>
+                    </div>
+                    <p class="card-desc" id="p2-desc">Piept de porc selecționat, marinat cu condimente naturale și afumat lent la lemn de fag în laboratorul propriu.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p2')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3: Mici -->
+            <div class="product-card" data-cat="mici">
+                <div class="card-img-wrap">
+                    <img src="assets/images/mici-formati.png" alt="Mici Premium">
+                    <span class="weight-badge">Caserolă 500g</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p3-title">Micii Tradiționali Casa Chirițoiu</h3>
+                        <span class="card-price">6.50 €</span>
+                    </div>
+                    <p class="card-desc" id="p3-desc">Pastă de mici proaspătă din carne tocată de calitate superioară, marinată cu usturoi și mirodenii. Pregătiți pentru grătar.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p3')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4: Carnați la Lemn -->
+            <div class="product-card" data-cat="carnati">
+                <div class="card-img-wrap">
+                    <img src="assets/images/carnati-taranesti-la-lemn.png" alt="Cârnați la lemn">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p4-title">Cârnați Țărănești la Lemn</h3>
+                        <span class="card-price">4.50 €</span>
+                    </div>
+                    <p class="card-desc" id="p4-desc">Cârnați uscați și afumați tradițional la fum din lemn de fag. Perfecți pentru gustare sau platouri tradiționale.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p4')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5: Mușchi File -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/muschi-file-1.png" alt="Mușchi File">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p5-title">Mușchi File Afumat</h3>
+                        <span class="card-price">4.80 €</span>
+                    </div>
+                    <p class="card-desc" id="p5-desc">Cotlet de porc fraged, fără grăsime, marinat în saramură cu mirodenii și afumat fin.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p5')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6: Carne la Garniță -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/tochitura.png" alt="Carne la Garnită">
+                    <span class="weight-badge">Borcan 400g</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p6-title">Carne la Garniță Tradițională</h3>
+                        <span class="card-price">8.90 €</span>
+                    </div>
+                    <p class="card-desc" id="p6-desc">Bucăți fragede de carne și cârnați prăjiți la ceaun și conservați în untură curată. Gata de încălzit în 5 minute.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p6')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 7: Tobă Afumată -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/toba-afumata.png" alt="Tobă Afumată">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p7-title">Tobă Tradițională Afumată</h3>
+                        <span class="card-price">4.20 €</span>
+                    </div>
+                    <p class="card-desc" id="p7-desc">Preparat tradițional din bucăți alese de porc, condimentat cu usturoi și mirodenii, afumat ușor la lemn.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p7')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 8: Cârnați Moldovenești -->
+            <div class="product-card" data-cat="carnati">
+                <div class="card-img-wrap">
+                    <img src="assets/images/carnati-moldovenesti.png" alt="Cârnați Moldovenești">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p8-title">Cârnați Moldovenești de Casă</h3>
+                        <span class="card-price">4.50 €</span>
+                    </div>
+                    <p class="card-desc" id="p8-desc">Rețetă autentică de la Huși. Carne tocată la satâr, marinată cu cimbru și usturoi, afumată la fag.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p8')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 9: Slănină Afumată -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/slanina-afumata.png" alt="Slănină Afumată">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p9-title">Slănină Afumată cu Boia</h3>
+                        <span class="card-price">3.80 €</span>
+                    </div>
+                    <p class="card-desc" id="p9-desc">Slănină fragedă de porc din Piemonte, fragedă, maturată în saramură și frumos boiată cu boia dulce.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p9')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 10: Șunculița Boierului -->
+            <div class="product-card" data-cat="salam">
+                <div class="card-img-wrap">
+                    <img src="assets/images/sunculita-boierului-1.png" alt="Șunculița Boierului">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p10-title">Șunculița Boierului</h3>
+                        <span class="card-price">4.60 €</span>
+                    </div>
+                    <p class="card-desc" id="p10-desc">Specialitate fină din piept de porc fără os, marinat și afumat la rece. Se topește în gură.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p10')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 11: Pastramă Tradițională -->
+            <div class="product-card" data-cat="afumate">
+                <div class="card-img-wrap">
+                    <img src="assets/images/pastrama-tradizionala.png" alt="Pastramă Tradițională">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p11-title">Pastramă Tradițională de Porc</h3>
+                        <span class="card-price">4.90 €</span>
+                    </div>
+                    <p class="card-desc" id="p11-desc">Bucăți alese de porc maturate în condimente ardelenești și afumate lent la fum natural.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p11')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 12: Șorici -->
+            <div class="product-card" data-cat="salam">
+                <div class="card-img-wrap">
+                    <img src="assets/images/sorici.png" alt="Șorici Proaspăt">
+                    <span class="weight-badge">150g Vid</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-row">
+                        <h3 class="card-title" id="p12-title">Șorici Fraged de Porc</h3>
+                        <span class="card-price">3.50 €</span>
+                    </div>
+                    <p class="card-desc" id="p12-desc">Șorici curățat impecabil, fraged și curat, ușor sărat. O gustare tradițională crocantă și delicioasă.</p>
+                    <button class="btn-order-wa" onclick="orderWhatsApp('p12')">
+                        💬 <span class="wa-btn-label">Comandă pe WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LOCATION & ABOUT LABORATORIO SECTION -->
+    <section id="laborator" class="section-container">
+        <div class="location-card">
+            <div class="location-info">
+                <span class="section-tag" id="tag-lab">Laborator & Magazin Fizic</span>
+                <h3 id="lab-title">Casa Chirițoiu - San Michele Mondovì</h3>
+                <p class="address-line">📍 Via Quarelli 59, 12080 San Michele Mondovì (CN), Italia</p>
+                <p id="lab-desc" style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+                    Laboratorul nostru se află în inima naturii piemonteze. Aici combinăm rețetele autentice moldovenești de acasă cu carnea de înaltă calitate provenită de la crescătoriile din Cuneo. Vă așteptăm cu drag să vizitați magazinul nostru de la laborator!
+                </p>
+                <a href="https://maps.google.com/?q=Via+Quarelli+59+San+Michele+Mondovi" target="_blank" class="btn-primary">
+                    🗺️ Deschide Indicații Google Maps
+                </a>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.4); border-radius: var(--border-radius-md); padding: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <h4 style="font-family: var(--font-heading); color: var(--color-gold); margin-bottom: 12px;" id="hours-title">⏰ Orar Magazin Laborator:</h4>
+                <p style="color: var(--color-text-main); margin-bottom: 8px;"><b>Luni - Sâmbătă:</b> 08:30 - 19:30</p>
+                <p style="color: var(--color-text-main); margin-bottom: 15px;"><b>Duminică:</b> 09:00 - 13:00</p>
+                <p style="color: var(--color-text-muted); font-size: 0.85rem;" id="hours-note">💡 Pentru comenzi speciale de mezeluri sau cantități mari pentru evenimente, ne puteți contacta direct pe WhatsApp.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER WITH VASILEDEV CREDIT -->
+    <footer class="site-footer">
+        <p>© 2026 Casa Chirițoiu. Toate drepturile rezervate. | Designed & Developed by <a href="https://www.vasiledev.com" target="_blank">VasileDev</a></p>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/3901119225078?text=Buna%20ziua!%20Doresc%20informatii%20despre%20produsele%20si%20livrarea%20Casa%20Chiritoiu." target="_blank" class="floating-wa-btn" title="Chat pe WhatsApp">
+        💬
+    </a>
+
+    <!-- MULTILINGUAL & DYNAMIC JS ENGINE -->
+    <script>
+        const translations = {
+            ro: {
+                navTag: "Salumificio Artigianale dal Piemonte",
+                navWa: "Comandă WhatsApp",
+                heroBadge: "Producție Artizanală în San Michele Mondovì (CN)",
+                heroMainTitle: 'Gustul Autentic de Acasă, <span>Carne Premium din Piemonte</span>',
+                heroSubTitle: "Preparate tradiționale din carne proaspătă, afumate la lemn de fag. Fără aditivi prisosnici. Livrare în cutii termoizolante în toată Italia.",
+                btnEshop: "🛍️ Vezi Pachetele 150g (E-Shop)",
+                btnLab: "🏭 Vizitează Laboratorul din Cuneo",
+                shipTitle: "Livrare Frigorifică Garantată în Toată Italia (24/48h)",
+                shipDesc: "Toate preparatele noastre sunt ambalate individual la vid în gramaje ideale de 150g și expediate în cutii termoizolante speciale cu gel refrigerent, menținând temperatura sub 4°C de la laborator până la ușa dumneavoastră.",
+                tagEshop: "Magazin Online & Selecții Degustare",
+                titleEshop: "Preparate Ambalate la Vid (Format 150g)",
+                waLabel: "Comandă pe WhatsApp",
+                tagLab: "Laborator & Magazin Fizic",
+                labTitle: "Casa Chirițoiu - San Michele Mondovì",
+                labDesc: "Laboratorul nostru se află în inima naturii piemonteze. Aici combinăm rețetele autentice moldovenești de acasă cu carnea de înaltă calitate provenită de la crescătoriile din Cuneo. Vă așteptăm cu drag să vizitați magazinul nostru de la laborator!",
+                hoursTitle: "⏰ Orar Magazin Laborator:",
+                hoursNote: "💡 Pentru comenzi speciale de mezeluri sau cantități mari pentru evenimente, ne puteți contacta direct pe WhatsApp.",
+                carouselHeader: "🌟 Specialitatea Zilei (Selecția Maestrului Măcelar)",
+                vTag: "Transparență & Pasiune",
+                vTitle: "Cum Preparăm Mezelurile în Laboratorul Propriu",
+                vDesc: "Vă invităm în spatele ușilor laboratorului nostru din San Michele Mondovì! Urmăriți procesul autentic de preparare: de la tranșarea cărnii proaspete locale, până la marinarea cu mirodenii și afumatul lent în cuptoarele cu lemn de fag.",
+                vF1Title: "Carne 100% din Crescătoriile din Cuneo",
+                vF1Desc: "Carne de porc proaspătă, selecționată zilnic pentru gust și textura optimă.",
+                vF2Title: "Afumătoare Tradițională la Lemn de Fag",
+                vF2Desc: "Fum natural de lemn fără arome chimice artificiale.",
+                filters: { all: "Toate (12)", afumate: "🔥 Afumături la Lemn", carnati: "🌭 Cârnați & Salsiccia", mici: "🧆 Mici & Grătar", salam: "🥩 Salamuri & Specialități" },
+                products: {
+                    p1: { title: "Salam Victoria Artizanal", desc: "Rețetă tradițională curată, carne macră de porc din Piemonte cu conținut redus de grăsime. Ambalat proaspăt la vid." },
+                    p2: { title: "Kaizer Țărănesc Afumat", desc: "Piept de porc selecționat, marinat cu condimente naturale și afumat lent la lemn de fag în laboratorul propriu." },
+                    p3: { title: "Micii Tradiționali Casa Chirițoiu", desc: "Pastă de mici proaspătă din carne tocată de calitate superioară, marinată cu usturoi și mirodenii. Pregătiți pentru grătar." },
+                    p4: { title: "Cârnați Țărănești la Lemn", desc: "Cârnați uscați și afumați tradițional la fum din lemn de fag. Perfecți pentru gustare sau platouri tradiționale." },
+                    p5: { title: "Mușchi File Afumat", desc: "Cotlet de porc fraged, fără grăsime, marinat în saramură cu mirodenii și afumat fin." },
+                    p6: { title: "Carne la Garniță Tradițională", desc: "Bucăți fragede de carne și cârnați prăjiți la ceaun și conservați în untură curată. Gata de încălzit în 5 minute." },
+                    p7: { title: "Tobă Tradițională Afumată", desc: "Preparat tradițional din bucăți alese de porc, condimentat cu usturoi și mirodenii, afumat ușor la lemn." },
+                    p8: { title: "Cârnați Moldovenești de Casă", desc: "Rețetă autentică de la Huși. Carne tocată la satâr, marinată cu cimbru și usturoi, afumată la fag." },
+                    p9: { title: "Slănină Afumată cu Boia", desc: "Slănină fragedă de porc din Piemonte, fragedă, maturată în saramură și frumos boiată cu boia dulce." },
+                    p10: { title: "Șunculița Boierului", desc: "Specialitate fină din piept de porc fără os, marinat și afumat la rece. Se topește în gură." },
+                    p11: { title: "Pastramă Tradițională de Porc", desc: "Bucăți alese de porc maturate în condimente ardelenești și afumate lent la fum natural." },
+                    p12: { title: "Șorici Fraged de Porc", desc: "Șorici curățat impecabil, fraged și curat, ușor sărat. O gustare tradițională crocantă și delicioasă." }
+                }
+            },
+            it: {
+                navTag: "Salumificio Artigianale dal Piemonte",
+                navWa: "Ordina su WhatsApp",
+                heroBadge: "Produzione Artigianale a San Michele Mondovì (CN)",
+                heroMainTitle: 'Il Gusto Autentico della Tradizione, <span>Carne Premium del Piemonte</span>',
+                heroSubTitle: "Specialità tradizionali di carne fresca affumicata a legna di faggio. Senza additivi superflui. Spedizione refrigerata in tutta Italia.",
+                btnEshop: "🛍️ Scopri i Formati 150g (E-Shop)",
+                btnLab: "🏭 Visita il Laboratorio a Cuneo",
+                shipTitle: "Spedizione Refrigerata Garantita in Tutta Italia (24/48h)",
+                shipDesc: "Tutti i nostri salumi sono confezionati sottovuoto in pratici formati da 150g e spediti in scatole isotermiche con gel refrigerante, mantenendo la temperatura sotto i 4°C dal laboratorio fino a casa vostra.",
+                tagEshop: "Negozio Online & Degustazioni",
+                titleEshop: "Specialità Confezionate Sottovuoto (150g)",
+                waLabel: "Ordina su WhatsApp",
+                tagLab: "Laboratorio & Spaccio Aziendale",
+                labTitle: "Casa Chirițoiu - San Michele Mondovì",
+                labDesc: "Il nostro laboratorio si trova nel cuore della natura piemontese. Qui uniamo le ricette tradizionali della nostra terra alla carne suina di alta qualità proveniente dagli allevamenti del Cuneese. Vi aspettiamo al nostro spaccio aziendale!",
+                hoursTitle: "⏰ Orari Spaccio Aziendale:",
+                hoursNote: "💡 Per ordini speciali o forniture per eventi, potete contattarci direttamente su WhatsApp.",
+                carouselHeader: "🌟 Specialità del Giorno (Selezione del Maestro Mellaio)",
+                vTag: "Trasparenza & Passione",
+                vTitle: "Come Prepariamo i Salumi nel Nostro Laboratorio",
+                vDesc: "Vi invitiamo dietro le quinte del nostro laboratorio a San Michele Mondovì! Seguite il processo di lavorazione artigianale: dalla selezione delle carni fresche locali, alla salatura e affumicatura lenta con legna di faggio.",
+                vF1Title: "Carne 100% dagli Allevamenti del Cuneese",
+                vF1Desc: "Carne suina fresca selezionata quotidianamente per garantire gusto e qualità ottimali.",
+                vF2Title: "Affumicatura Tradizionale a Legna di Faggio",
+                vF2Desc: "Fumo naturale di legna senza aromi chimici o artificiali.",
+                filters: { all: "Tutti (12)", afumate: "🔥 Affumicati a Legna", carnati: "🌭 Salsicce & Salamini", mici: "🧆 Mici (Grigliata)", salam: "🥩 Salumi & Specialità" },
+                products: {
+                    p1: { title: "Salame Victoria Artigianale", desc: "Ricetta tradizionale pura, carne magra di suino piemontese a basso contenuto di grassi. Confezionato fresco sottovuoto." },
+                    p2: { title: "Pancetta Affumicata (Kaizer)", desc: "Pancia di maiale selezionata, marinata con spezie naturali e affumicata lentamente a legna di faggio." },
+                    p3: { title: "Mici Tradizionali (Polpette Grigliata)", desc: "Impasto fresco per Mici di carne suina di alta qualità, marinato con aglio ed erbe aromatiche. Pronti da grigliare." },
+                    p4: { title: "Salsiccia Contadina a Legna", desc: "Salsiccia stagionata e affumicata tradizionalmente a legna di faggio. Perfetta per antipasti e taglieri." },
+                    p5: { title: "Lombo Affumicato (Muschi File)", desc: "Lombo di maiale tenero e magro, marinato in salamoia speziata e delicatamente affumicato." },
+                    p6: { title: "Carne in Conserva (Tochitura)", desc: "Teneri bocconcini di maiale e salsiccia rosolati nel paiolo e conservati nello strutto. Pronta in 5 minuti." },
+                    p7: { title: "Toba Tradizionale Affumicata", desc: "Specialità contadina preparata con tagli scelti di maiale, insaporita con aglio e affumicata a legna." },
+                    p8: { title: "Salsiccia Moldava Fatta in Casa", desc: "Autentica ricetta di Husi. Carne macinata al coltello, marinata con timo e aglio, affumicata al faggio." },
+                    p9: { title: "Lardo Affumicato alla Paprika", desc: "Lardo morbido di maiale piemontese, stagionato in salamoia e finemente ricoperto di paprika dolce." },
+                    p10: { title: "Pancetta Arrotolata Boierului", desc: "Prelibatezza di pancetta magra di maiale disossata, marinata e affumicata a freddo. Si scioglie in bocca." },
+                    p11: { title: "Pastrami Tradizionale di Maiale", desc: "Tagli scelti di maiale stagionati con spezie tradizionali e affumicati lentamente a fumo naturale." },
+                    p12: { title: "Cotenna Tenera di Maiale", desc: "Cotenna pulita alla perfezione, tenera, saporita e leggermente salata. Un delizioso snack croccante." }
+                }
+            }
+        };
+
+        let currentLang = 'ro';
+        let carouselIdx = 0;
+        const carouselKeys = ['p1', 'p2', 'p3', 'p4', 'p5', 'p8'];
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('btn-ro').classList.remove('active');
+            document.getElementById('btn-it').classList.remove('active');
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            const t = translations[lang];
+            document.getElementById('nav-brand-tag').innerText = t.navTag;
+            document.getElementById('nav-wa-text').innerText = t.navWa;
+            document.getElementById('hero-badge-text').innerText = t.heroBadge;
+            document.getElementById('hero-main-title').innerHTML = t.heroMainTitle;
+            document.getElementById('hero-sub-title').innerText = t.heroSubTitle;
+            document.getElementById('btn-eshop-text').innerText = t.btnEshop;
+            document.getElementById('btn-lab-text').innerText = t.btnLab;
+            document.getElementById('ship-title').innerText = t.shipTitle;
+            document.getElementById('ship-desc').innerText = t.shipDesc;
+            document.getElementById('tag-eshop').innerText = t.tagEshop;
+            document.getElementById('title-eshop').innerText = t.titleEshop;
+            document.getElementById('tag-lab').innerText = t.tagLab;
+            document.getElementById('lab-title').innerText = t.labTitle;
+            document.getElementById('lab-desc').innerText = t.labDesc;
+            document.getElementById('hours-title').innerText = t.hoursTitle;
+            document.getElementById('hours-note').innerText = t.hoursNote;
+            document.getElementById('carousel-header').innerText = t.carouselHeader;
+
+            // Video section
+            document.getElementById('v-tag').innerText = t.vTag;
+            document.getElementById('v-title').innerText = t.vTitle;
+            document.getElementById('v-desc').innerText = t.vDesc;
+            document.getElementById('v-f1-title').innerText = t.vF1Title;
+            document.getElementById('v-f1-desc').innerText = t.vF1Desc;
+            document.getElementById('v-f2-title').innerText = t.vF2Title;
+            document.getElementById('v-f2-desc').innerText = t.vF2Desc;
+
+            // Filter Buttons Text
+            document.getElementById('f-all').innerText = t.filters.all;
+            document.getElementById('f-afumate').innerText = t.filters.afumate;
+            document.getElementById('f-carnati').innerText = t.filters.carnati;
+            document.getElementById('f-mici').innerText = t.filters.mici;
+            document.getElementById('f-salam').innerText = t.filters.salam;
+
+            // Translate all 12 products dynamically
+            for (let pid in t.products) {
+                if (document.getElementById(`${pid}-title`)) {
+                    document.getElementById(`${pid}-title`).innerText = t.products[pid].title;
+                    document.getElementById(`${pid}-desc`).innerText = t.products[pid].desc;
+                }
+            }
+
+            document.querySelectorAll('.wa-btn-label').forEach(el => el.innerText = t.waLabel);
+            updateCarousel();
+        }
+
+        /* DYNAMIC JS FILTERING */
+        function filterCategory(cat) {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* DYNAMIC JS SLIDER / CAROUSEL ENGINE */
+        function updateCarousel() {
+            const pid = carouselKeys[carouselIdx];
+            const pdata = translations[currentLang].products[pid];
+            document.getElementById('c-name').innerText = `${pdata.title} (150g Vid)`;
+            document.getElementById('c-desc').innerText = pdata.desc;
+        }
+
+        function nextSlide() {
+            carouselIdx = (carouselIdx + 1) % carouselKeys.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            carouselIdx = (carouselIdx - 1 + carouselKeys.length) % carouselKeys.length;
+            updateCarousel();
+        }
+
+        // Auto-play Carousel Slider every 4.5 seconds
+        setInterval(nextSlide, 4500);
+
+        function orderWhatsApp(productId) {
+            const prodName = translations[currentLang].products[productId].title;
+            const message = encodeURIComponent(`Buna ziua! Doresc sa comand preparatul: ${prodName} (150g Vid). Va rog sa-mi oferiti detalii pentru livrarea prin curier frigorific.`);
+            window.open(`https://wa.me/3901119225078?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
