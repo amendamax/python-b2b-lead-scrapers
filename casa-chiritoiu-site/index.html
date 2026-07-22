@@ -282,10 +282,10 @@
             
             <!-- TRUST BADGES ROW -->
             <div class="hero-trust-badges" style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <span style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🚚 Livrare Frigorifică 24/48h</span>
-                <span style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">❄️ Ambalaj Izoterm & Gel Refrigerent</span>
-                <span style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🥩 Carne 100% Cuneo</span>
-                <span style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">⭐ 100% Calitate Artizanală</span>
+                <span id="tb-1" style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🚚 Livrare Frigorifică 24/48h</span>
+                <span id="tb-2" style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">❄️ Ambalaj Izoterm & Gel Refrigerent</span>
+                <span id="tb-3" style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🥩 Carne 100% Cuneo</span>
+                <span id="tb-4" style="background: rgba(223, 185, 97, 0.1); border: 1px solid rgba(223, 185, 97, 0.3); color: #dfb961; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">⭐ 100% Calitate Artizanală</span>
             </div>
         </div>
     </section>
@@ -633,6 +633,10 @@
                 heroSubTitle: "Preparate tradiționale din carne proaspătă, afumate la lemn de fag. Fără aditivi prisosnici. Livrare în cutii termoizolante în toată Italia.",
                 btnEshop: "🛍️ Vezi Pachetele 150g (E-Shop)",
                 btnLab: "🏭 Vizitează Laboratorul din Cuneo",
+                tb1: "🚚 Livrare Frigorifică 24/48h",
+                tb2: "❄️ Ambalaj Izoterm & Gel Refrigerent",
+                tb3: "🥩 Carne 100% Cuneo",
+                tb4: "⭐ 100% Calitate Artizanală",
                 shipTitle: "Livrare Frigorifică Garantată în Toată Italia (24/48h)",
                 shipDesc: "Toate preparatele noastre sunt ambalate individual la vid în gramaje ideale de 150g și expediate în cutii termoizolante speciale cu gel refrigerent, menținând temperatura sub 4°C de la laborator până la ușa dumneavoastră.",
                 tagEshop: "Magazin Online & Selecții Degustare",
@@ -675,6 +679,10 @@
                 heroSubTitle: "Specialità tradizionali di carne fresca affumicata a legna di faggio. Senza additivi superflui. Spedizione refrigerata in tutta Italia.",
                 btnEshop: "🛍️ Scopri i Formati 150g (E-Shop)",
                 btnLab: "🏭 Visita il Laboratorio a Cuneo",
+                tb1: "🚚 Spedizione Refrigerata 24/48h",
+                tb2: "❄️ Imballaggio Isotermico & Gel Refrigerante",
+                tb3: "🥩 Carne 100% del Cuneese",
+                tb4: "⭐ 100% Qualità Artigianale",
                 shipTitle: "Spedizione Refrigerata Garantita in Tutta Italia (24/48h)",
                 shipDesc: "Tutti i nostri salumi sono confezionati sottovuoto in pratici formati da 150g e spediti in scatole isotermiche con gel refrigerante, mantenendo la temperatura sotto i 4°C dal laboratorio fino a casa vostra.",
                 tagEshop: "Negozio Online & Degustazioni",
@@ -729,6 +737,10 @@
             document.getElementById('hero-sub-title').innerText = t.heroSubTitle;
             document.getElementById('btn-eshop-text').innerText = t.btnEshop;
             document.getElementById('btn-lab-text').innerText = t.btnLab;
+            document.getElementById('tb-1').innerText = t.tb1;
+            document.getElementById('tb-2').innerText = t.tb2;
+            document.getElementById('tb-3').innerText = t.tb3;
+            document.getElementById('tb-4').innerText = t.tb4;
             document.getElementById('ship-title').innerText = t.shipTitle;
             document.getElementById('ship-desc').innerText = t.shipDesc;
             document.getElementById('tag-eshop').innerText = t.tagEshop;
