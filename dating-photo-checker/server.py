@@ -1318,6 +1318,12 @@ async def get_admin_dashboard(token: str = None):
         
         formatted_date = created_at.replace("T", " ")[:19] if created_at else "N/A"
         
+        unlock_btn = ""
+        if payment_status != "paid":
+            unlock_btn = f"""
+            <button onclick="markPaid('{scan_id}')" style="background:#10B981;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;transition:background 0.2s;width:100%;" onmouseover="this.style.background='#059669'" onmouseout="this.style.background='#10B981'">🔓 Unlock Scan</button>
+            """
+        
         cards_html += f"""
         <div style="background:#1E293B;border-radius:16px;overflow:hidden;border:1px solid #334155;display:flex;flex-direction:column;box-shadow:0 4px 6px -1px rgba(0,0,0,0.3);">
             <div style="height:220px;background:#0F172A;display:flex;align-align:center;justify-content:center;overflow:hidden;position:relative;padding:10px;">
@@ -1342,6 +1348,7 @@ async def get_admin_dashboard(token: str = None):
                     </div>
                 </div>
                 {f'<div style="font-size:12px;color:#10B981;margin-top:4px;word-break:break-all;">📧 {email}</div>' if email else ''}
+                {unlock_btn}
             </div>
         </div>
         """
@@ -1362,6 +1369,21 @@ async def get_admin_dashboard(token: str = None):
         .stat-label {{ font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }}
         .grid {{ max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }}
     </style>
+    <script>
+        function markPaid(scanId) {{
+            if (confirm("Are you sure you want to manually mark this scan as PAID and unlock the report?")) {{
+                const token = new URLSearchParams(window.location.search).get('token');
+                fetch(`/api/admin/mark-paid?scan_id=${scanId}&token=${token}`, {{ method: 'POST' }})
+                    .then(res => {{
+                        if (res.ok) {{
+                            window.location.reload();
+                        } else {{
+                            alert("Error: Could not unlock scan.");
+                        }}
+                    }});
+            }}
+        }}
+    </script>
 </head>
 <body>
     <div class="header">
@@ -1390,6 +1412,31 @@ async def get_admin_dashboard(token: str = None):
 </body>
 </html>"""
     return HTMLResponse(content=html_content)
+
+@app.post("/api/admin/mark-paid")
+async def mark_scan_as_paid(scan_id: str, token: str = None):
+    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
+    if not token or token != admin_token:
+        raise HTTPException(status_code=403, detail="Unauthorized access token.")
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # Try updating in dating scans
+    cursor.execute("UPDATE scans SET payment_status = 'paid' WHERE id = ?", (scan_id,))
+    dating_updated = cursor.rowcount > 0
+    
+    # Try updating in broker scans
+    cursor.execute("UPDATE broker_scans SET payment_status = 'paid' WHERE id = ?", (scan_id,))
+    broker_updated = cursor.rowcount > 0
+    
+    conn.commit()
+    conn.close()
+    
+    if not dating_updated and not broker_updated:
+        raise HTTPException(status_code=404, detail="Scan ID not found in database.")
+        
+    return {"status": "success", "scan_id": scan_id, "unlocked": True}
 
 @app.get("/api/admin/scans")
 async def get_admin_scans(token: str = None):
