@@ -1377,7 +1377,7 @@ async def get_admin_dashboard(token: str = None):
                     .then(res => {{
                         if (res.ok) {{
                             window.location.reload();
-                        } else {{
+                        }} else {{
                             alert("Error: Could not unlock scan.");
                         }}
                     }});
