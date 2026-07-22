@@ -2464,3 +2464,81 @@ html, body {
         color: #7b341e !important;
     }
 }
+
+/* ==========================================================================
+   VerifyDating Premium Authority UI Enhancements
+   ========================================================================== */
+.recent-scans-ticker {
+    margin: 1.5rem auto 1.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    max-width: 900px;
+}
+
+.ticker-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #f1c40f;
+    letter-spacing: 0.5px;
+    font-family: var(--font-header);
+}
+
+.ticker-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.scan-tag {
+    background: rgba(20, 16, 33, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f5f4f9;
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.scan-tag.risk-high {
+    border-color: rgba(255, 42, 116, 0.35);
+    background: rgba(255, 42, 116, 0.08);
+}
+
+.scan-tag.risk-high i {
+    color: #ff2a74;
+}
+
+.scan-tag.risk-low {
+    border-color: rgba(0, 184, 148, 0.35);
+    background: rgba(0, 184, 148, 0.08);
+}
+
+.scan-tag.risk-low i {
+    color: #00b894;
+}
+
+.upload-card {
+    border: 1px solid rgba(255, 42, 116, 0.25) !important;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 42, 116, 0.12) !important;
+    background: linear-gradient(135deg, rgba(25, 20, 42, 0.85) 0%, rgba(12, 9, 21, 0.95) 100%) !important;
+}
+
+.dropzone-area {
+    border: 2px dashed rgba(255, 42, 116, 0.35) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dropzone-area:hover {
+    border-color: #ff2a74 !important;
+    box-shadow: 0 0 20px rgba(255, 42, 116, 0.25) !important;
+    background: rgba(255, 42, 116, 0.05) !important;
+}
