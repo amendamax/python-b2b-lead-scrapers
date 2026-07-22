@@ -1374,7 +1374,7 @@ async def get_admin_dashboard(token: str = None):
         function markPaid(scanId) {{
             if (confirm("Are you sure you want to manually mark this scan as PAID and unlock the report?")) {{
                 const token = new URLSearchParams(window.location.search).get('token');
-                fetch(`/api/admin/mark-paid?scan_id=${scanId}&token=${token}`, {{ method: 'POST' }})
+                fetch('/api/admin/mark-paid?scan_id=' + scanId + '&token=' + token, {{ method: 'POST' }})
                     .then(res => {{
                         if (res.ok) {{
                             window.location.reload();
