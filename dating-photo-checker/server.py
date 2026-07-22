@@ -186,6 +186,7 @@ init_db()
 # DYNAMIC STATIC FILES SERVING (DOMAIN-BASED ROUTING)
 # ==========================================================================
 @app.get("/")
+@app.head("/")
 async def get_index(request: Request):
     host = request.headers.get("host", "").lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
