@@ -604,3 +604,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load default broker (XM Group) on startup with API integration
     executeScan("XM Group", "xm.com");
 });
+
+// Quick Ticker Chip Click Handler
+window.selectBroker = function(name) {
+    const broker = brokerDatabase.find(b => b.name.toLowerCase() === name.toLowerCase());
+    if (broker) {
+        searchInput.value = broker.name;
+        executeScan(broker.name, broker.domain);
+    } else {
+        searchInput.value = name;
+        executeScan(name, name.toLowerCase().replace(/\s+/g, '') + '.com');
+    }
+};
