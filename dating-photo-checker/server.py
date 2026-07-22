@@ -1384,6 +1384,19 @@ async def get_admin_dashboard(token: str = None):
                     }});
             }}
         }}
+        function resetScans() {{
+            if (confirm("⚠️ Are you sure you want to CLEAR ALL scans and reset the database? This will delete all test entries.")) {{
+                const token = new URLSearchParams(window.location.search).get('token');
+                fetch('/api/admin/clear-scans?token=' + token, {{ method: 'POST' }})
+                    .then(res => {{
+                        if (res.ok) {{
+                            window.location.reload();
+                        }} else {{
+                            alert("Error resetting database.");
+                        }}
+                    }});
+            }}
+        }}
     </script>
 </head>
 <body>
@@ -1392,7 +1405,7 @@ async def get_admin_dashboard(token: str = None):
             <h1 style="margin:0;font-size:26px;color:#F8FAFC;display:flex;align-items:center;gap:10px;">🔍 VerifyDating Live Scans</h1>
             <p style="margin:6px 0 0 0;font-size:14px;color:#94A3B8;">Real-time visual gallery of user uploaded photos, AI biometric risk & payment status</p>
         </div>
-        <div class="stats">
+        <div class="stats" style="align-items:center;">
             <div class="stat-box">
                 <div class="stat-value">{total_scans}</div>
                 <div class="stat-label">Total Scans</div>
@@ -1405,6 +1418,7 @@ async def get_admin_dashboard(token: str = None):
                 <div class="stat-value" style="color:#10B981;">${revenue:.2f}</div>
                 <div class="stat-label">Est. Revenue</div>
             </div>
+            <button onclick="resetScans()" style="background:#EF4444;color:#fff;border:none;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s;" onmouseover="this.style.background='#DC2626'" onmouseout="this.style.background='#EF4444'">🗑️ Reset Database</button>
         </div>
     </div>
     <div class="grid">
@@ -1417,6 +1431,21 @@ async def get_admin_dashboard(token: str = None):
         import traceback
         err_msg = traceback.format_exc()
         return HTMLResponse(content=f"<pre style='color:#ef4444;background:#1e293b;padding:24px;border-radius:12px;font-size:14px;overflow:auto;font-family:monospace;'>Error running dashboard: {e}\\n\\n{err_msg}</pre>", status_code=500)
+
+@app.post("/api/admin/clear-scans")
+async def clear_admin_scans(token: str = None):
+    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
+    if not token or token != admin_token:
+        raise HTTPException(status_code=403, detail="Unauthorized access token.")
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM scans")
+    cursor.execute("DELETE FROM broker_scans")
+    conn.commit()
+    conn.close()
+    
+    return {"status": "success", "cleared": True}
 
 @app.post("/api/admin/mark-paid")
 async def mark_scan_as_paid(scan_id: str, token: str = None):
