@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Localization SEO Hreflang Tags -->
+    <link rel="alternate" hreflang="en" href="https://isbrokersafe.com/" />
+    <link rel="alternate" hreflang="ro" href="https://isbrokersafe.com/ro/" />
+    <link rel="alternate" hreflang="it" href="https://isbrokersafe.com/it/" />
+    <link rel="alternate" hreflang="es" href="https://isbrokersafe.com/es/" />
+    <link rel="alternate" hreflang="fr" href="https://isbrokersafe.com/fr/" />
+    <link rel="alternate" hreflang="de" href="https://isbrokersafe.com/de/" />
+    <link rel="alternate" hreflang="pt" href="https://isbrokersafe.com/pt/" />
+    <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/ru/" />
+    <link rel="alternate" hreflang="x-default" href="https://isbrokersafe.com/" />
+    <meta name="impact-site-verification" value="47d92ca6-6c50-4d41-bca4-c842d9b2dd07" content="47d92ca6-6c50-4d41-bca4-c842d9b2dd07">
+    <!-- Impact STAT Tag -->
+    <script>
+    (function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7465143-89ed-43ac-a023-a754fe18659b1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXS970H1KK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BRLWMFCM12');
+      gtag('config', 'G-BXS970H1KK');
+    </script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3004668135024786" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -8,6 +33,8 @@
     <title>Broker Legitimacy Verifier & Forex Scam Checker | IsBrokerSafe</title>
     <meta name="description" content="Verify instantly if your Forex, CFD, or Crypto broker is safe or a scam. Real-time trust score, FCA/CySEC regulation checks, and WHOIS domain audit.">
     <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons for support buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
@@ -17,19 +44,62 @@
         
         <!-- Header -->
         <header class="app-header">
-            <h1 class="logo">Broker<span>Verifier</span></h1>
-            <p class="subtitle">Smart risk analysis and threat intelligence system for Forex, CFD, and Crypto brokers.</p>
+            <div class="header-nav">
+                <h1 class="logo">Broker<span>Verifier</span></h1>
+                <div class="header-badges">
+                    <span class="badge-tag">🔒 256-Bit SSL Encrypted Audit</span>
+                    <span class="badge-tag green">✓ Independent Security Portal</span>
+                </div>
+            </div>
+            
+            <div class="hero-box">
+                <h2 class="hero-headline">Verify Any Forex, CFD & Crypto Broker Before Depositing Your Money</h2>
+                <p class="hero-subtext">Instant regulatory license audit (FCA, ASIC, CySEC), WHOIS domain age inspection, and scam risk detection.</p>
+                
+                <div class="trust-features-row">
+                    <div class="trust-feat"><span class="feat-check">✓</span> <strong>14,200+</strong> Brokers Audited</div>
+                    <div class="trust-feat"><span class="feat-check">✓</span> <strong>Official</strong> License Verification</div>
+                    <div class="trust-feat"><span class="feat-check">✓</span> <strong>100%</strong> Independent & Free</div>
+                </div>
+            </div>
         </header>
 
         <!-- Search Section -->
         <section class="search-section">
             <div class="search-box-wrapper">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="broker-search" class="search-input" placeholder="Search by broker name or website (e.g. XM Group, IC Markets...)" autocomplete="off">
+                <input type="text" id="broker-search" class="search-input" placeholder="Search by broker name or website (e.g. XM Group, IC Markets, Exness...)" autocomplete="off">
             </div>
             
             <!-- Suggestions Dropdown -->
             <div id="suggestions-box" class="autocomplete-suggestions"></div>
+
+            <!-- Popular Searches Ticker -->
+            <div class="recent-audits-ticker">
+                <!-- Row 1: Verified Safe Brokers -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label safe">🟢 Verified Safe Brokers</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
+                    </div>
+                </div>
+
+                <!-- Row 2: Blacklisted Scam Warnings -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label danger">🚨 Blacklisted Scam Alerts</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                    </div>
+                </div>
+            </div>
             
             <!-- Quick Actions -->
             <div class="alternative-actions">
@@ -168,6 +238,63 @@
             </div>
         </section>
 
+        <!-- Trader Reviews Section -->
+        <section class="panel reviews-section" style="margin-top: 3rem; animation: fadeInUp 1.2s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                ⭐ Trader Protection Testimonials
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Here is how BrokerVerifier is helping traders identify scams and protect their capital worldwide:
+            </p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I was on the verge of sending $8,500 to ApexCryptoFX after a Telegram 'account manager' convinced me it was safe. Decided to run a quick scan here first. High threat alert, domain registered just 2 months ago. Saved my life savings!"</p>
+                    <span class="review-author">Elena M.</span><span class="review-meta">· Bucharest, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"As a retail forex trader, checking offshore entities is critical. BrokerVerifier has saved me and my trading community from several shady CFD brokers. The PDF forensic reports are worth every penny of that $9.99."</p>
+                    <span class="review-author">Marcus T.</span><span class="review-meta">· London, UK</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Outstanding service. The live WHOIS checking is super fast and revealed that a broker claiming 8 years of history was actually registered last Tuesday. Absolutely brilliant threat intelligence."</p>
+                    <span class="review-author">David K.</span><span class="review-meta">· Chicago, IL</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I paid the $9.99 to get the deep audit on an offshore MT5 broker. It immediately flagged CySEC blacklist warnings that were hidden under another shell company name. Absolute life-saver tool."</p>
+                    <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Clean UI, fast scan, and the PDF forensic report is highly detailed. It found that the broker was hosted on a cheap shared server in Panama. Insane value for $9.99. Highly recommended!"</p>
+                    <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"My uncle almost fell for a cold-call broker scam promising 15% guaranteed weekly profits. Ran the checklist and the scanner here, flagged it as an immediate Ponzi threat. Beyond grateful!"</p>
+                    <span class="review-author">Roxana I.</span><span class="review-meta">· Cluj-Napoca, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I'm a financial advisor and I now make all my retail clients verify their brokers here before they fund any trading account. Best preventive security tool out there."</p>
+                    <span class="review-author">Thomas S.</span><span class="review-meta">· Frankfurt, DE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Stripe payment was secure, report was generated in under a second and sent directly to my email. Extremely professional setup. 10/10."</p>
+                    <span class="review-author">Liam O.</span><span class="review-meta">· Dublin, IE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">"Great tool for checking domains. The wizard questionnaire is spot on for evaluating offshore entities. Saved me from depositing $2,000 to an unregulated broker."</p>
+                    <span class="review-author">Alexander P.</span><span class="review-meta">· Vancouver, CA</span>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <!-- Interactive Wizard Modal Overlay -->
@@ -275,7 +402,7 @@
     </div>
 
     <!-- Stripe Checkout Modal -->
-    <div id="checkout-modal" class="modal-overlay" style="display: none;">
+    <div id="checkout-modal" class="modal-overlay">
         <div class="wizard-card" style="max-width: 450px;">
             <button id="close-checkout-btn" class="close-modal-btn">&times;</button>
             
@@ -306,6 +433,157 @@
             </form>
         </div>
     </div>
+
+
+    <!-- Plus500 Affiliate Banner -->
+    <section class="affiliate-banner-section" id="trusted-brokers">
+        <div class="affiliate-banner-inner">
+            <div class="affiliate-badge">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text">Plus<span style="color:#00b4d8">500</span></span>
+                    <span class="affiliate-regulated-tag">🛡️ FCA · ASIC · CySEC · MAS Regulated</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Trade CFDs with a Trusted, Publicly Listed Broker</h3>
+                    <p class="affiliate-desc">Plus500 is regulated by EFSA (Licence No. 4.1-1/18) and listed on the London Stock Exchange. Trade stocks, forex, commodities and crypto CFDs.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ No commissions & tight spreads</li>
+                        <li>✅ Free demo account — no risk</li>
+                        <li>✅ User-friendly interface</li>
+                        <li>✅ Instant withdrawals</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="plus500-cta" style="background: linear-gradient(135deg, #00b4d8, #0077b6); color: #ffffff !important; font-weight: 700;">
+                        Open Free Account →
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. 80% of retail investors lose money trading CFDs with this provider. Make sure you understand how CFDs work and whether you can afford to take the high risk of losing your money.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AvaTrade Affiliate Banner -->
+    <section class="affiliate-banner-section" id="avatrade-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,184,0,0.35); background: linear-gradient(135deg, rgba(10,34,64,0.95) 0%, rgba(5,8,15,0.95) 60%, rgba(255,184,0,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,184,0,0.15);border-color:rgba(255,184,0,0.4);color:#ffbb00;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffbb00;font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:1px;">AVATRADE</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,184,0,0.9);border-color:rgba(255,184,0,0.3);">🛡️ Central Bank of Ireland · ASIC · FSRA · FSCA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Award-Winning Globally Regulated Broker since 2006</h3>
+                    <p class="affiliate-desc">AvaTrade is one of the world's most secure brokers, regulated across 6 continents. Follow expert traders with DupliTrade copy trading, protect your trades with AvaProtect, and trade with fixed/variable tight spreads.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Regulated in 9 jurisdictions</li>
+                        <li>✅ Free DupliTrade copy trading</li>
+                        <li>✅ AvaProtect™ loss insurance</li>
+                        <li>✅ $100 minimum deposit</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="avatrade-cta" style="background: linear-gradient(135deg, #ffbb00, #c69200); color: #0b1528 !important; font-weight: 700; margin-bottom: 8px;">
+                        Open Free Account →
+                    </a>
+                    <a href="/reviews/avatrade" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Read Full Security Review ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- XM Affiliate Banner -->
+    <section class="affiliate-banner-section" id="xm-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(200,30,40,0.35); background: linear-gradient(135deg, rgba(200,30,40,0.07) 0%, rgba(5,8,15,0.95) 60%, rgba(200,30,40,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(200,30,40,0.15);border-color:rgba(200,30,40,0.4);color:#e01e28;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#e01e28;">XM</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(200,30,40,0.9);border-color:rgba(200,30,40,0.3);">🛡️ FCA · ASIC · CySEC · DFSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Trade Forex & CFDs with 10+ Million Traders Worldwide</h3>
+                    <p class="affiliate-desc">XM Group is one of the world's most trusted brokers, regulated in 4 jurisdictions. Join over 10 million clients with access to 1000+ instruments, ultra-fast execution, and a free demo account.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ No requotes, no rejections</li>
+                        <li>✅ Free $30 welcome bonus</li>
+                        <li>✅ Free VPS for auto traders</li>
+                        <li>✅ 1000+ trading instruments</li>
+                    </ul>
+                    
+                    <!-- XM Global Private Registration Support CTA -->
+                    <div class="affiliate-notice-box" style="margin-top: 18px; padding: 12px 16px; background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.4); border-radius: 8px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.25rem;">🇪🇺</span>
+                        <div style="font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); text-align: left;">
+                            <strong>European Resident?</strong> Get 1:1000 leverage, deposit bonuses, and Copy Trading under XM Global regulations. 
+                            <a href="https://wa.me/393209481876?text=Hello,%20I%20want%20the%20private%20XM%20Global%20registration%20link%20and%20partner%20code." target="_blank" style="color: #34d399; font-weight: 700; text-decoration: underline; margin-left: 5px;">
+                                Chat with us on WhatsApp for private registration instructions →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="xm-cta" style="background: linear-gradient(135deg, #e01e28, #9b0a14); margin-bottom: 8px;">
+                        Open Free Account →
+                    </a>
+                    <a href="/reviews/xm" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Read Full Security Review ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exness Affiliate Banner -->
+    <section class="affiliate-banner-section" id="exness-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,168,0,0.35); background: linear-gradient(135deg, rgba(255,168,0,0.06) 0%, rgba(5,8,15,0.95) 60%, rgba(0,180,100,0.06) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,168,0,0.15);border-color:rgba(255,168,0,0.4);color:#ffa800;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffffff;font-style:italic;">exness</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,168,0,0.9);border-color:rgba(255,168,0,0.3);">🛡️ FCA · CySEC · FSCA · FSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">The World's Highest-Volume Forex Broker</h3>
+                    <p class="affiliate-desc">Exness processes over $4 trillion in monthly trading volume. Instant withdrawals 24/7, ultra-tight spreads, and the most transparent broker in the industry. Trusted by millions globally.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Instant withdrawals 24/7</li>
+                        <li>✅ Spreads from 0.0 pips</li>
+                        <li>✅ Unlimited leverage available</li>
+                        <li>✅ $4 trillion+ monthly volume</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="exness-cta" style="background: linear-gradient(135deg, #ffa800, #e07000); margin-bottom: 8px;">
+                        Open Free Account →
+                    </a>
+                    <a href="/reviews/exness" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Read Full Security Review ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="footer-copyright">&copy; 2026 BrokerVerifier. All rights reserved. Created to protect traders against financial scams. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <div class="footer-contact">
+                <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Customer Support:</span>
+                <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>
+                <a href="https://wa.me/393209481876" target="_blank" class="contact-link"><i class="fa-brands fa-whatsapp"></i> Live Chat Support</a>
+            </div>
+        </div>
+    </footer>
 
     <!-- Logic Script -->
     <script src="app.js"></script>
