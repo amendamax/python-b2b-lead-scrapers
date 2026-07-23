@@ -2274,6 +2274,78 @@ html, body {
     }
 }
 
+/* Floating Social Proof Toast Notification */
+#social-proof-toast,
+.toast-notification {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+#social-proof-toast.show,
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#social-proof-toast .toast-icon,
+.toast-notification .toast-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 42, 95, 0.15);
+    color: #ff2a5f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 42, 95, 0.3);
+}
+
+#social-proof-toast .toast-icon.safe,
+.toast-notification .toast-icon.safe {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+#social-proof-toast .toast-content,
+.toast-notification .toast-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#social-proof-toast .toast-title,
+.toast-notification .toast-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+}
+
+#social-proof-toast .toast-subtitle,
+.toast-notification .toast-subtitle {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
 /* ==========================================================================
    PRINT MEDIA STYLES (Clean PDF Report Output)
    ========================================================================== */
