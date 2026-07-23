@@ -7,14 +7,16 @@ const brokerDatabase = [
     { name: "Exness", domain: "exness.com" },
     { name: "eToro", domain: "etoro.com" },
     { name: "XM Group", domain: "xm.com" },
+    { name: "Plus500", domain: "plus500.com" },
     { name: "AvaTrade", domain: "avatrade.com" },
     { name: "PocketOption", domain: "pocketoption.com" },
-    { name: "Interactive Brokers", domain: "interactivebrokers.com" },
-    { name: "Plus500", domain: "plus500.com" },
-    { name: "Pepperstone", domain: "pepperstone.com" },
-    { name: "IC Markets", domain: "icmarkets.com" },
     { name: "ApexCryptoFX", domain: "apexcryptofx.com" },
-    { name: "FxTradersGold", domain: "fxtradersgold.com" }
+    { name: "FxTradersGold", domain: "fxtradersgold.com" },
+    { name: "CapitalInvestFX", domain: "capitalinvestfx.com" },
+    { name: "CryptoWealth24", domain: "cryptowealth24.com" },
+    { name: "Interactive Brokers", domain: "interactivebrokers.com" },
+    { name: "Pepperstone", domain: "pepperstone.com" },
+    { name: "IC Markets", domain: "icmarkets.com" }
 ];
 
 // Determine the API base dynamically (useful if index.html is loaded via file:// protocol during local tests)

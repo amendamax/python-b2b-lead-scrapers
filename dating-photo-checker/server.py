@@ -1548,6 +1548,62 @@ class BrokerPaymentRequest(BaseModel):
 
 # Curated static DB for server lookup fallback
 static_broker_db = {
+    "capitalinvestfx.com": {
+        "name": "CapitalInvestFX",
+        "type": "Confirmed Scam",
+        "score": 4,
+        "source": "CySEC / BaFin Investor Alert",
+        "verdictTitle": "CRITICAL FRAUD ALERT / BLACKLISTED",
+        "verdictText": "CapitalInvestFX is an illegal, unregulated scam entity blacklisted by European regulators. They manipulate trading software and block client withdrawals.",
+        "redFlags": ["Blacklisted by European financial watchdogs.", "Manipulated trading interface with fake balances.", "Demands secondary fee payments to process withdrawals."],
+        "greenFlags": ["None. Avoid completely."],
+        "mockIp": "185.220.101.5",
+        "mockHoster": "Bulletproof Offshore Hosting",
+        "mockDomainAge": "2026-03-01 (4 months ago)",
+        "mockRegStatus": "CRITICAL: Officially Blacklisted by CySEC and BaFin"
+    },
+    "capitalinvestfx": {
+        "name": "CapitalInvestFX",
+        "type": "Confirmed Scam",
+        "score": 4,
+        "source": "CySEC / BaFin Investor Alert",
+        "verdictTitle": "CRITICAL FRAUD ALERT / BLACKLISTED",
+        "verdictText": "CapitalInvestFX is an illegal, unregulated scam entity blacklisted by European regulators. They manipulate trading software and block client withdrawals.",
+        "redFlags": ["Blacklisted by European financial watchdogs.", "Manipulated trading interface with fake balances.", "Demands secondary fee payments to process withdrawals."],
+        "greenFlags": ["None. Avoid completely."],
+        "mockIp": "185.220.101.5",
+        "mockHoster": "Bulletproof Offshore Hosting",
+        "mockDomainAge": "2026-03-01 (4 months ago)",
+        "mockRegStatus": "CRITICAL: Officially Blacklisted by CySEC and BaFin"
+    },
+    "cryptowealth24.com": {
+        "name": "CryptoWealth24",
+        "type": "Confirmed Scam",
+        "score": 6,
+        "source": "CNMV / ASIC Warning List",
+        "verdictTitle": "HIGH RISK PONZI SCHEME",
+        "verdictText": "CryptoWealth24 operates an illegal multi-level Ponzi scheme using fake social media account managers to solicit deposits.",
+        "redFlags": ["Unregulated crypto Ponzi scheme.", "Recruits victims via Instagram/Telegram unsolicited messaging.", "Promises guaranteed daily crypto yields of 15%+."],
+        "greenFlags": ["None. Illegal scam."],
+        "mockIp": "194.26.29.110",
+        "mockHoster": "Anonymous Cloud Server",
+        "mockDomainAge": "2026-04-12 (3 months ago)",
+        "mockRegStatus": "ALERT: Blacklisted by CNMV (Spain) and ASIC (AU)"
+    },
+    "cryptowealth24": {
+        "name": "CryptoWealth24",
+        "type": "Confirmed Scam",
+        "score": 6,
+        "source": "CNMV / ASIC Warning List",
+        "verdictTitle": "HIGH RISK PONZI SCHEME",
+        "verdictText": "CryptoWealth24 operates an illegal multi-level Ponzi scheme using fake social media account managers to solicit deposits.",
+        "redFlags": ["Unregulated crypto Ponzi scheme.", "Recruits victims via Instagram/Telegram unsolicited messaging.", "Promises guaranteed daily crypto yields of 15%+."],
+        "greenFlags": ["None. Illegal scam."],
+        "mockIp": "194.26.29.110",
+        "mockHoster": "Anonymous Cloud Server",
+        "mockDomainAge": "2026-04-12 (3 months ago)",
+        "mockRegStatus": "ALERT: Blacklisted by CNMV (Spain) and ASIC (AU)"
+    },
     "exness.com": {
         "name": "Exness",
         "type": "Tier-1 Regulated Multi-Asset Broker",
