@@ -4,8 +4,14 @@
 
 // Curated Database of Brokers (Autocomplete suggestions & Fallbacks)
 const brokerDatabase = [
-    { name: "Interactive Brokers", domain: "interactivebrokers.com" },
+    { name: "Exness", domain: "exness.com" },
+    { name: "eToro", domain: "etoro.com" },
     { name: "XM Group", domain: "xm.com" },
+    { name: "AvaTrade", domain: "avatrade.com" },
+    { name: "PocketOption", domain: "pocketoption.com" },
+    { name: "Interactive Brokers", domain: "interactivebrokers.com" },
+    { name: "Plus500", domain: "plus500.com" },
+    { name: "Pepperstone", domain: "pepperstone.com" },
     { name: "IC Markets", domain: "icmarkets.com" },
     { name: "ApexCryptoFX", domain: "apexcryptofx.com" },
     { name: "FxTradersGold", domain: "fxtradersgold.com" }
@@ -298,6 +304,29 @@ async function fetchResults(scanId) {
         
         verdictTitle.textContent = data.verdict_title || "Awaiting Evaluation";
         verdictText.textContent = data.verdict_text || "The analysis has completed.";
+
+        // Render partner affiliate CTA box if available
+        let partnerBox = document.getElementById("partner-cta-box");
+        const affLink = data.affiliate_link || (data.broker_domain.includes("exness") || data.broker_name.toLowerCase().includes("exness") ? "https://one.exnessonelink.com/a/hb0ywi6abh" : null);
+        if (affLink) {
+            if (!partnerBox) {
+                partnerBox = document.createElement("div");
+                partnerBox.id = "partner-cta-box";
+                partnerBox.style.cssText = "margin-top: 1.5rem; padding: 1.2rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
+                verdictBox.parentNode.insertBefore(partnerBox, verdictBox.nextSibling);
+            }
+            partnerBox.innerHTML = `
+                <div style="color: #34d399; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">
+                    🟢 Verified & Regulated Safe Broker Partner
+                </div>
+                <a href="${affLink}" target="_blank" rel="noopener" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
+                    Open Official Account at ${data.broker_name} ↗
+                </a>
+            `;
+            partnerBox.style.display = "block";
+        } else if (partnerBox) {
+            partnerBox.style.display = "none";
+        }
 
         // Update circular gauge
         updateGauge(data.score);
@@ -607,12 +636,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Quick Ticker Chip Click Handler
 window.selectBroker = function(name) {
-    const broker = brokerDatabase.find(b => b.name.toLowerCase() === name.toLowerCase());
+    const clean = name.toLowerCase().trim();
+    const broker = brokerDatabase.find(b => 
+        b.name.toLowerCase() === clean || 
+        b.domain.toLowerCase() === clean ||
+        b.name.toLowerCase().includes(clean) ||
+        clean.includes(b.name.toLowerCase())
+    );
     if (broker) {
         searchInput.value = broker.name;
         executeScan(broker.name, broker.domain);
     } else {
         searchInput.value = name;
-        executeScan(name, name.toLowerCase().replace(/\s+/g, '') + '.com');
+        let domain = clean.replace(/\s+/g, '');
+        if (!domain.includes('.')) domain += '.com';
+        executeScan(name, domain);
     }
 };

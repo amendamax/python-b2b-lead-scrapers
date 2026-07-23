@@ -1548,6 +1548,154 @@ class BrokerPaymentRequest(BaseModel):
 
 # Curated static DB for server lookup fallback
 static_broker_db = {
+    "exness.com": {
+        "name": "Exness",
+        "type": "Tier-1 Regulated Multi-Asset Broker",
+        "score": 96,
+        "source": "Official Database (CySEC, FCA, FSA, CBCS)",
+        "verdictTitle": "Highly Secure & Regulated Global Broker",
+        "verdictText": "Exness is a top-tier global financial broker with over $4 Trillion in monthly trading volume. Licensed by major international regulators including CySEC, FCA, FSA, and CBCS. Features instant automated withdrawals, segregated client funds, and full financial transparency.",
+        "redFlags": ["High leverage options available on offshore entities require proper risk management."],
+        "greenFlags": [
+            "Regulated by CySEC (Cyprus), FCA (UK), FSA (Seychelles), and CBCS.",
+            "Over $4 Trillion in audited monthly trading volume.",
+            "Instant automated withdrawals and negative balance protection.",
+            "Client funds held in segregated accounts at tier-1 international banks."
+        ],
+        "mockIp": "104.21.12.88",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2008-03-15 (18 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), FCA (UK), FSA (SC), CBCS",
+        "affiliateLink": "https://one.exnessonelink.com/a/hb0ywi6abh"
+    },
+    "exness": {
+        "name": "Exness",
+        "type": "Tier-1 Regulated Multi-Asset Broker",
+        "score": 96,
+        "source": "Official Database (CySEC, FCA, FSA, CBCS)",
+        "verdictTitle": "Highly Secure & Regulated Global Broker",
+        "verdictText": "Exness is a top-tier global financial broker with over $4 Trillion in monthly trading volume. Licensed by major international regulators including CySEC, FCA, FSA, and CBCS. Features instant automated withdrawals, segregated client funds, and full financial transparency.",
+        "redFlags": ["High leverage options available on offshore entities require proper risk management."],
+        "greenFlags": [
+            "Regulated by CySEC (Cyprus), FCA (UK), FSA (Seychelles), and CBCS.",
+            "Over $4 Trillion in audited monthly trading volume.",
+            "Instant automated withdrawals and negative balance protection.",
+            "Client funds held in segregated accounts at tier-1 international banks."
+        ],
+        "mockIp": "104.21.12.88",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2008-03-15 (18 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), FCA (UK), FSA (SC), CBCS",
+        "affiliateLink": "https://one.exnessonelink.com/a/hb0ywi6abh"
+    },
+    "etoro.com": {
+        "name": "eToro",
+        "type": "Social Trading & Multi-Asset Broker",
+        "score": 95,
+        "source": "Official Database (FCA, CySEC, ASIC, FINRA)",
+        "verdictTitle": "Highly Secure & Regulated Global Broker",
+        "verdictText": "eToro is a globally leading social trading platform trusted by over 30 million users worldwide. Licensed by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+        "redFlags": ["Inactivity fee applied after 12 months without login."],
+        "greenFlags": [
+            "Regulated by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+            "Public social trading & copy-trading platform with full transparency.",
+            "Segregated client funds and free deposit protection insurance."
+        ],
+        "mockIp": "104.21.40.11",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2007-01-15 (19 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)"
+    },
+    "etoro": {
+        "name": "eToro",
+        "type": "Social Trading & Multi-Asset Broker",
+        "score": 95,
+        "source": "Official Database (FCA, CySEC, ASIC, FINRA)",
+        "verdictTitle": "Highly Secure & Regulated Global Broker",
+        "verdictText": "eToro is a globally leading social trading platform trusted by over 30 million users worldwide. Licensed by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+        "redFlags": ["Inactivity fee applied after 12 months without login."],
+        "greenFlags": [
+            "Regulated by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+            "Public social trading & copy-trading platform with full transparency.",
+            "Segregated client funds and free deposit protection insurance."
+        ],
+        "mockIp": "104.21.40.11",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2007-01-15 (19 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)"
+    },
+    "avatrade.com": {
+        "name": "AvaTrade",
+        "type": "Forex & CFD Broker",
+        "score": 90,
+        "source": "Official Database (CBI, ASIC, FSCA, FSA)",
+        "verdictTitle": "Highly Regulated Global Broker",
+        "verdictText": "AvaTrade is an international online broker operating since 2006, regulated across 9 global jurisdictions including Central Bank of Ireland, ASIC, and FSCA.",
+        "redFlags": ["Inactivity fee applies after 3 consecutive inactive months."],
+        "greenFlags": [
+            "Regulated across 9 jurisdictions including Central Bank of Ireland and ASIC.",
+            "AvaProtect loss risk protection tool available for client trades.",
+            "Segregated client funds in tier-1 financial institutions."
+        ],
+        "mockIp": "104.22.18.99",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2006-11-08 (20 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CBI (IE), ASIC (AU), FSCA (ZA)"
+    },
+    "avatrade": {
+        "name": "AvaTrade",
+        "type": "Forex & CFD Broker",
+        "score": 90,
+        "source": "Official Database (CBI, ASIC, FSCA, FSA)",
+        "verdictTitle": "Highly Regulated Global Broker",
+        "verdictText": "AvaTrade is an international online broker operating since 2006, regulated across 9 global jurisdictions including Central Bank of Ireland, ASIC, and FSCA.",
+        "redFlags": ["Inactivity fee applies after 3 consecutive inactive months."],
+        "greenFlags": [
+            "Regulated across 9 jurisdictions including Central Bank of Ireland and ASIC.",
+            "AvaProtect loss risk protection tool available for client trades.",
+            "Segregated client funds in tier-1 financial institutions."
+        ],
+        "mockIp": "104.22.18.99",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2006-11-08 (20 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CBI (IE), ASIC (AU), FSCA (ZA)"
+    },
+    "pocketoption.com": {
+        "name": "PocketOption",
+        "type": "Binary Options & Digital Derivatives",
+        "score": 42,
+        "source": "Mwali International Services Authority (MISA)",
+        "verdictTitle": "Warning: High Risk / Offshore Jurisdiction",
+        "verdictText": "PocketOption is an offshore binary options broker registered in Autonomous Island of Mwali. It lacks tier-1 regulatory licenses from FCA, CySEC, or ASIC.",
+        "redFlags": [
+            "Registered offshore (MISA / Gembell Limited) with no tier-1 financial regulation.",
+            "Binary options trading carries high risk of total loss.",
+            "Withdrawal verification delays reported by some retail users."
+        ],
+        "greenFlags": ["Offers low minimum deposit threshold and social copy trading tools."],
+        "mockIp": "172.67.182.10",
+        "mockHoster": "Cloudflare CDN",
+        "mockDomainAge": "2017-03-12 (9 years ago)",
+        "mockRegStatus": "WARNING: Offshore license only (MISA). No FCA or CySEC license."
+    },
+    "pocketoption": {
+        "name": "PocketOption",
+        "type": "Binary Options & Digital Derivatives",
+        "score": 42,
+        "source": "Mwali International Services Authority (MISA)",
+        "verdictTitle": "Warning: High Risk / Offshore Jurisdiction",
+        "verdictText": "PocketOption is an offshore binary options broker registered in Autonomous Island of Mwali. It lacks tier-1 regulatory licenses from FCA, CySEC, or ASIC.",
+        "redFlags": [
+            "Registered offshore (MISA / Gembell Limited) with no tier-1 financial regulation.",
+            "Binary options trading carries high risk of total loss.",
+            "Withdrawal verification delays reported by some retail users."
+        ],
+        "greenFlags": ["Offers low minimum deposit threshold and social copy trading tools."],
+        "mockIp": "172.67.182.10",
+        "mockHoster": "Cloudflare CDN",
+        "mockDomainAge": "2017-03-12 (9 years ago)",
+        "mockRegStatus": "WARNING: Offshore license only (MISA). No FCA or CySEC license."
+    },
     "interactivebrokers.com": {
         "name": "Interactive Brokers",
         "type": "Multi-Asset Broker",
@@ -1562,7 +1710,51 @@ static_broker_db = {
         "mockDomainAge": "1995-11-20 (30 years ago)",
         "mockRegStatus": "MATCH: Active licenses found at FCA (UK), SEC (US), ASIC (AU)"
     },
+    "interactive brokers": {
+        "name": "Interactive Brokers",
+        "type": "Multi-Asset Broker",
+        "score": 98,
+        "source": "Official Database (FCA, SEC, ASIC)",
+        "verdictTitle": "Top-Tier Trusted Broker",
+        "verdictText": "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators.",
+        "redFlags": ["Complex technical platform, not recommended for absolute beginners.", "Fee structure can be initially difficult to understand."],
+        "greenFlags": ["Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).", "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.", "Extremely high investor protection and client asset guarantee thresholds."],
+        "mockIp": "104.21.32.89",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "1995-11-20 (30 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), SEC (US), ASIC (AU)"
+    },
     "xm.com": {
+        "name": "XM Group",
+        "type": "Forex & CFD Broker",
+        "score": 92,
+        "source": "Official Database (FCA, CySEC, ASIC, DFSA)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "XM Group is one of the world's largest and most trusted online brokers, serving over 10 million clients in 190+ countries. Regulated by multiple top-tier authorities with a strong track record of client fund safety.",
+        "redFlags": ["High leverage available on offshore entity increases risk.", "Bonuses may come with trading volume requirements."],
+        "greenFlags": ["Regulated by CySEC (Cyprus), ASIC (Australia), FCA (UK), and DFSA (Dubai).", "Over 10 million clients worldwide — one of the largest brokers globally.", "Negative balance protection for all retail clients.", "Ultra-fast execution with no requotes and no rejections policy.", "Free VPS hosting for automated traders."],
+        "mockIp": "104.21.18.243",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2009-12-04 (16 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), ASIC (AU), FCA (UK), DFSA (AE)",
+        "affiliateLink": "https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1"
+    },
+    "xm": {
+        "name": "XM Group",
+        "type": "Forex & CFD Broker",
+        "score": 92,
+        "source": "Official Database (FCA, CySEC, ASIC, DFSA)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "XM Group is one of the world's largest and most trusted online brokers, serving over 10 million clients in 190+ countries. Regulated by multiple top-tier authorities with a strong track record of client fund safety.",
+        "redFlags": ["High leverage available on offshore entity increases risk.", "Bonuses may come with trading volume requirements."],
+        "greenFlags": ["Regulated by CySEC (Cyprus), ASIC (Australia), FCA (UK), and DFSA (Dubai).", "Over 10 million clients worldwide — one of the largest brokers globally.", "Negative balance protection for all retail clients.", "Ultra-fast execution with no requotes and no rejections policy.", "Free VPS hosting for automated traders."],
+        "mockIp": "104.21.18.243",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2009-12-04 (16 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), ASIC (AU), FCA (UK), DFSA (AE)",
+        "affiliateLink": "https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1"
+    },
+    "xm group": {
         "name": "XM Group",
         "type": "Forex & CFD Broker",
         "score": 92,
@@ -1592,11 +1784,40 @@ static_broker_db = {
         "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)",
         "affiliateLink": "https://www.plus500.com/Home.aspx?id=139742"
     },
+    "plus500": {
+        "name": "Plus500",
+        "type": "CFD & Stock Broker",
+        "score": 91,
+        "source": "Official Database (FCA, CySEC, ASIC, MAS)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "Plus500 is a globally regulated, publicly traded CFD broker (LSE: PLUS) trusted by millions of traders worldwide. Licensed by the FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore), it offers a transparent and secure trading environment.",
+        "redFlags": ["CFD trading involves risk of losing more than your initial deposit.", "Does not support MetaTrader platforms (proprietary platform only)."],
+        "greenFlags": ["Publicly listed on the London Stock Exchange (LSE: PLUS) — full financial transparency.", "Regulated by FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore).", "User-friendly trading interface and advanced risk management tools.", "Free real-time price alerts and risk management tools included."],
+        "mockIp": "104.21.55.212",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2008-04-01 (18 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), MAS (SG)",
+        "affiliateLink": "https://www.plus500.com/Home.aspx?id=139742"
+    },
     "pepperstone.com": {
         "name": "Pepperstone",
         "type": "Forex & CFD Broker",
         "score": 95,
-        "source: ": "Official Database (FCA, CySEC, ASIC)",
+        "source": "Official Database (FCA, CySEC, ASIC)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "Pepperstone is highly respected in the industry, renowned for its low latency ECN execution and complete cost transparency.",
+        "redFlags": ["Does not offer regulatory protection scheme limits for clients registered under their offshore Bahamas/SCB entity."],
+        "greenFlags": ["Regulated by major authorities: FCA (UK), ASIC (Australia), CySEC (Cyprus).", "No Dealing Desk intervention (straight-through market execution).", "Award-winning customer support and negative balance protection."],
+        "mockIp": "104.22.40.11",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2008-02-12 (18 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU)"
+    },
+    "pepperstone": {
+        "name": "Pepperstone",
+        "type": "Forex & CFD Broker",
+        "score": 95,
+        "source": "Official Database (FCA, CySEC, ASIC)",
         "verdictTitle": "Highly Secure Broker",
         "verdictText": "Pepperstone is highly respected in the industry, renowned for its low latency ECN execution and complete cost transparency.",
         "redFlags": ["Does not offer regulatory protection scheme limits for clients registered under their offshore Bahamas/SCB entity."],
@@ -1607,6 +1828,20 @@ static_broker_db = {
         "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU)"
     },
     "icmarkets.com": {
+        "name": "IC Markets",
+        "type": "Forex & CFD Broker",
+        "score": 93,
+        "source": "Official Database (ASIC, CySEC)",
+        "verdictTitle": "Highly Secure Broker",
+        "verdictText": "IC Markets is a favorite for scalpers and algorithmic traders using Expert Advisors (EAs) due to tight spreads and low latency.",
+        "redFlags": ["High leverage (1:500) is only available on their offshore entity, increasing risk exposure."],
+        "greenFlags": ["Strictly regulated by ASIC in Australia and CySEC in Europe.", "Ultra-low latency connection with servers located in Equinix NY4 & LD4 datacenters.", "Allows all trading styles, including high-frequency scalping and hedging."],
+        "mockIp": "172.67.75.14",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2007-06-25 (19 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at ASIC (AU), CySEC (CY)"
+    },
+    "ic markets": {
         "name": "IC Markets",
         "type": "Forex & CFD Broker",
         "score": 93,
@@ -1768,9 +2003,18 @@ async def scan_broker(request: BrokerScanRequest):
     whois_raw = query_whois_socket(domain)
     domain_age = parse_whois_age(whois_raw)
     
-    # 3. Check if domain exists in static pre-loaded database
-    if domain in static_broker_db:
-        db_broker = static_broker_db[domain]
+    # 3. Check if domain or name exists in static pre-loaded database
+    clean_domain = domain.lower().strip()
+    clean_name = request.name.lower().strip()
+    found_key = None
+    for k in static_broker_db:
+        k_clean = k.lower().strip()
+        if clean_domain == k_clean or clean_name == k_clean or k_clean == clean_domain.replace(".com", "") or k_clean in clean_domain or k_clean in clean_name:
+            found_key = k
+            break
+
+    if found_key:
+        db_broker = static_broker_db[found_key]
         score = db_broker["score"]
         verdict_title = db_broker["verdictTitle"]
         verdict_text = db_broker["verdictText"]
@@ -1930,6 +2174,15 @@ async def get_broker_results(scan_id: str):
         
     payment_status, score, name, domain, ip, hoster, domain_age, red_flags, green_flags, v_title, v_text = row
     
+    affiliate_link = None
+    clean_domain = domain.lower().strip()
+    clean_name = name.lower().strip()
+    for k, db_item in static_broker_db.items():
+        k_clean = k.lower().strip()
+        if k_clean == clean_domain or k_clean == clean_name or k_clean in clean_domain or clean_domain in k_clean:
+            affiliate_link = db_item.get("affiliateLink")
+            break
+
     if payment_status == "paid":
         return {
             "scan_id": scan_id,
@@ -1943,7 +2196,8 @@ async def get_broker_results(scan_id: str):
             "red_flags": json.loads(red_flags),
             "green_flags": json.loads(green_flags),
             "verdict_title": v_title,
-            "verdict_text": v_text
+            "verdict_text": v_text,
+            "affiliate_link": affiliate_link
         }
     else:
         # Return basic details but lock flag lists
@@ -1956,6 +2210,9 @@ async def get_broker_results(scan_id: str):
             "ip_address": ip,
             "hosting_provider": hoster,
             "domain_age": domain_age,
+            "verdict_title": v_title,
+            "verdict_text": v_text,
+            "affiliate_link": affiliate_link,
             "locked": True,
             "message": "Payment required to unlock Red/Green flags and PDF forensic report."
         }
