@@ -1302,11 +1302,20 @@ async def get_admin_dashboard(token: str = None):
             ORDER BY created_at DESC
         """)
         rows = cursor.fetchall()
+
+        cursor.execute("SELECT email, created_at FROM video_leads ORDER BY created_at DESC")
+        v_leads = cursor.fetchall()
         conn.close()
         
         total_scans = len(rows)
         total_paid = sum(1 for r in rows if r[2] == 'paid')
         revenue = total_paid * 4.99
+        v_leads_count = len(v_leads)
+        
+        v_leads_html = ""
+        for v_email, v_date in v_leads:
+            v_fmt_date = v_date.replace("T", " ")[:19] if v_date else "N/A"
+            v_leads_html += f'<div style="background:#0F172A;padding:8px 14px;border-radius:8px;border:1px solid #334155;margin-top:6px;display:flex;justify-content:space-between;align-items:center;"><span>📧 <strong style="color:#38BDF8;">{v_email}</strong></span><span style="font-size:11px;color:#94A3B8;">{v_fmt_date}</span></div>'
         
         cards_html = ""
         for row in rows:
@@ -1419,8 +1428,16 @@ async def get_admin_dashboard(token: str = None):
                 <div class="stat-value" style="color:#10B981;">${revenue:.2f}</div>
                 <div class="stat-label">Est. Revenue</div>
             </div>
+            <div class="stat-box">
+                <div class="stat-value" style="color:#A855F7;">{v_leads_count}</div>
+                <div class="stat-label">Video Leads</div>
+            </div>
             <button onclick="resetScans()" style="background:#EF4444;color:#fff;border:none;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s;" onmouseover="this.style.background='#DC2626'" onmouseout="this.style.background='#EF4444'">🗑️ Reset Database</button>
         </div>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto 28px auto; background: #1E293B; padding: 20px 28px; border-radius: 16px; border: 1px solid #334155;">
+        <h3 style="margin:0 0 12px 0;font-size:16px;color:#A855F7;display:flex;align-items:center;gap:8px;">🎥 Video Verification Leads ({v_leads_count})</h3>
+        {v_leads_html if v_leads_html else '<p style="color:#94A3B8;margin:0;font-size:13px;">No video verification leads submitted yet.</p>'}
     </div>
     <div class="grid">
         {cards_html if cards_html else '<p style="color:#94A3B8;grid-column:1/-1;text-align:center;padding:40px;background:#1E293B;border-radius:16px;">No scans recorded yet.</p>'}
