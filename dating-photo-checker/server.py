@@ -331,7 +331,7 @@ async def get_promo():
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
     broker_clean = broker_name.lower().strip()
-    if broker_clean in ["xm", "exness", "avatrade"]:
+    if broker_clean in ["xm", "exness", "avatrade", "etoro", "plus500"]:
         file_path = f"broker-verifier/reviews/{broker_clean}.html"
         if os.path.exists(file_path):
             return FileResponse(file_path)
@@ -351,60 +351,22 @@ async def get_sitemap(request: Request):
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
     
-    additional_urls = f"""
-   <url>
-      <loc>https://{domain}/ro/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/it/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/es/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/fr/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/de/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/pt/</loc>
-      <lastmod>2026-07-16</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>"""
-    if not is_dating:
+    additional_urls = ""
+    langs = ["ro", "it", "es", "fr", "de", "pt", "ru"]
+    for l in langs:
         additional_urls += f"""
    <url>
-      <loc>https://{domain}/reviews/avatrade</loc>
+      <loc>https://{domain}/{l}/</loc>
       <lastmod>2026-07-19</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
-   </url>
+   </url>"""
+    if not is_dating:
+        for b in ["avatrade", "xm", "exness", "etoro", "plus500"]:
+            additional_urls += f"""
    <url>
-      <loc>https://{domain}/reviews/xm</loc>
-      <lastmod>2026-07-14</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-   <url>
-      <loc>https://{domain}/reviews/exness</loc>
-      <lastmod>2026-07-14</lastmod>
+      <loc>https://{domain}/reviews/{b}</loc>
+      <lastmod>2026-07-23</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>"""
@@ -413,7 +375,7 @@ async def get_sitemap(request: Request):
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://{domain}/</loc>
-      <lastmod>2026-07-11</lastmod>
+      <lastmod>2026-07-23</lastmod>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>{additional_urls}
