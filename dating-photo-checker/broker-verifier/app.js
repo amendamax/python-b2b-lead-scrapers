@@ -317,6 +317,21 @@ async function fetchResults(scanId) {
                 partnerBox.style.cssText = "margin-top: 1.5rem; padding: 1.2rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
                 verdictBox.parentNode.insertBefore(partnerBox, verdictBox.nextSibling);
             }
+
+            let extraEuBox = "";
+            if (data.broker_domain.includes("xm") || data.broker_name.toLowerCase().includes("xm")) {
+                extraEuBox = `
+                <div style="margin-top: 14px; padding: 12px 16px; background: rgba(239, 68, 68, 0.05); border: 1px dashed rgba(239, 68, 68, 0.4); border-radius: 8px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                    <div style="background: rgba(239, 68, 68, 0.2); color: #f87171; font-weight: 800; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.3); shrink: 0;">EU</div>
+                    <div style="font-size: 0.83rem; color: #cbd5e1; line-height: 1.4;">
+                        <strong style="color: #ffffff;">European Resident?</strong> Get 1:1000 leverage, deposit bonuses, and Copy Trading under XM Global regulations. 
+                        <a href="https://wa.me/393209481876?text=Hi!%20I%20am%20an%20EU%20resident%20and%20I%20want%20private%20registration%20instructions%20for%20XM%20Global" target="_blank" rel="noopener" style="color: #ef4444; font-weight: 700; text-decoration: underline; margin-left: 4px;">
+                            Chat with us on WhatsApp for private registration instructions →
+                        </a>
+                    </div>
+                </div>`;
+            }
+
             partnerBox.innerHTML = `
                 <div style="color: #34d399; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">
                     🟢 Verified & Regulated Safe Broker Partner
@@ -324,6 +339,7 @@ async function fetchResults(scanId) {
                 <a href="${affLink}" target="_blank" rel="noopener" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
                     Open Official Account at ${data.broker_name} ↗
                 </a>
+                ${extraEuBox}
             `;
             partnerBox.style.display = "block";
         } else if (partnerBox) {
