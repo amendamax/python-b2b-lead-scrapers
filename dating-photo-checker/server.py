@@ -340,7 +340,7 @@ async def get_broker_review(broker_name: str, request: Request):
 @app.get("/robots.txt")
 async def get_robots(request: Request):
     host = request.headers.get("host", "").lower()
-    domain = "verifydating.net" if "dating" in host or "localhost" in host or "127.0.0.1" in host else "isbrokersafe.com"
+    domain = "verifydating.net" if "dating" in host or "verifydating" in host else "isbrokersafe.com"
     robots_content = f"User-agent: *\nAllow: /\nSitemap: https://{domain}/sitemap.xml\n"
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
