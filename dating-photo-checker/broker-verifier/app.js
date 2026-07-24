@@ -1,3 +1,321 @@
+
+// Broker Descriptions & Verdicts Multi-Language Translation Map
+const brokerTranslations = {
+    exness: {
+        ru: {
+            title: "Мировой лидер по объему торгов и мгновенному выводу средств",
+            text: "Exness — крупнейший в мире розничный форекс-брокер с месячным объемом торгов более 4 триллионов долларов. Регулируется FCA (Великобритания), CySEC (Кипр) и FSC."
+        },
+        ro: {
+            title: "Lider Mondial de Volum și Retrageri Instantanee 24/7",
+            text: "Exness este cel mai mare broker forex de retail din lume, cu un volum lunar de tranzacționare de peste 4 trilioane USD. Reglementat de FCA (Marea Britanie), CySEC și FSC."
+        },
+        it: {
+            title: "Leader Mondiale di Volume e prelievi istantanei 24/7",
+            text: "Exness è il più grande broker forex al dettaglio al mondo con un volume mensile di scambi superiore a 4 trilioni di dollari. Regolamentato da FCA, CySEC e FSC."
+        },
+        de: {
+            title: "Weltweiter Volumenmarktführer & Automatische Sofortauszahlungen",
+            text: "Exness ist der weltweit größte Retail-Forex-Broker mit einem monatlichen Handelsvolumen von über 4 Billionen USD. Reguliert durch FCA, CySEC und FSC."
+        },
+        es: {
+            title: "Líder Mundial en Volumen y Retiros Instantáneos 24/7",
+            text: "Exness es el broker de forex minorista más grande del mundo, con un volumen de operaciones mensual de más de 4 billones de dólares. Regulado por FCA, CySEC y FSC."
+        },
+        fr: {
+            title: "Leader Mondial du Volume et Retraits Instantanés 24/7",
+            text: "Exness est le plus grand courtier forex au détail au monde avec un volume de transactions mensuel de plus de 4 billions de dollars. Réglementé par FCA, CySEC et FSC."
+        },
+        pt: {
+            title: "Líder Mundial em Volume e Saques Instantâneos 24/7",
+            text: "Exness é a maior corretora forex de varejo do mundo, com um volume mensal de negociação superior a US$ 4 trilhões. Regulamentada por FCA, CySEC e FSC."
+        }
+    },
+    etoro: {
+        ru: {
+            title: "Высокозащищенный и регулируемый глобальный брокер",
+            text: "eToro — ведущая мировая платформа социал-трейдинга, которой доверяют более 30 миллионов пользователей по всему миру. Регулируется FCA (Великобритания), CySEC (Кипр), ASIC (Австралия) и FINRA (США)."
+        },
+        ro: {
+            title: "Broker Global Reglementat și de Înaltă Securitate",
+            text: "eToro este o platformă lider mondial de social trading în care au încredere peste 30 de milioane de utilizatori globale. Reglementat de FCA (Marea Britanie), CySEC (Cipru), ASIC și FINRA."
+        },
+        it: {
+            title: "Broker Globale Regolamentato ad Alta Sicurezza",
+            text: "eToro è una piattaforma leader globale di social trading con oltre 30 milioni di utenti in tutto il mondo. Regolamentato da FCA, CySEC, ASIC e FINRA."
+        },
+        de: {
+            title: "Hochsicherer und Regulierter Globaler Broker",
+            text: "eToro ist eine weltweit führende Social-Trading-Plattform, der über 30 Millionen Nutzer weltweit vertrauen. Reguliert durch FCA, CySEC, ASIC und FINRA."
+        },
+        es: {
+            title: "Broker Global Regulado y de Alta Seguridad",
+            text: "eToro es una plataforma líder mundial de social trading en la que confían más de 30 millones de usuarios en todo el mundo. Regulado por FCA, CySEC, ASIC y FINRA."
+        },
+        fr: {
+            title: "Courtier Global Réglementé et Hautement Sécurisé",
+            text: "eToro est une plateforme mondiale majeure de trading social à laquelle font confiance plus de 30 millions d'utilisateurs. Réglementé par FCA, CySEC, ASIC et FINRA."
+        },
+        pt: {
+            title: "Corretora Global Regulamentada e de Alta Segurança",
+            text: "eToro é uma plataforma líder global de social trading em que confiam mais de 30 milhões de usuários em todo o mundo. Regulamentada por FCA, CySEC, ASIC e FINRA."
+        }
+    },
+    xm: {
+        ru: {
+            title: "Надежный и регулируемый международный брокер",
+            text: "XM Group — один из крупнейших брокеров в мире, обслуживающий более 10 миллионов клиентов в 190+ странах. Регулируется FCA (Великобритания), CySEC (Кипр) и ASIC (Австралия)."
+        },
+        ro: {
+            title: "Broker Internațional Reglementat și de Încredere",
+            text: "XM Group este unul dintre cei mai mari brokeri din lume, deservind peste 10 milioane de clienți în peste 190 de țări. Reglementat de FCA, CySEC și ASIC."
+        },
+        it: {
+            title: "Broker Internazionale Regolamentato e Affidabile",
+            text: "XM Group è uno dei più grandi broker al mondo, al servizio di oltre 10 milioni di clienti in più di 190 paesi. Regolamentato da FCA, CySEC e ASIC."
+        },
+        de: {
+            title: "Zuverlässiger und Regulierter Internationaler Broker",
+            text: "XM Group ist einer der größten Broker der Welt und bedient über 10 Millionen Kunden in mehr als 190 Ländern. Reguliert durch FCA, CySEC und ASIC."
+        },
+        es: {
+            title: "Broker Internacional Regulado y de Confianza",
+            text: "XM Group es uno de los brokers más grandes del mundo y presta servicios a más de 10 millones de clientes en más de 190 países. Regulado por FCA, CySEC y ASIC."
+        },
+        fr: {
+            title: "Courtier International Réglementé et Fiable",
+            text: "XM Group est l'un des plus grands courtiers au monde, servant plus de 10 millions de clients dans plus de 190 pays. Réglementé par FCA, CySEC et ASIC."
+        },
+        pt: {
+            title: "Corretora Internacional Regulamentada e Confiável",
+            text: "XM Group é uma das maiores corretoras do mundo, atendendo a mais de 10 milhões de clientes em mais de 190 países. Regulamentada por FCA, CySEC e ASIC."
+        }
+    },
+    plus500: {
+        ru: {
+            title: "Публичная компания на Лондонской фондовой бирже (LSE: PLUS)",
+            text: "Plus500 — ведущий провайдер CFD, котируемый на основной площадке Лондонской фондовой биржи. Регулируется FCA (Великобритания), CySEC (Кипр), ASIC (Австралия) и MAS (Сингапур)."
+        },
+        ro: {
+            title: "Companie Listată Public la Bursa din Londra (LSE: PLUS)",
+            text: "Plus500 este un furnizor de top de CFD-uri listat pe piața principală a Bursei din Londra. Reglementat de FCA, CySEC, ASIC și MAS."
+        },
+        it: {
+            title: "Società Quotata alla Borsa di Londra (LSE: PLUS)",
+            text: "Plus500 è un fornitore leader di CFD quotato sul mercato principale della Borsa di Londra. Regolamentato da FCA, CySEC, ASIC e MAS."
+        },
+        de: {
+            title: "Börsennotiertes Unternehmen an der Londoner Börse (LSE: PLUS)",
+            text: "Plus500 ist ein führender CFD-Anbieter, der am Hauptmarkt der Londoner Börse notiert ist. Reguliert durch FCA, CySEC, ASIC und MAS."
+        },
+        es: {
+            title: "Empresa Cotizada en la Bolsa de Londres (LSE: PLUS)",
+            text: "Plus500 es un proveedor líder de CFD que cotiza en el mercado principal de la Bolsa de Valores de Londres. Regulado por FCA, CySEC, ASIC y MAS."
+        },
+        fr: {
+            title: "Société Cotée à la Bourse de Londres (LSE: PLUS)",
+            text: "Plus500 est un fournisseur majeur de CFD coté sur le marché principal de la Bourse de Londres. Réglementé par FCA, CySEC et MAS."
+        },
+        pt: {
+            title: "Empresa Cotada na Bolsa de Valores de Londres (LSE: PLUS)",
+            text: "Plus500 é uma provedora líder de CFDs listada no mercado principal da Bolsa de Valores de Londres. Regulamentada por FCA, CySEC, ASIC e MAS."
+        }
+    },
+    avatrade: {
+        ru: {
+            title: "Надежный брокер с 9 регуляторными лицензиями",
+            text: "AvaTrade — пионер онлайн-трейдинга с 2006 года, имеющий регуляторные лицензии на 5 континентах (Central Bank of Ireland, ASIC, FSCA, JFSA)."
+        },
+        ro: {
+            title: "Broker de Încredere cu 9 Licențe de Reglementare",
+            text: "AvaTrade este un pionier al tradingului online din 2006, având licențe de reglementare pe 5 continente (Banca Centrală a Irlandei, ASIC, FSCA)."
+        },
+        it: {
+            title: "Broker Affidabile con 9 Licenze di Regolamentazione",
+            text: "AvaTrade è un pioniere del trading online dal 2006, con licenze di regolamentazione in 5 continenti (Banca Centrale d'Irlanda, ASIC, FSCA)."
+        },
+        de: {
+            title: "Zuverlässiger Broker mit 9 Regulierungslizenzen",
+            text: "AvaTrade ist seit 2006 ein Pionier des Online-Handels mit Regulierungslizenzen auf 5 Kontinenten (Zentralbank von Irland, ASIC, FSCA)."
+        },
+        es: {
+            title: "Broker de Confianza con 9 Licencias Reguladoras",
+            text: "AvaTrade es un pionero del trading en línea desde 2006, con licencias reguladoras en 5 continentes (Banco Central de Irlanda, ASIC, FSCA)."
+        },
+        fr: {
+            title: "Courtier Fiable avec 9 Licences de Réglementation",
+            text: "AvaTrade est un pionnier du trading en ligne depuis 2006, disposant de licences de réglementation sur 5 continents (Banque centrale d'Irlande, ASIC, FSCA)."
+        },
+        pt: {
+            title: "Corretora Confiável com 9 Licenças de Regulamentação",
+            text: "AvaTrade é uma pioneira do trading online desde 2006, com licenças de regulamentação em 5 continentes (Banco Central da Irlanda, ASIC, FSCA)."
+        }
+    }
+};
+
+
+// ==========================================================================
+// Multi-Language Localized String Engine for Audit Cards
+// ==========================================================================
+const currentLang = (document.documentElement.lang || 'en').toLowerCase();
+
+const i18n = {
+    en: {
+        typePending: "Type: Pending Audit",
+        typeCompleted: "Type: Forensic Audit Completed",
+        sourcePrefix: "Source: Forensic Verification ID",
+        lockedRed: "${t.lockedRed}",
+        lockedGreen: "${t.lockedGreen}",
+        noRisk: t.noRisk,
+        noSafety: t.noSafety,
+        verifiedPartner: "${t.verifiedPartner}",
+        openAccount: "Open Official Account at",
+        euResidentTitle: "European Resident?",
+        euResidentText: "${t.euResidentText}",
+        euWhatsappLink: "${t.euWhatsappLink}",
+        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen", goodScore: "Good Score (Safe)", warningRisk: "Warning / Medium Risk",
+        highRisk: "High Risk",
+        scamAlert: "Fraud Warning / Blacklisted",
+        awaitingEval: "Awaiting Evaluation",
+        scanCompleted: "The analysis has completed."
+    },
+    ro: {
+        typePending: "Tip: Audit în Curs",
+        typeCompleted: "Tip: Audit Forensic Finalizat",
+        sourcePrefix: "Sursă: ID Verificare Forensică",
+        lockedRed: "[BLOCAT] Rapoartele de audit sunt restricționate. Deblochează raportul complet pentru a vedea alertele de risc.",
+        lockedGreen: "[BLOCAT] Rapoartele de audit sunt restricționate. Deblochează raportul complet pentru a vedea elementele de siguranță.",
+        noRisk: "Nu au fost identificați factori iminenți de risc.",
+        noSafety: "Nu au fost identificate elemente solide de siguranță.",
+        verifiedPartner: "🟢 Partener Broker Reglementat și Sigur",
+        openAccount: "Deschide Cont Oficial la",
+        euResidentTitle: "Rezident în Uniunea Europeană?",
+        euResidentText: "Obține levier 1:1000, bonusuri de depozit și Copy Trading conform reglementărilor XM Global.",
+        euWhatsappLink: "Scrie-ne pe WhatsApp pentru instrucțiuni private de înregistrare →",
+        excellentScore: "Scor Excelent", goodScore: "Scor Bun (Sigur)", warningRisk: "Avertisment / Risc Mediu",
+        highRisk: "Risc Ridicat",
+        scamAlert: "Alertă de Escrocherie",
+        awaitingEval: "În Așteptarea Evaluării",
+        scanCompleted: "Analiza a fost finalizată."
+    },
+    it: {
+        typePending: "Tipo: In Attesa di Audit",
+        typeCompleted: "Tipo: Audit Forense Completato",
+        sourcePrefix: "Fonte: ID Verifica Forense",
+        lockedRed: "[BLOCCATO] I report di audit sono limitati. Sblocca il report completo per rivelare gli avvisi di rischio.",
+        lockedGreen: "[BLOCCATO] I report di audit sono limitati. Sblocca il report completo per rivelare gli elementi di sicurezza.",
+        noRisk: "Nessun fattore di rischio imminente identificato.",
+        noSafety: "Nessun elemento di sicurezza solido identificato.",
+        verifiedPartner: "🟢 Partner Broker Sicuro e Regolamentato",
+        openAccount: "Apri Conto Ufficiale su",
+        euResidentTitle: "Residente nell'Unione Europea?",
+        euResidentText: "Ottieni leva 1:1000, bonus di deposito e Copy Trading con XM Global.",
+        euWhatsappLink: "Scrivici su WhatsApp per istruzioni private di registrazione →",
+        excellentScore: "Punteggio Eccellente", goodScore: "Buon Punteggio (Sicuro)", warningRisk: "Avviso / Rischio Medio",
+        highRisk: "Rischio Elevato",
+        scamAlert: "Allerta Truffa",
+        awaitingEval: "In Attesa di Valutazione",
+        scanCompleted: "L'analisi è stata completata."
+    },
+    de: {
+        typePending: "Typ: Ausstehende Prüfung",
+        typeCompleted: "Typ: Forensische Prüfung Abgeschlossen",
+        sourcePrefix: "Quelle: Forensische Prüf-ID",
+        lockedRed: "[GESPERRT] Prüfberichte sind eingeschränkt. Schalten Sie den vollständigen Bericht frei, um Risikofaktoren zu sehen.",
+        lockedGreen: "[GESPERRT] Prüfberichte sind eingeschränkt. Schalten Sie den vollständigen Bericht frei, um Sicherheitsmerkmale zu sehen.",
+        noRisk: "Keine unmittelbaren Risikofaktoren identifiziert.",
+        noSafety: "Keine soliden Sicherheitsmerkmale identifiziert.",
+        verifiedPartner: "🟢 Verifizierter & Regulierter Sicherer Partner-Broker",
+        openAccount: "Offizielles Konto Eröffnen bei",
+        euResidentTitle: "Einwohner der Europäischen Union?",
+        euResidentText: "Sichern Sie sich Hebel 1:1000, Einzahlungsboni und Copy Trading unter XM Global.",
+        euWhatsappLink: "Schreiben Sie uns auf WhatsApp für private Registrierungsanweisungen →",
+        excellentScore: "Hervorragende Bewertung", goodScore: "Gute Bewertung (Sicher)", warningRisk: "Warnung / Mittleres Risiko",
+        highRisk: "Hohes Risiko",
+        scamAlert: "Betrugswarnung",
+        awaitingEval: "Warten auf Bewertung",
+        scanCompleted: "Die Analyse wurde abgeschlossen."
+    },
+    es: {
+        typePending: "Tipo: Auditoría Pendiente",
+        typeCompleted: "Tipo: Auditoría Forense Completada",
+        sourcePrefix: "Fuente: ID de Verificación Forense",
+        lockedRed: "[BLOQUEADO] Los informes de auditoría están restringidos. Desbloquee el informe completo para ver los factores de riesgo.",
+        lockedGreen: "[BLOQUEADO] Los informes de auditoría están restringidos. Desbloquee el informe completo para ver los activos de seguridad.",
+        noRisk: "No se identificaron factores de riesgo inminentes.",
+        noSafety: "No se identificaron elementos de seguridad sólidos.",
+        verifiedPartner: "🟢 Socio Broker Seguro y Regulado",
+        openAccount: "Abrir Cuenta Oficial en",
+        euResidentTitle: "¿Residente en la Unión Europea?",
+        euResidentText: "Obtenga apalancamiento 1:1000, bonos de depósito y Copy Trading con XM Global.",
+        euWhatsappLink: "Contáctenos por WhatsApp para instrucciones privadas de registro →",
+        excellentScore: "Puntuación Excelente", goodScore: "Buena Puntuación (Seguro)", warningRisk: "Advertencia / Riesgo Medio",
+        highRisk: "Riesgo Alto",
+        scamAlert: "Alerta de Estafa",
+        awaitingEval: "Esperando Evaluación",
+        scanCompleted: "El análisis ha sido completado."
+    },
+    fr: {
+        typePending: "Type: Audit en Attente",
+        typeCompleted: "Type: Audit Forensique Terminé",
+        sourcePrefix: "Source: ID de Vérification Forensique",
+        lockedRed: "[VERROUILLÉ] Les rapports d'audit sont restreints. Débloquez le rapport complet pour révéler les facteurs de risque.",
+        lockedGreen: "[VERROUILLÉ] Les rapports d'audit sont restreints. Débloquez le rapport complet pour révéler les éléments de sécurité.",
+        noRisk: "Aucun facteur de risque imminent identifié.",
+        noSafety: "Aucun élément de sécurité solide identifié.",
+        verifiedPartner: "🟢 Partenaire Courtier Sécurisé et Réglementé",
+        openAccount: "Ouvrir un Compte Officiel chez",
+        euResidentTitle: "Résident de l'Union Européenne?",
+        euResidentText: "Obtenez un effet de levier 1:1000, des bonus de dépôt et du Copy Trading avec XM Global.",
+        euWhatsappLink: "Écrivez-nous sur WhatsApp pour des instructions d'inscription privées →",
+        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen", goodScore: "Good Score (Safe)", warningRisk: "Warning / Medium Risk",
+        highRisk: "Risque Élevé",
+        scamAlert: "Alerte d'Arnaque",
+        awaitingEval: "En Attente d'Évaluation",
+        scanCompleted: "L'analyse est terminée."
+    },
+    pt: {
+        typePending: "Tipo: Auditoria Pendente",
+        typeCompleted: "Tipo: Auditoria Forense Concluída",
+        sourcePrefix: "Fonte: ID de Verificação Forense",
+        lockedRed: "[BLOQUEADO] Os relatórios de auditoria são restritos. Desbloqueie o relatório completo para ver os fatores de risco.",
+        lockedGreen: "[BLOQUEADO] Os relatórios de auditoria são restritos. Desbloqueie o relatório completo para ver os ativos de segurança.",
+        noRisk: "Nenhum fator de risco iminente identificado.",
+        noSafety: "Nenhum elemento de segurança sólido identificado.",
+        verifiedPartner: "🟢 Parceiro Corretora Segura e Regulamentada",
+        openAccount: "Abrir Conta Oficial na",
+        euResidentTitle: "Residente na União Europeia?",
+        euResidentText: "Obtenha alavancagem de 1:1000, bônus de depósito e Copy Trading sob a regulamentação da XM Global.",
+        euWhatsappLink: "Fale conosco no WhatsApp para instruções privadas de registro →",
+        excellentScore: "Pontuação Excelente", goodScore: "Boa Pontuação (Seguro)", warningRisk: "Aviso / Risco Médio",
+        highRisk: "Risco Alto",
+        scamAlert: "Alerta de Golpe",
+        awaitingEval: "Aguardando Avaliação",
+        scanCompleted: "A análise foi concluída."
+    },
+    ru: {
+        typePending: "Тип: Ожидает аудита",
+        typeCompleted: "Тип: Судебный аудит завершен",
+        sourcePrefix: "Источник: ID криминалистической проверки",
+        lockedRed: "[ЗАБЛОКИРОВАНО] Отчеты об аудите ограничены. Разблокируйте полный отчет, чтобы увидеть активные флаги угроз.",
+        lockedGreen: "[ЗАБЛОКИРОВАНО] Отчеты об аудите ограничены. Разблокируйте полный отчет, чтобы увидеть активы безопасности.",
+        noRisk: "Факторов немедленного риска не выявлено.",
+        noSafety: "Надежных элементов безопасности не выявлено.",
+        verifiedPartner: "🟢 Проверенный и регулируемый безопасный брокер-партнер",
+        openAccount: "Открыть официальный счет в",
+        euResidentTitle: "Резидент Европейского Союза?",
+        euResidentText: "Получите кредитное плечо 1:1000, бонусы на депозит и Copy Trading по правилам XM Global.",
+        euWhatsappLink: "Напишите нам в WhatsApp для получения закрытых инструкций по регистрации →",
+        excellentScore: "Отличная оценка", goodScore: "Хорошая оценка (Безопасно)", warningRisk: "Предупреждение / Средний риск",
+        highRisk: "Высокий риск",
+        scamAlert: "Черный список / Мошенничество",
+        awaitingEval: "Ожидание оценки",
+        scanCompleted: "Анализ завершен."
+    }
+};
+
+const t = i18n[currentLang] || i18n['en'];
+
 /* ==========================================================================
    Broker Legitimacy Verifier - Logic & Data Engine
    ========================================================================== */
@@ -301,11 +619,27 @@ async function fetchResults(scanId) {
 
         displayName.textContent = data.broker_name;
         displayDomain.textContent = data.broker_domain;
-        displayType.textContent = `Type: ${data.locked ? "Pending Audit" : "Forensic Audit Completed"}`;
-        evaluationSource.textContent = `Source: Forensic Verification ID ${scanId.substring(0, 8)}`;
+        displayType.textContent = data.locked ? t.typePending : t.typeCompleted;
+        evaluationSource.textContent = `${t.sourcePrefix} ${scanId.substring(0, 8)}`;
         
-        verdictTitle.textContent = data.verdict_title || "Awaiting Evaluation";
-        verdictText.textContent = data.verdict_text || "The analysis has completed.";
+                let vTitle = data.verdict_title || t.awaitingEval;
+        let vText = data.verdict_text || t.scanCompleted;
+
+        // Check if localized translation exists for featured broker
+        const bKey = (data.broker_name || '').toLowerCase().replace(/\s+/g, '');
+        for (const k in brokerTranslations) {
+            if (bKey.includes(k)) {
+                const tr = brokerTranslations[k][currentLang];
+                if (tr) {
+                    vTitle = tr.title;
+                    vText = tr.text;
+                }
+                break;
+            }
+        }
+
+        verdictTitle.textContent = vTitle;
+        verdictText.textContent = vText;
 
         // Render partner affiliate CTA box if available
         let partnerBox = document.getElementById("partner-cta-box");
@@ -324,9 +658,9 @@ async function fetchResults(scanId) {
                 <div style="margin-top: 14px; padding: 12px 16px; background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.4); border-radius: 8px; text-align: left; display: flex; align-items: center; gap: 12px;">
                     <div style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 800; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3); shrink: 0;">EU 🇪🇺</div>
                     <div style="font-size: 0.83rem; color: #cbd5e1; line-height: 1.4;">
-                        <strong style="color: #ffffff;">European Resident?</strong> Get 1:1000 leverage, deposit bonuses, and Copy Trading under XM Global regulations. 
+                        <strong style="color: #ffffff;">${t.euResidentTitle}</strong> ${t.euResidentText} 
                         <a href="https://wa.me/393209481876?text=Hi!%20I%20am%20an%20EU%20resident%20and%20I%20want%20private%20registration%20instructions%20for%20XM%20Global" target="_blank" rel="noopener" style="color: #34d399; font-weight: 700; text-decoration: underline; margin-left: 4px;">
-                            Chat with us on WhatsApp for private registration instructions →
+                            ${t.euWhatsappLink}
                         </a>
                     </div>
                 </div>`;
@@ -334,10 +668,10 @@ async function fetchResults(scanId) {
 
             partnerBox.innerHTML = `
                 <div style="color: #34d399; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;">
-                    🟢 Verified & Regulated Safe Broker Partner
+                    ${t.verifiedPartner}
                 </div>
                 <a href="${affLink}" target="_blank" rel="noopener" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
-                    Open Official Account at ${data.broker_name} ↗
+                    ${t.openAccount} ${data.broker_name} ↗
                 </a>
                 ${extraEuBox}
             `;
@@ -356,10 +690,10 @@ async function fetchResults(scanId) {
             
             // Set locked placeholders for flag lists
             redFlagsList.innerHTML = `
-                <li style="color:var(--text-muted)">[LOCKED] Audit reports are restricted. Unlock full report to reveal active threat flags.</li>
+                <li style="color:var(--text-muted)">${t.lockedRed}</li>
             `;
             greenFlagsList.innerHTML = `
-                <li style="color:var(--text-muted)">[LOCKED] Audit reports are restricted. Unlock full report to reveal security assets.</li>
+                <li style="color:var(--text-muted)">${t.lockedGreen}</li>
             `;
         } else {
             document.getElementById("results-paywall").style.display = "none";
@@ -372,7 +706,7 @@ async function fetchResults(scanId) {
             redFlagsList.innerHTML = "";
             if (data.red_flags.length === 0) {
                 const li = document.createElement("li");
-                li.textContent = "No imminent risk factors identified.";
+                li.textContent = t.noRisk;
                 redFlagsList.appendChild(li);
             } else {
                 data.red_flags.forEach(flag => {
@@ -386,7 +720,7 @@ async function fetchResults(scanId) {
             greenFlagsList.innerHTML = "";
             if (data.green_flags.length === 0) {
                 const li = document.createElement("li");
-                li.textContent = "No solid safety elements identified.";
+                li.textContent = t.noSafety;
                 greenFlagsList.appendChild(li);
             } else {
                 data.green_flags.forEach(flag => {
