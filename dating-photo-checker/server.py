@@ -135,6 +135,11 @@ def init_db():
         cursor.execute("ALTER TABLE scans ADD COLUMN email TEXT")
     except sqlite3.OperationalError:
         pass
+
+    try:
+        cursor.execute("ALTER TABLE scans ADD COLUMN image_base64 TEXT")
+    except sqlite3.OperationalError:
+        pass
         
     # Table for user credits
     cursor.execute("""
@@ -405,6 +410,33 @@ async def get_sitemap(request: Request):
 # This makes it accessible at verifydating.net/broker-verifier/
 if os.path.exists("broker-verifier"):
     app.mount("/broker-verifier", StaticFiles(directory="broker-verifier", html=True), name="broker-verifier")
+
+# Dynamic Image Recovery & Persistence Endpoint (Restores images from SQLite DB if Render container redeploys)
+@app.get("/uploads/{filename}")
+async def get_uploaded_image_with_db_recovery(filename: str):
+    filepath = os.path.join(UPLOAD_DIR, filename)
+    if os.path.exists(filepath):
+        return FileResponse(filepath)
+
+    import base64
+    scan_id = os.path.splitext(filename)[0]
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT image_base64 FROM scans WHERE id = ?", (scan_id,))
+    row = cursor.fetchone()
+    conn.close()
+
+    if row and row[0]:
+        try:
+            img_bytes = base64.b64decode(row[0])
+            os.makedirs(UPLOAD_DIR, exist_ok=True)
+            with open(filepath, "wb") as f:
+                f.write(img_bytes)
+            return FileResponse(filepath)
+        except Exception as e:
+            print("Image recovery error:", e)
+
+    raise HTTPException(status_code=404, detail="Uploaded image file not found")
 
 # Mount uploads directory statically so Google Lens can perform reverse search on the image
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
@@ -717,11 +749,14 @@ async def scan_image(request: Request, file: UploadFile = File(...)):
     else:
         scam_probability, matches_count, matches_data, scammer_info = get_deterministic_mock_data(file_bytes, file.filename, image_url)
 
+    import base64
+    img_b64 = base64.b64encode(file_bytes).decode('utf-8')
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO scans (id, image_path, created_at, payment_status, scam_probability, matches_count, matches_data, scammer_info)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO scans (id, image_path, created_at, payment_status, scam_probability, matches_count, matches_data, scammer_info, image_base64)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         scan_id, 
         filepath, 
@@ -730,7 +765,8 @@ async def scan_image(request: Request, file: UploadFile = File(...)):
         scam_probability, 
         matches_count, 
         json.dumps(matches_data), 
-        scammer_info
+        scammer_info,
+        img_b64
     ))
     conn.commit()
     conn.close()
