@@ -406,6 +406,13 @@ async def get_sitemap(request: Request):
     from fastapi.responses import Response
     return Response(content=sitemap_content, media_type="application/xml")
 
+@app.get("/og_image.png")
+async def get_og_image():
+    path = os.path.join("broker-verifier", "og_image.png")
+    if os.path.exists(path):
+        return FileResponse(path, media_type="image/png")
+    raise HTTPException(status_code=404, detail="OG Image not found")
+
 # Mount the broker-verifier directory statically
 # This makes it accessible at verifydating.net/broker-verifier/
 if os.path.exists("broker-verifier"):
