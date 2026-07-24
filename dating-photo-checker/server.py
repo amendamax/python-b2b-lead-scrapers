@@ -2236,10 +2236,16 @@ async def get_broker_results(scan_id: str):
             affiliate_link = db_item.get("affiliateLink")
             break
 
-    if payment_status == "paid":
+    # 5 Affiliate Partner Brokers are 100% FREE & UNLOCKED to maximize affiliate registrations & trust!
+    is_free_partner = any(
+        p in clean_domain or p in clean_name or clean_name in p or p in clean_domain
+        for p in ["exness", "etoro", "plus500", "xm", "avatrade"]
+    )
+
+    if payment_status == "paid" or is_free_partner:
         return {
             "scan_id": scan_id,
-            "payment_status": payment_status,
+            "payment_status": "free_partner" if is_free_partner else payment_status,
             "score": score,
             "broker_name": name,
             "broker_domain": domain,
