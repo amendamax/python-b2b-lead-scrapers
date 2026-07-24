@@ -337,6 +337,16 @@ async def get_broker_review(broker_name: str, request: Request):
             return FileResponse(file_path)
     return JSONResponse(status_code=404, content={"message": "Review not found"})
 
+@app.get("/{lang}/reviews/{broker_name}")
+async def get_lang_broker_review(lang: str, broker_name: str, request: Request):
+    lang_clean = lang.lower().strip()
+    broker_clean = broker_name.lower().strip()
+    if lang_clean in ["ro", "it", "de", "es", "fr", "pt", "ru"] and broker_clean in ["xm", "exness", "avatrade", "etoro", "plus500"]:
+        file_path = f"broker-verifier/{lang_clean}/reviews/{broker_clean}.html"
+        if os.path.exists(file_path):
+            return FileResponse(file_path)
+    return JSONResponse(status_code=404, content={"message": "Review not found"})
+
 @app.get("/robots.txt")
 async def get_robots(request: Request):
     host = request.headers.get("host", "").lower()
@@ -357,7 +367,7 @@ async def get_sitemap(request: Request):
         additional_urls += f"""
    <url>
       <loc>https://{domain}/{l}/</loc>
-      <lastmod>2026-07-19</lastmod>
+      <lastmod>2026-07-24</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>"""
@@ -366,16 +376,24 @@ async def get_sitemap(request: Request):
             additional_urls += f"""
    <url>
       <loc>https://{domain}/reviews/{b}</loc>
-      <lastmod>2026-07-23</lastmod>
+      <lastmod>2026-07-24</lastmod>
       <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
+      <priority>0.9</priority>
+   </url>"""
+            for l in langs:
+                additional_urls += f"""
+   <url>
+      <loc>https://{domain}/{l}/reviews/{b}</loc>
+      <lastmod>2026-07-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.85</priority>
    </url>"""
 
     sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://{domain}/</loc>
-      <lastmod>2026-07-23</lastmod>
+      <lastmod>2026-07-24</lastmod>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>{additional_urls}
