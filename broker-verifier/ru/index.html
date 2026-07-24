@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Localization SEO Hreflang Tags -->
+    <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/" />
+    <link rel="alternate" hreflang="ro" href="https://isbrokersafe.com/ro/" />
+    <link rel="alternate" hreflang="it" href="https://isbrokersafe.com/it/" />
+    <link rel="alternate" hreflang="es" href="https://isbrokersafe.com/es/" />
+    <link rel="alternate" hreflang="fr" href="https://isbrokersafe.com/fr/" />
+    <link rel="alternate" hreflang="de" href="https://isbrokersafe.com/de/" />
+    <link rel="alternate" hreflang="pt" href="https://isbrokersafe.com/pt/" />
+    <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/ru/" />
+    <link rel="alternate" hreflang="x-default" href="https://isbrokersafe.com/" />
+    <meta name="impact-site-verification" value="47d92ca6-6c50-4d41-bca4-c842d9b2dd07" content="47d92ca6-6c50-4d41-bca4-c842d9b2dd07">
+    <!-- Impact STAT Tag -->
+    <script>
+    (function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7465143-89ed-43ac-a023-a754fe18659b1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXS970H1KK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BRLWMFCM12');
+      gtag('config', 'G-BXS970H1KK');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3004668135024786" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Верификатор легитимности брокеров - Информационная безопасность</title>
+    <meta name="description" content="Мгновенно проверяйте, является ли форекс, CFD или криптоброкер легитимным или потенциальным мошенником. Оценка доверия в реальном времени и подробный анализ факторов риска.">
+    <link rel="stylesheet" href="../../style.css">
+    <!-- FontAwesome Icons for support buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">Broker<span>Verifier</span></h1>
+            <p class="subtitle">Умная система анализа рисков и угроз для брокеров Форекс, CFD и криптовалют.</p>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-box-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="broker-search" class="search-input" placeholder="Искать по названию брокера или сайту (например, XM Group, IC Markets...)" autocomplete="off">
+            </div>
+            
+            <!-- Suggestions Dropdown -->
+            <div id="suggestions-box" class="autocomplete-suggestions"></div>
+            
+            <!-- Quick Actions -->
+                        <!-- Popular Searches Ticker -->
+            <div class="recent-audits-ticker" style="margin-top: 1rem; margin-bottom: 1rem;">
+                <!-- Row 1: Verified Safe Brokers -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label safe">🟢 Проверенные безопасные брокеры</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
+                    </div>
+                </div>
+
+                <!-- Row 2: Blacklisted Scam Warnings -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label danger">🚨 Черный список мошенников</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alternative-actions">
+                <span>Брокера нет в базе данных?</span>
+                <button id="open-wizard-btn" class="btn btn-wizard-trigger">🛡️ Анализировать нового брокера</button>
+            </div>
+        </section>
+
+        <!-- Main Dashboard View -->
+        <main id="dashboard-view" class="dashboard-grid">
+            
+            <!-- Left Side: Trust Gauge & Scanner Terminal -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Trust Gauge Card -->
+                <section class="panel trust-score-card">
+                    <h3 style="margin-bottom: 1.2rem; font-family: 'Outfit'; font-size: 1.1rem; color: var(--text-muted);">Оценка доверия</h3>
+                    
+                    <div class="gauge-wrapper">
+                        <svg class="gauge-svg" width="170" height="170" viewBox="0 0 170 170">
+                            <circle class="gauge-bg" cx="85" cy="85" r="70" />
+                            <circle id="score-gauge" class="gauge-progress" cx="85" cy="85" r="70" />
+                        </svg>
+                        <div id="score-text" class="gauge-percentage">0%</div>
+                    </div>
+
+                    <div id="rating-badge" class="rating-badge safe">Отличная оценка</div>
+                    <p id="evaluation-source" style="margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted);">
+                        Источник: Регулируемая база данных
+                    </p>
+                </section>
+
+                <!-- Threat Scanner Console -->
+                <section class="panel scanner-console-card">
+                    <h4 style="font-family: 'Outfit'; font-size: 1.05rem; color: var(--text-muted); margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="display: flex; align-items: center; gap: 0.4rem;">💻 Сканер угроз</span>
+                        <span id="scanner-status" style="font-size: 0.75rem; color: var(--color-success); font-weight: 700; letter-spacing: 0.5px;">ОЖИДАНИЕ</span>
+                    </h4>
+                    <div id="scanner-terminal" class="terminal-body">
+                        <div style="color: #64748b;">> Сканер угроз инициализирован. Ожидание ввода целевого домена...</div>
+                    </div>
+                </section>
+                
+            </div>
+
+            <!-- Right Panel: Detailed Analysis -->
+            <section class="panel analysis-details-panel">
+                <div>
+                    <div class="broker-name-header">
+                        <div class="broker-title">
+                            <h2 id="display-name">Выберите брокера</h2>
+                            <span id="display-domain" class="broker-domain-label">Введите название в строке поиска выше</span>
+                        </div>
+                        <div id="display-type" style="font-size: 0.85rem; padding: 0.3rem 0.8rem; border-radius: 6px; background: rgba(255,255,255,0.05); font-weight: 600;">
+                            Тип: Не указан
+                        </div>
+                    </div>
+
+                    <!-- Red / Green Flags list -->
+                    <div class="flag-sections">
+                        
+                        <!-- Red Flags -->
+                        <div class="flag-box red-flags">
+                            <h4 class="flag-box-title"><span>⚠️</span> Факторы риска / Красные флаги</h4>
+                            <ul id="red-flags-list" class="flag-list">
+                                <li>Выберите брокера, чтобы просмотреть анализ рисков.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Green Flags -->
+                        <div class="flag-box green-flags">
+                            <h4 class="flag-box-title"><span>🛡️</span> Ключевые преимущества / Зеленые флаги</h4>
+                            <ul id="green-flags-list" class="flag-list">
+                                <li>Выберите брокера, чтобы просмотреть ключевые преимущества.</li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Final Verdict Box -->
+                <div id="verdict-box" class="verdict-box safe">
+                    <div id="verdict-title" class="verdict-title">Ожидание оценки</div>
+                    <div id="verdict-text" class="verdict-text">Система готова к новому анализу. Используйте строку поиска выше для мгновенных результатов.</div>
+                </div>
+
+                <!-- Paywall / Lock Overlay -->
+                <div class="paywall-overlay" id="results-paywall" style="display: none;">
+                    <div class="paywall-content" style="text-align: center; padding: 1.5rem; background: rgba(5, 8, 15, 0.6); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.1); margin-top: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem; font-family: 'Outfit'; color: var(--text-main);">🔒 Полный отчет о рисках заблокирован</h4>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.1rem;">Получите полный отчет в формате PDF, включая необработанные данные WHOIS, журналы черных списков и корпоративные данные.</p>
+                        <button class="btn btn-primary" id="paywall-unlock-btn" style="width: 100%; cursor: pointer;">
+                            Разблокировать отчет - $9.99 💳
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unlocked Premium Details -->
+                <div class="premium-results" id="unlocked-premium-details" style="display: none; text-align: center; margin-top: 1.5rem;">
+                    <div class="success-payment-alert" style="color: var(--color-success); font-weight: 600; margin-bottom: 1rem; font-size: 0.88rem;">
+                        ✓ Оплата подтверждена! Отчет о безопасности разблокирован.
+                    </div>
+                    <a href="#" id="download-report-btn" class="btn btn-primary" style="width: 100%; display: inline-block; text-decoration: none; text-align: center; box-sizing: border-box; line-height: 2.2;" target="_blank">
+                        Скачать PDF-отчет о безопасности 📄
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Threat Intelligence Checklist Footer -->
+        <section class="panel checklist-section" style="margin-top: 3rem; animation: fadeInUp 1s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                🛡️ Список предотвращения мошенничества
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Прежде чем отправлять средства любому брокеру, пройдите эти обязательные проверки для обеспечения безопасности вашего капитала:
+            </p>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h5>1. Проверка лицензии регулятора</h5>
+                    <p>Всегда проверяйте номер лицензии непосредственно в официальном реестре регулятора (например, FCA, ASIC, CySEC). Мошеннические брокеры часто копируют реальные номера лицензий, принадлежащие другим компаниям.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>2. Проверка возраста домена</h5>
+                    <p>Скопируйте ссылку на сайт в базу данных WHOIS. Если сайт был зарегистрирован менее 12 месяцев назад, но компания заявляет о "многолетнем опыте", это гарантированное мошенничество.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>3. Отказ от холодных звонков</h5>
+                    <p>Легитимные финансовые учреждения НИКОГДА не будут звонить вам, чтобы предложить нежелательные торговые советы, попросить вас внести деньги или пообещать персональных менеджеров для торговли от вашего имени.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>4. Безопасность платежей</h5>
+                    <p>Если брокер просит вас сделать депозит через криптовалюту (Bitcoin/USDT) на частный кошелек или отправить деньги на личный банковский счет на другое имя, не отправляйте средства.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trader Reviews Section -->
+        <section class="panel reviews-section" style="margin-top: 3rem; animation: fadeInUp 1.2s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                ⭐ Отзывы о защите трейдеров
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Вот как BrokerVerifier помогает трейдерам выявлять мошенников и защищать свой капитал по всему миру:
+            </p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Я была на грани отправки $8500 в ApexCryptoFX после того, как в Telegram 'менеджер счета' убедил меня, что это безопасно. Решила сначала сделать быструю проверку здесь. Высокая угроза, домен зарегистрирован всего 2 месяца назад. Спас мои сбережения!"</p>
+                    <span class="review-author">Elena M.</span><span class="review-meta">· Bucharest, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Для меня, как для розничного форекс-трейдера, проверка офшорных компаний имеет решающее значение. BrokerVerifier уберег меня и мое торговое сообщество от нескольких сомнительных CFD-брокеров. Отчеты в PDF стоят каждого цента из этих $9.99."</p>
+                    <span class="review-author">Marcus T.</span><span class="review-meta">· London, UK</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Выдающийся сервис. Проверка WHOIS в реальном времени работает очень быстро и показала, что брокер, заявляющий о 8-летней истории, на самом деле был зарегистрирован в прошлый вторник. Абсолютно блестящая аналитика угроз."</p>
+                    <span class="review-author">David K.</span><span class="review-meta">· Chicago, IL</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Я заплатил $9.99, чтобы получить глубокий аудит офшорного брокера на MT5. Он сразу же пометил предупреждения из черного списка CySEC, скрытые под названием другой подставной компании. Инструмент действительно спасает средства."</p>
+                    <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Чистый интерфейс, быстрое сканирование и очень подробный PDF-отчет. Он показал, что брокер размещался на дешевом общем сервере в Панаме. Безумная ценность за $9.99. Очень рекомендую!"</p>
+                    <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Мой дядя чуть не попался на удочку мошенников, обещавших по телефону 15% гарантированной еженедельной прибыли. Запустили сканер здесь, и он сразу же пометил его как финансовую пирамиду. Безгранично благодарна!"</p>
+                    <span class="review-author">Roxana I.</span><span class="review-meta">· Cluj-Napoca, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Я финансовый консультант и теперь заставляю всех своих клиентов проверять здесь брокеров перед пополнением торгового счета. Лучший инструмент превентивной безопасности."</p>
+                    <span class="review-author">Thomas S.</span><span class="review-meta">· Frankfurt, DE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Оплата через Stripe безопасна, отчет сформирован менее чем за секунду и отправлен прямо на мой email. Очень профессиональная организация. 10 из 10."</p>
+                    <span class="review-author">Liam O.</span><span class="review-meta">· Dublin, IE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">"Отличный инструмент для проверки доменов. Вопросник мастера идеально подходит для оценки офшорных компаний. Уберег меня от отправки $2000 нерегулируемому брокеру."</p>
+                    <span class="review-author">Alexander P.</span><span class="review-meta">· Vancouver, CA</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Interactive Wizard Modal Overlay -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="wizard-card">
+            <button id="close-wizard-btn" class="close-modal-btn">&times;</button>
+            
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                <div class="progress-node active" data-step="1">1</div>
+                <div class="progress-node" data-step="2">2</div>
+                <div class="progress-node" data-step="3">3</div>
+                <div class="progress-node" data-step="4">4</div>
+                <div class="progress-node" data-step="5">5</div>
+            </div>
+
+            <!-- Step 1: Broker Name & Domain -->
+            <div class="wizard-step active" data-step="1">
+                <h3 class="wizard-step-title">Шаг 1: Идентификация брокера</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.95rem;">Введите название или адрес веб-сайта брокера, которого вы хотите оценить:</p>
+                <input type="text" id="wiz-broker-name" class="wizard-text-input" placeholder="E.g. ForexCapital24">
+                <input type="text" id="wiz-broker-domain" class="wizard-text-input" placeholder="E.g. forexcapital24.com">
+            </div>
+
+            <!-- Step 2: Regulation & Jurisdiction -->
+            <div class="wizard-step" data-step="2">
+                <h3 class="wizard-step-title">Шаг 2: Где он зарегистрирован / регулируется?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="tier1">
+                        <span class="option-icon">🇬🇧</span>
+                        <span>Регуляторы высшего уровня (FCA Великобритания, ASIC Австралия, CySEC Кипр, NFA США)</span>
+                    </button>
+                    <button class="option-btn" data-val="offshore">
+                        <span class="option-icon">🏝️</span>
+                        <span>Офшорные юрисдикции (Сент-Винсент, Сейшелы, Белиз, Вануату)</span>
+                    </button>
+                    <button class="option-btn" data-val="unregulated">
+                        <span class="option-icon">🛑</span>
+                        <span>Без лицензии / Не регулируется / Не указано</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Leverage & Trade Conditions -->
+            <div class="wizard-step" data-step="3">
+                <h3 class="wizard-step-title">Шаг 3: Какое кредитное плечо они предлагают?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="regulated-leverage">
+                        <span class="option-icon">📉</span>
+                        <span>Стандартное плечо (макс. 1:30 - соответствует ESMA/FCA)</span>
+                    </button>
+                    <button class="option-btn" data-val="high-leverage">
+                        <span class="option-icon">📈</span>
+                        <span>Высокое кредитное плечо (1:100 до 1:500 или 1:1000)</span>
+                    </button>
+                    <button class="option-btn" data-val="unlimited-leverage">
+                        <span class="option-icon">⚡</span>
+                        <span>Безлимитное плечо или нерегулируемая криптовалюта</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Acquisition Channel (How did you hear about them?) -->
+            <div class="wizard-step" data-step="4">
+                <h3 class="wizard-step-title">Шаг 4: Как вы связались с этим брокером?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="organic">
+                        <span class="option-icon">🔍</span>
+                        <span>Собственное исследование / Надежная рекомендация / Сайты сравнения</span>
+                    </button>
+                    <button class="option-btn" data-val="coldcall">
+                        <span class="option-icon">📞</span>
+                        <span>Нежелательный холодный звонок / Реклама в социальных сетях</span>
+                    </button>
+                    <button class="option-btn" data-val="socialmanager">
+                        <span class="option-icon">👥</span>
+                        <span>Группа в Telegram / Менеджер в Instagram или WhatsApp / Tinder</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Profit Promises -->
+            <div class="wizard-step" data-step="5">
+                <h3 class="wizard-step-title">Шаг 5: Обещания прибыли</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="realistic">
+                        <span class="option-icon">⚖️</span>
+                        <span>Стандартное предупреждение о рисках (большинство теряет деньги, реалистичная торговля)</span>
+                    </button>
+                    <button class="option-btn" data-val="guaranteed">
+                        <span class="option-icon">💰</span>
+                        <span>Обещания гарантированной / фиксированной прибыли (например, 10% в неделю без риска)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wizard Navigation -->
+            <div class="wizard-navigation">
+                <button id="wiz-back-btn" class="btn btn-wizard-trigger" style="margin-left: 0; display: none;">← Назад</button>
+                <div style="flex-grow: 1;"></div>
+                <button id="wiz-next-btn" class="btn btn-primary">Далее →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="wizard-card" style="max-width: 450px;">
+            <button id="close-checkout-btn" class="close-modal-btn">&times;</button>
+            
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 0.3rem;">Оформление судебного аудита</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Безопасная оплата через Stripe</p>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.2rem;">
+                <span style="font-size: 0.9rem;">PDF-отчет о судебных рисках</span>
+                <strong style="color: var(--color-primary); font-size: 1rem;">$9.99</strong>
+            </div>
+
+            
+                <div class="ru-payment-warning" style="padding: 10px; background: rgba(220, 38, 38, 0.1); border: 1px dashed rgba(220, 38, 38, 0.4); border-radius: 6px; margin-bottom: 15px; text-align: left; font-size: 11px; line-height: 1.4; color: #fca5a5;">
+                    💳 <strong>Обратите внимание:</strong> К оплате принимаются только международные банковские карты. Карты, выпущенные в РФ (Мир, Visa, Mastercard), не поддерживаются из-за ограничений платежной системы.
+                </div>
+<form id="payment-form" onsubmit="event.preventDefault();">
+                <div style="margin-bottom: 1rem; text-align: left;">
+                    <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Адрес электронной почты</label>
+                    <input type="email" id="card-email" required placeholder="name@example.com" class="wizard-text-input" style="width: 100%; box-sizing: border-box; background: rgba(5,8,15,0.8); color: #fff;">
+                </div>
+                <div style="margin-bottom: 1.5rem; text-align: left;">
+                    <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Данные карты</label>
+                    <div id="card-element" style="background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.8rem;"></div>
+                    <div id="card-errors" role="alert" style="color: var(--color-danger); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 600;"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="confirm-payment-btn" style="width: 100%;">
+                    Оплатить $9.99 и скачать отчет
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Plus500 Affiliate Banner -->
+    <section class="affiliate-banner-section" id="trusted-brokers">
+        <div class="affiliate-banner-inner">
+            <div class="affiliate-badge">⭐ СПОНСОРСКИЙ ПАРТНЕР</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text">Plus<span style="color:#00b4d8">500</span></span>
+                    <span class="affiliate-regulated-tag">🛡️ Регулируется FCA · ASIC · CySEC · MAS</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Торгуйте CFD через надежного публичного брокера</h3>
+                    <p class="affiliate-desc">Деятельность Plus500 регулируется EFSA (лицензия № 4.1-1/18), брокер котируется на Лондонской фондовой бирже. Торгуйте CFD на акции, форекс, сырье и криптовалюту.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Без комиссий и узкие спреды</li>
+                        <li>✅ Бесплатный демо-счет — без риска</li>
+                        <li>✅ Удобный пользовательский интерфейс</li>
+                        <li>✅ Мгновенный вывод средств</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="plus500-cta" style="background: linear-gradient(135deg, #00b4d8, #0077b6); color: #ffffff !important; font-weight: 700;">
+                        Открыть бесплатный счет →
+                    </a>
+                    <a href="/reviews/plus500" class="btn-review-link" style="display: block; margin-top: 6px; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">Читать полный обзор безопасности ➔</a>
+                    <p class="affiliate-disclaimer">⚠️ CFD являются сложными инструментами. 80% of retail investors lose money trading CFDs with this provider. Make sure you understand how CFDs work and whether you can afford to take the high risk of losing your money.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AvaTrade Affiliate Banner -->
+    <section class="affiliate-banner-section" id="avatrade-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,184,0,0.35); background: linear-gradient(135deg, rgba(10,34,64,0.95) 0%, rgba(5,8,15,0.95) 60%, rgba(255,184,0,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,184,0,0.15);border-color:rgba(255,184,0,0.4);color:#ffbb00;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffbb00;font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:1px;">AVATRADE</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,184,0,0.9);border-color:rgba(255,184,0,0.3);">🛡️ Central Bank of Ireland · ASIC · FSRA · FSCA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Удостоенный наград глобально регулируемый брокер с 2006 года</h3>
+                    <p class="affiliate-desc">AvaTrade — один из самых безопасных брокеров в мире, регулируемый на 6 континентах. Копируйте сделки экспертов через DupliTrade, защищайте свои позиции с помощью AvaProtect и торгуйте с узкими фиксированными/плавающими спредами.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Регулируется в 9 юрисдикциях</li>
+                        <li>✅ Бесплатное копирование сделок DupliTrade</li>
+                        <li>✅ Страхование убытков AvaProtect™</li>
+                        <li>✅ Минимальный депозит 100 $</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="avatrade-cta" style="background: linear-gradient(135deg, #ffbb00, #c69200); color: #0b1528 !important; font-weight: 700; margin-bottom: 8px;">
+                        Открыть бесплатный счет →
+                    </a>
+                    <a href="/reviews/avatrade" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Читать полный обзор безопасности ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- XM Affiliate Banner -->
+    <section class="affiliate-banner-section" id="xm-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(200,30,40,0.35); background: linear-gradient(135deg, rgba(200,30,40,0.07) 0%, rgba(5,8,15,0.95) 60%, rgba(200,30,40,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(200,30,40,0.15);border-color:rgba(200,30,40,0.4);color:#e01e28;">⭐ СПОНСОРСКИЙ ПАРТНЕР</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#e01e28;">XM</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(200,30,40,0.9);border-color:rgba(200,30,40,0.3);">🛡️ FCA · ASIC · CySEC · DFSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Торгуйте Forex и CFD с более чем 10 миллионами трейдеров по всему миру</h3>
+                    <p class="affiliate-desc">XM Group — один из самых надежных брокеров в мире, регулируемый в 4 юрисдикциях. Присоединяйтесь к более чем 10 миллионам клиентов, получая доступ к 1000+ инструментам, сверхбыстрому исполнению и бесплатному демо-счету.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Без реквот и без отклонений</li>
+                        <li>✅ Бесплатный приветственный бонус $30</li>
+                        <li>✅ Бесплатный VPS для автотрейдеров</li>
+                        <li>✅ 1000+ торговых инструментов</li>
+                    </ul>
+                    
+                    <!-- XM Global Private Registration Support CTA -->
+                    <div class="affiliate-notice-box" style="margin-top: 18px; padding: 12px 16px; background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.4); border-radius: 8px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.25rem;">🇪🇺</span>
+                        <div style="font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); text-align: left;">
+                            <strong>Житель Европы?</strong> Получите кредитное плечо 1:1000, бонусы на депозит и копи-трейдинг в соответствии с правилами XM Global. 
+                            <a href="https://wa.me/393209481876?text=Hello,%20I%20want%20the%20private%20XM%20Global%20registration%20link%20and%20partner%20code." target="_blank" style="color: #34d399; font-weight: 700; text-decoration: underline; margin-left: 5px;">
+                                Свяжитесь с нами в WhatsApp для получения инструкций по приватной регистрации →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="xm-cta" style="background: linear-gradient(135deg, #e01e28, #9b0a14); margin-bottom: 8px;">
+                        Открыть бесплатный счет →
+                    </a>
+                    <a href="/reviews/xm" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Читать полный обзор безопасности ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFD являются сложными инструментами. Торговля связана с существенным риском потери средств. Торгуйте только теми деньгами, которые можете позволить себе потерять.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- eToro Affiliate Banner -->
+    <section class="affiliate-banner-section" id="etoro-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(16,185,129,0.35); background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(5,8,15,0.95) 60%, rgba(16,185,129,0.08) 100%);">
+            <div class="affiliate-badge" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:#34d399;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#34d399;font-weight:900;">eToro</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(52,211,153,0.9);border-color:rgba(16,185,129,0.3);">🛡️ FCA · CySEC · ASIC · FINRA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Ведущая в мире платформа социального трейдинга</h3>
+                    <p class="affiliate-desc">Присоединяйтесь к более чем 30 миллионам трейдеров по всему миру на eToro. Копируйте портфели успешных инвесторов с помощью CopyTrader™, торгуйте реальными акциями с комиссией 0% и получайте доступ к мировым рынкам.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ CopyTrader™ — Копируйте лучших инвесторов автоматически</li>
+                        <li>✅ Комиссия 0% на реальные акции</li>
+                        <li>✅ Лицензировано FCA (Великобритания), CySEC и ASIC</li>
+                        <li>✅ Более 30 миллионов пользователей по всему миру</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="javascript:void(0)" class="btn-affiliate" id="etoro-cta" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; cursor: default; opacity: 0.9; margin-bottom: 8px;">
+                        ⏳ Партнерская ссылка на утверждении
+                    </a>
+                    <a href="/reviews/etoro" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Читать полный обзор безопасности ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="affiliate-banner-section" id="exness-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,168,0,0.35); background: linear-gradient(135deg, rgba(255,168,0,0.06) 0%, rgba(5,8,15,0.95) 60%, rgba(0,180,100,0.06) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,168,0,0.15);border-color:rgba(255,168,0,0.4);color:#ffa800;">⭐ СПОНСОРСКИЙ ПАРТНЕР</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffffff;font-style:italic;">exness</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,168,0,0.9);border-color:rgba(255,168,0,0.3);">🛡️ FCA · CySEC · FSCA · FSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Крупнейший в мире форекс-брокер по объему торгов</h3>
+                    <p class="affiliate-desc">Exness обрабатывает ежемесячный объем торгов на сумму более $4 трлн. Мгновенный вывод средств 24/7, сверхузкие спреды и самый прозрачный брокер в индустрии. Пользуется доверием миллионов клиентов.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Мгновенный вывод средств 24/7</li>
+                        <li>✅ Спреды от 0.0 пунктов</li>
+                        <li>✅ Доступно безлимитное кредитное плечо</li>
+                        <li>✅ Ежемесячный объем торгов более $4 трлн</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="exness-cta" style="background: linear-gradient(135deg, #ffa800, #e07000); margin-bottom: 8px;">
+                        Открыть бесплатный счет →
+                    </a>
+                    <a href="/reviews/exness" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Читать полный обзор безопасности ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFD являются сложными инструментами. Торговля связана с существенным риском потери средств. Торгуйте только теми деньгами, которые можете позволить себе потерять.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="footer-copyright">&copy; 2026 BrokerVerifier. Все права защищены. Создан для защиты трейдеров от финансового мошенничества. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <div class="footer-contact">
+                <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Служба поддержки:</span>
+                <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>
+                <a href="https://wa.me/393209481876" target="_blank" class="contact-link"><i class="fa-brands fa-whatsapp"></i> Поддержка в живом чате</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script src="../app.js"></script>
+</body>
+</html>

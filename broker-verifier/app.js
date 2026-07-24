@@ -987,6 +987,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Quick Ticker Chip Click Handler
+// Quick Ticker Chip Click Handler
 window.selectBroker = function(name) {
     const clean = name.toLowerCase().trim();
     const broker = brokerDatabase.find(b => 
@@ -995,13 +996,20 @@ window.selectBroker = function(name) {
         b.name.toLowerCase().includes(clean) ||
         clean.includes(b.name.toLowerCase())
     );
-    if (broker) {
-        searchInput.value = broker.name;
-        executeScan(broker.name, broker.domain);
-    } else {
-        searchInput.value = name;
-        let domain = clean.replace(/\s+/g, '');
-        if (!domain.includes('.')) domain += '.com';
-        executeScan(name, domain);
+    
+    const targetName = broker ? broker.name : name;
+    let targetDomain = broker ? broker.domain : clean.replace(/\s+/g, '');
+    if (!targetDomain.includes('.')) targetDomain += '.com';
+
+    if (searchInput) {
+        searchInput.value = targetName;
     }
+
+    // Smooth scroll down to scanner dashboard view so user immediately sees the live scan
+    const dashboardView = document.getElementById("dashboard-view");
+    if (dashboardView) {
+        dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    executeScan(targetName, targetDomain);
 };

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <!-- Localization SEO Hreflang Tags -->
+    <link rel="alternate" hreflang="en" href="https://isbrokersafe.com/" />
+    <link rel="alternate" hreflang="ro" href="https://isbrokersafe.com/ro/" />
+    <link rel="alternate" hreflang="it" href="https://isbrokersafe.com/it/" />
+    <link rel="alternate" hreflang="es" href="https://isbrokersafe.com/es/" />
+    <link rel="alternate" hreflang="fr" href="https://isbrokersafe.com/fr/" />
+    <link rel="alternate" hreflang="de" href="https://isbrokersafe.com/de/" />
+    <link rel="alternate" hreflang="pt" href="https://isbrokersafe.com/pt/" />
+    <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/ru/" />
+    <link rel="alternate" hreflang="x-default" href="https://isbrokersafe.com/" />
+    <meta name="impact-site-verification" value="47d92ca6-6c50-4d41-bca4-c842d9b2dd07" content="47d92ca6-6c50-4d41-bca4-c842d9b2dd07">
+    <!-- Impact STAT Tag -->
+    <script>
+    (function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7465143-89ed-43ac-a023-a754fe18659b1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXS970H1KK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BRLWMFCM12');
+      gtag('config', 'G-BXS970H1KK');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3004668135024786" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificator Brokeri Legitimi - Informații de Securitate Cibernetică</title>
+    <meta name="description" content="Verifică instant dacă un broker forex, CFD sau crypto este legitim sau o potențială înșelătorie. Scor de încredere în timp real și analiză detaliată a riscurilor.">
+    <link rel="stylesheet" href="../style.css">
+    <!-- FontAwesome Icons for support buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">Broker<span>Verifier</span></h1>
+            <p class="subtitle">Sistem inteligent de analiză a riscurilor și informații despre amenințări pentru brokerii Forex, CFD și Crypto.</p>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-box-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="broker-search" class="search-input" placeholder="Caută după numele brokerului sau site web (ex. XM Group, IC Markets...)" autocomplete="off">
+            </div>
+            
+            <!-- Suggestions Dropdown -->
+            <div id="suggestions-box" class="autocomplete-suggestions"></div>
+            
+            <!-- Quick Actions -->
+                        <!-- Popular Searches Ticker -->
+            <div class="recent-audits-ticker" style="margin-top: 1rem; margin-bottom: 1rem;">
+                <!-- Row 1: Verified Safe Brokers -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label safe">🟢 Brokeri Verificați Siguri</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
+                    </div>
+                </div>
+
+                <!-- Row 2: Blacklisted Scam Warnings -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label danger">🚨 Alerte de Escrocherii pe Lista Neagră</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alternative-actions">
+                <span>Brokerul nu este în baza de date?</span>
+                <button id="open-wizard-btn" class="btn btn-wizard-trigger">🛡️ Analizează un Broker Nou</button>
+            </div>
+        </section>
+
+        <!-- Main Dashboard View -->
+        <main id="dashboard-view" class="dashboard-grid">
+            
+            <!-- Left Side: Trust Gauge & Scanner Terminal -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Trust Gauge Card -->
+                <section class="panel trust-score-card">
+                    <h3 style="margin-bottom: 1.2rem; font-family: 'Outfit'; font-size: 1.1rem; color: var(--text-muted);">Scor de Încredere</h3>
+                    
+                    <div class="gauge-wrapper">
+                        <svg class="gauge-svg" width="170" height="170" viewBox="0 0 170 170">
+                            <circle class="gauge-bg" cx="85" cy="85" r="70" />
+                            <circle id="score-gauge" class="gauge-progress" cx="85" cy="85" r="70" />
+                        </svg>
+                        <div id="score-text" class="gauge-percentage">0%</div>
+                    </div>
+
+                    <div id="rating-badge" class="rating-badge safe">Scor Excelent</div>
+                    <p id="evaluation-source" style="margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted);">
+                        Sursă: Bază de date reglementată
+                    </p>
+                </section>
+
+                <!-- Threat Scanner Console -->
+                <section class="panel scanner-console-card">
+                    <h4 style="font-family: 'Outfit'; font-size: 1.05rem; color: var(--text-muted); margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="display: flex; align-items: center; gap: 0.4rem;">💻 Scaner de Amenințări</span>
+                        <span id="scanner-status" style="font-size: 0.75rem; color: var(--color-success); font-weight: 700; letter-spacing: 0.5px;">INACTIV</span>
+                    </h4>
+                    <div id="scanner-terminal" class="terminal-body">
+                        <div style="color: #64748b;">> Scaner de amenințări inițializat. Se așteaptă introducerea domeniului țintă...</div>
+                    </div>
+                </section>
+                
+            </div>
+
+            <!-- Right Panel: Detailed Analysis -->
+            <section class="panel analysis-details-panel">
+                <div>
+                    <div class="broker-name-header">
+                        <div class="broker-title">
+                            <h2 id="display-name">Selectează un broker</h2>
+                            <span id="display-domain" class="broker-domain-label">Introdu un nume în bara de căutare de mai sus</span>
+                        </div>
+                        <div id="display-type" style="font-size: 0.85rem; padding: 0.3rem 0.8rem; border-radius: 6px; background: rgba(255,255,255,0.05); font-weight: 600;">
+                            Tip: Nespecificat
+                        </div>
+                    </div>
+
+                    <!-- Red / Green Flags list -->
+                    <div class="flag-sections">
+                        
+                        <!-- Red Flags -->
+                        <div class="flag-box red-flags">
+                            <h4 class="flag-box-title"><span>⚠️</span> Factori de Risc / Semnale de Alarmă</h4>
+                            <ul id="red-flags-list" class="flag-list">
+                                <li>Selectează un broker pentru a vedea analiza riscurilor.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Green Flags -->
+                        <div class="flag-box green-flags">
+                            <h4 class="flag-box-title"><span>🛡️</span> Puncte Forte / Semnale Pozitive</h4>
+                            <ul id="green-flags-list" class="flag-list">
+                                <li>Selectează un broker pentru a vedea punctele forte.</li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Final Verdict Box -->
+                <div id="verdict-box" class="verdict-box safe">
+                    <div id="verdict-title" class="verdict-title">Se așteaptă evaluarea</div>
+                    <div id="verdict-text" class="verdict-text">Sistemul este pregătit pentru o nouă analiză. Folosește bara de căutare de mai sus pentru rezultate instantanee.</div>
+                </div>
+
+                <!-- Paywall / Lock Overlay -->
+                <div class="paywall-overlay" id="results-paywall" style="display: none;">
+                    <div class="paywall-content" style="text-align: center; padding: 1.5rem; background: rgba(5, 8, 15, 0.6); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.1); margin-top: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem; font-family: 'Outfit'; color: var(--text-main);">🔒 Raportul de Risc Legal este Blocat</h4>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.1rem;">Obține raportul PDF complet, inclusiv datele brute WHOIS, logurile listei negre și detaliile corporative.</p>
+                        <button class="btn btn-primary" id="paywall-unlock-btn" style="width: 100%; cursor: pointer;">
+                            Deblochează Raportul Legal - $9.99 💳
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unlocked Premium Details -->
+                <div class="premium-results" id="unlocked-premium-details" style="display: none; text-align: center; margin-top: 1.5rem;">
+                    <div class="success-payment-alert" style="color: var(--color-success); font-weight: 600; margin-bottom: 1rem; font-size: 0.88rem;">
+                        ✓ Plată Confirmată! Raport deblocat.
+                    </div>
+                    <a href="#" id="download-report-btn" class="btn btn-primary" style="width: 100%; display: inline-block; text-decoration: none; text-align: center; box-sizing: border-box; line-height: 2.2;" target="_blank">
+                        Descarcă Raportul PDF Legal 📄
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Threat Checker Checklist Footer -->
+        <section class="panel checklist-section" style="margin-top: 3rem; animation: fadeInUp 1s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                🛡️ Listă de Prevenire a Fraudelor
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Înainte de a trimite fonduri către orice furnizor de tranzacționare, parcurgeți aceste verificări obligatorii pentru a asigura securitatea capitalului dvs.:
+            </p>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h5>1. Verificarea licenței de reglementare</h5>
+                    <p>Verificați întotdeauna numărul de licență direct pe registrul oficial al autorității de reglementare (ex. FCA, ASIC, CySEC). Brokerii escroci copiază adesea numere de licență reale aparținând altor companii.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>2. Verificarea vechimii domeniului</h5>
+                    <p>Copiați linkul site-ului într-o bază de date WHOIS. Dacă site-ul a fost înregistrat acum mai puțin de 12 luni, dar compania susține că are „ani de experiență”, este o înșelătorie garantată.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>3. Refuzul apelurilor nesolicitate</h5>
+                    <p>Instituțiile financiare legitime nu vă vor suna NICIODATĂ pentru a vă oferi ponturi de tranzacționare nesolicitate, pentru a vă cere să depuneți bani sau pentru a vă promite manageri de cont care să tranzacționeze în numele dvs.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>4. Securitatea plăților</h5>
+                    <p>Dacă un broker vă cere să depuneți prin Crypto (Bitcoin/USDT) într-un portofel privat sau să trimiteți bani într-un cont bancar personal sub un alt nume, nu trimiteți fonduri.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trader Reviews Section -->
+        <section class="panel reviews-section" style="margin-top: 3rem; animation: fadeInUp 1.2s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                ⭐ Mărturii ale Traderilor Protejați
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Iată cum BrokerVerifier îi ajută pe traderi să identifice înșelătoriile și să își protejeze capitalul în întreaga lume:
+            </p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Eram pe cale să trimit 8.500$ către ApexCryptoFX după ce un „manager de cont” de pe Telegram m-a convins că este sigur. Am decis să fac o scanare rapidă aici mai întâi. Alertă de amenințare ridicată, domeniu înregistrat în urmă cu doar 2 luni. Mi-am salvat economiile de o viață!"</p>
+                    <span class="review-author">Elena M.</span><span class="review-meta">· București, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Ca trader retail de forex, verificarea entităților offshore este critică. BrokerVerifier m-a salvat pe mine și comunitatea mea de tranzacționare de câțiva brokeri CFD dubioși. Rapoartele PDF merită fiecare cent din acei 9.99$."</p>
+                    <span class="review-author">Marcus T.</span><span class="review-meta">· Londra, UK</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Serviciu remarcabil. Verificarea WHOIS live este super rapidă și a dezvăluit că un broker care susținea 8 ani de istorie fusese de fapt înregistrat marțea trecută. O inteligență genială împotriva amenințărilor."</p>
+                    <span class="review-author">David K.</span><span class="review-meta">· Chicago, IL</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Am plătit 9.99$ pentru a obține auditul detaliat al unui broker MT5 offshore. A semnalat imediat avertismente de listă neagră CySEC care erau ascunse sub un alt nume de companie fantomă. Un instrument care salvează vieți."</p>
+                    <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Interfață curată, scanare rapidă și raportul PDF este foarte detaliat. A descoperit că brokerul era găzduit pe un server ieftin partajat în Panama. Valoare incredibilă pentru 9.99$. Recomand cu căldură!"</p>
+                    <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Unchiul meu era să cadă în capcana unei escrocherii prin apel nesolicitat de la un broker care promitea profituri săptămânale garantate de 15%. Am rulat lista de verificare și scanerul aici și a fost semnalat ca o amenințare Ponzi imediată. Recunoscătoare din suflet!"</p>
+                    <span class="review-author">Roxana I.</span><span class="review-meta">· Cluj-Napoca, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Sunt consilier financiar și acum îmi pun toți clienții de retail să își verifice brokerii aici înainte de a depune bani pe orice cont. Cel mai bun instrument de securitate preventivă."</p>
+                    <span class="review-author">Thomas S.</span><span class="review-meta">· Frankfurt, DE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Plata prin Stripe a fost securizată, raportul a fost generat în mai puțin de o secundă și trimis direct pe email. Configurare extrem de profesională. 10/10."</p>
+                    <span class="review-author">Liam O.</span><span class="review-meta">· Dublin, IE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">"Excelent instrument pentru verificarea domeniilor. Chestionarul wizard este perfect pentru evaluarea entităților offshore. M-a salvat de la depunerea a 2.000$ la un broker nereglementat."</p>
+                    <span class="review-author">Alexander P.</span><span class="review-meta">· Vancouver, CA</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Interactive Wizard Modal Overlay -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="wizard-card">
+            <button id="close-wizard-btn" class="close-modal-btn">&times;</button>
+            
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                <div class="progress-node active" data-step="1">1</div>
+                <div class="progress-node" data-step="2">2</div>
+                <div class="progress-node" data-step="3">3</div>
+                <div class="progress-node" data-step="4">4</div>
+                <div class="progress-node" data-step="5">5</div>
+            </div>
+
+            <!-- Step 1: Broker Name & Domain -->
+            <div class="wizard-step active" data-step="1">
+                <h3 class="wizard-step-title">Pasul 1: Identitatea Brokerului</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.95rem;">Introdu numele sau adresa site-ului web al brokerului pe care vrei să-l evaluezi:</p>
+                <input type="text" id="wiz-broker-name" class="wizard-text-input" placeholder="E.g. ForexCapital24">
+                <input type="text" id="wiz-broker-domain" class="wizard-text-input" placeholder="E.g. forexcapital24.com">
+            </div>
+
+            <!-- Step 2: Regulation & Jurisdiction -->
+            <div class="wizard-step" data-step="2">
+                <h3 class="wizard-step-title">Pasul 2: Unde este înregistrat / reglementat?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="tier1">
+                        <span class="option-icon">🇬🇧</span>
+                        <span>Autorități de Top (FCA Marea Britanie, ASIC Australia, CySEC Cipru, NFA SUA)</span>
+                    </button>
+                    <button class="option-btn" data-val="offshore">
+                        <span class="option-icon">🏝️</span>
+                        <span>Jurisdicții Offshore (St. Vincent, Seychelles, Belize, Vanuatu)</span>
+                    </button>
+                    <button class="option-btn" data-val="unregulated">
+                        <span class="option-icon">🛑</span>
+                        <span>Neautorizat / Nereglementat / Nemenționat</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Leverage & Trade Conditions -->
+            <div class="wizard-step" data-step="3">
+                <h3 class="wizard-step-title">Pasul 3: Ce levier oferă?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="regulated-leverage">
+                        <span class="option-icon">📉</span>
+                        <span>Levier Standard (Maxim 1:30 - Conform ESMA/FCA)</span>
+                    </button>
+                    <button class="option-btn" data-val="high-leverage">
+                        <span class="option-icon">📈</span>
+                        <span>Levier Mare (1:100 până la 1:500 sau 1:1000)</span>
+                    </button>
+                    <button class="option-btn" data-val="unlimited-leverage">
+                        <span class="option-icon">⚡</span>
+                        <span>Levier nelimitat sau crypto nereglementat</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Acquisition Channel -->
+            <div class="wizard-step" data-step="4">
+                <h3 class="wizard-step-title">Pasul 4: Cum ai luat legătura cu acest broker?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="organic">
+                        <span class="option-icon">🔍</span>
+                        <span>Cercetare proprie / Recomandare de încredere / Site-uri de comparație</span>
+                    </button>
+                    <button class="option-btn" data-val="coldcall">
+                        <span class="option-icon">📞</span>
+                        <span>Apel nesolicitat / Reclamă pe rețelele sociale</span>
+                    </button>
+                    <button class="option-btn" data-val="socialmanager">
+                        <span class="option-icon">👥</span>
+                        <span>Grup de Telegram / Manager de cont pe Instagram sau WhatsApp / Tinder</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Profit Promises -->
+            <div class="wizard-step" data-step="5">
+                <h3 class="wizard-step-title">Pasul 5: Promisiuni de Profit</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="realistic">
+                        <span class="option-icon">⚖️</span>
+                        <span>Avertisment standard de risc (Majoritatea conturilor pierd bani, tranzacționare realistă)</span>
+                    </button>
+                    <button class="option-btn" data-val="guaranteed">
+                        <span class="option-icon">💰</span>
+                        <span>Promisiuni de profit garantat / fix (Ex. 10% săptămânal fără risc)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wizard Navigation -->
+            <div class="wizard-navigation">
+                <button id="wiz-back-btn" class="btn btn-wizard-trigger" style="margin-left: 0; display: none;">← Înapoi</button>
+                <div style="flex-grow: 1;"></div>
+                <button id="wiz-next-btn" class="btn btn-primary">Înainte →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="wizard-card" style="max-width: 450px;">
+            <button id="close-checkout-btn" class="close-modal-btn">&times;</button>
+            
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 0.3rem;">Finalizare Audit Legal</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Plată securizată prin Stripe</p>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.2rem;">
+                <span style="font-size: 0.9rem;">Raport PDF de Risc Legal</span>
+                <strong style="color: var(--color-primary); font-size: 1rem;">$9.99</strong>
+            </div>
+
+            <form id="payment-form" onsubmit="event.preventDefault();">
+                <div style="margin-bottom: 1rem; text-align: left;">
+                    <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Adresă de e-mail</label>
+                    <input type="email" id="card-email" required placeholder="nume@example.com" class="wizard-text-input" style="width: 100%; box-sizing: border-box; background: rgba(5,8,15,0.8); color: #fff;">
+                </div>
+                <div style="margin-bottom: 1.5rem; text-align: left;">
+                    <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Detalii Card</label>
+                    <div id="card-element" style="background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.8rem;"></div>
+                    <div id="card-errors" role="alert" style="color: var(--color-danger); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 600;"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="confirm-payment-btn" style="width: 100%;">
+                    Plătește $9.99 și Descarcă Raportul
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Plus500 Affiliate Banner -->
+    <section class="affiliate-banner-section" id="trusted-brokers">
+        <div class="affiliate-banner-inner">
+            <div class="affiliate-badge">⭐ PARTENER SPONSORIZAT</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text">Plus<span style="color:#00b4d8">500</span></span>
+                    <span class="affiliate-regulated-tag">🛡️ Reglementat de FCA · ASIC · CySEC · MAS</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Tranzacționează CFD-uri cu un Broker de Încredere, Listat Public</h3>
+                    <p class="affiliate-desc">Plus500 este reglementat de EFSA (Licența Nr. 4.1-1/18) și listat la Bursa de Valori din Londra. Tranzacționează acțiuni, forex, mărfuri și CFD-uri pe crypto.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Fără comisioane și spread-uri strânse</li>
+                        <li>✅ Cont demo gratuit — fără risc</li>
+                        <li>✅ Interfață prietenoasă cu utilizatorul</li>
+                        <li>✅ Retrageri instantanee</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="plus500-cta" style="background: linear-gradient(135deg, #00b4d8, #0077b6); color: #ffffff !important; font-weight: 700;">
+                        Deschide Cont Gratuit →
+                    </a>
+                    <a href="/reviews/plus500" class="btn-review-link" style="display: block; margin-top: 6px; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">Citește recenzia completă de siguranță ➔</a>
+                    <p class="affiliate-disclaimer">⚠️ CFD-urile sunt instrumente complexe. 80% dintre conturile investitorilor de retail pierd bani tranzacționând CFD-uri cu acest furnizor. Asigurați-vă că înțelegeți cum funcționează CFD-urile și dacă vă puteți asuma riscul ridicat de a vă pierde banii.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AvaTrade Affiliate Banner -->
+    <section class="affiliate-banner-section" id="avatrade-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,184,0,0.35); background: linear-gradient(135deg, rgba(10,34,64,0.95) 0%, rgba(5,8,15,0.95) 60%, rgba(255,184,0,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,184,0,0.15);border-color:rgba(255,184,0,0.4);color:#ffbb00;">⭐ SPONSORED PARTNER</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffbb00;font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:1px;">AVATRADE</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,184,0,0.9);border-color:rgba(255,184,0,0.3);">🛡️ Central Bank of Ireland · ASIC · FSRA · FSCA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Broker premiat și reglementat la nivel global din 2006</h3>
+                    <p class="affiliate-desc">AvaTrade este unul dintre cei mai siguri brokeri din lume, reglementat pe 6 continente. Urmărește traderi experți prin copy trading-ul DupliTrade, protejează-ți tranzacțiile cu AvaProtect și tranzacționează cu spread-uri fixe/variabile strânse.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Reglementat în 9 jurisdicții</li>
+                        <li>✅ Copy trading gratuit prin DupliTrade</li>
+                        <li>✅ Asigurare de pierderi AvaProtect™</li>
+                        <li>✅ Depozit minim de 100 $</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="avatrade-cta" style="background: linear-gradient(135deg, #ffbb00, #c69200); color: #0b1528 !important; font-weight: 700; margin-bottom: 8px;">
+                        Deschide cont gratuit →
+                    </a>
+                    <a href="/reviews/avatrade" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Citește recenzia completă de siguranță ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- XM Affiliate Banner -->
+    <section class="affiliate-banner-section" id="xm-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(200,30,40,0.35); background: linear-gradient(135deg, rgba(200,30,40,0.07) 0%, rgba(5,8,15,0.95) 60%, rgba(200,30,40,0.07) 100%);">
+            <div class="affiliate-badge" style="background:rgba(200,30,40,0.15);border-color:rgba(200,30,40,0.4);color:#e01e28;">⭐ PARTENER SPONSORIZAT</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#e01e28;">XM</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(200,30,40,0.9);border-color:rgba(200,30,40,0.3);">🛡️ Reglementat de FCA · ASIC · CySEC · DFSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Tranzacționează Forex & CFD-uri cu peste 10 milioane de traderi din întreaga lume</h3>
+                    <p class="affiliate-desc">XM Group este unul dintre cei mai de încredere brokeri din lume, reglementat în 4 jurisdicții. Alătură-te celor peste 10 milioane de clienți cu acces la 1000+ instrumente, execuție ultra-rapidă și un cont demo gratuit.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Fără recotări, fără respingeri</li>
+                        <li>✅ Bonus de bun venit gratuit de 30$</li>
+                        <li>✅ VPS gratuit pentru traderii automați</li>
+                        <li>✅ Peste 1000 de instrumente de tranzacționare</li>
+                    </ul>
+                    
+                    <!-- XM Global Private Registration Support CTA -->
+                    <div class="affiliate-notice-box" style="margin-top: 18px; padding: 12px 16px; background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.4); border-radius: 8px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.25rem;">🇪🇺</span>
+                        <div style="font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); text-align: left;">
+                            <strong>Rezident European?</strong> Obține levier de 1:1000, bonusuri de depozit și Copy Trading conform reglementărilor XM Global. 
+                            <a href="https://wa.me/393209481876?text=Hello,%20I%20want%20the%20private%20XM%20Global%20registration%20link%20and%20partner%20code." target="_blank" style="color: #34d399; font-weight: 700; text-decoration: underline; margin-left: 5px;">
+                                Discută cu noi pe WhatsApp pentru instrucțiuni de înregistrare privată →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="xm-cta" style="background: linear-gradient(135deg, #e01e28, #9b0a14); margin-bottom: 8px;">
+                        Deschide Cont Gratuit →
+                    </a>
+                    <a href="/reviews/xm" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Citește Recenzia Completă de Securitate ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFD-urile sunt instrumente complexe. Tranzacționarea implică riscuri semnificative de pierdere a banilor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- eToro Affiliate Banner -->
+    <section class="affiliate-banner-section" id="etoro-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(16,185,129,0.35); background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(5,8,15,0.95) 60%, rgba(16,185,129,0.08) 100%);">
+            <div class="affiliate-badge" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:#34d399;">⭐ PARTENER SPONSORIZAT</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#34d399;font-weight:900;">eToro</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(52,211,153,0.9);border-color:rgba(16,185,129,0.3);">🛡️ FCA · CySEC · ASIC · FINRA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Cea mai mare platformă de Social Trading din lume</h3>
+                    <p class="affiliate-desc">Alătură-te celor peste 30 de milioane de traderi din întreaga lume pe eToro. Copiază automat portofoliile celor mai buni investitori prin CopyTrader™, tranzacționează acțiuni reale cu 0% comision și accesează piețe globale.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ CopyTrader™ — Copiază automat investitori de top</li>
+                        <li>✅ 0% Comision pe tranzacționarea acțiunilor reale</li>
+                        <li>✅ Reglementat de FCA (UK), CySEC & ASIC</li>
+                        <li>✅ Peste 30 Milioane utilizatori în întreaga lume</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="javascript:void(0)" class="btn-affiliate" id="etoro-cta" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; cursor: default; opacity: 0.9; margin-bottom: 8px;">
+                        ⏳ Link Partener în Așteptarea Aprobării
+                    </a>
+                    <a href="/reviews/etoro" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Citește recenzia completă de siguranță ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFDs are complex instruments. Trading involves significant risk of loss. Only trade with money you can afford to lose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="affiliate-banner-section" id="exness-broker" style="margin-top: 20px;">
+        <div class="affiliate-banner-inner" style="border-color: rgba(255,168,0,0.35); background: linear-gradient(135deg, rgba(255,168,0,0.06) 0%, rgba(5,8,15,0.95) 60%, rgba(0,180,100,0.06) 100%);">
+            <div class="affiliate-badge" style="background:rgba(255,168,0,0.15);border-color:rgba(255,168,0,0.4);color:#ffa800;">⭐ PARTENER SPONSORIZAT</div>
+            <div class="affiliate-banner-content">
+                <div class="affiliate-logo-area">
+                    <span class="affiliate-logo-text" style="color:#ffffff;font-style:italic;">exness</span>
+                    <span class="affiliate-regulated-tag" style="color:rgba(255,168,0,0.9);border-color:rgba(255,168,0,0.3);">🛡️ Reglementat de FCA · CySEC · FSCA · FSA</span>
+                </div>
+                <div class="affiliate-text-area">
+                    <h3 class="affiliate-title">Cel mai mare broker Forex din lume ca volum</h3>
+                    <p class="affiliate-desc">Exness procesează un volum lunar de tranzacționare de peste 4 trilioane de dolari. Retrageri instantanee 24/7, spread-uri ultra-strânse și cel mai transparent broker din industrie. De încredere pentru milioane de oameni.</p>
+                    <ul class="affiliate-features">
+                        <li>✅ Retrageri instantanee 24/7</li>
+                        <li>✅ Spread-uri de la 0.0 pips</li>
+                        <li>✅ Levier nelimitat disponibil</li>
+                        <li>✅ Volum lunar de peste 4 trilioane$</li>
+                    </ul>
+                </div>
+                <div class="affiliate-cta-area">
+                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn-affiliate" id="exness-cta" style="background: linear-gradient(135deg, #ffa800, #e07000); margin-bottom: 8px;">
+                        Deschide Cont Gratuit →
+                    </a>
+                    <a href="/reviews/exness" class="btn-review-link" style="display: block; margin-bottom: 12px; color: var(--text-muted); font-size: 0.85rem; text-decoration: underline; font-weight: 500;">
+                        Citește Recenzia Completă de Securitate ➔
+                    </a>
+                    <p class="affiliate-disclaimer">⚠️ CFD-urile sunt instrumente complexe. Tranzacționarea implică riscuri semnificative de pierdere a banilor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="footer-copyright">&copy; 2026 BrokerVerifier. Toate drepturile rezervate. Creat pentru a proteja traderii împotriva escrocheriilor financiare. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <div class="footer-contact">
+                <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Asistență Clienți:</span>
+                <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>
+                <a href="https://wa.me/393209481876" target="_blank" class="contact-link"><i class="fa-brands fa-whatsapp"></i> Suport Chat Live</a>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script src="../app.js"></script>
+</body>
+</html>
