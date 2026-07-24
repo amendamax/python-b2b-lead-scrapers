@@ -160,20 +160,22 @@ const brokerTranslations = {
 const currentLang = (document.documentElement.lang || 'en').toLowerCase();
 
 const i18n = {
-    en: {
+        en: {
         typePending: "Type: Pending Audit",
         typeCompleted: "Type: Forensic Audit Completed",
         sourcePrefix: "Source: Forensic Verification ID",
-        lockedRed: "${t.lockedRed}",
-        lockedGreen: "${t.lockedGreen}",
-        noRisk: t.noRisk,
-        noSafety: t.noSafety,
-        verifiedPartner: "${t.verifiedPartner}",
+        lockedRed: "[LOCKED] Audit reports are restricted. Unlock full report to reveal active threat flags.",
+        lockedGreen: "[LOCKED] Audit reports are restricted. Unlock full report to reveal security assets.",
+        noRisk: "No imminent risk factors identified.",
+        noSafety: "No solid safety elements identified.",
+        verifiedPartner: "🟢 Verified & Regulated Safe Broker Partner",
         openAccount: "Open Official Account at",
         euResidentTitle: "European Resident?",
-        euResidentText: "${t.euResidentText}",
-        euWhatsappLink: "${t.euWhatsappLink}",
-        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen", goodScore: "Good Score (Safe)", warningRisk: "Warning / Medium Risk",
+        euResidentText: "Get 1:1000 leverage, deposit bonuses, and Copy Trading under XM Global regulations.",
+        euWhatsappLink: "Chat with us on WhatsApp for private registration instructions →",
+        excellentScore: "Excellent Score",
+        goodScore: "Good Score (Safe)",
+        warningRisk: "Warning / Medium Risk",
         highRisk: "High Risk",
         scamAlert: "Fraud Warning / Blacklisted",
         awaitingEval: "Awaiting Evaluation",
