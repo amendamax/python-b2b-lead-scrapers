@@ -649,7 +649,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Load default broker (XM Group) on startup with API integration
-    executeScan("XM Group", "xm.com");
+    // executeScan("XM Group", "xm.com"); // Disabled auto-scan on startup to show clean homepage
 });
 
 // Quick Ticker Chip Click Handler
