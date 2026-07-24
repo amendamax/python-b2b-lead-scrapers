@@ -735,8 +735,18 @@ async function fetchResults(scanId) {
 
         // Render partner affiliate CTA box if available
         let partnerBox = document.getElementById("partner-cta-box");
-        const affLink = data.affiliate_link || (data.broker_domain.includes("exness") || data.broker_name.toLowerCase().includes("exness") ? "https://one.exnessonelink.com/a/hb0ywi6abh" : null);
-        if (affLink) {
+        const bClean = (data.broker_domain || data.broker_name).toLowerCase().replace('.com','').replace(/\s+/g,'');
+        const isPartnerBroker = ["exness", "etoro", "plus500", "xm", "avatrade"].some(p => bClean.includes(p));
+        
+        let affLink = data.affiliate_link;
+        if (!affLink && bClean.includes("exness")) {
+            affLink = "https://one.exnessonelink.com/a/hb0ywi6abh";
+        }
+        if (!affLink && isPartnerBroker) {
+            affLink = "javascript:void(0)";
+        }
+
+        if (isPartnerBroker || (affLink && affLink !== "javascript:void(0)")) {
             if (!partnerBox) {
                 partnerBox = document.createElement("div");
                 partnerBox.id = "partner-cta-box";
@@ -769,9 +779,15 @@ async function fetchResults(scanId) {
                     ${t.freeWaiverNote}
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 0 auto;">
+                    ${(affLink && affLink !== "javascript:void(0)") ? `
                     <a href="${affLink}" target="_blank" rel="noopener" style="display: block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
                         ${t.openAccount} ${data.broker_name} ↗
                     </a>
+                    ` : `
+                    <div style="background: rgba(148, 163, 184, 0.15); border: 1px solid rgba(148, 163, 184, 0.3); color: #94a3b8; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.88rem;">
+                        ⏳ Partner Link Pending Approval / Link în Așteptare
+                    </div>
+                    `}
                     <a href="${reviewUrl}" target="_blank" rel="noopener" style="display: block; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; padding: 11px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.92rem; transition: all 0.2s ease;">
                         ${t.readReviewLabel}
                     </a>

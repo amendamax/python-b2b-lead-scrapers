@@ -1822,6 +1822,36 @@ static_broker_db = {
         "mockRegStatus": "MATCH: Active licenses found at CySEC (CY), ASIC (AU), FCA (UK), DFSA (AE)",
         "affiliateLink": "https://clicks.pipaffiliates.com/c?c=1262407&l=it&p=1"
     },
+    "avatrade.com": {
+        "name": "AvaTrade",
+        "type": "Forex & CFD Broker",
+        "score": 96,
+        "source": "Official Database (CBI, ASIC, FSCA, CySEC, FSA)",
+        "verdictTitle": "Highly Secure & Multi-Regulated Broker",
+        "verdictText": "AvaTrade is a global trading pioneer founded in 2006, regulated across 9 international jurisdictions including Europe, Australia, Japan, and South Africa.",
+        "redFlags": ["Inactivity fee applied after 3 consecutive months of non-use."],
+        "greenFlags": ["Regulated across 9 global jurisdictions (Central Bank of Ireland, ASIC, FSCA, CySEC, FSA).", "Established track record since 2006 (18+ years of operation).", "Segregated client accounts in top-tier global banks.", "Free AvaProtect risk management tool."],
+        "mockIp": "104.21.32.18",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2006-03-15 (20 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at Central Bank of Ireland, ASIC (AU), FSCA (ZA), CySEC (CY)",
+        "affiliateLink": "https://www.avatrade.com/trading-account?tag=225575"
+    },
+    "avatrade": {
+        "name": "AvaTrade",
+        "type": "Forex & CFD Broker",
+        "score": 96,
+        "source": "Official Database (CBI, ASIC, FSCA, CySEC, FSA)",
+        "verdictTitle": "Highly Secure & Multi-Regulated Broker",
+        "verdictText": "AvaTrade is a global trading pioneer founded in 2006, regulated across 9 international jurisdictions including Europe, Australia, Japan, and South Africa.",
+        "redFlags": ["Inactivity fee applied after 3 consecutive months of non-use."],
+        "greenFlags": ["Regulated across 9 global jurisdictions (Central Bank of Ireland, ASIC, FSCA, CySEC, FSA).", "Established track record since 2006 (18+ years of operation).", "Segregated client accounts in top-tier global banks.", "Free AvaProtect risk management tool."],
+        "mockIp": "104.21.32.18",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "2006-03-15 (20 years ago)",
+        "mockRegStatus": "MATCH: Active licenses found at Central Bank of Ireland, ASIC (AU), FSCA (ZA), CySEC (CY)",
+        "affiliateLink": "https://www.avatrade.com/trading-account?tag=225575"
+    },
     "plus500.com": {
         "name": "Plus500",
         "type": "CFD & Stock Broker",
