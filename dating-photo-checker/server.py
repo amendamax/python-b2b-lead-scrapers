@@ -2294,7 +2294,14 @@ async def download_broker_pdf(scan_id: str):
         
     payment_status, score, name, domain, ip, hoster, domain_age, red_flags, green_flags, v_title, v_text, created_at, email = row
     
-    if payment_status != "paid":
+    clean_domain = domain.lower().strip()
+    clean_name = name.lower().strip()
+    is_free_partner = any(
+        p in clean_domain or p in clean_name or clean_name in p or p in clean_domain
+        for p in ["exness", "etoro", "plus500", "xm", "avatrade"]
+    )
+    
+    if payment_status != "paid" and not is_free_partner:
         raise HTTPException(status_code=402, detail="Payment required to download this report.")
 
     # Parse flags
