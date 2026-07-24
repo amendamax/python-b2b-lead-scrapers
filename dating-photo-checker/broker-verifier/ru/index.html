@@ -59,6 +59,33 @@
             <div id="suggestions-box" class="autocomplete-suggestions"></div>
             
             <!-- Quick Actions -->
+                        <!-- Popular Searches Ticker -->
+            <div class="recent-audits-ticker" style="margin-top: 1rem; margin-bottom: 1rem;">
+                <!-- Row 1: Verified Safe Brokers -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label safe">🟢 Проверенные безопасные брокеры</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
+                    </div>
+                </div>
+
+                <!-- Row 2: Blacklisted Scam Warnings -->
+                <div class="ticker-group">
+                    <span class="ticker-group-label danger">🚨 Черный список мошенников</span>
+                    <div class="ticker-chips">
+                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                    </div>
+                </div>
+            </div>
+
             <div class="alternative-actions">
                 <span>Брокера нет в базе данных?</span>
                 <button id="open-wizard-btn" class="btn btn-wizard-trigger">🛡️ Анализировать нового брокера</button>
