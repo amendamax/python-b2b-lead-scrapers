@@ -1361,6 +1361,15 @@ async def get_admin_dashboard(token: str = None):
         .grid {{ max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }}
     </style>
     <script>
+        // Auto refresh live admin dashboard every 15 seconds
+        setInterval(() => {{
+            window.location.reload();
+        }}, 15000);
+
+        function refreshNow() {{
+            window.location.reload();
+        }}
+
         function markPaid(scanId) {{
             if (confirm("Are you sure you want to manually mark this scan as PAID and unlock the report?")) {{
                 const token = new URLSearchParams(window.location.search).get('token');
@@ -1392,10 +1401,11 @@ async def get_admin_dashboard(token: str = None):
 <body>
     <div class="header">
         <div>
-            <h1 style="margin:0;font-size:26px;color:#F8FAFC;display:flex;align-items:center;gap:10px;">🔍 VerifyDating Live Scans</h1>
+            <h1 style="margin:0;font-size:26px;color:#F8FAFC;display:flex;align-items:center;gap:10px;">🔍 VerifyDating Live Scans <span style="font-size:12px;background:rgba(16,185,129,0.2);color:#34d399;padding:4px 10px;border-radius:20px;border:1px solid rgba(16,185,129,0.4);font-weight:600;">● Live Auto-Refresh (15s)</span></h1>
             <p style="margin:6px 0 0 0;font-size:14px;color:#94A3B8;">Real-time visual gallery of user uploaded photos, AI biometric risk & payment status</p>
         </div>
         <div class="stats" style="align-items:center;">
+            <button onclick="refreshNow()" style="background:#3B82F6;color:#fff;border:none;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s;" onmouseover="this.style.background='#2563EB'" onmouseout="this.style.background='#3B82F6'">🔄 Refresh Now</button>
             <div class="stat-box">
                 <div class="stat-value">{total_scans}</div>
                 <div class="stat-label">Total Scans</div>
