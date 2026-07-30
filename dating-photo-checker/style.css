@@ -31,10 +31,15 @@
     box-sizing: border-box;
 }
 
-html, body {
+html {
+    background-color: var(--bg-dark) !important;
+}
+
+body {
     width: 100%;
     font-family: var(--font-body);
-    background-color: var(--bg-dark) !important;
+    background-color: transparent !important;
+    background-image: none !important;
     color: var(--text-main);
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -47,7 +52,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -10;
+    z-index: -1;
     background-image: linear-gradient(rgba(9, 7, 15, 0.55), rgba(9, 7, 15, 0.55)), url('dating_bg.jpg') !important;
     background-repeat: no-repeat;
     background-size: cover;
