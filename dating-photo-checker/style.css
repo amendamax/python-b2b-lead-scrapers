@@ -1542,6 +1542,7 @@ html, body {
     html, body {
         background-attachment: scroll !important;
         background-position: center center !important;
+        height: auto !important;
     }
     
     .live-activity-section {
