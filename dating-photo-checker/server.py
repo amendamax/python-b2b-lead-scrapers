@@ -299,6 +299,14 @@ async def get_js(request: Request):
             return FileResponse("broker-verifier/app.js")
     return FileResponse("app.js")
 
+@app.get("/tech_bg.jpg")
+async def get_tech_bg(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
+        if os.path.exists("broker-verifier/tech_bg.jpg"):
+            return FileResponse("broker-verifier/tech_bg.jpg")
+    return FileResponse("tech_bg.jpg")
+
 @app.get("/guides/{filename}")
 async def get_guide(filename: str, request: Request):
     host = request.headers.get("host", "").lower()
@@ -412,6 +420,13 @@ async def get_og_image():
     if os.path.exists(path):
         return FileResponse(path, media_type="image/png")
     raise HTTPException(status_code=404, detail="OG Image not found")
+
+@app.get("/og_image.jpg")
+async def get_og_image_jpg():
+    path = os.path.join("broker-verifier", "og_image.jpg")
+    if os.path.exists(path):
+        return FileResponse(path, media_type="image/jpeg")
+    raise HTTPException(status_code=404, detail="OG Image JPG not found")
 
 # Mount the broker-verifier directory statically
 # This makes it accessible at verifydating.net/broker-verifier/
@@ -1710,7 +1725,8 @@ static_broker_db = {
         "mockIp": "104.21.40.11",
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2007-01-15 (19 years ago)",
-        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)"
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)",
+        "affiliateLink": "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx"
     },
     "etoro": {
         "name": "eToro",
@@ -1728,7 +1744,8 @@ static_broker_db = {
         "mockIp": "104.21.40.11",
         "mockHoster": "Cloudflare Enterprise CDN",
         "mockDomainAge": "2007-01-15 (19 years ago)",
-        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)"
+        "mockRegStatus": "MATCH: Active licenses found at FCA (UK), CySEC (CY), ASIC (AU), FINRA (US)",
+        "affiliateLink": "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx"
     },
     "avatrade.com": {
         "name": "AvaTrade",

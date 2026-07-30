@@ -742,6 +742,9 @@ async function fetchResults(scanId) {
         if (!affLink && bClean.includes("exness")) {
             affLink = "https://one.exnessonelink.com/a/hb0ywi6abh";
         }
+        if (!affLink && bClean.includes("etoro")) {
+            affLink = "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx";
+        }
         if (!affLink && isPartnerBroker) {
             affLink = "javascript:void(0)";
         }

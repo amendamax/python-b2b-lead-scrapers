@@ -341,6 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
         stateScanning.style.display = 'none';
         stateResults.style.display = 'flex';
         
+        // Save scanId in session storage for persistence on refresh
+        if (currentScanId) {
+            sessionStorage.setItem('verifydating_current_scan_id', currentScanId);
+            startAutoUnlockPolling(currentScanId);
+        }
+
         // Hide paywall & unlocked areas to default paywall state
         resultsPaywall.style.display = 'flex';
         unlockedPremiumDetails.style.display = 'none';
@@ -824,6 +830,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 "></iframe>
             `;
         });
+    }
+
+    // Auto-unlock polling function & session restore on page refresh
+    let autoUnlockTimer = null;
+    function startAutoUnlockPolling(scanId) {
+        if (autoUnlockTimer) clearInterval(autoUnlockTimer);
+        autoUnlockTimer = setInterval(async () => {
+            try {
+                const res = await fetch(`/api/results/${scanId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && (data.payment_status === 'paid' || data.unlocked || data.matches)) {
+                        clearInterval(autoUnlockTimer);
+                        renderPremiumDetails(data);
+                        const resultsPaywallEl = document.getElementById('results-paywall');
+                        const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
+                        if (resultsPaywallEl) resultsPaywallEl.style.display = 'none';
+                        if (unlockedPremiumEl) {
+                            unlockedPremiumEl.style.display = 'block';
+                            unlockedPremiumEl.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Polling error: ", err);
+            }
+        }, 2000); // Check every 2 seconds for instant admin unlock
+    }
+
+    // Check for saved scan in sessionStorage on page load/refresh
+    const savedScanId = sessionStorage.getItem('verifydating_current_scan_id');
+    if (savedScanId) {
+        fetch(`/api/results/${savedScanId}`).then(r => r.json()).then(data => {
+            if (data && (data.payment_status === 'paid' || data.unlocked || data.matches)) {
+                renderPremiumDetails(data);
+                const stateUploadEl = document.getElementById('state-upload');
+                const stateResultsEl = document.getElementById('state-results');
+                const resultsPaywallEl = document.getElementById('results-paywall');
+                const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
+                
+                if (stateUploadEl) stateUploadEl.style.display = 'none';
+                if (stateResultsEl) stateResultsEl.style.display = 'flex';
+                if (resultsPaywallEl) resultsPaywallEl.style.display = 'none';
+                if (unlockedPremiumEl) unlockedPremiumEl.style.display = 'block';
+            } else if (savedScanId) {
+                currentScanId = savedScanId;
+                startAutoUnlockPolling(savedScanId);
+            }
+        }).catch(e => console.error("Restore scan error: ", e));
     }
 });
 
