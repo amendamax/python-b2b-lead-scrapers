@@ -1526,6 +1526,7 @@ body {
     text-decoration: underline;
     text-align: center;
     width: 100%;
+    margin-top: 8px !important;
 }
 .btn-table-review:hover {
     color: #ffffff !important;
