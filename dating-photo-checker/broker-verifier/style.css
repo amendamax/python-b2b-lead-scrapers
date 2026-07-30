@@ -67,6 +67,7 @@ body::before {
     background-size: cover;
     background-position: center center;
     pointer-events: none;
+    filter: brightness(1.22);
 }
 
 

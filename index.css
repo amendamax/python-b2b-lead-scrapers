@@ -863,7 +863,7 @@ footer p {
         height: 220px !important;
     }
     
-    .project-visual span[style*="font-size"] {
+    .project-visual span:first-child {
         font-size: 3rem !important;
     }
     
