@@ -96,13 +96,13 @@ h1, h2, h3, h4 {
 
 /* Glassmorphic Panel Styles */
 .panel {
-    background: var(--bg-card);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(8, 12, 22, 0.82) 100%) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: var(--shadow-main);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.06) !important;
     transition: var(--transition-smooth);
 }
 
