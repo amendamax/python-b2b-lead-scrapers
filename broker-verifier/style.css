@@ -42,16 +42,27 @@
 
 body {
     background-color: #070b13 !important;
-    background-image: url('tech_bg.jpg') !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-attachment: fixed !important;
-    background-position: center !important;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background-image: url('tech_bg.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    pointer-events: none;
 }
 
 
@@ -1536,11 +1547,6 @@ body {
    MOBILE COMPACT STYLES FOR BROKER ROWS
    ========================================================================== */
 @media (max-width: 768px) {
-    body {
-        background-attachment: scroll !important;
-        background-position: center center !important;
-    }
-    
     .broker-row {
         display: grid !important;
         grid-template-columns: auto 1fr auto !important;
