@@ -22,7 +22,7 @@
 
 body {
     background-color: var(--bg-dark);
-    background-image: url('/dating_bg.jpg') !important;
+    background-image: url('/dev_bg.jpg') !important;
     background-attachment: fixed !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
