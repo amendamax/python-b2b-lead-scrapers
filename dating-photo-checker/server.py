@@ -311,18 +311,18 @@ async def get_js(request: Request):
             return FileResponse("broker-verifier/app.js")
     return FileResponse("app.js")
 
-@app.get("/tech_bg.jpg")
+@app.get("/tech_bg.webp")
 async def get_tech_bg(request: Request):
     host = request.headers.get("host", "").lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
-        if os.path.exists("broker-verifier/tech_bg.jpg"):
-            return FileResponse("broker-verifier/tech_bg.jpg")
-    return FileResponse("tech_bg.jpg")
+        if os.path.exists("broker-verifier/tech_bg.webp"):
+            return FileResponse("broker-verifier/tech_bg.webp")
+    return FileResponse("tech_bg.webp")
 
-@app.get("/dating_bg.jpg")
+@app.get("/dating_bg.webp")
 async def get_dating_bg():
-    if os.path.exists("dating_bg.jpg"):
-        return FileResponse("dating_bg.jpg")
+    if os.path.exists("dating_bg.webp"):
+        return FileResponse("dating_bg.webp")
     return JSONResponse(status_code=404, content={"message": "Dating background not found"})
 
 @app.get("/dev_bg.webp")
