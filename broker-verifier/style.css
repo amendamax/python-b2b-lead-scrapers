@@ -8,7 +8,7 @@
 :root {
     /* Color Palette */
     --bg-main: #080c14;
-    --bg-card: rgba(8, 12, 22, 0.48);
+    --bg-card: rgba(8, 12, 22, 0.72);
     --bg-card-hover: rgba(25, 37, 61, 0.55);
     --border-color: rgba(255, 255, 255, 0.07);
     
@@ -1334,7 +1334,7 @@ body {
 }
 
 .broker-row-wrapper {
-    background: rgba(11, 21, 40, 0.48) !important;
+    background: rgba(11, 21, 40, 0.60) !important;
     backdrop-filter: blur(14px) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
