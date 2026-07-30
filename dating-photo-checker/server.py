@@ -291,6 +291,18 @@ async def get_css(request: Request):
             return FileResponse("broker-verifier/style.css")
     return FileResponse("style.css")
 
+@app.get("/index.css")
+async def get_index_css(request: Request):
+    if os.path.exists("index.css"):
+        return FileResponse("index.css")
+    return JSONResponse(status_code=404, content={"message": "Index CSS not found"})
+
+@app.get("/favicon.svg")
+async def get_favicon():
+    if os.path.exists("favicon.svg"):
+        return FileResponse("favicon.svg")
+    return JSONResponse(status_code=404, content={"message": "Favicon not found"})
+
 @app.get("/app.js")
 async def get_js(request: Request):
     host = request.headers.get("host", "").lower()
