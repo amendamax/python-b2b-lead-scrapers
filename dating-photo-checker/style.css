@@ -172,9 +172,10 @@ html, body {
     line-height: 1.1;
     margin-bottom: 15px;
     letter-spacing: -1px;
+    color: #ffffff !important;
     background: linear-gradient(135deg, #ffffff 30%, #a49fc6 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent !important;
 }
 
 .hero-subtitle {
@@ -1541,6 +1542,14 @@ html, body {
     html, body {
         background-attachment: scroll !important;
         background-position: center center !important;
+    }
+    
+    .live-activity-section {
+        width: 100% !important;
+        position: static !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 20px 15px !important;
     }
 }
 
