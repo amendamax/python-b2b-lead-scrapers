@@ -8,8 +8,8 @@
 :root {
     /* Color Palette */
     --bg-main: #080c14;
-    --bg-card: rgba(18, 27, 45, 0.7);
-    --bg-card-hover: rgba(25, 37, 61, 0.85);
+    --bg-card: rgba(8, 12, 22, 0.48);
+    --bg-card-hover: rgba(25, 37, 61, 0.55);
     --border-color: rgba(255, 255, 255, 0.07);
     
     --color-primary: #38bdf8;       /* Cyber Blue */
@@ -39,18 +39,21 @@
     box-sizing: border-box;
 }
 
+
 body {
-    background-color: var(--bg-main);
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%);
-    background-attachment: fixed;
+    background-color: #070b13 !important;
+    background-image: url('tech_bg.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
 }
+
 
 h1, h2, h3, h4 {
     font-family: 'Outfit', sans-serif;
@@ -94,8 +97,8 @@ h1, h2, h3, h4 {
 /* Glassmorphic Panel Styles */
 .panel {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 2rem;
@@ -116,7 +119,7 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     border-radius: 12px;
-    background: rgba(10, 15, 26, 0.8);
+    background: rgba(8, 12, 22, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     transition: var(--transition-smooth);
     overflow: hidden;
@@ -633,7 +636,7 @@ h1, h2, h3, h4 {
     width: 100%;
     padding: 1.1rem;
     border-radius: 12px;
-    background: rgba(10, 15, 26, 0.8);
+    background: rgba(8, 12, 22, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     font-size: 1rem;
@@ -668,19 +671,21 @@ h1, h2, h3, h4 {
     padding: 1.5rem !important;
 }
 
-.terminal-body {
-    background: rgba(5, 8, 15, 0.95);
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    font-size: 0.76rem;
-    padding: 1rem;
-    border-radius: 8px;
-    height: 160px;
-    overflow-y: auto;
-    color: #10b981;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    line-height: 1.5;
-    text-align: left;
+.terminal-
+body {
+    background-color: #070b13 !important;
+    background-image: url('tech_bg.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
+
 
 .terminal-line {
     margin-bottom: 0.35rem;
@@ -1235,4 +1240,278 @@ h1, h2, h3, h4 {
 .ticker-chip.danger {
     border-color: rgba(239, 68, 68, 0.3);
     color: #fca5a5;
+}
+
+
+/* ==========================================================================
+   IsBrokerSafe UI/UX Facelift - Local Styling Experiments
+   ========================================================================== */
+
+/* Modern glow highlights for search input wrapper */
+.search-box-wrapper {
+    background: rgba(10, 15, 26, 0.9) !important;
+    border-color: rgba(56, 189, 248, 0.2) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+.search-box-wrapper:focus-within {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 25px var(--color-primary-glow) !important;
+}
+
+/* Card facelift: Transition and hover styling */
+.affiliate-banner-inner {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+}
+
+/* Plus500 card glow */
+#trusted-brokers .affiliate-banner-inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 180, 216, 0.6) !important;
+    box-shadow: 0 15px 35px rgba(0, 180, 216, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* AvaTrade card glow */
+#avatrade-broker .affiliate-banner-inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 184, 0, 0.6) !important;
+    box-shadow: 0 15px 35px rgba(255, 184, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* eToro card glow */
+#etoro-broker .affiliate-banner-inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, 0.6) !important;
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Exness card glow */
+#exness-broker .affiliate-banner-inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 168, 0, 0.6) !important;
+    box-shadow: 0 15px 35px rgba(255, 168, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* XM card glow */
+#xm-broker .affiliate-banner-inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 30, 40, 0.6) !important;
+    box-shadow: 0 15px 35px rgba(200, 30, 40, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Premium micro-animations for affiliate buttons */
+.btn-affiliate {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn-affiliate:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    filter: brightness(1.12) !important;
+}
+
+/* Review links hover under buttons */
+.btn-review-link {
+    transition: color 0.25s ease !important;
+}
+.btn-review-link:hover {
+    color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   Table Comparison Dashboard Facelift - Exact Mockup Alignment
+   ========================================================================== */
+
+.broker-table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.broker-row-wrapper {
+    background: rgba(11, 21, 40, 0.48) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.broker-row-wrapper:hover {
+    transform: translateY(-2px);
+}
+
+/* Glow colors */
+.broker-row-wrapper.xm-w { border-color: rgba(224, 30, 40, 0.2); }
+.broker-row-wrapper.xm-w:hover {
+    border-color: #e01e28;
+    box-shadow: 0 0 25px rgba(224, 30, 40, 0.3), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.broker-row-wrapper.etoro-w { border-color: rgba(16, 185, 129, 0.2); }
+.broker-row-wrapper.etoro-w:hover {
+    border-color: #10b981;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.3), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.broker-row-wrapper.plus500-w { border-color: rgba(0, 180, 216, 0.2); }
+.broker-row-wrapper.plus500-w:hover {
+    border-color: #00b4d8;
+    box-shadow: 0 0 25px rgba(0, 180, 216, 0.3), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.broker-row-wrapper.avatrade-w { border-color: rgba(255, 184, 0, 0.2); }
+.broker-row-wrapper.avatrade-w:hover {
+    border-color: #ffbb00;
+    box-shadow: 0 0 25px rgba(255, 184, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.broker-row-wrapper.exness-w { border-color: rgba(255, 255, 255, 0.1); }
+.broker-row-wrapper.exness-w:hover {
+    border-color: #ffffff;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.broker-row {
+    display: grid;
+    grid-template-columns: 80px 145px 120px 110px 1fr 180px;
+    align-items: center;
+    gap: 16px;
+}
+
+.row-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divider-col {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 16px;
+    height: 48px;
+}
+
+/* Rank column style */
+.rank-top {
+    font-weight: 800;
+    font-size: 0.95rem;
+    font-family: 'Outfit', sans-serif;
+}
+.rank-top.red { color: #e01e28; }
+.rank-top.green { color: #34d399; }
+.rank-top.blue { color: #00b4d8; }
+.rank-top.gold { color: #ffbb00; }
+.rank-top.white { color: #ffffff; }
+
+.rank-id {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 2px;
+    font-family: monospace;
+}
+
+/* Logo column style */
+.logo-col-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Stars column style */
+.stars-val {
+    color: #fbbf24;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+.stars-lbl {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Score column style */
+.score-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+}
+.score-lbl {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Info column style */
+.info-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+.info-desc {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* Action column style */
+.btn-table-action {
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+.btn-table-action:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.12);
+}
+.btn-table-review {
+    font-size: 0.78rem;
+    color: #64748b !important;
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 6px;
+}
+.btn-table-review:hover {
+    color: #ffffff !important;
+}
+
+@media (max-width: 992px) {
+    .broker-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+    }
+    .divider-col {
+        border-right: none;
+        padding-right: 0;
+        height: auto;
+        align-items: center;
+    }
+    .stars-val {
+        text-align: center;
+    }
+    .logo-col-inner {
+        justify-content: center;
+    }
 }
