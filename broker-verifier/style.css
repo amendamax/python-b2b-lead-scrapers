@@ -62,7 +62,7 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: url('tech_bg.jpg') !important;
+    background-image: url('tech_bg.webp') !important;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -690,7 +690,7 @@ h1, h2, h3, h4 {
 .terminal-
 body {
     background-color: #070b13 !important;
-    background-image: url('tech_bg.jpg') !important;
+    background-image: url('tech_bg.webp') !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
     background-attachment: fixed !important;

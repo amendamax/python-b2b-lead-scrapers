@@ -325,10 +325,10 @@ async def get_dating_bg():
         return FileResponse("dating_bg.jpg")
     return JSONResponse(status_code=404, content={"message": "Dating background not found"})
 
-@app.get("/dev_bg.jpg")
+@app.get("/dev_bg.webp")
 async def get_dev_bg():
-    if os.path.exists("dev_bg.jpg"):
-        return FileResponse("dev_bg.jpg")
+    if os.path.exists("dev_bg.webp"):
+        return FileResponse("dev_bg.webp")
     return JSONResponse(status_code=404, content={"message": "Dev background not found"})
 
 @app.get("/guides/{filename}")
