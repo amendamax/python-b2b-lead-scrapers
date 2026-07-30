@@ -832,6 +832,24 @@ footer p {
 }
 
 @media (max-width: 768px) {
+    body {
+        background-attachment: scroll !important;
+        background-position: center center !important;
+    }
+    
+    .project-visual > div {
+        height: 220px !important;
+    }
+    
+    .project-visual span[style*="font-size"] {
+        font-size: 3rem !important;
+    }
+    
+    .project-item {
+        padding: 1.5rem !important;
+        gap: 1.5rem !important;
+    }
+
     .hamburger-menu {
         display: flex;
     }
@@ -877,6 +895,9 @@ footer p {
 }
 
 @media (max-width: 640px) {
+    .cap-card {
+        padding: 1.75rem !important;
+    }
     .hero-title {
         font-size: 2.3rem;
     }

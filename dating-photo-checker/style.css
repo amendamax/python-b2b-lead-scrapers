@@ -1537,6 +1537,13 @@ html, body {
 /* ==========================================================================
    MEDIA QUERIES (RESPONSIVENESS)
    ========================================================================== */
+@media (max-width: 768px) {
+    html, body {
+        background-attachment: scroll !important;
+        background-position: center center !important;
+    }
+}
+
 @media (max-width: 991px) {
     .scanner-grid {
         grid-template-columns: 1fr;
