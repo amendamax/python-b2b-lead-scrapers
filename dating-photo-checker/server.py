@@ -307,6 +307,12 @@ async def get_tech_bg(request: Request):
             return FileResponse("broker-verifier/tech_bg.jpg")
     return FileResponse("tech_bg.jpg")
 
+@app.get("/dating_bg.jpg")
+async def get_dating_bg():
+    if os.path.exists("dating_bg.jpg"):
+        return FileResponse("dating_bg.jpg")
+    return JSONResponse(status_code=404, content={"message": "Dating background not found"})
+
 @app.get("/guides/{filename}")
 async def get_guide(filename: str, request: Request):
     host = request.headers.get("host", "").lower()
