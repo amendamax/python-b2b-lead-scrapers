@@ -3,7 +3,7 @@
    ========================================================================== */
 :root {
     --bg-dark: #09070f;
-    --card-bg: linear-gradient(135deg, rgba(255, 42, 116, 0.05) 0%, rgba(9, 7, 15, 0.85) 100%);
+    --card-bg: linear-gradient(135deg, rgba(255, 42, 116, 0.06) 0%, rgba(9, 7, 15, 0.94) 100%);
     --card-border: rgba(255, 42, 116, 0.22);
     --card-border-hover: rgba(255, 42, 116, 0.45);
     
@@ -36,7 +36,7 @@ html, body {
     height: 100%;
     font-family: var(--font-body);
     background-color: var(--bg-dark) !important;
-    background-image: url('dating_bg.jpg') !important;
+    background-image: linear-gradient(rgba(9, 7, 15, 0.55), rgba(9, 7, 15, 0.55)), url('dating_bg.jpg') !important;
     background-attachment: fixed !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
