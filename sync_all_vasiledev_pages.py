@@ -89,10 +89,7 @@ if os.path.exists(ro_path):
                     <div style="background: linear-gradient(135deg, #180e29 0%, #09070f 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(255, 42, 116, 0.3);">
                         <span style="font-size: 4.5rem;">💖</span>
                         <span style="background: rgba(255,42,116,0.15); color: #ff2a74; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(255,42,116,0.3);">🟢 PLATFORMĂ SAAS LIVE</span>
-                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; text-align: left; background: rgba(12, 9, 21, 0.9); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,42,116,0.2);">
-                            <h4 style="color: #ff2a74; font-size: 1.1rem; margin-bottom: 3px;">VerifyDating.net</h4>
-                            <p style="font-size: 0.78rem; color: #94a3b8;">Sistem AI de Recunoaștere Facială Biometrică și Apărare Anti-Scam</p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="project-info">
@@ -125,10 +122,7 @@ if os.path.exists(ro_path):
                     <div style="background: linear-gradient(135deg, #0b172a 0%, #050914 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3);">
                         <span style="font-size: 4.5rem;">📈</span>
                         <span style="background: rgba(56,189,248,0.15); color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(56,189,248,0.3);">🟢 PLATFORMĂ SAAS LIVE</span>
-                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; text-align: left; background: rgba(5, 9, 20, 0.9); padding: 12px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.2);">
-                            <h4 style="color: #38bdf8; font-size: 1.1rem; margin-bottom: 3px;">IsBrokerSafe.com</h4>
-                            <p style="font-size: 0.78rem; color: #94a3b8;">Sistem de Securitate Financiară și Verificare Brokeri</p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="project-info">
@@ -249,10 +243,7 @@ if os.path.exists(it_path):
                     <div style="background: linear-gradient(135deg, #180e29 0%, #09070f 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(255, 42, 116, 0.3);">
                         <span style="font-size: 4.5rem;">💖</span>
                         <span style="background: rgba(255,42,116,0.15); color: #ff2a74; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(255,42,116,0.3);">🟢 PIATTAFORMA SAAS LIVE</span>
-                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; text-align: left; background: rgba(12, 9, 21, 0.9); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,42,116,0.2);">
-                            <h4 style="color: #ff2a74; font-size: 1.1rem; margin-bottom: 3px;">VerifyDating.net</h4>
-                            <p style="font-size: 0.78rem; color: #94a3b8;">Sistema AI di Riconoscimento Facciale Biometrico e Difesa Anti-Scam</p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="project-info">
@@ -285,10 +276,7 @@ if os.path.exists(it_path):
                     <div style="background: linear-gradient(135deg, #0b172a 0%, #050914 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.3);">
                         <span style="font-size: 4.5rem;">📈</span>
                         <span style="background: rgba(56,189,248,0.15); color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(56,189,248,0.3);">🟢 PIATTAFORMA SAAS LIVE</span>
-                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; text-align: left; background: rgba(5, 9, 20, 0.9); padding: 12px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.2);">
-                            <h4 style="color: #38bdf8; font-size: 1.1rem; margin-bottom: 3px;">IsBrokerSafe.com</h4>
-                            <p style="font-size: 0.78rem; color: #94a3b8;">Sistema di Intelligence Finanziaria e Verifica Broker</p>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="project-info">
