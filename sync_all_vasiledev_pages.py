@@ -109,8 +109,8 @@ if os.path.exists(ro_path):
                     </div>
                     
                     <div class="project-buttons">
-                        <a href="https://github.com/amendamax" class="btn btn-primary" target="_blank" rel="noopener">Vezi Profilul GitHub 🐙</a>
-                        <a href="#contact" class="btn btn-secondary">Discută Integrări Personalizate 📨</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vezi Arhitectura & Metricile pe GitHub 🐙</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentație & Reguli de Risc 📐</a>
                     </div>
                 </div>
             </div>
@@ -327,8 +327,8 @@ if os.path.exists(it_path):
                     </div>
                     
                     <div class="project-buttons">
-                        <a href="https://github.com/amendamax" class="btn btn-primary" target="_blank" rel="noopener">Vedi Profilo GitHub 🐙</a>
-                        <a href="#contact" class="btn btn-secondary">Parla di Integrazioni Personalizzate 📨</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vedi Architettura & Metriche su GitHub 🐙</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentazione & Regole di Rischio 📐</a>
                     </div>
                 </div>
             </div>
