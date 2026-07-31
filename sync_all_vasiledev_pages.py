@@ -110,8 +110,9 @@ if os.path.exists(ro_path):
                     </div>
                     
                     <div class="project-buttons">
-                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vezi Arhitectura & Metricile pe GitHub 🐙</a>
-                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentație & Reguli de Risc 📐</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vezi Arhitectura pe GitHub 🐙</a>
+                        <a href="/AI_Quantitative_Trading_Fleet_Report.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Vezi Raport PDF (.pdf) 📄</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentație & Reguli 📐</a>
                     </div>
                 </div>
             </div>
@@ -329,8 +330,9 @@ if os.path.exists(it_path):
                     </div>
                     
                     <div class="project-buttons">
-                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vedi Architettura & Metriche su GitHub 🐙</a>
-                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentazione & Regole di Rischio 📐</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet" class="btn btn-primary" target="_blank" rel="noopener">Vedi Architettura su GitHub 🐙</a>
+                        <a href="/AI_Quantitative_Trading_Fleet_Report.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Vedi Report PDF (.pdf) 📄</a>
+                        <a href="https://github.com/amendamax/ai-quantitative-trading-fleet#readme" class="btn btn-secondary" target="_blank" rel="noopener">Documentazione & Regole 📐</a>
                     </div>
                 </div>
             </div>
