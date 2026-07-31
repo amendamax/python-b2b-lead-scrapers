@@ -15,6 +15,7 @@ if os.path.exists(ro_path):
                 </p>
                 <div class="cta-group">
                     <a href="#projects" class="btn btn-primary">Vezi Platformele SaaS & Proiectele ↗</a>
+                    <a href="/Vasile_Bratu_Python_Automation_Portfolio.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Descarcă Portofoliu PDF 📄</a>
                     <a href="#contact" class="btn btn-secondary">Discută Proiectul Tău 📨</a>
                 </div>
             </div>
@@ -236,6 +237,7 @@ if os.path.exists(it_path):
                 </p>
                 <div class="cta-group">
                     <a href="#projects" class="btn btn-primary">Vedi Piattaforme SaaS & Progetti ↗</a>
+                    <a href="/Vasile_Bratu_Python_Automation_Portfolio.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Scarica Portfolio PDF 📄</a>
                     <a href="#contact" class="btn btn-secondary">Discuti il Tuo Progetto 📨</a>
                 </div>
             </div>
