@@ -86,13 +86,13 @@ if os.path.exists(ro_path):
             <!-- Project Quant AI: AI Quantitative Trading Fleet -->
             <div class="project-item">
                 <div class="project-visual">
-                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
-                        <span style="font-size: 4.5rem;">🤖</span>
-                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 FLOTĂ QUANT AI DE TOP</span>
+                    <div style="background: linear-gradient(135deg, #0d1527 0%, #030712 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.4);">
+                        <span style="font-size: 4.5rem;">⚡</span>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">🟢 PORTFOLIO QUANT ACTIV VPS</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Studiu de Caz: Machine Learning, Opțiuni & Flotă de Trading Cantitativ</span>
+                    <span class="project-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Studiu de Caz: Machine Learning, Opțiuni & Flotă de Trading Cantitativ</span>
                     <h3 class="project-name">Flotă de Trading Cantitativ AI (Portofoliu Activ VPS)</h3>
                     
                     <div class="psr-block">
@@ -106,6 +106,38 @@ if os.path.exists(ro_path):
                     <div class="psr-block">
                         <div class="psr-title psr-result">✅ Rezultat</div>
                         <div class="psr-text">Expunere diversificată în piață cu 0 erori active de execuție. Performanțe empirice validate: +14.2% profit anualizat pe opțiuni (rata de câștig 89.4%), +65.79% ROI pe NASDAQ v5 și +22.70% ROI pe breakout US30, cu drawdown general limitat strict sub 5-11%.</div>
+                    </div>
+                    
+                    <div class="project-buttons">
+                        <a href="https://github.com/amendamax" class="btn btn-primary" target="_blank" rel="noopener">Vezi Profilul GitHub 🐙</a>
+                        <a href="#contact" class="btn btn-secondary">Discută Integrări Personalizate 📨</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Quant AI: NASDAQ Super Bot v5.0 -->
+            <div class="project-item">
+                <div class="project-visual">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
+                        <span style="font-size: 4.5rem;">🤖</span>
+                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 PROIECT QUANT AI DE TOP</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Studiu de Caz: Machine Learning & Bot de Trading Cantitativ</span>
+                    <h3 class="project-name">NASDAQ Super Bot v5.0 (Ediție Cuantică Instituțională)</h3>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problemă</div>
+                        <div class="psr-text">Piața indicilor bursieri (NASDAQ/US100) prezintă o volatilitate ridicată și capcane de lichiditate unde strategiile clasice de retail eșuează din cauza drawdown-ului masiv.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluție</div>
+                        <div class="psr-text">Am proiectat un sistem Quant AI de tip Ensemble (XGBoost + LightGBM) echipat cu 19 indicatori cantitativi în timp real (spread inter-piață US100/US500, VIX Sintetic, benzi de deviație VWAP) și un scut automat FTMO cu prag de pierdere zilnică de 4.5%.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Rezultat</div>
+                        <div class="psr-text">Performanță empirică verificată: +32.23% ROI lunar mediu, rată de câștig de 80% și un drawdown maxim de doar 1.00% cu execuție automatizată în MetaTrader 5.</div>
                     </div>
                     
                     <div class="project-buttons">
@@ -272,13 +304,13 @@ if os.path.exists(it_path):
             <!-- Project Quant AI: AI Quantitative Trading Fleet -->
             <div class="project-item">
                 <div class="project-visual">
-                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
-                        <span style="font-size: 4.5rem;">🤖</span>
-                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 FLOTTA QUANT AI D'ELITE</span>
+                    <div style="background: linear-gradient(135deg, #0d1527 0%, #030712 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.4);">
+                        <span style="font-size: 4.5rem;">⚡</span>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">🟢 PORTFOLIO QUANT ATTIVO VPS</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Caso di Studio: Machine Learning, Opzioni & Flotta di Trading Quantitativo</span>
+                    <span class="project-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Caso di Studio: Machine Learning, Opzioni & Flotta di Trading Quantitativo</span>
                     <h3 class="project-name">Flotta di Trading Quantitativo AI (Portfolio Attivo VPS)</h3>
                     
                     <div class="psr-block">
@@ -295,11 +327,44 @@ if os.path.exists(it_path):
                     </div>
                     
                     <div class="project-buttons">
+                        <a href="https://github.com/amendamax" class="btn btn-primary" target="_blank" rel="noopener">Vedi Profilo GitHub 🐙</a>
+                        <a href="#contact" class="btn btn-secondary">Parla di Integrazioni Personalizzate 📨</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Quant AI: NASDAQ Super Bot v5.0 -->
+            <div class="project-item">
+                <div class="project-visual">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
+                        <span style="font-size: 4.5rem;">🤖</span>
+                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 PROGETTO QUANT AI D'ELITE</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Caso di Studio: Machine Learning & Bot di Trading Quantitativo</span>
+                    <h3 class="project-name">NASDAQ Super Bot v5.0 (Edizione Quantistica Istituzionale)</h3>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problema</div>
+                        <div class="psr-text">Il mercato degli indici azionari (NASDAQ/US100) presenta un'elevata volatilità e trappole di liquidità in cui le strategie tradizionali falliscono a causa di drawdown massicci.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluzione</div>
+                        <div class="psr-text">Ho progettato un sistema Quant AI Ensemble (XGBoost + LightGBM) dotato di 19 indicatori quantitativi in tempo reale (spread inter-market US100/US500, VIX sintetico, bande di deviazione VWAP) e uno scudo automatico FTMO con limite di perdita giornaliera del 4.5%.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Risultato</div>
+                        <div class="psr-text">Rendimento empirico verificato: +32.23% ROI medio mensile, 80% Win Rate e un drawdown massimo di solo 1.00% con esecuzione automatizzata su MetaTrader 5.</div>
+                    </div>
+                    
+                    <div class="project-buttons">
                         <a href="https://github.com/amendamax/nasdaq-super-bot-showcase" class="btn btn-primary" target="_blank" rel="noopener">Vedi Codice su GitHub 🐙</a>
                         <a href="https://github.com/amendamax/nasdaq-super-bot-showcase#readme" class="btn btn-secondary" target="_blank" rel="noopener">Architettura & Documentazione 📐</a>
                     </div>
                 </div>
             </div>
+
 
             <!-- Live SaaS Project 1: VerifyDating.net -->
             <div class="project-item">
