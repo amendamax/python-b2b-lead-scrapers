@@ -139,6 +139,13 @@ story.append(Spacer(1, 6))
 story.append(Paragraph("<b>3. FastAPI Backend & S3 Document Vault Microservice</b>", bold_body))
 story.append(Paragraph("• <b>Challenge:</b> Building a high-speed async backend for user ingestion, secure S3 file storage, and AI LLM chat sessions.", bullet_style))
 story.append(Paragraph("• <b>Solution:</b> Engineered a modular FastAPI application with OAuth2/JWT authentication, PostgreSQL persistence, and pre-signed S3 URLs.", bullet_style))
+story.append(Spacer(1, 6))
+
+# Project 4
+story.append(Paragraph("<b>4. Asynchronous AI Quantitative Trading Fleet & Options Engine</b>", bold_body))
+story.append(Paragraph("• <b>Challenge:</b> Deploying and managing a diversified portfolio of 8 automated trading engines with real-time execution across crypto, indices, forex, and stocks, while maintaining strict drawdown caps and zero API latency.", bullet_style))
+story.append(Paragraph("• <b>Solution:</b> Developed a robust VPS-hosted Python infrastructure running Machine Learning Ensemble models (XGBoost & LightGBM), dynamic trend-alignment filters, and a secure Options writing engine (Bull Put spreads with VIX-adaptive Delta and 21-DTE Gamma Risk Shields). Monitored by a central watchdog scheduler and risk sentinel.", bullet_style))
+story.append(Paragraph("• <b>Results:</b> Achieved diversified market exposure with 0 active execution errors, 89.4% win rate on index/stock option spreads, and maximum drawdown kept strictly under 5% across backtests.", bullet_style))
 story.append(Spacer(1, 12))
 
 # 5. Published Engineering Articles

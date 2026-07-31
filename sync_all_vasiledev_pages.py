@@ -83,6 +83,38 @@ if os.path.exists(ro_path):
         </div>
 
         <div class="projects-list">
+            <!-- Project Quant AI: AI Quantitative Trading Fleet -->
+            <div class="project-item">
+                <div class="project-visual">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
+                        <span style="font-size: 4.5rem;">🤖</span>
+                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 FLOTĂ QUANT AI DE TOP</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Studiu de Caz: Machine Learning, Opțiuni & Flotă de Trading Cantitativ</span>
+                    <h3 class="project-name">Flotă de Trading Cantitativ AI (Portofoliu Activ VPS)</h3>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problemă</div>
+                        <div class="psr-text">Piețele financiare prezintă regimuri dinamice (volatilitate ridicată, consolidări laterale și goluri de lichiditate) în care strategiile clasice eșuează inevitabil din cauza drawdown-ului ridicat.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluție</div>
+                        <div class="psr-text">Am proiectat și implementat o flotă diversificată de 8 roboți de trading automați care rulează 24/7 pe un VPS securizat. Include modele de Machine Learning (XGBoost + LightGBM), detectoare adaptive de trend, snipere statistice de breakout și un motor dedicat de opțiuni (vânzare de Bull Put spreads cu Delta adaptiv pe VIX și scut de risc Gamma la 21 DTE). Supravegheați de un watchdog automat pe Windows Task Scheduler.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Rezultat</div>
+                        <div class="psr-text">Expunere diversificată în piață cu 0 erori active de execuție. Performanțe empirice validate: +14.2% profit anualizat pe opțiuni (rata de câștig 89.4%), +65.79% ROI pe NASDAQ v5 și +22.70% ROI pe breakout US30, cu drawdown general limitat strict sub 5-11%.</div>
+                    </div>
+                    
+                    <div class="project-buttons">
+                        <a href="https://github.com/amendamax/nasdaq-super-bot-showcase" class="btn btn-primary" target="_blank" rel="noopener">Vezi Codul pe GitHub 🐙</a>
+                        <a href="https://github.com/amendamax/nasdaq-super-bot-showcase#readme" class="btn btn-secondary" target="_blank" rel="noopener">Arhitectură & Documentație 📐</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Live SaaS Project 1: VerifyDating.net -->
             <div class="project-item">
                 <div class="project-visual">
@@ -237,6 +269,38 @@ if os.path.exists(it_path):
         </div>
 
         <div class="projects-list">
+            <!-- Project Quant AI: AI Quantitative Trading Fleet -->
+            <div class="project-item">
+                <div class="project-visual">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #020617 100%); height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4);">
+                        <span style="font-size: 4.5rem;">🤖</span>
+                        <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">🟢 FLOTTA QUANT AI D'ELITE</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">Caso di Studio: Machine Learning, Opzioni & Flotta di Trading Quantitativo</span>
+                    <h3 class="project-name">Flotta di Trading Quantitativo AI (Portfolio Attivo VPS)</h3>
+                    
+                    <div class="psr-block">
+                        <div class="psr-title psr-problem">❌ Problema</div>
+                        <div class="psr-text">I mercati finanziari presentano regimi dinamici (alta volatilità, consolidamenti laterali e vuoti di liquidità) in cui le singole strategie tradizionali falliscono a causa di drawdown elevati.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-solution">⚙️ Soluzione</div>
+                        <div class="psr-text">Ho progettato e distribuito una flotta diversificata di 8 motori di trading Python attivi 24/7 su VPS sicuro. La suite include modelli di Machine Learning (XGBoost + LightGBM), filtri di trend adattivi, breakout sniper statistici e un motore di opzioni (scrittura di Bull Put spread con Delta dinamico basato sul VIX e Gamma Risk Shield a 21 DTE). Gestiti da un watchdog di sistema automatico.</div>
+                    </div>
+                    <div class="psr-block">
+                        <div class="psr-title psr-result">✅ Risultato</div>
+                        <div class="psr-text">Esposizione diversificata con 0 errori di esecuzione attivi. Rendimento empirico verificato: +14.2% annuo su opzioni (89.4% win rate), +65.79% ROI su NASDAQ v5 e +22.70% su breakout US30, con drawdown massimo del portafoglio rigidamente limitato sotto il 5-11%.</div>
+                    </div>
+                    
+                    <div class="project-buttons">
+                        <a href="https://github.com/amendamax/nasdaq-super-bot-showcase" class="btn btn-primary" target="_blank" rel="noopener">Vedi Codice su GitHub 🐙</a>
+                        <a href="https://github.com/amendamax/nasdaq-super-bot-showcase#readme" class="btn btn-secondary" target="_blank" rel="noopener">Architettura & Documentazione 📐</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Live SaaS Project 1: VerifyDating.net -->
             <div class="project-item">
                 <div class="project-visual">
