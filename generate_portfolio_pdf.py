@@ -146,6 +146,7 @@ story.append(Paragraph("<b>4. Asynchronous AI Quantitative Trading Fleet & Optio
 story.append(Paragraph("• <b>Challenge:</b> Deploying and managing a diversified portfolio of 8 automated trading engines with real-time execution across crypto, indices, forex, and stocks, while maintaining strict drawdown caps and zero API latency.", bullet_style))
 story.append(Paragraph("• <b>Solution:</b> Developed a robust VPS-hosted Python infrastructure running Machine Learning Ensemble models (XGBoost & LightGBM), dynamic trend-alignment filters, and a secure Options writing engine (Bull Put spreads with VIX-adaptive Delta and 21-DTE Gamma Risk Shields). Monitored by a central watchdog scheduler and risk sentinel.", bullet_style))
 story.append(Paragraph("• <b>Results:</b> Achieved diversified market exposure with 0 active execution errors, 89.4% win rate on index/stock option spreads, and maximum drawdown kept strictly under 5% across backtests.", bullet_style))
+story.append(Paragraph("• <b>Architecture & Documentation:</b> github.com/amendamax/ai-quantitative-trading-fleet", bullet_style))
 story.append(Spacer(1, 12))
 
 # 5. Published Engineering Articles
