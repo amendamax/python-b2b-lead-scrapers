@@ -31,6 +31,19 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+FONTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+DEJAVU_REGULAR = os.path.join(FONTS_DIR, "DejaVuSans.ttf")
+DEJAVU_BOLD = os.path.join(FONTS_DIR, "DejaVuSans-Bold.ttf")
+
+if os.path.exists(DEJAVU_REGULAR) and os.path.exists(DEJAVU_BOLD):
+    try:
+        pdfmetrics.registerFont(TTFont('DejaVuSans', DEJAVU_REGULAR))
+        pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', DEJAVU_BOLD))
+    except Exception as e:
+        print(f"Error registering DejaVu fonts: {e}")
 
 # Try to import cv2 and numpy for human face detection (helps filter out salads, objects, landscapes)
 try:
@@ -2402,7 +2415,7 @@ async def get_broker_results(scan_id: str):
 
 # --- PDF GENERATOR ---
 @app.get("/api/broker/report/{scan_id}")
-async def download_broker_pdf(scan_id: str):
+async def download_broker_pdf(scan_id: str, lang: str = "en"):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
@@ -2432,17 +2445,285 @@ async def download_broker_pdf(scan_id: str):
     red_flags_list = json.loads(red_flags)
     green_flags_list = json.loads(green_flags)
 
+    # Translation dictionary for PDF reports
+    i18n_pdf = {
+        'en': {
+            'title': 'BROKER VERIFIER',
+            'subtitle': 'FORENSIC THREAT INTELLIGENCE AUDIT REPORT',
+            'target_entity': 'Target Entity:',
+            'stated_domain': 'Stated Web Domain:',
+            'audit_date': 'Audit Date:',
+            'scan_id': 'Scan Reference ID:',
+            'client_account': 'Client Account:',
+            'audit_status': 'Audit Status:',
+            'completed': 'COMPLETED',
+            'trust_rating': 'FINANCIAL INTEGRITY & TRUST RATING',
+            'sec1_title': 'SECTION 1: TECHNICAL & INFRASTRUCTURE DIAGNOSTICS',
+            'resolved_ip': 'Resolved IP Address:',
+            'isp_network': 'ISP Hosting Network:',
+            'whois_age': 'WHOIS Registry Age:',
+            'connection_security': 'Connection Security:',
+            'tls_encrypted': 'TLS 1.3 / SSL Encrypted',
+            'sec2_title': 'SECTION 2: HEURISTIC SECURITY RISK ASSESSMENT (PROS & CONS)',
+            'pros_title': 'PROs / Key Safety Strengths',
+            'no_pros': 'No solid safety elements or regulatory registrations identified.',
+            'cons_title': 'CONs / Risk Factors',
+            'no_cons': 'No imminent threat markers or blacklist warnings identified.',
+            'sec3_title': 'SECTION 3: FORENSIC AUDIT VERDICT',
+            'audit_result': 'Audit Result:',
+            'plan_title': 'FRAUD PREVENTION ACTION PLAN',
+            'plan_1': '<b>1. Regulatory License Verification:</b> Always cross-verify the broker\'s license number directly on the official portal of the stated regulator (e.g., FCA Register, CySEC portal). Scam brokers frequently copy valid license numbers belonging to other corporate groups.',
+            'plan_2': '<b>2. Refuse Cold Calling & Messaging:</b> Legitimate financial institutions will never contact you via cold calls, Telegram, Instagram, or WhatsApp to solicit deposits or promise guaranteed trading gains.',
+            'plan_3': '<b>3. Avoid Unregulated Payment Methods:</b> If a broker requests deposits via private cryptocurrency wallets (Bitcoin/USDT) or asks to transfer money to a personal bank account under a different name, cease all communication immediately.',
+            'plan_4': '<b>4. Domain Age Check:</b> Always match the stated corporate history against the technical WHOIS registry creation date. If the website was registered recently but claims years of operation, it is a critical warning sign.',
+            'compiled_by': 'Audit compiled by <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Created by <b>VasileDev</b>',
+            'disclaimer': '<b>Disclaimer:</b> This security report is generated automatically based on live regulatory queries, WHOIS registers, DNS routing, and heuristic threat calculations. It is provided for educational and preventive intelligence purposes. Always perform due diligence prior to depositing capital with financial providers.'
+        },
+        'ro': {
+            'title': 'VERIFICATOR BROKER',
+            'subtitle': 'RAPORT DE AUDIT FORENSIC AL AMENINȚĂRILOR FINANCIARE',
+            'target_entity': 'Entitate Vizată:',
+            'stated_domain': 'Domeniu Web Declarat:',
+            'audit_date': 'Data Auditului:',
+            'scan_id': 'ID Referință Scanare:',
+            'client_account': 'Cont Client:',
+            'audit_status': 'Status Audit:',
+            'completed': 'FINALIZAT',
+            'trust_rating': 'RATING DE INTEGRITATE FINANCIARĂ ȘI ÎNCREDERE',
+            'sec1_title': 'SECȚIUNEA 1: DIAGNOSTIC TEHNIC ȘI INFRASTRUCTURĂ',
+            'resolved_ip': 'Adresă IP Rezolvată:',
+            'isp_network': 'Rețea de Găzduire ISP:',
+            'whois_age': 'Vechime Registru WHOIS:',
+            'connection_security': 'Securitate Conexiune:',
+            'tls_encrypted': 'Criptat TLS 1.3 / SSL',
+            'sec2_title': 'SECȚIUNEA 2: EVALUARE HEURISTICĂ A RISCURILOR (PRO & CONTRA)',
+            'pros_title': 'Puncte Forte / Argumente de Siguranță',
+            'no_pros': 'Nu s-au identificat elemente solide de siguranță sau înregistrări de reglementare.',
+            'cons_title': 'Factori de Risc / Aspecte Negative',
+            'no_cons': 'Nu s-au identificat markeri de amenințare iminentă sau avertismente pe liste negre.',
+            'sec3_title': 'SECȚIUNEA 3: VERDICTUL AUDITULUI FORENSIC',
+            'audit_result': 'Rezultat Audit:',
+            'plan_title': 'PLAN DE ACȚIUNE PENTRU PREVENIREA FRAUDEI',
+            'plan_1': '<b>1. Verificarea Licenței de Reglementare:</b> Verificați întotdeauna numărul de licență direct pe portalul oficial al autorității de reglementare menționate (ex. Registrul FCA, portalul CySEC). Brokerii escroci copiază frecvent numere de licență valide aparținând altor grupuri corporative.',
+            'plan_2': '<b>2. Refuzați Apelurile și Mesajele Nedorite:</b> Instituțiile financiare legitime nu vă vor contacta niciodată prin apeluri nesolicitate, Telegram, Instagram sau WhatsApp pentru a vă cere depozite sau pentru a vă promite câștiguri garantate.',
+            'plan_3': '<b>3. Evitați Metodele de Plată Nereglementate:</b> Dacă un broker solicită depozite prin portofele de criptomonede private (Bitcoin/USDT) sau vă cere să transferați bani într-un cont bancar personal pe alt nume, întrerupeți imediat orice comunicare.',
+            'plan_4': '<b>4. Verificarea Vechimii Domeniului:</b> Comparați întotdeauna istoricul corporativ declarat cu data tehnică de creare din registrul WHOIS. Dacă site-ul a fost înregistrat recent, dar pretinde ani de funcționare, este un semnal de alarmă critic.',
+            'compiled_by': 'Audit compilat de <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creat de <b>VasileDev</b>',
+            'disclaimer': '<b>Declinare a responsabilității:</b> Acest raport de securitate este generat automat pe baza interogărilor live ale registrelor de reglementare, WHOIS, rutării DNS și calculelor euristice de amenințare. Esențial furnizat în scopuri educaționale și preventive. Efectuați întotdeauna propria analiză înainte de a depune capital la furnizorii de servicii financiare.'
+        },
+        'it': {
+            'title': 'VERIFICATORE BROKER',
+            'subtitle': 'RAPPORTO DI AUDIT FORENSE SULLE MINACCE FINANZIARIE',
+            'target_entity': 'Entità Target:',
+            'stated_domain': 'Dominio Web Dichiarato:',
+            'audit_date': 'Data dell\'Audit:',
+            'scan_id': 'ID Riferimento Scansione:',
+            'client_account': 'Account Cliente:',
+            'audit_status': 'Stato dell\'Audit:',
+            'completed': 'COMPLETATO',
+            'trust_rating': 'RATING DI INTEGRITÀ FINANZIARIA E FIDUCIA',
+            'sec1_title': 'SEZIONE 1: DIAGNOSTICA TECNICA E INFRASTRUTTURA',
+            'resolved_ip': 'Indirizzo IP Risolto:',
+            'isp_network': 'Rete di Hosting ISP:',
+            'whois_age': 'Età del Dominio WHOIS:',
+            'connection_security': 'Sicurezza Connessione:',
+            'tls_encrypted': 'Crittografato TLS 1.3 / SSL',
+            'sec2_title': 'SEZIONE 2: VALUTAZIONE EURISTICA DEI RISCHI (PRO & CONTRO)',
+            'pros_title': 'Punti di Forza / Fattori di Sicurezza',
+            'no_pros': 'Nessun elemento di sicurezza solido o registrazione normativa identificato.',
+            'cons_title': 'Fattori di Rischio / Aspetti Negativi',
+            'no_cons': 'Nessun indicatore di minaccia imminente o avviso di blacklist identificato.',
+            'sec3_title': 'SEZIONE 3: VERDETTO DELL\'AUDIT FORENSE',
+            'audit_result': 'Risultato dell\'Audit:',
+            'plan_title': 'PIANO D\'AZIONE PER LA PREVENZIONE DELLE FRODI',
+            'plan_1': '<b>1. Verifica della Licenza Normativa:</b> Verifica sempre il numero di licenza direttamente sul portale ufficiale dell\'autorità di regolamentazione indicata (es. Registro FCA, portale CySEC). I broker truffaldini spesso copiano numeri di licenza validi appartenenti ad altre società.',
+            'plan_2': '<b>2. Rifiuta Chiamate e Messaggi Indesiderati:</b> Le istituzioni finanziarie legittime non ti contatteranno mai tramite chiamate a freddo, Telegram, Instagram o WhatsApp per sollecitare depositi o promettere guadagni garantiti.',
+            'plan_3': '<b>3. Evita Metodi di Pagamento Non Regolamentati:</b> Se un broker richiede depositi tramite portafogli di criptovaluta privati (Bitcoin/USDT) o chiede di trasferire denaro su un conto bancario personale intestato a un altro nome, interrompi immediatamente ogni comunicazione.',
+            'plan_4': '<b>4. Verifica dell\'Età del Dominio:</b> Confronta sempre la storia aziendale dichiarata con la data di registrazione tecnica nel registro WHOIS. Se il sito è stato registrato di recente ma dichiara anni di attività, è un segnale di allarme critico.',
+            'compiled_by': 'Audit compilato da <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creato da <b>VasileDev</b>',
+            'disclaimer': '<b>Dichiarazione di non responsabilità:</b> Questo rapporto di sicurezza viene generato automaticamente in base alle interrogazioni in tempo reale dei registri normativi, WHOIS, instradamento DNS e calcoli euristici delle minacce. Viene fornito a scopo informativo e preventivo. Effettua sempre le dovute verifiche prima di depositare capitali presso intermediari finanziari.'
+        },
+        'es': {
+            'title': 'VERIFICADOR DE BROKERS',
+            'subtitle': 'INFORME DE AUDITORÍA FORENSE DE AMENAZAS FINANCIERAS',
+            'target_entity': 'Entidad Auditada:',
+            'stated_domain': 'Dominio Web Declarado:',
+            'audit_date': 'Fecha de la Auditoría:',
+            'scan_id': 'ID de Referencia del Análisis:',
+            'client_account': 'Cuenta de Cliente:',
+            'audit_status': 'Estado de la Auditoría:',
+            'completed': 'COMPLETADO',
+            'trust_rating': 'CALIFICACIÓN DE INTEGRIDAD FINANCIERA Y CONFIANZA',
+            'sec1_title': 'SECCIÓN 1: DIAGNÓSTICO TÉCNICO E INFRAESTRUCTURA',
+            'resolved_ip': 'Dirección IP Resuelta:',
+            'isp_network': 'Red de Alojamiento ISP:',
+            'whois_age': 'Antigüedad del Dominio WHOIS:',
+            'connection_security': 'Seguridad de la Conexión:',
+            'tls_encrypted': 'Cifrado TLS 1.3 / SSL',
+            'sec2_title': 'SECCIÓN 2: EVALUACIÓN HEURÍSTICA DE RIESGOS (PROS Y CONTRAS)',
+            'pros_title': 'Puntos Fuertes / Fortalezas de Seguridad',
+            'no_pros': 'No se identificaron elementos de seguridad sólidos ni registros regulatorios.',
+            'cons_title': 'Factores de Riesgo / Puntos Débiles',
+            'no_cons': 'No se identificaron marcadores de amenaza inminente ni advertencias en listas negras.',
+            'sec3_title': 'SECCIÓN 3: VEREDICTO DE LA AUDITORÍA FORENSE',
+            'audit_result': 'Resultado de la Auditoría:',
+            'plan_title': 'PLAN DE ACCIÓN PARA LA PREVENCIÓN DEL FRAUDE',
+            'plan_1': '<b>1. Verificación de la Licencia Regulatoria:</b> Siempre verifique el número de licencia directamente en el portal oficial del regulador indicado (por ejemplo, el Registro de la FCA o el portal de la CySEC). Los brokers estafadores con frecuencia copian números de licencia válidos pertenecientes a otros grupos corporativos.',
+            'plan_2': '<b>2. Rechace Llamadas y Mensajes no Solicitados:</b> Las instituciones financieras legítimas nunca lo contactarán mediante llamadas en frío, Telegram, Instagram o WhatsApp para solicitar depósitos o prometer ganancias comerciales garantizadas.',
+            'plan_3': '<b>3. Evite Métodos de Pago no Regulados:</b> Si un broker solicita depósitos a través de billeteras privadas de criptomonedas (Bitcoin/USDT) o solicita transferir dinero a una cuenta bancaria personal a nombre de otra persona, interrumpa toda comunicación de inmediato.',
+            'plan_4': '<b>4. Verificación de la Antigüedad del Dominio:</b> Siempre compare la historia corporativa declarada con la fecha de creación técnica en el registro WHOIS. Si el sitio web se registró recientemente pero afirma llevar años operando, es una señal de advertencia crítica.',
+            'compiled_by': 'Auditoría compilada por <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creado por <b>VasileDev</b>',
+            'disclaimer': '<b>Descargo de responsabilidad:</b> Este informe de seguridad se genera automáticamente en función de consultas regulatorias en vivo, registros WHOIS, enrutamiento DNS y cálculos heurísticos de amenazas. Se proporciona con fines educativos y de prevención. Siempre realice su propia investigación antes de depositar capital con proveedores financieros.'
+        },
+        'fr': {
+            'title': 'VÉRIFICATEUR DE COURTIERS',
+            'subtitle': 'RAPPORT D\'AUDIT FORENSIQUE DES MENACES FINANCIÈRES',
+            'target_entity': 'Entité Auditée :',
+            'stated_domain': 'Domaine Web Déclaré :',
+            'audit_date': 'Date de l\'Audit :',
+            'scan_id': 'ID de Référence du Scan :',
+            'client_account': 'Compte Client :',
+            'audit_status': 'Statut de l\'Audit :',
+            'completed': 'COMPLÉTÉ',
+            'trust_rating': 'COTE D\'INTÉGRITÉ FINANCIÈRE ET DE CONFIANCE',
+            'sec1_title': 'SECTION 1 : DIAGNOSTIC TECHNIQUE ET INFRASTRUCTURE',
+            'resolved_ip': 'Adresse IP Résolue :',
+            'isp_network': 'Réseau d\'Hébergement ISP :',
+            'whois_age': 'Âge du Domaine WHOIS :',
+            'connection_security': 'Sécurité de la Connexion :',
+            'tls_encrypted': 'Chiffré TLS 1.3 / SSL',
+            'sec2_title': 'SECTION 2 : ÉVALUATION HEURISTIQUE DES RISQUES (POUR & CONTRE)',
+            'pros_title': 'Points Forts / Atouts de Sécurité',
+            'no_pros': 'Aucun élément de sécurité solide ni enregistrement réglementaire identifié.',
+            'cons_title': 'Facteurs de Risque / Points Faibles',
+            'no_cons': 'Aucun indicateur de menace imminente ni alerte de liste noire identifié.',
+            'sec3_title': 'SECTION 3 : VERDICT DE L\'AUDIT FORENSIQUE',
+            'audit_result': 'Résultat de l\'Audit :',
+            'plan_title': 'PLAN D\'ACTION POUR LA PRÉVENTION DE LA FRAUDE',
+            'plan_1': '<b>1. Vérification de la Licence Réglementaire :</b> Vérifiez toujours le numéro de licence directement sur le registre officiel du régulateur mentionné (ex. Registre FCA, portail CySEC). Les courtiers frauduleux copient fréquemment des numéros de licence valides appartenant à d\'autres groupes d\'entreprises.',
+            'plan_2': '<b>2. Refusez le Démarchage Téléphonique et les Messages Indésirables :</b> Les institutions financières légitimes ne vous contacteront jamais via des appels non sollicités, Telegram, Instagram ou WhatsApp pour solliciter des dépôts ou promettre des gains de trading garantis.',
+            'plan_3': '<b>3. Évitez les Méthodes de Paiement Non Réglementées :</b> Si un courtier demande des dépôts via des portefeuilles de crypto-monnaies privés (Bitcoin/USDT) ou demande de transférer de l\'argent vers un compte bancaire personnel sous un autre nom, cessez immédiatement toute communication.',
+            'plan_4': '<b>4. Vérification de l\'Âge du Domaine :</b> Comparez toujours l\'historique déclaré de l\'entreprise avec la date de création technique dans le registre WHOIS. Si le site a été enregistré récemment mais prétend être en activité depuis des années, c\'est un signal d\'alarme critique.',
+            'compiled_by': 'Audit compilé par <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Créé par <b>VasileDev</b>',
+            'disclaimer': '<b>Avertissement :</b> Ce rapport de sécurité est généré automatiquement sur la base de requêtes réglementaires en direct, de registres WHOIS, de routage DNS et de calculs heuristiques des menaces. Il est fourni à des fins d\'information et de prévention. Effectuez toujours vos propres vérifications avant de déposer des capitaux auprès d\'intermédiaires financiers.'
+        },
+        'de': {
+            'title': 'BROKER-VERIFIZIERER',
+            'subtitle': 'FORENSISCHER PRÜFUNGSBERICHT ZU FINANZBEDROHUNGEN',
+            'target_entity': 'Geprüftes Unternehmen:',
+            'stated_domain': 'Angegebene Webdomain:',
+            'audit_date': 'Datum der Prüfung:',
+            'scan_id': 'Scan-Referenz-ID:',
+            'client_account': 'Kundenkonto:',
+            'audit_status': 'Prüfungsstatus:',
+            'completed': 'ABGESCHLOSSEN',
+            'trust_rating': 'BEWERTUNG DER FINANZIELLEN INTEGRITÄT & VERTRAUENSWÜRDIGKEIT',
+            'sec1_title': 'ABSCHNITT 1: TECHNISCHE & INFRASTRUKTUR-DIAGNOSE',
+            'resolved_ip': 'Aufgelöste IP-Adresse:',
+            'isp_network': 'ISP-Hosting-Netzwerk:',
+            'whois_age': 'WHOIS-Registrierungsalter:',
+            'connection_security': 'Verbindungssicherheit:',
+            'tls_encrypted': 'TLS 1.3 / SSL verschlüsselt',
+            'sec2_title': 'ABSCHNITT 2: HEURISTISCHE SICHERHEITSRISIKOBEWERTUNG (PRO & CONTRA)',
+            'pros_title': 'Stärken / Sicherheitsmerkmale',
+            'no_pros': 'Keine soliden Sicherheitselemente oder regulatorischen Registrierungen festgestellt.',
+            'cons_title': 'Risikofaktoren / Schwachstellen',
+            'no_cons': 'Keine unmittelbaren Bedrohungsindikatoren oder Warnungen auf schwarzen Listen festgestellt.',
+            'sec3_title': 'ABSCHNITT 3: FORENSISCHES PRÜFUNGSERGEBNIS',
+            'audit_result': 'Prüfungsergebnis:',
+            'plan_title': 'MASSNAHMENPLAN ZUR BETRUGSPRÄVENTION',
+            'plan_1': '<b>1. Überprüfung regulatorischer Lizenzen:</b> Überprüfen Sie die Lizenznummer immer direkt im offiziellen Register der angegebenen Aufsichtsbehörde (z. B. FCA-Register, CySEC-Portal). Betrügerische Broker kopieren häufig gültige Lizenznummern anderer Unternehmensgruppen.',
+            'plan_2': '<b>2. Unaufgeforderte Anrufe & Nachrichten ablehnen:</b> Seriöse Finanzinstitute werden Sie niemals per Kaltakquise, Telegram, Instagram oder WhatsApp kontaktieren, um Einzahlungen einzufordern oder garantierte Handelsgewinne zu versprechen.',
+            'plan_3': '<b>3. Unregulierte Zahlungsmethoden vermeiden:</b> Wenn ein Broker Einzahlungen über private Kryptowährungs-Wallets (Bitcoin/USDT) verlangt oder darum bittet, Geld auf ein persönliches Bankkonto unter einem anderen Namen zu überweisen, brechen Sie jegliche Kommunikation sofort ab.',
+            'plan_4': '<b>4. Überprüfung des Domain-Alters:</b> Gleichen Sie die angegebene Unternehmensgeschichte immer mit dem technischen Erstellungsdatum im WHOIS-Register ab. Wenn die Website kürzlich registriert wurde, aber jahrelange Aktivität behauptet, ist dies ein kritisches Warnsignal.',
+            'compiled_by': 'Prüfung zusammengestellt von der <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Erstellt von <b>VasileDev</b>',
+            'disclaimer': '<b>Haftungsanschluss:</b> Dieser Sicherheitsbericht wird automatisch auf der Grundlage von regulatorischen Abfragen in Echtzeit, WHOIS-Registern, DNS-Routing und heuristischen Bedrohungsberechnungen erstellt. Er dient zu Informations- und Präventionszwecken. Führen Sie immer eine eigene Prüfung durch, bevor Sie Kapital bei Finanzdienstleistern einzahlen.'
+        },
+        'pt': {
+            'title': 'VERIFICADOR DE CORRETORAS',
+            'subtitle': 'RELATÓRIO DE AUDITORIA FORENSE DE AMEAÇAS FINANCEIRAS',
+            'target_entity': 'Entidade Auditada:',
+            'stated_domain': 'Domínio Web Declarado:',
+            'audit_date': 'Data da Auditoria:',
+            'scan_id': 'ID de Referência da Análise:',
+            'client_account': 'Conta de Cliente:',
+            'audit_status': 'Estado da Auditoria:',
+            'completed': 'CONCLUÍDO',
+            'trust_rating': 'CLASSIFICAÇÃO DE INTEGRIDADE FINANCEIRA E CONFIANÇA',
+            'sec1_title': 'SECÇÃO 1: DIAGNÓSTICO TÉCNICO E INFRAESTRUTURA',
+            'resolved_ip': 'Endereço IP Resolvido:',
+            'isp_network': 'Rede de Alojamento ISP:',
+            'whois_age': 'Idade do Domínio WHOIS:',
+            'connection_security': 'Segurança da Conexão:',
+            'tls_encrypted': 'Criptografado TLS 1.3 / SSL',
+            'sec2_title': 'SECÇÃO 2: AVALIAÇÃO HEURÍSTICA DE RISCOS (PRÓS E CONTRAS)',
+            'pros_title': 'Pontos Fortes / Fatores de Segurança',
+            'no_pros': 'Nenhum elemento de segurança sólido ou registro regulatório identificado.',
+            'cons_title': 'Fatores de Risco / Pontos Fracos',
+            'no_cons': 'Nenhum indicador de ameaça iminente ou aviso de lista negra identificado.',
+            'sec3_title': 'SECÇÃO 3: VEREDICTO DA AUDITORIA FORENSE',
+            'audit_result': 'Resultado da Auditoria:',
+            'plan_title': 'PLANO DE AÇÃO PARA PREVENÇÃO DE FRAUDES',
+            'plan_1': '<b>1. Verificação da Licença Regulatória:</b> Verifique sempre o número de licença diretamente no portal oficial do órgão regulador indicado (por exemplo, o Registro da FCA ou o portal da CySEC). Corretoras fraudulentas frequentemente copiam números de licença válidos pertencentes a outras empresas.',
+            'plan_2': '<b>2. Recuse Chamadas e Mensagens Não Solicitadas:</b> Instituições financeiras legítimas nunca entrarão em contato via chamadas não solicitadas, Telegram, Instagram ou WhatsApp para solicitar depósitos ou prometer lucros garantidos.',
+            'plan_3': '<b>3. Evite Métodos de Pagamento Não Regulamentados:</b> Se uma corretora solicitar depósitos através de carteiras privadas de criptomoedas (Bitcoin/USDT) ou pedir para transferir dinheiro para uma conta bancária pessoal com outro nome, interrompa qualquer comunicação imediatamente.',
+            'plan_4': '<b>4. Verificação da Idade do Domínio:</b> Sempre compare o histórico corporativo declarado com a data técnica de criação no registro WHOIS. Se o site foi registrado recentemente, mas alega anos de operação, é um sinal de alerta crítico.',
+            'compiled_by': 'Auditoria compilada pela <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Criado por <b>VasileDev</b>',
+            'disclaimer': '<b>Isenção de responsabilidade:</b> Este relatório de segurança é gerado automaticamente com base em consultas regulatórias ao vivo, registros WHOIS, roteamento DNS e cálculos heurísticos de ameaças. É fornecido para fins educacionais e preventivos. Sempre realize a sua própria auditoria antes de depositar capital em instituições financeiras.'
+        },
+        'ru': {
+            'title': 'ВЕРИФИКАТОР БРОКЕРОВ',
+            'subtitle': 'ОТЧЕТ О ФОРЕНЗИЧЕСКОМ АУДИТЕ ФИНАНСОВЫХ УГРОЗ',
+            'target_entity': 'Проверяемая организация:',
+            'stated_domain': 'Заявленный веб-домен:',
+            'audit_date': 'Дата аудита:',
+            'scan_id': 'Идентификатор сканирования:',
+            'client_account': 'Аккаунт клиента:',
+            'audit_status': 'Статус аудита:',
+            'completed': 'ЗАВЕРШЕНО',
+            'trust_rating': 'РЕЙТИНГ ФИНАНСОВОЙ ЧЕСТНОСТИ И ДОВЕРИЯ',
+            'sec1_title': 'РАЗДЕЛ 1: ТЕХНИЧЕСКАЯ ДИАГНОСТИКА И ИНФРАСТРУКТУРА',
+            'resolved_ip': 'Разрешенный IP-адрес:',
+            'isp_network': 'Хостинг-провайдер ISP:',
+            'whois_age': 'Возраст домена WHOIS:',
+            'connection_security': 'Безопасность соединения:',
+            'tls_encrypted': 'Шифрование TLS 1.3 / SSL',
+            'sec2_title': 'РАЗДЕЛ 2: ЭВРИСТИЧЕСКАЯ ОЦЕНКА РИСКОВ (ПЛЮСЫ И МИНУСЫ)',
+            'pros_title': 'Плюсы / Сильные стороны безопасности',
+            'no_pros': 'Надежных элементов безопасности или регистраций в регулирующих органах не обнаружено.',
+            'cons_title': 'Минусы / Факторы риска',
+            'no_cons': 'Имманентных маркеров угроз или предупреждений о черных списках не обнаружено.',
+            'sec3_title': 'РАЗДЕЛ 3: ВЕРДИКТ ФОРЕНЗИЧЕСКОГО АУДИТА',
+            'audit_result': 'Результат аудита:',
+            'plan_title': 'ПЛАН ДЕЙСТВИЙ ПО ПРЕДОТВРАЩЕНИЮ МОШЕННИЧЕСТВА',
+            'plan_1': '<b>1. Проверка лицензии регулятора:</b> Всегда проверяйте номер лицензии непосредственно в официальном реестре указанного регулятора (например, реестре FCA, портале CySEC). Брокеры-мошенники часто копируют действующие номера лицензий других компаний.',
+            'plan_2': '<b>2. Отказ от нежелательных звонков и сообщений:</b> Легитимные финансовые организации никогда не свяжутся с вами посредством холодных звонков, Telegram, Instagram или WhatsApp для запроса депозитов или обещания гарантированной прибыли.',
+            'plan_3': '<b>3. Избегайте нерегулируемых способов оплаты:</b> Если брокер требует депозиты через частные криптовалютные кошельки (Bitcoin/USDT) or просит перевести деньги на личный банковский счет на другое имя, немедленно прекратите общение.',
+            'plan_4': '<b>4. Проверка возраста домена:</b> Всегда сопоставляйте заявленную историю компании с технической датой создания домена в реестре WHOIS. Если сайт зарегистрирован недавно, но заявляет о годах работы, это критический предупреждающий знак.',
+            'compiled_by': 'Аудит подготовлен <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Создано <b>VasileDev</b>',
+            'disclaimer': '<b>Отказ от ответственности:</b> Этот отчет по безопасности генерируется автоматически на основе оперативных запросов в регулирующие органы, реестров WHOIS, маршрутизации DNS и эвристических расчетов угроз. Он предоставляется в образовательных и профилактических целях. Всегда проводите собственную проверку перед внесением капитала.'
+        }
+    }
+    
+    # Select language (default to English)
+    t = i18n_pdf.get(lang.lower(), i18n_pdf['en'])
+
     # Compile PDF in memory
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40)
     
     styles = getSampleStyleSheet()
     
+    has_dejavu = os.path.exists(DEJAVU_REGULAR) and os.path.exists(DEJAVU_BOLD)
+    font_reg = 'DejaVuSans' if has_dejavu else 'Helvetica'
+    font_bold = 'DejaVuSans-Bold' if has_dejavu else 'Helvetica-Bold'
+    font_italic = 'DejaVuSans' if has_dejavu else 'Helvetica-Oblique'
+
     # Custom Styles for Premium Look
     banner_title_style = ParagraphStyle(
         'BannerTitle',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=24,
         leading=28,
         textColor=colors.white,
@@ -2451,7 +2732,7 @@ async def download_broker_pdf(scan_id: str):
     banner_sub_style = ParagraphStyle(
         'BannerSub',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=11,
         leading=14,
         textColor=colors.HexColor('#38bdf8'),
@@ -2461,7 +2742,7 @@ async def download_broker_pdf(scan_id: str):
     meta_label_style = ParagraphStyle(
         'MetaLabel',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=10,
         leading=13,
         textColor=colors.HexColor('#475569')
@@ -2469,7 +2750,7 @@ async def download_broker_pdf(scan_id: str):
     meta_val_style = ParagraphStyle(
         'MetaVal',
         parent=styles['Normal'],
-        fontName='Helvetica',
+        fontName=font_reg,
         fontSize=10,
         leading=13,
         textColor=colors.HexColor('#0f172a')
@@ -2477,7 +2758,7 @@ async def download_broker_pdf(scan_id: str):
     section_title_style = ParagraphStyle(
         'SectionTitle',
         parent=styles['Heading2'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=14,
         leading=18,
         textColor=colors.HexColor('#0f172a'),
@@ -2488,7 +2769,7 @@ async def download_broker_pdf(scan_id: str):
     subsection_title_style = ParagraphStyle(
         'SubSectionTitle',
         parent=styles['Heading3'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=11,
         leading=14,
         textColor=colors.HexColor('#1e293b'),
@@ -2499,7 +2780,7 @@ async def download_broker_pdf(scan_id: str):
     body_style = ParagraphStyle(
         'DocBody',
         parent=styles['Normal'],
-        fontName='Helvetica',
+        fontName=font_reg,
         fontSize=9.5,
         leading=14,
         textColor=colors.HexColor('#334155')
@@ -2517,7 +2798,7 @@ async def download_broker_pdf(scan_id: str):
     verdict_title_style = ParagraphStyle(
         'VerdictTitle',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=12,
         leading=16,
         textColor=colors.HexColor('#0f172a')
@@ -2525,7 +2806,7 @@ async def download_broker_pdf(scan_id: str):
     disclaimer_style = ParagraphStyle(
         'DisclaimerText',
         parent=styles['Normal'],
-        fontName='Helvetica-Oblique',
+        fontName=font_italic,
         fontSize=8,
         leading=11,
         textColor=colors.HexColor('#64748b')
@@ -2533,7 +2814,7 @@ async def download_broker_pdf(scan_id: str):
     signature_style = ParagraphStyle(
         'SignatureText',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName=font_bold,
         fontSize=8.5,
         leading=12,
         textColor=colors.HexColor('#475569'),
@@ -2549,8 +2830,8 @@ async def download_broker_pdf(scan_id: str):
     
     # Header Banner Table
     banner_data = [
-        [Paragraph("BROKER VERIFIER", banner_title_style)],
-        [Paragraph("FORENSIC THREAT INTELLIGENCE AUDIT REPORT", banner_sub_style)]
+        [Paragraph(t['title'], banner_title_style)],
+        [Paragraph(t['subtitle'], banner_sub_style)]
     ]
     banner_table = Table(banner_data, colWidths=[530])
     banner_table.setStyle(TableStyle([
@@ -2565,12 +2846,12 @@ async def download_broker_pdf(scan_id: str):
     
     # Metadata Block
     meta_data = [
-        [Paragraph("Target Entity:", meta_label_style), Paragraph(name, meta_val_style)],
-        [Paragraph("Stated Web Domain:", meta_label_style), Paragraph(domain, meta_val_style)],
-        [Paragraph("Audit Date:", meta_label_style), Paragraph(created_at[:19] + " UTC", meta_val_style)],
-        [Paragraph("Scan Reference ID:", meta_label_style), Paragraph(scan_id.upper(), meta_val_style)],
-        [Paragraph("Client Account:", meta_label_style), Paragraph(email, meta_val_style)],
-        [Paragraph("Audit Status:", meta_label_style), Paragraph("<b>COMPLETED</b>", meta_val_style)]
+        [Paragraph(t['target_entity'], meta_label_style), Paragraph(name, meta_val_style)],
+        [Paragraph(t['stated_domain'], meta_label_style), Paragraph(domain, meta_val_style)],
+        [Paragraph(t['audit_date'], meta_label_style), Paragraph(created_at[:19] + " UTC", meta_val_style)],
+        [Paragraph(t['scan_id'], meta_label_style), Paragraph(scan_id.upper(), meta_val_style)],
+        [Paragraph(t['client_account'], meta_label_style), Paragraph(email, meta_val_style)],
+        [Paragraph(t['audit_status'], meta_label_style), Paragraph(f"<b>{t['completed']}</b>", meta_val_style)]
     ]
     meta_table = Table(meta_data, colWidths=[150, 380])
     meta_table.setStyle(TableStyle([
@@ -2586,7 +2867,7 @@ async def download_broker_pdf(scan_id: str):
     # Trust Score circular seal simulation
     score_color = '#059669' if score >= 75 else ('#d97706' if score >= 40 else '#dc2626')
     score_banner_data = [
-        [Paragraph(f"<font color='white' size='11'><b>FINANCIAL INTEGRITY & TRUST RATING</b></font>", banner_title_style)],
+        [Paragraph(f"<font color='white' size='11'><b>{t['trust_rating']}</b></font>", banner_title_style)],
         [Paragraph(f"<font color='{score_color}' size='28'><b>{score}%</b></font>", banner_title_style)]
     ]
     score_table = Table(score_banner_data, colWidths=[350])
@@ -2603,15 +2884,15 @@ async def download_broker_pdf(scan_id: str):
     # ==========================================
     # PAGE 1 - SECTION 1: TECHNICAL DIAGNOSTICS
     # ==========================================
-    story.append(Paragraph("SECTION 1: TECHNICAL & INFRASTRUCTURE DIAGNOSTICS", section_title_style))
+    story.append(Paragraph(t['sec1_title'], section_title_style))
     story.append(Spacer(1, 4))
     
     tech_data = [
-        [Paragraph("Stated Web Domain:", meta_label_style), Paragraph(domain, meta_val_style)],
-        [Paragraph("Resolved IP Address:", meta_label_style), Paragraph(ip, meta_val_style)],
-        [Paragraph("ISP Hosting Network:", meta_label_style), Paragraph(hoster, meta_val_style)],
-        [Paragraph("WHOIS Registry Age:", meta_label_style), Paragraph(domain_age, meta_val_style)],
-        [Paragraph("Connection Security:", meta_label_style), Paragraph("TLS 1.3 / SSL Encrypted", meta_val_style)]
+        [Paragraph(t['stated_domain'], meta_label_style), Paragraph(domain, meta_val_style)],
+        [Paragraph(t['resolved_ip'], meta_label_style), Paragraph(ip, meta_val_style)],
+        [Paragraph(t['isp_network'], meta_label_style), Paragraph(hoster, meta_val_style)],
+        [Paragraph(t['whois_age'], meta_label_style), Paragraph(domain_age, meta_val_style)],
+        [Paragraph(t['connection_security'], meta_label_style), Paragraph(t['tls_encrypted'], meta_val_style)]
     ]
     tech_table = Table(tech_data, colWidths=[150, 380])
     tech_table.setStyle(TableStyle([
@@ -2629,34 +2910,34 @@ async def download_broker_pdf(scan_id: str):
     # ==========================================
     # PAGE 2: SECURITY RISK ASSESSMENT & VERDICT
     # ==========================================
-    story.append(Paragraph("SECTION 2: HEURISTIC SECURITY RISK ASSESSMENT (PROS & CONS)", section_title_style))
+    story.append(Paragraph(t['sec2_title'], section_title_style))
     story.append(Spacer(1, 4))
     
     # PROs (Safety Strengths) Section
-    story.append(Paragraph("PROs / Key Safety Strengths", subsection_title_style))
+    story.append(Paragraph(t['pros_title'], subsection_title_style))
     if green_flags_list:
         for flag in green_flags_list:
             p_text = f"<font color='#059669'><b>[PRO]</b></font> {flag}"
             story.append(Paragraph(p_text, pro_style))
             story.append(Spacer(1, 4))
     else:
-        story.append(Paragraph("No solid safety elements or regulatory registrations identified.", body_style))
+        story.append(Paragraph(t['no_pros'], body_style))
     
     story.append(Spacer(1, 10))
     
     # CONs (Risk Factors) Section
-    story.append(Paragraph("CONs / Risk Factors", subsection_title_style))
+    story.append(Paragraph(t['cons_title'], subsection_title_style))
     if red_flags_list:
         for flag in red_flags_list:
             p_text = f"<font color='#dc2626'><b>[CON]</b></font> {flag}"
             story.append(Paragraph(p_text, con_style))
             story.append(Spacer(1, 4))
     else:
-        story.append(Paragraph("No imminent threat markers or blacklist warnings identified.", body_style))
+        story.append(Paragraph(t['no_cons'], body_style))
         
     story.append(Spacer(1, 15))
     
-    story.append(Paragraph("SECTION 3: FORENSIC AUDIT VERDICT", section_title_style))
+    story.append(Paragraph(t['sec3_title'], section_title_style))
     story.append(Spacer(1, 4))
     
     # Verdict Table Box
@@ -2664,7 +2945,7 @@ async def download_broker_pdf(scan_id: str):
     verdict_border = colors.HexColor('#fca5a5' if score < 40 else ('#fcd34d' if score < 75 else '#86efac'))
     
     verdict_data = [
-        [Paragraph(f"<b>Audit Result: {v_title}</b>", verdict_title_style)],
+        [Paragraph(f"<b>{t['audit_result']} {v_title}</b>", verdict_title_style)],
         [Paragraph(v_text, body_style)]
     ]
     t_verdict = Table(verdict_data, colWidths=[500])
@@ -2678,14 +2959,14 @@ async def download_broker_pdf(scan_id: str):
     story.append(Spacer(1, 20))
     
     # Fraud Prevention Action Plan Checklist
-    story.append(Paragraph("FRAUD PREVENTION ACTION PLAN", section_title_style))
+    story.append(Paragraph(t['plan_title'], section_title_style))
     story.append(Spacer(1, 5))
     
     checklist_paragraphs = [
-        "<b>1. Regulatory License Verification:</b> Always cross-verify the broker's license number directly on the official portal of the stated regulator (e.g., FCA Register, CySEC portal). Scam brokers frequently copy valid license numbers belonging to other corporate groups.",
-        "<b>2. Refuse Cold Calling & Messaging:</b> Legitimate financial institutions will never contact you via cold calls, Telegram, Instagram, or WhatsApp to solicit deposits or promise guaranteed trading gains.",
-        "<b>3. Avoid Unregulated Payment Methods:</b> If a broker requests deposits via private cryptocurrency wallets (Bitcoin/USDT) or asks to transfer money to a personal bank account under a different name, cease all communication immediately.",
-        "<b>4. Domain Age Check:</b> Always match the stated corporate history against the technical WHOIS registry creation date. If the website was registered recently but claims years of operation, it is a critical warning sign."
+        t['plan_1'],
+        t['plan_2'],
+        t['plan_3'],
+        t['plan_4']
     ]
     
     for item in checklist_paragraphs:
@@ -2695,9 +2976,9 @@ async def download_broker_pdf(scan_id: str):
     story.append(Spacer(1, 40))
     
     # Signature / Branding & Disclaimer Footer
-    story.append(Paragraph("Audit compiled by <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Created by <b>VasileDev</b>", signature_style))
+    story.append(Paragraph(t['compiled_by'], signature_style))
     story.append(Spacer(1, 15))
-    story.append(Paragraph("<b>Disclaimer:</b> This security report is generated automatically based on live regulatory queries, WHOIS registers, DNS routing, and heuristic threat calculations. It is provided for educational and preventive intelligence purposes. Always perform due diligence prior to depositing capital with financial providers.", disclaimer_style))
+    story.append(Paragraph(t['disclaimer'], disclaimer_style))
     
     doc.build(story)
     

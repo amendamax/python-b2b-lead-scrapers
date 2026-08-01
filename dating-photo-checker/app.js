@@ -1,6 +1,288 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // ==========================================================================
+    // MULTILINGUAL LOCALIZATION ENGINE
+    // ==========================================================================
+    const currentLang = (document.documentElement.lang || 'en').toLowerCase();
+
+    const i18n = {
+        en: {
+            criticalRisk: "Critical Risk",
+            moderateRisk: "Moderate Risk",
+            lowRisk: "Low Risk",
+            fakeProfile: "Fake Profile Confirmed (Catfish)",
+            stockPhoto: "Stock / Public Photo Detected",
+            uniqueProfile: "Unique Profile Verified",
+            matchesSuffix: "matches",
+            scammerSignature: "Scammer Signature Detected",
+            publicMatchWarning: "Public Match Warning",
+            securityVerdict: "Security Verdict",
+            diagnosticHigh1: "Image found on multiple other websites under different names.",
+            diagnosticHigh2: "Image metadata indicates recent digital alterations (filters/editing).",
+            diagnosticHigh3: "Original image source: Russian model agency stock site.",
+            diagnosticMed1: "Photo matches publicly indexed stock photography or public portfolios.",
+            diagnosticMed2: "Metadata analysis indicates no suspicious digital alterations.",
+            diagnosticMed3: "Image matches found on public indexable web (stock/portfolios).",
+            diagnosticLow1: "No matching faces detected in the global scam database.",
+            diagnosticLow2: "Metadata analysis indicates no suspicious digital alterations.",
+            diagnosticLow3: "Unique image signature — no public web duplicates found.",
+            infoNoFace: "No human face detected in this image. For romance scam verification, please upload a portrait photo with a clear human face.",
+            infoSafe: "No matching faces or scam signatures detected. This image appears to be completely unique and secure.",
+            infoStock: "This photo matches publicly indexed stock photography or public portfolios. Verify if the person is using a generic stock photo or a public presentation image.",
+            infoScammer: "Critical alert. This profile picture is active across multiple social profiles using different names. Matches signatures of organized romance scam groups operating via proxy IPs.",
+            stripeProcessing: "Processing secure payment...",
+            stripePayButton: "Pay $4.99 (5 Scans)",
+            paymentConfirmed: "Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.",
+            reportUnlocked: "Report unlocked using 1 credit. You have <strong>{credits} credits left</strong>.",
+            emailRequired: "Please enter a valid email address.",
+            checkingCredits: "Checking...",
+            useCreditButton: "Use Credit",
+            paymentFailed: "Payment processing failed. Please try again.",
+            connectionError: "Connection error. Please try again later."
+        },
+        ro: {
+            criticalRisk: "Risc Critic",
+            moderateRisk: "Risc Moderat",
+            lowRisk: "Risc Scăzut",
+            fakeProfile: "Profil Fals Confirmat (Catfish)",
+            stockPhoto: "Poză Publică / Stock Detectată",
+            uniqueProfile: "Profil Unic Verificat",
+            matchesSuffix: "potriviri",
+            scammerSignature: "Semnătură de Escrocherie Detectată",
+            publicMatchWarning: "Avertisment de Potrivire Publică",
+            securityVerdict: "Verdict de Securitate",
+            diagnosticHigh1: "Imagine găsită pe mai multe site-uri web sub nume diferite.",
+            diagnosticHigh2: "Metadatele imaginii indică modificări digitale recente (filtre/editare).",
+            diagnosticHigh3: "Sursa originală a imaginii: site de stock al unei agenții de modele din Rusia.",
+            diagnosticMed1: "Fotografia se potrivește cu fotografii de stock indexate public sau portofolii publice.",
+            diagnosticMed2: "Analiza metadatelor indică absența modificărilor digitale suspecte.",
+            diagnosticMed3: "Potriviri de imagini găsite pe web-ul indexabil public (stock/portofolii).",
+            diagnosticLow1: "Nu au fost detectate fețe potrivite în baza globală de date a escrocheriilor.",
+            diagnosticLow2: "Analiza metadatelor indică absența modificărilor digitale suspecte.",
+            diagnosticLow3: "Semnătură unică a imaginii — nu s-au găsit duplicate pe web-ul public.",
+            infoNoFace: "Nu s-a detectat nicio față umană în această imagine. Pentru verificarea escrocheriilor romantice, vă rugăm să încărcați o fotografie tip portret cu o față umană clară.",
+            infoSafe: "Nu au fost detectate fețe potrivite sau semnături de escrocherie. Această imagine pare a fi complet unică și sigură.",
+            infoStock: "Această fotografie se potrivește cu fotografii de stock indexate public sau portofolii publice. Verificați dacă persoana folosește o poză de stock generică sau o imagine de prezentare publică.",
+            infoScammer: "Alertă critică. Această poză de profil este activă pe mai multe profiluri sociale sub nume diferite. Se potrivește cu semnăturile grupurilor organizate de escrocherii sentimentale care operează prin IP-uri proxy.",
+            stripeProcessing: "Se procesează plata securizată...",
+            stripePayButton: "Plătește $4.99 (5 Scanări)",
+            paymentConfirmed: "Plată confirmată! 5 credite adăugate. 1 credit utilizat pentru acest raport. Mai ai <strong>{credits} credite rămase</strong>.",
+            reportUnlocked: "Raport deblocat folosind 1 credit. Mai ai <strong>{credits} credite rămase</strong>.",
+            emailRequired: "Vă rugăm să introduceți o adresă de email validă.",
+            checkingCredits: "Se verifică...",
+            useCreditButton: "Folosește Credit",
+            paymentFailed: "Procesarea plății a eșuat. Vă rugăm să încercați din nou.",
+            connectionError: "Eroare de conexiune. Vă rugăm să încercați mai târziu."
+        },
+        it: {
+            criticalRisk: "Rischio Critico",
+            moderateRisk: "Rischio Moderato",
+            lowRisk: "Rischio Basso",
+            fakeProfile: "Profilo Falso Confermato (Catfish)",
+            stockPhoto: "Foto Stock / Pubblica Rilevata",
+            uniqueProfile: "Profilo Unico Verificato",
+            matchesSuffix: "corrispondenze",
+            scammerSignature: "Firma dello Scammer Rilevata",
+            publicMatchWarning: "Avviso Corrispondenza Pubblica",
+            securityVerdict: "Verdetto di Sicurezza",
+            diagnosticHigh1: "Immagine trovata su più altri siti web con nomi diversi.",
+            diagnosticHigh2: "I metadati dell'immagine indicano recenti alterazioni digitali (filtri/editing).",
+            diagnosticHigh3: "Fonte originale dell'immagine: sito stock di un'agenzia di modelli russa.",
+            diagnosticMed1: "La foto corrisponde a fotografie stock indicizzate pubblicamente o a portfolio pubblici.",
+            diagnosticMed2: "L'analisi dei metadati indica l'assenza di alterazioni digitali sospette.",
+            diagnosticMed3: "Corrispondenze dell'immagine trovate sul web pubblico indicizzabile (stock/portfolio).",
+            diagnosticLow1: "Nessun volto corrispondente rilevato nel database globale delle truffe.",
+            diagnosticLow2: "L'analisi dei metadati indica l'assenza di alterazioni digitali sospette.",
+            diagnosticLow3: "Firma dell'immagine unica — nessuna copia trovata sul web pubblico.",
+            infoNoFace: "Nessun volto umano rilevato in questa immagine. Per la verifica delle truffe amorose, carica una foto ritratto con un volto umano chiaro.",
+            infoSafe: "Nessun volto corrispondente o firma di truffa rilevata. Questa immagine sembra essere completamente unica e sicura.",
+            infoStock: "Questa foto corrisponde a fotografie stock indicizzate pubblicamente o a portfolio pubblici. Verifica se la persona sta utilizzando una foto stock generica o un'immagine di presentazione pubblica.",
+            infoScammer: "Avviso critico. Questa foto del profilo è attiva su più profili social con nomi diversi. Corrisponde alle firme di gruppi organizzati di truffe sentimentali che operano tramite proxy IP.",
+            stripeProcessing: "Elaborazione del pagamento sicuro...",
+            stripePayButton: "Paga $4.99 (5 Scansioni)",
+            paymentConfirmed: "Pagamento confermato! 5 crediti aggiunti. 1 credito utilizzato per questo report. Hai <strong>{credits} crediti rimasti</strong>.",
+            reportUnlocked: "Report sbloccato utilizzando 1 credito. Hai <strong>{credits} crediti rimasti</strong>.",
+            emailRequired: "Inserisci un indirizzo email valido.",
+            checkingCredits: "Verifica...",
+            useCreditButton: "Usa Credito",
+            paymentFailed: "Elaborazione del pagamento fallita. Riprova.",
+            connectionError: "Errore di connessione. Riprova più tardi."
+        },
+        de: {
+            criticalRisk: "Kritisches Risiko",
+            moderateRisk: "Moderates Risiko",
+            lowRisk: "Geringes Risiko",
+            fakeProfile: "Gefälschtes Profil Bestätigt (Catfish)",
+            stockPhoto: "Stock- / Öffentliches Foto Erkannt",
+            uniqueProfile: "Einzigartiges Profil Verifiziert",
+            matchesSuffix: "Treffer",
+            scammerSignature: "Scammer-Signatur Erkannt",
+            publicMatchWarning: "Warnung vor öffentlichem Treffer",
+            securityVerdict: "Sicherheitsurteil",
+            diagnosticHigh1: "Bild wurde auf mehreren anderen Websites unter verschiedenen Namen gefunden.",
+            diagnosticHigh2: "Bildmetadaten weisen auf kürzliche digitale Änderungen hin (Filter/Bearbeitung).",
+            diagnosticHigh3: "Originale Bildquelle: Stock-Website einer russischen Modelagentur.",
+            diagnosticMed1: "Foto entspricht öffentlich indexierten Stock-Fotografien oder öffentlichen Portfolios.",
+            diagnosticMed2: "Metadatenanalyse weist keine verdächtigen digitalen Änderungen auf.",
+            diagnosticMed3: "Bildtreffer im öffentlich indexierbaren Web gefunden (Stock/Portfolios).",
+            diagnosticLow1: "Keine übereinstimmenden Gesichter in der globalen Scammer-Datenbank erkannt.",
+            diagnosticLow2: "Metadatenanalyse weist keine verdächtigen digitalen Änderungen auf.",
+            diagnosticLow3: "Einzigartige Bildsignatur — keine Duplikate im öffentlichen Web gefunden.",
+            infoNoFace: "Kein menschliches Gesicht auf diesem Bild erkannt. Laden Sie für die Überprüfung von Liebesbetrug bitte ein Porträtfoto mit einem klaren menschlichen Gesicht hoch.",
+            infoSafe: "Keine übereinstimmenden Gesichter oder Betrugssignaturen erkannt. Dieses Bild scheint völlig einzigartig und sicher zu sein.",
+            infoStock: "Dieses Foto entspricht öffentlich indexierten Stock-Fotografien oder öffentlichen Portfolios. Überprüfen Sie, ob die Person ein generisches Stock-Foto oder ein öffentliches Präsentationsbild verwendet.",
+            infoScammer: "Kritischer Alarm. Dieses Profilbild ist auf mehreren sozialen Profilen unter verschiedenen Namen aktiv. Entspricht den Signaturen organisierter Liebesbetrugsgruppen, die über Proxy-IPs operieren.",
+            stripeProcessing: "Sichere Zahlung wird verarbeitet...",
+            stripePayButton: "4.99$ bezahlen (5 Scans)",
+            paymentConfirmed: "Zahlung bestätigt! 5 Credits hinzugefügt. 1 Credit für diesen Bericht verwendet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
+            reportUnlocked: "Bericht mit 1 Credit freigeschaltet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
+            emailRequired: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+            checkingCredits: "Wird überprüft...",
+            useCreditButton: "Credit verwenden",
+            paymentFailed: "Zahlungsverarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+            connectionError: "Verbindungsfehler. Bitte versuchen Sie es später noch einmal."
+        },
+        es: {
+            criticalRisk: "Riesgo Crítico",
+            moderateRisk: "Riesgo Moderado",
+            lowRisk: "Riesgo Bajo",
+            fakeProfile: "Perfil Falso Confirmado (Catfish)",
+            stockPhoto: "Foto de Stock / Pública Detectada",
+            uniqueProfile: "Perfil Único Verificado",
+            matchesSuffix: "coincidencias",
+            scammerSignature: "Firma de Estafador Detectada",
+            publicMatchWarning: "Advertencia de Coincidencia Pública",
+            securityVerdict: "Veredicto de Seguridad",
+            diagnosticHigh1: "Imagen encontrada en múltiples otros sitios web con nombres diferentes.",
+            diagnosticHigh2: "Los metadatos de la imagen indican alteraciones digitales recientes (filtros/edición).",
+            diagnosticHigh3: "Fuente original de la imagen: sitio de stock de agencia de modelos rusa.",
+            diagnosticMed1: "La foto coincide con fotografías de stock indexadas públicamente o carteras públicas.",
+            diagnosticMed2: "El análisis de metadatos indica que no hay alteraciones digitales sospechosas.",
+            diagnosticMed3: "Coincidencias de imágenes encontradas en la web pública indexable (stock/carteras).",
+            diagnosticLow1: "No se detectaron rostros coincidentes en la base de datos global de estafas.",
+            diagnosticLow2: "El análisis de metadatos indica que no hay alteraciones digitales sospechosas.",
+            diagnosticLow3: "Firma de imagen única: no se encontraron duplicados en la web pública.",
+            infoNoFace: "No se detectó ningún rostro humano en esta imagen. Para la verificación de estafas amorosas, cargue una foto de retrato con un rostro humano claro.",
+            infoSafe: "No se detectaron rostros coincidentes ni firmas de estafa. Esta imagen parece ser completamente única y segura.",
+            infoStock: "Esta foto coincide con fotografías de stock indexadas públicamente o carteras públicas. Verifique si la persona está utilizando una foto de stock genérica o una imagen de presentación pública.",
+            infoScammer: "Alerta crítica. Esta foto de perfil está activa en múltiples perfiles sociales con diferentes nombres. Coincide con las firmas de grupos organizados de estafas románticas que operan a través de IP proxy.",
+            stripeProcessing: "Procesando pago seguro...",
+            stripePayButton: "Pagar $4.99 (5 Análisis)",
+            paymentConfirmed: "¡Pago confirmado! 5 créditos agregados. 1 crédito utilizado para este informe. Te quedan <strong>{credits} créditos</strong>.",
+            reportUnlocked: "Informe desbloqueado con 1 crédito. Te quedan <strong>{credits} créditos</strong>.",
+            emailRequired: "Por favor, introduzca una dirección de correo electrónico válida.",
+            checkingCredits: "Verificando...",
+            useCreditButton: "Usar Crédito",
+            paymentFailed: "El procesamiento del pago falló. Por favor, inténtelo de nuevo.",
+            connectionError: "Error de conexión. Por favor, inténtelo más tarde."
+        },
+        fr: {
+            criticalRisk: "Risque Critique",
+            moderateRisk: "Risque Modéré",
+            lowRisk: "Risque Faible",
+            fakeProfile: "Faux Profil Confirmé (Catfish)",
+            stockPhoto: "Photo Stock / Publique Détectée",
+            uniqueProfile: "Profil Unique Vérifié",
+            matchesSuffix: "correspondances",
+            scammerSignature: "Signature d'Arnaqueur Détectée",
+            publicMatchWarning: "Avertissement de Correspondance Publique",
+            securityVerdict: "Verdict de Sécurité",
+            diagnosticHigh1: "Image trouvée sur plusieurs autres sites Web sous différents noms.",
+            diagnosticHigh2: "Les métadonnées de l'image indiquent des altérations numériques récentes (filtres/retouche).",
+            diagnosticHigh3: "Source originale de l'image : site de stock d'une agence de mannequins russe.",
+            diagnosticMed1: "La photo correspond à des photographies de stock indexées publiquement ou à des portefeuilles publics.",
+            diagnosticMed2: "L'analyse des métadonnées n'indique aucune altération numérique suspecte.",
+            diagnosticMed3: "Correspondances d'images trouvées sur le Web public indexable (stock/portefeuilles).",
+            diagnosticLow1: "Aucun visage correspondant détecté dans la base de données mondiale des arnaques.",
+            diagnosticLow2: "L'analyse des métadonnées n'indique aucune altération numérique suspecte.",
+            diagnosticLow3: "Signature d'image unique — aucun doublon trouvé sur le Web public.",
+            infoNoFace: "Aucun visage humain détecté dans cette image. Pour la vérification des arnaques sentimentales, veuillez télécharger une photo de portrait avec un visage humain clair.",
+            infoSafe: "Aucun visage correspondant ni signature d'arnaque détecté. Cette image semble être complètement unique et sécurisée.",
+            infoStock: "Cette photo correspond à des photographies de stock indexées publiquement ou à des portefeuilles publics. Vérifiez si la personne utilise une photo de stock générique ou une image de présentation publique.",
+            infoScammer: "Alerte critique. Cette photo de profil est active sur plusieurs profils sociaux sous différents noms. Correspond aux signatures de groupes organisés d'arnaques sentimentales opérant via des IP proxy.",
+            stripeProcessing: "Traitement du paiement sécurisé...",
+            stripePayButton: "Payer 4.99$ (5 Analyses)",
+            paymentConfirmed: "Paiement confirmé ! 5 crédits ajoutés. 1 crédit utilisé pour ce rapport. Il vous reste <strong>{credits} crédits</strong>.",
+            reportUnlocked: "Rapport déverrouillé avec 1 crédit. Il vous reste <strong>{credits} crédits</strong>.",
+            emailRequired: "Veuillez saisir une adresse e-mail valide.",
+            checkingCredits: "Vérification...",
+            useCreditButton: "Utiliser le Crédit",
+            paymentFailed: "Échec du traitement du paiement. Veuillez réessayer.",
+            connectionError: "Connexion au serveur de paiement échouée. Veuillez réessayer plus tard."
+        },
+        pt: {
+            criticalRisk: "Risco Crítico",
+            moderateRisk: "Risco Moderado",
+            lowRisk: "Risco Baixo",
+            fakeProfile: "Perfil Falso Confirmado (Catfish)",
+            stockPhoto: "Foto de Stock / Pública Detectada",
+            uniqueProfile: "Perfil Único Verificado",
+            matchesSuffix: "correspondências",
+            scammerSignature: "Assinatura de Golpista Detectada",
+            publicMatchWarning: "Aviso de Correspondência Pública",
+            securityVerdict: "Veredicto de Segurança",
+            diagnosticHigh1: "Imagem encontrada em vários outros sites sob nomes diferentes.",
+            diagnosticHigh2: "Os metadados da imagem indicam alterações digitais recentes (filtros/edição).",
+            diagnosticHigh3: "Origem original da imagem: site de stock de agência de modelos russa.",
+            diagnosticMed1: "A foto corresponde a fotografias de stock indexadas publicamente ou portfólios públicos.",
+            diagnosticMed2: "A análise de metadados indica que não há alterações digitais suspeitas.",
+            diagnosticMed3: "Correspondências de imagens encontradas na web indexável pública (stock/portfólios).",
+            diagnosticLow1: "Nenhum rosto correspondente detectado no banco de dados global de golpes.",
+            diagnosticLow2: "A análise de metadados indica que não há alterações digitais suspeitas.",
+            diagnosticLow3: "Assinatura de imagem única — nenhuma duplicata encontrada na web pública.",
+            infoNoFace: "Nenhum rosto humano detectado nesta imagem. Para verificação de golpes de romance, envie uma foto de retrato com um rosto humano claro.",
+            infoSafe: "Nenhum rosto correspondente ou assinatura de golpe detectada. Esta imagem parece ser completamente única e segura.",
+            infoStock: "Esta foto corresponde a fotografias de stock indexadas publicamente ou portfólios públicos. Verifique si a pessoa está usando uma foto de stock genérica ou uma imagem de apresentação pública.",
+            infoScammer: "Alerta crítico. Esta foto de perfil está ativa em múltiplos perfis sociais sob nomes diferentes. Corresponde a assinaturas de grupos de golpes românticos organizados que operam via proxy IPs.",
+            stripeProcessing: "Processando pagamento seguro...",
+            stripePayButton: "Pagar $4.99 (5 Analises)",
+            paymentConfirmed: "Pagamento confirmado! 5 créditos adicionados. 1 crédito usado para este relatório. Você tem <strong>{credits} créditos restantes</strong>.",
+            reportUnlocked: "Relatório desbloqueado usando 1 crédito. Você tem <strong>{credits} créditos restantes</strong>.",
+            emailRequired: "Por favor, insira um endereço de e-mail válido.",
+            checkingCredits: "Verificando...",
+            useCreditButton: "Usar Crédito",
+            paymentFailed: "O processamento do pagamento falhou. Por favor, tente novamente.",
+            connectionError: "Erro de conexão. Por favor, tente novamente mais tarde."
+        },
+        ru: {
+            criticalRisk: "Критический риск",
+            moderateRisk: "Средний риск",
+            lowRisk: "Низкий риск",
+            fakeProfile: "Фальшивый профиль подтвержден (Catfish)",
+            stockPhoto: "Обнаружено стоковое / публичное фото",
+            uniqueProfile: "Уникальный профиль подтвержден",
+            matchesSuffix: "совпадений",
+            scammerSignature: "Обнаружена сигнатура мошенника",
+            publicMatchWarning: "Предупреждение о публичном совпадении",
+            securityVerdict: "Вердикт безопасности",
+            diagnosticHigh1: "Изображение найдено на нескольких других веб-сайтах под разными именами.",
+            diagnosticHigh2: "Метаданные изображения указывают на недавние цифровые изменения (фильтры/редактирование).",
+            diagnosticHigh3: "Оригинальный источник изображения: сайт стоковых фотографий российского модельного агентства.",
+            diagnosticMed1: "Фотография совпадает с публично индексируемыми стоковыми фотографиями или публичными портфолио.",
+            diagnosticMed2: "Анализ метаданных указывает на отсутствие подозрительных цифровых изменений.",
+            diagnosticMed3: "Найдены совпадения изображений в публично индексируемой сети (стоки/портфолио).",
+            diagnosticLow1: "Совпадающих лиц в глобальной базе данных мошенников не обнаружено.",
+            diagnosticLow2: "Анализ метаданных указывает на отсутствие подозрительных цифровых изменений.",
+            diagnosticLow3: "Уникальная сигнатура изображения — дубликатов в открытом доступе не найдено.",
+            infoNoFace: "Человеческое лицо на этом изображении не обнаружено. Для верификации романтического мошенничества загрузите портретную фотографию с четким человеческим лицом.",
+            infoSafe: "Совпадающих лиц или сигнатур мошенничества не обнаружено. Это изображение кажется совершенно уникальным и безопасным.",
+            infoStock: "Эта фотография совпадает с публично индексируемыми стоковыми фотографиями или публичными портфолио. Проверьте, использует ли человек обычную стоковую фотографию или публичное презентационное изображение.",
+            infoScammer: "Критическое предупреждение. Это фото профиля активно в нескольких социальных профилях под разными именами. Соответствует сигнатурам организованных групп романтического мошенничества, действующих через прокси-IP.",
+            stripeProcessing: "Обработка безопасного платежа...",
+            stripePayButton: "Оплатить $4.99 (5 сканирований)",
+            paymentConfirmed: "Платеж подтвержден! Добавлено 5 кредитов. 1 кредит использован для этого отчета. У вас осталось <strong>{credits} кредитов</strong>.",
+            reportUnlocked: "Отчет разблокирован с использованием 1 кредита. У вас осталось <strong>{credits} кредитов</strong>.",
+            emailRequired: "Пожалуйста, введите корректный адрес электронной почты.",
+            checkingCredits: "Проверка...",
+            useCreditButton: "Использовать кредит",
+            paymentFailed: "Ошибка обработки платежа. Пожалуйста, попробуйте еще раз.",
+            connectionError: "Ошибка подключения. Пожалуйста, попробуйте позже."
+        }
+    };
+
+    const t = i18n[currentLang] || i18n['en'];
+    
+    // ==========================================================================
     // DOM ELEMENTS
     // ==========================================================================
     const dropZone = document.getElementById('drop-zone-area');
@@ -362,48 +644,48 @@ document.addEventListener('DOMContentLoaded', () => {
             riskCategory = 'high';
             banner.className = 'results-header risk-danger';
             badge.className = 'risk-badge risk-danger';
-            badge.innerText = 'Critical Risk';
-            title.innerText = 'Fake Profile Confirmed (Catfish)';
+            badge.innerText = t.criticalRisk || 'Critical Risk';
+            title.innerText = t.fakeProfile || 'Fake Profile Confirmed (Catfish)';
             document.getElementById('scam-prob-val').className = 'score-value text-danger';
         } else if (scamProb >= 30) {
             riskCategory = 'medium';
             banner.className = 'results-header risk-warning';
             badge.className = 'risk-badge risk-warning';
-            badge.innerText = 'Moderate Risk';
-            title.innerText = 'Stock / Public Photo Detected';
+            badge.innerText = t.moderateRisk || 'Moderate Risk';
+            title.innerText = t.stockPhoto || 'Stock / Public Photo Detected';
             document.getElementById('scam-prob-val').className = 'score-value text-warning';
         } else {
             riskCategory = 'low';
             banner.className = 'results-header risk-safe';
             badge.className = 'risk-badge risk-safe';
-            badge.innerText = 'Low Risk';
-            title.innerText = 'Unique Profile Verified';
+            badge.innerText = t.lowRisk || 'Low Risk';
+            title.innerText = t.uniqueProfile || 'Unique Profile Verified';
             document.getElementById('scam-prob-val').className = 'score-value text-success';
         }
 
         document.getElementById('scam-prob-val').innerText = `${data.scam_probability}%`;
-        document.getElementById('matches-found-val').innerText = `${data.matches_count} matches`;
+        document.getElementById('matches-found-val').innerText = `${data.matches_count} ${t.matchesSuffix || 'matches'}`;
 
         // Update diagnostic summary bullet points dynamically
         const diagnosticList = document.getElementById('diagnostic-details-list');
         if (diagnosticList) {
             if (riskCategory === 'high') {
                 diagnosticList.innerHTML = `
-                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on multiple other websites under different names.</li>
-                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
-                    <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
+                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> ${t.diagnosticHigh1 || 'Image found on multiple other websites under different names.'}</li>
+                    <li><i class="fa-solid fa-circle-info text-info"></i> ${t.diagnosticHigh2 || 'Image metadata indicates recent digital alterations (filters/editing).'}</li>
+                    <li><i class="fa-solid fa-globe text-warning"></i> ${t.diagnosticHigh3 || 'Original image source: Russian model agency stock site.'}</li>
                 `;
             } else if (riskCategory === 'medium') {
                 diagnosticList.innerHTML = `
-                    <li><i class="fa-solid fa-triangle-exclamation text-warning"></i> Photo matches publicly indexed stock photography or public portfolios.</li>
-                    <li><i class="fa-solid fa-circle-check text-success"></i> Metadata analysis indicates no suspicious digital alterations.</li>
-                    <li><i class="fa-solid fa-circle-exclamation text-warning"></i> Image matches found on public indexable web (stock/portfolios).</li>
+                    <li><i class="fa-solid fa-triangle-exclamation text-warning"></i> ${t.diagnosticMed1 || 'Photo matches publicly indexed stock photography or public portfolios.'}</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> ${t.diagnosticMed2 || 'Metadata analysis indicates no suspicious digital alterations.'}</li>
+                    <li><i class="fa-solid fa-circle-exclamation text-warning"></i> ${t.diagnosticMed3 || 'Image matches found on public indexable web (stock/portfolios).'}</li>
                 `;
             } else {
                 diagnosticList.innerHTML = `
-                    <li><i class="fa-solid fa-circle-check text-success"></i> No matching faces detected in the global scam database.</li>
-                    <li><i class="fa-solid fa-circle-check text-success"></i> Metadata analysis indicates no suspicious digital alterations.</li>
-                    <li><i class="fa-solid fa-circle-check text-success"></i> Unique image signature — no public web duplicates found.</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> ${t.diagnosticLow1 || 'No matching faces detected in the global scam database.'}</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> ${t.diagnosticLow2 || 'Metadata analysis indicates no suspicious digital alterations.'}</li>
+                    <li><i class="fa-solid fa-circle-check text-success"></i> ${t.diagnosticLow3 || 'Unique image signature — no public web duplicates found.'}</li>
                 `;
             }
         }
@@ -414,13 +696,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardHeader = scammerProfileCard.querySelector('h4');
             if (riskCategory === 'high') {
                 scammerProfileCard.className = 'scammer-profile-card';
-                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-user-ninja"></i> Scammer Signature Detected';
+                if (cardHeader) cardHeader.innerHTML = `<i class="fa-solid fa-user-ninja"></i> ${t.scammerSignature || 'Scammer Signature Detected'}`;
             } else if (riskCategory === 'medium') {
                 scammerProfileCard.className = 'scammer-profile-card verdict-warning';
-                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Public Match Warning';
+                if (cardHeader) cardHeader.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${t.publicMatchWarning || 'Public Match Warning'}`;
             } else {
                 scammerProfileCard.className = 'scammer-profile-card verdict-safe';
-                if (cardHeader) cardHeader.innerHTML = '<i class="fa-solid fa-circle-check"></i> Security Verdict';
+                if (cardHeader) cardHeader.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.securityVerdict || 'Security Verdict'}`;
             }
         }
     }
@@ -533,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const textNode = confirmPaymentBtn.querySelector('.btn-text');
         const iconNode = confirmPaymentBtn.querySelector('.btn-icon');
         
-        textNode.innerText = 'Processing secure payment...';
+        textNode.innerText = t.stripeProcessing || 'Processing secure payment...';
         iconNode.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
 
         try {
@@ -599,7 +881,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Update success alert text
                 if (successAlertText) {
-                    successAlertText.innerHTML = `Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>${payRes.credits_remaining} credits left</strong>.`;
+                    const msg = t.paymentConfirmed || 'Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.';
+                successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
                 }
 
                 // Close modal
@@ -610,14 +893,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 unlockedPremiumDetails.style.display = 'block';
                 unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert(payRes.detail || "Payment processing failed. Please try again.");
+                alert(payRes.detail || t.paymentFailed || "Payment processing failed. Please try again.");
             }
         } catch (err) {
             console.error("Payment Error: ", err);
-            alert(err.message || "Connection error to payment server.");
+            alert(err.message || t.connectionError || "Connection error to payment server.");
         } finally {
             confirmPaymentBtn.disabled = false;
-            textNode.innerText = 'Pay $4.99 (5 Scans)';
+            textNode.innerText = t.stripePayButton || 'Pay $4.99 (5 Scans)';
             iconNode.innerHTML = '<i class="fa-solid fa-lock"></i>';
             cardElement.clear();
         }
@@ -628,12 +911,12 @@ document.addEventListener('DOMContentLoaded', () => {
         useCreditBtn.addEventListener('click', async () => {
             const emailVal = creditEmailInput.value.trim();
             if (!emailVal || !emailVal.includes('@')) {
-                showCreditError("Please enter a valid email address.");
+                showCreditError(t.emailRequired || "Please enter a valid email address.");
                 return;
             }
             
             useCreditBtn.disabled = true;
-            useCreditBtn.innerText = 'Checking...';
+            useCreditBtn.innerText = t.checkingCredits || 'Checking...';
             if (creditErrorMsg) creditErrorMsg.style.display = 'none';
             
             try {
@@ -657,7 +940,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderPremiumDetails(fullResults);
                     
                     if (successAlertText) {
-                        successAlertText.innerHTML = `Report unlocked using 1 credit. You have <strong>${res.credits_remaining} credits left</strong>.`;
+                        const msg = t.reportUnlocked || 'Report unlocked using 1 credit. You have <strong>{credits} credits left</strong>.';
+                        successAlertText.innerHTML = msg.replace('{credits}', res.credits_remaining);
                     }
                     
                     resultsPaywall.style.display = 'none';
@@ -668,10 +952,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (err) {
                 console.error("Credit Error: ", err);
-                showCreditError("Connection error. Please try again later.");
+                showCreditError(t.connectionError || "Connection error. Please try again later.");
             } finally {
                 useCreditBtn.disabled = false;
-                useCreditBtn.innerText = 'Use Credit';
+                useCreditBtn.innerText = t.useCreditButton || 'Use Credit';
             }
         });
     }
@@ -726,8 +1010,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Set Scam Signature text from DB
+        let sInfo = data.scammer_info || "";
+        if (sInfo.includes("No human face detected")) {
+            sInfo = t.infoNoFace || sInfo;
+        } else if (sInfo.includes("No matching faces or scam signatures")) {
+            sInfo = t.infoSafe || sInfo;
+        } else if (sInfo.includes("matches publicly indexed stock photography") || sInfo.includes("matches publicly indexed stock")) {
+            sInfo = t.infoStock || sInfo;
+        } else if (sInfo.includes("Critical alert. This profile picture") || sInfo.includes("Critical alert. This profile")) {
+            sInfo = t.infoScammer || sInfo;
+        }
+
         const scammerCard = document.querySelector('.scammer-profile-card p');
-        scammerCard.innerHTML = data.scammer_info;
+        scammerCard.innerHTML = sInfo;
     }
 
     // ==========================================================================
