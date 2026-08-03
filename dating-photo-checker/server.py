@@ -519,6 +519,10 @@ async def get_uploaded_image_with_db_recovery(filename: str):
 # Mount uploads directory statically so Google Lens can perform reverse search on the image
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+# Mount .well-known directory for Stripe/Apple Pay domain association
+if os.path.exists(".well-known"):
+    app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
+
 # ==========================================================================
 # DATING SCAN LOGIC & SCHEMAS
 # ==========================================================================
