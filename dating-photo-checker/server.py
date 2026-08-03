@@ -153,6 +153,11 @@ def init_db():
         cursor.execute("ALTER TABLE scans ADD COLUMN image_base64 TEXT")
     except sqlite3.OperationalError:
         pass
+
+    try:
+        cursor.execute("ALTER TABLE scans ADD COLUMN package TEXT")
+    except sqlite3.OperationalError:
+        pass
         
     # Table for user credits
     cursor.execute("""
@@ -975,8 +980,8 @@ async def pay_card(request: PaymentRequest):
     new_credits = max(0, new_credits - 1)
     cursor.execute("UPDATE users SET credits_remaining = ? WHERE email = ?", (new_credits, request.email))
     
-    # Mark scan as paid and link to email
-    cursor.execute("UPDATE scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
+    # Mark scan as paid, link to email, and save package type
+    cursor.execute("UPDATE scans SET payment_status = 'paid', email = ?, package = ? WHERE id = ?", (request.email, package_type, request.scan_id))
     
     conn.commit()
     conn.close()
@@ -1398,7 +1403,7 @@ async def get_admin_dashboard(token: str = None):
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email 
+            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email, package 
             FROM scans 
             ORDER BY created_at DESC
         """)
@@ -1410,7 +1415,8 @@ async def get_admin_dashboard(token: str = None):
         
         total_scans = len(rows)
         total_paid = sum(1 for r in rows if r[2] == 'paid')
-        revenue = total_paid * 4.99
+        # Calculate dynamic revenue
+        revenue = sum(1.99 if r[7] == 'single' else 4.99 for r in rows if r[2] == 'paid')
         v_leads_count = len(v_leads)
         
         v_leads_html = ""
@@ -1420,11 +1426,12 @@ async def get_admin_dashboard(token: str = None):
         
         cards_html = ""
         for row in rows:
-            scan_id, created_at, payment_status, scam_prob, matches, img_path, email = row
+            scan_id, created_at, payment_status, scam_prob, matches, img_path, email, package = row
             img_name = os.path.basename(img_path) if img_path else ""
             img_url = f"/uploads/{img_name}" if img_name else "#"
             
-            status_badge = '<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ($4.99)</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
+            price_display = "$1.99" if package == "single" else "$4.99"
+            status_badge = f'<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ({price_display})</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
             
             prob_color = "#EF4444" if scam_prob >= 70 else "#F59E0B" if scam_prob >= 40 else "#10B981"
             
@@ -1610,7 +1617,7 @@ async def get_admin_scans(token: str = None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT id, created_at, payment_status, scam_probability, matches_count, image_path 
+        SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, package 
         FROM scans 
         ORDER BY created_at DESC
     """)
@@ -1620,7 +1627,7 @@ async def get_admin_scans(token: str = None):
     scans_list = []
     total_paid = 0
     for row in rows:
-        scan_id, created_at, payment_status, scam_probability, matches_count, image_path = row
+        scan_id, created_at, payment_status, scam_probability, matches_count, image_path, package = row
         if payment_status == "paid":
             total_paid += 1
         scans_list.append({
@@ -1629,7 +1636,8 @@ async def get_admin_scans(token: str = None):
             "payment_status": payment_status,
             "scam_probability": scam_probability,
             "matches_count": matches_count,
-            "image_name": os.path.basename(image_path) if image_path else "N/A"
+            "image_name": os.path.basename(image_path) if image_path else "N/A",
+            "package": package
         })
         
     return {
