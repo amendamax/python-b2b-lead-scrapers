@@ -465,6 +465,20 @@ async def get_og_image_jpg():
         return FileResponse(path, media_type="image/jpeg")
     raise HTTPException(status_code=404, detail="OG Image JPG not found")
 
+@app.get("/verifydating_og_banner.jpg")
+async def get_verifydating_og_banner():
+    if os.path.exists("verifydating_og_banner.jpg"):
+        return FileResponse("verifydating_og_banner.jpg", media_type="image/jpeg")
+    raise HTTPException(status_code=404, detail="VerifyDating OG Banner not found")
+
+@app.get("/isbrokersafe_og_banner.jpg")
+async def get_isbrokersafe_og_banner():
+    path = os.path.join("broker-verifier", "isbrokersafe_og_banner.jpg")
+    if os.path.exists(path):
+        return FileResponse(path, media_type="image/jpeg")
+    raise HTTPException(status_code=404, detail="IsBrokerSafe OG Banner not found")
+
+
 # Mount the broker-verifier directory statically
 # This makes it accessible at verifydating.net/broker-verifier/
 if os.path.exists("broker-verifier"):
@@ -507,6 +521,7 @@ class PaymentRequest(BaseModel):
     scan_id: str
     email: str
     token_id: str
+    package: Optional[str] = "bundle"
 
 class UrlScanRequest(BaseModel):
     url: str
@@ -899,7 +914,7 @@ async def pay_card(request: PaymentRequest):
         
     try:
         with open("payments.log", "a") as f:
-            f.write(f"{datetime.now().isoformat()} - Scan: {request.scan_id} - Email: {request.email} - Token: {request.token_id}\n")
+            f.write(f"{datetime.now().isoformat()} - Scan: {request.scan_id} - Email: {request.email} - Token: {request.token_id} - Package: {request.package}\n")
     except Exception:
         pass
         
@@ -914,15 +929,26 @@ async def pay_card(request: PaymentRequest):
 
     is_admin_test = "amendamax" in request.email.lower()
     
+    # Determine price and credits based on selected package
+    package_type = request.package if request.package in ["single", "bundle"] else "bundle"
+    if package_type == "single":
+        stripe_amount = 199
+        credits_to_add = 1
+        description_text = f"VerifyDating Single Report - Scan {request.scan_id}"
+    else:
+        stripe_amount = 499
+        credits_to_add = 5
+        description_text = f"VerifyDating Security Report - Scan {request.scan_id}"
+    
     if STRIPE_SECRET_KEY and not is_admin_test:
         try:
             import stripe
             stripe.api_key = STRIPE_SECRET_KEY
             stripe.Charge.create(
-                amount=499,
+                amount=stripe_amount,
                 currency="usd",
                 source=request.token_id,
-                description=f"VerifyDating Security Report - Scan {request.scan_id}",
+                description=description_text,
                 receipt_email=request.email,
             )
         except stripe.error.CardError as e:
@@ -936,13 +962,13 @@ async def pay_card(request: PaymentRequest):
     cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
     user_row = cursor.fetchone()
     if not user_row:
-        # Create user with 5 credits
+        # Create user with credits_to_add
         cursor.execute("INSERT INTO users (email, credits_remaining, created_at) VALUES (?, ?, ?)", 
-                       (request.email, 5, datetime.now().isoformat()))
-        new_credits = 5
+                       (request.email, credits_to_add, datetime.now().isoformat()))
+        new_credits = credits_to_add
     else:
-        # Add 5 credits
-        new_credits = user_row[0] + 5
+        # Add credits_to_add
+        new_credits = user_row[0] + credits_to_add
         cursor.execute("UPDATE users SET credits_remaining = ? WHERE email = ?", (new_credits, request.email))
 
     # Consume 1 credit for the current scan
@@ -957,7 +983,7 @@ async def pay_card(request: PaymentRequest):
     
     return {
         "success": True, 
-        "message": "Payment processed successfully. 5 credits added, 1 credit used for this report.",
+        "message": f"Payment processed successfully. {credits_to_add} credits added, 1 credit used for this report.",
         "credits_remaining": new_credits
     }
 

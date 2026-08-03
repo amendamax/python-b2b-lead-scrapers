@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedFile = null;
     let currentScanId = null;
+    let selectedPackage = 'bundle'; // 'single' or 'bundle'
 
     // ==========================================================================
     // STRIPE ELEMENTS INITIALIZATION (PCI-compliant card tokenization)
@@ -710,10 +711,97 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // STRIPE DEMO / CHECKOUT MODAL LOGIC
     // ==========================================================================
-    paywallUnlockBtn.addEventListener('click', () => {
-        checkoutModal.classList.add('open');
-        cardEmailInput.focus();
-    });
+    // Helper function to update the checkout modal depending on the package
+    function getPayButtonText(lang, pkgType) {
+        if (pkgType === 'single') {
+            const prices = {
+                en: "Pay $1.99 (1 Scan)",
+                ro: "Plătește $1.99 (1 Scanare)",
+                it: "Paga $1.99 (1 Scansione)",
+                de: "1.99$ bezahlen (1 Scan)",
+                es: "Pagar $1.99 (1 Análisis)",
+                fr: "Payer 1.99$ (1 Analyse)",
+                pt: "Pagar $1.99 (1 Analise)",
+                ru: "Оплатить $1.99 (1 сканирование)"
+            };
+            return prices[lang] || prices['en'];
+        } else {
+            const prices = {
+                en: "Pay $4.99 (5 Scans)",
+                ro: "Plătește $4.99 (5 Scanări)",
+                it: "Paga $4.99 (5 Scansioni)",
+                de: "4.99$ bezahlen (5 Scans)",
+                es: "Pagar $4.99 (5 Análisis)",
+                fr: "Payer 4.99$ (5 Analyses)",
+                pt: "Pagar $4.99 (5 Analises)",
+                ru: "Оплатить $4.99 (5 сканирований)"
+            };
+            return prices[lang] || prices['en'];
+        }
+    }
+
+    function getPackageDesc(lang, pkgType) {
+        if (pkgType === 'single') {
+            const descs = {
+                en: "Package includes 1 scan report",
+                ro: "Pachetul include o singură scanare",
+                it: "Il pacchetto include 1 scansione",
+                de: "Paket enthält 1 Scan-Bericht",
+                es: "El paquete incluye 1 análisis",
+                fr: "Le paquet comprend 1 analyse",
+                pt: "O pacote inclui 1 analise",
+                ru: "Пакет включает 1 сканирование"
+            };
+            return descs[lang] || descs['en'];
+        } else {
+            const descs = {
+                en: "Package includes 5 scans",
+                ro: "Pachetul include 5 scanări",
+                it: "Il pacchetto include 5 scansioni",
+                de: "Paket enthält 5 Scans",
+                es: "El paquete incluye 5 análisis",
+                fr: "Le paquet comprend 5 analyses",
+                pt: "O pacote inclui 5 analises",
+                ru: "Paket includes 5 scans"
+            };
+            return descs[lang] || descs['en'];
+        }
+    }
+
+    function updateCheckoutModalUI(packageType) {
+        selectedPackage = packageType;
+        const summaryAmountNode = checkoutModal.querySelector('.summary-amount');
+        const summaryTextNode = checkoutModal.querySelector('.payment-summary p');
+        const textNode = confirmPaymentBtn.querySelector('.btn-text');
+        
+        if (summaryAmountNode) {
+            summaryAmountNode.innerText = packageType === 'single' ? '$1.99' : '$4.99';
+        }
+        if (summaryTextNode) {
+            summaryTextNode.innerText = getPackageDesc(currentLang, packageType);
+        }
+        if (textNode) {
+            textNode.innerText = getPayButtonText(currentLang, packageType);
+        }
+    }
+
+    const paywallUnlockSingleBtn = document.getElementById('paywall-unlock-single-btn');
+
+    if (paywallUnlockSingleBtn) {
+        paywallUnlockSingleBtn.addEventListener('click', () => {
+            updateCheckoutModalUI('single');
+            checkoutModal.classList.add('open');
+            cardEmailInput.focus();
+        });
+    }
+
+    if (paywallUnlockBtn) {
+        paywallUnlockBtn.addEventListener('click', () => {
+            updateCheckoutModalUI('bundle');
+            checkoutModal.classList.add('open');
+            cardEmailInput.focus();
+        });
+    }
 
     closeModalBtn.addEventListener('click', () => {
         checkoutModal.classList.remove('open');
@@ -836,14 +924,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 token_id = tokenResult.id;
             }
 
-            // Post token_id and email to backend
+            // Post token_id, email, and package type to backend
             const response = await fetch('/api/pay-card', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     scan_id: currentScanId,
                     email: cardEmailInput.value.trim(),
-                    token_id: token_id
+                    token_id: token_id,
+                    package: selectedPackage
                 })
             });
             const payRes = await response.json();
@@ -852,21 +941,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Save email to LocalStorage
                 localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
 
+                const purchaseVal = selectedPackage === 'single' ? 1.99 : 4.99;
+                const itemId = selectedPackage === 'single' ? 'report_1_credit' : 'report_5_credits';
+                const itemName = selectedPackage === 'single' ? 'VerifyDating 1 Scan Credit' : 'VerifyDating 5 Scan Credits';
+
                 // Trigger Conversion Event for Google Ads & GA4
                 if (typeof gtag === 'function') {
                     gtag('event', 'purchase', {
                         'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
-                        'value': 4.99,
+                        'value': purchaseVal,
                         'currency': 'USD',
                         'items': [{
-                            'item_id': 'report_5_credits',
-                            'item_name': 'VerifyDating 5 Scan Credits',
-                            'price': 4.99,
+                            'item_id': itemId,
+                            'item_name': itemName,
+                            'price': purchaseVal,
                             'quantity': 1
                         }]
                     });
                     gtag('event', 'conversion', {
-                        'value': 4.99,
+                        'value': purchaseVal,
                         'currency': 'USD',
                         'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now())
                     });
@@ -879,10 +972,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Populate unlocked premium details
                 renderPremiumDetails(fullResults);
                 
-                // Update success alert text
+                // Update success alert text dynamically
                 if (successAlertText) {
-                    const msg = t.paymentConfirmed || 'Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.';
-                successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
+                    let msg = t.paymentConfirmed || 'Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.';
+                    if (selectedPackage === 'single') {
+                        const singleMsgs = {
+                            en: 'Payment confirmed! Report unlocked. You have <strong>{credits} credits left</strong>.',
+                            ro: 'Plată confirmată! Raport deblocat. Mai ai <strong>{credits} credite rămase</strong>.',
+                            it: 'Pagamento confermato! Report sbloccato. Hai <strong>{credits} crediti rimasti</strong>.',
+                            de: 'Zahlung bestätigt! Bericht freigeschaltet. Sie haben noch <strong>{credits} Scans übrig</strong>.',
+                            es: '¡Pago confirmado! Informe desbloqueado. Te quedan <strong>{credits} créditos</strong>.',
+                            fr: 'Paiement confirmé ! Rapport déverrouillé. Il vous reste <strong>{credits} crédits</strong>.',
+                            pt: 'Pagamento confirmado! Relatório desbloqueado. Restam <strong>{credits} créditos</strong>.',
+                            ru: 'Оплата подтверждена! Отчет разблокирован. У вас осталось <strong>{credits} сканирований</strong>.'
+                        };
+                        msg = singleMsgs[currentLang] || singleMsgs['en'];
+                    }
+                    successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
                 }
 
                 // Close modal
@@ -900,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(err.message || t.connectionError || "Connection error to payment server.");
         } finally {
             confirmPaymentBtn.disabled = false;
-            textNode.innerText = t.stripePayButton || 'Pay $4.99 (5 Scans)';
+            textNode.innerText = getPayButtonText(currentLang, selectedPackage);
             iconNode.innerHTML = '<i class="fa-solid fa-lock"></i>';
             cardElement.clear();
         }
