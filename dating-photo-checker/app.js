@@ -768,11 +768,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getEmailHelpText(lang, pkgType) {
+        if (pkgType === 'single') {
+            const texts = {
+                en: "Your scan credit will be linked to this email address.",
+                ro: "Creditul tău pentru scanare va fi asociat acestei adrese de e-mail.",
+                it: "Il tuo credito di scansione sarà collegato a questo indirizzo email.",
+                de: "Dein Scan-Guthaben wird mit dieser E-Mail-Adresse verknüpft.",
+                es: "Tu crédito de análisis se vinculará a esta dirección de correo electrónico.",
+                fr: "Votre crédit de scan sera lié à cette adresse e-mail.",
+                pt: "Seu crédito de escaneamento será vinculado a este endereço de e-mail.",
+                ru: "Ваш кредит на сканирование будет привязан к этому адресу электронной почты."
+            };
+            return texts[lang] || texts['en'];
+        } else {
+            const texts = {
+                en: "Your 5 scan credits will be linked to this email address.",
+                ro: "Cele 5 credite pentru scanare vor fi asociate acestei adrese de e-mail.",
+                it: "I tuoi 5 crediti di scansione saranno collegati a questo indirizzo email.",
+                de: "Deine 5 Scan-Guthaben werden mit dieser E-Mail-Adresse verknüpft.",
+                es: "Tus 5 créditos de análisis se vincularán a esta dirección de correo electrónico.",
+                fr: "Vos 5 crédits de scan seront liés à cette adresse e-mail.",
+                pt: "Seus 5 créditos de escaneamento serão vinculados a este endereço de e-mail.",
+                ru: "Ваши 5 кредитов на сканирование будут привязаны к этому адресу электронной почты."
+            };
+            return texts[lang] || texts['en'];
+        }
+    }
+
     function updateCheckoutModalUI(packageType) {
         selectedPackage = packageType;
         const summaryAmountNode = checkoutModal.querySelector('.summary-amount');
         const summaryTextNode = checkoutModal.querySelector('.payment-summary p');
         const textNode = confirmPaymentBtn.querySelector('.btn-text');
+        const emailHelpNode = document.querySelector('#payment-form small');
         
         if (summaryAmountNode) {
             summaryAmountNode.innerText = packageType === 'single' ? '$1.99' : '$4.99';
@@ -782,6 +811,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (textNode) {
             textNode.innerText = getPayButtonText(currentLang, packageType);
+        }
+        if (emailHelpNode) {
+            emailHelpNode.innerText = getEmailHelpText(currentLang, packageType);
         }
     }
 
