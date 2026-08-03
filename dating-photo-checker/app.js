@@ -846,6 +846,120 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
+    // APPLE PAY & GOOGLE PAY BUTTON HANDLERS (Stripe Payment Request)
+    // ==========================================================================
+    const applePayBtn = checkoutModal.querySelector('.btn-apple-pay');
+    const googlePayBtn = checkoutModal.querySelector('.btn-google-pay');
+
+    function createStripePaymentRequest(amountCents, labelText) {
+        const pr = stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+                label: labelText,
+                amount: amountCents,
+            },
+            requestPayerEmail: true,
+        });
+
+        pr.on('paymentmethod', async (ev) => {
+            try {
+                const response = await fetch('/api/pay-card', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        scan_id: currentScanId,
+                        email: ev.payerEmail || cardEmailInput.value.trim() || 'wallet_user@verifydating.net',
+                        token_id: ev.paymentMethod.id,
+                        package: selectedPackage
+                    })
+                });
+                const payRes = await response.json();
+                if (response.ok && payRes.success) {
+                    ev.complete('success');
+                    
+                    const purchaseVal = selectedPackage === 'single' ? 1.99 : 4.99;
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'purchase', {
+                            'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
+                            'value': purchaseVal,
+                            'currency': 'USD'
+                        });
+                    }
+
+                    const resResponse = await fetch(`/api/results/${currentScanId}`);
+                    const fullResults = await resResponse.json();
+                    renderPremiumDetails(fullResults);
+
+                    if (successAlertText) {
+                        let msg = t.paymentConfirmed || 'Payment confirmed!';
+                        if (selectedPackage === 'single') {
+                            const singleMsgs = {
+                                en: 'Payment confirmed! Report unlocked. You have <strong>{credits} credits left</strong>.',
+                                ro: 'Plată confirmată! Raport deblocat. Mai ai <strong>{credits} credite rămase</strong>.',
+                                it: 'Pagamento confermato! Report sbloccato. Hai <strong>{credits} crediti rimasti</strong>.',
+                                de: 'Zahlung bestätigt! Bericht freigeschaltet. Sie haben noch <strong>{credits} Scans übrig</strong>.',
+                                es: '¡Pago confirmado! Informe desbloqueado. Te quedan <strong>{credits} créditos</strong>.',
+                                fr: 'Paiement confirmé ! Rapport déverrouillé. Il vous reste <strong>{credits} crédits</strong>.',
+                                pt: 'Pagamento confirmado! Relatório desbloqueado. Restam <strong>{credits} créditos</strong>.',
+                                ru: 'Оплата подтверждена! Отчет разблокирован. У вас осталось <strong>{credits} сканирований</strong>.'
+                            };
+                            msg = singleMsgs[currentLang] || singleMsgs['en'];
+                        }
+                        successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
+                    }
+
+                    checkoutModal.classList.remove('open');
+                    resultsPaywall.style.display = 'none';
+                    unlockedPremiumDetails.style.display = 'block';
+                    unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    ev.complete('fail');
+                    alert(payRes.detail || "Payment failed. Please try card checkout below.");
+                }
+            } catch (err) {
+                ev.complete('fail');
+                alert("Payment processing error. Please try card checkout below.");
+            }
+        });
+
+        return pr;
+    }
+
+    async function handleWalletPayClick(walletType) {
+        const amountCents = selectedPackage === 'single' ? 199 : 499;
+        const labelText = selectedPackage === 'single' ? 'VerifyDating 1 Scan Report' : 'VerifyDating 5 Scans Package';
+        const pr = createStripePaymentRequest(amountCents, labelText);
+
+        const canMakePaymentResult = await pr.canMakePayment();
+
+        if (canMakePaymentResult && (walletType === 'apple' ? canMakePaymentResult.applePay : true)) {
+            pr.show();
+        } else {
+            const deviceMsg = walletType === 'apple' 
+                ? (currentLang === 'ro' ? "Apple Pay este disponibil pe dispozitive Apple în browserul Safari. Vă rugăm să folosiți cardul bancar de mai jos." : "Apple Pay is available on Apple devices via Safari. Please pay with credit card below.")
+                : (currentLang === 'ro' ? "Google Pay nu este configurat pe acest browser. Vă rugăm să folosiți cardul bancar de mai jos." : "Google Pay is not set up on this browser. Please pay with credit card below.");
+            
+            alert(deviceMsg);
+            cardEmailInput.focus();
+        }
+    }
+
+    if (applePayBtn) {
+        applePayBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleWalletPayClick('apple');
+        });
+    }
+
+    if (googlePayBtn) {
+        googlePayBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleWalletPayClick('google');
+        });
+    }
+
+    // ==========================================================================
     // VIDEO SMOKE TEST MODAL LOGIC
     // ==========================================================================
     const videoScanSmokeBtn = document.getElementById('video-scan-smoke-btn');
