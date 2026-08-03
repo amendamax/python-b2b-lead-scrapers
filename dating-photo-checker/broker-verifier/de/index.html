@@ -415,6 +415,17 @@
                 <strong style="color: var(--color-primary); font-size: 1rem;">9,99 $</strong>
             </div>
 
+                        <!-- Apple Pay & Google Pay Express Checkout Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem;">
+                <button type="button" class="btn-pay btn-apple-pay" style="background:#ffffff; color:#000000; font-weight:700; border-radius:8px; padding:10px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif;">
+                    <i class="fa-brands fa-apple"></i> Pay with Apple Pay
+                </button>
+                <button type="button" class="btn-pay btn-google-pay" style="background:#3c4043; color:#ffffff; font-weight:700; border-radius:8px; padding:10px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif;">
+                    <i class="fa-brands fa-google"></i> Pay with GPay
+                </button>
+            </div>
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.5px;">OR PAY WITH CREDIT CARD</div>
+
             <form id="payment-form" onsubmit="event.preventDefault();">
                 <div style="margin-bottom: 1rem; text-align: left;">
                     <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">E-Mail-Adresse</label>

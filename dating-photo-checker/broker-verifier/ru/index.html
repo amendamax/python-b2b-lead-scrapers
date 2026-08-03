@@ -191,7 +191,7 @@
                         <h4 style="margin-bottom: 0.5rem; font-family: 'Outfit'; color: var(--text-main);">🔒 Полный отчет о рисках заблокирован</h4>
                         <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.1rem;">Получите полный отчет в формате PDF, включая необработанные данные WHOIS, журналы черных списков и корпоративные данные.</p>
                         <button class="btn btn-primary" id="paywall-unlock-btn" style="width: 100%; cursor: pointer;">
-                            Разблокировать отчет - $9.99 💳
+                            Разблокировать отчет - $4.99 💳
                         </button>
                     </div>
                 </div>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="review-card">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Для меня, как для розничного форекс-трейдера, проверка офшорных компаний имеет решающее значение. BrokerVerifier уберег меня и мое торговое сообщество от нескольких сомнительных CFD-брокеров. Отчеты в PDF стоят каждого цента из этих $9.99."</p>
+                    <p class="review-text">"Для меня, как для розничного форекс-трейдера, проверка офшорных компаний имеет решающее значение. BrokerVerifier уберег меня и мое торговое сообщество от нескольких сомнительных CFD-брокеров. Отчеты в PDF стоят каждого цента из этих $4.99."</p>
                     <span class="review-author">Marcus T.</span><span class="review-meta">· London, UK</span>
                 </div>
                 <div class="review-card">
@@ -263,12 +263,12 @@
                 </div>
                 <div class="review-card">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Я заплатил $9.99, чтобы получить глубокий аудит офшорного брокера на MT5. Он сразу же пометил предупреждения из черного списка CySEC, скрытые под названием другой подставной компании. Инструмент действительно спасает средства."</p>
+                    <p class="review-text">"Я заплатил $4.99, чтобы получить глубокий аудит офшорного брокера на MT5. Он сразу же пометил предупреждения из черного списка CySEC, скрытые под названием другой подставной компании. Инструмент действительно спасает средства."</p>
                     <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
                 </div>
                 <div class="review-card">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Чистый интерфейс, быстрое сканирование и очень подробный PDF-отчет. Он показал, что брокер размещался на дешевом общем сервере в Панаме. Безумная ценность за $9.99. Очень рекомендую!"</p>
+                    <p class="review-text">"Чистый интерфейс, быстрое сканирование и очень подробный PDF-отчет. Он показал, что брокер размещался на дешевом общем сервере в Панаме. Безумная ценность за $4.99. Очень рекомендую!"</p>
                     <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
                 </div>
                 <div class="review-card">
@@ -412,14 +412,25 @@
             
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.2rem;">
                 <span style="font-size: 0.9rem;">PDF-отчет о судебных рисках</span>
-                <strong style="color: var(--color-primary); font-size: 1rem;">$9.99</strong>
+                <strong style="color: var(--color-primary); font-size: 1rem;">$4.99</strong>
             </div>
 
             
                 <div class="ru-payment-warning" style="padding: 10px; background: rgba(220, 38, 38, 0.1); border: 1px dashed rgba(220, 38, 38, 0.4); border-radius: 6px; margin-bottom: 15px; text-align: left; font-size: 11px; line-height: 1.4; color: #fca5a5;">
                     💳 <strong>Обратите внимание:</strong> К оплате принимаются только международные банковские карты. Карты, выпущенные в РФ (Мир, Visa, Mastercard), не поддерживаются из-за ограничений платежной системы.
                 </div>
-<form id="payment-form" onsubmit="event.preventDefault();">
+            <!-- Apple Pay & Google Pay Express Checkout Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem;">
+                <button type="button" class="btn-pay btn-apple-pay" style="background:#ffffff; color:#000000; font-weight:700; border-radius:8px; padding:10px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif;">
+                    <i class="fa-brands fa-apple"></i> Pay with Apple Pay
+                </button>
+                <button type="button" class="btn-pay btn-google-pay" style="background:#3c4043; color:#ffffff; font-weight:700; border-radius:8px; padding:10px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif;">
+                    <i class="fa-brands fa-google"></i> Pay with GPay
+                </button>
+            </div>
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.5px;">OR PAY WITH CREDIT CARD</div>
+
+            <form id="payment-form" onsubmit="event.preventDefault();">
                 <div style="margin-bottom: 1rem; text-align: left;">
                     <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Адрес электронной почты</label>
                     <input type="email" id="card-email" required placeholder="name@example.com" class="wizard-text-input" style="width: 100%; box-sizing: border-box; background: rgba(5,8,15,0.8); color: #fff;">
@@ -431,7 +442,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="confirm-payment-btn" style="width: 100%;">
-                    Оплатить $9.99 и скачать отчет
+                    Оплатить $4.99 и скачать отчет
                 </button>
             </form>
         </div>

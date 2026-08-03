@@ -2360,13 +2360,13 @@ async def pay_broker_card(request: BrokerPaymentRequest):
     broker_name = row[1]
     is_admin_test = "amendamax" in request.email.lower()
     
-    # Charge $9.99 for Broker Audit Report
+    # Charge $4.99 for Broker Audit Report
     if STRIPE_SECRET_KEY_BROKER and not is_admin_test:
         try:
             import stripe
             stripe.api_key = STRIPE_SECRET_KEY_BROKER
             stripe.Charge.create(
-                amount=999,
+                amount=499,
                 currency="usd",
                 source=request.token_id,
                 description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
