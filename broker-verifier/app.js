@@ -739,11 +739,16 @@ async function fetchResults(scanId) {
         const isPartnerBroker = ["exness", "etoro", "plus500", "xm", "avatrade"].some(p => bClean.includes(p));
         
         let affLink = data.affiliate_link;
-        if (!affLink && bClean.includes("exness")) {
-            affLink = "https://one.exnessonelink.com/a/hb0ywi6abh";
-        }
-        if (!affLink && isPartnerBroker) {
-            affLink = "javascript:void(0)";
+        if (!affLink) {
+            if (bClean.includes("exness")) {
+                affLink = "https://one.exnessonelink.com/a/hb0ywi6abh";
+            } else if (bClean.includes("etoro")) {
+                affLink = "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx";
+            } else if (bClean.includes("xm")) {
+                affLink = "https://affs.click/E17wj";
+            } else if (bClean.includes("avatrade") || bClean.includes("plus500")) {
+                affLink = reviewUrl;
+            }
         }
 
         if (isPartnerBroker || (affLink && affLink !== "javascript:void(0)")) {
