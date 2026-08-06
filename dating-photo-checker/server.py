@@ -136,14 +136,33 @@ else:
     STRIPE_SECRET_KEY_BROKER = raw_broker_key
 
 # ==========================================================================
-# TELEGRAM NOTIFICATIONS & PAYMENT ERROR LOGGING
+# WHATSAPP & TELEGRAM NOTIFICATIONS & PAYMENT ERROR LOGGING
 # ==========================================================================
+WHATSAPP_PHONE = os.getenv("WHATSAPP_PHONE", "+393209481876")
+WHATSAPP_APIKEY = os.getenv("WHATSAPP_APIKEY", "")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8677428441:AAEKsz-dfn_zlF7asRXEy1qtutCYPQOdLdE")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "1367224738")
 
+def send_whatsapp_message(text_message: str):
+    """Send instant WhatsApp alert via CallMeBot API or WhatsApp Gateway."""
+    if not WHATSAPP_PHONE:
+        return
+    def _send():
+        try:
+            clean_phone = WHATSAPP_PHONE.replace("+", "").replace(" ", "").strip()
+            encoded_text = requests.utils.quote(text_message)
+            url = f"https://api.callmebot.com/whatsapp.php?phone=+{clean_phone}&text={encoded_text}"
+            if WHATSAPP_APIKEY:
+                url += f"&apikey={WHATSAPP_APIKEY}"
+            requests.get(url, timeout=8)
+        except Exception as err:
+            print(f"[WhatsApp Alert Exception] {err}")
+
+    threading.Thread(target=_send, daemon=True).start()
+
 def log_and_notify_payment_event(event_type: str, site: str, email: str, scan_id: str, package_or_broker: str, amount_str: str, error_msg: str = None):
     """
-    Log payment success/failure to SQLite and trigger an instant Telegram alert.
+    Log payment success/failure to SQLite and trigger instant WhatsApp & Telegram alerts.
     event_type: 'SUCCESS' or 'FAILED'
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -173,7 +192,15 @@ def log_and_notify_payment_event(event_type: str, site: str, email: str, scan_id
         except Exception as db_err:
             print(f"[DB Error Log Failed] {db_err}")
             
-    # 2. Telegram Alert Notification
+    # 2. WhatsApp Alert Notification
+    if event_type == "FAILED":
+        wa_text = f"🚨 PLATA ESUATA - {site}\nClient: {email}\nPachet: {package_or_broker} ({amount_str})\nID: {scan_id}\nEroare: {error_msg}\nOra: {timestamp}"
+    else:
+        wa_text = f"🎉 PLATA REUSITA - {site}\nClient: {email}\nValoare: {amount_str} ({package_or_broker})\nID: {scan_id}\nOra: {timestamp}"
+    
+    send_whatsapp_message(wa_text)
+
+    # 3. Telegram Alert Notification
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         if event_type == "FAILED":
             msg = (
@@ -193,14 +220,14 @@ def log_and_notify_payment_event(event_type: str, site: str, email: str, scan_id
                 f"⏰ *Ora:* `{timestamp}`"
             )
 
-        def _send():
+        def _send_tg():
             try:
                 url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
                 requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "Markdown"}, timeout=5)
             except Exception as err:
                 print(f"[Telegram Alert Exception] {err}")
 
-        threading.Thread(target=_send, daemon=True).start()
+        threading.Thread(target=_send_tg, daemon=True).start()
 
 # ==========================================================================
 # DATABASE INITIALIZATION
@@ -3226,6 +3253,23 @@ async def get_payment_errors(limit: int = 50):
             "created_at": r[6]
         })
     return {"success": True, "count": len(errors), "errors": errors}
+
+@app.post("/api/admin/trigger-test-alert")
+async def trigger_test_alert(request: Request):
+    try:
+        data = await request.json()
+    except Exception:
+        data = {}
+        
+    test_type = data.get("type", "FAILED")
+    site_name = data.get("site", "VerifyDating")
+    
+    if test_type == "FAILED":
+        log_and_notify_payment_event("FAILED", f"{site_name} (TEST)", "vasile_test@verifydating.net", f"test_{int(datetime.now().timestamp())}", "PRO Deep ($4.99)", "$4.99", "Test Alert: Invalid CVC Code / Declined Card")
+    else:
+        log_and_notify_payment_event("SUCCESS", f"{site_name} (TEST)", "vasile_test@verifydating.net", f"test_{int(datetime.now().timestamp())}", "PRO Deep ($4.99)", "$4.99")
+        
+    return {"success": True, "message": f"Test alert ({test_type}) sent to WhatsApp (+39 320 948 1876) & Telegram."}
 
 if __name__ == "__main__":
     import uvicorn
