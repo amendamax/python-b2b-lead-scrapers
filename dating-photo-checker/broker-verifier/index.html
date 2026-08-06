@@ -71,6 +71,7 @@
                 <p class="hero-subtext">Instant regulatory license audit (FCA, ASIC, CySEC), WHOIS domain age inspection, and scam risk detection.</p>
                 
                 <div class="trust-features-row">
+                    <div class="trust-feat" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.35);"><span class="live-dot-pulse"></span> <strong id="daily-broker-scan-count">1,248</strong> Audits Today</div>
                     <div class="trust-feat"><span class="feat-check">✓</span> <strong>14,200+</strong> Brokers Audited</div>
                     <div class="trust-feat"><span class="feat-check">✓</span> <strong>Official</strong> License Verification</div>
                     <div class="trust-feat"><span class="feat-check">✓</span> <strong>100%</strong> Independent & Free</div>
@@ -709,7 +710,16 @@
             .floating-wa-btn .wa-text { display: none; }
             .floating-wa-btn { padding: 14px; border-radius: 50%; bottom: 18px; right: 18px; }
         }
-    </style>
+    <!-- Social Proof Toast Notification Container -->
+    <div class="social-proof-toast" id="social-proof-toast">
+        <div class="toast-avatar" id="toast-avatar-icon"><i class="fa-solid fa-shield-check"></i></div>
+        <div class="toast-body">
+            <div id="toast-text-msg">Someone in London just verified OctaFX (Unregulated Warning)</div>
+            <div class="toast-time" id="toast-time-ago">14 sec ago</div>
+        </div>
+        <button class="toast-close" id="close-toast-btn" aria-label="Close">&times;</button>
+    </div>
 
+    <script src="/broker-verifier/app.js?v=4.2"></script>
 </body>
 </html>

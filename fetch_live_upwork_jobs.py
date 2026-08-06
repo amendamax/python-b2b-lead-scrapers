@@ -7,20 +7,20 @@ from playwright_stealth import Stealth
 
 SEARCH_CATEGORIES = [
     {
-        "nume": "Web & Data Scraping",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=web+scraping&sort=recency"
+        "nume": "MT5 & MetaTrader 5 EAs",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=mt5&sort=recency"
     },
     {
-        "nume": "Python & Automation",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=python+automation&sort=recency"
+        "nume": "MQL5 Expert Advisor Bot",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=mql5&sort=recency"
     },
     {
-        "nume": "B2B Lead Generation / Extraction",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=lead+scraping&sort=recency"
+        "nume": "TradingView to MT5 / Python Bridge",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=metatrader+python&sort=recency"
     },
     {
-        "nume": "FastAPI & AI Integration",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=fastapi&sort=recency"
+        "nume": "Forex Algorithmic Bot",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=50-&contractor_tier=2,3&payment_verified=1&q=forex+bot&sort=recency"
     }
 ]
 

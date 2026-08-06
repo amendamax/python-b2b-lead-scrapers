@@ -260,14 +260,18 @@ header.navbar {
     font-size: 4rem;
     line-height: 1.15;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--text-white) 30%, #a1aab8 100%);
+    color: #FFFFFF !important;
+    background: linear-gradient(135deg, #FFFFFF 30%, #A1AAB8 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-title span {
-    background: linear-gradient(135deg, var(--primary) 0%, #ffdf85 100%);
+    color: #FF2A74 !important;
+    background: linear-gradient(135deg, #FF2A74 0%, #FFDF85 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -852,15 +856,19 @@ footer p {
 
 @media (max-width: 768px) {
     .hero-title {
-        color: #ffffff !important;
+        color: #FFFFFF !important;
         background: none !important;
-        -webkit-text-fill-color: initial !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        -webkit-text-fill-color: #FFFFFF !important;
     }
     
     .hero-title span {
-        color: var(--primary) !important;
+        color: #FF2A74 !important;
         background: none !important;
-        -webkit-text-fill-color: initial !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        -webkit-text-fill-color: #FF2A74 !important;
     }
 
     .project-visual > div {

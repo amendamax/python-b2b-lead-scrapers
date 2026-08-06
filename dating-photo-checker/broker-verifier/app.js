@@ -2139,3 +2139,68 @@ window.selectBroker = function(name) {
 
     executeScan(targetName, targetDomain);
 };
+
+// ==========================================================================
+// Dynamic CRO Social Proof Toast Cycle & Live Audit Counter
+// ==========================================================================
+(function initBrokerSocialProofToasts() {
+    const toastEl = document.getElementById("social-proof-toast");
+    const toastText = document.getElementById("toast-text-msg");
+    const toastTime = document.getElementById("toast-time-ago");
+    const toastIcon = document.getElementById("toast-avatar-icon");
+    const closeBtn = document.getElementById("close-toast-btn");
+
+    if (!toastEl || !toastText) return;
+
+    const toastMessages = [
+        { text: "Someone in London just verified OctaFX (89% Unregulated Risk)", icon: "fa-solid fa-triangle-exclamation", time: "12 sec ago" },
+        { text: "Someone in Berlin requested a Forex Recovery Audit", icon: "fa-solid fa-shield-halved", time: "24 sec ago" },
+        { text: "Someone in Bucharest verified XM Group (FCA Approved ✓)", icon: "fa-solid fa-circle-check", time: "38 sec ago" },
+        { text: "Someone in Madrid checked Exness (96% Integrity Score)", icon: "fa-solid fa-user-shield", time: "1 min ago" },
+        { text: "Someone in Rome scanned Quotex (95% High Risk Alert ⚠️)", icon: "fa-solid fa-ban", time: "2 min ago" },
+        { text: "Someone in Paris verified IC Markets (94% Safe)", icon: "fa-solid fa-circle-check", time: "3 min ago" }
+    ];
+
+    let toastIndex = 0;
+
+    function showNextToast() {
+        const item = toastMessages[toastIndex];
+        toastIndex = (toastIndex + 1) % toastMessages.length;
+
+        if (toastIcon) {
+            toastIcon.innerHTML = `<i class="${item.icon}"></i>`;
+        }
+        toastText.textContent = item.text;
+        if (toastTime) {
+            toastTime.textContent = item.time;
+        }
+
+        toastEl.classList.add("active");
+
+        setTimeout(() => {
+            toastEl.classList.remove("active");
+        }, 5500);
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+            toastEl.classList.remove("active");
+        });
+    }
+
+    // Start cycle after 5s, repeat every 18s
+    setTimeout(() => {
+        showNextToast();
+        setInterval(showNextToast, 18000);
+    }, 5000);
+})();
+
+// Increment daily counter every 24s
+setInterval(() => {
+    const counterEl = document.getElementById("daily-broker-scan-count");
+    if (counterEl) {
+        let current = parseInt(counterEl.textContent.replace(/,/g, '').replace(/\./g, ''), 10) || 1248;
+        current += 1;
+        counterEl.textContent = current.toLocaleString();
+    }
+}, 24000);

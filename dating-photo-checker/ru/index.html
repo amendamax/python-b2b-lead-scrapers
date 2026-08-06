@@ -112,6 +112,7 @@
             <div class="recent-scans-ticker">
                 <span class="ticker-title">🔥 ПРОВЕРКИ В РЕАЛЬНОМ ВРЕМЕНИ:</span>
                 <div class="ticker-tags">
+                    <span class="scan-tag risk-low" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4);"><span class="live-dot-pulse"></span> <strong id="daily-scan-count">1.485</strong> Проверок Сегодня</span>
                     <span class="scan-tag risk-high"><i class="fa-solid fa-user-ninja"></i> Фото Tinder — 94% Риск Фейка ⚠️</span>
                     <span class="scan-tag risk-high"><i class="fa-solid fa-user-xmark"></i> Профиль Bumble — 88% Совпадение ⚠️</span>
                     <span class="scan-tag risk-low"><i class="fa-solid fa-user-check"></i> Аудит Instagram — 0% Чисто ✓</span>
@@ -183,6 +184,22 @@
                         <span class="btn-text"><i class="fa-solid fa-video" style="margin-right: 6px;"></i> Сканировать видео (Deepfake Аудит) - $9.99</span>
                         <span class="badge" style="background: #6c5ce7; font-size: 8px; padding: 2px 5px; margin-left: 8px; border-radius: 4px; vertical-align: middle; color: #fff;">БЕТА</span>
                     </button>
+
+                    <!-- Quick Sample Demo Chips -->
+                    <div class="sample-chips-container">
+                        <div class="sample-chips-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Попробовать демо-пример:</div>
+                        <div class="sample-chips-wrapper">
+                            <button type="button" class="sample-chip chip-catfish" data-sample="catfish">
+                                <i class="fa-solid fa-triangle-exclamation text-danger"></i> Фейковый профиль
+                            </button>
+                            <button type="button" class="sample-chip chip-stock" data-sample="stock">
+                                <i class="fa-solid fa-images text-warning"></i> Сток-фото
+                            </button>
+                            <button type="button" class="sample-chip chip-safe" data-sample="safe">
+                                <i class="fa-solid fa-shield-check text-success"></i> Безопасный профиль
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Side: Real-time Scanning Progress / Results -->
@@ -272,21 +289,42 @@
                             <!-- Paywall / Lock Overlay (Crucial for Monetization Demo) -->
                             <div class="paywall-overlay" id="results-paywall">
                                 <div class="paywall-content">
+                                    <div class="paywall-timer-banner">
+                                        <i class="fa-solid fa-clock"></i> Отчет сохранен в памяти: <strong id="paywall-timer-count">09:59</strong>
+                                    </div>
                                     <i class="fa-solid fa-lock paywall-lock-icon"></i>
                                     <h3>Разблокировать полный отчет безопасности</h3>
                                     <p>Откройте точные ссылки на совпадающие профили, страницы в соцсетях, откуда были украдены фотографии, и следы местоположения мошенников.</p>
                                     
+                                    <!-- Blurred Teaser Preview Box -->
+                                    <div class="paywall-teaser-box">
+                                        <div class="teaser-lock-badge"><i class="fa-solid fa-eye-slash"></i> Найденные совпадения размыты</div>
+                                        <div class="blurred-teaser-image-container">
+                                            <img id="paywall-teaser-preview-img" src="" alt="Размытый предпросмотр" class="blurred-teaser-img" />
+                                            <div class="teaser-overlay-text" id="paywall-teaser-text"><i class="fa-solid fa-lock"></i> Найдено совпадений в соцсетях и интернете</div>
+                                        </div>
+                                    </div>
+
                                     <div class="pricing-options">
+                                        <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
+                                            <span class="btn-text">⚡ Быстрая разблокировка — $0.99</span>
+                                            <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
+                                        </button>
                                         <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                            <span class="btn-text">Разблокировать один отчет — $1.99</span>
+                                            <span class="btn-text">Стандартный отчет (3 кредита) — $1.99</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
                                         <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                            <span class="btn-text">Разблокировать 5 отчетов (Лучшая цена) — $4.99</span>
+                                            <span class="btn-text">PRO Deep Scan (10 кредитов) — $4.99</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
-                                        <p class="paywall-guarantee"><i class="fa-solid fa-shield-check"></i> Безопасная оплата через Stripe. 100% гарантия возврата денег.</p>
-                                        <p class="credits-explanation" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.4;"><i class="fa-solid fa-circle-info"></i> Мгновенно разблокирует этот отчет. Пакет из 5 сканирований включает 4 дополнительных кредита для будущих проверок.</p>
+                                        
+                                        <div class="payment-methods-badges">
+                                            <span class="pm-badge"><i class="fa-brands fa-apple"></i> Pay</span>
+                                            <span class="pm-badge"><i class="fa-brands fa-google"></i> Pay</span>
+                                            <span class="pm-badge"><i class="fa-solid fa-credit-card"></i> Card</span>
+                                            <span class="pm-badge"><i class="fa-solid fa-shield-check"></i> 100% Конфиденциально</span>
+                                        </div>
                                     </div>
 
                                     <!-- Use Existing Credits Section -->
@@ -491,7 +529,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Цена за сканирование</td>
-                            <td class="us-cell"><strong class="price-highlight">$4.99 (5 Scans)</strong></td>
+                            <td class="us-cell"><strong class="price-highlight">От $0.99</strong></td>
                             <td><span class="comp-bad">$26.99/mo</span></td>
                             <td><span class="comp-bad">$29.99/mo</span></td>
                             <td><span class="comp-bad">$6–$597</span></td>
@@ -766,6 +804,16 @@
         </div>
     </footer>
 
-    <script src="../app.js?v=2.6"></script>
+    <!-- Social Proof Toast Notification Container -->
+    <div class="social-proof-toast" id="social-proof-toast">
+        <div class="toast-avatar" id="toast-avatar-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="toast-body">
+            <div id="toast-text-msg">Кто-то из Лондона только что разблокировал отчет о безопасности</div>
+            <div class="toast-time" id="toast-time-ago">14 сек назад</div>
+        </div>
+        <button class="toast-close" id="close-toast-btn" aria-label="Закрыть">&times;</button>
+    </div>
+
+    <script src="../app.js?v=5.8"></script>
 </body>
 </html>

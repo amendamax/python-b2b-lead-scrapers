@@ -61,6 +61,9 @@
         <header class="app-header">
             <h1 class="logo">Broker<span>Verifier</span></h1>
             <p class="subtitle">Sistema inteligente de análise de risco e inteligência de ameaças para corretoras de Forex, CFD e Cripto.</p>
+            <div style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; color: #e2e8f0;">
+                <span class="live-dot-pulse"></span> <strong id="daily-broker-scan-count">1.248</strong> Auditorias de Corretoras Hoje
+            </div>
         </header>
 
         <!-- Search Section -->
@@ -694,7 +697,16 @@
             .floating-wa-btn .wa-text { display: none; }
             .floating-wa-btn { padding: 14px; border-radius: 50%; bottom: 18px; right: 18px; }
         }
-    </style>
+    <!-- Social Proof Toast Notification Container -->
+    <div class="social-proof-toast" id="social-proof-toast">
+        <div class="toast-avatar" id="toast-avatar-icon"><i class="fa-solid fa-shield-check"></i></div>
+        <div class="toast-body">
+            <div id="toast-text-msg">Alguém em Londres acabou de verificar a OctaFX (Aviso de Risco)</div>
+            <div class="toast-time" id="toast-time-ago">há 14 seg</div>
+        </div>
+        <button class="toast-close" id="close-toast-btn" aria-label="Fechar">&times;</button>
+    </div>
 
+    <script src="/broker-verifier/app.js?v=4.2"></script>
 </body>
 </html>

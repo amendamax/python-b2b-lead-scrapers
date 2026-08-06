@@ -28,10 +28,10 @@ ff_path = get_firefox_path()
 print(f"[*] Firefox path gasit: {ff_path}")
 
 urls = [
-    "https://www.upwork.com/nx/search/jobs/?q=web+scraping+python&sort=recency",
-    "https://www.upwork.com/nx/search/jobs/?q=fastapi&sort=recency",
-    "https://www.upwork.com/nx/search/jobs/?q=lead+scraping&sort=recency",
-    "https://www.upwork.com/nx/search/jobs/?q=data+extraction&sort=recency"
+    "https://www.upwork.com/nx/search/jobs/?q=mt5&sort=recency",
+    "https://www.upwork.com/nx/search/jobs/?q=mql5&sort=recency",
+    "https://www.upwork.com/nx/search/jobs/?q=metatrader&sort=recency",
+    "https://www.upwork.com/nx/search/jobs/?q=forex+bot&sort=recency"
 ]
 
 if ff_path:

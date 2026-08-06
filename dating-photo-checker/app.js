@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "This photo matches publicly indexed stock photography or public portfolios. Verify if the person is using a generic stock photo or a public presentation image.",
             infoScammer: "Critical alert. This profile picture is active across multiple social profiles using different names. Matches signatures of organized romance scam groups operating via proxy IPs.",
             stripeProcessing: "Processing secure payment...",
-            stripePayButton: "Pay $4.99 (5 Scans)",
-            paymentConfirmed: "Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.",
+            stripePayButton: "Pay $4.99 (10 Scans)",
+            paymentConfirmed: "Payment confirmed! 10 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.",
             reportUnlocked: "Report unlocked using 1 credit. You have <strong>{credits} credits left</strong>.",
             emailRequired: "Please enter a valid email address.",
             checkingCredits: "Checking...",
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Această fotografie se potrivește cu fotografii de stock indexate public sau portofolii publice. Verificați dacă persoana folosește o poză de stock generică sau o imagine de prezentare publică.",
             infoScammer: "Alertă critică. Această poză de profil este activă pe mai multe profiluri sociale sub nume diferite. Se potrivește cu semnăturile grupurilor organizate de escrocherii sentimentale care operează prin IP-uri proxy.",
             stripeProcessing: "Se procesează plata securizată...",
-            stripePayButton: "Plătește $4.99 (5 Scanări)",
-            paymentConfirmed: "Plată confirmată! 5 credite adăugate. 1 credit utilizat pentru acest raport. Mai ai <strong>{credits} credite rămase</strong>.",
+            stripePayButton: "Plătește $4.99 (10 Scanări)",
+            paymentConfirmed: "Plată confirmată! 10 credite adăugate. 1 credit utilizat pentru acest raport. Mai ai <strong>{credits} credite rămase</strong>.",
             reportUnlocked: "Raport deblocat folosind 1 credit. Mai ai <strong>{credits} credite rămase</strong>.",
             emailRequired: "Vă rugăm să introduceți o adresă de email validă.",
             checkingCredits: "Se verifică...",
@@ -99,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Questa foto corrisponde a fotografie stock indicizzate pubblicamente o a portfolio pubblici. Verifica se la persona sta utilizzando una foto stock generica o un'immagine di presentazione pubblica.",
             infoScammer: "Avviso critico. Questa foto del profilo è attiva su più profili social con nomi diversi. Corrisponde alle firme di gruppi organizzati di truffe sentimentali che operano tramite proxy IP.",
             stripeProcessing: "Elaborazione del pagamento sicuro...",
-            stripePayButton: "Paga $4.99 (5 Scansioni)",
-            paymentConfirmed: "Pagamento confermato! 5 crediti aggiunti. 1 credito utilizzato per questo report. Hai <strong>{credits} crediti rimasti</strong>.",
+            stripePayButton: "Paga $4.99 (10 Scansioni)",
+            paymentConfirmed: "Pagamento confermato! 10 crediti aggiunti. 1 credito utilizzato per questo report. Hai <strong>{credits} crediti rimasti</strong>.",
             reportUnlocked: "Report sbloccato utilizzando 1 credito. Hai <strong>{credits} crediti rimasti</strong>.",
             emailRequired: "Inserisci un indirizzo email valido.",
             checkingCredits: "Verifica...",
@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Dieses Foto entspricht öffentlich indexierten Stock-Fotografien oder öffentlichen Portfolios. Überprüfen Sie, ob die Person ein generisches Stock-Foto oder ein öffentliches Präsentationsbild verwendet.",
             infoScammer: "Kritischer Alarm. Dieses Profilbild ist auf mehreren sozialen Profilen unter verschiedenen Namen aktiv. Entspricht den Signaturen organisierter Liebesbetrugsgruppen, die über Proxy-IPs operieren.",
             stripeProcessing: "Sichere Zahlung wird verarbeitet...",
-            stripePayButton: "4.99$ bezahlen (5 Scans)",
-            paymentConfirmed: "Zahlung bestätigt! 5 Credits hinzugefügt. 1 Credit für diesen Bericht verwendet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
+            stripePayButton: "4.99$ bezahlen (10 Scans)",
+            paymentConfirmed: "Zahlung bestätigt! 10 Credits hinzugefügt. 1 Credit für diesen Bericht verwendet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
             reportUnlocked: "Bericht mit 1 Credit freigeschaltet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
             emailRequired: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
             checkingCredits: "Wird überprüft...",
@@ -167,8 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Esta foto coincide con fotografías de stock indexadas públicamente o carteras públicas. Verifique si la persona está utilizando una foto de stock genérica o una imagen de presentación pública.",
             infoScammer: "Alerta crítica. Esta foto de perfil está activa en múltiples perfiles sociales con diferentes nombres. Coincide con las firmas de grupos organizados de estafas románticas que operan a través de IP proxy.",
             stripeProcessing: "Procesando pago seguro...",
-            stripePayButton: "Pagar $4.99 (5 Análisis)",
-            paymentConfirmed: "¡Pago confirmado! 5 créditos agregados. 1 crédito utilizado para este informe. Te quedan <strong>{credits} créditos</strong>.",
+            stripePayButton: "Pagar $4.99 (10 Análisis)",
+            paymentConfirmed: "¡Pago confirmado! 10 créditos agregados. 1 crédito utilizado para este informe. Te quedan <strong>{credits} créditos</strong>.",
             reportUnlocked: "Informe desbloqueado con 1 crédito. Te quedan <strong>{credits} créditos</strong>.",
             emailRequired: "Por favor, introduzca una dirección de correo electrónico válida.",
             checkingCredits: "Verificando...",
@@ -201,8 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Cette photo correspond à des photographies de stock indexées publiquement ou à des portefeuilles publics. Vérifiez si la personne utilise une photo de stock générique ou une image de présentation publique.",
             infoScammer: "Alerte critique. Cette photo de profil est active sur plusieurs profils sociaux sous différents noms. Correspond aux signatures de groupes organisés d'arnaques sentimentales opérant via des IP proxy.",
             stripeProcessing: "Traitement du paiement sécurisé...",
-            stripePayButton: "Payer 4.99$ (5 Analyses)",
-            paymentConfirmed: "Paiement confirmé ! 5 crédits ajoutés. 1 crédit utilisé pour ce rapport. Il vous reste <strong>{credits} crédits</strong>.",
+            stripePayButton: "Payer 4.99$ (10 Analyses)",
+            paymentConfirmed: "Paiement confirmé ! 10 crédits ajoutés. 1 crédit utilisé pour ce rapport. Il vous reste <strong>{credits} crédits</strong>.",
             reportUnlocked: "Rapport déverrouillé avec 1 crédit. Il vous reste <strong>{credits} crédits</strong>.",
             emailRequired: "Veuillez saisir une adresse e-mail valide.",
             checkingCredits: "Vérification...",
@@ -235,8 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Esta foto corresponde a fotografias de stock indexadas publicamente ou portfólios públicos. Verifique si a pessoa está usando uma foto de stock genérica ou uma imagem de apresentação pública.",
             infoScammer: "Alerta crítico. Esta foto de perfil está ativa em múltiplos perfis sociais sob nomes diferentes. Corresponde a assinaturas de grupos de golpes românticos organizados que operam via proxy IPs.",
             stripeProcessing: "Processando pagamento seguro...",
-            stripePayButton: "Pagar $4.99 (5 Analises)",
-            paymentConfirmed: "Pagamento confirmado! 5 créditos adicionados. 1 crédito usado para este relatório. Você tem <strong>{credits} créditos restantes</strong>.",
+            stripePayButton: "Pagar $4.99 (10 Analises)",
+            paymentConfirmed: "Pagamento confirmado! 10 créditos adicionados. 1 crédito usado para este relatório. Você tem <strong>{credits} créditos restantes</strong>.",
             reportUnlocked: "Relatório desbloqueado usando 1 crédito. Você tem <strong>{credits} créditos restantes</strong>.",
             emailRequired: "Por favor, insira um endereço de e-mail válido.",
             checkingCredits: "Verificando...",
@@ -269,8 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Эта фотография совпадает с публично индексируемыми стоковыми фотографиями или публичными портфолио. Проверьте, использует ли человек обычную стоковую фотографию или публичное презентационное изображение.",
             infoScammer: "Критическое предупреждение. Это фото профиля активно в нескольких социальных профилях под разными именами. Соответствует сигнатурам организованных групп романтического мошенничества, действующих через прокси-IP.",
             stripeProcessing: "Обработка безопасного платежа...",
-            stripePayButton: "Оплатить $4.99 (5 сканирований)",
-            paymentConfirmed: "Платеж подтвержден! Добавлено 5 кредитов. 1 кредит использован для этого отчета. У вас осталось <strong>{credits} кредитов</strong>.",
+            stripePayButton: "Оплатить $4.99 (10 сканирований)",
+            paymentConfirmed: "Платеж подтвержден! Добавлено 10 кредитов. 1 кредит использован для этого отчета. У вас осталось <strong>{credits} кредитов</strong>.",
             reportUnlocked: "Отчет разблокирован с использованием 1 кредита. У вас осталось <strong>{credits} кредитов</strong>.",
             emailRequired: "Пожалуйста, введите корректный адрес электронной почты.",
             checkingCredits: "Проверка...",
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // STRIPE ELEMENTS INITIALIZATION (PCI-compliant card tokenization)
     // ==========================================================================
-    const stripe = Stripe('pk_live_51TqAOL4BeKMWotIPq734OYlEHcqBmkXBNo80k5LKRQD14NFUSgTPYrKCdw0dZj8pvAE2mITguiF6FSXAwkfphicO00tlou4EK9');
+    const stripe = Stripe('pk_live_51TtpkdAhLNvXdoMSXRjVwN4FzUhl9qi1ujDzqWWTechyUmEZSQjntRuMLVDL6M0d5RkOGIW8581GZdebULU2Ruq100g3PoOz9T');
     const stripeElements = stripe.elements();
     const cardElement = stripeElements.create('card', {
         style: {
@@ -366,8 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // UPLOAD & DRAG & DROP LOGIC
     // ==========================================================================
-    dropZone.addEventListener('click', () => {
-        if (!selectedFile) {
+    dropZone.addEventListener('click', (e) => {
+        if (e && e.target && e.target.closest('#remove-img-btn')) return;
+        if (previewContainer && previewContainer.style.display !== 'none') return;
+        if (!selectedFile && (!imageUrlInput || !imageUrlInput.value.trim())) {
             imageInput.click();
         }
     });
@@ -488,9 +490,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // SCANNING PROCESS & API INTEGRATION
     // ==========================================================================
-    startScanBtn.addEventListener('click', async () => {
+    startScanBtn.addEventListener('click', async (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         // Move view to scanner block
-        document.getElementById('scanner-workspace').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('scanner-workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         // Lock button and inputs
         startScanBtn.disabled = true;
@@ -504,6 +510,13 @@ document.addEventListener('DOMContentLoaded', () => {
         stateIdle.style.display = 'none';
         stateResults.style.display = 'none';
         stateScanning.style.display = 'flex';
+
+        // On mobile, auto scroll to live scanning progress bar and steps
+        setTimeout(() => {
+            if (window.innerWidth <= 768) {
+                stateScanning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 150);
 
         // Reset progress steps
         resetScanSteps();
@@ -630,9 +643,29 @@ document.addEventListener('DOMContentLoaded', () => {
             startAutoUnlockPolling(currentScanId);
         }
 
-        // Hide paywall & unlocked areas to default paywall state
-        resultsPaywall.style.display = 'flex';
-        unlockedPremiumDetails.style.display = 'none';
+        // Hide unlocked areas and risk banner, show default paywall state
+        hideResultsAndShowPaywall();
+
+        // On mobile, auto scroll smoothly to the paywall box
+        setTimeout(() => {
+            const paywallEl = document.getElementById('results-paywall');
+            if (paywallEl && window.innerWidth <= 768) {
+                paywallEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 150);
+
+        // Set Teaser Preview Image & Text
+        const teaserImg = document.getElementById('paywall-teaser-preview-img');
+        const teaserText = document.getElementById('paywall-teaser-text');
+        if (teaserImg && imagePreview && imagePreview.src) {
+            teaserImg.src = imagePreview.src;
+        }
+        if (teaserText) {
+            teaserText.innerHTML = `<i class="fa-solid fa-lock"></i> ${data.matches_count || 10} ${t.matchesSuffix || 'matches'} Detected & Blurred`;
+        }
+
+        // Start Paywall 09:59 Urgency Timer
+        startPaywallTimer();
         
         // Configure specific outputs based on three risk categories
         const scamProb = data.scam_probability;
@@ -713,63 +746,87 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // Helper function to update the checkout modal depending on the package
     function getPayButtonText(lang, pkgType) {
-        if (pkgType === 'single') {
+        if (pkgType === 'basic') {
             const prices = {
-                en: "Pay $1.99 (1 Scan)",
-                ro: "Plătește $1.99 (1 Scanare)",
-                it: "Paga $1.99 (1 Scansione)",
-                de: "1.99$ bezahlen (1 Scan)",
-                es: "Pagar $1.99 (1 Análisis)",
-                fr: "Payer 1.99$ (1 Analyse)",
-                pt: "Pagar $1.99 (1 Analise)",
-                ru: "Оплатить $1.99 (1 сканирование)"
+                en: "Pay $0.99 (1 Scan)",
+                ro: "Plătește $0.99 (1 Scanare)",
+                it: "Paga $0.99 (1 Scansione)",
+                de: "0.99$ bezahlen (1 Scan)",
+                es: "Pagar $0.99 (1 Análisis)",
+                fr: "Payer 0.99$ (1 Analyse)",
+                pt: "Pagar $0.99 (1 Analise)",
+                ru: "Оплатить $0.99 (1 сканирование)"
+            };
+            return prices[lang] || prices['en'];
+        } else if (pkgType === 'single') {
+            const prices = {
+                en: "Pay $1.99 (3 Scans)",
+                ro: "Plătește $1.99 (3 Scanări)",
+                it: "Paga $1.99 (3 Scansioni)",
+                de: "1.99$ bezahlen (3 Scans)",
+                es: "Pagar $1.99 (3 Análisis)",
+                fr: "Payer 1.99$ (3 Analyses)",
+                pt: "Pagar $1.99 (3 Analises)",
+                ru: "Оплатить $1.99 (3 сканирования)"
             };
             return prices[lang] || prices['en'];
         } else {
             const prices = {
-                en: "Pay $4.99 (5 Scans)",
-                ro: "Plătește $4.99 (5 Scanări)",
-                it: "Paga $4.99 (5 Scansioni)",
-                de: "4.99$ bezahlen (5 Scans)",
-                es: "Pagar $4.99 (5 Análisis)",
-                fr: "Payer 4.99$ (5 Analyses)",
-                pt: "Pagar $4.99 (5 Analises)",
-                ru: "Оплатить $4.99 (5 сканирований)"
+                en: "Pay $4.99 (10 Scans)",
+                ro: "Plătește $4.99 (10 Scanări)",
+                it: "Paga $4.99 (10 Scansioni)",
+                de: "4.99$ bezahlen (10 Scans)",
+                es: "Pagar $4.99 (10 Análisis)",
+                fr: "Payer 4.99$ (10 Analyses)",
+                pt: "Pagar $4.99 (10 Analises)",
+                ru: "Оплатить $4.99 (10 сканирований)"
             };
             return prices[lang] || prices['en'];
         }
     }
 
     function getPackageDesc(lang, pkgType) {
-        if (pkgType === 'single') {
+        if (pkgType === 'basic') {
             const descs = {
-                en: "Package includes 1 scan report",
-                ro: "Pachetul include o singură scanare",
-                it: "Il pacchetto include 1 scansione",
-                de: "Paket enthält 1 Scan-Bericht",
-                es: "El paquete incluye 1 análisis",
-                fr: "Le paquet comprend 1 analyse",
-                pt: "O pacote inclui 1 analise",
-                ru: "Пакет включает 1 сканирование"
+                en: "Basic Identity Unlock - 1 scan report",
+                ro: "Deblocare Raport Rapid - 1 scanare",
+                it: "Sblocco Identità Base - 1 scansione",
+                de: "Basis-Scan-Bericht - 1 Scan",
+                es: "Informe de Identidad Básico - 1 análisis",
+                fr: "Rapport d'identité de base - 1 analyse",
+                pt: "Relatório de Identidade Básico - 1 analise",
+                ru: "Базовый отчет - 1 сканирование"
+            };
+            return descs[lang] || descs['en'];
+        } else if (pkgType === 'single') {
+            const descs = {
+                en: "Standard Security Package - 3 scans",
+                ro: "Pachet Standard Securitate - 3 scanări",
+                it: "Pacchetto Sicurezza Standard - 3 scansioni",
+                de: "Standard-Sicherheitspaket - 3 Scans",
+                es: "Paquete de Seguridad Estándar - 3 análisis",
+                fr: "Pack Sécurité Standard - 3 analyses",
+                pt: "Pacote de Segurança Padrão - 3 analises",
+                ru: "Стандартный пакет - 3 сканирования"
             };
             return descs[lang] || descs['en'];
         } else {
             const descs = {
-                en: "Package includes 5 scans",
-                ro: "Pachetul include 5 scanări",
-                it: "Il pacchetto include 5 scansioni",
-                de: "Paket enthält 5 Scans",
-                es: "El paquete incluye 5 análisis",
-                fr: "Le paquet comprend 5 analyses",
-                pt: "O pacote inclui 5 analises",
-                ru: "Paket includes 5 scans"
+                en: "PRO Deep Scan Package - 10 scans",
+                ro: "Pachet PRO Deep Scan - 10 scanări",
+                it: "Pacchetto PRO Deep Scan - 10 scansioni",
+                de: "PRO Deep Scan Paket - 10 Scans",
+                es: "Paquete PRO Deep Scan - 10 análisis",
+                fr: "Pack PRO Deep Scan - 10 analyses",
+                pt: "Pacote PRO Deep Scan - 10 analises",
+                ru: "Пакет PRO Deep Scan - 10 сканирований"
             };
             return descs[lang] || descs['en'];
         }
     }
 
     function getEmailHelpText(lang, pkgType) {
-        if (pkgType === 'single') {
+        if (pkgType === 'basic') {
             const texts = {
                 en: "Your scan credit will be linked to this email address.",
                 ro: "Creditul tău pentru scanare va fi asociat acestei adrese de e-mail.",
@@ -781,16 +838,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 ru: "Ваш кредит на сканирование будет привязан к этому адресу электронной почты."
             };
             return texts[lang] || texts['en'];
+        } else if (pkgType === 'single') {
+            const texts = {
+                en: "Your 3 scan credits will be linked to this email address.",
+                ro: "Cele 3 credite pentru scanare vor fi asociate acestei adrese de e-mail.",
+                it: "I tuoi 3 crediti di scansione saranno collegati a questo indirizzo email.",
+                de: "Deine 3 Scan-Guthaben werden mit dieser E-Mail-Adresse verknüpft.",
+                es: "Tus 3 créditos de análisis se vincularán a esta dirección de correo electrónico.",
+                fr: "Vos 3 crédits de scan seront liés à cette adresse e-mail.",
+                pt: "Seus 3 créditos de escaneamento serão vinculados a este endereço de e-mail.",
+                ru: "Ваши 3 кредита на сканирование будут привязаны к этому адресу электронной почты."
+            };
+            return texts[lang] || texts['en'];
         } else {
             const texts = {
-                en: "Your 5 scan credits will be linked to this email address.",
-                ro: "Cele 5 credite pentru scanare vor fi asociate acestei adrese de e-mail.",
-                it: "I tuoi 5 crediti di scansione saranno collegati a questo indirizzo email.",
-                de: "Deine 5 Scan-Guthaben werden mit dieser E-Mail-Adresse verknüpft.",
-                es: "Tus 5 créditos de análisis se vincularán a esta dirección de correo electrónico.",
-                fr: "Vos 5 crédits de scan seront liés à cette adresse e-mail.",
-                pt: "Seus 5 créditos de escaneamento serão vinculados a este endereço de e-mail.",
-                ru: "Ваши 5 кредитов на сканирование будут привязаны к этому адресу электронной почты."
+                en: "Your 10 scan credits will be linked to this email address.",
+                ro: "Cele 10 credite pentru scanare vor fi asociate acestei adrese de e-mail.",
+                it: "I tuoi 10 crediti di scansione saranno collegati a questo indirizzo email.",
+                de: "Deine 10 Scan-Guthaben werden mit dieser E-Mail-Adresse verknüpft.",
+                es: "Tus 10 créditos de análisis se vincularán a esta dirección de correo electrónico.",
+                fr: "Vos 10 crédits de scan seront liés à cette adresse e-mail.",
+                pt: "Seus 10 créditos de escaneamento serão vinculados a este endereço de e-mail.",
+                ru: "Ваши 10 кредитов на сканирование будут привязаны к этому адресу электронной почты."
             };
             return texts[lang] || texts['en'];
         }
@@ -804,7 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailHelpNode = document.querySelector('#payment-form small');
         
         if (summaryAmountNode) {
-            summaryAmountNode.innerText = packageType === 'single' ? '$1.99' : '$4.99';
+            summaryAmountNode.innerText = packageType === 'basic' ? '$0.99' : packageType === 'single' ? '$1.99' : '$4.99';
         }
         if (summaryTextNode) {
             summaryTextNode.innerText = getPackageDesc(currentLang, packageType);
@@ -817,7 +886,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const paywallUnlockBasicBtn = document.getElementById('paywall-unlock-basic-btn');
     const paywallUnlockSingleBtn = document.getElementById('paywall-unlock-single-btn');
+
+    if (paywallUnlockBasicBtn) {
+        paywallUnlockBasicBtn.addEventListener('click', () => {
+            updateCheckoutModalUI('basic');
+            checkoutModal.classList.add('open');
+            cardEmailInput.focus();
+        });
+    }
 
     if (paywallUnlockSingleBtn) {
         paywallUnlockSingleBtn.addEventListener('click', () => {
@@ -878,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && payRes.success) {
                     ev.complete('success');
                     
-                    const purchaseVal = selectedPackage === 'single' ? 1.99 : 4.99;
+                    const purchaseVal = selectedPackage === 'basic' ? 0.99 : selectedPackage === 'single' ? 1.99 : 4.99;
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {
                             'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
@@ -892,27 +970,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderPremiumDetails(fullResults);
 
                     if (successAlertText) {
-                        let msg = t.paymentConfirmed || 'Payment confirmed!';
-                        if (selectedPackage === 'single') {
-                            const singleMsgs = {
-                                en: 'Payment confirmed! Report unlocked. You have <strong>{credits} credits left</strong>.',
-                                ro: 'Plată confirmată! Raport deblocat. Mai ai <strong>{credits} credite rămase</strong>.',
-                                it: 'Pagamento confermato! Report sbloccato. Hai <strong>{credits} crediti rimasti</strong>.',
-                                de: 'Zahlung bestätigt! Bericht freigeschaltet. Sie haben noch <strong>{credits} Scans übrig</strong>.',
-                                es: '¡Pago confirmado! Informe desbloqueado. Te quedan <strong>{credits} créditos</strong>.',
-                                fr: 'Paiement confirmé ! Rapport déverrouillé. Il vous reste <strong>{credits} crédits</strong>.',
-                                pt: 'Pagamento confirmado! Relatório desbloqueado. Restam <strong>{credits} créditos</strong>.',
-                                ru: 'Оплата подтверждена! Отчет разблокирован. У вас осталось <strong>{credits} сканирований</strong>.'
-                            };
-                            msg = singleMsgs[currentLang] || singleMsgs['en'];
-                        }
-                        successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
+                        const getSuccessMsg = (lang, pkgType, remCredits) => {
+                            if (pkgType === 'basic') {
+                                const msgs = {
+                                    en: 'Payment confirmed! Report unlocked.',
+                                    ro: 'Plată confirmată! Raport deblocat cu succes.',
+                                    it: 'Pagamento confermato! Report sbloccato con successo.',
+                                    de: 'Zahlung bestätigt! Bericht erfolgreich freigeschaltet.',
+                                    es: '¡Pago confirmado! Informe desbloqueado con éxito.',
+                                    fr: 'Paiement confirmé ! Rapport déverrouillé avec succès.',
+                                    pt: 'Pagamento confirmado! Relatório desbloqueado com sucesso.',
+                                    ru: 'Оплата подтверждена! Отчет успешно разблокирован.'
+                                };
+                                return msgs[lang] || msgs['en'];
+                            } else if (pkgType === 'single') {
+                                const msgs = {
+                                    en: 'Payment confirmed! 3 credits added. You have <strong>' + remCredits + ' credits left</strong>.',
+                                    ro: 'Plată confirmată! 3 credite adăugate. Mai ai <strong>' + remCredits + ' credite rămase</strong>.',
+                                    it: 'Pagamento confermato! 3 crediti aggiunti. Hai <strong>' + remCredits + ' crediti rimasti</strong>.',
+                                    de: 'Zahlung bestätigt! 3 Guthaben hinzugefügt. Sie haben noch <strong>' + remCredits + ' Scans übrig</strong>.',
+                                    es: '¡Pago confirmado! 3 créditos añadidos. Te quedan <strong>' + remCredits + ' créditos</strong>.',
+                                    fr: 'Paiement confirmé ! 3 crédits ajoutés. Il vous reste <strong>' + remCredits + ' crédits</strong>.',
+                                    pt: 'Pagamento confirmado! 3 créditos adicionados. Restam <strong>' + remCredits + ' créditos</strong>.',
+                                    ru: 'Оплата подтверждена! 3 кредита добавлено. У вас осталось <strong>' + remCredits + ' сканирований</strong>.'
+                                };
+                                return msgs[lang] || msgs['en'];
+                            } else {
+                                const msgs = {
+                                    en: 'Payment confirmed! 10 credits added. You have <strong>' + remCredits + ' credits left</strong>.',
+                                    ro: 'Plată confirmată! 10 credite adăugate. Mai ai <strong>' + remCredits + ' credite rămase</strong>.',
+                                    it: 'Pagamento confermato! 10 crediti aggiunti. Hai <strong>' + remCredits + ' crediti rimasti</strong>.',
+                                    de: 'Zahlung bestätigt! 10 Guthaben hinzugefügt. Sie haben noch <strong>' + remCredits + ' Scans übrig</strong>.',
+                                    es: '¡Pago confirmado! 10 créditos añadidos. Te quedan <strong>' + remCredits + ' créditos</strong>.',
+                                    fr: 'Paiement confirmé ! 10 crédits ajoutés. Il vous reste <strong>' + remCredits + ' crédits</strong>.',
+                                    pt: 'Pagamento confirmado! 10 créditos adicionados. Restam <strong>' + remCredits + ' créditos</strong>.',
+                                    ru: 'Оплата подтверждена! 10 кредитов добавлено. У вас осталось <strong>' + remCredits + ' сканирований</strong>.'
+                                };
+                                return msgs[lang] || msgs['en'];
+                            }
+                        };
+                        successAlertText.innerHTML = getSuccessMsg(currentLang, selectedPackage, payRes.credits_remaining);
                     }
 
                     checkoutModal.classList.remove('open');
-                    resultsPaywall.style.display = 'none';
-                    unlockedPremiumDetails.style.display = 'block';
-                    unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+                    showUnlockedResults();
+                    const workspaceEl = document.getElementById('scanner-workspace');
+if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     ev.complete('fail');
                     alert(payRes.detail || "Payment failed. Please try card checkout below.");
@@ -1087,9 +1190,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Save email to LocalStorage
                 localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
 
-                const purchaseVal = selectedPackage === 'single' ? 1.99 : 4.99;
-                const itemId = selectedPackage === 'single' ? 'report_1_credit' : 'report_5_credits';
-                const itemName = selectedPackage === 'single' ? 'VerifyDating 1 Scan Credit' : 'VerifyDating 5 Scan Credits';
+                const purchaseVal = selectedPackage === 'basic' ? 0.99 : selectedPackage === 'single' ? 1.99 : 4.99;
+                const itemId = selectedPackage === 'basic' ? 'report_099' : selectedPackage === 'single' ? 'report_199' : 'report_499';
+                const itemName = selectedPackage === 'basic' ? 'VerifyDating Basic Unlock' : selectedPackage === 'single' ? 'VerifyDating Standard 3 Credits' : 'VerifyDating PRO 10 Credits';
 
                 // Trigger Conversion Event for Google Ads & GA4
                 if (typeof gtag === 'function') {
@@ -1120,30 +1223,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Update success alert text dynamically
                 if (successAlertText) {
-                    let msg = t.paymentConfirmed || 'Payment confirmed! 5 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.';
-                    if (selectedPackage === 'single') {
-                        const singleMsgs = {
-                            en: 'Payment confirmed! Report unlocked. You have <strong>{credits} credits left</strong>.',
-                            ro: 'Plată confirmată! Raport deblocat. Mai ai <strong>{credits} credite rămase</strong>.',
-                            it: 'Pagamento confermato! Report sbloccato. Hai <strong>{credits} crediti rimasti</strong>.',
-                            de: 'Zahlung bestätigt! Bericht freigeschaltet. Sie haben noch <strong>{credits} Scans übrig</strong>.',
-                            es: '¡Pago confirmado! Informe desbloqueado. Te quedan <strong>{credits} créditos</strong>.',
-                            fr: 'Paiement confirmé ! Rapport déverrouillé. Il vous reste <strong>{credits} crédits</strong>.',
-                            pt: 'Pagamento confirmado! Relatório desbloqueado. Restam <strong>{credits} créditos</strong>.',
-                            ru: 'Оплата подтверждена! Отчет разблокирован. У вас осталось <strong>{credits} сканирований</strong>.'
-                        };
-                        msg = singleMsgs[currentLang] || singleMsgs['en'];
-                    }
-                    successAlertText.innerHTML = msg.replace('{credits}', payRes.credits_remaining);
+                    const getSuccessMsg = (lang, pkgType, remCredits) => {
+                        if (pkgType === 'basic') {
+                            const msgs = {
+                                en: 'Payment confirmed! Report unlocked.',
+                                ro: 'Plată confirmată! Raport deblocat cu succes.',
+                                it: 'Pagamento confermato! Report sbloccato con successo.',
+                                de: 'Zahlung bestätigt! Bericht erfolgreich freigeschaltet.',
+                                es: '¡Pago confirmado! Informe desbloqueado con éxito.',
+                                fr: 'Paiement confirmé ! Rapport déverrouillé avec succès.',
+                                pt: 'Pagamento confirmado! Relatório desbloqueado com sucesso.',
+                                ru: 'Оплата подтверждена! Отчет успешно разблокирован.'
+                            };
+                            return msgs[lang] || msgs['en'];
+                        } else if (pkgType === 'single') {
+                            const msgs = {
+                                en: 'Payment confirmed! 3 credits added. You have <strong>' + remCredits + ' credits left</strong>.',
+                                ro: 'Plată confirmată! 3 credite adăugate. Mai ai <strong>' + remCredits + ' credite rămase</strong>.',
+                                it: 'Pagamento confermato! 3 crediti aggiunti. Hai <strong>' + remCredits + ' crediti rimasti</strong>.',
+                                de: 'Zahlung bestätigt! 3 Guthaben hinzugefügt. Sie haben noch <strong>' + remCredits + ' Scans übrig</strong>.',
+                                es: '¡Pago confirmado! 3 créditos añadidos. Te quedan <strong>' + remCredits + ' créditos</strong>.',
+                                fr: 'Paiement confirmé ! 3 crédits ajoutés. Il vous reste <strong>' + remCredits + ' crédits</strong>.',
+                                pt: 'Pagamento confirmado! 3 créditos adicionados. Restam <strong>' + remCredits + ' créditos</strong>.',
+                                ru: 'Оплата подтверждена! 3 кредита добавлено. У вас осталось <strong>' + remCredits + ' сканирований</strong>.'
+                            };
+                            return msgs[lang] || msgs['en'];
+                        } else {
+                            const msgs = {
+                                en: 'Payment confirmed! 10 credits added. You have <strong>' + remCredits + ' credits left</strong>.',
+                                ro: 'Plată confirmată! 10 credite adăugate. Mai ai <strong>' + remCredits + ' credite rămase</strong>.',
+                                it: 'Pagamento confermato! 10 crediti aggiunti. Hai <strong>' + remCredits + ' crediti rimasti</strong>.',
+                                de: 'Zahlung bestätigt! 10 Guthaben hinzugefügt. Sie haben noch <strong>' + remCredits + ' Scans übrig</strong>.',
+                                es: '¡Pago confirmado! 10 créditos añadidos. Te quedan <strong>' + remCredits + ' créditos</strong>.',
+                                fr: 'Paiement confirmé ! 10 crédits añadidos. Il vous reste <strong>' + remCredits + ' crédits</strong>.',
+                                pt: 'Pagamento confirmado! 10 créditos adicionados. Restam <strong>' + remCredits + ' créditos</strong>.',
+                                ru: 'Оплата подтверждена! 10 кредитов добавлено. У вас осталось <strong>' + remCredits + ' сканирований</strong>.'
+                            };
+                            return msgs[lang] || msgs['en'];
+                        }
+                    };
+                    successAlertText.innerHTML = getSuccessMsg(currentLang, selectedPackage, payRes.credits_remaining);
                 }
 
                 // Close modal
                 checkoutModal.classList.remove('open');
                 
                 // Reveal details
-                resultsPaywall.style.display = 'none';
-                unlockedPremiumDetails.style.display = 'block';
-                unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+                showUnlockedResults();
+                const workspaceEl = document.getElementById('scanner-workspace');
+if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
                 alert(payRes.detail || t.paymentFailed || "Payment processing failed. Please try again.");
             }
@@ -1196,9 +1324,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         successAlertText.innerHTML = msg.replace('{credits}', res.credits_remaining);
                     }
                     
-                    resultsPaywall.style.display = 'none';
-                    unlockedPremiumDetails.style.display = 'block';
-                    unlockedPremiumDetails.scrollIntoView({ behavior: 'smooth' });
+                    showUnlockedResults();
+                    const workspaceEl = document.getElementById('scanner-workspace');
+if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     showCreditError(res.detail || "No credits remaining for this email.");
                 }
@@ -1359,23 +1487,35 @@ document.addEventListener('DOMContentLoaded', () => {
     initSocialProofToasts();
 
     // ==========================================================================
-    // VIDEO PLAY BUTTON HANDLER
+    // VIDEO PLAY BUTTON HANDLER (Click anywhere on container or play button)
     // ==========================================================================
     const playVideoBtn = document.getElementById('play-video-btn');
     const videoContainer = document.getElementById('video-player-container');
 
-    if (playVideoBtn && videoContainer) {
-        playVideoBtn.addEventListener('click', () => {
-            videoContainer.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/3u-U_BrK6-g?autoplay=1" title="Romance Scams Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="
-                    width: 100%;
-                    height: 100%;
-                    aspect-ratio: 16/9;
-                    border-radius: 20px;
-                    border: 1px solid rgba(255,255,255,0.08);
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                "></iframe>
-            `;
+    function playExplainerVideo() {
+        if (!videoContainer) return;
+        videoContainer.innerHTML = `
+            <video src="/explainer.mp4" controls autoplay playsinline style="
+                width: 100%;
+                height: 100%;
+                aspect-ratio: 16/9;
+                border-radius: 20px;
+                border: 1px solid rgba(255,255,255,0.08);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                background: #000;
+                object-fit: cover;
+            "></video>
+        `;
+    }
+
+    if (videoContainer) {
+        videoContainer.style.cursor = 'pointer';
+        videoContainer.addEventListener('click', playExplainerVideo);
+    }
+    if (playVideoBtn) {
+        playVideoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playExplainerVideo();
         });
     }
 
@@ -1391,13 +1531,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data && (data.payment_status === 'paid' || data.unlocked || data.matches)) {
                         clearInterval(autoUnlockTimer);
                         renderPremiumDetails(data);
-                        const resultsPaywallEl = document.getElementById('results-paywall');
-                        const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
-                        if (resultsPaywallEl) resultsPaywallEl.style.display = 'none';
-                        if (unlockedPremiumEl) {
-                            unlockedPremiumEl.style.display = 'block';
-                            unlockedPremiumEl.scrollIntoView({ behavior: 'smooth' });
-                        }
+                        showUnlockedResults();
+                        const workspaceEl = document.getElementById('scanner-workspace');
+                        if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 }
             } catch (err) {
@@ -1406,26 +1542,170 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000); // Check every 2 seconds for instant admin unlock
     }
 
-    // Check for saved scan in sessionStorage on page load/refresh
+    // Check for saved scan in sessionStorage on page load/refresh ONLY if paid/unlocked
     const savedScanId = sessionStorage.getItem('verifydating_current_scan_id');
     if (savedScanId) {
         fetch(`/api/results/${savedScanId}`).then(r => r.json()).then(data => {
-            if (data && (data.payment_status === 'paid' || data.unlocked || data.matches)) {
+            if (data && (data.payment_status === 'paid' || data.unlocked === true)) {
                 renderPremiumDetails(data);
-                const stateUploadEl = document.getElementById('state-upload');
+                const stateIdleEl = document.getElementById('state-idle');
                 const stateResultsEl = document.getElementById('state-results');
-                const resultsPaywallEl = document.getElementById('results-paywall');
-                const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
                 
-                if (stateUploadEl) stateUploadEl.style.display = 'none';
+                if (stateIdleEl) stateIdleEl.style.display = 'none';
                 if (stateResultsEl) stateResultsEl.style.display = 'flex';
-                if (resultsPaywallEl) resultsPaywallEl.style.display = 'none';
-                if (unlockedPremiumEl) unlockedPremiumEl.style.display = 'block';
-            } else if (savedScanId) {
-                currentScanId = savedScanId;
-                startAutoUnlockPolling(savedScanId);
+                showUnlockedResults();
+            } else {
+                // Clear unpaid previous test scan so mobile home page opens completely fresh!
+                sessionStorage.removeItem('verifydating_current_scan_id');
             }
         }).catch(e => console.error("Restore scan error: ", e));
+    }
+
+    // ==========================================================================
+    // DYNAMIC CRO FEATURE 1: SOCIAL PROOF TOAST POPUPS
+    // ==========================================================================
+    const socialProofToast = document.getElementById('social-proof-toast');
+    const toastTextMsg = document.getElementById('toast-text-msg');
+    const toastTimeAgo = document.getElementById('toast-time-ago');
+    const closeToastBtn = document.getElementById('close-toast-btn');
+
+    const toastNotifications = [
+        { msg: "<strong>Someone in London</strong> just unlocked a catfish security report", icon: "fa-lock", time: "12 sec ago" },
+        { msg: "<strong>User in New York</strong> completed a scan: 97% Match Found", icon: "fa-triangle-exclamation", time: "24 sec ago" },
+        { msg: "<strong>Someone in Berlin</strong> verified a profile (0% Risk)", icon: "fa-shield-check", time: "41 sec ago" },
+        { msg: "<strong>User in Milan</strong> unlocked a full identity audit", icon: "fa-key", time: "1 min ago" },
+        { msg: "<strong>Someone in Sydney</strong> detected a stolen stock photo", icon: "fa-user-ninja", time: "2 min ago" },
+        { msg: "<strong>User in Toronto</strong> unlocked 10 scan credits bundle", icon: "fa-bolt", time: "3 min ago" }
+    ];
+
+    let toastIndex = 0;
+    function showNextToast() {
+        if (!socialProofToast || !toastTextMsg) return;
+        const notification = toastNotifications[toastIndex];
+        toastTextMsg.innerHTML = notification.msg;
+        if (toastTimeAgo) toastTimeAgo.innerText = notification.time;
+        
+        socialProofToast.classList.add('show');
+
+        setTimeout(() => {
+            socialProofToast.classList.remove('show');
+        }, 5500);
+
+        toastIndex = (toastIndex + 1) % toastNotifications.length;
+    }
+
+    if (socialProofToast) {
+        setTimeout(showNextToast, 4000);
+        setInterval(showNextToast, 16000);
+
+        if (closeToastBtn) {
+            closeToastBtn.addEventListener('click', () => {
+                socialProofToast.classList.remove('show');
+            });
+        }
+    }
+
+    // ==========================================================================
+    // DYNAMIC CRO FEATURE 2: 1-CLICK SAMPLE DEMO CHIPS
+    // ==========================================================================
+    const sampleChips = document.querySelectorAll('.sample-chip');
+
+    const sampleImages = {
+        catfish: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?catfish_profile=true&w=500&auto=format&fit=crop&q=80",
+        stock: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?stock_profile=true&w=500&auto=format&fit=crop&q=80",
+        safe: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?safe_profile=true&w=500&auto=format&fit=crop&q=80"
+    };
+
+    sampleChips.forEach(chip => {
+        chip.addEventListener('click', (e) => {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            const sampleType = chip.getAttribute('data-sample');
+            const sampleUrl = sampleImages[sampleType] || sampleImages.catfish;
+            
+            if (imageUrlInput) {
+                imageUrlInput.value = sampleUrl;
+                selectedFile = null;
+                if (imagePreview) imagePreview.src = sampleUrl;
+                if (dropZonePrompt) dropZonePrompt.style.display = 'none';
+                if (previewContainer) previewContainer.style.display = 'flex';
+                if (startScanBtn) {
+                    startScanBtn.disabled = false;
+                    startScanBtn.removeAttribute('disabled');
+                }
+                
+                // Automatically launch the scan demo immediately!
+                setTimeout(() => {
+                    if (startScanBtn) {
+                        startScanBtn.disabled = false;
+                        startScanBtn.click();
+                    }
+                }, 100);
+            }
+        });
+    });
+
+    // ==========================================================================
+    // DYNAMIC CRO FEATURE 3: LIVE DAILY SCAN COUNTER AUTO-INCREMENT
+    // ==========================================================================
+    const dailyScanCountEl = document.getElementById('daily-scan-count');
+    if (dailyScanCountEl) {
+        let currentCount = 1482;
+        setInterval(() => {
+            currentCount += 1;
+            dailyScanCountEl.innerText = currentCount.toLocaleString();
+        }, 22000);
+    }
+
+    // ==========================================================================
+    // 09:59 Urgency Countdown Timer for Paywall
+    // ==========================================================================
+    let paywallTimerInterval = null;
+    window.startPaywallTimer = function() {
+        const timerCountEl = document.getElementById('paywall-timer-count');
+        if (!timerCountEl) return;
+
+        if (paywallTimerInterval) clearInterval(paywallTimerInterval);
+
+        let totalSeconds = 9 * 60 + 59; // 9 min 59 sec
+
+        paywallTimerInterval = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(paywallTimerInterval);
+                timerCountEl.innerText = "00:00";
+                return;
+            }
+            totalSeconds--;
+            const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            const secs = (totalSeconds % 60).toString().padStart(2, '0');
+            timerCountEl.innerText = `${mins}:${secs}`;
+        }, 1000);
+    };
+
+    function hideResultsAndShowPaywall() {
+        const resultsPaywallEl = document.getElementById('results-paywall');
+        const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
+        const riskBannerEl = document.getElementById('risk-banner');
+        const resultsBodyEl = document.querySelector('.results-body');
+
+        if (resultsPaywallEl) resultsPaywallEl.style.display = 'flex';
+        if (unlockedPremiumEl) unlockedPremiumEl.style.display = 'none';
+        if (riskBannerEl) riskBannerEl.style.display = 'none';
+        if (resultsBodyEl) resultsBodyEl.style.display = 'none';
+    }
+
+    function showUnlockedResults() {
+        const resultsPaywallEl = document.getElementById('results-paywall');
+        const unlockedPremiumEl = document.getElementById('unlocked-premium-details');
+        const riskBannerEl = document.getElementById('risk-banner');
+        const resultsBodyEl = document.querySelector('.results-body');
+
+        if (resultsPaywallEl) resultsPaywallEl.style.display = 'none';
+        if (unlockedPremiumEl) unlockedPremiumEl.style.display = 'block';
+        if (riskBannerEl) riskBannerEl.style.display = 'flex';
+        if (resultsBodyEl) resultsBodyEl.style.display = 'block';
     }
 });
 

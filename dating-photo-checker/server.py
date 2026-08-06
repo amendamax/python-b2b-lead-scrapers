@@ -104,23 +104,21 @@ CONFIG_PATH = "config.json"
 # Ensure upload directory exists
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# ==========================================================================
-# LOAD CONFIGURATION (STRIPE API KEYS)
-# ==========================================================================
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-STRIPE_SECRET_KEY_BROKER = os.environ.get("STRIPE_SECRET_KEY_BROKER")
-if not STRIPE_SECRET_KEY and os.path.exists(CONFIG_PATH):
-    try:
-        with open(CONFIG_PATH, "r") as f:
-            config = json.load(f)
-            STRIPE_SECRET_KEY = config.get("stripe_secret_key")
-            if STRIPE_SECRET_KEY == "YOUR_SECRET_KEY_HERE" or not STRIPE_SECRET_KEY:
-                STRIPE_SECRET_KEY = None
-    except Exception as e:
-        print(f"[ERROR] Failed to read config.json: {e}")
+# Load environment variables from .env if present
+def load_env_file():
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.exists(env_path):
+        with open(env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, v = line.split("=", 1)
+                    os.environ.setdefault(k.strip(), v.strip())
 
-if not STRIPE_SECRET_KEY_BROKER:
-    STRIPE_SECRET_KEY_BROKER = STRIPE_SECRET_KEY
+load_env_file()
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_SECRET_KEY_BROKER = os.getenv("STRIPE_SECRET_KEY_BROKER", STRIPE_SECRET_KEY)
 
 # ==========================================================================
 # DATABASE INITIALIZATION
@@ -157,6 +155,11 @@ def init_db():
     try:
         cursor.execute("ALTER TABLE scans ADD COLUMN package TEXT")
     except sqlite3.OperationalError:
+        pass
+
+    try:
+        cursor.execute("UPDATE scans SET package = 'basic' WHERE package IS NULL OR package = ''")
+    except Exception:
         pass
         
     # Table for user credits
@@ -727,24 +730,25 @@ def get_sightengine_ai_data_url(image_url: str, lang: str = "en"):
     return None
 
 def get_deterministic_mock_data(seed_bytes: bytes, filename: str = "", image_url: str = ""):
-    # Check if a human face is present in the image bytes
-    face_present = has_face(seed_bytes)
-    
-    if not face_present:
-        # If no face is detected (e.g. food, animals, landscapes, text), force Low Risk / Safe
-        scam_probability = 0
-        matches_count = 0
-        matches_data = []
-        scammer_info = "No human face detected in this image. For romance scam verification, please upload a portrait photo with a clear human face."
-        return scam_probability, matches_count, matches_data, scammer_info
-
     hasher = hashlib.md5(seed_bytes)
     hash_str = hasher.hexdigest()
     seed_int = int(hash_str[:6], 16)
     random.seed(seed_int)
     
-    if "catfish_profile" in filename.lower():
+    # Priority check for explicit demo chip profiles or image URLs
+    if "catfish_profile" in filename.lower() or "catfish_profile" in image_url.lower():
         risk_type = 2
+    elif "stock_profile" in filename.lower() or "stock_profile" in image_url.lower():
+        risk_type = 1
+    elif "safe_profile" in filename.lower() or "safe_profile" in image_url.lower():
+        risk_type = 0
+    elif not image_url and not has_face(seed_bytes):
+        # If no face is detected in uploaded file bytes (e.g. food, animals, text), force Low Risk / Safe
+        scam_probability = 0
+        matches_count = 0
+        matches_data = []
+        scammer_info = "No human face detected in this image. For romance scam verification, please upload a portrait photo with a clear human face."
+        return scam_probability, matches_count, matches_data, scammer_info
     else:
         risk_type = seed_int % 3
         
@@ -939,19 +943,23 @@ async def pay_card(request: PaymentRequest):
     is_admin_test = "amendamax" in request.email.lower()
     
     # Determine price and credits based on selected package
-    package_type = request.package if request.package in ["single", "bundle"] else "bundle"
-    if package_type == "single":
-        stripe_amount = 199
+    package_type = request.package if request.package in ["basic", "single", "bundle"] else "basic"
+    if package_type == "basic":
+        stripe_amount = 99
         credits_to_add = 1
-        description_text = f"VerifyDating Single Report - Scan {request.scan_id}"
+        description_text = f"VerifyDating Basic Report - Scan {request.scan_id}"
+    elif package_type == "single":
+        stripe_amount = 199
+        credits_to_add = 3
+        description_text = f"VerifyDating Standard Report - Scan {request.scan_id}"
     else:
         stripe_amount = 499
-        credits_to_add = 5
-        description_text = f"VerifyDating Security Report - Scan {request.scan_id}"
+        credits_to_add = 10
+        description_text = f"VerifyDating PRO Deep Report - Scan {request.scan_id}"
     
     if STRIPE_SECRET_KEY and not is_admin_test:
+        import stripe
         try:
-            import stripe
             stripe.api_key = STRIPE_SECRET_KEY
             stripe.Charge.create(
                 amount=stripe_amount,
@@ -963,6 +971,9 @@ async def pay_card(request: PaymentRequest):
         except stripe.error.CardError as e:
             conn.close()
             raise HTTPException(status_code=400, detail=e.user_message)
+        except stripe.error.StripeError as e:
+            conn.close()
+            raise HTTPException(status_code=400, detail=f"Payment failed: {e.user_message or str(e)}")
         except Exception as e:
             conn.close()
             raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {str(e)}")
@@ -1420,7 +1431,7 @@ async def get_admin_dashboard(token: str = None):
         total_scans = len(rows)
         total_paid = sum(1 for r in rows if r[2] == 'paid')
         # Calculate dynamic revenue
-        revenue = sum(1.99 if r[7] == 'single' else 4.99 for r in rows if r[2] == 'paid')
+        revenue = sum(1.99 if r[7] == 'single' else 4.99 if r[7] == 'bundle' or r[7] == 'pro' else 0.99 for r in rows if r[2] == 'paid')
         v_leads_count = len(v_leads)
         
         v_leads_html = ""
@@ -1434,12 +1445,20 @@ async def get_admin_dashboard(token: str = None):
             img_name = os.path.basename(img_path) if img_path else ""
             img_url = f"/uploads/{img_name}" if img_name else "#"
             
-            price_display = "$1.99" if package == "single" else "$4.99"
+            price_display = "$1.99" if package == "single" else "$4.99" if package == "bundle" or package == "pro" else "$0.99"
             status_badge = f'<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ({price_display})</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
             
             prob_color = "#EF4444" if scam_prob >= 70 else "#F59E0B" if scam_prob >= 40 else "#10B981"
             
-            formatted_date = created_at.replace("T", " ")[:19] if created_at else "N/A"
+            if created_at:
+                try:
+                    dt_raw = datetime.datetime.fromisoformat(created_at.replace("Z", "").split(".")[0])
+                    dt_it = dt_raw + datetime.timedelta(hours=2)
+                    formatted_date = f"{dt_it.strftime('%Y-%m-%d %H:%M:%S')} IT"
+                except Exception:
+                    formatted_date = created_at.replace("T", " ")[:19] + " UTC"
+            else:
+                formatted_date = "N/A"
             
             unlock_btn = ""
             if payment_status != "paid":
@@ -1597,7 +1616,7 @@ async def mark_scan_as_paid(scan_id: str, token: str = None):
     cursor = conn.cursor()
     
     # Try updating in dating scans
-    cursor.execute("UPDATE scans SET payment_status = 'paid' WHERE id = ?", (scan_id,))
+    cursor.execute("UPDATE scans SET payment_status = 'paid', package = 'basic' WHERE id = ?", (scan_id,))
     dating_updated = cursor.rowcount > 0
     
     # Try updating in broker scans

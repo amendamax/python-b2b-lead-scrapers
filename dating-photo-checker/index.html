@@ -142,6 +142,7 @@
             <div class="recent-scans-ticker">
                 <span class="ticker-title">🔥 LIVE SAFETY AUDITS:</span>
                 <div class="ticker-tags">
+                    <span class="scan-tag risk-low" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4);"><span class="live-dot-pulse"></span> <strong id="daily-scan-count">1,482</strong> Scans Today</span>
                     <span class="scan-tag risk-high"><i class="fa-solid fa-user-ninja"></i> Tinder Photo — 94% Catfish Risk ⚠️</span>
                     <span class="scan-tag risk-high"><i class="fa-solid fa-user-xmark"></i> Bumble Profile — 88% Match Found ⚠️</span>
                     <span class="scan-tag risk-low"><i class="fa-solid fa-user-check"></i> Instagram Audit — 0% Clean ✓</span>
@@ -213,6 +214,22 @@
                         <span class="btn-text"><i class="fa-solid fa-video" style="margin-right: 6px;"></i> Scan Video (Deepfake Audit) - $9.99</span>
                         <span class="badge" style="background: #6c5ce7; font-size: 8px; padding: 2px 5px; margin-left: 8px; border-radius: 4px; vertical-align: middle; color: #fff;">BETA</span>
                     </button>
+
+                    <!-- Quick Sample Demo Chips -->
+                    <div class="sample-chips-container">
+                        <div class="sample-chips-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Try a sample demo:</div>
+                        <div class="sample-chips-wrapper">
+                            <button type="button" class="sample-chip chip-catfish" data-sample="catfish">
+                                <i class="fa-solid fa-triangle-exclamation text-danger"></i> Catfish Profile
+                            </button>
+                            <button type="button" class="sample-chip chip-stock" data-sample="stock">
+                                <i class="fa-solid fa-images text-warning"></i> Stock Photo
+                            </button>
+                            <button type="button" class="sample-chip chip-safe" data-sample="safe">
+                                <i class="fa-solid fa-shield-check text-success"></i> Verified Profile
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Side: Real-time Scanning Progress / Results -->
@@ -270,7 +287,60 @@
                     </div>
 
                     <!-- Scan Results State (Hidden / Blurred initially for paywall demo) -->
-                    <div class="panel-state" id="state-results" style="display: none;">
+                    <div class="panel-state" id="state-results" style="display: none; position: relative; overflow: hidden;">
+                        <!-- Paywall / Lock Overlay (Covers entire panel including headers) -->
+                        <div class="paywall-overlay" id="results-paywall">
+                            <div class="paywall-content">
+                                <div class="paywall-timer-banner">
+                                    <i class="fa-solid fa-clock"></i> Report held in memory: <strong id="paywall-timer-count">09:59</strong>
+                                </div>
+                                <i class="fa-solid fa-lock paywall-lock-icon"></i>
+                                <h3>Unlock Full Security Report</h3>
+                                <p>Reveal exact links of matched profiles, social media pages where photos were stolen, and scammer location footprints.</p>
+                                
+                                <!-- Blurred Teaser Preview Box -->
+                                <div class="paywall-teaser-box">
+                                    <div class="teaser-lock-badge"><i class="fa-solid fa-eye-slash"></i> Matches Detected & Blurred</div>
+                                    <div class="blurred-teaser-image-container">
+                                        <img id="paywall-teaser-preview-img" src="" alt="Matched Face Teaser" class="blurred-teaser-img" />
+                                        <div class="teaser-overlay-text" id="paywall-teaser-text"><i class="fa-solid fa-lock"></i> Matches Found on Social Media & Web</div>
+                                    </div>
+                                </div>
+
+                                <div class="pricing-options">
+                                    <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
+                                        <span class="btn-text">⚡ Quick Unlock - $0.99</span>
+                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
+                                    </button>
+                                    <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
+                                        <span class="btn-text">Standard Report (3 Credits) - $1.99</span>
+                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
+                                    </button>
+                                    <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
+                                        <span class="btn-text">PRO Deep Scan (10 Credits - Best Value) - $4.99</span>
+                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
+                                    </button>
+                                    
+                                    <div class="payment-methods-badges">
+                                        <span class="pm-badge"><i class="fa-brands fa-apple"></i> Pay</span>
+                                        <span class="pm-badge"><i class="fa-brands fa-google"></i> Pay</span>
+                                        <span class="pm-badge"><i class="fa-solid fa-credit-card"></i> Card</span>
+                                        <span class="pm-badge"><i class="fa-solid fa-shield-check"></i> 100% Private</span>
+                                    </div>
+                                </div>
+
+                                <!-- Use Existing Credits Section -->
+                                <div class="use-credits-section">
+                                    <div class="credits-divider"><span>or use existing credits</span></div>
+                                    <div class="credits-input-group">
+                                        <input type="email" id="credit-email" placeholder="Enter email to use credit" class="credit-input">
+                                        <button id="use-credit-btn" class="btn btn-primary btn-credit">Use Credit</button>
+                                    </div>
+                                    <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="results-header" id="risk-banner">
                             <div class="risk-badge" id="risk-badge-element">High Risk</div>
                             <h3 id="risk-title">Fake Profile Detected</h3>
@@ -297,38 +367,6 @@
                                     <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
                                     <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
                                 </ul>
-                            </div>
-
-                            <!-- Paywall / Lock Overlay (Crucial for Monetization Demo) -->
-                            <div class="paywall-overlay" id="results-paywall">
-                                <div class="paywall-content">
-                                    <i class="fa-solid fa-lock paywall-lock-icon"></i>
-                                    <h3>Unlock Full Security Report</h3>
-                                    <p>Reveal the exact links of matched profiles, social media pages where photos were stolen, and scammer location footprints.</p>
-                                    
-                                    <div class="pricing-options">
-                                        <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                            <span class="btn-text">Unlock Single Report - $1.99</span>
-                                            <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                        </button>
-                                        <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                            <span class="btn-text">Unlock 5 Reports (Best Value) - $4.99</span>
-                                            <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                        </button>
-                                        <p class="paywall-guarantee"><i class="fa-solid fa-shield-check"></i> Secure payment via Stripe. 100% money-back guarantee.</p>
-                                        <p class="credits-explanation" style="font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.4;"><i class="fa-solid fa-circle-info"></i> Unlocks this report instantly. The 5-scan package includes 4 additional scan credits for future checks.</p>
-                                    </div>
-
-                                    <!-- Use Existing Credits Section -->
-                                    <div class="use-credits-section">
-                                        <div class="credits-divider"><span>or use existing credits</span></div>
-                                        <div class="credits-input-group">
-                                            <input type="email" id="credit-email" placeholder="Enter email to use credit" class="credit-input">
-                                            <button id="use-credit-btn" class="btn btn-primary btn-credit">Use Credit</button>
-                                        </div>
-                                        <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Unlocked Premium Details (Visible only after mock checkout) -->
@@ -484,7 +522,7 @@
                 <div class="accordion-item">
                     <button class="accordion-header">Why is VerifyDating a better Social Catfish alternative? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. You pay a one-time fee of $4.99 for 5 scans, with no recurring charges, no accounts, and no hidden fees.</p>
+                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. You can unlock a quick report starting at just $0.99, or get 10 scan credits for $4.99 with no recurring charges, no accounts, and no hidden fees.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -508,13 +546,13 @@
                 <div class="accordion-item">
                     <button class="accordion-header">What is included in the $4.99 Premium Package? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>The premium package gives you 5 scan credits for $4.99. Each credit can be used to unlock a full report, which reveals the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found.</p>
+                        <p>The premium package gives you 10 scan credits for $4.99. Each credit can be used to unlock a full report, which reveals the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">Is this a subscription or a one-time fee? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>It is a one-time payment of $4.99 for 5 scan credits. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You can use your credits whenever you want.</p>
+                        <p>It is a one-time payment starting from $0.99, or $4.99 for 10 scan credits. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You can use your credits whenever you want.</p>
                     </div>
                 </div>
             </div>
@@ -539,7 +577,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Price per scan</td>
-                            <td class="us-cell"><strong class="price-highlight">$4.99 (5 Scans)</strong></td>
+                            <td class="us-cell"><strong class="price-highlight">From $0.99</strong></td>
                             <td><span class="comp-bad">$26.99/mo</span></td>
                             <td><span class="comp-bad">$29.99/mo</span></td>
                             <td><span class="comp-bad">$6–$597</span></td>
@@ -806,6 +844,16 @@
         </div>
     </footer>
 
-    <script src="app.js?v=2.6"></script>
+    <!-- Social Proof Toast Notification Container -->
+    <div class="social-proof-toast" id="social-proof-toast">
+        <div class="toast-avatar" id="toast-avatar-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="toast-body">
+            <div id="toast-text-msg">Someone in London just unlocked a security report</div>
+            <div class="toast-time" id="toast-time-ago">14 sec ago</div>
+        </div>
+        <button class="toast-close" id="close-toast-btn" aria-label="Close">&times;</button>
+    </div>
+
+    <script src="app.js?v=5.8"></script>
 </body>
 </html>

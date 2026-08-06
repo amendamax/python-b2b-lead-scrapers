@@ -524,9 +524,13 @@ body::before {
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-height: 420px;
+    min-height: 400px;
     text-align: center;
     animation: fadeIn 0.4s ease-out forwards;
+}
+
+#state-results {
+    min-height: 580px !important;
 }
 
 /* 1. Idle State */
@@ -824,57 +828,62 @@ body::before {
 /* Paywall lock element over results container */
 .paywall-overlay {
     position: absolute;
-    top: -15px;
-    left: -15px;
-    width: calc(100% + 30px);
-    height: calc(100% + 30px);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(9, 7, 15, 0.85);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #09070F !important;
     border-radius: 16px;
     display: flex;
+    flex-direction: column !important;
     align-items: center;
     justify-content: center;
-    z-index: 30;
-    padding: 30px;
+    z-index: 9999;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    overflow-y: hidden !important;
 }
 
 .paywall-content {
     text-align: center;
-    max-width: 320px;
+    width: 100%;
+    max-width: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: slideUp 0.5s ease-out forwards;
+    margin: 0 auto;
 }
 
 .paywall-lock-icon {
-    font-size: 38px;
+    font-size: 20px;
     color: var(--primary);
     background: rgba(255, 42, 116, 0.1);
-    width: 75px;
-    height: 75px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
     border: 1px solid rgba(255, 42, 116, 0.2);
-    box-shadow: 0 0 25px rgba(255, 42, 116, 0.15);
+    box-shadow: 0 0 15px rgba(255, 42, 116, 0.15);
 }
 
 .paywall-content h3 {
-    font-family: var(--font-header);
-    font-size: 19px;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 2px;
 }
 
 .paywall-content p {
-    font-size: 13px;
+    font-size: 0.76rem;
     color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 25px;
+    line-height: 1.25;
+    margin-bottom: 6px;
 }
 
 .pricing-options {
@@ -882,21 +891,21 @@ body::before {
 }
 
 .paywall-guarantee {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-muted);
-    margin-top: 12px;
+    margin-top: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 /* Credits section inside paywall */
 .use-credits-section {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 15px;
+    padding-top: 8px;
 }
 
 .credits-divider {
@@ -2661,4 +2670,352 @@ body::before {
     border-color: #ff2a74 !important;
     box-shadow: 0 0 20px rgba(255, 42, 116, 0.25) !important;
     background: rgba(255, 42, 116, 0.05) !important;
+}
+
+/* Sample Photo Demo Chips */
+.sample-chips-container {
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.sample-chips-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.sample-chips-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sample-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sample-chip:hover {
+    background: rgba(255, 42, 116, 0.2);
+    border-color: rgba(255, 42, 116, 0.5);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 42, 116, 0.2);
+}
+
+.sample-chip.chip-catfish:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.sample-chip.chip-safe:hover {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
+/* Social Proof Toast Popup */
+.social-proof-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000;
+    background: rgba(15, 12, 28, 0.95);
+    border: 1px solid rgba(255, 42, 116, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 42, 116, 0.15);
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: auto;
+}
+
+.social-proof-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.toast-body {
+    flex: 1;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #e2e8f0;
+}
+
+.toast-body strong {
+    color: white;
+    font-weight: 700;
+}
+
+.toast-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+.toast-close:hover {
+    color: white;
+}
+
+/* Pulsing Green Live Counter Dot */
+.live-dot-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulseDot 1.8s infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Mobile Responsiveness for Toasts & Demo Chips */
+@media (max-width: 600px) {
+    .social-proof-toast {
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        max-width: calc(100vw - 24px);
+        padding: 10px 14px;
+    }
+    .sample-chips-wrapper {
+        gap: 6px;
+    }
+    .sample-chip {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+    .paywall-overlay {
+        position: relative !important;
+        padding: 16px 10px !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 540px !important;
+        border-radius: 16px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        z-index: 10 !important;
+    }
+    .paywall-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    .pricing-options {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .pricing-options .btn,
+    .paywall-content .btn {
+        padding: 12px 8px !important;
+        font-size: 13px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        white-space: normal !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+    }
+    .pricing-options .btn .btn-text,
+    .paywall-content .btn .btn-text {
+        font-size: 13px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        line-height: 1.3 !important;
+    }
+    .paywall-teaser-box {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 8px !important;
+    }
+    .blurred-teaser-image-container {
+        height: 90px !important;
+    }
+    .use-credits-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .credits-input-group {
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        gap: 8px !important;
+    }
+    .credit-input {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .btn-credit {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    #state-results {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+}
+
+/* Paywall Conversion Enhancements (Urgency Timer, Teaser Preview, Payment Badges) */
+.paywall-timer-banner {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #fca5a5;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.paywall-teaser-box {
+    width: 100%;
+    margin: 4px 0 8px 0;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px dashed rgba(56, 189, 248, 0.3);
+    border-radius: 10px;
+    padding: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.teaser-lock-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.blurred-teaser-image-container {
+    height: 65px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #090d16;
+}
+
+.blurred-teaser-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(12px) brightness(0.6) saturate(1.5);
+    transform: scale(1.1);
+}
+
+.teaser-overlay-text {
+    position: absolute;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.payment-methods-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.pm-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
