@@ -19,6 +19,8 @@ import random
 import socket
 import re
 import io
+import threading
+import requests
 from datetime import datetime
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse
@@ -132,6 +134,73 @@ if not raw_broker_key or "JK3v" in raw_broker_key or "51TqAOL" in raw_broker_key
     STRIPE_SECRET_KEY_BROKER = FALLBACK_STRIPE_SECRET_KEY
 else:
     STRIPE_SECRET_KEY_BROKER = raw_broker_key
+
+# ==========================================================================
+# TELEGRAM NOTIFICATIONS & PAYMENT ERROR LOGGING
+# ==========================================================================
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8677428441:AAEKsz-dfn_zlF7asRXEy1qtutCYPQOdLdE")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "1367224738")
+
+def log_and_notify_payment_event(event_type: str, site: str, email: str, scan_id: str, package_or_broker: str, amount_str: str, error_msg: str = None):
+    """
+    Log payment success/failure to SQLite and trigger an instant Telegram alert.
+    event_type: 'SUCCESS' or 'FAILED'
+    """
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # 1. Log payment error to database if failed
+    if event_type == "FAILED":
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS payment_errors (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    site TEXT,
+                    email TEXT,
+                    scan_id TEXT,
+                    package TEXT,
+                    error_message TEXT,
+                    created_at TEXT
+                )
+            """)
+            cursor.execute(
+                "INSERT INTO payment_errors (site, email, scan_id, package, error_message, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                (site, email, scan_id, package_or_broker, str(error_msg or "Unknown Error"), timestamp)
+            )
+            conn.commit()
+            conn.close()
+        except Exception as db_err:
+            print(f"[DB Error Log Failed] {db_err}")
+            
+    # 2. Telegram Alert Notification
+    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+        if event_type == "FAILED":
+            msg = (
+                f"🚨 *PLATĂ EȘUATĂ — {site}*\n\n"
+                f"📧 *Email Client:* `{email}`\n"
+                f"📦 *Pachet/Produs:* `{package_or_broker}` ({amount_str})\n"
+                f"🆔 *Scan ID:* `{scan_id}`\n"
+                f"⚠️ *Cauză Eroare:* `{error_msg}`\n"
+                f"⏰ *Ora:* `{timestamp}`"
+            )
+        else:
+            msg = (
+                f"🎉 *PLATĂ REUȘITĂ — {site}*\n\n"
+                f"📧 *Email Client:* `{email}`\n"
+                f"💵 *Valoare:* `{amount_str}` (`{package_or_broker}`)\n"
+                f"🆔 *Scan ID:* `{scan_id}`\n"
+                f"⏰ *Ora:* `{timestamp}`"
+            )
+
+        def _send():
+            try:
+                url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+                requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "Markdown"}, timeout=5)
+            except Exception as err:
+                print(f"[Telegram Alert Exception] {err}")
+
+        threading.Thread(target=_send, daemon=True).start()
 
 # ==========================================================================
 # DATABASE INITIALIZATION
@@ -972,6 +1041,7 @@ async def pay_card(request: PaymentRequest):
     
     if STRIPE_SECRET_KEY and not is_admin_test:
         import stripe
+        amt_str = f"${stripe_amount / 100:.2f}"
         try:
             stripe.api_key = STRIPE_SECRET_KEY
             stripe.Charge.create(
@@ -981,24 +1051,46 @@ async def pay_card(request: PaymentRequest):
                 description=description_text,
                 receipt_email=request.email,
             )
+            log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_type, amt_str)
         except stripe.error.AuthenticationError:
-            stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
-            stripe.Charge.create(
-                amount=stripe_amount,
-                currency="usd",
-                source=request.token_id,
-                description=description_text,
-                receipt_email=request.email,
-            )
+            try:
+                stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
+                stripe.Charge.create(
+                    amount=stripe_amount,
+                    currency="usd",
+                    source=request.token_id,
+                    description=description_text,
+                    receipt_email=request.email,
+                )
+                log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_type, amt_str)
+            except stripe.error.CardError as e:
+                err_text = e.user_message or str(e)
+                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+                conn.close()
+                raise HTTPException(status_code=400, detail=err_text)
+            except Exception as e:
+                err_text = str(e)
+                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+                conn.close()
+                raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
         except stripe.error.CardError as e:
+            err_text = e.user_message or str(e)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
             conn.close()
-            raise HTTPException(status_code=400, detail=e.user_message)
+            raise HTTPException(status_code=400, detail=err_text)
         except stripe.error.StripeError as e:
+            err_text = e.user_message or str(e)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
             conn.close()
-            raise HTTPException(status_code=400, detail=f"Payment failed: {e.user_message or str(e)}")
+            raise HTTPException(status_code=400, detail=f"Payment failed: {err_text}")
         except Exception as e:
+            err_text = str(e)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
             conn.close()
-            raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
+    elif is_admin_test:
+        amt_str = f"${stripe_amount / 100:.2f}"
+        log_and_notify_payment_event("SUCCESS", "VerifyDating (Admin Test)", request.email, request.scan_id, package_type, amt_str)
 
     # Update/Create User credits
     cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
@@ -2413,24 +2505,45 @@ async def pay_broker_card(request: BrokerPaymentRequest):
                 description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
                 receipt_email=request.email,
             )
+            log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
         except stripe.error.AuthenticationError:
-            stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
-            stripe.Charge.create(
-                amount=499,
-                currency="usd",
-                source=request.token_id,
-                description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
-                receipt_email=request.email,
-            )
+            try:
+                stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
+                stripe.Charge.create(
+                    amount=499,
+                    currency="usd",
+                    source=request.token_id,
+                    description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
+                    receipt_email=request.email,
+                )
+                log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
+            except stripe.error.CardError as e:
+                err_text = e.user_message or str(e)
+                log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
+                conn.close()
+                raise HTTPException(status_code=400, detail=err_text)
+            except Exception as e:
+                err_text = str(e)
+                log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
+                conn.close()
+                raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
         except stripe.error.CardError as e:
+            err_text = e.user_message or str(e)
+            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
             conn.close()
-            raise HTTPException(status_code=400, detail=e.user_message)
+            raise HTTPException(status_code=400, detail=err_text)
         except stripe.error.StripeError as e:
+            err_text = e.user_message or str(e)
+            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
             conn.close()
-            raise HTTPException(status_code=400, detail=f"Payment failed: {e.user_message or str(e)}")
+            raise HTTPException(status_code=400, detail=f"Payment failed: {err_text}")
         except Exception as e:
+            err_text = str(e)
+            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
             conn.close()
-            raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
+    elif is_admin_test:
+        log_and_notify_payment_event("SUCCESS", "IsBrokerSafe (Admin Test)", request.email, request.scan_id, broker_name, "$4.99")
 
     cursor.execute("UPDATE broker_scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
     conn.commit()
@@ -3081,6 +3194,38 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
         media_type="application/pdf", 
         headers={"Content-Disposition": f"attachment; filename=Broker_Forensic_Report_{domain}.pdf"}
     )
+
+@app.get("/api/admin/payment-errors")
+async def get_payment_errors(limit: int = 50):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS payment_errors (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            site TEXT,
+            email TEXT,
+            scan_id TEXT,
+            package TEXT,
+            error_message TEXT,
+            created_at TEXT
+        )
+    """)
+    cursor.execute("SELECT id, site, email, scan_id, package, error_message, created_at FROM payment_errors ORDER BY id DESC LIMIT ?", (limit,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    errors = []
+    for r in rows:
+        errors.append({
+            "id": r[0],
+            "site": r[1],
+            "email": r[2],
+            "scan_id": r[3],
+            "package": r[4],
+            "error_message": r[5],
+            "created_at": r[6]
+        })
+    return {"success": True, "count": len(errors), "errors": errors}
 
 if __name__ == "__main__":
     import uvicorn
