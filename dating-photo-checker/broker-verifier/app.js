@@ -1291,7 +1291,7 @@ let cardElement = null;
 
 try {
     if (typeof Stripe !== 'undefined') {
-        stripe = Stripe('pk_live_51TtpkdAhLNvXdoMSXRjVwN4FzUhl9qi1ujDzqWWTechyUmEZSQjntRuMLVDL6M0d5RkOGIW8581GZdebULU2Ruq100g3PoOz9T');
+        stripe = Stripe('pk_live_51U3aa8AD9zjw4VHRrNmOVbG7x7uFrb0AjlQ82wTL4zM9RDcfVWBlnU6RP3hzMIDlsciyTbzsq8fpU5WfCePYwf4200roVNZyt0');
         stripeElements = stripe.elements();
         cardElement = stripeElements.create('card', {
             style: {
@@ -1393,19 +1393,27 @@ searchInput.addEventListener("input", function() {
     suggestionsBox.style.display = "block";
 });
 
+function triggerManualScan() {
+    const val = searchInput.value.trim();
+    if (val) {
+        suggestionsBox.style.display = "none";
+        let domain = val.toLowerCase();
+        if (!domain.includes(".")) {
+            domain = domain + ".com";
+        }
+        executeScan(val, domain);
+    }
+}
+
+const searchIconBtn = document.getElementById("search-icon-btn");
+if (searchIconBtn) {
+    searchIconBtn.addEventListener("click", triggerManualScan);
+}
+
 // Execute search when pressing Enter in the search input
 searchInput.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
-        const val = this.value.trim();
-        if (val) {
-            suggestionsBox.style.display = "none";
-            // Guess a domain if the user didn't enter one (e.g. "plus500" -> "plus500.com")
-            let domain = val.toLowerCase();
-            if (!domain.includes(".")) {
-                domain = domain + ".com";
-            }
-            executeScan(val, domain);
-        }
+        triggerManualScan();
     }
 });
 
@@ -1449,6 +1457,9 @@ function updateGauge(percentage) {
 
 // Execute scan request on the FastAPI server
 async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
+    if (dashboardView) {
+        dashboardView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     scannerStatus.textContent = t.statusScanning;
     scannerStatus.style.color = "var(--color-warning)";
     scannerTerminal.innerHTML = "";

@@ -2827,6 +2827,38 @@ body::before {
 
 /* Mobile Responsiveness for Toasts & Demo Chips */
 @media (max-width: 600px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+    .container, .main-card, .results-card, .results-header, .results-body, .score-grid, .match-links-container, .match-link-card, .scammer-profile-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        word-break: break-word !important;
+    }
+    .results-header h3 {
+        font-size: 17px !important;
+        word-break: break-word !important;
+        line-height: 1.3 !important;
+    }
+    .match-link-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 10px !important;
+        word-break: break-all !important;
+    }
+    .match-url {
+        word-break: break-all !important;
+        overflow-wrap: anywhere !important;
+        white-space: normal !important;
+        font-size: 11px !important;
+        max-width: 100% !important;
+        display: block !important;
+    }
     .social-proof-toast {
         bottom: 12px;
         left: 12px;
@@ -3005,6 +3037,27 @@ body::before {
     gap: 6px;
     margin-top: 6px;
     flex-wrap: wrap;
+}
+
+.match-url {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+}
+
+html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+}
+
+.container, .main-card, .results-card, .match-links-container, .match-link-card {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+
+.match-link-card {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
 }
 
 .pm-badge {

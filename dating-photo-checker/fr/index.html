@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="../style.css?v=2.4">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 </head>
 <body class="dark-theme">
     
@@ -307,15 +308,15 @@
 
                                     <div class="pricing-options">
                                         <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
-                                            <span class="btn-text">⚡ Déblocage Rapide - 0,99 $</span>
+                                            <span class="btn-text">⚡ Déblocage Rapide - 1,99 $</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
                                         <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                            <span class="btn-text">Rapport Standard (3 Crédits) - 1,99 $</span>
+                                            <span class="btn-text">Rapport Standard (3 Crédits) - 3,99 $</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
                                         <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                            <span class="btn-text">PRO Deep Scan (10 Crédits) - 4,99 $</span>
+                                            <span class="btn-text">PRO Deep Scan (10 Crédits) - 7,99 $</span>
                                             <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
                                         </button>
                                         
@@ -714,13 +715,19 @@
                     </div>
                 </div>
                 
-                <div class="payment-methods">
-                    <button class="btn-pay btn-apple-pay"><i class="fa-brands fa-apple"></i> Payer avec Apple Pay</button>
-                    <button class="btn-pay btn-google-pay"><i class="fa-brands fa-google"></i> Payer avec GPay</button>
-                    <div class="checkout-divider"><span>ou payer par carte bancaire</span></div>
+                <div class="payment-methods" style="margin-bottom: 12px;">
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+                        <button type="button" class="btn-pay btn-apple-pay" style="background:#ffffff; color:#000000; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%;">
+                            <i class="fa-brands fa-apple" style="font-size:20px;"></i> Pay with Apple Pay
+                        </button>
+                        <button type="button" class="btn-pay btn-google-pay" style="background:#3c4043; color:#ffffff; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%;">
+                            <i class="fa-brands fa-google" style="font-size:18px;"></i> Pay with GPay
+                        </button>
+                    </div>
+                    <div class="checkout-divider" style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.5px;"><span>OR PAY WITH CREDIT CARD</span></div>
                 </div>
 
-                <form id="payment-form" onsubmit="event.preventDefault();">
+<form id="payment-form" onsubmit="event.preventDefault();">
                     <div class="form-group">
                         <label for="card-email">Adresse e-mail</label>
                         <input type="email" id="card-email" required placeholder="amendamax@vasiledev.com">
@@ -787,7 +794,7 @@
     <!-- Footer -->
     <footer class="app-footer">
         <div class="footer-content">
-            <p class="footer-copyright">&copy; 2026 VerifyDating. Tous droits réservés. Conçu pour protéger les utilisateurs contre les arnaques sentimentales. Créé par <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041). All rights reserved. Built to protect individuals against romance scams. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
             <div class="footer-contact">
                 <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Service client :</span>
                 <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>
@@ -806,6 +813,6 @@
         <button class="toast-close" id="close-toast-btn" aria-label="Fermer">&times;</button>
     </div>
 
-    <script src="../app.js?v=5.8"></script>
+    <script src="../app.js?v=6.2"></script>
 </body>
 </html>

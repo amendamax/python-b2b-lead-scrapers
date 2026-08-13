@@ -1,4 +1,5 @@
 import os
+import gc
 # Load environment variables from local .env file if present
 if os.path.exists(".env"):
     try:
@@ -99,8 +100,16 @@ async def debug_import_error():
         "sys_path": sys.path
     }
 
-DB_PATH = "database.db"
-UPLOAD_DIR = "uploads"
+PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
+os.makedirs(PERSISTENT_DIR, exist_ok=True)
+DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
+if not os.path.exists(DB_PATH) and os.path.exists("database.db"):
+    try:
+        import shutil
+        shutil.copy("database.db", DB_PATH)
+    except Exception:
+        pass
+UPLOAD_DIR = os.path.join(PERSISTENT_DIR, "uploads") if os.path.exists("/var/data") else "uploads"
 CONFIG_PATH = "config.json"
 
 # Ensure upload directory exists
@@ -108,7 +117,8 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 import base64
 
-FALLBACK_STRIPE_SECRET_KEY = base64.b64decode("c2tfbGl2ZV81MVR0cGtkQWhMTnZYZG9NU1F0d2E5bkdiRUEwTTZMMUlvOTZ5RFhIWFljVnBBbmp2QjlCa3BhUmg2WDVuOWRWTFZsM0dkRjdRbjVRQTg1WmZydVdNTWFRUzAweUEzemNndjA=").decode()
+FALLBACK_STRIPE_SECRET_KEY = base64.b64decode("c2tfbGl2ZV81MVUzWlJWQUMydUR4WEFHMWdWQUFNV0gyeEFoaFdVZVNjeXlJVE45eEF0cHN0c1E0Zlp0MGh5SUlTSDFwVVd2Wnl0SjdHMTBwUmhvWU5La25DSzF2d0dIajAwOTg0SjFxZjQ=").decode()
+FALLBACK_STRIPE_SECRET_KEY_BROKER = base64.b64decode("c2tfbGl2ZV81MVUzYWE4QUQ5emp3NFZIUk5TeTFXQUlIcW9pN1FkQkw5dW9WdWM5VElVS25FZ2d4QzJYdloya3RNak4zQnVSQlZqYlBreXVSWWNlUVBTNGFNSzB2aDdkRDAwd05keFRuZzc=").decode()
 
 # Load environment variables from .env if present
 def load_env_file():
@@ -131,15 +141,15 @@ else:
 
 raw_broker_key = os.getenv("STRIPE_SECRET_KEY_BROKER", "").strip()
 if not raw_broker_key or "JK3v" in raw_broker_key or "51TqAOL" in raw_broker_key:
-    STRIPE_SECRET_KEY_BROKER = FALLBACK_STRIPE_SECRET_KEY
+    STRIPE_SECRET_KEY_BROKER = FALLBACK_STRIPE_SECRET_KEY_BROKER
 else:
     STRIPE_SECRET_KEY_BROKER = raw_broker_key
 
 # ==========================================================================
 # WHATSAPP & TELEGRAM NOTIFICATIONS & PAYMENT ERROR LOGGING
 # ==========================================================================
-WHATSAPP_PHONE = os.getenv("WHATSAPP_PHONE", "+393209481876")
-WHATSAPP_APIKEY = os.getenv("WHATSAPP_APIKEY", "")
+WHATSAPP_PHONE = os.getenv("WHATSAPP_PHONE", "393209481876")
+WHATSAPP_APIKEY = os.getenv("WHATSAPP_APIKEY", "3592155")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8677428441:AAEKsz-dfn_zlF7asRXEy1qtutCYPQOdLdE")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "1367224738")
 
@@ -151,7 +161,7 @@ def send_whatsapp_message(text_message: str):
         try:
             clean_phone = WHATSAPP_PHONE.replace("+", "").replace(" ", "").strip()
             encoded_text = requests.utils.quote(text_message)
-            url = f"https://api.callmebot.com/whatsapp.php?phone=+{clean_phone}&text={encoded_text}"
+            url = f"https://api.callmebot.com/whatsapp.php?phone={clean_phone}&text={encoded_text}"
             if WHATSAPP_APIKEY:
                 url += f"&apikey={WHATSAPP_APIKEY}"
             requests.get(url, timeout=8)
@@ -193,10 +203,11 @@ def log_and_notify_payment_event(event_type: str, site: str, email: str, scan_id
             print(f"[DB Error Log Failed] {db_err}")
             
     # 2. WhatsApp Alert Notification
+    wa_amount = amount_str.replace("$", "").strip() + " USD" if "$" in amount_str else amount_str
     if event_type == "FAILED":
-        wa_text = f"🚨 PLATA ESUATA - {site}\nClient: {email}\nPachet: {package_or_broker} ({amount_str})\nID: {scan_id}\nEroare: {error_msg}\nOra: {timestamp}"
+        wa_text = f"🚨 PLATA ESUATA - {site}\nClient: {email}\nPachet: {package_or_broker} ({wa_amount})\nID: {scan_id}\nEroare: {error_msg}\nOra: {timestamp}"
     else:
-        wa_text = f"🎉 PLATA REUSITA - {site}\nClient: {email}\nValoare: {amount_str} ({package_or_broker})\nID: {scan_id}\nOra: {timestamp}"
+        wa_text = f"🎉 PLATA REUSITA - {site}\nClient: {email}\nValoare: {wa_amount} ({package_or_broker})\nID: {scan_id}\nOra: {timestamp}"
     
     send_whatsapp_message(wa_text)
 
@@ -250,26 +261,12 @@ def init_db():
         )
     """)
     
-    # Run migration to add email column if it doesn't exist in scans
-    try:
-        cursor.execute("ALTER TABLE scans ADD COLUMN email TEXT")
-    except sqlite3.OperationalError:
-        pass
-
-    try:
-        cursor.execute("ALTER TABLE scans ADD COLUMN image_base64 TEXT")
-    except sqlite3.OperationalError:
-        pass
-
-    try:
-        cursor.execute("ALTER TABLE scans ADD COLUMN package TEXT")
-    except sqlite3.OperationalError:
-        pass
-
-    try:
-        cursor.execute("UPDATE scans SET package = 'basic' WHERE package IS NULL OR package = ''")
-    except Exception:
-        pass
+    # Run migration to add missing columns if they don't exist
+    for col_def in ["email TEXT", "image_base64 TEXT", "package TEXT DEFAULT 'basic'"]:
+        try:
+            cursor.execute(f"ALTER TABLE scans ADD COLUMN {col_def}")
+        except sqlite3.OperationalError:
+            pass
         
     # Table for user credits
     cursor.execute("""
@@ -631,6 +628,44 @@ async def get_uploaded_image_with_db_recovery(filename: str):
 # Mount uploads directory statically so Google Lens can perform reverse search on the image
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+@app.get("/api/admin/uploads")
+async def list_admin_uploads():
+    """List all uploaded images on disk and in database with direct links and automatic DB recovery support."""
+    items = []
+    seen = set()
+    
+    # 1. Check physical files on disk
+    if os.path.exists(UPLOAD_DIR):
+        for fname in os.listdir(UPLOAD_DIR):
+            if fname.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                seen.add(fname)
+                items.append({
+                    "file": fname,
+                    "source": "disk",
+                    "image_url": f"https://verifydating.net/uploads/{fname}"
+                })
+                
+    # 2. Check SQLite DB records
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, created_at FROM scans ORDER BY created_at DESC LIMIT 50")
+        for r in cursor.fetchall():
+            fname = f"{r[0]}.jpg"
+            if fname not in seen:
+                seen.add(fname)
+                items.append({
+                    "file": fname,
+                    "source": "db_recovered",
+                    "created_at": r[1],
+                    "image_url": f"https://verifydating.net/uploads/{fname}"
+                })
+        conn.close()
+    except Exception as e:
+        print(f"[Admin Uploads DB Error] {e}")
+
+    return {"total": len(items), "uploads": items}
+
 # Mount .well-known directory for Stripe/Apple Pay domain association
 if os.path.exists(".well-known"):
     app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
@@ -967,6 +1002,10 @@ async def scan_image(request: Request, file: UploadFile = File(...)):
     conn.commit()
     conn.close()
     
+    # Release memory back to OS immediately
+    del file_bytes, img_b64
+    gc.collect()
+    
     return {
         "scan_id": scan_id,
         "scam_probability": scam_probability,
@@ -1053,17 +1092,20 @@ async def pay_card(request: PaymentRequest):
     
     # Determine price and credits based on selected package
     package_type = request.package if request.package in ["basic", "single", "bundle"] else "basic"
-    if package_type == "basic":
-        stripe_amount = 99
-        credits_to_add = 1
-        description_text = f"VerifyDating Basic Report - Scan {request.scan_id}"
-    elif package_type == "single":
+    if package_type == 'basic':
         stripe_amount = 199
+        credits_to_add = 1
+        package_name_log = "Quick Unlock ($1.99)"
+        description_text = f"VerifyDating Quick Unlock - Scan {request.scan_id}"
+    elif package_type == 'single':
+        stripe_amount = 399
         credits_to_add = 3
-        description_text = f"VerifyDating Standard Report - Scan {request.scan_id}"
-    else:
-        stripe_amount = 499
+        package_name_log = "Standard ($3.99)"
+        description_text = f"VerifyDating Standard 3 Scans - Scan {request.scan_id}"
+    else: # bundle or pro
+        stripe_amount = 799
         credits_to_add = 10
+        package_name_log = "PRO Deep ($7.99)"
         description_text = f"VerifyDating PRO Deep Report - Scan {request.scan_id}"
     
     if STRIPE_SECRET_KEY and not is_admin_test:
@@ -1076,9 +1118,10 @@ async def pay_card(request: PaymentRequest):
                 currency="usd",
                 source=request.token_id,
                 description=description_text,
+                statement_descriptor="VERIFYDATING.NET",
                 receipt_email=request.email,
             )
-            log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_type, amt_str)
+            log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str)
         except stripe.error.AuthenticationError:
             try:
                 stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
@@ -1087,37 +1130,38 @@ async def pay_card(request: PaymentRequest):
                     currency="usd",
                     source=request.token_id,
                     description=description_text,
+                    statement_descriptor="VERIFYDATING.NET",
                     receipt_email=request.email,
                 )
-                log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_type, amt_str)
+                log_and_notify_payment_event("SUCCESS", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str)
             except stripe.error.CardError as e:
                 err_text = e.user_message or str(e)
-                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str, err_text)
                 conn.close()
                 raise HTTPException(status_code=400, detail=err_text)
             except Exception as e:
                 err_text = str(e)
-                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+                log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str, err_text)
                 conn.close()
                 raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
         except stripe.error.CardError as e:
             err_text = e.user_message or str(e)
-            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str, err_text)
             conn.close()
             raise HTTPException(status_code=400, detail=err_text)
         except stripe.error.StripeError as e:
             err_text = e.user_message or str(e)
-            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str, err_text)
             conn.close()
             raise HTTPException(status_code=400, detail=f"Payment failed: {err_text}")
         except Exception as e:
             err_text = str(e)
-            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_type, amt_str, err_text)
+            log_and_notify_payment_event("FAILED", "VerifyDating", request.email, request.scan_id, package_name_log, amt_str, err_text)
             conn.close()
             raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
     elif is_admin_test:
         amt_str = f"${stripe_amount / 100:.2f}"
-        log_and_notify_payment_event("SUCCESS", "VerifyDating (Admin Test)", request.email, request.scan_id, package_type, amt_str)
+        log_and_notify_payment_event("SUCCESS", "VerifyDating (Admin Test)", request.email, request.scan_id, package_name_log, amt_str)
 
     # Update/Create User credits
     cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (request.email,))
@@ -1139,14 +1183,76 @@ async def pay_card(request: PaymentRequest):
     # Mark scan as paid, link to email, and save package type
     cursor.execute("UPDATE scans SET payment_status = 'paid', email = ?, package = ? WHERE id = ?", (request.email, package_type, request.scan_id))
     
-    conn.commit()
-    conn.close()
-    
     return {
         "success": True, 
         "message": f"Payment processed successfully. {credits_to_add} credits added, 1 credit used for this report.",
         "credits_remaining": new_credits
     }
+
+class PaypalPaymentRequest(BaseModel):
+    scan_id: str
+    email: str
+    order_id: str = None
+    package: str = "basic"
+
+@app.post("/api/pay-paypal")
+async def pay_paypal(request: PaypalPaymentRequest):
+    email_clean = request.email if request.email and "@" in request.email else "customer@verifydating.net"
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT id FROM scans WHERE id = ? OR id LIKE ? ORDER BY created_at DESC", (request.scan_id, f"%{request.scan_id}%"))
+    row = cursor.fetchone()
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Scan record not found.")
+
+    package_type = request.package if request.package in ["basic", "single", "bundle"] else "basic"
+    if package_type == 'basic':
+        amt_str = "$1.99"
+        package_name_log = "Quick Unlock ($1.99)"
+        credits_to_add = 1
+    elif package_type == 'single':
+        amt_str = "$3.99"
+        package_name_log = "Standard ($3.99)"
+        credits_to_add = 3
+    else:
+        amt_str = "$7.99"
+        package_name_log = "PRO Deep ($7.99)"
+        credits_to_add = 10
+
+    log_and_notify_payment_event("SUCCESS", "VerifyDating (PayPal)", email_clean, request.scan_id, package_name_log, amt_str)
+
+    cursor.execute("UPDATE scans SET payment_status = 'paid', email = ?, package = ? WHERE id = ? OR id LIKE ?", (email_clean, package_type, request.scan_id, f"%{request.scan_id}%"))
+    conn.commit()
+    conn.close()
+    
+    return {"success": True, "message": "PayPal payment confirmed. Scan unlocked."}
+
+@app.api_route("/api/pay-paypal-ipn", methods=["GET", "POST"])
+async def pay_paypal_ipn(request: Request):
+    try:
+        params = dict(request.query_params)
+        form_data = await request.form() if request.method == "POST" else {}
+        item_name = form_data.get("item_name") or params.get("item_name") or ""
+        payer_email = form_data.get("payer_email") or params.get("payer_email") or "customer@verifydating.net"
+        mc_gross = form_data.get("mc_gross") or params.get("mc_gross") or "1.99"
+        
+        scan_id = ""
+        if "Scan" in item_name:
+            scan_id = item_name.split("Scan")[-1].strip()
+            
+        if scan_id:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("UPDATE scans SET payment_status = 'paid', email = ? WHERE id = ? OR id LIKE ?", (payer_email, scan_id, f"%{scan_id}%"))
+            conn.commit()
+            conn.close()
+            log_and_notify_payment_event("SUCCESS", "VerifyDating (PayPal Direct)", payer_email, scan_id, "PayPal Direct Unlock", f"${mc_gross}")
+    except Exception as e:
+        print("PayPal IPN Error:", e)
+        
+    return {"status": "ok"}
 
 @app.post("/api/use-credit")
 async def use_credit(request: UseCreditRequest):
@@ -1559,7 +1665,7 @@ async def get_admin_dashboard(token: str = None):
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email, package 
+            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email, package, image_base64 
             FROM scans 
             ORDER BY created_at DESC
         """)
@@ -1567,13 +1673,52 @@ async def get_admin_dashboard(token: str = None):
 
         cursor.execute("SELECT email, created_at FROM video_leads ORDER BY created_at DESC")
         v_leads = cursor.fetchall()
+        
+        cursor.execute("CREATE TABLE IF NOT EXISTS payment_errors (id INTEGER PRIMARY KEY AUTOINCREMENT, site TEXT, email TEXT, scan_id TEXT, package TEXT, error_message TEXT, created_at TEXT)")
+        cursor.execute("SELECT site, email, scan_id, package, error_message, created_at FROM payment_errors ORDER BY id DESC LIMIT 100")
+        error_rows = cursor.fetchall()
         conn.close()
         
         total_scans = len(rows)
         total_paid = sum(1 for r in rows if r[2] == 'paid')
         # Calculate dynamic revenue
-        revenue = sum(1.99 if r[7] == 'single' else 4.99 if r[7] == 'bundle' or r[7] == 'pro' else 0.99 for r in rows if r[2] == 'paid')
+        revenue = sum(3.99 if r[7] == 'single' else 7.99 if r[7] in ('bundle', 'pro') else 1.99 for r in rows if r[2] == 'paid')
         v_leads_count = len(v_leads)
+        
+        # Build logs table rows (both errors and paid successes)
+        logs_table_rows = ""
+        
+        # 1. Add Error Logs
+        for err_site, err_email, err_scan_id, err_pkg, err_msg, err_date in error_rows:
+            logs_table_rows += f"""
+            <tr data-type="error" style="border-bottom:1px solid #334155;background:rgba(239,68,68,0.05);">
+                <td style="padding:12px;"><span style="background:#EF4444;color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;">❌ EȘUAT</span></td>
+                <td style="padding:12px;font-weight:600;color:#F8FAFC;">{err_site or 'VerifyDating'}</td>
+                <td style="padding:12px;color:#38BDF8;word-break:break-all;">{err_email or 'N/A'}</td>
+                <td style="padding:12px;color:#94A3B8;">{err_pkg or 'N/A'}</td>
+                <td style="padding:12px;color:#FCA5A5;font-family:monospace;font-size:12px;">⚠️ {err_msg[:60]}...</td>
+                <td style="padding:12px;"><code style="background:#0F172A;padding:2px 6px;border-radius:4px;color:#94A3B8;">{err_scan_id[:12]}</code></td>
+                <td style="padding:12px;color:#94A3B8;font-size:12px;">{err_date}</td>
+            </tr>
+            """
+            
+        # 2. Add Paid Success Logs
+        for r in rows:
+            if r[2] == 'paid':
+                s_id, s_date, s_status, s_scam, s_matches, s_img, s_email, s_pkg, s_b64 = r
+                s_price = "$3.99" if s_pkg == "single" else "$7.99" if s_pkg in ("bundle", "pro") else "$1.99"
+                s_fmt_date = s_date.replace("T", " ")[:19] if s_date else "N/A"
+                logs_table_rows += f"""
+                <tr data-type="success" style="border-bottom:1px solid #334155;background:rgba(16,185,129,0.05);">
+                    <td style="padding:12px;"><span style="background:#10B981;color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;">✅ REUȘIT</span></td>
+                    <td style="padding:12px;font-weight:600;color:#F8FAFC;">VerifyDating</td>
+                    <td style="padding:12px;color:#38BDF8;word-break:break-all;">{s_email or 'N/A'}</td>
+                    <td style="padding:12px;color:#34D399;font-weight:600;">{s_pkg or 'basic'} ({s_price})</td>
+                    <td style="padding:12px;color:#34D399;">✓ Plată confirmată cu succes</td>
+                    <td style="padding:12px;"><code style="background:#0F172A;padding:2px 6px;border-radius:4px;color:#94A3B8;">{s_id[:12]}</code></td>
+                    <td style="padding:12px;color:#94A3B8;font-size:12px;">{s_fmt_date}</td>
+                </tr>
+                """
         
         v_leads_html = ""
         for v_email, v_date in v_leads:
@@ -1582,11 +1727,16 @@ async def get_admin_dashboard(token: str = None):
         
         cards_html = ""
         for row in rows:
-            scan_id, created_at, payment_status, scam_prob, matches, img_path, email, package = row
+            scan_id, created_at, payment_status, scam_prob, matches, img_path, email, package, img_b64 = row
             img_name = os.path.basename(img_path) if img_path else ""
-            img_url = f"/uploads/{img_name}" if img_name else "#"
+            if img_b64:
+                img_url = f"data:image/jpeg;base64,{img_b64}"
+            elif img_name:
+                img_url = f"/uploads/{img_name}"
+            else:
+                img_url = "/catfish_profile.png"
             
-            price_display = "$1.99" if package == "single" else "$4.99" if package == "bundle" or package == "pro" else "$0.99"
+            price_display = "$3.99" if package == "single" else "$7.99" if package in ("bundle", "pro") else "$1.99"
             status_badge = f'<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ({price_display})</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
             
             prob_color = "#EF4444" if scam_prob >= 70 else "#F59E0B" if scam_prob >= 40 else "#10B981"
@@ -1610,9 +1760,9 @@ async def get_admin_dashboard(token: str = None):
             cards_html += f"""
             <div style="background:#1E293B;border-radius:16px;overflow:hidden;border:1px solid #334155;display:flex;flex-direction:column;box-shadow:0 4px 6px -1px rgba(0,0,0,0.3);">
                 <div style="height:220px;background:#0F172A;display:flex;align-align:center;justify-content:center;overflow:hidden;position:relative;padding:10px;">
-                    <a href="{img_url}" target="_blank" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                    <div onclick="openImgModal('{img_url}')" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;" title="Click to view full HD photo">
                         <img src="{img_url}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;" alt="Uploaded Scan"/>
-                    </a>
+                    </div>
                 </div>
                 <div style="padding:16px;flex:1;display:flex;flex-direction:column;gap:10px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -1653,10 +1803,43 @@ async def get_admin_dashboard(token: str = None):
         .grid {{ max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }}
     </style>
     <script>
-        // Auto refresh live admin dashboard every 15 seconds
-        setInterval(() => {{
-            window.location.reload();
-        }}, 15000);
+        let currentLogFilter = 'all';
+
+        function setLogFilter(filterType) {{
+            currentLogFilter = filterType;
+            const btnAll = document.getElementById('btnFilterAll');
+            const btnErrors = document.getElementById('btnFilterErrors');
+            const btnSuccess = document.getElementById('btnFilterSuccess');
+            
+            if (btnAll) {{ btnAll.style.background = filterType === 'all' ? '#3B82F6' : 'transparent'; btnAll.style.color = '#fff'; }}
+            if (btnErrors) {{ btnErrors.style.background = filterType === 'error' ? '#EF4444' : 'transparent'; btnErrors.style.color = filterType === 'error' ? '#fff' : '#EF4444'; }}
+            if (btnSuccess) {{ btnSuccess.style.background = filterType === 'success' ? '#10B981' : 'transparent'; btnSuccess.style.color = filterType === 'success' ? '#fff' : '#10B981'; }}
+            
+            filterLogsTable();
+        }}
+
+        function filterLogsTable() {{
+            const searchVal = (document.getElementById('logSearchInput')?.value || '').toLowerCase();
+            const rows = document.querySelectorAll('#logsTable tbody tr');
+            
+            rows.forEach(row => {{
+                const isError = row.getAttribute('data-type') === 'error';
+                const isSuccess = row.getAttribute('data-type') === 'success';
+                const text = row.innerText.toLowerCase();
+                
+                let matchesFilter = true;
+                if (currentLogFilter === 'error' && !isError) matchesFilter = false;
+                if (currentLogFilter === 'success' && !isSuccess) matchesFilter = false;
+                
+                let matchesSearch = text.includes(searchVal);
+                
+                if (matchesFilter && matchesSearch) {{
+                    row.style.display = '';
+                }} else {{
+                    row.style.display = 'none';
+                }}
+            }});
+        }}
 
         function refreshNow() {{
             window.location.reload();
@@ -1675,6 +1858,20 @@ async def get_admin_dashboard(token: str = None):
                     }});
             }}
         }}
+        function clearPaymentErrors() {{
+            if (confirm("⚠️ Sigur dorești să ștergi TOATE jurnalele și erorile de plăți?")) {{
+                const token = new URLSearchParams(window.location.search).get('token');
+                fetch('/api/admin/clear-payment-errors?token=' + token, {{ method: 'POST' }})
+                    .then(res => {{
+                        if (res.ok) {{
+                            window.location.reload();
+                        }} else {{
+                            alert("Eroare la ștergerea jurnalelor.");
+                        }}
+                    }});
+            }}
+        }}
+
         function resetScans() {{
             if (confirm("⚠️ Are you sure you want to CLEAR ALL scans and reset the database? This will delete all test entries.")) {{
                 const token = new URLSearchParams(window.location.search).get('token');
@@ -1717,6 +1914,39 @@ async def get_admin_dashboard(token: str = None):
             <button onclick="resetScans()" style="background:#EF4444;color:#fff;border:none;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s;" onmouseover="this.style.background='#DC2626'" onmouseout="this.style.background='#EF4444'">🗑️ Reset Database</button>
         </div>
     </div>
+
+    <!-- PAYMENT LOGS & ERRORS TABLE -->
+    <div style="max-width: 1200px; margin: 0 auto 28px auto; background: #1E293B; padding: 24px 32px; border-radius: 20px; border: 1px solid #334155;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:20px;">
+            <h2 style="margin:0;font-size:20px;color:#F8FAFC;display:flex;align-items:center;gap:10px;">📊 Jurnale Plăți & Erori API / Stripe</h2>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                <input type="text" id="logSearchInput" placeholder="Caută după email, Scan ID sau eroare..." style="background:#0F172A;border:1px solid #334155;color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;width:240px;" onkeyup="filterLogsTable()">
+                <button id="btnFilterAll" onclick="setLogFilter('all')" style="background:#3B82F6;color:#fff;border:none;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Toate Jurnalele</button>
+                <button id="btnFilterErrors" onclick="setLogFilter('error')" style="background:transparent;color:#EF4444;border:1px solid #EF4444;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Doar Erori</button>
+                <button id="btnFilterSuccess" onclick="setLogFilter('success')" style="background:transparent;color:#10B981;border:1px solid #10B981;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Doar Plăți Reușite</button>
+                <button onclick="clearPaymentErrors()" style="background:#DC2626;color:#fff;border:none;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='#B91C1C'" onmouseout="this.style.background='#DC2626'">🗑️ Șterge Jurnale</button>
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table id="logsTable" style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">
+                <thead>
+                    <tr style="border-bottom:1px solid #334155;color:#94A3B8;">
+                        <th style="padding:12px;">Status</th>
+                        <th style="padding:12px;">Platformă</th>
+                        <th style="padding:12px;">Email Client</th>
+                        <th style="padding:12px;">Pachet / Broker</th>
+                        <th style="padding:12px;">Detalii Eroare API / Stripe</th>
+                        <th style="padding:12px;">Scan ID</th>
+                        <th style="padding:12px;">Data & Ora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {logs_table_rows if logs_table_rows else '<tr><td colspan="7" style="padding:20px;text-align:center;color:#94A3B8;">Nu există jurnale de plăți înregistrate încă.</td></tr>'}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div style="max-width: 1200px; margin: 0 auto 28px auto; background: #1E293B; padding: 20px 28px; border-radius: 16px; border: 1px solid #334155;">
         <h3 style="margin:0 0 12px 0;font-size:16px;color:#A855F7;display:flex;align-items:center;gap:8px;">🎥 Video Verification Leads ({v_leads_count})</h3>
         {v_leads_html if v_leads_html else '<p style="color:#94A3B8;margin:0;font-size:13px;">No video verification leads submitted yet.</p>'}
@@ -1724,6 +1954,26 @@ async def get_admin_dashboard(token: str = None):
     <div class="grid">
         {cards_html if cards_html else '<p style="color:#94A3B8;grid-column:1/-1;text-align:center;padding:40px;background:#1E293B;border-radius:16px;">No scans recorded yet.</p>'}
     </div>
+    <!-- HD Image Modal Popup -->
+    <div id="img-modal-overlay" onclick="closeImgModal()" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.92);backdrop-filter:blur(8px);z-index:99999;align-items:center;justify-content:center;cursor:pointer;padding:20px;">
+        <img id="img-modal-target" style="max-width:90vw;max-height:90vh;border-radius:16px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.8);border:2px solid #38BDF8;object-fit:contain;" src=""/>
+        <div style="position:absolute;top:20px;right:30px;color:#F8FAFC;font-size:32px;font-weight:bold;cursor:pointer;">&times;</div>
+    </div>
+
+    <script>
+    function openImgModal(src) {{
+        var overlay = document.getElementById('img-modal-overlay');
+        var target = document.getElementById('img-modal-target');
+        if (overlay && target && src && src !== '#') {{
+            target.src = src;
+            overlay.style.display = 'flex';
+        }}
+    }}
+    function closeImgModal() {{
+        var overlay = document.getElementById('img-modal-overlay');
+        if (overlay) overlay.style.display = 'none';
+    }}
+    </script>
 </body>
 </html>"""
         return HTMLResponse(content=html_content)
@@ -1781,7 +2031,7 @@ async def get_admin_scans(token: str = None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, package 
+        SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, package, image_base64 
         FROM scans 
         ORDER BY created_at DESC
     """)
@@ -1791,16 +2041,26 @@ async def get_admin_scans(token: str = None):
     scans_list = []
     total_paid = 0
     for row in rows:
-        scan_id, created_at, payment_status, scam_probability, matches_count, image_path, package = row
+        scan_id, created_at, payment_status, scam_probability, matches_count, image_path, package, img_b64 = row
         if payment_status == "paid":
             total_paid += 1
+        
+        img_name = os.path.basename(image_path) if image_path else ""
+        if img_b64:
+            img_src = f"data:image/jpeg;base64,{img_b64}"
+        elif img_name:
+            img_src = f"/uploads/{img_name}"
+        else:
+            img_src = "/catfish_profile.png"
+
         scans_list.append({
             "scan_id": scan_id,
             "created_at": created_at,
             "payment_status": payment_status,
             "scam_probability": scam_probability,
             "matches_count": matches_count,
-            "image_name": os.path.basename(image_path) if image_path else "N/A",
+            "image_name": img_name or "N/A",
+            "image_src": img_src,
             "package": package
         })
         
@@ -1848,6 +2108,20 @@ class BrokerPaymentRequest(BaseModel):
 
 # Curated static DB for server lookup fallback
 static_broker_db = {
+    "capital.com": {
+        "name": "Capital.com",
+        "type": "Tier-1 Regulated Broker",
+        "score": 98,
+        "source": "FCA, CySEC, ASIC, NBRB Verified",
+        "verdictTitle": "Highly Secure & Regulated Global Broker",
+        "verdictText": "Capital.com is a premier Tier-1 regulated multi-asset broker authorized by FCA (UK), CySEC (EU), and ASIC (Australia). Features segregated tier-1 bank accounts, negative balance protection, and top-tier compliance.",
+        "redFlags": ["Standard market risk associated with CFD leverage trading."],
+        "greenFlags": ["FCA, CySEC, and ASIC regulated.", "Segregated funds at Tier-1 European banks.", "Negative balance protection included."],
+        "mockIp": "104.18.23.45",
+        "mockHoster": "Cloudflare Enterprise",
+        "mockDomainAge": "2016-04-12 (10 years ago)",
+        "mockRegStatus": "VERIFIED TIER-1: FCA (Ref: 793714), CySEC (Ref: 354/18), ASIC"
+    },
     "capitalinvestfx.com": {
         "name": "CapitalInvestFX",
         "type": "Confirmed Scam",
@@ -2397,9 +2671,16 @@ async def scan_broker(request: BrokerScanRequest):
     found_key = None
     for k in static_broker_db:
         k_clean = k.lower().strip()
-        if clean_domain == k_clean or clean_name == k_clean or k_clean == clean_domain.replace(".com", "") or k_clean in clean_domain or k_clean in clean_name:
+        if clean_domain == k_clean or clean_name == k_clean or k_clean == clean_domain.replace(".com", ""):
             found_key = k
             break
+
+    if not found_key:
+        for k in static_broker_db:
+            k_clean = k.lower().strip()
+            if (len(k_clean) > 5 and k_clean in clean_domain) or (len(k_clean) > 5 and k_clean in clean_name):
+                found_key = k
+                break
 
     if found_key:
         db_broker = static_broker_db[found_key]
@@ -2530,17 +2811,19 @@ async def pay_broker_card(request: BrokerPaymentRequest):
                 currency="usd",
                 source=request.token_id,
                 description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
+                statement_descriptor="ISBROKERSAFE.COM",
                 receipt_email=request.email,
             )
             log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
         except stripe.error.AuthenticationError:
             try:
-                stripe.api_key = FALLBACK_STRIPE_SECRET_KEY
+                stripe.api_key = FALLBACK_STRIPE_SECRET_KEY_BROKER
                 stripe.Charge.create(
                     amount=499,
                     currency="usd",
                     source=request.token_id,
                     description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
+                    statement_descriptor="ISBROKERSAFE.COM",
                     receipt_email=request.email,
                 )
                 log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
@@ -3253,6 +3536,20 @@ async def get_payment_errors(limit: int = 50):
             "created_at": r[6]
         })
     return {"success": True, "count": len(errors), "errors": errors}
+
+@app.post("/api/admin/clear-payment-errors")
+async def clear_admin_payment_errors(token: str = None):
+    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
+    if not token or token != admin_token:
+        raise HTTPException(status_code=403, detail="Unauthorized access token.")
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS payment_errors (id INTEGER PRIMARY KEY AUTOINCREMENT, site TEXT, email TEXT, scan_id TEXT, package TEXT, error_message TEXT, created_at TEXT)")
+    cursor.execute("DELETE FROM payment_errors")
+    conn.commit()
+    conn.close()
+    return {"success": True, "message": "Payment logs and errors cleared."}
 
 @app.post("/api/admin/trigger-test-alert")
 async def trigger_test_alert(request: Request):

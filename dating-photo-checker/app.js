@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "This photo matches publicly indexed stock photography or public portfolios. Verify if the person is using a generic stock photo or a public presentation image.",
             infoScammer: "Critical alert. This profile picture is active across multiple social profiles using different names. Matches signatures of organized romance scam groups operating via proxy IPs.",
             stripeProcessing: "Processing secure payment...",
-            stripePayButton: "Pay $4.99 (10 Scans)",
+            stripePayButton: "Pay $7.99 (10 Scans)",
             paymentConfirmed: "Payment confirmed! 10 credits added. 1 credit used for this report. You have <strong>{credits} credits left</strong>.",
             reportUnlocked: "Report unlocked using 1 credit. You have <strong>{credits} credits left</strong>.",
             emailRequired: "Please enter a valid email address.",
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Această fotografie se potrivește cu fotografii de stock indexate public sau portofolii publice. Verificați dacă persoana folosește o poză de stock generică sau o imagine de prezentare publică.",
             infoScammer: "Alertă critică. Această poză de profil este activă pe mai multe profiluri sociale sub nume diferite. Se potrivește cu semnăturile grupurilor organizate de escrocherii sentimentale care operează prin IP-uri proxy.",
             stripeProcessing: "Se procesează plata securizată...",
-            stripePayButton: "Plătește $4.99 (10 Scanări)",
+            stripePayButton: "Plătește $7.99 (10 Scanări)",
             paymentConfirmed: "Plată confirmată! 10 credite adăugate. 1 credit utilizat pentru acest raport. Mai ai <strong>{credits} credite rămase</strong>.",
             reportUnlocked: "Raport deblocat folosind 1 credit. Mai ai <strong>{credits} credite rămase</strong>.",
             emailRequired: "Vă rugăm să introduceți o adresă de email validă.",
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Questa foto corrisponde a fotografie stock indicizzate pubblicamente o a portfolio pubblici. Verifica se la persona sta utilizzando una foto stock generica o un'immagine di presentazione pubblica.",
             infoScammer: "Avviso critico. Questa foto del profilo è attiva su più profili social con nomi diversi. Corrisponde alle firme di gruppi organizzati di truffe sentimentali che operano tramite proxy IP.",
             stripeProcessing: "Elaborazione del pagamento sicuro...",
-            stripePayButton: "Paga $4.99 (10 Scansioni)",
+            stripePayButton: "Paga $7.99 (10 Scansioni)",
             paymentConfirmed: "Pagamento confermato! 10 crediti aggiunti. 1 credito utilizzato per questo report. Hai <strong>{credits} crediti rimasti</strong>.",
             reportUnlocked: "Report sbloccato utilizzando 1 credito. Hai <strong>{credits} crediti rimasti</strong>.",
             emailRequired: "Inserisci un indirizzo email valido.",
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Dieses Foto entspricht öffentlich indexierten Stock-Fotografien oder öffentlichen Portfolios. Überprüfen Sie, ob die Person ein generisches Stock-Foto oder ein öffentliches Präsentationsbild verwendet.",
             infoScammer: "Kritischer Alarm. Dieses Profilbild ist auf mehreren sozialen Profilen unter verschiedenen Namen aktiv. Entspricht den Signaturen organisierter Liebesbetrugsgruppen, die über Proxy-IPs operieren.",
             stripeProcessing: "Sichere Zahlung wird verarbeitet...",
-            stripePayButton: "4.99$ bezahlen (10 Scans)",
+            stripePayButton: "7.99$ bezahlen (10 Scans)",
             paymentConfirmed: "Zahlung bestätigt! 10 Credits hinzugefügt. 1 Credit für diesen Bericht verwendet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
             reportUnlocked: "Bericht mit 1 Credit freigeschaltet. Sie haben noch <strong>{credits} Credits übrig</strong>.",
             emailRequired: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Esta foto coincide con fotografías de stock indexadas públicamente o carteras públicas. Verifique si la persona está utilizando una foto de stock genérica o una imagen de presentación pública.",
             infoScammer: "Alerta crítica. Esta foto de perfil está activa en múltiples perfiles sociales con diferentes nombres. Coincide con las firmas de grupos organizados de estafas románticas que operan a través de IP proxy.",
             stripeProcessing: "Procesando pago seguro...",
-            stripePayButton: "Pagar $4.99 (10 Análisis)",
+            stripePayButton: "Pagar $7.99 (10 Análisis)",
             paymentConfirmed: "¡Pago confirmado! 10 créditos agregados. 1 crédito utilizado para este informe. Te quedan <strong>{credits} créditos</strong>.",
             reportUnlocked: "Informe desbloqueado con 1 crédito. Te quedan <strong>{credits} créditos</strong>.",
             emailRequired: "Por favor, introduzca una dirección de correo electrónico válida.",
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Cette photo correspond à des photographies de stock indexées publiquement ou à des portefeuilles publics. Vérifiez si la personne utilise une photo de stock générique ou une image de présentation publique.",
             infoScammer: "Alerte critique. Cette photo de profil est active sur plusieurs profils sociaux sous différents noms. Correspond aux signatures de groupes organisés d'arnaques sentimentales opérant via des IP proxy.",
             stripeProcessing: "Traitement du paiement sécurisé...",
-            stripePayButton: "Payer 4.99$ (10 Analyses)",
+            stripePayButton: "Payer 7.99$ (10 Analyses)",
             paymentConfirmed: "Paiement confirmé ! 10 crédits ajoutés. 1 crédit utilisé pour ce rapport. Il vous reste <strong>{credits} crédits</strong>.",
             reportUnlocked: "Rapport déverrouillé avec 1 crédit. Il vous reste <strong>{credits} crédits</strong>.",
             emailRequired: "Veuillez saisir une adresse e-mail valide.",
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Esta foto corresponde a fotografias de stock indexadas publicamente ou portfólios públicos. Verifique si a pessoa está usando uma foto de stock genérica ou uma imagem de apresentação pública.",
             infoScammer: "Alerta crítico. Esta foto de perfil está ativa em múltiplos perfis sociais sob nomes diferentes. Corresponde a assinaturas de grupos de golpes românticos organizados que operam via proxy IPs.",
             stripeProcessing: "Processando pagamento seguro...",
-            stripePayButton: "Pagar $4.99 (10 Analises)",
+            stripePayButton: "Pagar $7.99 (10 Analises)",
             paymentConfirmed: "Pagamento confirmado! 10 créditos adicionados. 1 crédito usado para este relatório. Você tem <strong>{credits} créditos restantes</strong>.",
             reportUnlocked: "Relatório desbloqueado usando 1 crédito. Você tem <strong>{credits} créditos restantes</strong>.",
             emailRequired: "Por favor, insira um endereço de e-mail válido.",
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoStock: "Эта фотография совпадает с публично индексируемыми стоковыми фотографиями или публичными портфолио. Проверьте, использует ли человек обычную стоковую фотографию или публичное презентационное изображение.",
             infoScammer: "Критическое предупреждение. Это фото профиля активно в нескольких социальных профилях под разными именами. Соответствует сигнатурам организованных групп романтического мошенничества, действующих через прокси-IP.",
             stripeProcessing: "Обработка безопасного платежа...",
-            stripePayButton: "Оплатить $4.99 (10 сканирований)",
+            stripePayButton: "Оплатить $7.99 (10 сканирований)",
             paymentConfirmed: "Платеж подтвержден! Добавлено 10 кредитов. 1 кредит использован для этого отчета. У вас осталось <strong>{credits} кредитов</strong>.",
             reportUnlocked: "Отчет разблокирован с использованием 1 кредита. У вас осталось <strong>{credits} кредитов</strong>.",
             emailRequired: "Пожалуйста, введите корректный адрес электронной почты.",
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // STRIPE ELEMENTS INITIALIZATION (PCI-compliant card tokenization)
     // ==========================================================================
-    const stripe = Stripe('pk_live_51TtpkdAhLNvXdoMSXRjVwN4FzUhl9qi1ujDzqWWTechyUmEZSQjntRuMLVDL6M0d5RkOGIW8581GZdebULU2Ruq100g3PoOz9T');
+    const stripe = Stripe('pk_live_51U3ZRVAC2uDxXAG17N134qdabC5K02Q8GcagcQlZ1RlzDd4URGV7r9LseRCHmMuPEe8rDBH2ICt5QcoF9c4qQtl800sTtWaHjs');
     const stripeElements = stripe.elements();
     const cardElement = stripeElements.create('card', {
         style: {
@@ -355,6 +355,70 @@ document.addEventListener('DOMContentLoaded', () => {
     cardElement.addEventListener('change', (e) => {
         const errorDiv = document.getElementById('card-errors');
         errorDiv.textContent = e.error ? e.error.message : '';
+    });
+
+    // ==========================================================================
+    // STRIPE NATIVE PAYMENT REQUEST BUTTON (GOOGLE PAY / APPLE PAY)
+    // ==========================================================================
+    const globalPR = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+            label: 'VerifyDating Security Report',
+            amount: 199,
+        },
+        requestPayerEmail: true,
+    });
+
+    globalPR.canMakePayment().then(function(result) {
+        if (result) {
+            const prBtn = stripeElements.create('paymentRequestButton', {
+                paymentRequest: globalPR,
+                style: {
+                    paymentRequestButton: {
+                        theme: 'dark',
+                        height: '44px',
+                    },
+                },
+            });
+            const prContainer = document.getElementById('payment-request-button');
+            if (prContainer) {
+                prContainer.style.display = 'block';
+                prBtn.mount('#payment-request-button');
+            }
+        } else {
+            const prBtnBox = document.getElementById('payment-request-button');
+            if (prBtnBox) prBtnBox.style.display = 'none';
+        }
+    });
+
+    globalPR.on('paymentmethod', async (ev) => {
+        try {
+            const cardEmailInputEl = document.getElementById('card-email');
+            const userEmail = ev.payerEmail || (cardEmailInputEl ? cardEmailInputEl.value.trim() : '') || 'wallet_user@verifydating.net';
+            const response = await fetch('/api/pay-card', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    scan_id: currentScanId,
+                    email: userEmail,
+                    token_id: ev.paymentMethod.id,
+                    package: selectedPackage || 'basic'
+                })
+            });
+            const payRes = await response.json();
+            if (response.ok && payRes.success) {
+                ev.complete('success');
+                checkoutModal.classList.remove('open');
+                showUnlockedResults();
+            } else {
+                ev.complete('fail');
+                alert(payRes.detail || "Payment failed. Please try card checkout below.");
+            }
+        } catch (err) {
+            ev.complete('fail');
+            alert("Payment processing error. Please try card checkout below.");
+        }
     });
 
     // ==========================================================================
@@ -748,38 +812,38 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPayButtonText(lang, pkgType) {
         if (pkgType === 'basic') {
             const prices = {
-                en: "Pay $0.99 (1 Scan)",
-                ro: "Plătește $0.99 (1 Scanare)",
-                it: "Paga $0.99 (1 Scansione)",
-                de: "0.99$ bezahlen (1 Scan)",
-                es: "Pagar $0.99 (1 Análisis)",
-                fr: "Payer 0.99$ (1 Analyse)",
-                pt: "Pagar $0.99 (1 Analise)",
-                ru: "Оплатить $0.99 (1 сканирование)"
+                en: "Pay $1.99 (1 Scan)",
+                ro: "Plătește $1.99 (1 Scanare)",
+                it: "Paga $1.99 (1 Scansione)",
+                de: "1.99$ bezahlen (1 Scan)",
+                es: "Pagar $1.99 (1 Análisis)",
+                fr: "Payer 1.99$ (1 Analyse)",
+                pt: "Pagar $1.99 (1 Analise)",
+                ru: "Оплатить $1.99 (1 сканирование)"
             };
             return prices[lang] || prices['en'];
         } else if (pkgType === 'single') {
             const prices = {
-                en: "Pay $1.99 (3 Scans)",
-                ro: "Plătește $1.99 (3 Scanări)",
-                it: "Paga $1.99 (3 Scansioni)",
-                de: "1.99$ bezahlen (3 Scans)",
-                es: "Pagar $1.99 (3 Análisis)",
-                fr: "Payer 1.99$ (3 Analyses)",
-                pt: "Pagar $1.99 (3 Analises)",
-                ru: "Оплатить $1.99 (3 сканирования)"
+                en: "Pay $3.99 (3 Scans)",
+                ro: "Plătește $3.99 (3 Scanări)",
+                it: "Paga $3.99 (3 Scansioni)",
+                de: "3.99$ bezahlen (3 Scans)",
+                es: "Pagar $3.99 (3 Análisis)",
+                fr: "Payer 3.99$ (3 Analyses)",
+                pt: "Pagar $3.99 (3 Analises)",
+                ru: "Оплатить $3.99 (3 сканирования)"
             };
             return prices[lang] || prices['en'];
         } else {
             const prices = {
-                en: "Pay $4.99 (10 Scans)",
-                ro: "Plătește $4.99 (10 Scanări)",
-                it: "Paga $4.99 (10 Scansioni)",
-                de: "4.99$ bezahlen (10 Scans)",
-                es: "Pagar $4.99 (10 Análisis)",
-                fr: "Payer 4.99$ (10 Analyses)",
-                pt: "Pagar $4.99 (10 Analises)",
-                ru: "Оплатить $4.99 (10 сканирований)"
+                en: "Pay $7.99 (10 Scans)",
+                ro: "Plătește $7.99 (10 Scanări)",
+                it: "Paga $7.99 (10 Scansioni)",
+                de: "7.99$ bezahlen (10 Scans)",
+                es: "Pagar $7.99 (10 Análisis)",
+                fr: "Payer 7.99$ (10 Analyses)",
+                pt: "Pagar $7.99 (10 Analises)",
+                ru: "Оплатить $7.99 (10 сканирований)"
             };
             return prices[lang] || prices['en'];
         }
@@ -873,7 +937,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailHelpNode = document.querySelector('#payment-form small');
         
         if (summaryAmountNode) {
-            summaryAmountNode.innerText = packageType === 'basic' ? '$0.99' : packageType === 'single' ? '$1.99' : '$4.99';
+            summaryAmountNode.innerText = packageType === 'basic' ? '$1.99' : packageType === 'single' ? '$3.99' : '$7.99';
         }
         if (summaryTextNode) {
             summaryTextNode.innerText = getPackageDesc(currentLang, packageType);
@@ -883,6 +947,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (emailHelpNode) {
             emailHelpNode.innerText = getEmailHelpText(currentLang, packageType);
+        }
+        const directPaypalBtn = document.getElementById('direct-paypal-btn');
+        if (directPaypalBtn) {
+            let amt = packageType === 'basic' ? '1.99' : packageType === 'single' ? '3.99' : '7.99';
+            let activeScan = currentScanId || 'latest';
+            directPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=${amt}&item_name=VerifyDating+Report+Scan+${activeScan}&return=https://verifydating.net/?scan_id=${activeScan}&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
+            directPaypalBtn.innerHTML = `<i class="fa-brands fa-paypal" style="font-size:22px;color:#003087;"></i> Pay $${amt} with PayPal`;
+        }
+        initPayPalButton(packageType);
+    }
+
+    function initPayPalButton(packageType) {
+        const container = document.getElementById('paypal-button-container');
+        if (!container || !window.paypal) return;
+        container.innerHTML = '';
+        try {
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color:  'gold',
+                    shape:  'rect',
+                    label:  'paypal'
+                },
+                createOrder: function(data, actions) {
+                    let amt = packageType === 'basic' ? '1.99' : packageType === 'single' ? '3.99' : '7.99';
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: { value: amt },
+                            payee: { email_address: 'amendamax@gmail.com' },
+                            description: "VerifyDating Report - Scan " + (currentScanId || 'latest')
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        let userEmail = (cardEmailInput && cardEmailInput.value.trim()) ? cardEmailInput.value.trim() : (details.payer && details.payer.email_address ? details.payer.email_address : 'customer@verifydating.net');
+                        fetch('/api/pay-paypal', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                scan_id: currentScanId,
+                                email: userEmail,
+                                order_id: data.orderID,
+                                package: selectedPackage || 'basic'
+                            })
+                        }).then(r => r.json()).then(res => {
+                            if (res && res.success) {
+                                checkoutModal.classList.remove('open');
+                                showUnlockedResults();
+                                fetch(`/api/results/${currentScanId}`).then(r => r.json()).then(d => renderPremiumDetails(d));
+                            }
+                        }).catch(e => console.error("PayPal capture error:", e));
+                    });
+                }
+            }).render('#paypal-button-container');
+        } catch(e) {
+            console.error("PayPal render error:", e);
         }
     }
 
@@ -956,7 +1077,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && payRes.success) {
                     ev.complete('success');
                     
-                    const purchaseVal = selectedPackage === 'basic' ? 0.99 : selectedPackage === 'single' ? 1.99 : 4.99;
+                    const purchaseVal = selectedPackage === 'basic' ? 1.99 : selectedPackage === 'single' ? 3.99 : 7.99;
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {
                             'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
@@ -1190,8 +1311,8 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
                 // Save email to LocalStorage
                 localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
 
-                const purchaseVal = selectedPackage === 'basic' ? 0.99 : selectedPackage === 'single' ? 1.99 : 4.99;
-                const itemId = selectedPackage === 'basic' ? 'report_099' : selectedPackage === 'single' ? 'report_199' : 'report_499';
+                const purchaseVal = selectedPackage === 'basic' ? 1.99 : selectedPackage === 'single' ? 3.99 : 7.99;
+                const itemId = selectedPackage === 'basic' ? 'report_199' : selectedPackage === 'single' ? 'report_399' : 'report_799';
                 const itemName = selectedPackage === 'basic' ? 'VerifyDating Basic Unlock' : selectedPackage === 'single' ? 'VerifyDating Standard 3 Credits' : 'VerifyDating PRO 10 Credits';
 
                 // Trigger Conversion Event for Google Ads & GA4
@@ -1366,28 +1487,37 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
 
     function renderPremiumDetails(data) {
         const matchesContainer = document.querySelector('.match-links-container');
-        matchesContainer.innerHTML = '';
-        
-        // Loop and render dynamic URLs from database
-        data.matches.forEach(match => {
-            let badgeClass = 'platform-forum';
-            if (match.platform.toLowerCase() === 'pinterest') {
-                badgeClass = 'platform-pinterest';
-            } else if (match.platform.toLowerCase() === 'vkontakte') {
-                badgeClass = 'platform-vk';
-            }
+        if (matchesContainer) {
+            matchesContainer.innerHTML = '';
             
-            const card = document.createElement('div');
-            card.className = 'match-link-card';
-            card.innerHTML = `
-                <span class="platform-badge ${badgeClass}">${match.platform}</span>
-                <a href="${match.url}" target="_blank" class="match-url">
-                    ${match.url.replace('https://', '')} ${match.details ? `(${match.details})` : ''} 
-                    <i class="fa-solid fa-up-right-from-square"></i>
-                </a>
-            `;
-            matchesContainer.appendChild(card);
-        });
+            const matchesList = (data && Array.isArray(data.matches)) ? data.matches : [];
+            matchesList.forEach(match => {
+                if (!match) return;
+                let badgeClass = 'platform-forum';
+                if (match.platform && match.platform.toLowerCase() === 'pinterest') {
+                    badgeClass = 'platform-pinterest';
+                } else if (match.platform && match.platform.toLowerCase() === 'vkontakte') {
+                    badgeClass = 'platform-vk';
+                }
+                
+                let rawUrl = match.url || '#';
+                let displayUrl = rawUrl.replace('https://', '').replace('http://', '');
+                if (displayUrl.length > 38) {
+                    displayUrl = displayUrl.substring(0, 35) + '...';
+                }
+                
+                const card = document.createElement('div');
+                card.className = 'match-link-card';
+                card.innerHTML = `
+                    <span class="platform-badge ${badgeClass}">${match.platform || 'Web'}</span>
+                    <a href="${rawUrl}" target="_blank" class="match-url" style="word-break: break-all; max-width: 100%;">
+                        ${displayUrl} ${match.details ? `(${match.details})` : ''} 
+                        <i class="fa-solid fa-up-right-from-square"></i>
+                    </a>
+                `;
+                matchesContainer.appendChild(card);
+            });
+        }
 
         // Set Scam Signature text from DB
         let sInfo = data.scammer_info || "";
