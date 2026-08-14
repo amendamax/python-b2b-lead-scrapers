@@ -666,6 +666,21 @@ async def list_admin_uploads():
 
     return {"total": len(items), "uploads": items}
 
+@app.get("/api/admin/video-leads")
+async def get_admin_video_leads():
+    """List all collected video lead email addresses."""
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, email, created_at FROM video_leads ORDER BY created_at DESC")
+        rows = cursor.fetchall()
+        conn.close()
+        
+        leads = [{"id": r[0], "email": r[1], "created_at": r[2]} for r in rows]
+        return {"total": len(leads), "leads": leads}
+    except Exception as e:
+        return {"error": str(e)}
+
 # Mount .well-known directory for Stripe/Apple Pay domain association
 if os.path.exists(".well-known"):
     app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")

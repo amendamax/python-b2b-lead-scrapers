@@ -8,7 +8,7 @@ if os.path.exists(ro_path):
 
     # 1. Hero section
     ro_hero = """            <div class="hero-content">
-                <span class="badge-intro">Full-Stack Architect & Automatizări Complete</span>
+                <span class="badge-intro">🏛️ VasileDev Group — Entitate Înregistrată în Italia (P.IVA 04226190041)</span>
                 <h1 class="hero-title">Dezvoltare Full-Stack SaaS & <br><span>Automatizări de Orice Fel</span></h1>
                 <p class="hero-description">
                     Dezvolt aplicații web complete, platforme SaaS cu rată mare de conversie și automatizez orice flux de business — de la colectare de date stealth și trecere de WAF (Cloudflare/Akamai) la integrări API în cloud și tablouri de bord executive.
@@ -231,7 +231,7 @@ if os.path.exists(it_path):
         html = f.read()
 
     it_hero = """            <div class="hero-content">
-                <span class="badge-intro">Full-Stack Architect & Automazioni Complete</span>
+                <span class="badge-intro">🏛️ VasileDev Group — Entità Registrata in Italia (P.IVA 04226190041)</span>
                 <h1 class="hero-title">Sviluppo Full-Stack SaaS & <br><span>Automazioni Aziendali</span></h1>
                 <p class="hero-description">
                     Sviluppo applicazioni web complete e piattaforme SaaS ad alta conversione, automatizzando qualsiasi flusso aziendale — dallo stealth web scraping al bypass di WAF (Cloudflare/Akamai) fino a integrazioni API e dashboard executive.
