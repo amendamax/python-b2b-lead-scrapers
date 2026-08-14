@@ -2786,7 +2786,7 @@ async def scan_broker(request: BrokerScanRequest):
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         scan_id, request.name, domain, request.regulation, request.leverage, request.source, request.promises,
-        score, "unpaid", "", datetime.now().isoformat(), ip, hoster, domain_age, 
+        score, "paid", "", datetime.now().isoformat(), ip, hoster, domain_age, 
         json.dumps(red_flags), json.dumps(green_flags), verdict_title, verdict_text
     ))
     conn.commit()
@@ -2814,67 +2814,13 @@ async def pay_broker_card(request: BrokerPaymentRequest):
         raise HTTPException(status_code=404, detail="Scan record not found.")
         
     broker_name = row[1]
-    is_admin_test = "amendamax" in request.email.lower()
     
-    # Charge $4.99 for Broker Audit Report
-    if STRIPE_SECRET_KEY_BROKER and not is_admin_test:
-        try:
-            import stripe
-            stripe.api_key = STRIPE_SECRET_KEY_BROKER
-            stripe.Charge.create(
-                amount=499,
-                currency="usd",
-                source=request.token_id,
-                description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
-                statement_descriptor="ISBROKERSAFE.COM",
-                receipt_email=request.email,
-            )
-            log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
-        except stripe.error.AuthenticationError:
-            try:
-                stripe.api_key = FALLBACK_STRIPE_SECRET_KEY_BROKER
-                stripe.Charge.create(
-                    amount=499,
-                    currency="usd",
-                    source=request.token_id,
-                    description=f"BrokerVerifier Forensic Report - {broker_name} (Scan {request.scan_id})",
-                    statement_descriptor="ISBROKERSAFE.COM",
-                    receipt_email=request.email,
-                )
-                log_and_notify_payment_event("SUCCESS", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99")
-            except stripe.error.CardError as e:
-                err_text = e.user_message or str(e)
-                log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
-                conn.close()
-                raise HTTPException(status_code=400, detail=err_text)
-            except Exception as e:
-                err_text = str(e)
-                log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
-                conn.close()
-                raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
-        except stripe.error.CardError as e:
-            err_text = e.user_message or str(e)
-            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
-            conn.close()
-            raise HTTPException(status_code=400, detail=err_text)
-        except stripe.error.StripeError as e:
-            err_text = e.user_message or str(e)
-            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
-            conn.close()
-            raise HTTPException(status_code=400, detail=f"Payment failed: {err_text}")
-        except Exception as e:
-            err_text = str(e)
-            log_and_notify_payment_event("FAILED", "IsBrokerSafe", request.email, request.scan_id, broker_name, "$4.99", err_text)
-            conn.close()
-            raise HTTPException(status_code=500, detail=f"Stripe Processing Error: {err_text}")
-    elif is_admin_test:
-        log_and_notify_payment_event("SUCCESS", "IsBrokerSafe (Admin Test)", request.email, request.scan_id, broker_name, "$4.99")
-
+    # 100% FREE Audit Access - No Stripe charge needed!
     cursor.execute("UPDATE broker_scans SET payment_status = 'paid', email = ? WHERE id = ?", (request.email, request.scan_id))
     conn.commit()
     conn.close()
     
-    return {"success": True, "message": "Payment processed successfully. Forensic report unlocked."}
+    return {"success": True, "message": "Forensic report unlocked 100% FREE."}
 
 @app.get("/api/broker/results/{scan_id}")
 async def get_broker_results(scan_id: str):
