@@ -48,16 +48,8 @@ if os.path.exists(DEJAVU_REGULAR) and os.path.exists(DEJAVU_BOLD):
     except Exception as e:
         print(f"Error registering DejaVu fonts: {e}")
 
-# Try to import cv2 and numpy for human face detection (helps filter out salads, objects, landscapes)
-try:
-    import cv2
-    import numpy as np
-    OPENCV_AVAILABLE = True
-except Exception as e:
-    OPENCV_AVAILABLE = False
-    import traceback
-    with open("import_error.log", "w") as f:
-        f.write(f"ImportError: {str(e)}\nTraceback: {traceback.format_exc()}")
+# Memory Optimization for Render 512MB RAM Cap: Lazy load cv2 & numpy only when scanning faces
+OPENCV_AVAILABLE = True
 
 app = FastAPI(title="Unified Security & Audit API", version="1.1")
 
@@ -701,15 +693,14 @@ class VideoLeadRequest(BaseModel):
     email: str
 
 def has_face(image_bytes: bytes) -> bool:
-    if not OPENCV_AVAILABLE:
-        return True # Fallback if OpenCV is not installed
     try:
+        import cv2
+        import numpy as np
         nparr = np.frombuffer(image_bytes, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         if img is None:
             return False
-        # Normalize image resolution to 500x500 to eliminate high-frequency texture noise (like food/leaves)
-        # and scale up small face crops for robust detection.
+        # Normalize image resolution to 500x500 to eliminate high-frequency texture noise
         img_resized = cv2.resize(img, (500, 500))
         gray = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
         
@@ -725,7 +716,7 @@ def has_face(image_bytes: bytes) -> bool:
         if len(profiles) > 0:
             return True
             
-        # 3. Flipped profile face detection (since profile cascade only detects in one direction)
+        # 3. Flipped profile face detection
         gray_flipped = cv2.flip(gray, 1)
         profiles_flipped = profile_cascade.detectMultiScale(gray_flipped, 1.1, 3, minSize=(40, 40))
         if len(profiles_flipped) > 0:
@@ -733,6 +724,9 @@ def has_face(image_bytes: bytes) -> bool:
             
         return False
     except Exception as e:
+        return True
+    finally:
+        gc.collect()
         import traceback
         with open("import_error.log", "w") as f:
             f.write(f"FaceDetectionError: {str(e)}\nTraceback: {traceback.format_exc()}")
@@ -1680,11 +1674,12 @@ async def get_admin_dashboard(token: str = None):
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email, package, image_base64 
+            SELECT id, created_at, payment_status, scam_probability, matches_count, image_path, email, package 
             FROM scans 
-            ORDER BY created_at DESC
+            ORDER BY created_at DESC LIMIT 100
         """)
-        rows = cursor.fetchall()
+        raw_rows = cursor.fetchall()
+        rows = [r + ("",) for r in raw_rows]
 
         cursor.execute("SELECT email, created_at FROM video_leads ORDER BY created_at DESC")
         v_leads = cursor.fetchall()

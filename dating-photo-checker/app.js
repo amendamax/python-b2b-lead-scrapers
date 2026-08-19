@@ -1672,6 +1672,13 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
         }, 2000); // Check every 2 seconds for instant admin unlock
     }
 
+    // Check URL parameters for return from PayPal
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlScanId = urlParams.get('scan_id');
+    if (urlScanId) {
+        sessionStorage.setItem('verifydating_current_scan_id', urlScanId);
+    }
+
     // Check for saved scan in sessionStorage on page load/refresh ONLY if paid/unlocked
     const savedScanId = sessionStorage.getItem('verifydating_current_scan_id');
     if (savedScanId) {
@@ -1684,7 +1691,7 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
                 if (stateIdleEl) stateIdleEl.style.display = 'none';
                 if (stateResultsEl) stateResultsEl.style.display = 'flex';
                 showUnlockedResults();
-            } else {
+            } else if (!urlScanId) {
                 // Clear unpaid previous test scan so mobile home page opens completely fresh!
                 sessionStorage.removeItem('verifydating_current_scan_id');
             }
