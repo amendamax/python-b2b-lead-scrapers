@@ -28,6 +28,7 @@ class SMTPDispatcher:
         subject: str,
         html_body: str,
         message_id: str,
+        sender_name: Optional[str] = None,
         proxy: Optional[str] = None
     ) -> Dict[str, Any]:
         """
@@ -36,7 +37,10 @@ class SMTPDispatcher:
         """
         # 1. Build MIME message
         msg = MIMEMultipart("alternative")
-        msg["From"] = account_email
+        if sender_name:
+            msg["From"] = f'"{sender_name}" <{account_email}>'
+        else:
+            msg["From"] = account_email
         msg["To"] = recipient_email
         msg["Subject"] = subject
         msg["Date"] = formatdate(localtime=True)

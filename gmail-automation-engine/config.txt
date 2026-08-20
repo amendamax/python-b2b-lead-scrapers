@@ -1,3 +1,7 @@
+# Email Content & Branding Settings
+SENDER_NAME=Security & Verification Team
+SUBJECT=Important Account Security Notification
+
 # ==============================================================================
 # GMAIL MULTI-ACCOUNT AUTOMATION ENGINE - CONFIGURATION
 # Format: KEY=VALUE (Lines starting with # or ; are comments)
