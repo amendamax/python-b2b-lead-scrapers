@@ -1,0 +1,5 @@
+# List of active Gmail accounts (one per line)
+# Must match corresponding entry in app_passwords.json
+sender1@gmail.com
+sender2@gmail.com
+sender3@gmail.com

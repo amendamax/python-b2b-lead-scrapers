@@ -1,0 +1,34 @@
+# ==============================================================================
+# GMAIL MULTI-ACCOUNT AUTOMATION ENGINE - CONFIGURATION
+# Format: KEY=VALUE (Lines starting with # or ; are comments)
+# ==============================================================================
+
+# Core Execution Settings
+MAX_CONCURRENT_WORKERS=10
+DEFAULT_DAILY_LIMIT_PER_ACCOUNT=450
+DELAY_BETWEEN_SENDS_MIN_SEC=15
+DELAY_BETWEEN_SENDS_MAX_SEC=45
+
+# SMTP & Protocol Settings
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+USE_TLS=true
+SMTP_TIMEOUT_SEC=30
+
+# IMAP & Zero-Duplicate Recovery Settings
+IMAP_HOST=imap.gmail.com
+IMAP_PORT=993
+ENABLE_IMAP_SENT_VERIFICATION=true
+IMAP_LOOKBACK_MINUTES=60
+
+# Proxy & Network Settings
+ENABLE_PROXIES=false
+PROXY_LIST_FILE=proxies.txt
+PROXY_TIMEOUT_SEC=15
+MAX_PROXY_FAILURES=3
+
+# Logging & Storage
+LOG_LEVEL=INFO
+DATABASE_FILE=data/automation_engine.db
+ENABLE_FILE_LOGGING=true
+LOG_DIR=logs

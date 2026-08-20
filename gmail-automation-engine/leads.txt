@@ -1,0 +1,6 @@
+# Recipient Queue (one email per line)
+recipient1@example.com
+recipient2@example.com
+recipient3@example.com
+recipient4@example.com
+recipient5@example.com
