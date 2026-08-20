@@ -15,6 +15,11 @@ Desktop.ini
 *.png
 *.jpg
 *.jpeg
+!vasile-bratu*
+!vasile_github_avatar.png
+!*.webp
+!favicon*
+!vasiledev_og_banner.jpg
 
 # Databases & SQLite
 *.db
