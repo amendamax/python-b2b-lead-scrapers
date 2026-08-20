@@ -1785,3 +1785,35 @@ h3.hero-name, .hero-headline {
         padding: 10px 14px;
     }
 }
+
+
+/* Cyber Security Shield Pulsing Logo */
+.shield-pulse-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    margin-right: 10px;
+    font-size: 1.8rem;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.55));
+    animation: cyberShieldPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes cyberShieldPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.45));
+        color: #38bdf8;
+    }
+    50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.9));
+        color: #00f2fe;
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.45));
+        color: #38bdf8;
+    }
+}
