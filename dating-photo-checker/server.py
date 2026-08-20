@@ -301,6 +301,12 @@ def init_db():
             created_at TEXT NOT NULL
         )
     """)
+    
+    # Optimize for high concurrency and fast lookups
+    cursor.execute("PRAGMA journal_mode=WAL;")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_scans_id ON scans(id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_scans_created ON scans(created_at);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_broker_scans_id ON broker_scans(id);")
     conn.commit()
     conn.close()
 
@@ -1354,31 +1360,33 @@ async def get_results(scan_id: str):
     payment_status, scam_probability, matches_count, matches_data, scammer_info, email = row
     
     credits_remaining = 0
-    if payment_status == "paid":
-        if email:
-            cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (email,))
-            user_row = cursor.fetchone()
-            if user_row:
-                credits_remaining = user_row[0]
-        conn.close()
-        return {
-            "scan_id": scan_id,
-            "payment_status": payment_status,
-            "scam_probability": scam_probability,
-            "matches_count": matches_count,
-            "matches": json.loads(matches_data),
-            "scammer_info": scammer_info,
-            "email": email,
-            "credits_remaining": credits_remaining
-        }
-    else:
-        conn.close()
-        return {
-            "scan_id": scan_id,
-            "payment_status": payment_status,
-            "locked": True,
-            "message": "Payment required to unlock report details."
-        }
+    if email:
+        cursor.execute("SELECT credits_remaining FROM users WHERE email = ?", (email,))
+        user_row = cursor.fetchone()
+        if user_row:
+            credits_remaining = user_row[0]
+            
+    conn.close()
+    
+    # 100% Free Comprehensive Scan Results for Maximum Virality & Conversions
+    parsed_matches = []
+    try:
+        parsed_matches = json.loads(matches_data) if matches_data else []
+    except Exception:
+        parsed_matches = []
+
+    return {
+        "scan_id": scan_id,
+        "payment_status": payment_status,
+        "unlocked": True,
+        "scam_probability": scam_probability,
+        "matches_count": matches_count,
+        "matches": parsed_matches,
+        "scammer_info": scammer_info,
+        "email": email or "",
+        "credits_remaining": credits_remaining,
+        "pdf_price": "1.99"
+    }
 
 from reportlab.platypus import Image as RLImage
 from fastapi.responses import StreamingResponse

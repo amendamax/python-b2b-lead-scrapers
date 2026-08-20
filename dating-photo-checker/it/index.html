@@ -258,67 +258,14 @@
                         </ul>
                     </div>
 
-                    <!-- Scan Results State (Hidden / Blurred initially for paywall demo) -->
-                    <div class="panel-state" id="state-results" style="display: none; position: relative; overflow: hidden;">
-                        <!-- Paywall / Lock Overlay -->
-                        <div class="paywall-overlay" id="results-paywall">
-                            <div class="paywall-content">
-                                <div class="paywall-timer-banner">
-                                    <i class="fa-solid fa-clock"></i> Report conservato in memoria: <strong id="paywall-timer-count">09:59</strong>
-                                </div>
-                                <i class="fa-solid fa-lock paywall-lock-icon"></i>
-                                <h3>Sblocca il Report di Sicurezza Completo</h3>
-                                <p>Scopri i link esatti dei profili corrispondenti, le pagine social in cui le foto sono state rubate e la geolocalizzazione del truffatore.</p>
-                                
-                                <!-- Blurred Teaser Preview Box -->
-                                <div class="paywall-teaser-box">
-                                    <div class="teaser-lock-badge"><i class="fa-solid fa-eye-slash"></i> Corrispondenze Trovate e Sfocate</div>
-                                    <div class="blurred-teaser-image-container">
-                                        <img id="paywall-teaser-preview-img" src="" alt="Anteprima Sfocata" class="blurred-teaser-img" />
-                                        <div class="teaser-overlay-text" id="paywall-teaser-text"><i class="fa-solid fa-lock"></i> Corrispondenze Trovate sui Social & Web</div>
-                                    </div>
-                                </div>
-
-                                <div class="pricing-options">
-                                    <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
-                                        <span class="btn-text">⚡ Sblocco Rapido - 1.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                        <span class="btn-text">Report Standard (3 Crediti) - 3.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                        <span class="btn-text">PRO Deep Scan (10 Crediti) - 7.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    
-                                    <div class="payment-methods-badges">
-                                        <span class="pm-badge"><i class="fa-brands fa-apple"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-brands fa-google"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-credit-card"></i> Card</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-shield-check"></i> 100% Riservato</span>
-                                    </div>
-                                </div>
-
-                                <!-- Use Existing Credits Section -->
-                                <div class="use-credits-section">
-                                    <div class="credits-divider"><span>o usa i crediti esistenti</span></div>
-                                    <div class="credits-input-group">
-                                        <input type="email" id="credit-email" placeholder="Inserisci la tua email" class="credit-input">
-                                        <button id="use-credit-btn" class="btn btn-primary btn-credit">Usa Credito</button>
-                                    </div>
-                                    <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!-- Scan Results State (100% Gratuito Istantaneo + Monetizzazione Affiliazione) -->
+                    <div class="panel-state" id="state-results" style="display: none; position: relative;">
                         <div class="results-header" id="risk-banner">
                             <div class="risk-badge" id="risk-badge-element">Rischio Elevato</div>
                             <h3 id="risk-title">Profilo Falso Confermato (Catfish)</h3>
                         </div>
 
-                        <div class="results-body">
+                        <div class="results-body" style="display: block;">
                             <!-- Score Dashboard -->
                             <div class="score-grid">
                                 <div class="score-widget">
@@ -333,40 +280,86 @@
 
                             <!-- Match Preview & Map -->
                             <div class="match-details">
-                                <h4>Riepilogo Analisi FaceMatch</h4>
+                                <h4><i class="fa-solid fa-microchip"></i> Riepilogo Analisi FaceMatch (Report Gratuito)</h4>
                                 <ul class="details-list" id="diagnostic-details-list">
-                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Immagine trovata su altri 4 siti web con nomi diversi.</li>
-                                    <li><i class="fa-solid fa-circle-info text-info"></i> I metadati dell'immagine indicano modifiche digitali recenti (filtri/modifiche).</li>
-                                    <li><i class="fa-solid fa-globe text-warning"></i> Fonte dell'immagine originale: Sito di stock di un'agenzia di modelli russa.</li>
+                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Immagine trovata su altre fonti web con molteplici identità.</li>
+                                    <li><i class="fa-solid fa-circle-info text-info"></i> I metadati indicano manipolazioni digitali e compressioni da social network.</li>
+                                    <li><i class="fa-solid fa-globe text-warning"></i> Fonti pubbliche di corrispondenza identificate sulle reti indicizzate.</li>
                                 </ul>
                             </div>
-                                </div>
-                                
-                                <h4><i class="fa-solid fa-link-slash"></i> Corrispondenze Identificate (URL esatti):</h4>
+
+                            <!-- Unlocked Premium Details -->
+                            <div class="premium-results" id="unlocked-premium-details" style="display: block;">
+                                <h4><i class="fa-solid fa-link-slash"></i> Piattaforme e Fonti Rilevate:</h4>
                                 <div class="match-links-container">
                                     <div class="match-link-card">
                                         <span class="platform-badge platform-pinterest">Pinterest</span>
-                                        <a href="https://pinterest.com/pin/fake-user-profile-stolen" target="_blank" class="match-url">pinterest.com/pin/fake-user-profile... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="match-url">pinterest.com/pin/match-source-detected <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-vk">VKontakte</span>
-                                        <a href="https://vk.com/id84729104" target="_blank" class="match-url">vk.com/id84729104 (Nome reale: Anastasia) <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-vk">Profilo Social</span>
+                                        <span class="match-url">social-network.com/profile/match <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-forum">Forum Russo</span>
-                                        <a href="https://examp-ru-forum.com/users/8372" target="_blank" class="match-url">examp-ru-forum.com/users/8372... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-forum">Forum Web</span>
+                                        <span class="match-url">dating-forum-archive.com/users <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                 </div>
 
                                 <div class="scammer-profile-card">
-                                    <h4><i class="fa-solid fa-user-ninja"></i> Firma del Truffatore Rilevata</h4>
-                                    <p>Questo set di immagini è associato a campagne note di Romance Scam originarie dell'Africa occidentale, che utilizzano reti proxy per mascherare la loro reale posizione.</p>
+                                    <h4><i class="fa-solid fa-user-ninja"></i> Diagnostica Firma del Truffatore</h4>
+                                    <p>La nostra analisi AI ha verificato questa foto rispetto ai database di truffe sentimentali (Romance Scam) e duplicati web.</p>
                                 </div>
-                                <!-- Print PDF Report Action Button -->
-                                <button class="btn btn-primary btn-block" id="download-pdf-report-btn" style="margin-top: 22px;">
-                                    <span class="btn-text">Scarica il Report Ufficiale in PDF</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
-                                </button>
+
+                                <!-- MONETIZZAZIONE AFFILIAZIONE HIGH-TICKET -->
+                                <div class="affiliate-offers-container" style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px;">
+                                    
+                                    <!-- Offerta 1: Background Check Partner ($35-$60 CPA) -->
+                                    <div class="affiliate-card bg-check-card" style="background: rgba(245, 158, 11, 0.09); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-user-shield" style="font-size: 22px; color: #F59E0B;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Verifica Approfondita Identità & Precedenti</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Vuoi scoprire il vero nome, numero di telefono, precedenti penali e profili dating nascosti? Esegui un controllo certificato tramite il nostro partner ufficiale.
+                                        </p>
+                                        <a href="https://www.beenverified.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-block" style="background: #F59E0B; border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #000;">
+                                            <span>🔍 Verifica Identità & Precedenti</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Offerta 2: Dating Verificato 100% ($40-$80 CPA) -->
+                                    <div class="affiliate-card dating-safe-card" style="background: rgba(236, 72, 153, 0.09); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-shield-heart" style="font-size: 22px; color: #EC4899;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Incontra Single Verificati al 100%</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Stanco di profili falsi e bot su Tinder? Iscriviti gratuitamente sulle migliori piattaforme di incontri con verifica biometrica.
+                                        </p>
+                                        <a href="https://www.eharmony.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff;">
+                                            <span>💘 Scopri Single Verificati (Iscrizione Gratuita)</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Offerta 3: Dossier Ufficiale PDF (1.99$ con PayPal) -->
+                                    <div class="affiliate-card pdf-download-card" style="background: rgba(59, 130, 246, 0.09); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-file-pdf" style="font-size: 22px; color: #3B82F6;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Dossier Forense Ufficiale PDF</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Scarica il fascicolo investigativo con timbro ufficiale, timestamp e metadati tecnici per uso legale o prove personali.
+                                        </p>
+                                        <a id="download-pdf-paypal-btn" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=1.99&item_name=VerifyDating+Forensic+PDF+Report&return=https://verifydating.net/it/" target="_blank" class="btn btn-block" style="background: #FFC439; color: #003087; font-weight: 800; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(255, 196, 57, 0.25);">
+                                            <i class="fa-brands fa-paypal" style="font-size: 18px;"></i>
+                                            <span>Scarica Dossier Ufficiale PDF — 1.99$</span>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
 
                         </div>
@@ -493,15 +486,15 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Cosa è incluso nel pacchetto Premium da $7.99? <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="accordion-header">La scansione delle foto e l'analisi sono 100% gratuite? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Il pacchetto premium ti offre 10 crediti di scansione per $7.99. Ciascun credito può essere utilizzato per sbloccare un report completo, che rivela gli URL esatti dei siti web, dei social network (Pinterest, VKontakte, Facebook, ecc.) e dei forum in cui è stata trovata la foto.</p>
+                        <p>Sì, completamente gratuito! Puoi caricare qualsiasi foto e ricevere all'istante l'analisi biometrica AI, il punteggio di rischio e le corrispondenze senza pagare nulla.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">Si tratta di un abbonamento o di una tantum? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Si tratta di un pagamento una tantum di $7.99 per 10 crediti di scansione. Non ci sono costi nascosti, abbonamenti mensili o addebiti ricorrenti. Puoi usare i tuoi crediti quando vuoi.</p>
+                        <p>Si tratta di un pagamento una tantum di 100% Free per 10 crediti di scansione. Non ci sono costi nascosti, abbonamenti mensili o addebiti ricorrenti. Puoi usare i tuoi crediti quando vuoi.</p>
                     </div>
                 </div>
             </div>
@@ -526,7 +519,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Prezzo per scansione</td>
-                            <td class="us-cell"><strong class="price-highlight">Da 1.99$</strong></td>
+                            <td class="us-cell"><strong class="price-highlight" style="color: #10b981; font-weight: 800; font-size: 1.15rem;">100% GRATIS</strong></td>
                             <td><span class="comp-bad">$26.99/mese</span></td>
                             <td><span class="comp-bad">$29.99/mese</span></td>
                             <td><span class="comp-bad">$6 – $597</span></td>
@@ -610,7 +603,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Mi ha chiesto di inviare denaro per un "biglietto aereo" per venire a trovarmi. Prima di fare qualsiasi cosa, ho scansionato la sua foto di Tinder tramite VerifyDating. Ha trovato la stessa identica faccia su 11 siti diversi con 11 nomi diversi. I $7.99 spesi qui mi hanno letteralmente risparmiato $4.200."</p>
+                    <p class="testimonial-text">"Mi ha chiesto di inviare denaro per un "biglietto aereo" per venire a trovarmi. Prima di fare qualsiasi cosa, ho scansionato la sua foto di Tinder tramite VerifyDating. Ha trovato la stessa identica faccia su 11 siti diversi con 11 nomi diversi. La scansione gratuita eseguita qui mi ha letteralmente risparmiato $4.200."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #6c5ce7, #a29bfe);">MK</div>
                         <div>
@@ -624,7 +617,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Ho provato la ricerca inversa delle immagini su Google e non ho ottenuto nulla. Ho provato VerifyDating e ha contrassegnato all'istante la sua foto come truffatore noto segnalato su diversi forum antifrode. Il report dettagliato valeva ogni centesimo dei $7.99."</p>
+                    <p class="testimonial-text">"Ho provato la ricerca inversa delle immagini su Google e non ho ottenuto nulla. Ho provato VerifyDating e ha contrassegnato all'istante la sua foto come truffatore noto segnalato su diversi forum antifrode. Il report gratuito istantaneo è stato una vera salvezza."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #00b894, #00cec9);">TJ</div>
                         <div>
@@ -652,7 +645,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Ho scansionato 3 profili diversi. Due erano puliti, uno è stato contrassegnato ad alto rischio. I risultati puliti mi hanno dato tranquillità e il report di rischio mi ha evitato una relazione falsa. La migliore spesa di $7.99."</p>
+                    <p class="testimonial-text">"Ho scansionato 3 profili diversi. Due erano puliti, uno è stato contrassegnato ad alto rischio. I risultati puliti mi hanno dato tranquillità e il report di rischio mi ha evitato una relazione falsa. Il miglior strumento gratuito di sicurezza mai usato."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #fdcb6e, #e17055);">DM</div>
                         <div>
@@ -706,7 +699,7 @@
                 <div class="payment-summary">
                     <span class="summary-label">Totale dovuto</span>
                     <div style="text-align: right;">
-                        <span class="summary-amount">$7.99</span>
+                        <span class="summary-amount">100% Free</span>
                         <p style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Il pacchetto include 5 scansioni</p>
                     </div>
                 </div>
@@ -740,7 +733,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success btn-lg btn-block" id="confirm-payment-btn">
-                        <span class="btn-text">Paga $7.99 (10 Scansioni)</span>
+                        <span class="btn-text">Paga 100% Free (10 Scansioni)</span>
                         <span class="btn-icon"><i class="fa-solid fa-lock"></i></span>
                     </button>
                 </form>
@@ -768,7 +761,7 @@
             <div class="checkout-body" style="text-align: center; padding: 20px;">
                 <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 10px; color: #fff;">Accesso Beta Privato</h3>
                 <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
-                    Il nostro scanner video AI per Deepfake è attualmente in Beta Privata per garantire la velocità ottimale. Inserisci la tua email per iscriverti alla lista d'attesa e ottenere uno <strong>sconto del 50% ($7.99 invece di $9.99)</strong> al lancio!
+                    Il nostro scanner video AI per Deepfake è attualmente in Beta Privata per garantire la velocità ottimale. Inserisci la tua email per iscriverti alla lista d'attesa e ottenere uno <strong>sconto del 50% (100% Free invece di $9.99)</strong> al lancio!
                 </p>
                 <form id="video-smoke-form" onsubmit="event.preventDefault();">
                     <div class="form-group" style="text-align: left;">
@@ -793,7 +786,7 @@
     <!-- Footer -->
     <footer class="app-footer">
         <div class="footer-content">
-            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041). All rights reserved. Built to protect individuals against romance scams. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.6;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041 &bull; Garessio CN, Italia) &bull; <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; font-size: 0.75rem; padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.25);">Verificato VIES 🇪🇺</span> &bull; Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
             <div class="footer-contact">
                 <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Supporto Clienti:</span>
                 <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>

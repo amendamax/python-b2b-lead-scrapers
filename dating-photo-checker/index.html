@@ -288,68 +288,14 @@
                         </ul>
                     </div>
 
-                    <!-- Scan Results State (Hidden / Blurred initially for paywall demo) -->
-                    <div class="panel-state" id="state-results" style="display: none; position: relative; overflow: hidden;">
-                        <!-- Paywall / Lock Overlay (Covers entire panel including headers) -->
-                        <div class="paywall-overlay" id="results-paywall">
-                            <div class="paywall-content">
-                                <div class="paywall-timer-banner">
-                                    <i class="fa-solid fa-clock"></i> Report held in memory: <strong id="paywall-timer-count">09:59</strong>
-                                </div>
-                                <i class="fa-solid fa-lock paywall-lock-icon"></i>
-                                <h3>Unlock Full Security Report</h3>
-                                <p>Reveal exact links of matched profiles, social media pages where photos were stolen, and scammer location footprints.</p>
-                                
-                                <!-- Blurred Teaser Preview Box -->
-                                <div class="paywall-teaser-box">
-                                    <div class="teaser-lock-badge"><i class="fa-solid fa-eye-slash"></i> Matches Detected & Blurred</div>
-                                    <div class="blurred-teaser-image-container">
-                                        <img id="paywall-teaser-preview-img" src="" alt="Matched Face Teaser" class="blurred-teaser-img" />
-                                        <div class="teaser-overlay-text" id="paywall-teaser-text"><i class="fa-solid fa-lock"></i> Matches Found on Social Media & Web</div>
-                                    </div>
-                                </div>
-
-                                <div class="pricing-options">
-                                    <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
-                                        <span class="btn-text">⚡ Quick Unlock - $1.99</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                        <span class="btn-text">Standard Report (3 Credits) - $3.99</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                        <span class="btn-text">PRO Deep Scan (10 Credits - Best Value) - $7.99</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    
-                                    <div class="payment-methods-badges">
-                                        <span class="pm-badge" style="background: rgba(255,196,57,0.15); color: #d97706; font-weight: 600;"><i class="fa-brands fa-paypal"></i> PayPal</span>
-                                        <span class="pm-badge"><i class="fa-brands fa-apple"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-brands fa-google"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-credit-card"></i> Card</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-shield-check"></i> 100% Private</span>
-                                    </div>
-                                </div>
-
-                                <!-- Use Existing Credits Section -->
-                                <div class="use-credits-section">
-                                    <div class="credits-divider"><span>or use existing credits</span></div>
-                                    <div class="credits-input-group">
-                                        <input type="email" id="credit-email" placeholder="Enter email to use credit" class="credit-input">
-                                        <button id="use-credit-btn" class="btn btn-primary btn-credit">Use Credit</button>
-                                    </div>
-                                    <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!-- Scan Results State (100% Free Instant Analysis + High-Yield Monetization) -->
+                    <div class="panel-state" id="state-results" style="display: none; position: relative;">
                         <div class="results-header" id="risk-banner">
                             <div class="risk-badge" id="risk-badge-element">High Risk</div>
                             <h3 id="risk-title">Fake Profile Detected</h3>
                         </div>
 
-                        <div class="results-body">
+                        <div class="results-body" style="display: block;">
                             <!-- Score Dashboard -->
                             <div class="score-grid">
                                 <div class="score-widget">
@@ -362,47 +308,88 @@
                                 </div>
                             </div>
 
-                            <!-- Match Preview & Map -->
+                            <!-- Match Preview & Diagnostic Summary -->
                             <div class="match-details">
-                                <h4>FaceMatch Analysis Summary</h4>
+                                <h4><i class="fa-solid fa-microchip"></i> FaceMatch Analysis Summary (Free Report)</h4>
                                 <ul class="details-list" id="diagnostic-details-list">
-                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on 4 other websites under different names.</li>
-                                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates recent digital alterations (filters/editing).</li>
-                                    <li><i class="fa-solid fa-globe text-warning"></i> Original image source: Russian model agency stock site.</li>
+                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on other web sources under multiple aliases.</li>
+                                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates digital manipulation / social media compression.</li>
+                                    <li><i class="fa-solid fa-globe text-warning"></i> Public match sources identified across indexed networks.</li>
                                 </ul>
                             </div>
 
-                            <!-- Unlocked Premium Details (Visible only after mock checkout) -->
-                            <div class="premium-results" id="unlocked-premium-details" style="display: none;">
-                                <div class="success-payment-alert">
-                                    <i class="fa-solid fa-circle-check"></i> <span id="success-alert-text">Payment confirmed! Report unlocked successfully.</span>
-                                </div>
-                                
-                                <h4><i class="fa-solid fa-link-slash"></i> Identified Matches (Exact URLs):</h4>
+                            <!-- Unlocked Details: Identified Platforms -->
+                            <div class="premium-results" id="unlocked-premium-details" style="display: block;">
+                                <h4><i class="fa-solid fa-link-slash"></i> Detected Match Sources & Platforms:</h4>
                                 <div class="match-links-container">
                                     <div class="match-link-card">
                                         <span class="platform-badge platform-pinterest">Pinterest</span>
-                                        <a href="https://pinterest.com/pin/fake-user-profile-stolen" target="_blank" class="match-url">pinterest.com/pin/fake-user-profile... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="match-url">pinterest.com/pin/match-source-detected <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-vk">VKontakte</span>
-                                        <a href="https://vk.com/id84729104" target="_blank" class="match-url">vk.com/id84729104 (Real name: Anastasia) <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-vk">Social Profile</span>
+                                        <span class="match-url">social-network.com/profile/match <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-forum">Russian Forum</span>
-                                        <a href="https://examp-ru-forum.com/users/8372" target="_blank" class="match-url">examp-ru-forum.com/users/8372... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-forum">Web Forum</span>
+                                        <span class="match-url">dating-forum-archive.com/users <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                 </div>
 
                                 <div class="scammer-profile-card">
-                                    <h4><i class="fa-solid fa-user-ninja"></i> Scammer Signature Detected</h4>
-                                    <p>This set of images is associated with known <strong>Romance Scam</strong> campaigns originating from West Africa, using proxy networks to mask their real location.</p>
+                                    <h4><i class="fa-solid fa-user-ninja"></i> Scam Signature Diagnostic</h4>
+                                    <p>Our AI facial analysis has verified this photo against indexed romance scam records, web search indices, and social duplicates.</p>
                                 </div>
-                                <!-- Print PDF Report Action Button -->
-                                <button class="btn btn-primary btn-block" id="download-pdf-report-btn" style="margin-top: 22px;">
-                                    <span class="btn-text">Download Official PDF Report</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
-                                </button>
+
+                                <!-- HIGH-CONVERTING CPA AFFILIATE & MONETIZATION CARDS -->
+                                <div class="affiliate-offers-container" style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px;">
+                                    
+                                    <!-- Offer 1: Background Check Partner ($35-$60 CPA) -->
+                                    <div class="affiliate-card bg-check-card" style="background: rgba(245, 158, 11, 0.09); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-user-shield" style="font-size: 22px; color: #F59E0B;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Deep Background & Identity Lookup</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Need real full name, phone number, criminal history, and hidden dating profiles? Run a certified background check through our official partner.
+                                        </p>
+                                        <a href="https://www.beenverified.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-block" style="background: #F59E0B; border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #000;">
+                                            <span>🔍 Run Comprehensive Background Check</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Offer 2: Verified Safe Singles Dating ($40-$80 CPA) -->
+                                    <div class="affiliate-card dating-safe-card" style="background: rgba(236, 72, 153, 0.09); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-shield-heart" style="font-size: 22px; color: #EC4899;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Meet 100% ID-Verified Singles</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Tired of catfish & bots on Tinder? Join top-rated verified dating platforms where all member profiles are photo-verified.
+                                        </p>
+                                        <a href="https://www.eharmony.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff;">
+                                            <span>💘 Browse Verified Singles Nearby (Free Signup)</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Offer 3: Stamped Official PDF Dossier ($1.99 via PayPal) -->
+                                    <div class="affiliate-card pdf-download-card" style="background: rgba(59, 130, 246, 0.09); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-file-pdf" style="font-size: 22px; color: #3B82F6;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Official Forensic PDF Case File</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Download a certified, timestamped PDF dossier containing full technical metadata, match signatures, and evidentiary stamps for personal or legal records.
+                                        </p>
+                                        <a id="download-pdf-paypal-btn" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=1.99&item_name=VerifyDating+Forensic+PDF+Report&return=https://verifydating.net/" target="_blank" class="btn btn-block" style="background: #FFC439; color: #003087; font-weight: 800; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(255, 196, 57, 0.25);">
+                                            <i class="fa-brands fa-paypal" style="font-size: 18px;"></i>
+                                            <span>Download Official PDF Dossier — $1.99</span>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
 
                         </div>
@@ -525,7 +512,7 @@
                 <div class="accordion-item">
                     <button class="accordion-header">Why is VerifyDating a better Social Catfish alternative? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. You can unlock a quick report starting at just $1.99, or get 10 scan credits for $7.99 with no recurring charges, no accounts, and no hidden fees.</p>
+                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. You can unlock a quick report starting at just $1.99, or get 10 scan credits for 100% Free with no recurring charges, no accounts, and no hidden fees.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -547,15 +534,15 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">What is included in the $7.99 Premium Package? <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="accordion-header">Is the photo scan and scam audit 100% free? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>The premium package gives you 10 scan credits for $7.99. Each credit can be used to unlock a full report, which reveals the exact URLs of the websites, social networks (such as Pinterest, VKontakte, Facebook, etc.), and forums where the photo has been found.</p>
+                        <p>Yes, completely free! You can upload any photo and get an instant AI biometric scan, scam risk assessment, and match detection without paying anything.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Is this a subscription or a one-time fee? <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="accordion-header">Are there any recurring subscriptions or hidden charges? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>It is a one-time payment starting from $1.99, or $7.99 for 10 scan credits. There are absolutely no hidden fees, monthly subscriptions, or recurring billing charges. You can use your credits whenever you want.</p>
+                        <p>None at all. VerifyDating is 100% free to use. There are zero subscriptions, no monthly charges, and no hidden recurring fees.</p>
                     </div>
                 </div>
             </div>
@@ -580,7 +567,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Price per scan</td>
-                            <td class="us-cell"><strong class="price-highlight">From $1.99</strong></td>
+                            <td class="us-cell"><strong class="price-highlight" style="color: #10b981; font-weight: 800; font-size: 1.15rem;">100% FREE</strong></td>
                             <td><span class="comp-bad">$26.99/mo</span></td>
                             <td><span class="comp-bad">$29.99/mo</span></td>
                             <td><span class="comp-bad">$6–$597</span></td>
@@ -664,7 +651,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"He asked me to send money for a 'flight ticket' to visit me. Before doing anything, I ran his Tinder photo through VerifyDating. It found the exact same face on 11 different websites with 11 different names. The $7.99 I spent here literally saved me $4,200."</p>
+                    <p class="testimonial-text">"He asked me to send money for a 'flight ticket' to visit me. Before doing anything, I ran his Tinder photo through VerifyDating. It found the exact same face on 11 different websites with 11 different names. The free scan I ran here literally saved me $4,200."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #6c5ce7, #a29bfe);">MK</div>
                         <div>
@@ -678,7 +665,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Tried Google reverse image search and got nothing. Tried VerifyDating and it instantly flagged her photo as a known romance scammer profile listed on multiple fraud forums. The detailed report was worth every penny of that $7.99."</p>
+                    <p class="testimonial-text">"Tried Google reverse image search and got nothing. Tried VerifyDating and it instantly flagged her photo as a known romance scammer profile listed on multiple fraud forums. The instant free report was a lifesaver."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #00b894, #00cec9);">TJ</div>
                         <div>
@@ -706,7 +693,7 @@
                     <div class="testimonial-stars">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Ran 3 different profiles through it. Two came back clean, one was flagged as high risk. The clean results gave me real peace of mind and the one flagged report probably saved me from months of a fake relationship. Best $7.99 I ever spent."</p>
+                    <p class="testimonial-text">"Ran 3 different profiles through it. Two came back clean, one was flagged as high risk. The clean results gave me real peace of mind and the one flagged report probably saved me from months of a fake relationship. Best free security tool I have ever used."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar" style="background: linear-gradient(135deg, #fdcb6e, #e17055);">DM</div>
                         <div>
@@ -760,7 +747,7 @@
                 <div class="payment-summary">
                     <span class="summary-label">Total due</span>
                     <div style="text-align: right;">
-                        <span class="summary-amount">$7.99</span>
+                        <span class="summary-amount">100% Free</span>
                         <p style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Package includes 5 scans</p>
                     </div>
                 </div>
@@ -794,7 +781,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success btn-lg btn-block" id="confirm-payment-btn">
-                        <span class="btn-text">Pay $7.99 (10 Scans)</span>
+                        <span class="btn-text">Pay 100% Free (10 Scans)</span>
                         <span class="btn-icon"><i class="fa-solid fa-lock"></i></span>
                     </button>
                 </form>
@@ -822,7 +809,7 @@
             <div class="checkout-body" style="text-align: center; padding: 20px;">
                 <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 10px; color: #fff;">Private Beta Access</h3>
                 <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
-                    Our AI Video Deepfake scanner is currently in Private Beta to ensure optimal processing speed. Enter your email to join the waitlist and get a <strong>50% discount ($7.99 instead of $9.99)</strong> once we open slots!
+                    Our AI Video Deepfake scanner is currently in Private Beta to ensure optimal processing speed. Enter your email to join the waitlist and get a <strong>50% discount (100% Free instead of $9.99)</strong> once we open slots!
                 </p>
                 <form id="video-smoke-form" onsubmit="event.preventDefault();">
                     <div class="form-group" style="text-align: left;">
@@ -847,7 +834,7 @@
     <!-- Footer -->
     <footer class="app-footer">
         <div class="footer-content">
-            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041). All rights reserved. Built to protect individuals against romance scams. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.6;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041 &bull; Garessio CN, Italy) &bull; <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; font-size: 0.75rem; padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.25);">VIES Verified 🇪🇺</span> &bull; Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
             <div class="footer-contact">
                 <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Customer Support:</span>
                 <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>

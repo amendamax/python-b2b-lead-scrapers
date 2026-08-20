@@ -257,68 +257,14 @@
                         </ul>
                     </div>
 
-                    <!-- Scan Results State (Hidden / Blurred initially for paywall demo) -->
-                    <div class="panel-state" id="state-results" style="display: none; position: relative; overflow: hidden;">
-                        <!-- Paywall / Lock Overlay -->
-                        <div class="paywall-overlay" id="results-paywall">
-                            <div class="paywall-content">
-                                <div class="paywall-timer-banner">
-                                    <i class="fa-solid fa-clock"></i> Raport reținut în memorie: <strong id="paywall-timer-count">09:59</strong>
-                                </div>
-                                <i class="fa-solid fa-lock paywall-lock-icon"></i>
-                                <h3>Deblochează Raportul de Securitate</h3>
-                                <p>Află link-urile exacte ale profilurilor potrivite, paginile de social media unde au fost furate pozele și locația escrocului.</p>
-                                
-                                <!-- Blurred Teaser Preview Box -->
-                                <div class="paywall-teaser-box">
-                                    <div class="teaser-lock-badge"><i class="fa-solid fa-eye-slash"></i> Potriviri Găsite și Blurated</div>
-                                    <div class="blurred-teaser-image-container">
-                                        <img id="paywall-teaser-preview-img" src="" alt="Previzualizare Potrivire" class="blurred-teaser-img" />
-                                        <div class="teaser-overlay-text" id="paywall-teaser-text"><i class="fa-solid fa-lock"></i> Potriviri Detectate pe Rețele Sociale și Web</div>
-                                    </div>
-                                </div>
-
-                                <div class="pricing-options">
-                                    <button class="btn btn-warning btn-lg btn-block" id="paywall-unlock-basic-btn" style="margin-bottom: 10px; background: #F59E0B; border-color: #D97706; color: #fff; font-weight: 700;">
-                                        <span class="btn-text">⚡ Deblocare Rapidă - 1.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-primary btn-lg btn-block" id="paywall-unlock-single-btn" style="margin-bottom: 10px;">
-                                        <span class="btn-text">Raport Standard (3 Credite) - 3.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    <button class="btn btn-success btn-lg btn-block" id="paywall-unlock-btn">
-                                        <span class="btn-text">PRO Deep Scan (10 Credite) - 7.99$</span>
-                                        <span class="btn-icon"><i class="fa-brands fa-stripe"></i></span>
-                                    </button>
-                                    
-                                    <div class="payment-methods-badges">
-                                        <span class="pm-badge"><i class="fa-brands fa-apple"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-brands fa-google"></i> Pay</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-credit-card"></i> Card</span>
-                                        <span class="pm-badge"><i class="fa-solid fa-shield-check"></i> 100% Confidențial</span>
-                                    </div>
-                                </div>
-                                <p class="paywall-guarantee"><i class="fa-solid fa-shield-check"></i> Plată securizată prin Apple Pay / Google Pay / Card. 100% confidențial.</p>
-
-                                <!-- Use Existing Credits Section -->
-                                <div class="use-credits-section">
-                                    <div class="credits-divider"><span>sau folosește creditele existente</span></div>
-                                    <div class="credits-input-group">
-                                        <input type="email" id="credit-email" placeholder="Introdu adresa de e-mail" class="credit-input">
-                                        <button id="use-credit-btn" class="btn btn-primary btn-credit">Folosește Credit</button>
-                                    </div>
-                                    <div id="credit-error-msg" class="credit-error" style="display: none;"></div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!-- Scan Results State (100% Gratuit Instant + Monetizare Afiliere) -->
+                    <div class="panel-state" id="state-results" style="display: none; position: relative;">
                         <div class="results-header" id="risk-banner">
                             <div class="risk-badge" id="risk-badge-element">Risc Ridicat</div>
                             <h3 id="risk-title">Profil Fals Detectat</h3>
                         </div>
 
-                        <div class="results-body">
+                        <div class="results-body" style="display: block;">
                             <!-- Score Dashboard -->
                             <div class="score-grid">
                                 <div class="score-widget">
@@ -333,45 +279,86 @@
 
                             <!-- Match Preview & Map -->
                             <div class="match-details">
-                                <h4>Rezumatul Analizei FaceMatch</h4>
+                                <h4><i class="fa-solid fa-microchip"></i> Rezumatul Analizei FaceMatch (Raport Gratuit)</h4>
                                 <ul class="details-list" id="diagnostic-details-list">
-                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Imagine găsită pe alte 4 site-uri sub nume diferite.</li>
-                                    <li><i class="fa-solid fa-circle-info text-info"></i> Metadatele imaginii indică modificări digitale recente (filtre/editare).</li>
-                                    <li><i class="fa-solid fa-globe text-warning"></i> Sursa originală a imaginii: Site-ul unei agenții de modele din Rusia.</li>
+                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Imagine găsită pe alte surse web sub mai multe identități.</li>
+                                    <li><i class="fa-solid fa-circle-info text-info"></i> Metadatele imaginii indică modificări digitale / compresie de pe rețele sociale.</li>
+                                    <li><i class="fa-solid fa-globe text-warning"></i> Surse publice de potrivire identificate în rețelele indexate.</li>
                                 </ul>
                             </div>
 
                             <!-- Unlocked Premium Details -->
-                            <div class="premium-results" id="unlocked-premium-details" style="display: none;">
-                                <div class="success-payment-alert">
-                                    <i class="fa-solid fa-circle-check"></i> <span id="success-alert-text">Plată confirmată! Raportul a fost deblocat cu succes.</span>
-                                </div>
-                                
-                                <h4><i class="fa-solid fa-link-slash"></i> Potriviri Identificate (URL-uri exacte):</h4>
+                            <div class="premium-results" id="unlocked-premium-details" style="display: block;">
+                                <h4><i class="fa-solid fa-link-slash"></i> Surse și Platforme Detectate:</h4>
                                 <div class="match-links-container">
                                     <div class="match-link-card">
                                         <span class="platform-badge platform-pinterest">Pinterest</span>
-                                        <a href="https://pinterest.com/pin/fake-user-profile-stolen" target="_blank" class="match-url">pinterest.com/pin/fake-user-profile... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="match-url">pinterest.com/pin/match-source-detected <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-vk">VKontakte</span>
-                                        <a href="https://vk.com/id84729104" target="_blank" class="match-url">vk.com/id84729104 (Nume real: Anastasia) <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-vk">Profil Social</span>
+                                        <span class="match-url">social-network.com/profile/match <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                     <div class="match-link-card">
-                                        <span class="platform-badge platform-forum">Forum Rusesc</span>
-                                        <a href="https://examp-ru-forum.com/users/8372" target="_blank" class="match-url">examp-ru-forum.com/users/8372... <i class="fa-solid fa-up-right-from-square"></i></a>
+                                        <span class="platform-badge platform-forum">Forum Web</span>
+                                        <span class="match-url">dating-forum-archive.com/users <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
                                     </div>
                                 </div>
 
                                 <div class="scammer-profile-card">
-                                    <h4><i class="fa-solid fa-user-ninja"></i> Semnătură de Escroc Detectată</h4>
-                                    <p>Acest set de imagini este asociat cu campanii cunoscute de Romance Scam cu originea în Africa de Vest, utilizând rețele proxy pentru a-și masca locația reală.</p>
+                                    <h4><i class="fa-solid fa-user-ninja"></i> Diagnostic Semnătură Escroc</h4>
+                                    <p>Algoritmul nostru AI a verificat această fotografie în baza de date cu escrocherii sentimentale (Romance Scam) și duplicate pe internet.</p>
                                 </div>
-                                <!-- Print PDF Report Action Button -->
-                                <button class="btn btn-primary btn-block" id="download-pdf-report-btn" style="margin-top: 22px;">
-                                    <span class="btn-text">Descarcă Raportul Oficial PDF</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
-                                </button>
+
+                                <!-- MONETIZARE AFILIERE HIGH-TICKET -->
+                                <div class="affiliate-offers-container" style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px;">
+                                    
+                                    <!-- Oferta 1: Background Check Partner ($35-$60 CPA) -->
+                                    <div class="affiliate-card bg-check-card" style="background: rgba(245, 158, 11, 0.09); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-user-shield" style="font-size: 22px; color: #F59E0B;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Verificare Detaliată de Cazier & Identitate</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Vrei să afli numele real, numărul de telefon, cazierele judiciare și conturile ascunse de dating? Rulează o verificare oficială de fundal prin partenerul nostru certificat.
+                                        </p>
+                                        <a href="https://www.beenverified.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-block" style="background: #F59E0B; border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #000;">
+                                            <span>🔍 Verifică Identitatea & Cazierul</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Oferta 2: Dating Verificat 100% ($40-$80 CPA) -->
+                                    <div class="affiliate-card dating-safe-card" style="background: rgba(236, 72, 153, 0.09); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-shield-heart" style="font-size: 22px; color: #EC4899;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Găsește Persoane Reale Verificate 100%</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Te-ai săturat de profile false și catfish pe Tinder? Înscrie-te gratuit pe platformele de dating unde fiecare membru este verificat biometric.
+                                        </p>
+                                        <a href="https://www.eharmony.com/?utm_source=verifydating&utm_medium=affiliate" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff;">
+                                            <span>💘 Vezi Persoane Singure Verificate (Înscriere Gratuită)</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Oferta 3: Dosar Oficial PDF (1.99$ prin PayPal) -->
+                                    <div class="affiliate-card pdf-download-card" style="background: rgba(59, 130, 246, 0.09); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                            <i class="fa-solid fa-file-pdf" style="font-size: 22px; color: #3B82F6;"></i>
+                                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">Dosar Criminalistic Oficial PDF</h4>
+                                        </div>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
+                                            Descarcă dosarul de investigație ștampilat oficial, cu timestamp-uri și metadate tehnice pentru dovezi la poliție sau uz personal.
+                                        </p>
+                                        <a id="download-pdf-paypal-btn" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=1.99&item_name=VerifyDating+Forensic+PDF+Report&return=https://verifydating.net/ro/" target="_blank" class="btn btn-block" style="background: #FFC439; color: #003087; font-weight: 800; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(255, 196, 57, 0.25);">
+                                            <i class="fa-brands fa-paypal" style="font-size: 18px;"></i>
+                                            <span>Descarcă Dosarul PDF Oficial — 1.99$</span>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
 
                         </div>
@@ -504,9 +491,9 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Este un abonament sau o taxă unică? <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="accordion-header">Există abonamente lunare sau costuri ascunse? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Este o plată unică începând de la 1.99$, sau 7.99$ pentru 10 credite de scanare. Nu există absolut nicio taxă ascunsă, abonament lunar sau plăți recurente. Poți folosi creditele când dorești.</p>
+                        <p>Absolut deloc. VerifyDating este 100% gratuit. Nu există abonamente, taxe recurente lunare sau costuri ascunse.</p>
                     </div>
                 </div>
             </div>
@@ -531,7 +518,7 @@
                     <tbody>
                         <tr>
                             <td class="feature-name">Preț per scanare</td>
-                            <td class="us-cell"><strong class="price-highlight">De la 1.99$</strong></td>
+                            <td class="us-cell"><strong class="price-highlight" style="color: #10b981; font-weight: 800; font-size: 1.15rem;">100% GRATIS</strong></td>
                             <td><span class="comp-bad">26.99$/lună</span></td>
                             <td><span class="comp-bad">29.99$/lună</span></td>
                             <td><span class="comp-bad">6$ – 597$</span></td>
@@ -798,7 +785,7 @@
     <!-- Footer -->
     <footer class="app-footer">
         <div class="footer-content">
-            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041). All rights reserved. Built to protect individuals against romance scams. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
+            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.6;">&copy; 2026 VerifyDating.net — VasileDev Group (P.IVA 04226190041 &bull; Garessio CN, Italia) &bull; <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; font-size: 0.75rem; padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.25);">Verificat VIES 🇪🇺</span> &bull; Dezvoltat de <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
             <div class="footer-contact">
                 <span class="contact-title"><i class="fa-solid fa-headset highlight"></i> Suport Clienți:</span>
                 <a href="mailto:amendamax@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> amendamax@gmail.com</a>

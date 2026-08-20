@@ -1,0 +1,91 @@
+[
+  {
+    "url": "https://www.autoscout24.de/angebote/porsche-macan-s-diesel-panorama-standheizung-r-cam-ahk-diesel-grau-cat_ma57gr20311ge1577va3290mt10722tr480691-2144d7a7-6252-4540-b3d2-e3f2bcb8d5cf",
+    "price": 34879,
+    "km": null,
+    "reg": null,
+    "city": "Ludwigsburg",
+    "country": "DE",
+    "kw": 190,
+    "hp": "258 PS",
+    "has_tetto": true,
+    "has_vetri": false,
+    "has_corsia": true,
+    "has_360": false,
+    "seller": "Norbert G.  Paul Automobile",
+    "phones": [
+      {
+        "phoneType": "Office",
+        "formattedNumber": "+49 (0)714 - 1141835600",
+        "callTo": "+497141141835600"
+      },
+      {
+        "phoneType": "Office",
+        "formattedNumber": "+49 (0)7141 - 460116",
+        "callTo": "+497141460116"
+      },
+      {
+        "phoneType": "Mobile",
+        "formattedNumber": "+49 (0)172 - 3163333",
+        "callTo": "+491723163333"
+      }
+    ],
+    "desc": "Porsche Macan S Diesel Porsche-Feeling trifft auf die Kraft eines echten V6-Diesels! Dieser Macan S Diesel verbindet sportliche Porsche-DNA mit enormem Drehmoment, souveränem Allradantrieb und echtem Langstreckenkomfort. Der 3,0-Liter-V6 mit 258 PS und satten 580 Nm sorgt gemeinsam mit dem schnellen 7-Gang-PDK für mächtigen Durchzug – von 0 auf 100"
+  },
+  {
+    "url": "https://www.autoscout24.de/angebote/porsche-macan-s-diesel-sportabgas-bose-luftfederung-pasm-diesel-grau-cat_ma57gr20311ge1577va3290mt10722tr480691-5110886c-7516-4f19-b98b-40756f5e77e1",
+    "price": 49900,
+    "km": null,
+    "reg": null,
+    "city": "München",
+    "country": "DE",
+    "kw": 190,
+    "hp": "258 PS",
+    "has_tetto": true,
+    "has_vetri": true,
+    "has_corsia": true,
+    "has_360": false,
+    "seller": "SZM Sportwagen Zentrum München GmbH",
+    "phones": [
+      {
+        "phoneType": "Office",
+        "formattedNumber": "+49 (0)896 - 9312523",
+        "callTo": "+498969312523"
+      },
+      {
+        "phoneType": "Office",
+        "formattedNumber": "+49 (0)89 - 48001911",
+        "callTo": "+498948001911"
+      }
+    ],
+    "desc": "Getriebe: Automatik Technik: Allrad, Bordcomputer, Niveauregulierung, Adaptives Dämpfungssystem, Partikelfilter, Start-Stop-Automatik, Luftfederung, Sportabgasanlage, Schaltwippen Assistenten: Regensensor, Fernlichtassistent, Lichtsensor, Berganfahrassistent, Bergabfahrassistent, Spurhalteassistent, Abstands-/Kollisionswarner, Abstandsregeltempomat"
+  },
+  {
+    "url": "https://www.autoscout24.de/angebote/porsche-macan-s-diesel-pdls+-panorama-pasm-diesel-schwarz-cat_ma57gr20311ge1577va3290mt10722tr480691-e0355459-5807-48cc-bee3-34fc3ce229e5",
+    "price": 44950,
+    "km": null,
+    "reg": null,
+    "city": "Mönchengladbach",
+    "country": "DE",
+    "kw": 190,
+    "hp": "258 PS",
+    "has_tetto": true,
+    "has_vetri": false,
+    "has_corsia": true,
+    "has_360": false,
+    "seller": "Vladi's Shop",
+    "phones": [
+      {
+        "phoneType": "Office",
+        "formattedNumber": "+49 (0)216 - 69894512",
+        "callTo": "+4921669894512"
+      },
+      {
+        "phoneType": "Mobile",
+        "formattedNumber": "+49 (0)176 - 21872240",
+        "callTo": "+4917621872240"
+      }
+    ],
+    "desc": "Der Wagen wird im Kundenauftrag verkauft! Das Fahrzeug befindet sich in einem einwandfreien optischen und technischen Zustand, wurde ausschließlich von Porsche Werkstatt gewartet. Das Fahrzeug war nur in einem Besitz (2 Einträge im Brief) und überwiegend von einer Person gefahren.Sonderausstattung:Adaptive Sportsitze inkl. Sitzverstellung 18-Wege, "
+  }
+]

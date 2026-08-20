@@ -704,32 +704,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save scanId in session storage for persistence on refresh
         if (currentScanId) {
             sessionStorage.setItem('verifydating_current_scan_id', currentScanId);
-            startAutoUnlockPolling(currentScanId);
         }
 
-        // Hide unlocked areas and risk banner, show default paywall state
-        hideResultsAndShowPaywall();
+        // 100% Free Scan Experience: Reveal full results and affiliate cards immediately
+        showUnlockedResults();
 
-        // On mobile, auto scroll smoothly to the paywall box
+        // Update PDF PayPal link dynamically with currentScanId
+        const pdfPaypalBtn = document.getElementById('download-pdf-paypal-btn');
+        if (pdfPaypalBtn && currentScanId) {
+            pdfPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=1.99&item_name=VerifyDating+Forensic+PDF+Report+${currentScanId}&return=https://verifydating.net/?scan_id=${currentScanId}&pdf_unlocked=1&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
+        }
+
+        // Fetch full scan details and render immediately
+        fetch(`/api/results/${currentScanId}`).then(r => r.json()).then(fullRes => {
+            renderPremiumDetails(fullRes);
+        }).catch(err => {
+            renderPremiumDetails(data);
+        });
+
+        // On mobile and desktop, auto scroll smoothly to the results
         setTimeout(() => {
-            const paywallEl = document.getElementById('results-paywall');
-            if (paywallEl && window.innerWidth <= 768) {
-                paywallEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const resultsEl = document.getElementById('state-results');
+            if (resultsEl) {
+                resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }, 150);
-
-        // Set Teaser Preview Image & Text
-        const teaserImg = document.getElementById('paywall-teaser-preview-img');
-        const teaserText = document.getElementById('paywall-teaser-text');
-        if (teaserImg && imagePreview && imagePreview.src) {
-            teaserImg.src = imagePreview.src;
-        }
-        if (teaserText) {
-            teaserText.innerHTML = `<i class="fa-solid fa-lock"></i> ${data.matches_count || 10} ${t.matchesSuffix || 'matches'} Detected & Blurred`;
-        }
-
-        // Start Paywall 09:59 Urgency Timer
-        startPaywallTimer();
         
         // Configure specific outputs based on three risk categories
         const scamProb = data.scam_probability;
