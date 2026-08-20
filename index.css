@@ -129,11 +129,21 @@ header.navbar {
     background: rgba(229, 184, 66, 0.08);
 }
 
+.git-target {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.git-target span:not(.git-quote) {
+    color: var(--primary);
+}
+
 .git-quote {
     color: var(--primary);
-    font-family: monospace;
-    font-weight: 800;
-    opacity: 0.85;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-weight: 700;
+    opacity: 0.8;
 }
 
 .terminal-pulse-icon {
