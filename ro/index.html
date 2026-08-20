@@ -48,37 +48,55 @@
     <meta property="twitter:image" content="https://vasiledev.com/vasiledev_og_banner.jpg">
     
     <!-- SEO JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
+        <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Vasile Bratu — Premium Data Automation & Web Scraping Architect",
-      "image": "https://vasiledev.com/b2b_leads_dashboard.webp",
-      "@id": "https://vasiledev.com/ro/#professional-service",
-      "url": "https://vasiledev.com/ro/",
-      "priceRange": "$$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "RO"
-      },
-            "sameAs": [
-        "https://github.com/amendamax",
-        "https://www.upwork.com/freelancers/amendamax",
-        "https://www.fiverr.com/amendamax",
-        "https://www.linkedin.com/in/vasiledev/",
-        "https://medium.com/@amendamax",
-        "https://dev.to/amendamax2025"
-      ],
-      "description": "Servicii premium de Web Scraping & ocolire WAF (Cloudflare/Akamai), dezvoltare Fullstack SaaS, roboți ML (tranzacționare/scraping) și automatizări date. Programator Python Senior.",
-      "knowsAbout": [
-        "Web Scraping",
-        "Automatizare Date",
-        "Dezvoltator Python",
-        "TLS Fingerprinting",
-        "Ocolire Cloudflare",
-        "Automatizare Excel",
-        "Dezvoltare API",
-        "Extragere Date"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://vasiledev.com/#person",
+          "name": "Vasile Bratu",
+          "alternateName": ["amendamax", "VasileDev", "Vasile Bratu Dev"],
+          "jobTitle": "Senior Full-Stack Python & AI Engineer",
+          "image": "https://vasiledev.com/vasile-bratu-software-engineer.jpg",
+          "url": "https://vasiledev.com",
+          "sameAs": [
+            "https://github.com/amendamax",
+            "https://www.upwork.com/freelancers/amendamax",
+            "https://www.fiverr.com/amendamax",
+            "https://www.linkedin.com/in/vasiledev/",
+            "https://medium.com/@amendamax",
+            "https://dev.to/amendamax2025"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "@id": "https://vasiledev.com/#organization",
+            "name": "VasileDev Group"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Garessio",
+            "addressRegion": "CN",
+            "addressCountry": "IT"
+          }
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://vasiledev.com/#organization",
+          "name": "VasileDev Group",
+          "founder": { "@id": "https://vasiledev.com/#person" },
+          "image": "https://vasiledev.com/vasile-bratu-software-engineer.jpg",
+          "url": "https://vasiledev.com",
+          "priceRange": "$$$",
+          "vatID": "IT04226190041",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Garessio",
+            "addressRegion": "CN",
+            "addressCountry": "IT"
+          },
+          "description": "Premium Web Scraping, Anti-Bot WAF bypass, Full-Stack SaaS development, AI trading engines, and data automation architectures. Led by Senior Python Engineer Vasile Bratu."
+        }
       ]
     }
     </script>
