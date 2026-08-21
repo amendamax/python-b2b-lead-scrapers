@@ -7,18 +7,66 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from typing import Dict, Any, Optional
 
+try:
+    import socks
+except ImportError:
+    socks = None
+
 logger = logging.getLogger("AutomationEngine.SMTPDispatcher")
 
 class SMTPDispatcher:
     """
     High-reliability Gmail SMTP sender supporting STARTTLS, App Passwords,
-    MIME multipart construction, link rotation, and deterministic headers.
+    MIME multipart construction, link rotation, and SOCKS5/HTTP Proxy routing.
     """
     def __init__(self, host: str = "smtp.gmail.com", port: int = 587, use_tls: bool = True, timeout: int = 30):
         self.host = host
         self.port = port
         self.use_tls = use_tls
         self.timeout = timeout
+
+    def _create_smtp_connection(self, proxy: Optional[str] = None) -> smtplib.SMTP:
+        if proxy and socks is not None:
+            proxy_type = socks.HTTP
+            p = proxy.strip()
+            if p.startswith("socks5://"):
+                proxy_type = socks.SOCKS5
+                p = p[9:]
+            elif p.startswith("socks4://"):
+                proxy_type = socks.SOCKS4
+                p = p[9:]
+            elif p.startswith("http://"):
+                proxy_type = socks.HTTP
+                p = p[7:]
+            elif p.startswith("https://"):
+                proxy_type = socks.HTTP
+                p = p[8:]
+
+            p_user, p_pass = None, None
+            if "@" in p:
+                auth, host_port = p.split("@", 1)
+                if ":" in auth:
+                    p_user, p_pass = auth.split(":", 1)
+                else:
+                    p_user = auth
+                p_host, p_port = host_port.split(":", 1)
+            elif p.count(":") == 3:
+                p_host, p_port, p_user, p_pass = p.split(":")
+            else:
+                p_host, p_port = p.split(":", 1)
+
+            logger.info(f"Connecting to SMTP via Proxy ({p_host}:{p_port})...")
+            sock = socks.socksocket()
+            sock.set_proxy(proxy_type, p_host, int(p_port), username=p_user, password=p_pass)
+            sock.settimeout(self.timeout)
+            sock.connect((self.host, self.port))
+
+            server = smtplib.SMTP(timeout=self.timeout)
+            server.sock = sock
+            server.file = None
+            return server
+        else:
+            return smtplib.SMTP(self.host, self.port, timeout=self.timeout)
 
     def send_email(
         self,
@@ -32,8 +80,7 @@ class SMTPDispatcher:
         proxy: Optional[str] = None
     ) -> Dict[str, Any]:
         """
-        Constructs and delivers a single MIME email via Gmail SMTP.
-        Returns result dictionary: {'success': bool, 'message_id': str, 'error': Optional[str]}
+        Constructs and delivers a single MIME email via Gmail SMTP with proxy support.
         """
         # 1. Build MIME message
         msg = MIMEMultipart("alternative")
@@ -49,20 +96,15 @@ class SMTPDispatcher:
         # Attach HTML body
         msg.attach(MIMEText(html_body, "html", "utf-8"))
 
-        # Clean app password
         clean_password = app_password.replace(" ", "")
 
         # 2. Transmit via SMTP
         try:
+            server = self._create_smtp_connection(proxy)
+            server.ehlo()
             if self.use_tls:
-                server = smtplib.SMTP(self.host, self.port, timeout=self.timeout)
-                server.ehlo()
                 context = ssl.create_default_context()
                 server.starttls(context=context)
-                server.ehlo()
-            else:
-                context = ssl.create_default_context()
-                server = smtplib.SMTP_SSL(self.host, self.port, timeout=self.timeout, context=context)
                 server.ehlo()
 
             # Authenticate
@@ -70,7 +112,10 @@ class SMTPDispatcher:
             
             # Send
             server.sendmail(account_email, [recipient_email], msg.as_string())
-            server.quit()
+            try:
+                server.quit()
+            except Exception:
+                pass
 
             logger.info(f"Successfully sent message {message_id} to {recipient_email} via {account_email}")
             return {"success": True, "message_id": message_id, "error": None}
