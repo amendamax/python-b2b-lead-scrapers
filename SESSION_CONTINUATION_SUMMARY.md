@@ -1,20 +1,20 @@
 # 📌 RAPORT DE CONTINUITATE ȘI TRANSFER SESIUNE (MASTER HANDOVER)
-**Data generării:** Vineri, 21 August 2026 | **Ora:** 01:55 PM (Ora Italiei)  
+**Data generării:** Vineri, 21 August 2026 | **Ora:** 02:20 PM (Ora Italiei)  
 **Utilizator:** Vasile Bratu (`amendamax@gmail.com` / `VasileDev Group` / P.IVA `04226190041`)  
 **Locație:** Garessio (Via Valcasotto 14, 12075 CN), Italia  
 
 ---
 
-## 🛡️ 1. CJ AFFILIATE — NORDVPN APROBAT INSTANTANEU (40% COMISION RECURENT)!
+## 🛡️ 1. CJ AFFILIATE & MONETIZARE VERIFYDATING.NET
 
-* **Advertiser**: **NordVPN** (ID: `4837117`).
-* **Status**: **`APPROVED & ACTIVE MEMBER`** 🟢 (Aprobat instant pe 21 Aug la 13:53).
-* **Comision**: **40% Sale** (recurent per abonament).
-* **Performanță**: **EPC Record de $172.52 USD** (7-day).
-* **Cereri trimise în curs de revizuire**:
-  - **TruthFinder.com** ($75.00 USD per sale).
-  - **Spokeo** ($5.00 per $0.95 report + full checks).
-  - **Match.com & OurTime** (30-35% + 3.00 GBP lead).
+* **Produse Active & Conectate pe Site (AdBlock-Proof Cloaking)**:
+  - 🔵 **NordVPN (40% Recurent)**: Integrat prin `/go/nordvpn` în toate cele 8 limbi.
+  - 🦈 **Surfshark (40% Recurent, 2.29 €/mo)**: Integrat prin `/go/surfshark`.
+  - 📄 **Forensic PDF Dossier ($1.99 USD)**: Direct PayPal Checkout.
+* **Programe în Curs de Aprobare (Buton Blocat pe Site cu status 'Pending Activation')**:
+  - 🟡 **TruthFinder.com** ($75.00 USD per sale) & **Spokeo** ($5.00 per $0.95 report) — Cardul este blocat și marcat cu badge `ACTIVARE ÎN CURS`, fără scurgeri de trafic gratuit.
+  - 🛡️ **Incogni** ($50.00 USD per sale).
+  - 💘 **Match.com & OurTime** (30-35% + 3.00 GBP lead).
 
 ---
 
