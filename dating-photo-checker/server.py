@@ -24,7 +24,7 @@ import threading
 import requests
 from datetime import datetime
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
@@ -489,6 +489,17 @@ async def get_promo():
     if os.path.exists("promo_video.html"):
         return FileResponse("promo_video.html")
     return JSONResponse(status_code=404, content={"message": "Promo video file not found"})
+
+# High-Yield CJ Affiliate Redirect Endpoints (AdBlock-Proof Cloaking)
+@app.get("/go/nordvpn")
+@app.get("/out/nordvpn")
+async def redirect_nordvpn():
+    return RedirectResponse(url="https://www.jdoqocy.com/click-101863908-16968809", status_code=307)
+
+@app.get("/go/surfshark")
+@app.get("/out/surfshark")
+async def redirect_surfshark():
+    return RedirectResponse(url="https://www.anrdoezrs.net/click-101863908-15438547", status_code=307)
 
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
