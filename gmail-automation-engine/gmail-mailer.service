@@ -1,0 +1,17 @@
+[Unit]
+Description=Gmail Multi-Account High-Throughput Automation Engine
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/gmail-automation-engine
+ExecStart=/usr/bin/python3 bulk.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/root/gmail-automation-engine/logs/engine.log
+StandardError=append:/root/gmail-automation-engine/logs/error.log
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
