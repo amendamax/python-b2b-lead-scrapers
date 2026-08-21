@@ -1,21 +1,34 @@
 # 📌 RAPORT DE CONTINUITATE ȘI TRANSFER SESIUNE (MASTER HANDOVER)
-**Data generării:** Vineri, 21 August 2026 | **Ora:** 01:25 PM (Ora Italiei)  
+**Data generării:** Vineri, 21 August 2026 | **Ora:** 01:55 PM (Ora Italiei)  
 **Utilizator:** Vasile Bratu (`amendamax@gmail.com` / `VasileDev Group` / P.IVA `04226190041`)  
 **Locație:** Garessio (Via Valcasotto 14, 12075 CN), Italia  
 
 ---
 
-## 🎬 1. COLLABSTR UGC CREATOR — AMBER NELSON: COMANDĂ ACCEPTATĂ OFICIAL!
+## 🛡️ 1. CJ AFFILIATE — NORDVPN APROBAT INSTANTANEU (40% COMISION RECURENT)!
+
+* **Advertiser**: **NordVPN** (ID: `4837117`).
+* **Status**: **`APPROVED & ACTIVE MEMBER`** 🟢 (Aprobat instant pe 21 Aug la 13:53).
+* **Comision**: **40% Sale** (recurent per abonament).
+* **Performanță**: **EPC Record de $172.52 USD** (7-day).
+* **Cereri trimise în curs de revizuire**:
+  - **TruthFinder.com** ($75.00 USD per sale).
+  - **Spokeo** ($5.00 per $0.95 report + full checks).
+  - **Match.com & OurTime** (30-35% + 3.00 GBP lead).
+
+---
+
+## 🎬 2. COLLABSTR UGC CREATOR — AMBER NELSON: COMANDĂ ACCEPTATĂ OFICIAL!
 
 * **Creator**: Amber Nelson (Devils Lake, ND, United States).
 * **Audiență**: 62% Bărbați (18–44 ani), 64.4k vizualizări medii per video pe TikTok.
-* **Status**: **`ACCEPTED & IN PRODUCTION`** 🎬🟢 (Acceptată pe 21 Aug la 13:10).
+* **Status**: **`ACCEPTED & IN PRODUCTION`** 🎬🟢.
 * **Pachet**: 1 TikTok Video ($100 USD) + Drepturi reclame + Postare obligatorie pe feed-ul ei de TikTok.
 * **Livrare estimată**: ~25 August 2026.
 
 ---
 
-## 🎯 2. STATUS FONDURI UPWORK ($1,280.80 USD / ~1.170,00 €)
+## 🎯 3. STATUS FONDURI UPWORK ($1,280.80 USD / ~1.170,00 €)
 
 ### 💵 Retragere Direct pe IBAN ING Bank
 * **Status**: Metoda **Direct to Local Bank (EUR)** configurată și setată ca **Preferred**.
@@ -28,7 +41,7 @@
 
 ---
 
-## 🚀 3. PRODUSE & SERVICII UPWORK ACTIVE (LIVE ÎN CATALOG)
+## 🚀 4. PRODUSE & SERVICII UPWORK ACTIVE (LIVE ÎN CATALOG)
 
 ### 🥇 A. Upwork Paid Consultation ($60 / $120 USD)
 * **Status**: **`APPROVED & LIVE (Visible: ON)`** 🟢
@@ -40,7 +53,7 @@
 
 ---
 
-## 📊 4. PROIECTE ACTIVE & RECLAME
+## 📊 5. PROIECTE ACTIVE & RECLAME
 
 ### 🤖 A. Contract Upwork: Hajar Oumhand ($500.00 USD, Gmail Automation Engine)
 * **Status**:
@@ -50,6 +63,3 @@
 ### 🛡️ B. Microsoft Advertising (Bing Ads) & Google Ads
 * **Microsoft Ads**: Cont nou pe `Vasile Bratu` (ID: `188452009`), AIV în procesare (`⌛ Pending`), email confirmat cu specialistul Mary.
 * **Google Ads**: 394,88 € cheltuiți din 400 € (mai sunt **5,12 €** până la creditarea voucherului gratuit de **400 €**).
-
-### 🇬🇧 C. Viktorija Rudanova (Geovation UK Prop-Tech)
-* **Status**: Follow-up transmis pentru noul cohort Geovation (sfârșit de August).
