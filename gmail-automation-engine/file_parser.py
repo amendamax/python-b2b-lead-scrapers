@@ -102,13 +102,19 @@ class AccountsParser:
                 line = raw_line.strip()
                 if not line or line.startswith("#") or line.startswith(";"):
                     continue
-                email = line.split()[0].strip().lower()
+                parts = re.split(r"[:|,\t\s]+", line)
+                email = parts[0].strip().lower()
                 if not AccountsParser.EMAIL_REGEX.match(email):
                     logger.warning(f"Skipping invalid email syntax in {file_path}: {email}")
                     continue
                 if email in seen:
                     continue
                 
+                # If password was provided on the line, auto-register it
+                if len(parts) > 1 and app_passwords is not None:
+                    if email not in app_passwords or not app_passwords[email]:
+                        app_passwords[email] = parts[1].strip()
+
                 if app_passwords is not None and email not in app_passwords:
                     logger.warning(f"Account {email} listed in {file_path} but missing from app_passwords.json!")
                 
