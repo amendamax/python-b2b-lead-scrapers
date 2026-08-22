@@ -1564,6 +1564,31 @@ body {
     color: #ffffff !important;
 }
 
+/* Secondary Gold Action Buttons (XM Gold24-7, IBKR Welcome Bonus) */
+.btn-secondary-gold,
+.btn-gold-action {
+    background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%) !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    padding: 6px 16px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    font-size: 0.8rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 2px 8px rgba(229, 184, 66, 0.25) !important;
+    cursor: pointer !important;
+}
+.btn-secondary-gold:hover,
+.btn-gold-action:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.18) !important;
+    box-shadow: 0 5px 18px rgba(229, 184, 66, 0.5) !important;
+}
+
 /* ==========================================================================
    MOBILE COMPACT STYLES FOR BROKER ROWS
    ========================================================================== */

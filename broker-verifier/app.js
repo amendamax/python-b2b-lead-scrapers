@@ -224,6 +224,40 @@ const brokerTranslations = {
             title: "Corretora Confiável com 9 Licenças de Regulamentação",
             text: "AvaTrade é uma pioneira do trading online desde 2006, com licenças de regulamentação em 5 continentes (Banco Central da Irlanda, ASIC, FSCA)."
         }
+    },
+    interactive: {
+        en: {
+            title: "The World's Most Trusted & Regulated Broker (NASDAQ: IBKR)",
+            text: "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators (SEC, FINRA, FCA, CBI) with up to $500,000 SIPC protection."
+        },
+        ro: {
+            title: "Cel Mai Sigur & Reglementat Broker din Lume (NASDAQ: IBKR)",
+            text: "Interactive Brokers este unul dintre cele mai sigure și reglementate branduri financiare din lume, licențiat de peste 10 autorități globale de top (SEC, FINRA, FCA, CBI) cu asigurare SIPC de până la 500.000 USD."
+        },
+        it: {
+            title: "Il Broker Più Affidabile & Regolamentato al Mondo (NASDAQ: IBKR)",
+            text: "Interactive Brokers è uno dei marchi finanziari più sicuri e regolamentati al mondo, autorizzato da oltre 10 autorità di vigilanza globali (SEC, FINRA, FCA, CBI) con protezione SIPC fino a 500.000 $."
+        },
+        de: {
+            title: "Der weltweit vertrauenswürdigste & regulierte Broker (NASDAQ: IBKR)",
+            text: "Interactive Brokers ist eine der sichersten und am stärksten regulierten Finanzmarken der Welt, lizenziert von über 10 globalen Tier-1-Regulierungsbehörden (SEC, FINRA, FCA, CBI) mit bis zu 500.000 $ SIPC-Schutz."
+        },
+        fr: {
+            title: "Le Courtier le Plus Sûr & Régulé au Monde (NASDAQ: IBKR)",
+            text: "Interactive Brokers est l'une des marques financières les plus sûres et les plus réglementées au monde, agréée par plus de 10 régulateurs mondiaux de premier plan (SEC, FINRA, FCA, CBI) avec une protection SIPC allant jusqu'à 500 000 $."
+        },
+        es: {
+            title: "El Broker Más Seguro & Regulado del Mundo (NASDAQ: IBKR)",
+            text: "Interactive Brokers es una de las marcas financieras más seguras y reguladas del mundo, con licencias de más de 10 reguladores globales de primer nivel (SEC, FINRA, FCA, CBI) y protección SIPC de hasta $500.000."
+        },
+        pt: {
+            title: "A Corretora Mais Segura & Regulada do Mundo (NASDAQ: IBKR)",
+            text: "A Interactive Brokers é uma das marcas financeiras mais seguras e regulamentadas do mundo, licenciada por mais de 10 reguladores globais de primeira linha (SEC, FINRA, FCA, CBI) com proteção SIPC de até US$ 500.000."
+        },
+        ru: {
+            title: "Самый надежный и регулируемый брокер в мире (NASDAQ: IBKR)",
+            text: "Interactive Brokers — один из самых надежных и строго регулируемых финансовых брендов в мире, имеющий лицензии более 10 ведущих мировых регуляторов (SEC, FINRA, FCA, CBI) со страховкой SIPC до $500 000."
+        }
     }
 };
 
@@ -234,7 +268,9 @@ const brokerTranslations = {
 const currentLang = (document.documentElement.lang || 'en').toLowerCase();
 
 const i18n = {
-        en: {
+    en: {
+        ibkrBadge: "⭐ TOP RECOMMENDED SAFE BROKER",
+        ibkrBonusBtn: "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔",
         readReviewLabel: "📖 Read Full Security Review & Regulation Audit →",
         freeWaiverNote: "✓ 100% Free Unlocked Audit Report Courtesy of Verified Security Partner ($9.99 Fee Waived)",
         typePending: "Type: Pending Audit",
@@ -258,6 +294,8 @@ const i18n = {
         scanCompleted: "The analysis has completed."
     },
     ro: {
+        ibkrBadge: "⭐ BROKER RECOMANDAT DE TOP - 100% SIGUR",
+        ibkrBonusBtn: "🎁 Revendică până la 1.000$ în Acțiuni Gratuite (IBKR) ➔",
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
         freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
         typePending: "Tip: Audit în Curs",
@@ -279,6 +317,8 @@ const i18n = {
         scanCompleted: "Analiza a fost finalizată."
     },
     it: {
+        ibkrBadge: "⭐ BROKER RACCOMANDATO TOP - 100% SICURO",
+        ibkrBonusBtn: "🎁 Richiedi fino a 1.000$ in Azioni Gratuite (IBKR) ➔",
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
         freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
         typePending: "Tipo: In Attesa di Audit",
@@ -300,6 +340,8 @@ const i18n = {
         scanCompleted: "L'analisi è stata completata."
     },
     de: {
+        ibkrBadge: "⭐ TOP EMPFOHLENER SICHERER BROKER",
+        ibkrBonusBtn: "🎁 Bis zu 1.000$ in Gratis-Aktien sichern (IBKR) ➔",
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
         freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
         typePending: "Typ: Ausstehende Prüfung",
@@ -321,6 +363,8 @@ const i18n = {
         scanCompleted: "Die Analyse wurde abgeschlossen."
     },
     es: {
+        ibkrBadge: "⭐ BROKER TOP RECOMENDADO - 100% SEGURO",
+        ibkrBonusBtn: "🎁 Reclamar hasta 1.000$ en Acciones Gratis (IBKR) ➔",
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
         freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
         typePending: "Tipo: Auditoría Pendiente",
@@ -342,6 +386,8 @@ const i18n = {
         scanCompleted: "El análisis ha sido completado."
     },
     fr: {
+        ibkrBadge: "⭐ COURTIER RECOMMANDÉ TOP - 100% SÉCURISÉ",
+        ibkrBonusBtn: "🎁 Réclamer jusqu'à 1 000$ d'Actions Gratuites (IBKR) ➔",
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
         freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
         typePending: "Type: Audit en Attente",
@@ -356,13 +402,15 @@ const i18n = {
         euResidentTitle: "Résident de l'Union Européenne?",
         euResidentText: "Obtenez un effet de levier 1:1000, des bonus de dépôt et du Copy Trading avec XM Global.",
         euWhatsappLink: "Écrivez-nous sur WhatsApp pour des instructions d'inscription privées →",
-        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen", goodScore: "Good Score (Safe)", warningRisk: "Warning / Medium Risk",
+        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen",
         highRisk: "Risque Élevé",
         scamAlert: "Alerte d'Arnaque",
         awaitingEval: "En Attente d'Évaluation",
         scanCompleted: "L'analyse est terminée."
     },
     pt: {
+        ibkrBadge: "⭐ CORRETORA TOP RECOMENDADA - 100% SEGURA",
+        ibkrBonusBtn: "🎁 Resgatar até US$ 1.000 em Ações Gratuitas (IBKR) ➔",
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
         freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
         typePending: "Tipo: Auditoria Pendente",
@@ -384,6 +432,8 @@ const i18n = {
         scanCompleted: "A análise foi concluída."
     },
     ru: {
+        ibkrBadge: "⭐ ТОП РЕКОМЕНДУЕМЫЙ НАДЕЖНЫЙ БРОКЕР",
+        ibkrBonusBtn: "🎁 Получить до $1,000 в бесплатных акциях (IBKR) ➔",
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
         freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
         typePending: "Тип: Ожидает аудита",
@@ -758,7 +808,7 @@ async function fetchResults(scanId) {
             if (!partnerBox) {
                 partnerBox = document.createElement("div");
                 partnerBox.id = "partner-cta-box";
-                partnerBox.style.cssText = "margin-top: 1.5rem; padding: 1.2rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
+                partnerBox.style.cssText = "margin-top: 1.8rem; margin-bottom: 2.2rem; padding: 1.3rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
                 verdictBox.parentNode.insertBefore(partnerBox, verdictBox.nextSibling);
             }
 
@@ -769,6 +819,8 @@ async function fetchResults(scanId) {
                 partnerBox.style.background = "rgba(16, 185, 129, 0.1)";
                 partnerBox.style.border = "1px solid rgba(16, 185, 129, 0.35)";
             }
+            partnerBox.style.marginTop = "1.8rem";
+            partnerBox.style.marginBottom = "2.2rem";
 
             let extraEuBox = "";
             if (data.broker_domain.includes("xm") || data.broker_name.toLowerCase().includes("xm")) {
@@ -788,10 +840,10 @@ async function fetchResults(scanId) {
 
             const btnBg = isIbkr ? "linear-gradient(135deg, #e5b842 0%, #ca8a04 100%)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)";
             const btnColor = isIbkr ? "#000000" : "#ffffff";
-            const btnText = isIbkr ? "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔" : `${t.openAccount} ${data.broker_name} ↗`;
+            const btnText = isIbkr ? (t.ibkrBonusBtn || "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔") : `${t.openAccount} ${data.broker_name} ↗`;
             const headerColor = isIbkr ? "#e5b842" : "#34d399";
             const subColor = isIbkr ? "#fde68a" : "#a7f3d0";
-            const headerBadge = isIbkr ? "⭐ TOP RECOMMENDED SAFE BROKER" : t.verifiedPartner;
+            const headerBadge = isIbkr ? (t.ibkrBadge || "⭐ TOP RECOMMENDED SAFE BROKER") : t.verifiedPartner;
 
             partnerBox.innerHTML = `
                 <div style="color: ${headerColor}; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
@@ -819,6 +871,14 @@ async function fetchResults(scanId) {
             partnerBox.style.display = "block";
         } else if (partnerBox) {
             partnerBox.style.display = "none";
+        }
+
+        // Unlocked Details Separation Style
+        const unlockedDetails = document.getElementById("unlocked-premium-details");
+        if (unlockedDetails) {
+            unlockedDetails.style.marginTop = "2.2rem";
+            unlockedDetails.style.paddingTop = "1.5rem";
+            unlockedDetails.style.borderTop = "1px dashed rgba(255, 255, 255, 0.12)";
         }
 
         // Update circular gauge
