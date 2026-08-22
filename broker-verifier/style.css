@@ -1519,36 +1519,46 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    gap: 8px;
+    gap: 6px;
 }
 
 .btn-table-action {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     font-family: 'Outfit', sans-serif;
     font-size: 0.82rem;
     font-weight: 800;
+    letter-spacing: 0.3px;
     color: #ffffff !important;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 10px 12px;
+    padding: 10px 14px;
     border-radius: 6px;
     width: 100%;
-    transition: all 0.3s ease;
+    min-height: 40px;
+    transition: all 0.25s ease;
     box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 .btn-table-action:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.12);
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 .btn-table-review {
-    display: block;
-    font-size: 0.78rem;
-    color: #64748b !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #94a3b8 !important;
     text-decoration: underline;
     text-align: center;
     width: 100%;
-    margin-top: 8px !important;
+    margin-top: 2px !important;
+    transition: color 0.2s ease;
 }
 .btn-table-review:hover {
     color: #ffffff !important;
