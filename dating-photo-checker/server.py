@@ -504,8 +504,9 @@ async def redirect_surfshark():
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
     broker_clean = broker_name.lower().strip()
-    if broker_clean in ["xm", "exness", "avatrade", "etoro", "plus500"]:
-        file_path = f"broker-verifier/reviews/{broker_clean}.html"
+    if broker_clean in ["interactive-brokers", "ibkr", "xm", "exness", "avatrade", "etoro", "plus500"]:
+        file_name = "interactive-brokers" if broker_clean == "ibkr" else broker_clean
+        file_path = f"broker-verifier/reviews/{file_name}.html"
         if os.path.exists(file_path):
             return FileResponse(file_path)
     return JSONResponse(status_code=404, content={"message": "Review not found"})
@@ -514,8 +515,9 @@ async def get_broker_review(broker_name: str, request: Request):
 async def get_lang_broker_review(lang: str, broker_name: str, request: Request):
     lang_clean = lang.lower().strip()
     broker_clean = broker_name.lower().strip()
-    if lang_clean in ["ro", "it", "de", "es", "fr", "pt", "ru"] and broker_clean in ["xm", "exness", "avatrade", "etoro", "plus500"]:
-        file_path = f"broker-verifier/{lang_clean}/reviews/{broker_clean}.html"
+    if lang_clean in ["ro", "it", "de", "es", "fr", "pt", "ru"] and broker_clean in ["interactive-brokers", "ibkr", "xm", "exness", "avatrade", "etoro", "plus500"]:
+        file_name = "interactive-brokers" if broker_clean == "ibkr" else broker_clean
+        file_path = f"broker-verifier/{lang_clean}/reviews/{file_name}.html"
         if os.path.exists(file_path):
             return FileResponse(file_path)
     return JSONResponse(status_code=404, content={"message": "Review not found"})
@@ -540,16 +542,16 @@ async def get_sitemap(request: Request):
         additional_urls += f"""
    <url>
       <loc>https://{domain}/{l}/</loc>
-      <lastmod>2026-07-24</lastmod>
+      <lastmod>2026-08-22</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>"""
     if not is_dating:
-        for b in ["avatrade", "xm", "exness", "etoro", "plus500"]:
+        for b in ["interactive-brokers", "avatrade", "xm", "exness", "etoro", "plus500"]:
             additional_urls += f"""
    <url>
       <loc>https://{domain}/reviews/{b}</loc>
-      <lastmod>2026-07-24</lastmod>
+      <lastmod>2026-08-22</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.9</priority>
    </url>"""
@@ -557,7 +559,7 @@ async def get_sitemap(request: Request):
                 additional_urls += f"""
    <url>
       <loc>https://{domain}/{l}/reviews/{b}</loc>
-      <lastmod>2026-07-24</lastmod>
+      <lastmod>2026-08-22</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.85</priority>
    </url>"""
