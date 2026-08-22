@@ -1395,6 +1395,12 @@ body {
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
+.broker-row-wrapper.ibkr-w { border-color: rgba(229, 184, 66, 0.25); }
+.broker-row-wrapper.ibkr-w:hover {
+    border-color: #e5b842;
+    box-shadow: 0 0 25px rgba(229, 184, 66, 0.35), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
 .broker-row {
     display: grid;
     grid-template-columns: 80px 145px 120px 110px 1fr 180px;

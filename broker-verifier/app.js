@@ -736,7 +736,8 @@ async function fetchResults(scanId) {
         // Render partner affiliate CTA box if available
         let partnerBox = document.getElementById("partner-cta-box");
         const bClean = (data.broker_domain || data.broker_name).toLowerCase().replace('.com','').replace(/\s+/g,'');
-        const isPartnerBroker = ["exness", "etoro", "plus500", "xm", "avatrade"].some(p => bClean.includes(p));
+        const isPartnerBroker = ["exness", "etoro", "plus500", "xm", "avatrade", "interactive", "ibkr"].some(p => bClean.includes(p));
+        const isIbkr = bClean.includes("interactive") || bClean.includes("ibkr");
         
         let affLink = data.affiliate_link;
         if (!affLink) {
@@ -746,6 +747,8 @@ async function fetchResults(scanId) {
                 affLink = "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx";
             } else if (bClean.includes("xm")) {
                 affLink = "https://affs.click/E17wj";
+            } else if (isIbkr) {
+                affLink = "https://ibkr.com/referral/vasile651";
             } else if (bClean.includes("avatrade") || bClean.includes("plus500")) {
                 affLink = reviewUrl;
             }
@@ -757,6 +760,14 @@ async function fetchResults(scanId) {
                 partnerBox.id = "partner-cta-box";
                 partnerBox.style.cssText = "margin-top: 1.5rem; padding: 1.2rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
                 verdictBox.parentNode.insertBefore(partnerBox, verdictBox.nextSibling);
+            }
+
+            if (isIbkr) {
+                partnerBox.style.background = "rgba(229, 184, 66, 0.08)";
+                partnerBox.style.border = "1px solid rgba(229, 184, 66, 0.4)";
+            } else {
+                partnerBox.style.background = "rgba(16, 185, 129, 0.1)";
+                partnerBox.style.border = "1px solid rgba(16, 185, 129, 0.35)";
             }
 
             let extraEuBox = "";
@@ -773,20 +784,26 @@ async function fetchResults(scanId) {
                 </div>`;
             }
 
-            const bClean = (data.broker_domain || data.broker_name).toLowerCase().replace('.com','').replace(/\s+/g,'');
-            const reviewUrl = (currentLang === 'en' || !currentLang ? '' : '/' + currentLang) + '/reviews/' + (bClean.includes('exness') ? 'exness' : bClean.includes('etoro') ? 'etoro' : bClean.includes('plus500') ? 'plus500' : bClean.includes('avatrade') ? 'avatrade' : 'xm');
+            const reviewUrl = (currentLang === 'en' || !currentLang ? '' : '/' + currentLang) + '/reviews/' + (isIbkr ? 'interactive-brokers' : bClean.includes('exness') ? 'exness' : bClean.includes('etoro') ? 'etoro' : bClean.includes('plus500') ? 'plus500' : bClean.includes('avatrade') ? 'avatrade' : 'xm');
+
+            const btnBg = isIbkr ? "linear-gradient(135deg, #e5b842 0%, #ca8a04 100%)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+            const btnColor = isIbkr ? "#000000" : "#ffffff";
+            const btnText = isIbkr ? "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔" : `${t.openAccount} ${data.broker_name} ↗`;
+            const headerColor = isIbkr ? "#e5b842" : "#34d399";
+            const subColor = isIbkr ? "#fde68a" : "#a7f3d0";
+            const headerBadge = isIbkr ? "⭐ TOP RECOMMENDED SAFE BROKER" : t.verifiedPartner;
 
             partnerBox.innerHTML = `
-                <div style="color: #34d399; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
-                    ${t.verifiedPartner}
+                <div style="color: ${headerColor}; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
+                    ${headerBadge}
                 </div>
-                <div style="font-size: 0.82rem; color: #a7f3d0; margin-bottom: 12px; font-weight: 600;">
+                <div style="font-size: 0.82rem; color: ${subColor}; margin-bottom: 12px; font-weight: 600;">
                     ${t.freeWaiverNote}
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 0 auto;">
                     ${(affLink && affLink !== "javascript:void(0)") ? `
-                    <a href="${affLink}" target="_blank" rel="noopener" style="display: block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
-                        ${t.openAccount} ${data.broker_name} ↗
+                    <a href="${affLink}" target="_blank" rel="noopener sponsored" style="display: block; background: ${btnBg}; color: ${btnColor} !important; padding: 12px 24px; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.4);">
+                        ${btnText}
                     </a>
                     ` : `
                     <div style="background: rgba(148, 163, 184, 0.15); border: 1px solid rgba(148, 163, 184, 0.3); color: #94a3b8; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.88rem;">
