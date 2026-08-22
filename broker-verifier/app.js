@@ -628,13 +628,22 @@ searchInput.addEventListener("input", function() {
             <span class="suggestion-name">${broker.name}</span>
             <span class="suggestion-domain">${broker.domain}</span>
         `;
-        div.addEventListener("click", () => {
+        const handleSelect = (e) => {
+            if (e) e.preventDefault();
             searchInput.value = broker.name;
             suggestionsBox.style.display = "none";
             
+            const dashboardView = document.getElementById("dashboard-view");
+            if (dashboardView) {
+                dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
             // Execute search query through backend API
             executeScan(broker.name, broker.domain);
-        });
+        };
+
+        div.addEventListener("mousedown", handleSelect);
+        div.addEventListener("click", handleSelect);
         suggestionsBox.appendChild(div);
     });
 
@@ -659,7 +668,7 @@ searchInput.addEventListener("keydown", function(e) {
 
 // Close suggestions dropdown when clicking outside
 document.addEventListener("click", function(e) {
-    if (e.target !== searchInput && e.target !== suggestionsBox) {
+    if (e.target !== searchInput && !suggestionsBox.contains(e.target)) {
         suggestionsBox.style.display = "none";
     }
 });
@@ -1038,39 +1047,6 @@ function runThreatScan(name, domain, score, apiData, callback) {
         } else if (lineText.includes("ALERT") || lineText.includes("CRITICAL") || lineText.includes("WARNING") || lineText.includes("THREAT") || lineText.includes("PERICOL") || lineText.includes("GEFAHR") || lineText.includes("PELIGRO")) {
             div.style.color = "var(--color-danger)";
         } else if (lineText.includes("MATCH") || lineText.includes("COMPLETE") || lineText.includes("COMPLIANT") || lineText.includes("FINALIZAT") || lineText.includes("COMPLETATO") || lineText.includes("ABGESCHLOSSEN") || lineText.includes("TERMINÉ") || lineText.includes("COMPLETADO") || lineText.includes("CONCLUÍDO") || lineText.includes("ЗАВЕРШЕНО")) {
-            div.style.color = "var(--color-success)";
-        } else if (lineText.includes("OFFSHORE")) {
-            div.style.color = "var(--color-warning)";
-        } else {
-            div.style.color = "var(--color-primary)";
-        }
-
-        div.textContent = lineText;
-        scannerTerminal.appendChild(div);
-        scannerTerminal.scrollTop = scannerTerminal.scrollHeight;
-
-        currentLogIndex++;
-        setTimeout(printNextLine, 200); 
-    }
-
-    printNextLine();
-}
-                scannerStatus.style.color = "var(--color-danger)";
-            }
-            callback();
-            return;
-        }
-
-        const div = document.createElement("div");
-        div.className = "terminal-line";
-        const lineText = logs[currentLogIndex];
-        
-        // Color coding log details
-        if (lineText.includes("[RESOLVING]") || lineText.includes("[WHOIS]") || lineText.includes("[HEURISTICS]")) {
-            div.style.color = "#94a3b8"; 
-        } else if (lineText.includes("ALERT") || lineText.includes("CRITICAL") || lineText.includes("WARNING") || lineText.includes("THREAT")) {
-            div.style.color = "var(--color-danger)";
-        } else if (lineText.includes("MATCH") || lineText.includes("COMPLETE") || lineText.includes("COMPLIANT")) {
             div.style.color = "var(--color-success)";
         } else if (lineText.includes("OFFSHORE")) {
             div.style.color = "var(--color-warning)";
