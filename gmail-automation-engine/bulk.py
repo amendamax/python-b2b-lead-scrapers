@@ -4,8 +4,10 @@ import time
 import random
 import signal
 import logging
+import concurrent.futures
+import threading
 from datetime import datetime, timezone
-from typing import Dict, Any
+from typing import Dict, Any, List, Optional
 
 # Local Architecture Imports
 from file_parser import (
@@ -30,16 +32,19 @@ logger = logging.getLogger("AutomationEngine.Supervisor")
 
 class AutomationSupervisor:
     """
-    Central Supervisor orchestrating multi-account concurrency,
-    rate-limiting, crash recovery, and graceful shutdown.
+    Enterprise Parallel Automation Engine orchestrating multi-account concurrency,
+    real-time multi-threaded worker pools, proxy rotation, SQLite WAL atomic queuing,
+    and graceful shutdown.
     """
     def __init__(self, config_path: str = "config.txt"):
-        logger.info("Initializing Gmail Multi-Account Automation Engine...")
+        logger.info("Initializing Gmail Multi-Account Parallel Automation Engine...")
         self.run_id = f"RUN_{int(time.time())}"
         self.is_running = True
+        self.lock = threading.Lock()
 
         # Load configurations and user files
         self.config = ConfigParser.parse(config_path)
+        self.max_workers = int(self.config.get("CONCURRENT_WORKERS", 5))
         self.app_passwords = AppPasswordsParser.parse("app_passwords.json")
         self.accounts = AccountsParser.parse("accounts.txt", self.app_passwords)
         self.leads = LeadsParser.parse("leads.txt")
@@ -87,50 +92,54 @@ class AutomationSupervisor:
         logger.warning(f"Received termination signal ({signum}). Initiating graceful shutdown...")
         self.is_running = False
 
-    def run(self) -> None:
-        logger.info(f"Automation Engine Active | Run ID: {self.run_id}")
+    def _worker_loop(self, worker_id: int) -> None:
+        """
+        Independent concurrent worker thread pulling leads and dispatching via SMTP.
+        """
+        logger.info(f"[Worker-{worker_id}] Thread online and connected to queue.")
         
         while self.is_running:
-            # 1. Check queue state
+            # 1. Atomic queue check
             stats = self.db.get_queue_stats()
             if stats["pending"] == 0:
-                logger.info("All leads processed. Queue is complete.")
                 break
 
-            # 2. Get next available account (not in cooldown)
-            account_info = self.account_manager.get_available_account()
+            # 2. Thread-safe account selection
+            with self.lock:
+                account_info = self.account_manager.get_available_account()
+            
             if not account_info:
-                logger.warning("All accounts have reached their 24h limit or are cooling down. Sleeping...")
-                time.sleep(60)
+                time.sleep(2)
                 continue
 
             account_email = account_info["account_id"]
             app_password = account_info["app_password"]
 
-            # 3. Atomically claim next lead (Zero Duplicates)
-            claim = self.db.claim_next_lead(account_email, self.run_id)
+            # 3. Atomically claim next lead (Zero Duplicates across threads)
+            claim = self.db.claim_next_lead(account_email, f"{self.run_id}_W{worker_id}")
             if not claim:
+                time.sleep(1)
                 continue
 
             lead_id = claim["lead_id"]
             lead_email = claim["email"]
             message_id = claim["message_id"]
 
-            # 4. Prepare message
+            # 4. Prepare personalized MIME message
             chosen_link = random.choice(self.links) if self.links else "https://isbrokersafe.com"
             recipient_name = lead_email.split("@")[0].capitalize()
             rendered_html = TemplateParser.render(self.template_html, {
                 "recipient_name": recipient_name,
                 "tracking_link": chosen_link,
                 "message_ref": message_id.strip("<>"),
-                "subject": "Important Account Verification Notification",
+                "subject": self.config.get("SUBJECT", "Important Account Verification Notification"),
                 "email": lead_email
             })
 
             proxy = self.proxy_manager.get_proxy_for_account(account_email)
 
-            # 5. Dispatch
-            logger.info(f"Dispatching to {lead_email} using {account_email}...")
+            # 5. Concurrent Transmission
+            logger.info(f"[Worker-{worker_id}] Dispatching to {lead_email} via {account_email} [Proxy: {proxy or 'DIRECT'}]...")
             result = self.dispatcher.send_email(
                 account_email=account_email,
                 app_password=app_password,
@@ -146,21 +155,44 @@ class AutomationSupervisor:
             if result["success"]:
                 self.db.mark_lead_completed(lead_id, account_email, message_id)
                 self.proxy_manager.report_success(proxy)
-                self.account_manager.check_and_trigger_cooldown(account_email)
+                with self.lock:
+                    self.account_manager.check_and_trigger_cooldown(account_email)
+                logger.info(f"[Worker-{worker_id}] SUCCESS -> {lead_email} via {account_email}")
             else:
-                self.db.mark_lead_failed(lead_id, account_email, result["error"], can_retry=True)
-                self.proxy_manager.report_failure(proxy)
+                err = result.get("error", "Unknown error")
+                if "Daily user sending limit exceeded" in err or "550" in err:
+                    logger.warning(f"[Worker-{worker_id}] Account {account_email} reached daily limit. Marking exhausted.")
+                    with self.lock:
+                        self.account_manager.mark_account_exhausted(account_email)
+                    self.db.mark_lead_failed(lead_id, account_email, err)
+                elif "Auth failed" in err:
+                    logger.error(f"[Worker-{worker_id}] Auth failed for {account_email}. Marking error.")
+                    with self.lock:
+                        self.account_manager.mark_account_exhausted(account_email)
+                    self.db.mark_lead_failed(lead_id, account_email, err)
+                else:
+                    self.db.mark_lead_failed(lead_id, account_email, err)
+                    if proxy:
+                        self.proxy_manager.report_failure(proxy)
 
-            # 7. Respectful humanized jitter delay
-            delay = random.uniform(
-                self.config.get("DELAY_BETWEEN_SENDS_MIN_SEC", 15),
-                self.config.get("DELAY_BETWEEN_SENDS_MAX_SEC", 45)
-            )
-            logger.info(f"Pacing delay: sleeping for {delay:.1f}s...")
-            time.sleep(min(delay, 2.0)) # Scaled for fast local demonstration if needed
+            # Thread-safe worker pacing
+            delay_min = float(self.config.get("MIN_PACING_DELAY_SEC", 1.0))
+            delay_max = float(self.config.get("MAX_PACING_DELAY_SEC", 3.0))
+            sleep_dur = random.uniform(delay_min, delay_max)
+            time.sleep(sleep_dur)
 
-        logger.info("Supervisor finished all operations.")
+        logger.info(f"[Worker-{worker_id}] Finished tasks.")
+
+    def run(self) -> None:
+        logger.info(f"Automation Engine Active | Parallel Workers: {self.max_workers} | Run ID: {self.run_id}")
+        
+        # Launch real multi-threaded worker pool
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            futures = [executor.submit(self._worker_loop, w_id) for w_id in range(1, self.max_workers + 1)]
+            concurrent.futures.wait(futures)
+
+        logger.info("Supervisor finished all parallel operations.")
 
 if __name__ == "__main__":
-    supervisor = AutomationSupervisor()
+    supervisor = AutomationSupervisor("config.txt")
     supervisor.run()
