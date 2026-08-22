@@ -808,19 +808,10 @@ async function fetchResults(scanId) {
             if (!partnerBox) {
                 partnerBox = document.createElement("div");
                 partnerBox.id = "partner-cta-box";
-                partnerBox.style.cssText = "margin-top: 1.8rem; margin-bottom: 2.2rem; padding: 1.3rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; text-align: center;";
+                partnerBox.style.cssText = "margin-top: 1.6rem; margin-bottom: 1.5rem; width: 100%; box-sizing: border-box; text-align: center;";
                 verdictBox.parentNode.insertBefore(partnerBox, verdictBox.nextSibling);
             }
-
-            if (isIbkr) {
-                partnerBox.style.background = "rgba(229, 184, 66, 0.08)";
-                partnerBox.style.border = "1px solid rgba(229, 184, 66, 0.4)";
-            } else {
-                partnerBox.style.background = "rgba(16, 185, 129, 0.1)";
-                partnerBox.style.border = "1px solid rgba(16, 185, 129, 0.35)";
-            }
-            partnerBox.style.marginTop = "1.8rem";
-            partnerBox.style.marginBottom = "2.2rem";
+            partnerBox.style.cssText = "margin-top: 1.6rem; margin-bottom: 1.5rem; width: 100%; box-sizing: border-box; text-align: center;";
 
             let extraEuBox = "";
             if (data.broker_domain.includes("xm") || data.broker_name.toLowerCase().includes("xm")) {
@@ -838,31 +829,32 @@ async function fetchResults(scanId) {
 
             const reviewUrl = (currentLang === 'en' || !currentLang ? '' : '/' + currentLang) + '/reviews/' + (isIbkr ? 'interactive-brokers' : bClean.includes('exness') ? 'exness' : bClean.includes('etoro') ? 'etoro' : bClean.includes('plus500') ? 'plus500' : bClean.includes('avatrade') ? 'avatrade' : 'xm');
 
-            const btnBg = isIbkr ? "linear-gradient(135deg, #e5b842 0%, #ca8a04 100%)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)";
-            const btnColor = isIbkr ? "#000000" : "#ffffff";
+            const btnClass = isIbkr ? "full-action-banner-gold" : "full-action-banner-green";
             const btnText = isIbkr ? (t.ibkrBonusBtn || "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔") : `${t.openAccount} ${data.broker_name} ↗`;
             const headerColor = isIbkr ? "#e5b842" : "#34d399";
             const subColor = isIbkr ? "#fde68a" : "#a7f3d0";
             const headerBadge = isIbkr ? (t.ibkrBadge || "⭐ TOP RECOMMENDED SAFE BROKER") : t.verifiedPartner;
 
             partnerBox.innerHTML = `
-                <div style="color: ${headerColor}; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
-                    ${headerBadge}
+                <div style="background: rgba(5, 8, 15, 0.5); border: 1px solid ${isIbkr ? 'rgba(229, 184, 66, 0.35)' : 'rgba(16, 185, 129, 0.35)'}; border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; text-align: center;">
+                    <div style="color: ${headerColor}; font-weight: 800; font-size: 0.96rem; margin-bottom: 5px; letter-spacing: 0.3px;">
+                        ${headerBadge}
+                    </div>
+                    <div style="font-size: 0.84rem; color: ${subColor}; font-weight: 600;">
+                        ${t.freeWaiverNote}
+                    </div>
                 </div>
-                <div style="font-size: 0.82rem; color: ${subColor}; margin-bottom: 12px; font-weight: 600;">
-                    ${t.freeWaiverNote}
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 0 auto;">
+                <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;">
                     ${(affLink && affLink !== "javascript:void(0)") ? `
-                    <a href="${affLink}" target="_blank" rel="noopener sponsored" style="display: block; background: ${btnBg}; color: ${btnColor} !important; padding: 12px 24px; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 0.98rem; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.4);">
+                    <a href="${affLink}" target="_blank" rel="noopener sponsored" class="${btnClass}">
                         ${btnText}
                     </a>
                     ` : `
-                    <div style="background: rgba(148, 163, 184, 0.15); border: 1px solid rgba(148, 163, 184, 0.3); color: #94a3b8; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.88rem;">
+                    <div style="background: rgba(148, 163, 184, 0.15); border: 1px solid rgba(148, 163, 184, 0.3); color: #94a3b8; padding: 14px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; text-align: center;">
                         ⏳ Partner Link Pending Approval / Link în Așteptare
                     </div>
                     `}
-                    <a href="${reviewUrl}" target="_blank" rel="noopener" style="display: block; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; padding: 11px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.92rem; transition: all 0.2s ease;">
+                    <a href="${reviewUrl}" target="_blank" rel="noopener" class="full-action-banner-review">
                         ${t.readReviewLabel}
                     </a>
                 </div>
@@ -876,8 +868,8 @@ async function fetchResults(scanId) {
         // Unlocked Details Separation Style
         const unlockedDetails = document.getElementById("unlocked-premium-details");
         if (unlockedDetails) {
-            unlockedDetails.style.marginTop = "2.2rem";
-            unlockedDetails.style.paddingTop = "1.5rem";
+            unlockedDetails.style.marginTop = "1.8rem";
+            unlockedDetails.style.paddingTop = "1.2rem";
             unlockedDetails.style.borderTop = "1px dashed rgba(255, 255, 255, 0.12)";
         }
 

@@ -1589,6 +1589,110 @@ body {
     box-shadow: 0 5px 18px rgba(229, 184, 66, 0.5) !important;
 }
 
+/* Full-Width Elongated Action Banners (Scan Results CTA) */
+.full-action-banner-gold {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%) !important;
+    color: #000000 !important;
+    padding: 14px 20px !important;
+    border-radius: 8px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    box-shadow: 0 4px 14px rgba(229, 184, 66, 0.3) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+.full-action-banner-gold:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.15) !important;
+    box-shadow: 0 8px 25px rgba(229, 184, 66, 0.55) !important;
+}
+
+.full-action-banner-green {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    padding: 14px 20px !important;
+    border-radius: 8px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+.full-action-banner-green:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.15) !important;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55) !important;
+}
+
+.full-action-banner-review {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: rgba(56, 189, 248, 0.08) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    color: #38bdf8 !important;
+    padding: 13px 20px !important;
+    border-radius: 8px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+.full-action-banner-review:hover {
+    transform: translateY(-2px) !important;
+    background: rgba(56, 189, 248, 0.18) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.35) !important;
+}
+
+.full-action-banner-download {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%) !important;
+    color: #ffffff !important;
+    padding: 14px 20px !important;
+    border-radius: 8px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    box-shadow: 0 4px 14px rgba(0, 180, 216, 0.3) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+.full-action-banner-download:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.15) !important;
+    box-shadow: 0 8px 25px rgba(0, 180, 216, 0.55) !important;
+}
+
 /* ==========================================================================
    MOBILE COMPACT STYLES FOR BROKER ROWS
    ========================================================================== */
