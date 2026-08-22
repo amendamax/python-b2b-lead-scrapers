@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Надежен ли Interactive Brokers? Обзор и аудит регулирования IBKR (2026)</title>
+    <meta name="description" content="Безопасен ли Interactive Brokers? Полный аудит лицензий IBKR (SEC, FINRA, FCA, CBI, ASIC), защита средств SIPC и комиссии.">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .review-container { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-primary); text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .back-link:hover { color: var(--text-main); transform: translateX(-3px); }
+        .review-header-card { background: linear-gradient(135deg, rgba(229, 184, 66, 0.08) 0%, rgba(10, 15, 26, 0.88) 100%) !important; backdrop-filter: blur(14px) !important; border: 1px solid rgba(229, 184, 66, 0.35) !important; border-radius: 16px; padding: 2.5rem; margin-bottom: 2.5rem; box-shadow: 0 0 25px rgba(229, 184, 66, 0.08); }
+        .review-badge-area { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+        .review-broker-title { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #ffffff; }
+        .score-pill { background: rgba(229, 184, 66, 0.15); border: 1px solid rgba(229, 184, 66, 0.5); color: #e5b842; font-weight: 800; font-size: 1.1rem; padding: 0.4rem 1rem; border-radius: 20px; }
+        .review-tagline { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .review-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; background: rgba(15, 23, 42, 0.6); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .meta-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .meta-value { font-size: 0.95rem; font-weight: 700; color: #ffffff; }
+        .review-section-title { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: #ffffff; margin: 2rem 0 1rem 0; }
+        .review-text-content { font-size: 0.98rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.2rem; }
+        .review-table-wrapper { overflow-x: auto; margin-bottom: 2rem; }
+        .review-table { width: 100%; border-collapse: collapse; text-align: left; background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
+        .review-table th, .review-table td { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .review-table th { background: rgba(255,255,255,0.03); color: var(--text-muted); width: 35%; }
+        .review-table td { color: #ffffff; font-weight: 500; }
+        .pros-cons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        @media (max-width: 768px) { .pros-cons-grid { grid-template-columns: 1fr; } }
+        .pro-card { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(10, 15, 26, 0.88) 100%) !important; backdrop-filter: blur(14px) !important; border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(16, 185, 129, 0.25); border-left: 4px solid #10b981 !important; }
+        .con-card { background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(10, 15, 26, 0.88) 100%) !important; backdrop-filter: blur(14px) !important; border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #ef4444 !important; }
+        .pro-card h4 { color: #34d399; margin-bottom: 1rem; font-size: 1.1rem; }
+        .con-card h4 { color: #f87171; margin-bottom: 1rem; font-size: 1.1rem; }
+        .pro-con-list { list-style: none; padding: 0; margin: 0; }
+        .pro-con-list li { margin-bottom: 0.6rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
+        .cta-box { background: linear-gradient(135deg, rgba(229, 184, 66, 0.12) 0%, rgba(5,8,15,0.98) 100%); border: 1px solid rgba(229, 184, 66, 0.4); border-radius: 16px; padding: 2.5rem; text-align: center; margin-top: 3rem; }
+        .cta-btn-review { display: inline-block; background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; padding: 1.1rem 2.4rem; border-radius: 10px; font-weight: 800; font-size: 1.15rem; text-decoration: none; box-shadow: 0 4px 20px rgba(229, 184, 66, 0.4); transition: all 0.2s ease; margin-bottom: 1rem; }
+        .cta-btn-review:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(229, 184, 66, 0.6); }
+    </style>
+</head>
+<body>
+    <div class="review-container">
+        <a href="/ru/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Назад к сканеру брокеров</a>
+
+        <header class="review-header-card">
+            <div class="review-badge-area">
+                <h1 class="review-broker-title">Обзор безопасности Interactive Brokers (IBKR)</h1>
+                <span class="score-pill">🛡️ 9.9/10 Высший рейтинг надежности</span>
+            </div>
+            <p class="review-tagline">Мировой золотой стандарт для профессионального трейдинга, акций и институциональной защиты активов</p>
+            <div class="review-meta-grid">
+                <div class="meta-item"><span class="meta-label">Главные регуляторы</span><span class="meta-value">SEC & FINRA (США), FCA (UK), CBI (ЕС), ASIC</span></div>
+                <div class="meta-item"><span class="meta-label">Публичный листинг</span><span class="meta-value">NASDAQ: IBKR (Кап. $50B+)</span></div>
+                <div class="meta-item"><span class="meta-label">Год основания</span><span class="meta-value">1977 (49 лет безупречной работы)</span></div>
+                <div class="meta-item"><span class="meta-label">Защита средств</span><span class="meta-value">Страховка SIPC до $500,000</span></div>
+            </div>
+        </header>
+
+        <main>
+            <h2 class="review-section-title">Является ли Interactive Brokers надежным брокером или скамом?</h2>
+            <p class="review-text-content">
+                <strong>Вердикт: 100% Институциональная безопасность и максимальная легитимность.</strong> Interactive Brokers признан самым надежным, прозрачным и технологически развитым брокером в мире. Компания торгуется на бирже NASDAQ (Тикер: IBKR) и обладает собственным капиталом более 14,5 млрд долларов.
+            </p>
+            <p class="review-text-content">
+                Средства клиентов хранятся на сегрегированных счетах в ведущих банках и застрахованы американской корпорацией SIPC на сумму до 500 000 USD на каждого клиента (включая 250 000 USD наличными).
+            </p>
+
+            <h2 class="review-section-title">Профиль регулирования Interactive Brokers</h2>
+            <div class="review-table-wrapper">
+                <table class="review-table">
+                    <tr><th>Юридические лица</th><td>Interactive Brokers LLC (США), Interactive Brokers (U.K.) Ltd, Interactive Brokers Ireland Ltd, Interactive Brokers Australia Pty Ltd</td></tr>
+                    <tr><th>Регуляторы</th><td>SEC / FINRA / CFTC / NFA (США)<br>FCA (Великобритания - Реф: 208159)<br>Центральный банк Ирландии (CBI - Реф: C423427)<br>ASIC (Австралия - AFSL: 453554)</td></tr>
+                    <tr><th>Схемы компенсации</th><td>SIPC до 500 000 USD (США) / Ирландская схема компенсации до 20 000 EUR / UK FSCS до 85 000 GBP</td></tr>
+                    <tr><th>Рынки и активы</th><td>Более 150 мировых бирж в 34 странах (Акции, Опционы, Фьючерсы, Валюты, Облигации, ETF)</td></tr>
+                </table>
+            </div>
+
+            <h2 class="review-section-title">Плюсы и минусы</h2>
+            <div class="pros-cons-grid">
+                <div class="pro-card">
+                    <h4><i class="fa-solid fa-circle-check"></i> Ключевые преимущества (Плюсы)</h4>
+                    <ul class="pro-con-list">
+                        <li>Максимальная институциональная безопасность: Листинг на NASDAQ с капиталом $14.5B+.</li>
+                        <li>Прямой доступ к 150+ международным биржам.</li>
+                        <li>Самые низкие маржинальные ставки и минимальные комиссии в индустрии.</li>
+                        <li>Приветственный бонус: Получите до $1,000 в бесплатных акциях IBKR при открытии счета.</li>
+                    </ul>
+                </div>
+                <div class="con-card">
+                    <h4><i class="fa-solid fa-circle-xmark"></i> О чем стоит знать (Минусы)</h4>
+                    <ul class="pro-con-list">
+                        <li>Профессиональный терминал Trader Workstation (TWS) требует времени на освоение.</li>
+                        <li>Строгая процедура верификации личности (KYC/AML) при регистрации.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <h3 style="font-family: 'Outfit'; font-size: 1.6rem; margin-bottom: 0.5rem; color: #ffffff;">Торгуйте с самым надежным брокером в мире</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Откройте верифицированный счет в Interactive Brokers по нашей официальной партнерской ссылке и получите <strong>до $1,000 в бесплатных акциях IBKR</strong> (1 USD в акциях за каждые $100 депозита).
+                </p>
+                <a href="https://ibkr.com/referral/vasile651" class="cta-btn-review" target="_blank" rel="noopener sponsored">
+                    Открыть счет и получить до $1,000 в акциях бесплатно ➔
+                </a>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; max-width: 500px; margin: 0 auto;">
+                    🛡️ Официальная партнерская ссылка (Защита SEC / FINRA / FCA / CBI). Инвестиции связаны с риском.
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
