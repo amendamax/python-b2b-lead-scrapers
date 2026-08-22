@@ -2560,6 +2560,51 @@ static_broker_db = {
         "mockDomainAge": "2007-06-25 (19 years ago)",
         "mockRegStatus": "MATCH: Active licenses found at ASIC (AU), CySEC (CY)"
     },
+    "interactivebrokers.com": {
+        "name": "Interactive Brokers",
+        "type": "Global Multi-Asset Broker",
+        "score": 98,
+        "source": "Official Database (SEC, FINRA, FCA, CBI)",
+        "verdictTitle": "Top-Tier Trusted Broker",
+        "verdictText": "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators.",
+        "redFlags": ["Complex technical platform, not recommended for absolute beginners.", "Fee structure can be initially difficult to understand."],
+        "greenFlags": ["Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).", "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.", "Extremely high investor protection and client asset guarantee thresholds."],
+        "mockIp": "104.21.32.89",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "1995-11-20 (30 years ago)",
+        "mockRegStatus": "MATCH: Active Tier-1 licenses found at SEC (US), FINRA (US), FCA (UK), CBI (EU)",
+        "affiliateLink": "https://ibkr.com/referral/vasile651"
+    },
+    "interactive brokers": {
+        "name": "Interactive Brokers",
+        "type": "Global Multi-Asset Broker",
+        "score": 98,
+        "source": "Official Database (SEC, FINRA, FCA, CBI)",
+        "verdictTitle": "Top-Tier Trusted Broker",
+        "verdictText": "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators.",
+        "redFlags": ["Complex technical platform, not recommended for absolute beginners.", "Fee structure can be initially difficult to understand."],
+        "greenFlags": ["Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).", "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.", "Extremely high investor protection and client asset guarantee thresholds."],
+        "mockIp": "104.21.32.89",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "1995-11-20 (30 years ago)",
+        "mockRegStatus": "MATCH: Active Tier-1 licenses found at SEC (US), FINRA (US), FCA (UK), CBI (EU)",
+        "affiliateLink": "https://ibkr.com/referral/vasile651"
+    },
+    "ibkr": {
+        "name": "Interactive Brokers (IBKR)",
+        "type": "Global Multi-Asset Broker",
+        "score": 98,
+        "source": "Official Database (SEC, FINRA, FCA, CBI)",
+        "verdictTitle": "Top-Tier Trusted Broker",
+        "verdictText": "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators.",
+        "redFlags": ["Complex technical platform, not recommended for absolute beginners.", "Fee structure can be initially difficult to understand."],
+        "greenFlags": ["Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).", "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.", "Extremely high investor protection and client asset guarantee thresholds."],
+        "mockIp": "104.21.32.89",
+        "mockHoster": "Cloudflare Enterprise CDN",
+        "mockDomainAge": "1995-11-20 (30 years ago)",
+        "mockRegStatus": "MATCH: Active Tier-1 licenses found at SEC (US), FINRA (US), FCA (UK), CBI (EU)",
+        "affiliateLink": "https://ibkr.com/referral/vasile651"
+    },
     "apexcryptofx.com": {
         "name": "ApexCryptoFX",
         "type": "Confirmed Scam",
@@ -2876,10 +2921,10 @@ async def get_broker_results(scan_id: str):
             affiliate_link = db_item.get("affiliateLink")
             break
 
-    # 5 Affiliate Partner Brokers are 100% FREE & UNLOCKED to maximize affiliate registrations & trust!
+    # Verified Affiliate Partner Brokers are 100% FREE & UNLOCKED to maximize affiliate registrations & trust!
     is_free_partner = any(
         p in clean_domain or p in clean_name or clean_name in p or p in clean_domain
-        for p in ["exness", "etoro", "plus500", "xm", "avatrade"]
+        for p in ["exness", "etoro", "plus500", "xm", "avatrade", "interactive", "ibkr"]
     )
 
     if payment_status == "paid" or is_free_partner:

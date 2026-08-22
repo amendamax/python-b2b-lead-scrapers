@@ -824,6 +824,11 @@ async function fetchResults(scanId) {
         // Update circular gauge
         updateGauge(data.score);
 
+        // Auto-unlock free forensic report for all verified affiliate partners
+        if (isPartnerBroker || data.payment_status === "free_partner") {
+            data.locked = false;
+        }
+
         // Render paywall / unlock states
         if (data.locked) {
             document.getElementById("results-paywall").style.display = "block";
