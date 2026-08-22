@@ -1676,6 +1676,18 @@ async def download_dating_pdf(scan_id: str):
         ]))
         story.append(matches_table)
         
+    story.append(Spacer(1, 20))
+    dating_sig_style = ParagraphStyle(
+        'DatingSig',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=7.5,
+        leading=11,
+        textColor=colors.HexColor('#64748b'),
+        alignment=2 # Right
+    )
+    story.append(Paragraph("Forensic FaceMatch Audit compiled by <b>VerifyDating.net</b><br/>Operated by <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b> · Via Valcasotto 14, Garessio (CN), Italy · <font color='#0284c7'>https://vasiledev.com</font>", dating_sig_style))
+
     doc.build(story)
     buffer.seek(0)
     
@@ -2967,7 +2979,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Refuse Cold Calling & Messaging:</b> Legitimate financial institutions will never contact you via cold calls, Telegram, Instagram, or WhatsApp to solicit deposits or promise guaranteed trading gains.',
             'plan_3': '<b>3. Avoid Unregulated Payment Methods:</b> If a broker requests deposits via private cryptocurrency wallets (Bitcoin/USDT) or asks to transfer money to a personal bank account under a different name, cease all communication immediately.',
             'plan_4': '<b>4. Domain Age Check:</b> Always match the stated corporate history against the technical WHOIS registry creation date. If the website was registered recently but claims years of operation, it is a critical warning sign.',
-            'compiled_by': 'Audit compiled by <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Created by <b>VasileDev</b>',
+            'compiled_by': 'Audit compiled by <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Operated by <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italy · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Disclaimer:</b> This security report is generated automatically based on live regulatory queries, WHOIS registers, DNS routing, and heuristic threat calculations. It is provided for educational and preventive intelligence purposes. Always perform due diligence prior to depositing capital with financial providers.'
         },
         'ro': {
@@ -2999,7 +3011,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Refuzați Apelurile și Mesajele Nedorite:</b> Instituțiile financiare legitime nu vă vor contacta niciodată prin apeluri nesolicitate, Telegram, Instagram sau WhatsApp pentru a vă cere depozite sau pentru a vă promite câștiguri garantate.',
             'plan_3': '<b>3. Evitați Metodele de Plată Nereglementate:</b> Dacă un broker solicită depozite prin portofele de criptomonede private (Bitcoin/USDT) sau vă cere să transferați bani într-un cont bancar personal pe alt nume, întrerupeți imediat orice comunicare.',
             'plan_4': '<b>4. Verificarea Vechimii Domeniului:</b> Comparați întotdeauna istoricul corporativ declarat cu data tehnică de creare din registrul WHOIS. Dacă site-ul a fost înregistrat recent, dar pretinde ani de funcționare, este un semnal de alarmă critic.',
-            'compiled_by': 'Audit compilat de <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creat de <b>VasileDev</b>',
+            'compiled_by': 'Audit compilat de <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Operat de <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italia · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Declinare a responsabilității:</b> Acest raport de securitate este generat automat pe baza interogărilor live ale registrelor de reglementare, WHOIS, rutării DNS și calculelor euristice de amenințare. Esențial furnizat în scopuri educaționale și preventive. Efectuați întotdeauna propria analiză înainte de a depune capital la furnizorii de servicii financiare.'
         },
         'it': {
@@ -3031,7 +3043,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Rifiuta Chiamate e Messaggi Indesiderati:</b> Le istituzioni finanziarie legittime non ti contatteranno mai tramite chiamate a freddo, Telegram, Instagram o WhatsApp per sollecitare depositi o promettere guadagni garantiti.',
             'plan_3': '<b>3. Evita Metodi di Pagamento Non Regolamentati:</b> Se un broker richiede depositi tramite portafogli di criptovaluta privati (Bitcoin/USDT) o chiede di trasferire denaro su un conto bancario personale intestato a un altro nome, interrompi immediatamente ogni comunicazione.',
             'plan_4': '<b>4. Verifica dell\'Età del Dominio:</b> Confronta sempre la storia aziendale dichiarata con la data di registrazione tecnica nel registro WHOIS. Se il sito è stato registrato di recente ma dichiara anni di attività, è un segnale di allarme critico.',
-            'compiled_by': 'Audit compilato da <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creato da <b>VasileDev</b>',
+            'compiled_by': 'Audit compilato da <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Gestito da <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italia · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Dichiarazione di non responsabilità:</b> Questo rapporto di sicurezza viene generato automaticamente in base alle interrogazioni in tempo reale dei registri normativi, WHOIS, instradamento DNS e calcoli euristici delle minacce. Viene fornito a scopo informativo e preventivo. Effettua sempre le dovute verifiche prima di depositare capitali presso intermediari finanziari.'
         },
         'es': {
@@ -3063,7 +3075,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Rechace Llamadas y Mensajes no Solicitados:</b> Las instituciones financieras legítimas nunca lo contactarán mediante llamadas en frío, Telegram, Instagram o WhatsApp para solicitar depósitos o prometer ganancias comerciales garantizadas.',
             'plan_3': '<b>3. Evite Métodos de Pago no Regulados:</b> Si un broker solicita depósitos a través de billeteras privadas de criptomonedas (Bitcoin/USDT) o solicita transferir dinero a una cuenta bancaria personal a nombre de otra persona, interrumpa toda comunicación de inmediato.',
             'plan_4': '<b>4. Verificación de la Antigüedad del Dominio:</b> Siempre compare la historia corporativa declarada con la fecha de creación técnica en el registro WHOIS. Si el sitio web se registró recientemente pero afirma llevar años operando, es una señal de advertencia crítica.',
-            'compiled_by': 'Auditoría compilada por <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Creado por <b>VasileDev</b>',
+            'compiled_by': 'Auditoría compilada por <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Operado por <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italia · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Descargo de responsabilidad:</b> Este informe de seguridad se genera automáticamente en función de consultas regulatorias en vivo, registros WHOIS, enrutamiento DNS y cálculos heurísticos de amenazas. Se proporciona con fines educativos y de prevención. Siempre realice su propia investigación antes de depositar capital con proveedores financieros.'
         },
         'fr': {
@@ -3095,7 +3107,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Refusez le Démarchage Téléphonique et les Messages Indésirables :</b> Les institutions financières légitimes ne vous contacteront jamais via des appels non sollicités, Telegram, Instagram ou WhatsApp pour solliciter des dépôts ou promettre des gains de trading garantis.',
             'plan_3': '<b>3. Évitez les Méthodes de Paiement Non Réglementées :</b> Si un courtier demande des dépôts via des portefeuilles de crypto-monnaies privés (Bitcoin/USDT) ou demande de transférer de l\'argent vers un compte bancaire personnel sous un autre nom, cessez immédiatement toute communication.',
             'plan_4': '<b>4. Vérification de l\'Âge du Domaine :</b> Comparez toujours l\'historique déclaré de l\'entreprise avec la date de création technique dans le registre WHOIS. Si le site a été enregistré récemment mais prétend être en activité depuis des années, c\'est un signal d\'alarme critique.',
-            'compiled_by': 'Audit compilé par <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Créé par <b>VasileDev</b>',
+            'compiled_by': 'Audit compilé par <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Exploité par <b>VasileDev Group</b> · Partita IVA : <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italie · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Avertissement :</b> Ce rapport de sécurité est généré automatiquement sur la base de requêtes réglementaires en direct, de registres WHOIS, de routage DNS et de calculs heuristiques des menaces. Il est fourni à des fins d\'information et de prévention. Effectuez toujours vos propres vérifications avant de déposer des capitaux auprès d\'intermédiaires financiers.'
         },
         'de': {
@@ -3127,7 +3139,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Unaufgeforderte Anrufe & Nachrichten ablehnen:</b> Seriöse Finanzinstitute werden Sie niemals per Kaltakquise, Telegram, Instagram oder WhatsApp kontaktieren, um Einzahlungen einzufordern oder garantierte Handelsgewinne zu versprechen.',
             'plan_3': '<b>3. Unregulierte Zahlungsmethoden vermeiden:</b> Wenn ein Broker Einzahlungen über private Kryptowährungs-Wallets (Bitcoin/USDT) verlangt oder darum bittet, Geld auf ein persönliches Bankkonto unter einem anderen Namen zu überweisen, brechen Sie jegliche Kommunikation sofort ab.',
             'plan_4': '<b>4. Überprüfung des Domain-Alters:</b> Gleichen Sie die angegebene Unternehmensgeschichte immer mit dem technischen Erstellungsdatum im WHOIS-Register ab. Wenn die Website kürzlich registriert wurde, aber jahrelange Aktivität behauptet, ist dies ein kritisches Warnsignal.',
-            'compiled_by': 'Prüfung zusammengestellt von der <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Erstellt von <b>VasileDev</b>',
+            'compiled_by': 'Prüfung erstellt von <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Betrieben von <b>VasileDev Group</b> · USt-IdNr / P.IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italien · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Haftungsanschluss:</b> Dieser Sicherheitsbericht wird automatisch auf der Grundlage von regulatorischen Abfragen in Echtzeit, WHOIS-Registern, DNS-Routing und heuristischen Bedrohungsberechnungen erstellt. Er dient zu Informations- und Präventionszwecken. Führen Sie immer eine eigene Prüfung durch, bevor Sie Kapital bei Finanzdienstleistern einzahlen.'
         },
         'pt': {
@@ -3159,7 +3171,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Recuse Chamadas e Mensagens Não Solicitadas:</b> Instituições financeiras legítimas nunca entrarão em contato via chamadas não solicitadas, Telegram, Instagram ou WhatsApp para solicitar depósitos ou prometer lucros garantidos.',
             'plan_3': '<b>3. Evite Métodos de Pagamento Não Regulamentados:</b> Se uma corretora solicitar depósitos através de carteiras privadas de criptomoedas (Bitcoin/USDT) ou pedir para transferir dinheiro para uma conta bancária pessoal com outro nome, interrompa qualquer comunicação imediatamente.',
             'plan_4': '<b>4. Verificação da Idade do Domínio:</b> Sempre compare o histórico corporativo declarado com a data técnica de criação no registro WHOIS. Se o site foi registrado recentemente, mas alega anos de operação, é um sinal de alerta crítico.',
-            'compiled_by': 'Auditoria compilada pela <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Criado por <b>VasileDev</b>',
+            'compiled_by': 'Auditoria compilada por <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Operado por <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Itália · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Isenção de responsabilidade:</b> Este relatório de segurança é gerado automaticamente com base em consultas regulatórias ao vivo, registros WHOIS, roteamento DNS e cálculos heurísticos de ameaças. É fornecido para fins educacionais e preventivos. Sempre realize a sua própria auditoria antes de depositar capital em instituições financeiras.'
         },
         'ru': {
@@ -3191,7 +3203,7 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
             'plan_2': '<b>2. Отказ от нежелательных звонков и сообщений:</b> Легитимные финансовые организации никогда не свяжутся с вами посредством холодных звонков, Telegram, Instagram или WhatsApp для запроса депозитов или обещания гарантированной прибыли.',
             'plan_3': '<b>3. Избегайте нерегулируемых способов оплаты:</b> Если брокер требует депозиты через частные криптовалютные кошельки (Bitcoin/USDT) or просит перевести деньги на личный банковский счет на другое имя, немедленно прекратите общение.',
             'plan_4': '<b>4. Проверка возраста домена:</b> Всегда сопоставляйте заявленную историю компании с технической датой создания домена в реестре WHOIS. Если сайт зарегистрирован недавно, но заявляет о годах работы, это критический предупреждающий знак.',
-            'compiled_by': 'Аудит подготовлен <b>BrokerVerifier Threat Intelligence Engine</b>.<br/>Создано <b>VasileDev</b>',
+            'compiled_by': 'Аудит подготовлен <b>BrokerVerifier™ Threat Intelligence Suite</b><br/>Управляется <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Италия · <font color="#0284c7">https://vasiledev.com</font>',
             'disclaimer': '<b>Отказ от ответственности:</b> Этот отчет по безопасности генерируется автоматически на основе оперативных запросов в регулирующие органы, реестров WHOIS, маршрутизации DNS и эвристических расчетов угроз. Он предоставляется в образовательных и профилактических целях. Всегда проводите собственную проверку перед внесением капитала.'
         }
     }
