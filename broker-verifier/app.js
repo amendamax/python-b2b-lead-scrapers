@@ -285,13 +285,17 @@ const i18n = {
         euResidentTitle: "European Resident?",
         euResidentText: "Get 1:1000 leverage, deposit bonuses, and Copy Trading under XM Global regulations.",
         euWhatsappLink: "Chat with us on WhatsApp for private registration instructions →",
-        excellentScore: "Excellent Score",
-        goodScore: "Good Score (Safe)",
-        warningRisk: "Warning / Medium Risk",
-        highRisk: "High Risk",
-        scamAlert: "Fraud Warning / Blacklisted",
+        excellentScore: "EXCELLENT SCORE",
+        goodScore: "GOOD SCORE (SAFE)",
+        warningRisk: "WARNING / MEDIUM RISK",
+        highRisk: "HIGH RISK",
+        scamAlert: "FRAUD WARNING / BLACKLISTED",
         awaitingEval: "Awaiting Evaluation",
-        scanCompleted: "The analysis has completed."
+        scanCompleted: "The analysis has completed.",
+        statusScanning: "SCANNING",
+        statusSecure: "SECURE",
+        statusWarning: "WARNING",
+        statusThreat: "THREAT"
     },
     ro: {
         ibkrBadge: "⭐ BROKER RECOMANDAT DE TOP - 100% SIGUR",
@@ -310,11 +314,17 @@ const i18n = {
         euResidentTitle: "Rezident în Uniunea Europeană?",
         euResidentText: "Obține levier 1:1000, bonusuri de depozit și Copy Trading conform reglementărilor XM Global.",
         euWhatsappLink: "Scrie-ne pe WhatsApp pentru instrucțiuni private de înregistrare →",
-        excellentScore: "Scor Excelent", goodScore: "Scor Bun (Sigur)", warningRisk: "Avertisment / Risc Mediu",
-        highRisk: "Risc Ridicat",
-        scamAlert: "Alertă de Escrocherie",
+        excellentScore: "SCOR EXCELENT",
+        goodScore: "SCOR BUN (SIGUR)",
+        warningRisk: "AVERTISMENT / RISC MEDIU",
+        highRisk: "RISC RIDICAT",
+        scamAlert: "ALERTĂ DE FRAUDĂ",
         awaitingEval: "În Așteptarea Evaluării",
-        scanCompleted: "Analiza a fost finalizată."
+        scanCompleted: "Analiza a fost finalizată.",
+        statusScanning: "SCANARE",
+        statusSecure: "SIGUR",
+        statusWarning: "ATENȚIE",
+        statusThreat: "PERICOL"
     },
     it: {
         ibkrBadge: "⭐ BROKER RACCOMANDATO TOP - 100% SICURO",
@@ -333,11 +343,17 @@ const i18n = {
         euResidentTitle: "Residente nell'Unione Europea?",
         euResidentText: "Ottieni leva 1:1000, bonus di deposito e Copy Trading con XM Global.",
         euWhatsappLink: "Scrivici su WhatsApp per istruzioni private di registrazione →",
-        excellentScore: "Punteggio Eccellente", goodScore: "Buon Punteggio (Sicuro)", warningRisk: "Avviso / Rischio Medio",
-        highRisk: "Rischio Elevato",
-        scamAlert: "Allerta Truffa",
+        excellentScore: "PUNTEGGIO ECCELLENTE",
+        goodScore: "BUON PUNTEGGIO (SICURO)",
+        warningRisk: "AVVISO / RISCHIO MEDIO",
+        highRisk: "RISCHIO ELEVATO",
+        scamAlert: "ALLERTA TRUFFA",
         awaitingEval: "In Attesa di Valutazione",
-        scanCompleted: "L'analisi è stata completata."
+        scanCompleted: "L'analisi è stata completata.",
+        statusScanning: "SCANSIONE",
+        statusSecure: "SICURO",
+        statusWarning: "ATTENZIONE",
+        statusThreat: "PERICOLO"
     },
     de: {
         ibkrBadge: "⭐ TOP EMPFOHLENER SICHERER BROKER",
@@ -356,11 +372,17 @@ const i18n = {
         euResidentTitle: "Einwohner der Europäischen Union?",
         euResidentText: "Sichern Sie sich Hebel 1:1000, Einzahlungsboni und Copy Trading unter XM Global.",
         euWhatsappLink: "Schreiben Sie uns auf WhatsApp für private Registrierungsanweisungen →",
-        excellentScore: "Hervorragende Bewertung", goodScore: "Gute Bewertung (Sicher)", warningRisk: "Warnung / Mittleres Risiko",
-        highRisk: "Hohes Risiko",
-        scamAlert: "Betrugswarnung",
+        excellentScore: "HERVORRAGENDE BEWERTUNG",
+        goodScore: "GUTE BEWERTUNG (SICHER)",
+        warningRisk: "WARNUNG / MITTLERES RISIKO",
+        highRisk: "HOHES RISIKO",
+        scamAlert: "BETRUGSWARNUNG",
         awaitingEval: "Warten auf Bewertung",
-        scanCompleted: "Die Analyse wurde abgeschlossen."
+        scanCompleted: "Die Analyse wurde abgeschlossen.",
+        statusScanning: "WIRD GEPRÜFT",
+        statusSecure: "SICHER",
+        statusWarning: "WARNUNG",
+        statusThreat: "GEFAHR"
     },
     es: {
         ibkrBadge: "⭐ BROKER TOP RECOMENDADO - 100% SEGURO",
@@ -379,11 +401,17 @@ const i18n = {
         euResidentTitle: "¿Residente en la Unión Europea?",
         euResidentText: "Obtenga apalancamiento 1:1000, bonos de depósito y Copy Trading con XM Global.",
         euWhatsappLink: "Contáctenos por WhatsApp para instrucciones privadas de registro →",
-        excellentScore: "Puntuación Excelente", goodScore: "Buena Puntuación (Seguro)", warningRisk: "Advertencia / Riesgo Medio",
-        highRisk: "Riesgo Alto",
-        scamAlert: "Alerta de Estafa",
+        excellentScore: "PUNTUACIÓN EXCELENTE",
+        goodScore: "BUENA PUNTUACIÓN (SEGURO)",
+        warningRisk: "ADVERTENCIA / RIESGO MEDIO",
+        highRisk: "RIESGO ALTO",
+        scamAlert: "ALERTA DE ESTAFA",
         awaitingEval: "Esperando Evaluación",
-        scanCompleted: "El análisis ha sido completado."
+        scanCompleted: "El análisis ha sido completado.",
+        statusScanning: "ESCANEANDO",
+        statusSecure: "SEGURO",
+        statusWarning: "ADVERTENCIA",
+        statusThreat: "PELIGRO"
     },
     fr: {
         ibkrBadge: "⭐ COURTIER RECOMMANDÉ TOP - 100% SÉCURISÉ",
@@ -402,11 +430,17 @@ const i18n = {
         euResidentTitle: "Résident de l'Union Européenne?",
         euResidentText: "Obtenez un effet de levier 1:1000, des bonus de dépôt et du Copy Trading avec XM Global.",
         euWhatsappLink: "Écrivez-nous sur WhatsApp pour des instructions d'inscription privées →",
-        excellentScore: "Excellent Score", goodScore: "Bon Score (Sécurisé)", warningRisk: "Avertissement / Risque Moyen",
-        highRisk: "Risque Élevé",
-        scamAlert: "Alerte d'Arnaque",
+        excellentScore: "EXCELLENT SCORE",
+        goodScore: "BON SCORE (SÉCURISÉ)",
+        warningRisk: "AVERTISSEMENT / RISQUE MOYEN",
+        highRisk: "RISQUE ÉLEVÉ",
+        scamAlert: "ALERTE D'ARNAQUE",
         awaitingEval: "En Attente d'Évaluation",
-        scanCompleted: "L'analyse est terminée."
+        scanCompleted: "L'analyse est terminée.",
+        statusScanning: "ANALYSE",
+        statusSecure: "SÉCURISÉ",
+        statusWarning: "ATTENTION",
+        statusThreat: "DANGER"
     },
     pt: {
         ibkrBadge: "⭐ CORRETORA TOP RECOMENDADA - 100% SEGURA",
@@ -425,11 +459,17 @@ const i18n = {
         euResidentTitle: "Residente na União Europeia?",
         euResidentText: "Obtenha alavancagem de 1:1000, bônus de depósito e Copy Trading sob a regulamentação da XM Global.",
         euWhatsappLink: "Fale conosco no WhatsApp para instruções privadas de registro →",
-        excellentScore: "Pontuação Excelente", goodScore: "Boa Pontuação (Seguro)", warningRisk: "Aviso / Risco Médio",
-        highRisk: "Risco Alto",
-        scamAlert: "Alerta de Golpe",
+        excellentScore: "PONTUAÇÃO EXCELENTE",
+        goodScore: "BOA PONTUAÇÃO (SEGURO)",
+        warningRisk: "AVISO / RISCO MÉDIO",
+        highRisk: "RISCO ALTO",
+        scamAlert: "ALERTA DE GOLPE",
         awaitingEval: "Aguardando Avaliação",
-        scanCompleted: "A análise foi concluída."
+        scanCompleted: "A análise foi concluída.",
+        statusScanning: "ESCANEANDO",
+        statusSecure: "SEGURO",
+        statusWarning: "AVISO",
+        statusThreat: "PERIGO"
     },
     ru: {
         ibkrBadge: "⭐ ТОП РЕКОМЕНДУЕМЫЙ НАДЕЖНЫЙ БРОКЕР",
@@ -448,11 +488,17 @@ const i18n = {
         euResidentTitle: "Резидент Европейского Союза?",
         euResidentText: "Получите кредитное плечо 1:1000, бонусы на депозит и Copy Trading по правилам XM Global.",
         euWhatsappLink: "Напишите нам в WhatsApp для получения закрытых инструкций по регистрации →",
-        excellentScore: "Отличная оценка", goodScore: "Хорошая оценка (Безопасно)", warningRisk: "Предупреждение / Средний риск",
-        highRisk: "Высокий риск",
-        scamAlert: "Черный список / Мошенничество",
+        excellentScore: "ОТЛИЧНАЯ ОЦЕНКА",
+        goodScore: "ХОРОШАЯ ОЦЕНКА (БЕЗОПАСНО)",
+        warningRisk: "ПРЕДУПРЕЖДЕНИЕ / СРЕДНИЙ РИСК",
+        highRisk: "ВЫСОКИЙ РИСК",
+        scamAlert: "ОПАСНОСТЬ / МОШЕННИЧЕСТВО",
         awaitingEval: "Ожидание оценки",
-        scanCompleted: "Анализ завершен."
+        scanCompleted: "Анализ завершен.",
+        statusScanning: "СКАНИРОВАНИЕ",
+        statusSecure: "БЕЗОПАСНО",
+        statusWarning: "ВНИМАНИЕ",
+        statusThreat: "ОПАСНОСТЬ"
     }
 };
 
@@ -618,6 +664,275 @@ document.addEventListener("click", function(e) {
     }
 });
 
+// Flag Multi-Language Translation Map
+const flagTranslations = {
+    // Interactive Brokers
+    "Complex technical platform, not recommended for absolute beginners.": {
+        ro: "Platformă tehnică avansată, nerecomandată pentru începătorii absoluți.",
+        it: "Piattaforma tecnica avanzata, sconsigliata ai principianti assoluti.",
+        de: "Fortgeschrittene Plattform, für absolute Einsteiger nicht empfohlen.",
+        fr: "Plateforme technique complexe, déconseillée aux débutants complets.",
+        es: "Plataforma técnica compleja, no recomendada para principiantes absolutos.",
+        pt: "Plataforma técnica avançada, não recomendada para iniciantes absolutos.",
+        ru: "Сложная торговая платформа, не рекомендуется абсолютным новичкам."
+    },
+    "Fee structure can be initially difficult to understand.": {
+        ro: "Structura comisioanelor poate fi inițial complexă de înțeles.",
+        it: "La struttura delle commissioni può risultare inizialmente complessa.",
+        de: "Die Gebührenstruktur kann anfangs komplex und schwer verständlich sein.",
+        fr: "La structure des frais peut être initialement complexe à appréhender.",
+        es: "La estructura de tarifas puede ser inicialmente compleja de comprender.",
+        pt: "A estrutura de taxas pode ser inicialmente complexa de compreender.",
+        ru: "Структура комиссий может быть сложной для понимания на начальном этапе."
+    },
+    "Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).": {
+        ro: "Reglementat de FCA (UK), SEC (SUA), ASIC (Australia) și IIROC (Canada).",
+        it: "Regolamentato da FCA (UK), SEC (USA), ASIC (Australia) e IIROC (Canada).",
+        de: "Reguliert durch FCA (UK), SEC (USA), ASIC (Australien) und IIROC (Kanada).",
+        fr: "Réglementé par la FCA (UK), la SEC (USA), l'ASIC (Australie) et l'IIROC (Canada).",
+        es: "Regulado por FCA (UK), SEC (EE. UU.), ASIC (Australia) e IIROC (Canadá).",
+        pt: "Regulamentado pela FCA (UK), SEC (EUA), ASIC (Austrália) e IIROC (Canadá).",
+        ru: "Регулируется FCA (Великобритания), SEC (США), ASIC (Австралия) и IIROC (Канада)."
+    },
+    "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.": {
+        ro: "Companie listată public (NASDAQ: IBKR) cu transparență financiară absolută.",
+        it: "Società quotata in borsa (NASDAQ: IBKR) con trasparenza finanziaria assoluta.",
+        de: "Börsennotiertes Unternehmen (NASDAQ: IBKR) mit absoluter finanzieller Transparenz.",
+        fr: "Société cotée en bourse (NASDAQ: IBKR) avec une transparence financière totale.",
+        es: "Empresa cotizada en bolsa (NASDAQ: IBKR) con absoluta transparencia financiera.",
+        pt: "Empresa cotada em bolsa (NASDAQ: IBKR) com absoluta transparência financeira.",
+        ru: "Публичная компания (NASDAQ: IBKR) с абсолютной финансовой прозрачностью."
+    },
+    "Extremely high investor protection and client asset guarantee thresholds.": {
+        ro: "Nivel extrem de ridicat de protecție a investitorilor și garantare a activelor clienților.",
+        it: "Livello estremamente elevato di protezione degli investitori e garanzia dei fondi.",
+        de: "Extrem hoher Anlegerschutz und hohe Garantiegrenzen für Kundengelder.",
+        fr: "Niveau extrêmement élevé de protection des investisseurs et de garantie des fonds.",
+        es: "Nivel extremadamente alto de protección al inversor y garantía de activos.",
+        pt: "Nível extremamente alto de proteção ao investidor e garantia de ativos dos clientes.",
+        ru: "Чрезвычайно высокая защита инвесторов и гарантии сохранности средств клиентов."
+    },
+    // Exness
+    "High volatility products involve significant financial risk.": {
+        ro: "Produsele cu volatilitate ridicată implică riscuri financiare semnificative.",
+        it: "I prodotti ad alta volatilità comportano un rischio finanziario significativo.",
+        de: "Produkte mit hoher Volatilität bergen ein erhebliches finanzielles Risiko.",
+        fr: "Les produits à forte volatilité comportent un risque financier important.",
+        es: "Los productos de alta volatilidad implican un riesgo financiero significativo.",
+        pt: "Produtos de alta volatilidade envolvem risco financeiro significativo.",
+        ru: "Продукты с высокой волатильностью сопряжены со значительным финансовым риском."
+    },
+    "Regulated by FCA (UK), CySEC (Cyprus), and FSCA (South Africa).": {
+        ro: "Reglementat de FCA (Marea Britanie), CySEC (Cipru) și FSCA (Africa de Sud).",
+        it: "Regolamentato da FCA (UK), CySEC (Cipro) e FSCA (Sud Africa).",
+        de: "Reguliert durch FCA (UK), CySEC (Zypern) und FSCA (Südafrika).",
+        fr: "Réglementé par la FCA (UK), la CySEC (Chypre) et la FSCA (Afrique du Sud).",
+        es: "Regulado por FCA (UK), CySEC (Chipre) y FSCA (Sudáfrica).",
+        pt: "Regulamentado pela FCA (UK), CySEC (Chipre) e FSCA (África do Sul).",
+        ru: "Регулируется FCA (Великобритания), CySEC (Кипр) и FSCA (ЮАР)."
+    },
+    "Automatic 24/7 instant withdrawals with zero delays.": {
+        ro: "Retrageri automate instantanee 24/7 fără întârzieri.",
+        it: "Prelievi automatici istantanei 24/7 senza ritardi.",
+        de: "Automatische 24/7-Sofortauszahlungen ohne Verzögerungen.",
+        fr: "Retraits instantanés automatiques 24/7 sans délai.",
+        es: "Retiros instantáneos automáticos 24/7 sin demoras.",
+        pt: "Saques automáticos instantâneos 24/7 sem atrasos.",
+        ru: "Автоматический мгновенный вывод средств 24/7 без задержек."
+    },
+    // XM
+    "Overnight fees apply on select non-Islamic trading accounts.": {
+        ro: "Se aplică comisioane overnight pe anumite conturi standard non-islamice.",
+        it: "Si applicano commissioni overnight su selezionati conti non islamici.",
+        de: "Overnight-Gebühren fallen bei bestimmten Standardkonten an.",
+        fr: "Des frais de nuit s'appliquent sur certains comptes non islamiques.",
+        es: "Se aplican tarifas nocturnas en determinadas cuentas estándar no islámicas.",
+        pt: "Taxas de rollover se aplicam em determinadas contas não islâmicas.",
+        ru: "Комиссии за перенос позиций (swap) применяются на стандартных счетах."
+    },
+    "Licensed by FCA, ASIC, and CySEC with Tier-1 security standards.": {
+        ro: "Licențiat de FCA, ASIC și CySEC cu standarde de securitate Tier-1.",
+        it: "Autorizzato da FCA, ASIC e CySEC con standard di sicurezza Tier-1.",
+        de: "Lizenziert von FCA, ASIC und CySEC mit Tier-1-Sicherheitsstandards.",
+        fr: "Agréé par la FCA, l'ASIC et la CySEC avec des normes de sécurité Tier-1.",
+        es: "Con licencia de FCA, ASIC y CySEC con estándares de seguridad Tier-1.",
+        pt: "Licenciada por FCA, ASIC e CySEC com padrões de segurança Tier-1.",
+        ru: "Лицензирован FCA, ASIC и CySEC по стандартам безопасности Tier-1."
+    },
+    // eToro
+    "Withdrawal fee of $5 applies on account transfers.": {
+        ro: "Se aplică o taxă de retragere de 5$ la transferurile din cont.",
+        it: "Si applica una commissione di prelievo di 5$ sui trasferimenti.",
+        de: "Für Auszahlungen wird eine Gebühr von 5$ erhoben.",
+        fr: "Des frais de retrait de 5$ s'appliquent sur les virements.",
+        es: "Se aplica una comisión de retiro de $5 en las transferencias.",
+        pt: "Taxa de saque de US$ 5 aplicada em transferências.",
+        ru: "Комиссия за вывод средств в размере $5."
+    },
+    "World leader in Social Trading and Copy Trading with over 30M users.": {
+        ro: "Lider mondial în Social Trading și Copy Trading cu peste 30 de milioane de utilizatori.",
+        it: "Leader mondiale nel Social Trading e Copy Trading con oltre 30 milioni di utenti.",
+        de: "Weltweiter Marktführer im Social Trading und Copy Trading mit über 30 Mio. Nutzern.",
+        fr: "Leader mondial du Social Trading et du Copy Trading avec plus de 30 millions d'utilisateurs.",
+        es: "Líder mundial en Social Trading y Copy Trading con más de 30 millones de usuarios.",
+        pt: "Líder mundial em Social Trading e Copy Trading com mais de 30 milhões de usuários.",
+        ru: "Мировой лидер в области Social Trading и Copy Trading с более чем 30 млн пользователей."
+    },
+    // Plus500
+    "CFD service only - does not offer direct share ownership.": {
+        ro: "Serviciu exclusiv CFD - nu oferă deținere directă de acțiuni fizice.",
+        it: "Servizio esclusivamente CFD - non offre proprietà diretta di azioni fisiche.",
+        de: "Reiner CFD-Dienst - bietet kein direktes physisches Aktieneigentum.",
+        fr: "Service CFD uniquement - ne permet pas la détention directe d'actions physiques.",
+        es: "Servicio exclusivo de CFD: no ofrece propiedad directa de acciones físicas.",
+        pt: "Serviço exclusivo de CFD - não oferece posse direta de ações físicas.",
+        ru: "Только CFD-сервис — не предоставляет прямого владения физическими акциями."
+    },
+    "Publicly listed on the London Stock Exchange (LSE: PLUS) with FTSE 250 index backing.": {
+        ro: "Listat public la Bursa de Valori din Londra (LSE: PLUS) în indicele FTSE 250.",
+        it: "Quotata alla Borsa di Londra (LSE: PLUS) e componente dell'indice FTSE 250.",
+        de: "Börsennotiert an der London Stock Exchange (LSE: PLUS) im FTSE 250 Index.",
+        fr: "Cotée à la Bourse de Londres (LSE: PLUS), composante de l'indice FTSE 250.",
+        es: "Cotiza en la Bolsa de Londres (LSE: PLUS), componente del índice FTSE 250.",
+        pt: "Cotada na Bolsa de Londres (LSE: PLUS), integrante do índice FTSE 250.",
+        ru: "Котируется на Лондонской фондовой бирже (LSE: PLUS) в индексе FTSE 250."
+    },
+    // AvaTrade
+    "Inactivity fee applied after 3 consecutive months of non-usage.": {
+        ro: "Taxă de inactivitate aplicată după 3 luni consecutive de neutilizare.",
+        it: "Commissione di inattività applicata dopo 3 mesi consecutivi di inutilizzo.",
+        de: "Inaktivitätsgebühr wird nach 3 aufeinanderfolgenden Monaten ohne Aktivität fällig.",
+        fr: "Frais d'inactivité appliqués après 3 mois consécutifs de non-utilisation.",
+        es: "Tasa de inactividad aplicada tras 3 meses consecutivos de no uso.",
+        pt: "Taxa de inatividade aplicada após 3 meses consecutivos de não utilização.",
+        ru: "Комиссия за неактивность взимается после 3 месяцев отсутствия сделок."
+    },
+    "Regulated across 5 continents including Central Bank of Ireland and ASIC.": {
+        ro: "Reglementat pe 5 continente, inclusiv de Banca Centrală a Irlandei și ASIC.",
+        it: "Regolamentato in 5 continenti, inclusa la Banca Centrale d'Irlanda e ASIC.",
+        de: "Auf 5 Kontinenten reguliert, u. a. durch die Zentralbank von Irland und ASIC.",
+        fr: "Réglementé sur 5 continents, y compris par la Banque centrale d'Irlande et l'ASIC.",
+        es: "Regulado en 5 continentes, incluyendo el Banco Central de Irlanda y ASIC.",
+        pt: "Regulamentada em 5 continentes, incluindo o Banco Central da Irlanda e ASIC.",
+        ru: "Регулируется на 5 континентах, включая Центральный банк Ирландии и ASIC."
+    }
+};
+
+function translateFlag(text) {
+    if (!text || currentLang === 'en' || !currentLang) return text;
+    const match = flagTranslations[text];
+    if (match && match[currentLang]) {
+        return match[currentLang];
+    }
+    return text;
+}
+
+// Generate localized threat scan terminal logs
+function getThreatLogs(domain, apiData, score) {
+    const ip = (apiData && apiData.ip_address) || "104.21.32.89";
+    const host = (apiData && apiData.hosting_provider) || "Cloudflare Enterprise CDN";
+    const age = (apiData && apiData.domain_age) || "1995-11-20 (30 years ago)";
+
+    switch (currentLang) {
+        case 'ro':
+            return [
+                `> Inițializare scanare activă de securitate pentru: ${domain}`,
+                `[REZOLVARE] Verificare înregistrări DNS pentru domeniu...`,
+                `[DNS] Domeniu direcționat către IP: ${ip} (Găzduit de: ${host})`,
+                `[WHOIS] Interogare registru internațional de domenii ICANN...`,
+                `[WHOIS] Data creării domeniului: ${age}`,
+                `[REGISTRU] Verificare încrucișată a licențelor oficiale (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRU] Rezultat: Potrivire licențe și statut juridic calculate.`,
+                `[EURISTICĂ] Rulare algoritm de evaluare a riscului (Levier, Promisiuni, Canale)...`,
+                `[FINALIZAT] Scanare completă. Scor de Integritate calculat: ${score}%`
+            ];
+        case 'it':
+            return [
+                `> Inizializzazione scansione attiva di sicurezza per: ${domain}`,
+                `[RISOLUZIONE] Esecuzione ricerche DNS per il dominio...`,
+                `[DNS] Dominio risolto su IP: ${ip} (Hosting: ${host})`,
+                `[WHOIS] Interrogazione registro domini ICANN...`,
+                `[WHOIS] Data di creazione dominio: ${age}`,
+                `[REGISTRO] Controllo incrociato nei registri ufficiali dei regolatori (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRO] Risultato: Corrispondenza delle licenze legali calcolata.`,
+                `[EURISTICA] Esecuzione algoritmo di valutazione del rischio (Leva, Promesse, Canali)...`,
+                `[COMPLETATO] Scansione completata. Punteggio di Integrità calcolato: ${score}%`
+            ];
+        case 'de':
+            return [
+                `> Initialisierung des aktiven Sicherheits-Scans für: ${domain}`,
+                `[AUFLÖSUNG] DNS-Abfragen für die Domain werden ausgeführt...`,
+                `[DNS] Ziel aufgelöst auf IP: ${ip} (Gehostet von: ${host})`,
+                `[WHOIS] Abfrage des offiziellen ICANN-Domainregisters...`,
+                `[WHOIS] Erstellungsdatum der Domain: ${age}`,
+                `[REGISTER] Abgleich mit Regulierungsdatenbanken (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTER] Prüfergebnis: Übereinstimmung der Lizenzdaten berechnet.`,
+                `[HEURISTIK] Risikoanalyse-Algorithmus wird ausgeführt (Hebel, Versprechen, Einzahlung)...`,
+                `[ABGESCHLOSSEN] Scan beendet. Integritäts-Score berechnet: ${score}%`
+            ];
+        case 'fr':
+            return [
+                `> Initialisation de l'analyse de sécurité active pour : ${domain}`,
+                `[RÉSOLUTION] Recherche DNS pour le domaine en cours...`,
+                `[DNS] Cible résolue sur l'IP : ${ip} (Hébergé par : ${host})`,
+                `[WHOIS] Interrogation du registre officiel de domaines ICANN...`,
+                `[WHOIS] Date de création du domaine : ${age}`,
+                `[REGISTRE] Vérification croisée des licences de régulation (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRE] Résultat : Correspondance des licences légales calculée.`,
+                `[HEURISTIQUE] Analyse des risques en cours (Effet de levier, Promesses, Dépôts)...`,
+                `[TERMINÉ] Analyse terminée. Score d'intégrité calculé : ${score}%`
+            ];
+        case 'es':
+            return [
+                `> Inicializando análisis activo de amenazas para: ${domain}`,
+                `[RESOLUCIÓN] Realizando búsquedas DNS para el dominio...`,
+                `[DNS] Destino resuelto a IP: ${ip} (Alojado en: ${host})`,
+                `[WHOIS] Consultando el registro de dominios ICANN...`,
+                `[WHOIS] Fecha de creación del dominio: ${age}`,
+                `[REGISTRO] Verificación cruzada con bases de datos reguladoras (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRO] Resultado: Coincidencia del estado de licencia calculada.`,
+                `[HEURÍSTICA] Ejecutando algoritmo de evaluación de riesgos (Apalancamiento, Promesas, Depósitos)...`,
+                `[COMPLETADO] Análisis finalizado. Puntuación de Integridad calculada: ${score}%`
+            ];
+        case 'pt':
+            return [
+                `> Inicializando verificação ativa de segurança para: ${domain}`,
+                `[RESOLUÇÃO] Realizando consultas DNS para o domínio...`,
+                `[DNS] Destino resolvido para IP: ${ip} (Hospedado por: ${host})`,
+                `[WHOIS] Consultando registro oficial de domínios ICANN...`,
+                `[WHOIS] Data de criação do domínio: ${age}`,
+                `[REGISTRO] Verificação cruzada com bases regulatórias (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRO] Resultado: Correspondência de licenças legais calculada.`,
+                `[HEURÍSTICA] Executando algoritmo de avaliação de risco (Alavancagem, Promessas, Depósitos)...`,
+                `[CONCLUÍDO] Verificação finalizada. Pontuação de Integridade calculada: ${score}%`
+            ];
+        case 'ru':
+            return [
+                `> Инициализация активного сканирования угроз для: ${domain}`,
+                `[DNS] Выполнение поиска DNS-записей домена...`,
+                `[IP] Домен направлен на IP: ${ip} (Хостинг: ${host})`,
+                `[WHOIS] Запрос к официальному реестру доменов ICANN...`,
+                `[WHOIS] Дата регистрации домена: ${age}`,
+                `[РЕЕСТР] Сверка с базами данных регуляторов (FCA, CySEC, ASIC, NFA)...`,
+                `[РЕЕСТР] Результат: Статус и соответствие лицензий рассчитаны.`,
+                `[ЭВРИСТИКА] Запуск алгоритма оценки рисков (Плечо, Обещания, Способы ввода)...`,
+                `[ЗАВЕРШЕНО] Анализ завершен. Оценка надежности: ${score}%`
+            ];
+        default: // English
+            return [
+                `> Initializing active threat scan for target: ${domain}`,
+                `[RESOLVING] Performing DNS lookups for domain...`,
+                `[DNS] Target resolved to IP: ${ip} (Hosted by: ${host})`,
+                `[WHOIS] Querying ICANN domain registry...`,
+                `[WHOIS] Creation Date: ${age}`,
+                `[REGISTRY] Cross-checking regulator licensing databases (FCA, CySEC, ASIC, NFA)...`,
+                `[REGISTRY] Check Result: License state matching calculated.`,
+                `[HEURISTICS] Running risk evaluation algorithm (Leverage, Promises, Intake Channels)...`,
+                `[COMPLETE] Scan finished. Integrity Score calculated at: ${score}%`
+            ];
+    }
+}
+
 // Animate Circular Gauge
 function updateGauge(percentage) {
     const circleCircumference = 440;
@@ -631,26 +946,26 @@ function updateGauge(percentage) {
         scoreGauge.style.stroke = "var(--color-success)";
         scoreGauge.style.filter = "drop-shadow(0 0 5px var(--color-success-glow))";
         ratingBadge.className = "rating-badge safe";
-        ratingBadge.textContent = percentage >= 90 ? "Excellent Score" : "Good Score (Safe)";
+        ratingBadge.textContent = percentage >= 90 ? t.excellentScore : t.goodScore;
         verdictBox.className = "verdict-box safe";
     } else if (percentage >= 40) {
         scoreGauge.style.stroke = "var(--color-warning)";
         scoreGauge.style.filter = "drop-shadow(0 0 5px var(--color-warning-glow))";
         ratingBadge.className = "rating-badge caution";
-        ratingBadge.textContent = "Warning / Medium Risk";
+        ratingBadge.textContent = t.warningRisk;
         verdictBox.className = "verdict-box caution";
     } else {
         scoreGauge.style.stroke = "var(--color-danger)";
         scoreGauge.style.filter = "drop-shadow(0 0 5px var(--color-danger-glow))";
         ratingBadge.className = "rating-badge unsafe";
-        ratingBadge.textContent = "Dangerous Scam";
+        ratingBadge.textContent = t.scamAlert;
         verdictBox.className = "verdict-box unsafe";
     }
 }
 
 // Execute scan request on the FastAPI server
 async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
-    scannerStatus.textContent = "SCANNING";
+    scannerStatus.textContent = t.statusScanning || "SCANNING";
     scannerStatus.style.color = "var(--color-warning)";
     scannerTerminal.innerHTML = "";
     
@@ -692,17 +1007,7 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
 
 // Run threat scanner visual logs animation
 function runThreatScan(name, domain, score, apiData, callback) {
-    const logs = [
-        `> Initializing active threat scan for target: ${domain}`,
-        `[RESOLVING] Performing DNS lookups for domain...`,
-        `[DNS] Target resolved to IP: ${apiData.ip_address} (Hosted by: ${apiData.hosting_provider})`,
-        `[WHOIS] Querying ICANN domain registry...`,
-        `[WHOIS] Creation Date: ${apiData.domain_age}`,
-        `[REGISTRY] Cross-checking regulator licensing databases (FCA, CySEC, ASIC, NFA)...`,
-        `[REGISTRY] Check Result: License state matching calculated.`,
-        `[HEURISTICS] Running risk evaluation algorithm (Leverage, Promises, Intake Channels)...`,
-        `[COMPLETE] Scan finished. Integrity Score calculated at: ${score}%`
-    ];
+    const logs = getThreatLogs(domain, apiData, score);
 
     let currentLogIndex = 0;
 
@@ -710,13 +1015,46 @@ function runThreatScan(name, domain, score, apiData, callback) {
         if (currentLogIndex >= logs.length) {
             // Scan finished status
             if (score >= 75) {
-                scannerStatus.textContent = "SECURE";
+                scannerStatus.textContent = t.statusSecure || "SECURE";
                 scannerStatus.style.color = "var(--color-success)";
             } else if (score >= 40) {
-                scannerStatus.textContent = "WARNING";
+                scannerStatus.textContent = t.statusWarning || "WARNING";
                 scannerStatus.style.color = "var(--color-warning)";
             } else {
-                scannerStatus.textContent = "THREAT";
+                scannerStatus.textContent = t.statusThreat || "THREAT";
+                scannerStatus.style.color = "var(--color-danger)";
+            }
+            callback();
+            return;
+        }
+
+        const div = document.createElement("div");
+        div.className = "terminal-line";
+        const lineText = logs[currentLogIndex];
+        
+        // Color coding log details
+        if (lineText.includes("[RESOLVING]") || lineText.includes("[WHOIS]") || lineText.includes("[HEURISTICS]") || lineText.includes("[REZOLVARE]") || lineText.includes("[RISOLUZIONE]") || lineText.includes("[AUFLÖSUNG]") || lineText.includes("[RÉSOLUTION]") || lineText.includes("[RESOLUCIÓN]") || lineText.includes("[RESOLUÇÃO]")) {
+            div.style.color = "#94a3b8"; 
+        } else if (lineText.includes("ALERT") || lineText.includes("CRITICAL") || lineText.includes("WARNING") || lineText.includes("THREAT") || lineText.includes("PERICOL") || lineText.includes("GEFAHR") || lineText.includes("PELIGRO")) {
+            div.style.color = "var(--color-danger)";
+        } else if (lineText.includes("MATCH") || lineText.includes("COMPLETE") || lineText.includes("COMPLIANT") || lineText.includes("FINALIZAT") || lineText.includes("COMPLETATO") || lineText.includes("ABGESCHLOSSEN") || lineText.includes("TERMINÉ") || lineText.includes("COMPLETADO") || lineText.includes("CONCLUÍDO") || lineText.includes("ЗАВЕРШЕНО")) {
+            div.style.color = "var(--color-success)";
+        } else if (lineText.includes("OFFSHORE")) {
+            div.style.color = "var(--color-warning)";
+        } else {
+            div.style.color = "var(--color-primary)";
+        }
+
+        div.textContent = lineText;
+        scannerTerminal.appendChild(div);
+        scannerTerminal.scrollTop = scannerTerminal.scrollHeight;
+
+        currentLogIndex++;
+        setTimeout(printNextLine, 200); 
+    }
+
+    printNextLine();
+}
                 scannerStatus.style.color = "var(--color-danger)";
             }
             callback();
@@ -909,7 +1247,7 @@ async function fetchResults(scanId) {
             } else {
                 data.red_flags.forEach(flag => {
                     const li = document.createElement("li");
-                    li.textContent = flag;
+                    li.textContent = translateFlag(flag);
                     redFlagsList.appendChild(li);
                 });
             }
@@ -923,7 +1261,7 @@ async function fetchResults(scanId) {
             } else {
                 data.green_flags.forEach(flag => {
                     const li = document.createElement("li");
-                    li.textContent = flag;
+                    li.textContent = translateFlag(flag);
                     greenFlagsList.appendChild(li);
                 });
             }
