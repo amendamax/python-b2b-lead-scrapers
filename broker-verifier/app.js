@@ -721,6 +721,43 @@ const flagTranslations = {
         pt: "Nível extremamente alto de proteção ao investidor e garantia de ativos dos clientes.",
         ru: "Чрезвычайно высокая защита инвесторов и гарантии сохранности средств клиентов."
     },
+    // PocketOption
+    "Registered offshore (MISA / Gembell Limited) with no tier-1 financial regulation.": {
+        ro: "Înregistrat offshore (MISA / Gembell Limited) fără licență financiară Tier-1 de top.",
+        it: "Registrato offshore (MISA / Gembell Limited) senza regolamentazione finanziaria Tier-1.",
+        de: "Offshore registriert (MISA / Gembell Limited) ohne Tier-1-Finanzregulierung.",
+        fr: "Enregistré offshore (MISA / Gembell Limited) sans régulation financière de premier plan.",
+        es: "Registrado en paraíso offshore (MISA / Gembell Limited) sin regulación financiera Tier-1.",
+        pt: "Registrado em paraíso offshore (MISA / Gembell Limited) sem regulação financeira Tier-1.",
+        ru: "Зарегистрирован в оффшоре (MISA / Gembell Limited) без финансовой лицензии Tier-1."
+    },
+    "Binary options trading carries high risk of total loss.": {
+        ro: "Tranzacționarea de opțiuni binare implică un risc extrem de pierdere totală a capitalului.",
+        it: "Il trading di opzioni binarie comporta un elevato rischio di perdita totale del capitale.",
+        de: "Der Handel mit binären Optionen birgt ein extrem hohes Risiko des Totalverlusts.",
+        fr: "Le trading d'options binaires comporte un risque très élevé de perte totale du capital.",
+        es: "El comercio de opciones binarias conlleva un alto riesgo de pérdida total del capital.",
+        pt: "A negociação de opções binárias envolve alto risco de perda total do capital.",
+        ru: "Торговля бинарными опционами сопряжена с высоким риском полной потери средств."
+    },
+    "Withdrawal verification delays reported by some retail users.": {
+        ro: "Întârzieri la verificarea retragerilor raportate de unii utilizatori de retail.",
+        it: "Ritardi nella verifica dei prelievi segnalati da diversi utenti al dettaglio.",
+        de: "Auszahlungsverzögerungen und Verifizierungs-Probleme von Tradern gemeldet.",
+        fr: "Retards de vérification des retraits signalés par certains utilisateurs.",
+        es: "Retrasos en la verificación de retiros reportados por varios usuarios minoristas.",
+        pt: "Atrasos na verificação de saques relatados por alguns utilizadores.",
+        ru: "Задержки верификации при выводе средств, отмеченные розничными пользователями."
+    },
+    "Offers low minimum deposit threshold and social copy trading tools.": {
+        ro: "Oferă depozit minim redus și instrumente de social copy trading.",
+        it: "Offre una soglia di deposito minimo bassa e strumenti di social copy trading.",
+        de: "Bietet eine niedrige Mindesteinzahlung und Social-Copy-Trading-Funktionen.",
+        fr: "Propose un seuil de dépôt minimum bas et des outils de copy trading social.",
+        es: "Ofrece un depósito mínimo bajo y herramientas de social copy trading.",
+        pt: "Oferece depósito mínimo reduzido e ferramentas de social copy trading.",
+        ru: "Низкий порог минимального депозита и инструменты социального копи-трейдинга."
+    },
     // Exness
     "High volatility products involve significant financial risk.": {
         ro: "Produsele cu volatilitate ridicată implică riscuri financiare semnificative.",
@@ -748,6 +785,51 @@ const flagTranslations = {
         es: "Retiros instantáneos automáticos 24/7 sin demoras.",
         pt: "Saques automáticos instantâneos 24/7 sem atrasos.",
         ru: "Автоматический мгновенный вывод средств 24/7 без задержек."
+    },
+    "High leverage options available on offshore entities require proper risk management.": {
+        ro: "Opțiunile de levier ridicat disponibile pe entitățile offshore necesită gestionarea atentă a riscurilor.",
+        it: "Le opzioni di leva elevata disponibili sulle entità offshore richiedono un'adeguata gestione del rischio.",
+        de: "Hohe Hebeloptionen bei Offshore-Einheiten erfordern ein sorgfältiges Risikomanagement.",
+        fr: "Les options à fort effet de levier sur les entités offshore nécessitent une gestion rigoureuse des risques.",
+        es: "Las opciones de alto apalancamiento en entidades offshore requieren una gestión adecuada del riesgo.",
+        pt: "Opções de alta alavancagem em entidades offshore exigem gestão de risco adequada.",
+        ru: "Высокое кредитное плечо на оффшорных счетах требует строгого управления рисками."
+    },
+    "Regulated by CySEC (Cyprus), FCA (UK), FSA (Seychelles), and CBCS.": {
+        ro: "Reglementat de CySEC (Cipru), FCA (Marea Britanie), FSA (Seychelles) și CBCS.",
+        it: "Regolamentato da CySEC (Cipro), FCA (UK), FSA (Seychelles) e CBCS.",
+        de: "Reguliert durch CySEC (Zypern), FCA (UK), FSA (Seychellen) und CBCS.",
+        fr: "Réglementé par la CySEC (Chypre), la FCA (UK), la FSA (Seychelles) et la CBCS.",
+        es: "Regulado por CySEC (Chipre), FCA (UK), FSA (Seychelles) y CBCS.",
+        pt: "Regulamentado pela CySEC (Chipre), FCA (UK), FSA (Seychelles) e CBCS.",
+        ru: "Регулируется CySEC (Кипр), FCA (Великобритания), FSA (Сейшелы) и CBCS."
+    },
+    "Over $4 Trillion in audited monthly trading volume.": {
+        ro: "Peste 4 trilioane USD în volum lunar de tranzacționare auditat.",
+        it: "Oltre 4 trilioni di dollari di volume mensile di scambi verificato.",
+        de: "Über 4 Billionen USD an geprüftem monatlichem Handelsvolumen.",
+        fr: "Plus de 4 billions de dollars de volume de trading mensuel audité.",
+        es: "Más de 4 billones de dólares en volumen mensual de negociación auditado.",
+        pt: "Mais de US$ 4 trilhões em volume mensal auditado.",
+        ru: "Свыше $4 трлн подтвержденного ежемесячного объема торгов."
+    },
+    "Instant automated withdrawals and negative balance protection.": {
+        ro: "Retrageri instantanee automate și protecție împotriva soldului negativ.",
+        it: "Prelievi automatici istantanei e protezione dal saldo negativo.",
+        de: "Automatische Sofortauszahlungen und Schutz vor negativem Kontostand.",
+        fr: "Retraits instantanés automatisés et protection contre le solde négatif.",
+        es: "Retiros automáticos instantáneos y protección de saldo negativo.",
+        pt: "Saques automáticos instantâneos e proteção contra saldo negativo.",
+        ru: "Мгновенный автоматический вывод и защита от отрицательного баланса."
+    },
+    "Client funds held in segregated accounts at tier-1 international banks.": {
+        ro: "Fondurile clienților sunt păstrate în conturi segregate la bănci internaționale Tier-1.",
+        it: "Fondi dei clienti custoditi in conti segregati presso banche internazionali Tier-1.",
+        de: "Kundengelder auf getrennten Konten bei internationalen Tier-1-Banken verwahrt.",
+        fr: "Fonds des clients conservés sur des comptes ségrégués dans des banques Tier-1.",
+        es: "Fondos de clientes en cuentas segregadas en bancos internacionales de primer nivel.",
+        pt: "Fundos de clientes em contas segregadas em bancos internacionais Tier-1.",
+        ru: "Средства клиентов хранятся на сегрегированных счетах в банках Tier-1."
     },
     // XM
     "Overnight fees apply on select non-Islamic trading accounts.": {
@@ -778,6 +860,15 @@ const flagTranslations = {
         pt: "Taxa de saque de US$ 5 aplicada em transferências.",
         ru: "Комиссия за вывод средств в размере $5."
     },
+    "Inactivity fee applied after 12 months without login.": {
+        ro: "Taxă de inactivitate aplicată după 12 luni consecutive fără conectare.",
+        it: "Commissione di inattività applicata dopo 12 mesi senza accesso.",
+        de: "Inaktivitätsgebühr nach 12 Monaten ohne Anmeldung fällig.",
+        fr: "Frais d'inactivité appliqués après 12 mois sans connexion.",
+        es: "Tasa de inactividad aplicada tras 12 meses sin iniciar sesión.",
+        pt: "Taxa de inatividade após 12 meses sem login.",
+        ru: "Комиссия за неактивность после 12 месяцев без входа в аккаунт."
+    },
     "World leader in Social Trading and Copy Trading with over 30M users.": {
         ro: "Lider mondial în Social Trading și Copy Trading cu peste 30 de milioane de utilizatori.",
         it: "Leader mondiale nel Social Trading e Copy Trading con oltre 30 milioni di utenti.",
@@ -786,6 +877,33 @@ const flagTranslations = {
         es: "Líder mundial en Social Trading y Copy Trading con más de 30 millones de usuarios.",
         pt: "Líder mundial em Social Trading e Copy Trading com mais de 30 milhões de usuários.",
         ru: "Мировой лидер в области Social Trading и Copy Trading с более чем 30 млн пользователей."
+    },
+    "Regulated by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).": {
+        ro: "Reglementat de FCA (UK), CySEC (Cipru), ASIC (Australia) și FINRA (SUA).",
+        it: "Regolamentato da FCA (UK), CySEC (Cipro), ASIC (Australia) e FINRA (USA).",
+        de: "Reguliert durch FCA (UK), CySEC (Zypern), ASIC (Australien) und FINRA (USA).",
+        fr: "Réglementé par la FCA (UK), la CySEC (Chypre), l'ASIC (Australie) et la FINRA (USA).",
+        es: "Regulado por FCA (UK), CySEC (Chipre), ASIC (Australia) y FINRA (EE. UU.).",
+        pt: "Regulamentado pela FCA (UK), CySEC (Chipre), ASIC (Austrália) e FINRA (EUA).",
+        ru: "Регулируется FCA (Великобритания), CySEC (Кипр), ASIC (Австралия) и FINRA (США)."
+    },
+    "Public social trading & copy-trading platform with full transparency.": {
+        ro: "Platformă publică de social trading & copy trading cu transparență totală.",
+        it: "Piattaforma pubblica di social trading e copy-trading con totale trasparenza.",
+        de: "Öffentliche Social-Trading- und Copy-Trading-Plattform mit voller Transparenz.",
+        fr: "Plateforme publique de social trading et copy trading en toute transparence.",
+        es: "Plataforma pública de social trading y copy-trading con total transparencia.",
+        pt: "Plataforma pública de social trading e copy-trading com total transparência.",
+        ru: "Публичная платформа социального и копи-трейдинга с полной прозрачностью."
+    },
+    "Segregated client funds and free deposit protection insurance.": {
+        ro: "Fonduri segregate ale clienților și asigurare gratuită de protecție a depozitelor.",
+        it: "Fondi dei clienti segregati e assicurazione gratuita di protezione dei depositi.",
+        de: "Getrennte Kundengelder und kostenlose Einlagensicherungsversicherung.",
+        fr: "Fonds des clients ségrégués et assurance gratuite de protection des dépôts.",
+        es: "Fondos segregados y seguro gratuito de protección de depósitos.",
+        pt: "Fundos segregados e seguro gratuito de proteção de depósitos.",
+        ru: "Сегрегированные средства клиентов и бесплатная страховка депозитов."
     },
     // Plus500
     "CFD service only - does not offer direct share ownership.": {
@@ -816,6 +934,15 @@ const flagTranslations = {
         pt: "Taxa de inatividade aplicada após 3 meses consecutivos de não utilização.",
         ru: "Комиссия за неактивность взимается после 3 месяцев отсутствия сделок."
     },
+    "Inactivity fee applies after 3 consecutive inactive months.": {
+        ro: "Taxă de inactivitate aplicată după 3 luni consecutive de neutilizare.",
+        it: "Commissione di inattività applicata dopo 3 mesi consecutivi di inutilizzo.",
+        de: "Inaktivitätsgebühr wird nach 3 aufeinanderfolgenden Monaten ohne Aktivität fällig.",
+        fr: "Frais d'inactivité appliqués après 3 mois consécutifs de non-utilisation.",
+        es: "Tasa de inactividad aplicada tras 3 meses consecutivos de no uso.",
+        pt: "Taxa de inatividade aplicada após 3 meses consecutivos de não utilização.",
+        ru: "Комиссия за неактивность взимается после 3 месяцев отсутствия сделок."
+    },
     "Regulated across 5 continents including Central Bank of Ireland and ASIC.": {
         ro: "Reglementat pe 5 continente, inclusiv de Banca Centrală a Irlandei și ASIC.",
         it: "Regolamentato in 5 continenti, inclusa la Banca Centrale d'Irlanda e ASIC.",
@@ -824,17 +951,391 @@ const flagTranslations = {
         es: "Regulado en 5 continentes, incluyendo el Banco Central de Irlanda y ASIC.",
         pt: "Regulamentada em 5 continentes, incluindo o Banco Central da Irlanda e ASIC.",
         ru: "Регулируется на 5 континентах, включая Центральный банк Ирландии и ASIC."
+    },
+    "Regulated across 9 jurisdictions including Central Bank of Ireland and ASIC.": {
+        ro: "Reglementat în 9 jurisdicții globale, inclusiv Banca Centrală a Irlandei și ASIC.",
+        it: "Regolamentato in 9 giurisdizioni tra cui Banca Centrale d'Irlanda e ASIC.",
+        de: "Reguliert in 9 Jurisdiktionen, einschließlich der Zentralbank von Irland und ASIC.",
+        fr: "Réglementé dans 9 juridictions dont la Banque centrale d'Irlande et l'ASIC.",
+        es: "Regulado en 9 jurisdicciones, incluidas el Banco Central de Irlanda y ASIC.",
+        pt: "Regulamentada em 9 jurisdições, incluindo o Banco Central da Irlanda e ASIC.",
+        ru: "Регулируется в 9 юрисдикциях, включая Центральный банк Ирландии и ASIC."
+    },
+    "AvaProtect loss risk protection tool available for client trades.": {
+        ro: "Instrument unic AvaProtect de protecție împotriva pierderilor disponibil pentru clienți.",
+        it: "Strumento di protezione dalle perdite AvaProtect disponibile per i trader.",
+        de: "Einzigartiges Risikoschutz-Tool AvaProtect für Kunden verfügbar.",
+        fr: "Outil de protection contre les pertes AvaProtect disponible pour les clients.",
+        es: "Herramienta exclusiva de protección contra pérdidas AvaProtect disponible.",
+        pt: "Ferramenta de proteção contra perdas AvaProtect disponível para clientes.",
+        ru: "Уникальный инструмент защиты от убытков AvaProtect доступен клиентам."
+    },
+    "Segregated client funds in tier-1 financial institutions.": {
+        ro: "Fonduri segregate ale clienților în instituții financiare Tier-1.",
+        it: "Fondi dei clienti segregati presso istituzioni finanziarie Tier-1.",
+        de: "Getrennte Kundengelder bei Tier-1-Finanzinstituten.",
+        fr: "Fonds des clients ségrégués dans des institutions financières Tier-1.",
+        es: "Fondos de clientes segregados en entidades financieras de primer nivel.",
+        pt: "Fundos de clientes segregados em instituições financeiras Tier-1.",
+        ru: "Сегрегированные средства клиентов в финансовых учреждениях Tier-1."
+    },
+    // Scam / Blacklist Flags
+    "Blacklisted by European financial watchdogs.": {
+        ro: "🚨 Aflat pe lista neagră oficială a autorităților europene de supraveghere financiară.",
+        it: "🚨 Incluso nella lista nera ufficiale delle autorità di vigilanza europee.",
+        de: "🚨 Auf der offiziellen schwarzen Liste europäischer Finanzaufsichtsbehörden.",
+        fr: "🚨 Inscrit sur la liste noire officielle des autorités financières européennes.",
+        es: "🚨 En la lista negra oficial de los supervisores financieros europeos.",
+        pt: "🚨 Na lista negra oficial dos reguladores financeiros europeus.",
+        ru: "🚨 Внесен в официальный черный список европейских финансовых регуляторов."
+    },
+    "Manipulated trading interface with fake balances.": {
+        ro: "🚨 Interfață de tranzacționare manipulată cu solduri și grafice false.",
+        it: "🚨 Interfaccia di trading manipolata con saldi e grafici fittizi.",
+        de: "🚨 Manipulierte Handelsoberfläche mit gefälschten Kontoständen.",
+        fr: "🚨 Interface de trading manipulée avec des soldes fictifs.",
+        es: "🚨 Interfaz de trading manipulada con saldos y gráficos ficticios.",
+        pt: "🚨 Interface de negociação manipulada com saldos falsos.",
+        ru: "🚨 Сфальсифицированный торговый терминал с поддельными балансами."
+    },
+    "Demands secondary fee payments to process withdrawals.": {
+        ro: "🚨 Solicită taxe suplimentare ilegale pentru procesarea retragerilor.",
+        it: "🚨 Richiede commissioni secondarie illecite per elaborare i prelievi.",
+        de: "🚨 Verlangt zusätzliche illegale Vorauszahlungen für Auszahlungen.",
+        fr: "🚨 Exige des paiements de frais secondaires pour débloquer les retraits.",
+        es: "🚨 Exige pagos de tarifas secundarias para procesar las retiradas.",
+        pt: "🚨 Exige taxas secundárias para processar saques.",
+        ru: "🚨 Требует скрытых дополнительных комиссий для обработки вывода."
+    },
+    "None. Avoid completely.": {
+        ro: "Niciunul. Evitați complet această entitate frauduloasă.",
+        it: "Nessuno. Evitare assolutamente questa entità truffaldina.",
+        de: "Keine. Vollständig meiden – akute Betrugsgefahr.",
+        fr: "Aucun. À éviter absolument – entité frauduleuse.",
+        es: "Ninguno. Evite por completo esta entidad fraudulenta.",
+        pt: "Nenhum. Evite totalmente esta entidade fraudulenta.",
+        ru: "Отсутствуют. Категорически избегайте данного мошенничества."
+    },
+    "Unregulated crypto Ponzi scheme.": {
+        ro: "🚨 Schemă Ponzi crypto nereglementată și ilegală.",
+        it: "🚨 Schema Ponzi crypto illegale e non regolamentato.",
+        de: "🚨 Unreguliertes Krypto-Schneeballsystem (Ponzi).",
+        fr: "🚨 Chaîne de Ponzi crypto illégale et non régulée.",
+        es: "🚨 Esquema Ponzi de criptomonedas no regulado e ilegal.",
+        pt: "🚨 Esquema Ponzi de criptomoedas não regulamentado.",
+        ru: "🚨 Нелегальная криптовалютная финансовая пирамида (Понзи)."
+    },
+    "Recruits victims via Instagram/Telegram unsolicited messaging.": {
+        ro: "🚨 Recrutează victime prin mesaje nesolicitate pe Telegram / Instagram.",
+        it: "🚨 Recluta vittime tramite messaggi indesiderati su Telegram/Instagram.",
+        de: "🚨 Rekrutiert Opfer über unaufgeforderte Telegram-/Instagram-Nachrichten.",
+        fr: "🚨 Recrute des victimes via des messages non sollicités sur Telegram/Instagram.",
+        es: "🚨 Capta víctimas mediante mensajes no solicitados en Telegram/Instagram.",
+        pt: "🚨 Recruta vítimas através de mensagens no Telegram/Instagram.",
+        ru: "🚨 Вербует жертв через спам-рассылки в Telegram и Instagram."
+    },
+    "Promises guaranteed daily crypto yields of 15%+.": {
+        ro: "🚨 Promite randamente garantate nerealiste de peste 15% zilnic.",
+        it: "🚨 Promette rendimenti giornalieri garantiti irrealistici superiori al 15%.",
+        de: "🚨 Verspricht unrealistische garantierte Tagesrenditen von über 15 %.",
+        fr: "🚨 Promet des rendements quotidiens garantis irréalistes de plus de 15%.",
+        es: "🚨 Promete rentabilidades diarias garantizadas irreales de más del 15%.",
+        pt: "🚨 Promete rendimentos diários garantidos irreais de mais de 15%.",
+        ru: "🚨 Обещает нереалистичную гарантированную доходность свыше 15% в день."
+    },
+    "None. Illegal scam.": {
+        ro: "Niciunul. Escrocherie financiară ilegală.",
+        it: "Nessuno. Truffa finanziaria illegale.",
+        de: "Keine. Illegaler Betrug.",
+        fr: "Aucun. Escroquerie illégale.",
+        es: "Ninguno. Estafa financiera ilegal.",
+        pt: "Nenhum. Golpe financeiro ilegal.",
+        ru: "Отсутствуют. Нелегальная афера."
+    },
+    // Generic Wizard / Heuristic Flags
+    "Registered in an offshore tax haven jurisdiction with weak oversight and zero audit compliance.": {
+        ro: "Înregistrat într-un paradis fiscal offshore cu supraveghere minimă și fără audit legal.",
+        it: "Registrato in un paradiso fiscale offshore con debole supervisione e conformità zero.",
+        de: "In einer Steueroase mit schwacher Aufsicht und ohne Prüfungskonformität registriert.",
+        fr: "Enregistré dans un paradis fiscal offshore sans surveillance stricte ni audit.",
+        es: "Registrado en un paraíso fiscal offshore con escasa supervisión y sin auditorías.",
+        pt: "Registrado em paraíso fiscal offshore com fraca supervisão e sem auditorias.",
+        ru: "Зарегистрирован в оффшорной зоне со слабым контролем и отсутствием аудита."
+    },
+    "Operates under a generic commercial entity without any active financial trading license.": {
+        ro: "Operează ca simplă entitate comercială fără nicio licență activă de tranzacționare financiară.",
+        it: "Opera come generica entità commerciale senza alcuna licenza finanziaria attiva.",
+        de: "Arbeitet als einfaches Unternehmen ohne gültige Finanzhandelslizenz.",
+        fr: "Opère sous une entité commerciale générique sans licence de trading valide.",
+        es: "Opera bajo una entidad comercial genérica sin licencia de trading activa.",
+        pt: "Opera como entidade comercial genérica sem licença de trading ativa.",
+        ru: "Работает под видом обычной компании без активной финансовой лицензии."
+    },
+    "Offers high leverage (up to 1:500), which exceeds standard regulatory caps and increases risk.": {
+        ro: "Oferă levier excesiv (până la 1:500), depășind limitele legale europene și crescând riscul.",
+        it: "Offre leva elevata (fino a 1:500), che supera i limiti normativi standard e aumenta il rischio.",
+        de: "Bietet sehr hohen Hebel (bis zu 1:500), was die regulatorischen Grenzen überschreitet.",
+        fr: "Offre un effet de levier élevé (jusqu'à 1:500), dépassant les plafonds réglementaires.",
+        es: "Ofrece alto apalancamiento (hasta 1:500), superando los límites regulatorios.",
+        pt: "Oferece alta alavancagem (até 1:500), excedendo os limites regulatórios.",
+        ru: "Предлагает повышенное кредитное плечо (до 1:500), превышающее нормы регуляторов."
+    },
+    "Promotes unrealistic or unlimited leverage, typically used to lure retail clients into high-risk trades.": {
+        ro: "Promovează levier nerealist sau nelimitat, tactică specifică atragerii clienților în tranzacții riscante.",
+        it: "Promuove leva irrealistica o illimitata, utilizzata per attirare i clienti al dettaglio in operazioni ad alto rischio.",
+        de: "Wirbt mit unbegrenztem Hebel – ein typisches Lockmittel für riskante Trades.",
+        fr: "Fait la promotion d'un levier illimité, utilisé pour attirer vers des transactions risquées.",
+        es: "Promueve apalancamiento irreal o ilimitado, táctica típica para atraer a operaciones de alto riesgo.",
+        pt: "Promove alavancagem irreal ou ilimitada para atrair clientes a riscos excessivos.",
+        ru: "Рекламирует неограниченное плечо — частая уловка для вовлечения в опасные сделки."
+    },
+    "Reached out via unsolicited cold calls or aggressive clickbait social media ads.": {
+        ro: "Contactare prin apeluri telefonice nesolicitate sau reclame agresive pe rețelele sociale.",
+        it: "Contatto tramite telefonate a freddo indesiderate o annunci pubblicitari aggressivi.",
+        de: "Kontaktaufnahme über unaufgeforderte Kaltanrufe oder aggressive Clickbait-Werbung.",
+        fr: "Contact par démarchage téléphonique ou publicités agressives sur les réseaux sociaux.",
+        es: "Contacto mediante llamadas no solicitadas o anuncios agresivos en redes.",
+        pt: "Abordagem por chamadas não solicitadas ou anúncios agressivos em redes sociais.",
+        ru: "Связываются через холодные звонки или навязчивую кликбейт-рекламу в соцсетях."
+    },
+    "Recruited via social media accounts or anonymous Telegram/WhatsApp signal groups.": {
+        ro: "Recrutare prin conturi de social media sau grupuri anonime de semnale pe Telegram/WhatsApp.",
+        it: "Reclutamento tramite profili social o gruppi anonimi di segnali su Telegram/WhatsApp.",
+        de: "Anwerbung über Social-Media-Profile oder anonyme Telegram-/WhatsApp-Signalgruppen.",
+        fr: "Recrutement via des réseaux sociaux ou des groupes de signaux anonymes sur Telegram/WhatsApp.",
+        es: "Captación mediante redes sociales o grupos anónimos de señales en Telegram/WhatsApp.",
+        pt: "Recrutamento através de redes sociais ou grupos anônimos no Telegram/WhatsApp.",
+        ru: "Привлечение через соцсети или анонимные группы сигналов в Telegram/WhatsApp."
+    },
+    "Promises guaranteed weekly or monthly profits without risk. This is the hallmark of a Ponzi scheme.": {
+        ro: "Promisiuni de profit garantat săptămânal sau lunar fără risc. Acesta este semnul distinctiv al unei scheme piramidale.",
+        it: "Promesse di profitti settimanali o mensili garantiti senza rischio. È il segno distintivo di uno schema Ponzi.",
+        de: "Versprechen garantierter Gewinne ohne Risiko – das klassische Merkmal eines Schneeballsystems.",
+        fr: "Promesses de gains hebdomadaires ou mensuels garantis sans risque. Caractéristique d'une pyramide de Ponzi.",
+        es: "Promesas de ganancias garantizadas sin riesgo. Es el sello distintivo de un esquema Ponzi.",
+        pt: "Promessas de lucros garantidos semanais ou mensais sem risco. Marca registrada de pirâmide Ponzi.",
+        ru: "Обещания гарантированной прибыли без риска — главный признак финансовой пирамиды (Понзи)."
+    },
+    "Regulated by top-tier financial authorities in Europe, UK, US, or Australia.": {
+        ro: "Reglementat de autorități financiare de top din Europa, Marea Britanie, SUA sau Australia.",
+        it: "Regolamentato da autorità finanziarie di primo livello in Europa, UK, USA o Australia.",
+        de: "Reguliert durch erstklassige Finanzaufsichtsbehörden in Europa, UK, USA oder Australien.",
+        fr: "Réglementé par des autorités financières de premier plan en Europe, UK, USA ou Australie.",
+        es: "Regulado por autoridades financieras de primer nivel en Europa, Reino Unido, EE. UU. o Australia.",
+        pt: "Regulamentado por autoridades financeiras de primeiro nível na Europa, Reino Unido, EUA ou Austrália.",
+        ru: "Регулируется ведущими финансовыми органами Европы, Великобритании, США или Австралии."
+    },
+    "Offers prudent trading leverage compliant with ESMA and FCA standards (Max 1:30 for retail).": {
+        ro: "Oferă levier prudent conform standardelor ESMA și FCA (Maxim 1:30 pentru clienții retail).",
+        it: "Offre una leva prudente conforme agli standard ESMA e FCA (Max 1:30 per i clienti al dettaglio).",
+        de: "Bietet einen vorsichtigen Hebel gemäß ESMA- und FCA-Standards (max. 1:30 für Retail).",
+        fr: "Offre un effet de levier prudent conforme aux normes ESMA et FCA (Max 1:30 pour le détail).",
+        es: "Ofrece apalancamiento prudente según normativas ESMA y FCA (Máximo 1:30 para minoristas).",
+        pt: "Oferece alavancagem prudente em conformidade com normas ESMA e FCA (Máx. 1:30 para varejo).",
+        ru: "Предоставляет умеренное плечо по стандартам ESMA и FCA (до 1:30 для розничных клиентов)."
+    },
+    "Discovered organically through research or reputable reviews, without pushy advertising.": {
+        ro: "Descoperit organic prin recenzii reputate și cercetare, fără publicitate agresivă.",
+        it: "Scoperto organicamente attraverso ricerche o recensioni affidabili, senza pubblicità invasiva.",
+        de: "Organisch durch Recherchen oder seriöse Testberichte entdeckt, ohne aufdringliche Werbung.",
+        fr: "Découvert de manière organique via des recherches fiables, sans publicité agressive.",
+        es: "Descubierto orgánicamente a través de investigación o reseñas respetables, sin publicidad invasiva.",
+        pt: "Descoberto organicamente através de análises respeitáveis, sem publicidade invasiva.",
+        ru: "Найден органически через независимые обзоры и поиск, без навязчивой рекламы."
+    },
+    "Features standard, realistic risk disclosures regarding trading losses.": {
+        ro: "Prezintă avertismente clare și standard privind riscul de pierdere a capitalului.",
+        it: "Presenta informative sui rischi standard e realistiche relative alle perdite di trading.",
+        de: "Verfügt über transparente, vorschriftsmäßige Risikohinweise zu Handelsverlusten.",
+        fr: "Comporte des avertissements sur les risques réalistes et conformes aux réglementations.",
+        es: "Incluye advertencias de riesgo estándar y realistas sobre las pérdidas en trading.",
+        pt: "Apresenta avisos de risco padrão e transparentes sobre perdas em negociações.",
+        ru: "Содержит стандартные и честные предупреждения о рисках торговых убытков."
+    }
+};
+
+const verdictTranslations = {
+    "Warning: High Risk / Offshore Jurisdiction": {
+        ro: "Avertisment: Risc Ridicat / Jurisdicție Offshore",
+        it: "Avviso: Alto Rischio / Giurisdizione Offshore",
+        de: "Warnung: Hohes Risiko / Offshore-Regulierung",
+        fr: "Avertissement : Risque Élevé / Juridiction Offshore",
+        es: "Advertencia: Alto Riesgo / Jurisdicción Offshore",
+        pt: "Aviso: Alto Risco / Jurisdição Offshore",
+        ru: "Предупреждение: Высокий риск / Оффшорная юрисдикция"
+    },
+    "Low Risk Broker": {
+        ro: "Broker cu Risc Redus & Sigur",
+        it: "Broker a Basso Rischio & Sicuro",
+        de: "Broker mit geringem Risiko & Sicher",
+        fr: "Courtier à Faible Risque & Sécurisé",
+        es: "Broker de Bajo Riesgo & Seguro",
+        pt: "Corretora de Baixo Risco & Segura",
+        ru: "Брокер с низким уровнем риска"
+    },
+    "Warning: Moderate Risk / Offshore": {
+        ro: "Avertisment: Risc Mediu / Offshore",
+        it: "Avviso: Rischio Moderato / Offshore",
+        de: "Warnung: Moderates Risiko / Offshore",
+        fr: "Avertissement : Risque Modéré / Offshore",
+        es: "Advertencia: Riesgo Moderado / Offshore",
+        pt: "Aviso: Risco Moderado / Offshore",
+        ru: "Предупреждение: Умеренный риск / Оффшор"
+    },
+    "IMMINENT FRAUD ALERT / HIGH RISK SCAM": {
+        ro: "🚨 ALERTĂ IMINENTĂ DE FRAUDĂ / ESCROCHERIE CU RISC CRITIC",
+        it: "🚨 ALLERTA TRUFFA IMMINENTE / ALTO RISCHIO",
+        de: "🚨 AKUTE BETRUGSWARNUNG / HOCHRISIKO-SCAM",
+        fr: "🚨 ALERTE DE FRAUDE IMMINENTE / ARNAQUE À HAUT RISQUE",
+        es: "🚨 ALERTA INMINENTE DE FRAUDE / ESTAFA DE ALTO RIESGO",
+        pt: "🚨 ALERTA IMINENTE DE FRAUDE / GOLPE DE ALTO RISCO",
+        ru: "🚨 КРИТИЧЕСКАЯ УГРОЗА МОШЕННИЧЕСТВА / СКАМ"
+    },
+    "CRITICAL FRAUD ALERT / BLACKLISTED": {
+        ro: "🚨 ALERTĂ CRITICĂ DE FRAUDĂ / PE LISTA NEAGRĂ",
+        it: "🚨 ALLERTA CRITICA DI TRUFFA / NELLA LISTA NERA",
+        de: "🚨 KRITISCHE BETRUGSWARNUNG / AUF DER SCHWARZEN LISTE",
+        fr: "🚨 ALERTE CRITIQUE DE FRAUDE / SUR LISTE NOIRE",
+        es: "🚨 ALERTA CRÍTICA DE FRAUDE / EN LISTA NEGRA",
+        pt: "🚨 ALERTA CRÍTICO DE FRAUDE / NA LISTA NEGRA",
+        ru: "🚨 КРИТИЧЕСКАЯ УГРОЗА / В ЧЕРНОМ СПИСКЕ"
+    },
+    "HIGH RISK PONZI SCHEME": {
+        ro: "🚨 SCHEMĂ PONZI CU RISC EXTREM",
+        it: "🚨 SCHEMA PONZI AD ALTO RISCHIO",
+        de: "🚨 HOCHRISIKO-SCHNEEBALLSYSTEM (PONZI)",
+        fr: "🚨 SCHÉMA DE PONZI À TRÈS HAUT RISQUE",
+        es: "🚨 ESQUEMA PONZI DE ALTO RIESGO",
+        pt: "🚨 ESQUEMA PONZI DE ALTO RISCO",
+        ru: "🚨 ФИНАНСОВАЯ ПИРАМИДА (ПОНЗИ)"
+    },
+    "Highly Secure & Regulated Global Broker": {
+        ro: "Broker Global Reglementat și de Înaltă Securitate",
+        it: "Broker Globale Regolamentato ad Alta Sicurezza",
+        de: "Hochsicherer & Regulierter Globaler Broker",
+        fr: "Courtier Global Réglementé et Hautement Sécurisé",
+        es: "Broker Global Regulado y de Alta Seguridad",
+        pt: "Corretora Global Regulamentada e de Alta Segurança",
+        ru: "Высоконадежный и регулируемый международный брокер"
+    },
+    "Highly Regulated Global Broker": {
+        ro: "Broker Global Reglementat și Licențiat",
+        it: "Broker Globale Regolamentato e Licenziato",
+        de: "Regulierter Globaler Broker",
+        fr: "Courtier Global Réglementé et Agréé",
+        es: "Broker Global Regulado y Licenciado",
+        pt: "Corretora Global Regulamentada",
+        ru: "Строго регулируемый глобальный брокер"
+    }
+};
+
+const verdictTextTranslations = {
+    "PocketOption is an offshore binary options broker registered in Autonomous Island of Mwali. It lacks tier-1 regulatory licenses from FCA, CySEC, or ASIC.": {
+        ro: "PocketOption este un broker offshore de opțiuni binare înregistrat în Insula Autonomă Mwali. Nu deține licențe oficiale Tier-1 de la FCA, CySEC sau ASIC.",
+        it: "PocketOption è un broker offshore di opzioni binarie registrato nell'Isola Autonoma di Mwali. È privo di licenze di primo livello rilasciate da FCA, CySEC o ASIC.",
+        de: "PocketOption ist ein Offshore-Broker für binäre Optionen, registriert auf der Insel Mwali. Es fehlen Tier-1-Lizenzen von FCA, CySEC oder ASIC.",
+        fr: "PocketOption est un courtier d'options binaires offshore enregistré sur l'île de Mwali. Il ne dispose d'aucune licence de premier plan de la FCA, CySEC ou ASIC.",
+        es: "PocketOption es un broker offshore de opciones binarias registrado en la Isla de Mwali. Carece de licencias regulatorias Tier-1 de FCA, CySEC o ASIC.",
+        pt: "PocketOption é uma corretora offshore de opções binárias registrada na Ilha de Mwali. Carece de licenças de primeira linha da FCA, CySEC ou ASIC.",
+        ru: "PocketOption — оффшорный брокер бинарных опционов, зарегистрированный на острове Мвали. Не имеет лицензий от ведущих регуляторов FCA, CySEC или ASIC."
+    },
+    "CapitalInvestFX is an illegal, unregulated scam entity blacklisted by European regulators. They manipulate trading software and block client withdrawals.": {
+        ro: "CapitalInvestFX este o entitate ilegală și nereglementată, aflată pe lista neagră a autorităților europene. Aceștia manipulează platformele și blochează retragerile de fonduri.",
+        it: "CapitalInvestFX è un'entità illegale e non regolamentata, inclusa nella lista nera delle autorità europee. Manipola le piattaforme e blocca i prelievi.",
+        de: "CapitalInvestFX ist ein illegaler, unregulierter Betrugsbroker auf der schwarzen Liste europäischer Aufsichtsbehörden. Sie manipulieren Kurse und verweigern Auszahlungen.",
+        fr: "CapitalInvestFX est une entité frauduleuse non régulée figurant sur la liste noire des régulateurs européens. Ils manipulent les cours et bloquent les retraits.",
+        es: "CapitalInvestFX es una entidad ilegal y no regulada en la lista negra de los reguladores europeos. Manipulan la plataforma y bloquean las retiradas.",
+        pt: "CapitalInvestFX é uma entidade ilegal e não regulamentada na lista negra de reguladores europeus. Manipula o software e bloqueia saques.",
+        ru: "CapitalInvestFX — нелегальный мошеннический проект из черных списков европейских регуляторов. Они манипулируют котировками и блокируют вывод средств."
+    },
+    "CryptoWealth24 operates an illegal multi-level Ponzi scheme using fake social media account managers to solicit deposits.": {
+        ro: "CryptoWealth24 operează o schemă Ponzi ilegală folosind administratori falși pe rețelele sociale pentru a atrage depozite.",
+        it: "CryptoWealth24 gestisce uno schema Ponzi illegale utilizzando finti account manager sui social per richiedere depositi.",
+        de: "CryptoWealth24 betreibt ein illegales Ponzi-System und nutzt gefälschte Social-Media-Profile, um Einzahlungen zu erschleichen.",
+        fr: "CryptoWealth24 exploite une chaîne de Ponzi illégale en utilisant de faux gestionnaires de compte pour solliciter des dépôts.",
+        es: "CryptoWealth24 opera un esquema Ponzi ilegal utilizando gestores de cuentas falsos en redes sociales para solicitar depósitos.",
+        pt: "CryptoWealth24 opera um esquema Ponzi ilegal usando gerentes falsos nas redes sociais para solicitar depósitos.",
+        ru: "CryptoWealth24 управляет нелегальной финансовой пирамидой через поддельных менеджеров в соцсетях."
+    },
+    "Based on our analysis, this broker shares key characteristics of legitimate, highly-regulated operations. Risk exposure is minimal.": {
+        ro: "Conform analizei noastre, acest broker prezintă caracteristici specifice operațiunilor legitime și strict reglementate. Riscul estimat este minim.",
+        it: "In base alla nostra analisi, questo broker condivide le caratteristiche chiave di operatori legittimi e altamente regolamentati. Il rischio è minimo.",
+        de: "Nach unserer Analyse weist dieser Broker wesentliche Merkmale legitimer, streng regulierter Plattformen auf. Das Risiko ist minimal.",
+        fr: "D'après notre analyse, ce courtier présente les caractéristiques clés d'une société légitime et hautement réglementée. Le risque est minime.",
+        es: "Según nuestro análisis, este broker comparte características clave de operaciones legítimas y altamente reguladas. El riesgo es mínimo.",
+        pt: "Com base em nossa análise, esta corretora apresenta características legítimas e altamente regulamentadas. O risco é mínimo.",
+        ru: "Согласно нашему анализу, брокер обладает всеми признаками легальной и строго регулируемой компании. Риск минимален."
+    },
+    "The broker operates offshore or with high leverage conditions. While they may be operational, the lack of strict tier-1 regulation reduces safety of funds.": {
+        ro: "Brokerul operează în regim offshore sau cu levier excesiv. Deși este operațional, lipsa reglementărilor stricte Tier-1 reduce siguranța fondurilor.",
+        it: "Il broker opera offshore o con condizioni di leva elevata. Sebbene sia operativo, la mancanza di una rigida regolamentazione Tier-1 riduce la sicurezza.",
+        de: "Der Broker operiert offshore oder mit sehr hohem Hebel. Das Fehlen einer strengen Tier-1-Regulierung mindert die Sicherheit der Kundengelder.",
+        fr: "Le courtier opère en offshore ou avec des effets de levier élevés. L'absence de régulation stricte de premier plan réduit la sécurité des fonds.",
+        es: "El broker opera en el extranjero o con condiciones de alto apalancamiento. La falta de regulación estricta Tier-1 reduce la seguridad de los fondos.",
+        pt: "A corretora opera offshore ou com alta alavancagem. A falta de regulamentação rigorosa de primeiro nível reduz a segurança dos fundos.",
+        ru: "Брокер работает в оффшорной зоне или с повышенным кредитным плечом. Отсутствие лицензий Tier-1 снижает сохранность средств."
+    },
+    "High Danger! Stated registration parameters, guaranteed profit claims, or contact tactics (such as Telegram account managers or unsolicited calls) correspond over 90% to financial scams. DO NOT DEPOSIT MONEY!": {
+        ro: "🚨 Pericol Maxim! Datele de înregistrare, promisiunile de profit garantat sau tacticile de contactare (manageri Telegram, apeluri nesolicitate) corespund în proporție de peste 90% fraudelor financiare. NU DEPUNEȚI BANI!",
+        it: "🚨 Massimo Pericolo! I parametri dichiarati, le promesse di guadagno garantito o il reclutamento su Telegram corrispondono per oltre il 90% a truffe finanziarie. NON DEPOSITARE DENARO!",
+        de: "🚨 Höchste Gefahr! Registrierungsangaben, Gewinnversprechen oder Akquisemethoden (Telegram-Gruppen, Kaltanrufe) stimmen zu über 90% mit Betrugsmustern überein. KEIN GELD EINZAHLEN!",
+        fr: "🚨 Danger Élevé ! Les paramètres d'enregistrement, les promesses de gains garantis ou le démarchage (Telegram, appels) correspondent à plus de 90% à des escroqueries. NE DÉPOSEZ PAS D'ARGENT !",
+        es: "🚨 ¡Peligro Inminente! Los datos de registro, promesas de rentabilidad garantizada o métodos de captación (Telegram, llamadas) coinciden en más del 90% con estafas. ¡NO DEPOSITE DINERO!",
+        pt: "🚨 Perigo Máximo! Parâmetros informados, promessas de lucros garantidos ou abordagens no Telegram correspondem a mais de 90% a golpes financeiros. NÃO DEPOSITE DINHEIRO!",
+        ru: "🚨 Критическая опасность! Данные регистрации, обещания гарантированной прибыли или контакты через Telegram на 90%+ совпадают с финансовыми аферами. НЕ ВНОСИТЕ ДЕНЬГИ!"
     }
 };
 
 function translateFlag(text) {
     if (!text || currentLang === 'en' || !currentLang) return text;
-    const match = flagTranslations[text];
+    const clean = text.trim();
+    const match = flagTranslations[clean];
     if (match && match[currentLang]) {
         return match[currentLang];
     }
+    // Check partial matches
+    for (const k in flagTranslations) {
+        if (clean.includes(k) || k.includes(clean)) {
+            if (flagTranslations[k][currentLang]) {
+                return flagTranslations[k][currentLang];
+            }
+        }
+    }
     return text;
 }
+
+function translateVerdictTitle(title) {
+    if (!title || currentLang === 'en' || !currentLang) return title;
+    const clean = title.trim();
+    if (verdictTranslations[clean] && verdictTranslations[clean][currentLang]) {
+        return verdictTranslations[clean][currentLang];
+    }
+    for (const k in verdictTranslations) {
+        if (clean.toLowerCase() === k.toLowerCase() || clean.includes(k) || k.includes(clean)) {
+            if (verdictTranslations[k][currentLang]) {
+                return verdictTranslations[k][currentLang];
+            }
+        }
+    }
+    return title;
+}
+
+function translateVerdictText(text) {
+    if (!text || currentLang === 'en' || !currentLang) return text;
+    const clean = text.trim();
+    if (verdictTextTranslations[clean] && verdictTextTranslations[clean][currentLang]) {
+        return verdictTextTranslations[clean][currentLang];
+    }
+    for (const k in verdictTextTranslations) {
+        if (clean.includes(k) || k.includes(clean)) {
+            if (verdictTextTranslations[k][currentLang]) {
+                return verdictTextTranslations[k][currentLang];
+            }
+        }
+    }
+    return text;
+}
+
 
 // Generate localized threat scan terminal logs
 function getThreatLogs(domain, apiData, score) {
@@ -1092,6 +1593,11 @@ async function fetchResults(scanId) {
                 }
                 break;
             }
+        }
+
+                if (!foundTr) {
+            vTitle = translateVerdictTitle(vTitle);
+            vText = translateVerdictText(vText);
         }
 
         verdictTitle.textContent = vTitle;

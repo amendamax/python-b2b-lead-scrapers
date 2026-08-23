@@ -1823,3 +1823,31 @@ body {
         line-height: 1.4 !important;
     }
 }
+
+/* Mobile Symmetrical Legal P.IVA Footer Badge */
+.corporate-legal-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+    flex-wrap: wrap;
+    background: rgba(15, 23, 42, 0.75);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    max-width: 95%;
+}
+
+@media (max-width: 600px) {
+    .corporate-legal-badge {
+        padding: 8px 14px !important;
+        border-radius: 20px !important;
+        gap: 6px 10px !important;
+    }
+    .corporate-legal-badge .badge-separator {
+        display: none !important;
+    }
+}
+
