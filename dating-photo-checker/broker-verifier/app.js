@@ -1582,6 +1582,7 @@ async function fetchResults(scanId) {
                 let vTitle = data.verdict_title || t.awaitingEval;
         let vText = data.verdict_text || t.scanCompleted;
 
+        let foundTr = false;
         // Check if localized translation exists for featured broker
         const bKey = (data.broker_name || '').toLowerCase().replace(/\s+/g, '');
         for (const k in brokerTranslations) {
@@ -1590,12 +1591,13 @@ async function fetchResults(scanId) {
                 if (tr) {
                     vTitle = tr.title;
                     vText = tr.text;
+                    foundTr = true;
                 }
                 break;
             }
         }
 
-                if (!foundTr) {
+        if (!foundTr) {
             vTitle = translateVerdictTitle(vTitle);
             vText = translateVerdictText(vText);
         }
@@ -1608,6 +1610,7 @@ async function fetchResults(scanId) {
         const bClean = (data.broker_domain || data.broker_name).toLowerCase().replace('.com','').replace(/\s+/g,'');
         const isPartnerBroker = ["exness", "etoro", "plus500", "xm", "avatrade", "interactive", "ibkr"].some(p => bClean.includes(p));
         const isIbkr = bClean.includes("interactive") || bClean.includes("ibkr");
+        const reviewUrl = (currentLang === 'en' || !currentLang ? '' : '/' + currentLang) + '/reviews/' + (isIbkr ? 'interactive-brokers' : bClean.includes('exness') ? 'exness' : bClean.includes('etoro') ? 'etoro' : bClean.includes('plus500') ? 'plus500' : bClean.includes('avatrade') ? 'avatrade' : 'xm');
         
         let affLink = data.affiliate_link;
         if (!affLink) {
@@ -1646,8 +1649,6 @@ async function fetchResults(scanId) {
                     </div>
                 </div>`;
             }
-
-            const reviewUrl = (currentLang === 'en' || !currentLang ? '' : '/' + currentLang) + '/reviews/' + (isIbkr ? 'interactive-brokers' : bClean.includes('exness') ? 'exness' : bClean.includes('etoro') ? 'etoro' : bClean.includes('plus500') ? 'plus500' : bClean.includes('avatrade') ? 'avatrade' : 'xm');
 
             const btnClass = isIbkr ? "full-action-banner-gold" : "full-action-banner-green";
             const btnText = isIbkr ? (t.ibkrBonusBtn || "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔") : `${t.openAccount} ${data.broker_name} ↗`;
