@@ -414,10 +414,10 @@ async def startup_event():
             cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
             dating_count = cursor.fetchone()[0]
             conn.close()
-            if dating_count < 300:
+            if dating_count < 2500:
                 print(f"[Startup] Seeding dating scam dossiers archive (current: {dating_count})...")
                 from dating_scams_harvester import generate_dating_scam_dossiers
-                generate_dating_scam_dossiers(350)
+                generate_dating_scam_dossiers(2500)
         except Exception as e:
             print(f"[Startup Seed Exception]: {e}")
             
