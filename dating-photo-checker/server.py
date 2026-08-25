@@ -714,6 +714,31 @@ async def get_sitemap(request: Request):
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>"""
+    if is_dating:
+        additional_urls += """
+   <url>
+      <loc>https://verifydating.net/scammers</loc>
+      <lastmod>2026-08-25</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.9</priority>
+   </url>"""
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT slug, first_reported_date FROM dating_scam_profiles ORDER BY id DESC LIMIT 50000")
+            for slug, rep_date in cursor.fetchall():
+                lastmod = rep_date if rep_date else "2026-08-25"
+                additional_urls += f"""
+   <url>
+      <loc>https://verifydating.net/scammer/{slug}</loc>
+      <lastmod>{lastmod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>"""
+            conn.close()
+        except Exception:
+            pass
+            
     if not is_dating:
         for b in ["interactive-brokers", "avatrade", "xm", "exness", "etoro", "plus500"]:
             additional_urls += f"""
