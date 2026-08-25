@@ -1967,121 +1967,53 @@ body {
     left: 130%;
 }
 
-
-
 /* ==========================================================================
-   DYNAMIC GLOWING & PULSING NEON BADGES & CHIPS (IsBrokerSafe 2026)
+   ELEGANT & SOPHISTICATED INTERACTIVE HOVER LIGHTING (IsBrokerSafe 2026)
    ========================================================================== */
 
-@keyframes pulseGlowCyan {
-    0% {
-        box-shadow: 0 0 6px rgba(56, 189, 248, 0.3), inset 0 0 4px rgba(56, 189, 248, 0.1);
-        border-color: rgba(56, 189, 248, 0.4);
-    }
-    50% {
-        box-shadow: 0 0 18px rgba(56, 189, 248, 0.8), 0 0 30px rgba(56, 189, 248, 0.4), inset 0 0 8px rgba(56, 189, 248, 0.3);
-        border-color: #38bdf8;
-        transform: translateY(-1px) scale(1.02);
-    }
-    100% {
-        box-shadow: 0 0 6px rgba(56, 189, 248, 0.3), inset 0 0 4px rgba(56, 189, 248, 0.1);
-        border-color: rgba(56, 189, 248, 0.4);
-    }
-}
-
-@keyframes pulseHeartbeatPink {
-    0% {
-        box-shadow: 0 0 6px rgba(236, 72, 153, 0.3), inset 0 0 4px rgba(236, 72, 153, 0.1);
-        border-color: rgba(236, 72, 153, 0.4);
-        transform: scale(1);
-    }
-    30% {
-        box-shadow: 0 0 16px rgba(236, 72, 153, 0.75), 0 0 28px rgba(236, 72, 153, 0.35);
-        border-color: #ec4899;
-        transform: scale(1.03);
-    }
-    50% {
-        transform: scale(1);
-    }
-    70% {
-        box-shadow: 0 0 20px rgba(236, 72, 153, 0.85), 0 0 32px rgba(236, 72, 153, 0.4);
-        border-color: #f472b6;
-        transform: scale(1.04);
-    }
-    100% {
-        box-shadow: 0 0 6px rgba(236, 72, 153, 0.3), inset 0 0 4px rgba(236, 72, 153, 0.1);
-        border-color: rgba(236, 72, 153, 0.4);
-        transform: scale(1);
-    }
-}
-
-@keyframes pulseGlowGreen {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(16, 185, 129, 0.25);
-        border-color: rgba(16, 185, 129, 0.35);
-    }
-    50% {
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.7), 0 0 25px rgba(16, 185, 129, 0.3);
-        border-color: #10b981;
-    }
-}
-
-@keyframes pulseGlowGold {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(234, 179, 8, 0.25);
-        border-color: rgba(234, 179, 8, 0.35);
-    }
-    50% {
-        box-shadow: 0 0 15px rgba(234, 179, 8, 0.7), 0 0 25px rgba(234, 179, 8, 0.3);
-        border-color: #eab308;
-    }
-}
-
-@keyframes checkBlink {
-    0%, 100% { opacity: 0.7; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 6px #10b981); }
-}
-
-/* Badge classes */
-.badge-api-glow {
-    animation: pulseGlowCyan 2.8s infinite ease-in-out !important;
+.badge-tag {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer;
-    transition: all 0.25s ease !important;
+    user-select: none;
 }
+
+/* API Badge Hover: Smooth Cyan Glow */
 .badge-api-glow:hover {
-    transform: translateY(-2px) scale(1.05) !important;
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.95) !important;
+    background: rgba(56, 189, 248, 0.25) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
 }
 
-.badge-dating-glow {
-    animation: pulseHeartbeatPink 3s infinite ease-in-out !important;
-    cursor: pointer;
-    transition: all 0.25s ease !important;
-}
+/* Dating Badge Hover: Smooth Pink/Rose Glow */
 .badge-dating-glow:hover {
-    transform: translateY(-2px) scale(1.05) !important;
-    box-shadow: 0 0 25px rgba(236, 72, 153, 0.95) !important;
+    background: rgba(236, 72, 153, 0.25) !important;
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
 }
 
-.badge-ssl-glow {
-    animation: pulseGlowGold 4s infinite ease-in-out !important;
-    transition: all 0.25s ease !important;
+/* SSL Badge Hover: Smooth Amber/Gold Glow */
+.badge-ssl-glow:hover {
+    background: rgba(234, 179, 8, 0.2) !important;
+    border-color: #eab308 !important;
+    box-shadow: 0 0 16px rgba(234, 179, 8, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
 }
 
-.badge-portal-glow {
-    animation: pulseGlowGreen 3.5s infinite ease-in-out !important;
-    transition: all 0.25s ease !important;
+/* Portal Badge Hover: Smooth Emerald Green Glow */
+.badge-portal-glow:hover {
+    background: rgba(16, 185, 129, 0.25) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
 }
 
-/* Trust features row animated chips */
-.trust-features-row {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    margin-top: 1.25rem;
-}
-
+/* Trust features row hover */
 .trust-feat {
     background: rgba(11, 21, 40, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2092,19 +2024,19 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     backdrop-filter: blur(8px);
 }
 
 .trust-feat:hover {
-    border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
     transform: translateY(-2px);
+    color: #ffffff;
 }
 
 .feat-check {
     color: #10b981;
     font-weight: 800;
     display: inline-block;
-    animation: checkBlink 2.5s infinite ease-in-out;
 }
