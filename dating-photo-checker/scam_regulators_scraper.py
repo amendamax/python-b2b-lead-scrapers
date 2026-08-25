@@ -257,10 +257,26 @@ def generate_bulk_synthetic_scam_network(count=150):
     """
     print(f"\n--- GENERATING {count} PROGRAMMATIC REGULATORY SCAM DOSSIERS ---")
     
-    prefixes = ["Apex", "Nova", "Prime", "Quantum", "Elite", "Capital", "Trust", "Alpha", "Global", "Swift", "Vertex", "Crown", "Aero", "Maxi", "Zenith", "Horizon", "Secure", "Vanguard", "Morgan", "BlackRock", "Fortress", "Nexus", "Titan", "Olympus", "Aura", "Matrix", "Phoenix", "Infinity", "Imperial", "Stellar"]
-    cores = ["Crypto", "FX", "Trade", "Markets", "Invest", "Finance", "Capital", "Assets", "Wealth", "Holdings", "Shares", "Coins", "Blockchain", "Option", "Yield", "Broker", "Arbitrage", "Exchange", "Trading", "Forex"]
-    suffixes = ["24", "Pro", "Global", "Direct", "Hub", "Platform", "Online", "Live", "Club", "Desk", "Network", "Capital", "Market", "Net", "Zone", "Plus", "Max", "Prime", "FX", "App"]
-    tlds = [".com", ".net", ".io", ".org", ".co", ".cc", ".trade", ".vip", ".tech", ".finance"]
+    prefixes = [
+        "Apex", "Nova", "Prime", "Quantum", "Elite", "Capital", "Trust", "Alpha", "Global", "Swift",
+        "Vertex", "Crown", "Aero", "Maxi", "Zenith", "Horizon", "Secure", "Vanguard", "Morgan", "BlackRock",
+        "Fortress", "Nexus", "Titan", "Olympus", "Aura", "Matrix", "Phoenix", "Infinity", "Imperial", "Stellar",
+        "Falcon", "Vortex", "Pinnacle", "Crest", "Summit", "Sterling", "Valor", "Liberty", "Paramount", "Eagle",
+        "Bravura", "Optima", "Dynamic", "Nordic", "Atlantic", "Pacific", "Alpine", "Helios", "Solaris", "Centurion",
+        "Everest", "Ascent", "Omni", "VanguardX", "Grand", "Royal", "Swiss", "Euro", "Monarch", "Genesis"
+    ]
+    cores = [
+        "Crypto", "FX", "Trade", "Markets", "Invest", "Finance", "Capital", "Assets", "Wealth", "Holdings",
+        "Shares", "Coins", "Blockchain", "Option", "Yield", "Broker", "Arbitrage", "Exchange", "Trading", "Forex",
+        "Securities", "Fund", "Equity", "Vault", "Index", "Bullion", "Futures", "Growth", "Signals", "Traders",
+        "Ledger", "Mining", "Staking", "Liquidity", "Advisors", "Portfolio", "AssetMgmt", "Ventures", "Partners", "Group"
+    ]
+    suffixes = [
+        "24", "Pro", "Global", "Direct", "Hub", "Platform", "Online", "Live", "Club", "Desk",
+        "Network", "Capital", "Market", "Net", "Zone", "Plus", "Max", "Prime", "FX", "App",
+        "Trade", "Invest", "X", "Vault", "Group", "AI", "Bot", "Pay", "Finance", "Trading"
+    ]
+    tlds = [".com", ".net", ".io", ".org", ".co", ".cc", ".trade", ".vip", ".tech", ".finance", ".online", ".live", ".pro", ".club", ".site", ".fund", ".app", ".click"]
     
     regulators = [
         ("CONSOB (Italy)", "Abusivismo Finanziario (Ordine di Oscuramento)", "Offerta abusiva di servizi di investimento finanziario e trading FX non autorizzato.", "IT"),
