@@ -1483,6 +1483,12 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
     scoreGauge.style.strokeDashoffset = 440;
     scoreText.textContent = "---";
 
+    // On mobile & PC, smoothly focus and scroll directly to terminal lines as they appear
+    const scannerCard = document.querySelector(".threat-scanner-card") || scannerTerminal;
+    if (scannerCard) {
+        scannerCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     let payload = {
         name: brokerName,
         domain: brokerDomain
@@ -1755,6 +1761,14 @@ async function fetchResults(scanId) {
                 });
             }
         }
+
+        // On mobile, smoothly scroll down to the full audit report & recommendations
+        setTimeout(() => {
+            const brokerDetails = document.getElementById("broker-details");
+            if (brokerDetails && window.innerWidth <= 850) {
+                brokerDetails.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }, 350);
 
     } catch (err) {
         console.error(err);
