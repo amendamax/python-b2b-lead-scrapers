@@ -370,7 +370,45 @@ async def startup_event():
         except Exception as e:
             print(f"[Startup Seed Exception]: {e}")
             
+    def _daily_harvester():
+        time.sleep(60)  # Wait 1 minute after boot
+        while True:
+            try:
+                print("[Daily Harvester] Checking new regulatory alerts from CONSOB, FCA, BaFin, CySEC...")
+                from scam_regulators_scraper import fetch_consob_blacklist_feed, fetch_fca_warning_feed, fetch_cysec_warning_feed, fetch_bafin_warning_feed
+                new_alerts = 0
+                new_alerts += fetch_consob_blacklist_feed()
+                new_alerts += fetch_fca_warning_feed()
+                new_alerts += fetch_cysec_warning_feed()
+                new_alerts += fetch_bafin_warning_feed()
+                if new_alerts > 0:
+                    print(f"[Daily Harvester] Discovered {new_alerts} new regulatory enforcement alerts! Notifying Bing & Yahoo via IndexNow...")
+                    try:
+                        import urllib.request, json
+                        payload = {
+                            "host": "isbrokersafe.com",
+                            "key": "d89b14f6824945e4a81b7e4521798361",
+                            "keyLocation": "https://isbrokersafe.com/d89b14f6824945e4a81b7e4521798361.txt",
+                            "urlList": [
+                                "https://isbrokersafe.com/sitemap.xml",
+                                "https://isbrokersafe.com/sitemap-scam-reports.xml"
+                            ]
+                        }
+                        req = urllib.request.Request("https://api.indexnow.org/indexnow", data=json.dumps(payload).encode('utf-8'), headers={"Content-Type": "application/json"})
+                        urllib.request.urlopen(req, timeout=15)
+                        print("[Daily Harvester] Successfully notified Bing & Yahoo IndexNow.")
+                    except Exception as e:
+                        print(f"[Daily Harvester IndexNow Error]: {e}")
+                else:
+                    print("[Daily Harvester] All regulatory archives are current and synchronized.")
+            except Exception as e:
+                print(f"[Daily Harvester Error]: {e}")
+                
+            # Run every 24 hours (86,400 seconds)
+            time.sleep(86400)
+
     threading.Thread(target=_seed, daemon=True).start()
+    threading.Thread(target=_daily_harvester, daemon=True).start()
 
 # ==========================================================================
 # DYNAMIC STATIC FILES SERVING (DOMAIN-BASED ROUTING)
@@ -4117,9 +4155,12 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         <h4 style="color: #ef4444; margin: 0 0 6px 0; font-size: 15px; font-weight: 800;">
                             ⛔ {t['verdict_title']}
                         </h4>
-                        <p style="color: #cbd5e1; font-size: 13px; margin: 0; line-height: 1.5;">
+                        <p style="color: #cbd5e1; font-size: 13px; margin: 0 0 12px 0; line-height: 1.5;">
                             {t['verdict_text']}
                         </p>
+                        <a href="/api/v1/broker/pdf/{slug}" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;">
+                            <span>{t['pdf_btn']}</span>
+                        </a>
                     </div>
 
                     <!-- Details Table -->
@@ -4702,6 +4743,150 @@ async def api_v1_documentation():
 </body>
 </html>"""
     return HTMLResponse(content=html_docs, status_code=200)
+
+
+@app.get("/api/v1/broker/pdf/{slug}")
+async def download_scam_dossier_pdf(slug: str, lang: str = "en"):
+    """
+    Generate Official Legal Forensic Evidence PDF Dossier for any blacklisted scam entity.
+    Includes VasileDev Group legal header, P.IVA IT04226190041, CONSOB/FCA evidence citations,
+    and verified safe alternatives.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score
+        FROM regulatory_scam_reports
+        WHERE slug = ? LIMIT 1
+    """, (slug,))
+    row = cursor.fetchone()
+    conn.close()
+    
+    if not row:
+        raise HTTPException(status_code=404, detail="Scam report dossier not found.")
+        
+    entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score = row
+    
+    pdf_buffer = io.BytesIO()
+    doc = SimpleDocTemplate(
+        pdf_buffer,
+        pagesize=letter,
+        rightMargin=36,
+        leftMargin=36,
+        topMargin=36,
+        bottomMargin=36
+    )
+    
+    styles = getSampleStyleSheet()
+    font_name = 'DejaVuSans-Bold' if 'DejaVuSans-Bold' in pdfmetrics.getRegisteredFontNames() else 'Helvetica-Bold'
+    regular_font = 'DejaVuSans' if 'DejaVuSans' in pdfmetrics.getRegisteredFontNames() else 'Helvetica'
+    
+    header_style = ParagraphStyle(
+        'HeaderStyle',
+        parent=styles['Normal'],
+        fontName=font_name,
+        fontSize=18,
+        textColor=colors.HexColor('#0f172a'),
+        alignment=1,
+        spaceAfter=4
+    )
+    
+    sub_style = ParagraphStyle(
+        'SubStyle',
+        parent=styles['Normal'],
+        fontName=regular_font,
+        fontSize=10,
+        textColor=colors.HexColor('#ef4444'),
+        alignment=1,
+        spaceAfter=15
+    )
+    
+    body_style = ParagraphStyle(
+        'BodyStyle',
+        parent=styles['Normal'],
+        fontName=regular_font,
+        fontSize=9.5,
+        textColor=colors.HexColor('#334155'),
+        leading=14,
+        spaceAfter=8
+    )
+    
+    label_style = ParagraphStyle(
+        'LabelStyle',
+        parent=styles['Normal'],
+        fontName=font_name,
+        fontSize=9.5,
+        textColor=colors.HexColor('#0f172a')
+    )
+    
+    elements = []
+    
+    # 1. Header Banner
+    elements.append(Paragraph("ISBROKERSAFE™ FORENSIC THREAT INTELLIGENCE", header_style))
+    elements.append(Paragraph("OFFICIAL REGULATORY ENFORCEMENT & BLACKLIST DOSSIER", sub_style))
+    elements.append(Spacer(1, 10))
+    
+    # 2. Key Metadata Table
+    meta_data = [
+        [Paragraph("Target Entity Name:", label_style), Paragraph(str(entity_name), body_style)],
+        [Paragraph("Flagged Web Domain:", label_style), Paragraph(str(domain or "Unlisted Domain"), body_style)],
+        [Paragraph("Enforcement Authority:", label_style), Paragraph(f"<b>{regulator}</b>", body_style)],
+        [Paragraph("Infringement Action:", label_style), Paragraph(f"<font color='#dc2626'><b>{warning_type}</b></font>", body_style)],
+        [Paragraph("Decision Date:", label_style), Paragraph(str(warning_date), body_style)],
+        [Paragraph("Official Source Registry:", label_style), Paragraph(f"<font color='#0284c7'>{official_url}</font>", body_style)],
+        [Paragraph("Forensic Trust Score:", label_style), Paragraph(f"<font color='#dc2626'><b>{risk_score}% / 100% (CRITICAL FRAUD RISK)</b></font>", body_style)]
+    ]
+    
+    meta_table = Table(meta_data, colWidths=[160, 380])
+    meta_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f8fafc')),
+        ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#cbd5e1')),
+        ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e2e8f0')),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(meta_table)
+    elements.append(Spacer(1, 15))
+    
+    # 3. Official Grounds & Findings
+    elements.append(Paragraph("SECTION 1: OFFICIAL REGULATORY GROUNDS & VIOLATIONS", label_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph(f"{reason}", body_style))
+    elements.append(Spacer(1, 12))
+    
+    # 4. Mandatory Risk Warnings
+    elements.append(Paragraph("SECTION 2: MANDATORY INVESTOR PROTECTION DIRECTIVE", label_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("• <b>Blacklisted Operator:</b> This entity is prohibited from soliciting financial deposits or offering CFD/Forex services.", body_style))
+    elements.append(Paragraph("• <b>Zero Statutory Protection:</b> Funds deposited to this entity are NOT insured by statutory investor compensation schemes.", body_style))
+    elements.append(Paragraph("• <b>Urgent Action:</b> Do not transfer cryptocurrency (Bitcoin/USDT) or wire funds to personal bank accounts provided by this platform.", body_style))
+    elements.append(Spacer(1, 15))
+    
+    # 5. Verified Alternatives
+    elements.append(Paragraph("SECTION 3: VERIFIED TIER-1 REGULATED ALTERNATIVES", label_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("For secure trading with segregated client funds, choose verified globally regulated institutions:", body_style))
+    elements.append(Paragraph("1. <b>Plus500</b> — Regulated by EFSA & FCA. Publicly listed on London Stock Exchange.", body_style))
+    elements.append(Paragraph("2. <b>AvaTrade</b> — Globally regulated across 6 continents since 2006. Negative balance protection.", body_style))
+    elements.append(Paragraph("3. <b>eToro</b> — FCA & CySEC regulated social trading platform trusted by 30M+ users.", body_style))
+    elements.append(Paragraph("4. <b>Exness</b> — World's highest-volume multi-regulated broker with 24/7 instant withdrawals.", body_style))
+    elements.append(Paragraph("5. <b>XM Group</b> — Regulated by CySEC & ASIC with 0% commission accounts.", body_style))
+    elements.append(Paragraph("6. <b>Interactive Brokers (IBKR)</b> — NASDAQ listed, SEC/FINRA/FCA regulated with $500k SIPC coverage.", body_style))
+    elements.append(Spacer(1, 18))
+    
+    # 6. Official Legal Entity Footer
+    elements.append(Paragraph("LEGAL ISSUING ENTITY & CERTIFICATION", label_style))
+    elements.append(Paragraph("Compiled by <b>IsBrokerSafe™ Financial Threat Intelligence Suite</b><br/>Operated by <b>VasileDev Group</b> · Partita IVA: <b>IT04226190041</b><br/>Via Valcasotto 14, 12075 Garessio (CN), Italy · Official Portal: <font color='#0284c7'>https://isbrokersafe.com</font>", body_style))
+    
+    doc.build(elements)
+    clean_filename = f"IsBrokerSafe_Audit_{slugify(entity_name)}.pdf"
+    from fastapi.responses import Response
+    return Response(
+        content=pdf_buffer.getvalue(),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={clean_filename}"}
+    )
 
 if __name__ == "__main__":
     import uvicorn
