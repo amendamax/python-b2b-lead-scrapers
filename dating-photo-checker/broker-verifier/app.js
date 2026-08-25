@@ -1696,6 +1696,12 @@ async function fetchResults(scanId) {
 
         // Update circular gauge
         updateGauge(data.score);
+        // Reveal in-result dating cross-promotion banner strictly after broker evaluation completes
+        const inResultDatingBanner = document.getElementById("in-result-dating-banner");
+        if (inResultDatingBanner) {
+            inResultDatingBanner.style.display = "block";
+        }
+
 
         // Auto-unlock free forensic report for all verified affiliate partners
         if (isPartnerBroker || data.payment_status === "free_partner") {
