@@ -946,7 +946,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (directPaypalBtn) {
             let amt = packageType === 'basic' ? '2.99' : packageType === 'single' ? '3.99' : '7.99';
             let activeScan = currentScanId || 'latest';
-            directPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=${amt}&item_name=VerifyDating+Report+Scan+${activeScan}&return=https://verifydating.net/?scan_id=${activeScan}&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
+            directPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=${amt}&item_name=VerifyDating+Forensic+Audit+Report+${activeScan}&no_shipping=1&no_note=1&landing_page=billing&return=https://verifydating.net/?scan_id=${activeScan}&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
             directPaypalBtn.innerHTML = `<i class="fa-brands fa-paypal" style="font-size:22px;color:#003087;"></i> Pay $${amt} with PayPal`;
         }
         initPayPalButton(packageType);
