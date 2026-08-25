@@ -585,9 +585,6 @@ Disallow: /uploads/
 
 Sitemap: https://{domain}/sitemap.xml
 """
-    if domain == "isbrokersafe.com":
-        robots_content += f"Sitemap: https://{domain}/sitemap-scam-reports.xml\n"
-        
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
 
