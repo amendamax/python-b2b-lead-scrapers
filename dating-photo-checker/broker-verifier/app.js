@@ -565,6 +565,28 @@ try {
     console.error("Stripe initialization failed:", e);
 }
 
+// Reliable Mobile & PC Smooth Scroll Helper
+function smoothScrollTo(target, offset = 65) {
+    const el = (typeof target === 'string') ? document.querySelector(target) : target;
+    if (!el) return;
+    
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+        document.activeElement.blur();
+    }
+
+    setTimeout(() => {
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = Math.max(0, elementPosition - offset);
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    }, 60);
+}
+
 // UI Elements
 const searchInput = document.getElementById("broker-search");
 const suggestionsBox = document.getElementById("suggestions-box");
@@ -632,11 +654,6 @@ searchInput.addEventListener("input", function() {
             if (e) e.preventDefault();
             searchInput.value = broker.name;
             suggestionsBox.style.display = "none";
-            
-            const dashboardView = document.getElementById("dashboard-view");
-            if (dashboardView) {
-                dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
 
             // Execute search query through backend API
             executeScan(broker.name, broker.domain);
@@ -1483,11 +1500,8 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
     scoreGauge.style.strokeDashoffset = 440;
     scoreText.textContent = "---";
 
-    // On mobile & PC, smoothly focus and scroll directly to terminal lines as they appear
-    const scannerCard = document.querySelector(".threat-scanner-card") || scannerTerminal;
-    if (scannerCard) {
-        scannerCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    // Automatically smoothly focus and scroll directly to threat terminal lines as they write
+    smoothScrollTo(".threat-scanner-card", 70);
 
     let payload = {
         name: brokerName,
@@ -2043,11 +2057,8 @@ window.selectBroker = function(name) {
     if (searchInput) {
         searchInput.value = targetName;
     }
-
-    // Smooth scroll down to scanner dashboard view so user immediately sees the live scan
-    const dashboardView = document.getElementById("dashboard-view");
-    if (dashboardView) {
-        dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (suggestionsBox) {
+        suggestionsBox.style.display = "none";
     }
 
     executeScan(targetName, targetDomain);

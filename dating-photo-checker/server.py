@@ -302,13 +302,46 @@ def init_db():
         )
     """)
     
+    # Table for Regulatory Scam Reports (Programmatic SEO)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS regulatory_scam_reports (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            slug TEXT UNIQUE,
+            entity_name TEXT NOT NULL,
+            domain TEXT,
+            regulator TEXT NOT NULL,
+            warning_type TEXT,
+            warning_date TEXT,
+            official_url TEXT,
+            reason TEXT,
+            jurisdiction TEXT,
+            risk_score INTEGER DEFAULT 4,
+            blacklisted_urls TEXT,
+            clone_of TEXT,
+            details_json TEXT,
+            created_at TEXT
+        )
+    """)
+
     # Optimize for high concurrency and fast lookups
     cursor.execute("PRAGMA journal_mode=WAL;")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_scans_id ON scans(id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_scans_created ON scans(created_at);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_broker_scans_id ON broker_scans(id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_slug ON regulatory_scam_reports(slug);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_domain ON regulatory_scam_reports(domain);")
+    
+    cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
+    scam_count = cursor.fetchone()[0]
     conn.commit()
     conn.close()
+
+    if scam_count == 0:
+        try:
+            from scam_regulators_scraper import run_master_scraper
+            threading.Thread(target=run_master_scraper, daemon=True).start()
+        except Exception as seed_err:
+            print(f"[Scam Seeding Startup] {seed_err}")
 
 init_db()
 
@@ -541,6 +574,9 @@ Disallow: /uploads/
 
 Sitemap: https://{domain}/sitemap.xml
 """
+    if domain == "isbrokersafe.com":
+        robots_content += f"Sitemap: https://{domain}/sitemap-scam-reports.xml\n"
+        
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
 
@@ -3638,6 +3674,502 @@ async def trigger_test_alert(request: Request, token: str = None):
         log_and_notify_payment_event("SUCCESS", f"{site_name} (TEST)", "vasile_test@verifydating.net", f"test_{int(datetime.now().timestamp())}", "PRO Deep ($4.99)", "$4.99")
         
     return {"success": True, "message": f"Test alert ({test_type}) sent to WhatsApp (+39 320 948 1876) & Telegram."}
+
+
+# ==========================================================================
+# PROGRAMMATIC SEO ENGINE: REGULATORY SCAM DOSSIERS (50,000+ PAGES)
+# ==========================================================================
+
+SCAM_LANG_MAP = {
+    "en": {
+        "badge_alert": "OFFICIAL REGULATORY WARNING",
+        "verdict_title": "CRITICAL RISK — UNLICENSED FRAUD PLATFORM",
+        "verdict_text": "Official regulatory warnings confirm this entity operates without authorization. Deposits are NOT protected by investor compensation funds.",
+        "warning_issued_by": "Warning Issued By",
+        "enforcement_date": "Enforcement Date",
+        "infringement_type": "Infringement Classification",
+        "blacklisted_domains": "Blacklisted Domains & Clones",
+        "safe_alternatives_title": "🛡️ Verified & Regulated Alternatives for Safe Trading",
+        "safe_alternatives_subtitle": "Do not deposit funds with unlicensed operators. Choose globally regulated institutions with segregated client accounts:",
+        "ibkr_cta": "🎁 Open Account at Interactive Brokers (Up to $1,000 Free Stock) ➔",
+        "ibkr_sub": "Regulated by FCA (UK), SEC (USA), ASIC (Australia) & Central Bank of Ireland. Publicly traded on NASDAQ (IBKR).",
+        "xm_cta": "🟢 Trade on Regulated XM Group (0% Commission, EU License) ➔",
+        "vpn_title": "🦈 Protect Your IP & Device from Boiler Room Tracking",
+        "vpn_desc": "Scam platforms log your IP, device ID, and location to coordinate aggressive phone harassment. Mask your identity with military-grade encryption.",
+        "dating_title": "❤️ Was this platform recommended to you on a Dating App or WhatsApp?",
+        "dating_desc": "84% of fake trading platforms originate from romance scam profiles ('Pig Butchering'). Verify your contact's photo against stolen model databases.",
+        "dating_btn": "🛡️ Verify Dating Contact Photo Free on VerifyDating.net ↗",
+        "pdf_btn": "📄 Download Official Legal Evidence Dossier ($2.99)"
+    },
+    "ro": {
+        "badge_alert": "AVERTISMENT OFICIAL DE REGLEMENTARE",
+        "verdict_title": "RISC CRITIC — PLATFORMĂ FRAUDULOASĂ NEAUTORIZATĂ",
+        "verdict_text": "Avertismentele oficiale de reglementare confirmă că această entitate operează fără autorizație. Depozitele NU sunt protejate de fondurile de garantare a investițiilor.",
+        "warning_issued_by": "Avertisment Emis De",
+        "enforcement_date": "Data Deciziei",
+        "infringement_type": "Tipul de Încălcare Legală",
+        "blacklisted_domains": "Domenii & Clone Pe Lista Neagră",
+        "safe_alternatives_title": "🛡️ Alternative Reglementate & Verificate pentru Tranzacționare Sigură",
+        "safe_alternatives_subtitle": "Nu depune fonduri la operatori neautorizați. Alege instituții reglementate global cu fonduri segregate:",
+        "ibkr_cta": "🎁 Deschide Cont la Interactive Brokers (Până la 1.000$ Acțiuni Gratuite) ➔",
+        "ibkr_sub": "Reglementat de FCA (Marea Britanie), SEC (SUA), ASIC (Australia) & Banca Centrală a Irlandei. Tranzacționat public pe NASDAQ.",
+        "xm_cta": "🟢 Tranzacționează pe XM Group Reglementat (Comision 0%, Licență UE) ➔",
+        "vpn_title": "🦈 Protejează-ți IP-ul și Dispozitivul de Urmărirea Escrocilor",
+        "vpn_desc": "Platformele frauduloase îți înregistrează adresa IP și locația pentru a te hărțui telefonic. Securizează-ți conexiunea cu VPN criptat.",
+        "dating_title": "❤️ Ți-a fost recomandată această platformă pe Dating sau WhatsApp?",
+        "dating_desc": "84% dintre platformele false pornesc din escrocherii sentimentale ('Pig Butchering'). Verifică biometric poza persoanei.",
+        "dating_btn": "🛡️ Verifică Poza Persoanei Gratuit pe VerifyDating.net ↗",
+        "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (2.99$)"
+    },
+    "it": {
+        "badge_alert": "ALLERTA UFFICIALE DI REGOLAMENTAZIONE",
+        "verdict_title": "RISCHIO CRITICO — PIATTAFORMA FRAUDOLENTA NON AUTORIZZATA",
+        "verdict_text": "I provvedimenti ufficiali confermano che questa entità opera abusivamente. I fondi depositati NON godono di alcuna tutela o fondo di garanzia.",
+        "warning_issued_by": "Provvedimento Emesso Da",
+        "enforcement_date": "Data Provvedimento",
+        "infringement_type": "Tipo di Infrazione",
+        "blacklisted_domains": "Domini Oscurati & Blacklist",
+        "safe_alternatives_title": "🛡️ Alternative Regolamentate & Sicure per Fare Trading",
+        "safe_alternatives_subtitle": "Non depositare su piattaforme abusive. Scegli broker vigilati con conti segregati:",
+        "ibkr_cta": "🎁 Apri Conto su Interactive Brokers (Fino a 1.000$ in Azioni Gratuite) ➔",
+        "ibkr_sub": "Regolamentato FCA, SEC, BaFin e Banca d'Irlanda. Quotato al NASDAQ (IBKR).",
+        "xm_cta": "🟢 Fai Trading su XM Group Vigilato (Zero Commissioni, Licenza UE) ➔",
+        "vpn_title": "🦈 Proteggi il tuo IP e Dispositivo dai Call Center Truffaldini",
+        "vpn_desc": "I siti truffa tracciano il tuo IP per continuare a chiamarti con operatori aggressivi. Naviga anonimo con crittografia certificata.",
+        "dating_title": "❤️ Ti è stata proposta questa piattaforma su Tinder o WhatsApp?",
+        "dating_desc": "L'84% delle truffe finanziarie nasce da falsi profili romantici ('Pig Butchering'). Verifica gratis la foto del contatto.",
+        "dating_btn": "🛡️ Verifica Foto del Contatto Gratis su VerifyDating.net ↗",
+        "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (2.99$)"
+    },
+    "de": {
+        "badge_alert": "OFFIZIELLE BEHÖRDLICHE WARNUNG",
+        "verdict_title": "KRITISCHES RISIKO — UNLIZENZIERTE BETRUGSPLATTE",
+        "verdict_text": "Offizielle Warnungen bestätigen, dass dieses Unternehmen ohne Genehmigung agiert. Einlagen sind NICHT durch Anlegerentschädigungsfonds geschützt.",
+        "warning_issued_by": "Warnung Herausgegeben Von",
+        "enforcement_date": "Datum der Veröffentlichung",
+        "infringement_type": "Art des Verstoßes",
+        "blacklisted_domains": "Gesperrte Domains & Klone",
+        "safe_alternatives_title": "🛡️ Geprüfte & Regulierte Alternativen für Sicheres Trading",
+        "safe_alternatives_subtitle": "Zahlen Sie kein Geld bei illegalen Anbietern ein. Wählen Sie weltweit regulierte Institute:",
+        "ibkr_cta": "🎁 Konto bei Interactive Brokers eröffnen (Bis zu 1.000$ Gratis-Aktien) ➔",
+        "ibkr_sub": "Reguliert durch FCA, BaFin, SEC & CBI. Börsennotiert an der NASDAQ.",
+        "xm_cta": "🟢 Sicher handeln mit reguliertem XM Group (0% Provision, EU-Lizenz) ➔",
+        "vpn_title": "🦈 Schützen Sie Ihre IP & Daten vor betrügerischen Callcentern",
+        "vpn_desc": "Betrüger speichern Ihre IP und Telefonnummer für aggressive Kaltakquise. Nutzen Sie geprüften VPN-Schutz.",
+        "dating_title": "❤️ Wurde Ihnen dieser Broker auf Tinder oder WhatsApp empfohlen?",
+        "dating_desc": "84% gefälschter Plattformen beginnen mit Romance-Scams ('Pig Butchering'). Überprüfen Sie das Profilfoto biometrisch.",
+        "dating_btn": "🛡️ Foto kostenlos prüfen auf VerifyDating.net ↗",
+        "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (2.99$)"
+    },
+    "fr": {
+        "badge_alert": "MISE EN GARDE OFFICIELLE DU RÉGULATEUR",
+        "verdict_title": "RISQUE CRITIQUE — PLATEFORME FRAUDULEUSE NON AUTORISÉE",
+        "verdict_text": "Les autorités financières confirment que cette entité opère sans agrément. Vos fonds ne bénéficient d'aucune garantie légale.",
+        "warning_issued_by": "Mise en Garde Émise Par",
+        "enforcement_date": "Date de la Décision",
+        "infringement_type": "Infraction Constatée",
+        "blacklisted_domains": "Domaines sur Liste Noire",
+        "safe_alternatives_title": "🛡️ Alternatives Régulées et Vérifiées pour Trader en Sécurité",
+        "safe_alternatives_subtitle": "Ne déposez aucun fond sur des sites non autorisés. Privilégiez des institutions reconnues :",
+        "ibkr_cta": "🎁 Ouvrir un Compte chez Interactive Brokers (Jusqu'à 1 000$ d'Actions Offertes) ➔",
+        "ibkr_sub": "Régulé par la FCA, SEC, BaFin et Banque Centrale d'Irlande. Coté au NASDAQ.",
+        "xm_cta": "🟢 Trader avec XM Group Régulé (0% de Commission, Agrément UE) ➔",
+        "vpn_title": "🦈 Protégez votre Adresse IP et vos Données Personnelles",
+        "vpn_desc": "Les escrocs collectent votre IP pour coordonner des relances téléphoniques agressives. Protégez-vous avec un VPN chiffré.",
+        "dating_title": "❤️ Ce broker vous a été suggéré sur une App de Rencontre ou WhatsApp ?",
+        "dating_desc": "84% des arnaques au trading dérivent d'arnaques sentimentales ('Pig Butchering'). Vérifiez la photo du profil avec l'IA.",
+        "dating_btn": "🛡️ Vérifier la Photo Gratuitement sur VerifyDating.net ↗",
+        "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (2.99$)"
+    },
+    "es": {
+        "badge_alert": "ALERTA OFICIAL DE REGULACIÓN FINANCIERA",
+        "verdict_title": "RIESGO CRÍTICO — PLATAFORMA FRAUDULENTA NO AUTORIZADA",
+        "verdict_text": "Las advertencias oficiales confirman que esta entidad opera de forma clandestina. Los depósitos NO cuentan con respaldo ni fondos de compensación.",
+        "warning_issued_by": "Advertencia Emitida Por",
+        "enforcement_date": "Fecha de Publicación",
+        "infringement_type": "Tipo de Infracción",
+        "blacklisted_domains": "Dominios en Lista Negra",
+        "safe_alternatives_title": "🛡️ Alternativas Reguladas y Seguras para Invertir",
+        "safe_alternatives_subtitle": "No deposite en operadores clandestinos. Elija instituciones supervisadas globalmente:",
+        "ibkr_cta": "🎁 Abrir Cuenta en Interactive Brokers (Hasta $1.000 en Acciones Gratis) ➔",
+        "ibkr_sub": "Regulado por FCA (Reino Unido), SEC (EE. UU.), ASIC y Banco Central de Irlanda. Cotiza en NASDAQ.",
+        "xm_cta": "🟢 Invertir en XM Group Regulado (0% Comisión, Licencia UE) ➔",
+        "vpn_title": "🦈 Proteja su IP y Dispositivo del Acoso Telefónico",
+        "vpn_desc": "Las plataformas fraudulentas rastrean su IP y datos para extorsión telefónica. Oculte su identidad con VPN militar.",
+        "dating_title": "¿Alguien en Tinder o WhatsApp le recomendó esta plataforma?",
+        "dating_desc": "El 84% de plataformas falsas provienen de estafas románticas ('Pig Butchering'). Verifique la foto del contacto gratis.",
+        "dating_btn": "🛡️ Verificar Foto Gratis en VerifyDating.net ↗",
+        "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF ($2.99)"
+    },
+    "pt": {
+        "badge_alert": "ALERTA OFICIAL DE REGULAMENTAÇÃO",
+        "verdict_title": "RISCO CRÍTICO — PLATAFORMA FRAUDULENTA NÃO AUTORIZADA",
+        "verdict_text": "Alertas oficiais confirmam que esta entidade opera sem autorização legal. Seus fundos NÃO possuem garantia ou compensação.",
+        "warning_issued_by": "Alerta Emitido Por",
+        "enforcement_date": "Data da Decisão",
+        "infringement_type": "Tipo de Infração",
+        "blacklisted_domains": "Domínios na Lista Negra",
+        "safe_alternatives_title": "🛡️ Alternativas Regulamentadas e Seguras para Investir",
+        "safe_alternatives_subtitle": "Não envie dinheiro para operadores ilegais. Escolha corretoras com custódia segregada:",
+        "ibkr_cta": "🎁 Abrir Conta na Interactive Brokers (Até $1.000 em Ações Grátis) ➔",
+        "ibkr_sub": "Regulada pela FCA, SEC, ASIC e Banco Central da Irlanda. Listada na NASDAQ (IBKR).",
+        "xm_cta": "🟢 Negociar na XM Group Regulamentada (Comissão Zero, Licença UE) ➔",
+        "vpn_title": "🦈 Proteja seu IP e Dispositivo contra Rastreamento",
+        "vpn_desc": "Sites fraudulentos gravam seu IP para aplicar golpes por telefone. Navegue seguro com VPN criptografada.",
+        "dating_title": "❤️ Essa plataforma foi indicada em App de Namoro ou WhatsApp?",
+        "dating_desc": "84% dos golpes de investimento derivam de perfis falsos ('Pig Butchering'). Faça a verificação biométrica da foto.",
+        "dating_btn": "🛡️ Verificar Foto Grátis no VerifyDating.net ↗",
+        "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF ($2.99)"
+    },
+    "ru": {
+        "badge_alert": "ОФИЦИАЛЬНОЕ ПРЕДУПРЕЖДЕНИЕ РЕГУЛЯТОРА",
+        "verdict_title": "КРИТИЧЕСКИЙ РИСК — МОШЕННИЧЕСКАЯ НЕЛИЦЕНЗИРОВАННАЯ ПЛАТФОРМА",
+        "verdict_text": "Официальные регуляторы подтверждают, что организация работает нелегально. Депозиты НЕ защищены государственными фондами страхования.",
+        "warning_issued_by": "Предупреждение Выдано",
+        "enforcement_date": "Дата Решения",
+        "infringement_type": "Тип Нарушения",
+        "blacklisted_domains": "Заблокированные Домены и Клоны",
+        "safe_alternatives_title": "🛡️ Проверенные и Надежные Брокеры для Безопасного Трейдинга",
+        "safe_alternatives_subtitle": "Не переводите средства нелегальным брокерам. Выбирайте мировые институты с раздельной защитой счетов:",
+        "ibkr_cta": "🎁 Открыть счет в Interactive Brokers (Акции до $1,000 в подарок) ➔",
+        "ibkr_sub": "Регулируется FCA (Великобритания), SEC (США), ASIC и Центробанком Ирландии. Торгуется на NASDAQ.",
+        "xm_cta": "🟢 Торговать через регулируемый XM Group (0% комиссии, Лицензия ЕС) ➔",
+        "vpn_title": "🦈 Защитите свой IP и устройство от слежки мошенников",
+        "vpn_desc": "Мошеннические сайты фиксируют ваш IP для агрессивного телефонного спама и шантажа. Используйте надежный VPN.",
+        "dating_title": "❤️ Этого брокера вам порекомендовали в дейтинге или WhatsApp?",
+        "dating_desc": "84% фальшивых площадок исходят от романтических аферистов («Pig Butchering»). Проверьте фото бесплатно.",
+        "dating_btn": "🛡️ Проверить фото бесплатно на VerifyDating.net ↗",
+        "pdf_btn": "📄 Скачать официальное юридическое PDF-досье ($2.99)"
+    }
+}
+
+@app.get("/scam-reports/{slug}")
+@app.get("/{lang}/scam-reports/{slug}")
+async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
+    # Normalize language
+    if lang not in SCAM_LANG_MAP:
+        lang = "en"
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score, blacklisted_urls, clone_of
+        FROM regulatory_scam_reports WHERE slug = ?
+    """, (slug,))
+    row = cursor.fetchone()
+    conn.close()
+    
+    if not row:
+        raise HTTPException(status_code=404, detail="Scam report dossier not found.")
+        
+    entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score, blacklisted_urls_json, clone_of = row
+    
+    try:
+        blacklisted_urls = json.loads(blacklisted_urls_json) if blacklisted_urls_json else [domain]
+    except Exception:
+        blacklisted_urls = [domain] if domain else []
+        
+    t = SCAM_LANG_MAP.get(lang, SCAM_LANG_MAP["en"])
+    
+    base_url = "https://isbrokersafe.com"
+    curr_url = f"{base_url}/{lang}/scam-reports/{slug}" if lang != "en" else f"{base_url}/scam-reports/{slug}"
+    
+    # Hreflang alternate links
+    hreflangs_html = "\n".join([
+        f'<link rel="alternate" hreflang="{l}" href="{base_url}/{l}/scam-reports/{slug}" />' if l != "en" else f'<link rel="alternate" hreflang="x-default" href="{base_url}/scam-reports/{slug}" /><link rel="alternate" hreflang="en" href="{base_url}/scam-reports/{slug}" />'
+        for l in SCAM_LANG_MAP.keys()
+    ])
+    
+    urls_chips_html = "".join([f'<span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; text-decoration: line-through; margin-right: 6px;">🚫 {u}</span>' for u in blacklisted_urls if u])
+    
+    target_vd_url = "https://verifydating.net/" if lang == "en" else f"https://verifydating.net/{lang}/"
+    
+    html_content = f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 {entity_name} Scam Alert ({regulator}) — Is {entity_name} Legit or Fake?</title>
+    <meta name="description" content="Official regulatory warning issued for {entity_name} ({domain}). Read the full forensic fraud audit, blacklisted clone domains, and safe regulated broker alternatives.">
+    <link rel="canonical" href="{curr_url}">
+    {hreflangs_html}
+    
+    <!-- Open Graph & Schema.org -->
+    <meta property="og:title" content="🚨 {entity_name} Scam Warning ({regulator}) — Forensic Fraud Dossier">
+    <meta property="og:description" content="Verified regulatory blacklisting for {entity_name}. High scam probability score ({risk_score}%). Check official enforcement details.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{curr_url}">
+    <meta property="og:image" content="https://isbrokersafe.com/assets/broker_safe_og.png">
+    
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "FactCheck",
+      "claimReviewed": "Is {entity_name} a legitimate regulated financial broker?",
+      "itemReviewed": {{
+        "@type": "FinancialProduct",
+        "name": "{entity_name}",
+        "url": "https://{domain or 'unknown'}"
+      }},
+      "reviewRating": {{
+        "@type": "Rating",
+        "ratingValue": "1",
+        "bestRating": "5",
+        "worstRating": "1",
+        "alternateName": "SCAM / BLACKLISTED"
+      }},
+      "author": {{
+        "@type": "Organization",
+        "name": "IsBrokerSafe.com Regulatory Intelligence",
+        "url": "https://isbrokersafe.com/"
+      }},
+      "reviewBody": "{reason.replace('"', '\"')}"
+    }}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/broker-verifier/style.css">
+</head>
+<body class="theme-broker">
+    <div class="site-wrapper" style="max-width: 1200px; margin: 0 auto; padding: 20px 15px;">
+        
+        <!-- Header -->
+        <header class="app-header" style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 25px;">
+            <a href="/{lang if lang != 'en' else ''}" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff;">
+                <span style="font-size: 26px;">🛡️</span>
+                <span style="font-family: 'Outfit'; font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">IsBrokerSafe<span style="color: #38bdf8;">.com</span></span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">
+                    🚨 {t['badge_alert']}
+                </span>
+            </div>
+        </header>
+
+        <!-- Main Dossier Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 25px; align-items: start;" class="scam-dossier-grid">
+            
+            <!-- Left Side: Trust Gauge & Threat Terminal -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Trust Gauge Card -->
+                <div class="panel trust-score-card" style="background: rgba(10, 15, 26, 0.85); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <h3 style="font-family: 'Outfit'; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 15px;">Safety Rating</h3>
+                    <div style="font-size: 48px; font-weight: 900; color: #ef4444; font-family: 'Outfit'; margin: 10px 0;">
+                        {risk_score}%
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); color: #ef4444; font-weight: 800; padding: 6px 14px; border-radius: 20px; font-size: 12px; display: inline-block; letter-spacing: 0.5px;">
+                        🚨 SCAM ALERT (CRITICAL RISK)
+                    </div>
+                    <p style="font-size: 12px; color: #94a3b8; margin-top: 15px; line-height: 1.4;">
+                        Source: Official Regulatory Enforcement Registry ({regulator})
+                    </p>
+                </div>
+
+                <!-- Threat Terminal Log -->
+                <div class="panel threat-scanner-card" style="background: rgba(5, 8, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px; text-align: left; font-family: monospace; font-size: 12px;">
+                    <div style="color: #38bdf8; font-weight: 700; margin-bottom: 8px;">> FORENSIC AUDIT LOG:</div>
+                    <div style="color: #94a3b8;">> Target Entity: {entity_name}</div>
+                    <div style="color: #94a3b8;">> Domain: {domain or 'Unlisted Domain'}</div>
+                    <div style="color: #ef4444;">> Regulatory Action: {warning_type}</div>
+                    <div style="color: #ef4444;">> Official Blacklist: CONFIRMED ENFORCEMENT</div>
+                    <div style="color: #eab308;">> Jurisdiction: {jurisdiction} Enforcement Flag</div>
+                    <div style="color: #ef4444;">> Verdict: DO NOT DEPOSIT / FRAUD WARNING</div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Official Regulatory Dossier & Monetization Funnel -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Main Dossier Card -->
+                <div class="panel details-section" style="background: rgba(10, 15, 26, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 28px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                        <div>
+                            <h1 style="font-family: 'Outfit'; font-size: 26px; color: #fff; margin: 0 0 6px 0; font-weight: 800;">
+                                {entity_name}
+                            </h1>
+                            <div style="font-size: 14px; color: #38bdf8; font-weight: 600;">
+                                🌐 {domain or 'Unregistered Digital Scheme'}
+                            </div>
+                        </div>
+                        <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 5px 12px; border-radius: 8px; font-weight: 700; font-size: 12px;">
+                            🏛️ {regulator}
+                        </span>
+                    </div>
+
+                    <!-- Red Banner Verdict -->
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 22px;">
+                        <h4 style="color: #ef4444; margin: 0 0 6px 0; font-size: 15px; font-weight: 800;">
+                            ⛔ {t['verdict_title']}
+                        </h4>
+                        <p style="color: #cbd5e1; font-size: 13px; margin: 0; line-height: 1.5;">
+                            {t['verdict_text']}
+                        </p>
+                    </div>
+
+                    <!-- Details Table -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 12px 16px; border-radius: 10px;">
+                            <span style="color: #94a3b8; font-size: 11px; text-transform: uppercase; font-weight: 700;">{t['warning_issued_by']}</span>
+                            <div style="color: #fff; font-weight: 700; font-size: 14px; margin-top: 4px;">{regulator}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 12px 16px; border-radius: 10px;">
+                            <span style="color: #94a3b8; font-size: 11px; text-transform: uppercase; font-weight: 700;">{t['enforcement_date']}</span>
+                            <div style="color: #fff; font-weight: 700; font-size: 14px; margin-top: 4px;">📅 {warning_date}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 12px 16px; border-radius: 10px; grid-column: span 2;">
+                            <span style="color: #94a3b8; font-size: 11px; text-transform: uppercase; font-weight: 700;">{t['infringement_type']}</span>
+                            <div style="color: #f87171; font-weight: 700; font-size: 14px; margin-top: 4px;">⚠️ {warning_type}</div>
+                        </div>
+                    </div>
+
+                    <!-- Reason -->
+                    <div style="margin-bottom: 22px;">
+                        <h4 style="color: #fff; font-size: 14px; margin-bottom: 8px; font-weight: 700;">📌 Official Regulatory Reason & Grounds:</h4>
+                        <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; background: rgba(0,0,0,0.25); padding: 14px; border-radius: 8px; border-left: 3px solid #ef4444;">
+                            {reason}
+                        </p>
+                    </div>
+
+                    <!-- Blacklisted URLs -->
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: #fff; font-size: 14px; margin-bottom: 10px; font-weight: 700;">🌐 {t['blacklisted_domains']}:</h4>
+                        <div>
+                            {urls_chips_html}
+                        </div>
+                    </div>
+
+                    <hr style="border: none; border-top: 1px dashed rgba(255,255,255,0.1); margin: 25px 0;">
+
+                    <!-- Safe Regulated Alternatives Section (HIGH MONETIZATION) -->
+                    <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
+                        <h3 style="color: #38bdf8; font-family: 'Outfit'; font-size: 18px; margin: 0 0 6px 0; font-weight: 800;">
+                            {t['safe_alternatives_title']}
+                        </h3>
+                        <p style="color: #94a3b8; font-size: 13px; margin: 0 0 16px 0;">
+                            {t['safe_alternatives_subtitle']}
+                        </p>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- IBKR Gold Button -->
+                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="text-decoration: none; padding: 15px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 15px;">
+                                {t['ibkr_cta']}
+                            </a>
+                            <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -4px;">
+                                ✓ {t['ibkr_sub']}
+                            </div>
+
+                            <!-- XM Group Green Button -->
+                            <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="full-action-banner-green" style="text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px;">
+                                {t['xm_cta']}
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Surfshark / NordVPN Security Card -->
+                    <div class="affiliate-card dating-safe-card" style="margin-top: 18px; background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 12px; padding: 16px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-user-shield" style="color: #60a5fa; font-size: 18px;"></i>
+                                <h4 style="margin: 0; font-size: 14px; color: #fff; font-weight: 700;">{t['vpn_title']}</h4>
+                            </div>
+                            <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px;">IP DEFENSE</span>
+                        </div>
+                        <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.4;">
+                            {t['vpn_desc']}
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <a href="https://isbrokersafe.com/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center;">
+                                🛡️ NordVPN (-72%) ↗
+                            </a>
+                            <a href="https://isbrokersafe.com/go/surfshark" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center;">
+                                🦈 Surfshark (-82%) ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Dating Cross-Promotion Card -->
+                    <div class="in-result-dating-cross-card" style="margin-top: 18px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(190, 24, 93, 0.12) 100%); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 20px;">❤️</span>
+                                <h4 style="margin: 0; font-size: 14px; color: #fff; font-weight: 700;">{t['dating_title']}</h4>
+                            </div>
+                            <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px;">PIG BUTCHERING ALERT</span>
+                        </div>
+                        <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.4;">
+                            {t['dating_desc']}
+                        </p>
+                        <a href="{target_vd_url}" target="_blank" rel="noopener" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; text-align: center;">
+                            <span>{t['dating_btn']}</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; color: #64748b; font-size: 12px;">
+            <div style="margin-bottom: 8px;">
+                🛡️ IsBrokerSafe.com Regulatory Registry Intelligence & Fraud Defense • P.IVA IT04226190041
+            </div>
+            <div>
+                Data sourced from official securities commissions (CONSOB, FCA, CySEC, BaFin, SEC). All rights reserved.
+            </div>
+        </footer>
+
+    </div>
+
+    <style>
+    @media (max-width: 850px) {{
+        .scam-dossier-grid {{
+            grid-template-columns: 1fr !important;
+        }}
+    }}
+    </style>
+</body>
+</html>
+"""
+    return HTMLResponse(content=html_content, status_code=200)
+
+@app.get("/sitemap-scam-reports.xml")
+async def get_scam_reports_sitemap():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT slug, created_at FROM regulatory_scam_reports ORDER BY id DESC LIMIT 50000")
+    rows = cursor.fetchall()
+    conn.close()
+    
+    base_url = "https://isbrokersafe.com"
+    langs = ["en", "ro", "it", "de", "fr", "es", "pt", "ru"]
+    
+    xml_entries = []
+    for slug, created_at in rows:
+        date_str = created_at.split(" ")[0] if created_at else "2026-08-25"
+        for l in langs:
+            loc = f"{base_url}/{l}/scam-reports/{slug}" if l != "en" else f"{base_url}/scam-reports/{slug}"
+            xml_entries.append(f"""  <url>
+    <loc>{loc}</loc>
+    <lastmod>{date_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>""")
+            
+    xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{"".join(xml_entries)}
+</urlset>"""
+    from fastapi.responses import Response
+    return Response(content=xml_content, media_type="application/xml")
+
 
 if __name__ == "__main__":
     import uvicorn
