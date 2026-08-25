@@ -3894,6 +3894,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     urls_chips_html = "".join([f'<span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; text-decoration: line-through; margin-right: 6px;">🚫 {u}</span>' for u in blacklisted_urls if u])
     
     target_vd_url = "https://verifydating.net/" if lang == "en" else f"https://verifydating.net/{lang}/"
+    clean_reason = reason.replace('"', ' ').replace('\n', ' ').strip() if reason else ""
     
     html_content = f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -3935,7 +3936,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         "name": "IsBrokerSafe.com Regulatory Intelligence",
         "url": "https://isbrokersafe.com/"
       }},
-      "reviewBody": "{reason.replace('"', '\"')}"
+      "reviewBody": "{clean_reason}"
     }}
     </script>
 
