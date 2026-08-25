@@ -5412,6 +5412,19 @@ async def sitemap_dating_scams():
     cursor = conn.cursor()
     cursor.execute("SELECT slug, first_reported_date FROM dating_scam_profiles ORDER BY id DESC LIMIT 50000")
     rows = cursor.fetchall()
+    
+    if not rows:
+        conn.close()
+        try:
+            from dating_scams_harvester import generate_dating_scam_dossiers
+            generate_dating_scam_dossiers(350)
+        except Exception as e:
+            print(f"[Sitemap OnDemand Seed Exception]: {e}")
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT slug, first_reported_date FROM dating_scam_profiles ORDER BY id DESC LIMIT 50000")
+        rows = cursor.fetchall()
+        
     conn.close()
     
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -5444,6 +5457,20 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
     """
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+    total_count = cursor.fetchone()[0]
+    
+    if total_count == 0:
+        conn.close()
+        try:
+            from dating_scams_harvester import generate_dating_scam_dossiers
+            generate_dating_scam_dossiers(350)
+        except Exception as e:
+            print(f"[OnDemand Seed Exception]: {e}")
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+        total_count = cursor.fetchone()[0]
     
     query_str = "SELECT id, slug, persona_name, gender, scam_category, claimed_age, claimed_profession, risk_score, views_count, first_reported_date FROM dating_scam_profiles WHERE 1=1"
     params = []
@@ -5458,9 +5485,6 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
     query_str += " ORDER BY id DESC LIMIT 100"
     cursor.execute(query_str, params)
     profiles = cursor.fetchall()
-    
-    cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
-    total_count = cursor.fetchone()[0]
     conn.close()
     
     cards_html = ""
