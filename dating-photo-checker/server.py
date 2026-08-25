@@ -1159,7 +1159,7 @@ async def pay_card(request: PaymentRequest):
     if package_type == 'basic':
         stripe_amount = 199
         credits_to_add = 1
-        package_name_log = "Quick Unlock ($1.99)"
+        package_name_log = "Quick Unlock ($2.99)"
         description_text = f"VerifyDating Quick Unlock - Scan {request.scan_id}"
     elif package_type == 'single':
         stripe_amount = 399
@@ -1273,8 +1273,8 @@ async def pay_paypal(request: PaypalPaymentRequest):
 
     package_type = request.package if request.package in ["basic", "single", "bundle"] else "basic"
     if package_type == 'basic':
-        amt_str = "$1.99"
-        package_name_log = "Quick Unlock ($1.99)"
+        amt_str = "$2.99"
+        package_name_log = "Quick Unlock ($2.99)"
         credits_to_add = 1
     elif package_type == 'single':
         amt_str = "$3.99"
@@ -1300,7 +1300,7 @@ async def pay_paypal_ipn(request: Request):
         form_data = await request.form() if request.method == "POST" else {}
         item_name = form_data.get("item_name") or params.get("item_name") or ""
         payer_email = form_data.get("payer_email") or params.get("payer_email") or "customer@verifydating.net"
-        mc_gross = form_data.get("mc_gross") or params.get("mc_gross") or "1.99"
+        mc_gross = form_data.get("mc_gross") or params.get("mc_gross") or "2.99"
         
         scan_id = ""
         if "Scan" in item_name:
@@ -1434,7 +1434,7 @@ async def get_results(scan_id: str):
         "scammer_info": scammer_info,
         "email": email or "",
         "credits_remaining": credits_remaining,
-        "pdf_price": "1.99"
+        "pdf_price": "2.99"
     }
 
 from reportlab.platypus import Image as RLImage
@@ -1760,7 +1760,7 @@ async def get_admin_dashboard(request: Request, token: str = None):
         total_scans = len(rows)
         total_paid = sum(1 for r in rows if r[2] == 'paid')
         # Calculate dynamic revenue
-        revenue = sum(3.99 if r[7] == 'single' else 7.99 if r[7] in ('bundle', 'pro') else 1.99 for r in rows if r[2] == 'paid')
+        revenue = sum(3.99 if r[7] == 'single' else 7.99 if r[7] in ('bundle', 'pro') else 2.99 for r in rows if r[2] == 'paid')
         v_leads_count = len(v_leads)
         
         # Build logs table rows (both errors and paid successes)
@@ -1784,7 +1784,7 @@ async def get_admin_dashboard(request: Request, token: str = None):
         for r in rows:
             if r[2] == 'paid':
                 s_id, s_date, s_status, s_scam, s_matches, s_img, s_email, s_pkg, s_b64 = r
-                s_price = "$3.99" if s_pkg == "single" else "$7.99" if s_pkg in ("bundle", "pro") else "$1.99"
+                s_price = "$3.99" if s_pkg == "single" else "$7.99" if s_pkg in ("bundle", "pro") else "$2.99"
                 s_fmt_date = s_date.replace("T", " ")[:19] if s_date else "N/A"
                 logs_table_rows += f"""
                 <tr data-type="success" style="border-bottom:1px solid #334155;background:rgba(16,185,129,0.05);">
@@ -1814,7 +1814,7 @@ async def get_admin_dashboard(request: Request, token: str = None):
             else:
                 img_url = "/catfish_profile.png"
             
-            price_display = "$3.99" if package == "single" else "$7.99" if package in ("bundle", "pro") else "$1.99"
+            price_display = "$3.99" if package == "single" else "$7.99" if package in ("bundle", "pro") else "$2.99"
             status_badge = f'<span style="background:#10B981;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">PAID ({price_display})</span>' if payment_status == "paid" else '<span style="background:#EF4444;color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">UNPAID</span>'
             
             prob_color = "#EF4444" if scam_prob >= 70 else "#F59E0B" if scam_prob >= 40 else "#10B981"

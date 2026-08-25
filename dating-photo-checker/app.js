@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update PDF PayPal link dynamically with currentScanId
         const pdfPaypalBtn = document.getElementById('download-pdf-paypal-btn');
         if (pdfPaypalBtn && currentScanId) {
-            pdfPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=1.99&item_name=VerifyDating+Forensic+PDF+Report+${currentScanId}&return=https://verifydating.net/?scan_id=${currentScanId}&pdf_unlocked=1&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
+            pdfPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+PDF+Report+${currentScanId}&return=https://verifydating.net/?scan_id=${currentScanId}&pdf_unlocked=1&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
         }
 
         // Fetch full scan details and render immediately
@@ -806,14 +806,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPayButtonText(lang, pkgType) {
         if (pkgType === 'basic') {
             const prices = {
-                en: "Pay $1.99 (1 Scan)",
-                ro: "Plătește $1.99 (1 Scanare)",
-                it: "Paga $1.99 (1 Scansione)",
-                de: "1.99$ bezahlen (1 Scan)",
-                es: "Pagar $1.99 (1 Análisis)",
-                fr: "Payer 1.99$ (1 Analyse)",
-                pt: "Pagar $1.99 (1 Analise)",
-                ru: "Оплатить $1.99 (1 сканирование)"
+                en: "Pay $2.99 (1 Scan)",
+                ro: "Plătește $2.99 (1 Scanare)",
+                it: "Paga $2.99 (1 Scansione)",
+                de: "2.99$ bezahlen (1 Scan)",
+                es: "Pagar $2.99 (1 Análisis)",
+                fr: "Payer 2.99$ (1 Analyse)",
+                pt: "Pagar $2.99 (1 Analise)",
+                ru: "Оплатить $2.99 (1 сканирование)"
             };
             return prices[lang] || prices['en'];
         } else if (pkgType === 'single') {
@@ -931,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailHelpNode = document.querySelector('#payment-form small');
         
         if (summaryAmountNode) {
-            summaryAmountNode.innerText = packageType === 'basic' ? '$1.99' : packageType === 'single' ? '$3.99' : '$7.99';
+            summaryAmountNode.innerText = packageType === 'basic' ? '$2.99' : packageType === 'single' ? '$3.99' : '$7.99';
         }
         if (summaryTextNode) {
             summaryTextNode.innerText = getPackageDesc(currentLang, packageType);
@@ -944,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const directPaypalBtn = document.getElementById('direct-paypal-btn');
         if (directPaypalBtn) {
-            let amt = packageType === 'basic' ? '1.99' : packageType === 'single' ? '3.99' : '7.99';
+            let amt = packageType === 'basic' ? '2.99' : packageType === 'single' ? '3.99' : '7.99';
             let activeScan = currentScanId || 'latest';
             directPaypalBtn.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=${amt}&item_name=VerifyDating+Report+Scan+${activeScan}&return=https://verifydating.net/?scan_id=${activeScan}&notify_url=https://verifydating.net/api/pay-paypal-ipn`;
             directPaypalBtn.innerHTML = `<i class="fa-brands fa-paypal" style="font-size:22px;color:#003087;"></i> Pay $${amt} with PayPal`;
@@ -965,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     label:  'paypal'
                 },
                 createOrder: function(data, actions) {
-                    let amt = packageType === 'basic' ? '1.99' : packageType === 'single' ? '3.99' : '7.99';
+                    let amt = packageType === 'basic' ? '2.99' : packageType === 'single' ? '3.99' : '7.99';
                     return actions.order.create({
                         purchase_units: [{
                             amount: { value: amt },
@@ -1071,7 +1071,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && payRes.success) {
                     ev.complete('success');
                     
-                    const purchaseVal = selectedPackage === 'basic' ? 1.99 : selectedPackage === 'single' ? 3.99 : 7.99;
+                    const purchaseVal = selectedPackage === 'basic' ? 2.99 : selectedPackage === 'single' ? 3.99 : 7.99;
                     if (typeof gtag === 'function') {
                         gtag('event', 'purchase', {
                             'transaction_id': (payRes.transaction_id || currentScanId || 'txn_' + Date.now()),
@@ -1305,7 +1305,7 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
                 // Save email to LocalStorage
                 localStorage.setItem('dating_verify_email', cardEmailInput.value.trim());
 
-                const purchaseVal = selectedPackage === 'basic' ? 1.99 : selectedPackage === 'single' ? 3.99 : 7.99;
+                const purchaseVal = selectedPackage === 'basic' ? 2.99 : selectedPackage === 'single' ? 3.99 : 7.99;
                 const itemId = selectedPackage === 'basic' ? 'report_199' : selectedPackage === 'single' ? 'report_399' : 'report_799';
                 const itemName = selectedPackage === 'basic' ? 'VerifyDating Basic Unlock' : selectedPackage === 'single' ? 'VerifyDating Standard 3 Credits' : 'VerifyDating PRO 10 Credits';
 
