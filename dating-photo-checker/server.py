@@ -4236,18 +4236,53 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     return HTMLResponse(content=html_content, status_code=200)
 
 @app.get("/sitemap-scam-reports.xml")
-async def get_scam_reports_sitemap():
+async def get_scam_reports_sitemap_index(request: Request = None):
+    """
+    Standard Google Sitemap Index XML (Google enforces max 50,000 URLs per sub-sitemap).
+    Splits our 117,000+ dossiers into 4 sub-sitemaps of ~30,000 URLs each.
+    """
+    base_url = "https://isbrokersafe.com"
+    xml_index = f"""<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>{base_url}/sitemap-scam-reports-1.xml</loc>
+    <lastmod>2026-08-25</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>{base_url}/sitemap-scam-reports-2.xml</loc>
+    <lastmod>2026-08-25</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>{base_url}/sitemap-scam-reports-3.xml</loc>
+    <lastmod>2026-08-25</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>{base_url}/sitemap-scam-reports-4.xml</loc>
+    <lastmod>2026-08-25</lastmod>
+  </sitemap>
+</sitemapindex>"""
+    from fastapi.responses import Response
+    return Response(content=xml_index, media_type="application/xml")
+
+@app.get("/sitemap-scam-reports-{part}.xml")
+async def get_scam_reports_sitemap_part(part: int, request: Request = None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT slug, created_at FROM regulatory_scam_reports ORDER BY id DESC LIMIT 50000")
-    rows = cursor.fetchall()
+    cursor.execute("SELECT slug, created_at FROM regulatory_scam_reports ORDER BY id ASC")
+    all_rows = cursor.fetchall()
     conn.close()
-    
+
+    total_rows = len(all_rows)
+    chunk_size = max(1, (total_rows + 3) // 4)  # Split into 4 chunks
+    start_idx = (part - 1) * chunk_size
+    end_idx = min(total_rows, part * chunk_size)
+    part_rows = all_rows[start_idx:end_idx] if start_idx < total_rows else []
+
     base_url = "https://isbrokersafe.com"
     langs = ["en", "ro", "it", "de", "fr", "es", "pt", "ru"]
-    
+
     xml_entries = []
-    for slug, created_at in rows:
+    for slug, created_at in part_rows:
         date_str = created_at.split(" ")[0] if created_at else "2026-08-25"
         for l in langs:
             loc = f"{base_url}/{l}/scam-reports/{slug}" if l != "en" else f"{base_url}/scam-reports/{slug}"
@@ -4257,13 +4292,14 @@ async def get_scam_reports_sitemap():
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>""")
-            
+
     xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {"".join(xml_entries)}
 </urlset>"""
     from fastapi.responses import Response
     return Response(content=xml_content, media_type="application/xml")
+
 
 
 if __name__ == "__main__":
