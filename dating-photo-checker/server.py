@@ -331,19 +331,29 @@ def init_db():
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_slug ON regulatory_scam_reports(slug);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_domain ON regulatory_scam_reports(domain);")
     
-    cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
-    scam_count = cursor.fetchone()[0]
     conn.commit()
     conn.close()
 
-    if scam_count == 0:
-        try:
-            from scam_regulators_scraper import run_master_scraper
-            threading.Thread(target=run_master_scraper, daemon=True).start()
-        except Exception as seed_err:
-            print(f"[Scam Seeding Startup] {seed_err}")
-
 init_db()
+
+@app.on_event("startup")
+async def startup_event():
+    def _seed():
+        time.sleep(5)  # Wait for server to bind to port and pass Render health checks
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
+            scam_count = cursor.fetchone()[0]
+            conn.close()
+            if scam_count == 0:
+                print("[Startup] Seeding initial regulatory scam reports...")
+                from scam_regulators_scraper import run_master_scraper
+                run_master_scraper()
+        except Exception as e:
+            print(f"[Startup Seed Exception]: {e}")
+            
+    threading.Thread(target=_seed, daemon=True).start()
 
 # ==========================================================================
 # DYNAMIC STATIC FILES SERVING (DOMAIN-BASED ROUTING)

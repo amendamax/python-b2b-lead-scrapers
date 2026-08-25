@@ -32,9 +32,9 @@ PROXY_PORT = "9000"
 PROXY_USER = "geonode_r5f9bn3waz-type-residential"
 PROXY_PASS = "d9081034-36de-4826-a96a-ac71ba19c884"
 
-PROXY_URL = f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}"
-
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "database.db")
+PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
+os.makedirs(PERSISTENT_DIR, exist_ok=True)
+DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
