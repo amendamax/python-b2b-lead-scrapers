@@ -700,11 +700,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Transition panels
         stateScanning.style.display = 'none';
         stateResults.style.display = 'flex';
-        
-        // Save scanId in session storage for persistence on refresh
-        if (currentScanId) {
-            sessionStorage.setItem('verifydating_current_scan_id', currentScanId);
-        }
 
         // 100% Free Scan Experience: Reveal full results and affiliate cards immediately
         showUnlockedResults();
@@ -1671,17 +1666,13 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
         }, 2000); // Check every 2 seconds for instant admin unlock
     }
 
-    // Check URL parameters for return from PayPal
+    // Check URL parameters ONLY for return from PayPal / explicit report link
     const urlParams = new URLSearchParams(window.location.search);
     const urlScanId = urlParams.get('scan_id');
-    if (urlScanId) {
-        sessionStorage.setItem('verifydating_current_scan_id', urlScanId);
-    }
+    const isPdfReturn = urlParams.get('pdf_unlocked');
 
-    // Check for saved scan in sessionStorage on page load/refresh ONLY if paid/unlocked
-    const savedScanId = sessionStorage.getItem('verifydating_current_scan_id');
-    if (savedScanId) {
-        fetch(`/api/results/${savedScanId}`).then(r => r.json()).then(data => {
+    if (urlScanId && isPdfReturn) {
+        fetch(`/api/results/${urlScanId}`).then(r => r.json()).then(data => {
             if (data && (data.payment_status === 'paid' || data.unlocked === true)) {
                 renderPremiumDetails(data);
                 const stateIdleEl = document.getElementById('state-idle');
@@ -1690,11 +1681,11 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
                 if (stateIdleEl) stateIdleEl.style.display = 'none';
                 if (stateResultsEl) stateResultsEl.style.display = 'flex';
                 showUnlockedResults();
-            } else if (!urlScanId) {
-                // Clear unpaid previous test scan so mobile home page opens completely fresh!
-                sessionStorage.removeItem('verifydating_current_scan_id');
             }
         }).catch(e => console.error("Restore scan error: ", e));
+    } else {
+        // Clear any previous scan so every page visit and refresh opens 100% fresh and clean!
+        sessionStorage.removeItem('verifydating_current_scan_id');
     }
 
     // ==========================================================================
