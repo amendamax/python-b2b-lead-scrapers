@@ -1902,3 +1902,68 @@ body {
     }
 }
 
+/* ==========================================================================
+   DYNAMIC REACTIVE BUTTONS & 3D HOVER GLOW SYSTEM
+   ========================================================================== */
+.btn, 
+.in-result-dating-cross-card a, 
+.broker-dating-cross-card a, 
+#download-report-btn, 
+#paywall-unlock-btn, 
+.full-action-banner-download,
+.ticker-chip {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    cursor: pointer;
+}
+
+.btn:hover, 
+.in-result-dating-cross-card a:hover, 
+.broker-dating-cross-card a:hover, 
+#download-report-btn:hover,
+.full-action-banner-download:hover,
+.ticker-chip:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    filter: brightness(1.12) !important;
+}
+
+.btn:active, 
+.in-result-dating-cross-card a:active, 
+.broker-dating-cross-card a:active, 
+#download-report-btn:active,
+.full-action-banner-download:active {
+    transform: translateY(-1px) scale(0.99) !important;
+}
+
+/* Specific Glowing Shadows */
+.in-result-dating-cross-card a:hover, 
+.broker-dating-cross-card a:hover {
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.65), 0 0 18px rgba(236, 72, 153, 0.45) !important;
+}
+
+.full-action-banner-download:hover,
+#download-report-btn:hover {
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.65), 0 0 18px rgba(56, 189, 248, 0.45) !important;
+}
+
+/* Light Shimmer Wave on Hover */
+.in-result-dating-cross-card a::after,
+.full-action-banner-download::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(25deg);
+    transition: all 0.65s ease;
+    pointer-events: none;
+}
+
+.in-result-dating-cross-card a:hover::after,
+.full-action-banner-download:hover::after {
+    left: 130%;
+}
+

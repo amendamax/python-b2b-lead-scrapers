@@ -3118,3 +3118,80 @@ html, body {
     align-items: center;
     gap: 4px;
 }
+
+/* ==========================================================================
+   DYNAMIC REACTIVE BUTTONS & 3D HOVER GLOW SYSTEM
+   ========================================================================== */
+.btn, 
+.affiliate-card a, 
+.homepage-broker-cross-banner a, 
+#start-scan-btn, 
+#download-pdf-paypal-btn,
+.sample-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    cursor: pointer;
+}
+
+.btn:hover, 
+.affiliate-card a:hover, 
+.homepage-broker-cross-banner a:hover, 
+#start-scan-btn:hover, 
+#download-pdf-paypal-btn:hover,
+.sample-btn:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    filter: brightness(1.12) !important;
+}
+
+.btn:active, 
+.affiliate-card a:active, 
+.homepage-broker-cross-banner a:active, 
+#start-scan-btn:active, 
+#download-pdf-paypal-btn:active {
+    transform: translateY(-1px) scale(0.99) !important;
+}
+
+/* Specific Glowing Hover Shadows */
+.broker-safe-card a:hover, 
+.homepage-broker-cross-banner a:hover {
+    box-shadow: 0 10px 28px rgba(2, 132, 199, 0.65), 0 0 16px rgba(56, 189, 248, 0.45) !important;
+}
+
+.gearup-boost-card a:hover {
+    box-shadow: 0 10px 28px rgba(16, 185, 129, 0.65), 0 0 16px rgba(16, 185, 129, 0.45) !important;
+}
+
+.dating-safe-card a:first-child:hover {
+    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.65), 0 0 16px rgba(59, 130, 246, 0.45) !important;
+}
+
+.dating-safe-card a:last-child:hover {
+    box-shadow: 0 10px 28px rgba(14, 165, 233, 0.65), 0 0 16px rgba(14, 165, 233, 0.45) !important;
+}
+
+#download-pdf-paypal-btn:hover {
+    box-shadow: 0 10px 28px rgba(255, 196, 57, 0.65), 0 0 16px rgba(255, 196, 57, 0.45) !important;
+}
+
+/* Shimmer Light Reflection on Hover */
+.affiliate-card a::after, 
+.homepage-broker-cross-banner a::after, 
+#download-pdf-paypal-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(25deg);
+    transition: all 0.65s ease;
+    pointer-events: none;
+}
+
+.affiliate-card a:hover::after, 
+.homepage-broker-cross-banner a:hover::after, 
+#download-pdf-paypal-btn:hover::after {
+    left: 130%;
+}
