@@ -414,10 +414,10 @@ async def startup_event():
             cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
             dating_count = cursor.fetchone()[0]
             conn.close()
-            if dating_count < 2500:
+            if dating_count < 10000:
                 print(f"[Startup] Seeding dating scam dossiers archive (current: {dating_count})...")
                 from dating_scams_harvester import generate_dating_scam_dossiers
-                generate_dating_scam_dossiers(2500)
+                generate_dating_scam_dossiers(10000)
         except Exception as e:
             print(f"[Startup Seed Exception]: {e}")
             
@@ -5437,7 +5437,7 @@ async def admin_seed_dating_scams():
     """
     try:
         from dating_scams_harvester import generate_dating_scam_dossiers
-        generate_dating_scam_dossiers(350)
+        generate_dating_scam_dossiers(10000)
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
@@ -5461,7 +5461,7 @@ async def sitemap_dating_scams():
         conn.close()
         try:
             from dating_scams_harvester import generate_dating_scam_dossiers
-            generate_dating_scam_dossiers(350)
+            generate_dating_scam_dossiers(10000)
         except Exception as e:
             print(f"[Sitemap OnDemand Seed Exception]: {e}")
         conn = sqlite3.connect(DB_PATH)
@@ -5508,7 +5508,7 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
         conn.close()
         try:
             from dating_scams_harvester import generate_dating_scam_dossiers
-            generate_dating_scam_dossiers(350)
+            generate_dating_scam_dossiers(10000)
         except Exception as e:
             print(f"[OnDemand Seed Exception]: {e}")
         conn = sqlite3.connect(DB_PATH)

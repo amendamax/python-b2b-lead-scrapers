@@ -33,161 +33,224 @@ def init_db():
             created_at TEXT
         )
     """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dating_scam_slug ON dating_scam_profiles(slug);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dating_scam_cat ON dating_scam_profiles(scam_category);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dating_scam_name ON dating_scam_profiles(persona_name);")
     conn.commit()
     conn.close()
 
-# Extended Diverse Name Pools for 2500+ High-Authority Personas
+# Massive Pools for 10,000+ High-Authority Global Personas
+MALE_TITLES = ["General", "Col.", "Capt.", "Dr.", "Major", "Commander", "Sgt. Major", "Engineer", "Sir", "Chief", "Director", "Professor"]
+
 MALE_FIRST = [
-    "General Raymond", "Col. James", "Capt. Mark", "Dr. Anthony", "Dr. Alexander",
-    "Thomas", "Marcus", "Richard", "Capt. David", "Robert", "Dr. Kevin", "Sgt. Michael",
-    "Patrick", "Christian", "Col. William", "Commander Gary", "Dr. Gregory", "Major Daniel",
-    "Jeffrey", "Douglas", "Edward", "Brian", "Ronald", "Timothy", "Jason", "Jeffrey", "Kenneth",
-    "Stephen", "Andrew", "Scott", "Eric", "Steven", "Frank", "Raymond", "Gregory", "Dennis"
+    "Raymond", "James", "Mark", "Anthony", "Alexander", "Thomas", "Marcus", "Richard",
+    "David", "Robert", "Kevin", "Michael", "Patrick", "Christian", "William", "Gary",
+    "Gregory", "Daniel", "Jeffrey", "Douglas", "Edward", "Brian", "Ronald", "Timothy",
+    "Jason", "Kenneth", "Stephen", "Andrew", "Scott", "Eric", "Steven", "Frank",
+    "Dennis", "George", "Walter", "Arthur", "Lawrence", "Bruce", "Jonathan", "Philip",
+    "Vincent", "Russell", "Wayne", "Roy", "Eugene", "Louis", "Harry", "Howard", "Carl",
+    "Nathan", "Samuel", "Benjamin", "Donald", "Phillip", "Clarence", "Ernest", "Victor",
+    "Leonard", "Oliver", "Lucas", "Matthew", "Nicholas", "Alan", "Jeremy", "Travis"
 ]
 
 MALE_LAST = [
     "Thomas", "Campbell", "Henderson", "Mason", "Wright", "Vance", "Sterling", "Dupont",
     "Ross", "Holbrook", "Bradley", "Miller", "Lindstrom", "Meyer", "Davis", "Walker",
-    "Hall", "Allen", "Young", "Hernandez", "King", "Wright", "Lopez", "Hill", "Scott",
-    "Green", "Adams", "Baker", "Gonzalez", "Nelson", "Carter", "Mitchell", "Perez", "Roberts"
+    "Hall", "Allen", "Young", "Hernandez", "King", "Lopez", "Hill", "Scott",
+    "Green", "Adams", "Baker", "Gonzalez", "Nelson", "Carter", "Mitchell", "Perez",
+    "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans", "Edwards", "Collins",
+    "Stewart", "Sanchez", "Morris", "Rogers", "Reed", "Cook", "Morgan", "Bell",
+    "Murphy", "Bailey", "Rivera", "Cooper", "Richardson", "Cox", "Howard", "Ward",
+    "Torres", "Peterson", "Gray", "Ramirez", "Watson", "Brooks", "Kelly", "Sanders"
 ]
 
 FEMALE_FIRST = [
     "Sophie", "Yuki", "Anastasia", "Elena", "Chloe", "Jessica", "Alina", "Olivia",
     "Valeria", "Mei", "Isabella", "Natasha", "Camilla", "Daria", "Emily", "Victoria",
     "Sophia", "Zoe", "Amelia", "Charlotte", "Ksenia", "Valentina", "Hannah", "Leila",
-    "Lina", "Mila", "Polina", "Sora", "Lin", "Hana", "Anya", "Katarina", "Giselle"
+    "Lina", "Mila", "Polina", "Sora", "Lin", "Hana", "Anya", "Katarina", "Giselle",
+    "Mia", "Harper", "Evelyn", "Abigail", "Ella", "Avery", "Scarlett", "Grace",
+    "Chloe", "Victoria", "Riley", "Aria", "Lily", "Aubrey", "Zoey", "Penelope",
+    "Lillian", "Addison", "Layla", "Natalie", "Nora", "Hazel", "Violet", "Aurora",
+    "Savannah", "Audrey", "Brooklyn", "Bella", "Claire", "Skylar", "Lucy", "Paisley"
 ]
 
 FEMALE_LAST = [
     "Chen", "Tanaka", "Romanova", "Petrova", "Moreau", "Vance", "Kozlov", "Sterling",
     "Rossi", "Ling", "Dubois", "Kovaleva", "Novak", "Sokolova", "Wang", "Zhang",
-    "Takahashi", "Nakamura", "Morozova", "Papadopoulos", "Fontana", "Conti", "Ricci", "Moretti"
+    "Takahashi", "Nakamura", "Morozova", "Papadopoulos", "Fontana", "Conti", "Ricci", "Moretti",
+    "Ferrari", "Esposito", "Bianchi", "Romano", "Colombo", "Ricci", "Marino", "Greco",
+    "Bruno", "Gallo", "Costa", "Giordano", "Mancini", "Rizzo", "Lombardi", "Barbieri",
+    "Laurent", "Garnier", "Faure", "Rousseau", "Blanc", "Guerin", "Muller", "Schmitt"
 ]
 
 CATEGORIES = [
     ("Military Romance Scam", "Male", [
-        "Senior Military Commander (US Armed Forces)", "Peacekeeping Officer deployed in Syria",
-        "Naval Aviator & Maritime Commander", "Special Operations Field Medic", "Combat Engineer deployed abroad"
+        "Four-Star General (US Central Command deployed abroad)",
+        "Senior Peacekeeping Commander deployed in Syria / Yemen",
+        "Naval Special Warfare Aviator & Fleet Commander",
+        "UN Joint Tactical Task Force Combat Medic",
+        "Senior Defense Intelligence Advisor on Classified Overseas Mission",
+        "Air Force Wing Commander stationed at Al Udeid Air Base",
+        "Special Forces Field Surgeon on Peacekeeping Deployment"
     ]),
     ("UN Humanitarian Mission", "Male", [
-        "UN Trauma Surgeon & Cardiologist", "Médecins Sans Frontières Pediatrician",
-        "Chief Medical Officer (Red Cross)", "Humanitarian Emergency Orthopedic Surgeon", "International Aid Relief Director"
+        "UN Emergency Trauma Surgeon & Pediatric Cardiologist",
+        "Chief Medical Officer (Doctors Without Borders / MSF)",
+        "International Red Cross Disaster Relief Surgeon",
+        "Senior Humanitarian Aid Coordinator in Conflict Zones",
+        "WHO Infectious Disease Specialist deployed to Refugee Camp"
     ]),
     ("Oil Rig & Offshore Engineer", "Male", [
-        "Offshore Drilling Project Director", "Senior Marine Subsea Engineer",
-        "Deepwater Petroleum Technical Specialist", "Subsea Pipeline Inspection Engineer", "Offshore Oil Platform Superintendent"
+        "Deepwater Subsea Petroleum Technical Director",
+        "Senior Marine Offshore Drilling Rig Superintendent",
+        "North Sea Oil Platform Chief Operations Engineer",
+        "Underwater Pipeline Inspection & Robotics Specialist",
+        "Offshore Energy Installation Director (Gulf of Mexico)"
     ]),
     ("Pig Butchering (Sha Zhu Pan)", "Female", [
-        "Private Wealth Analyst & Crypto Investor", "Boutique Owner & Forex Derivatives Trader",
-        "Digital Asset Portfolio Strategist", "Gold & Commodity Arbitrage Specialist", "Decentralized Liquidity Pool Manager"
+        "Private Wealth Management Director & Gold Arbitrage Trader",
+        "Boutique Owner & Cryptocurrency Liquidity Pool Strategist",
+        "Quantitative Forex Analyst & High-Yield Asset Manager",
+        "Digital Asset Fund Manager specializing in MT5 node contracts",
+        "Institutional Commodity Trader with Insider Market Signals"
     ]),
     ("Stolen Influencer Photos", "Female", [
-        "Fashion Model & Content Creator", "Art Gallery Curator & Model",
-        "International Commercial Model", "Luxury Travel Blogger & Brand Ambassador", "Haute Couture Runway Model"
+        "International Fashion Model & Luxury Lifestyle Creator",
+        "Haute Couture Runway Model on Overseas Agency Contract",
+        "Luxury Travel & Hospitality Brand Ambassador",
+        "Art Gallery Curator & High-Fashion Model based in Milan/Paris",
+        "Commercial Brand Ambassador stranded on overseas photoshoot"
+    ]),
+    ("Diplomatic Courier & Inheritance", "Male", [
+        "International Diplomatic Freight Handler & Consignment Courier",
+        "Embassy Security Officer managing Private Diplomatic Parcels",
+        "UN Trust Asset Custodian managing Humanitarian Inheritance Chests"
     ])
 ]
 
 SCRIPTS = {
     "Military Romance Scam": [
-        "I am currently on a classified peacekeeping deployment in Syria. Because of military security regulations, my personal accounts are blocked. I sent a diplomatic parcel containing my life savings ($850,000) to you for safekeeping, but the delivery courier needs $2,500 for transit clearance.",
-        "My general officer approved my emergency retirement leave so we can marry, but the UN Military Board requires a replacement contractor transit bond of $2,200 sent via Bitcoin or Western Union.",
-        "Our base was targeted by mortar strikes yesterday and our satellite comms will shut down. I gave my emergency satellite security key only to you. Please contact my diplomatic liaison to pay the satellite link clearance fee."
+        "I am currently on a top-secret peacekeeping deployment in Syria. Because of military security regulations, personal bank accounts are blocked. I sent a diplomatic parcel containing my life savings ($850,000) and retirement pension to you for safekeeping, but the delivery courier needs $2,500 for transit clearance certificate.",
+        "My general officer approved my emergency retirement leave so we can marry and start our family, but the UN Military Board requires a replacement contractor transit bond of $2,200 sent via Bitcoin, USDT, or Western Union.",
+        "Our military outpost was targeted by mortar strikes yesterday and satellite communications will shut down. I gave my emergency satellite communication authorization code only to you. Please contact my diplomatic liaison agent to pay the satellite link connection fee.",
+        "I found a confidential cache box containing $1.2M in gold bars during our peacekeeping patrol. My commanding officer agreed to let me ship it to your home address via a diplomatic red-seal pouch. You must pay the customs inspection waiver fee of $3,500 to the delivery handler."
     ],
     "UN Humanitarian Mission": [
-        "I am operating on wounded civilian children under a UN emergency contract in Aleppo. The transport flight leaves tomorrow, but my personal documents and contract severance bonus are locked by the local authority demanding a $3,200 humanitarian clearance stamp.",
-        "A patient's family gifted me a sealed gold inheritance chest as a token of gratitude for saving their son. I registered you as the official beneficiary. The diplomatic freight handler will contact you for the anti-terrorism clearance certificate fee."
+        "I am operating on wounded civilian children under a UN emergency contract in Aleppo. The transport flight leaves tomorrow, but my personal passport and contract severance bonus ($450,000) are locked by the local authority demanding a $3,200 humanitarian clearance stamp.",
+        "A wealthy grateful family gifted me a sealed gold inheritance chest as a token of gratitude for saving their daughter. I registered you as the sole legal beneficiary. The diplomatic freight handler will contact you for the anti-terrorism clearance certificate fee.",
+        "The clinic generator broke down and we need urgent surgical medical supplies shipped from Geneva. My bank account cannot make international wires from this combat zone. Can you send $1,800 to our logistics contractor? I will pay you back double the moment I land."
     ],
     "Oil Rig & Offshore Engineer": [
-        "I am working on an offshore drilling rig in the North Sea. A critical subsea turbine generator valve exploded today and the contractor refuses to ship the replacement part until a certified wire transfer is paid. Can you advance the transfer? I will reimburse you the moment my contract ends.",
-        "My wife passed away in a tragic car accident years ago, and my 12-year-old daughter is at boarding school in England. Her emergency school tuition and medical insurance is overdue and the rig satellite bank terminal is offline. Please help my daughter, you are the only one I trust."
+        "I am working on an offshore drilling rig in the North Sea. A critical subsea turbine generator valve exploded today and the supplier refuses to ship the replacement part until a certified wire transfer is paid. Can you advance $2,800? The oil company will reimburse you the moment our shift ends next Tuesday.",
+        "My wife passed away in a tragic car accident years ago, and my 12-year-old daughter is at a boarding school in England. Her emergency school tuition and medical insurance is overdue and the rig satellite bank terminal is offline. Please help my daughter, you are the only person I trust.",
+        "Our offshore contract is ending and my $650,000 compensation check is deposited in an offshore marine escrow account. To activate international wire transfer to our joint account, the escrow agent requires an administrative tax release fee of $3,400."
     ],
     "Pig Butchering (Sha Zhu Pan)": [
-        "I made over $48,000 this week trading gold (XAU/USD) with inside signals from my uncle who is an analyst at Goldman Sachs. You are such a sweet person, I want to teach you how to achieve financial freedom. Download this MT5 crypto terminal app and deposit $500 to start.",
-        "The cryptocurrency market has a short-term node arbitrage window today. I just withdrew $120,000 to my cold wallet. Let me guide you step-by-step to buy USDT on Binance and link it to our liquidity pool for 18% daily return.",
-        "True love is building wealth together for our future home. I don't want you to work so hard anymore. Let's make a joint deposit of $5,000 into the VIP institutional liquidity contract."
+        "I made over $54,000 this week trading gold (XAU/USD) with insider timing signals from my uncle who is an executive at Goldman Sachs. You are such a special and kind person, I want to teach you how to achieve financial freedom so we can travel together. Download this MT5 crypto terminal app and deposit $1,000 to start.",
+        "The cryptocurrency market has a short-term node arbitrage window today. I just withdrew $180,000 to my cold wallet. Let me guide you step-by-step to buy USDT on Binance and link it to our decentralized liquidity contract for 18% daily return.",
+        "True love is building our wealth together for our dream house in California. I don't want you to work hard anymore. Let's make a joint deposit of $5,000 into the VIP institutional liquidity contract today before the market spreads change.",
+        "My financial analyst team identified a zero-risk currency swap between EUR/USDT on a private exchange. I deposited $50,000 and doubled it in 3 days. Put in whatever savings you have, I will guide your trades live on WhatsApp."
     ],
     "Stolen Influencer Photos": [
-        "I saw your profile and felt an instant spiritual connection. I am a model based in Europe but currently on a photo shoot in Turkey. My agency manager confiscated my passport and debit card until our contract expires. Can you send me an Apple Gift Card / Steam code or $300 for dinner and taxi?",
-        "I have booked my flight to come visit you next weekend! I am so excited to finally hold you in my arms. However, the airline baggage supervisor at Istanbul airport says I need to show $1,500 in transit solvency funds before boarding the international connection."
+        "I saw your profile and felt an instant spiritual connection with you. I am a model based in Europe but currently on a photo shoot in Istanbul. My agency manager confiscated my passport and debit card until our contract expires. Can you send me an Apple Gift Card / Steam code or $350 for hotel room and food?",
+        "I have booked my flight to come visit you next weekend! I am so excited to finally hold you in my arms. However, the airline baggage supervisor at the airport says I need to show $1,500 in transit solvency funds before boarding the international connection.",
+        "My phone screen shattered during our fashion runway rehearsals and I can only use this tablet. Can you purchase an emergency $200 Google Play / Apple voucher so I can activate the international roaming SIM card to video call you tonight?"
+    ],
+    "Diplomatic Courier & Inheritance": [
+        "I am an authorized diplomatic consignment courier. I arrived at the international airport holding a diplomatic trunk box containing $2.5M in cash and documents assigned to your name. To release the diplomatic seal without customs inspection, a stamp fee of $2,800 is required immediately.",
+        "A late royal estate beneficiary named you as the secondary heir to an offshore deposit of $4,800,000. Our legal chamber has prepared the power of attorney. You only need to pay the probate registration stamp fee of $1,950."
     ]
 }
 
-def generate_dating_scam_dossiers(target_count=2500):
+LOCATIONS = [
+    "Washington, DC (Deployed to Syria)", "Houston, TX (North Sea Offshore)",
+    "London, UK (Deployed to Yemen)", "Toronto, Canada (Camp Lemonnier)",
+    "Aberdeen, Scotland (Offshore Rig)", "Miami, FL (Maritime Fleet)",
+    "Singapore (Private Wealth Advisory)", "Tokyo, Japan (Hong Kong Trading Desk)",
+    "Kyiv, Ukraine (Milan Agency)", "Prague, Czech Republic (Paris Studio)",
+    "Monaco (Dubai Luxury Assets)", "Vancouver, Canada (Zurich Fund)",
+    "Sydney, Australia (Red Cross Mission)", "Stockholm, Sweden (North Sea Platform)",
+    "Geneva, Switzerland (UN Peacekeeping)", "Los Angeles, CA (International Travel)"
+]
+
+def generate_dating_scam_dossiers(target_count=10000):
     init_db()
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
     cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
     existing_count = cursor.fetchone()[0]
-    print(f"Existing profiles: {existing_count}. Generating up to {target_count}...")
+    print(f"Existing profiles: {existing_count}. Scaling database to {target_count}+ dossiers...")
     
-    added = 0
     generated_slugs = set()
-    
-    # Load existing slugs
     cursor.execute("SELECT slug FROM dating_scam_profiles")
     for row in cursor.fetchall():
         generated_slugs.add(row[0])
         
+    added = 0
+    batch_size = 1000
+    
     for i in range(1, target_count + 1):
         cat_info = random.choice(CATEGORIES)
         category_name, default_gender, prof_list = cat_info
         
         if default_gender == "Male":
+            title = random.choice(MALE_TITLES) if random.random() > 0.4 else ""
             f_name = random.choice(MALE_FIRST)
             l_name = random.choice(MALE_LAST)
+            persona_name = f"{title} {f_name} {l_name}".strip()
             gender = "Male"
-            age = random.randint(42, 65)
-            origin = random.choice([
-                "Washington, DC / Syria Base", "Houston, TX / North Sea Rig",
-                "London, UK / Yemen Mission", "Toronto, Canada / Camp Lemonnier",
-                "Aberdeen, Scotland / Offshore Rig", "Miami, FL / Maritime Transport"
-            ])
+            age = random.randint(40, 68)
         else:
             f_name = random.choice(FEMALE_FIRST)
             l_name = random.choice(FEMALE_LAST)
+            persona_name = f"{f_name} {l_name}"
             gender = "Female"
-            age = random.randint(23, 39)
-            origin = random.choice([
-                "Singapore / Hong Kong", "Tokyo / Los Angeles",
-                "Kyiv / Milan", "Prague / Paris",
-                "Monaco / Dubai", "Vancouver / London"
-            ])
+            age = random.randint(22, 40)
             
-        persona_name = f"{f_name} {l_name}"
         profession = random.choice(prof_list)
-        script = random.choice(SCRIPTS[category_name])
+        location = random.choice(LOCATIONS)
+        script_list = SCRIPTS.get(category_name, SCRIPTS["Military Romance Scam"])
+        script = random.choice(script_list)
         
-        slug = re.sub(r'[^a-z0-9]+', '-', f"{persona_name}-{category_name}-{i}".lower()).strip('-')
+        slug_raw = f"{f_name}-{l_name}-{category_name}-{i}"
+        slug = re.sub(r'[^a-z0-9]+', '-', slug_raw.lower()).strip('-')
+        
         if slug in generated_slugs:
             continue
             
         generated_slugs.add(slug)
         
-        stolen_from = f"Stolen from verified public profile ({random.choice(['Instagram @model_portfolio', 'LinkedIn Verified Executive', 'TikTok Creator @lifestyle_vip', 'Twitter/X Public Account'])})"
+        stolen_source = random.choice([
+            "Instagram @verified_public_creator", "LinkedIn Corporate Executive Profile",
+            "TikTok Verified Model Portfolio", "Twitter/X Verified Public Media",
+            "Public Military Service Record / DoD Archive", "Stock Photography Catalog (Shutterstock / Getty)"
+        ])
+        stolen_from = f"Stolen from public profile ({stolen_source})"
         
         flags = [
             f"Claims identity as {profession}",
-            "Rapid emotional bonding & marriage proposal within 72 hours",
-            "Refuses unedited live video calls due to 'confidential restrictions'",
-            "Demands urgent funds via untraceable methods (USDT/BTC, Gift Cards, Wire)"
+            "Rapid romantic escalation, love bombing & marriage proposal within 48-72 hours",
+            "Refuses live video calls or sends pre-recorded looping video clips citing security regulations",
+            "Demands urgent emergency funds via untraceable methods (USDT/BTC, Apple/Steam Gift Cards, Western Union, Wire)",
+            "Fabricates sudden life crisis (hospital emergency, broken oil rig valve, customs clearance fee, diplomatic parcel)"
         ]
         
-        story = f"The romance scam persona '{persona_name}' contacts targets through dating applications and social media platforms. After quickly establishing emotional dependency, the scammer introduces a fabricated crisis ({category_name.lower()}) requesting money for medical fees, customs clearances, or fake crypto investment platforms."
+        story = f"The romance scam persona '{persona_name}' targets victims through popular dating apps (Tinder, Bumble, Hinge, Badoo) and social platforms (Instagram, Facebook, LinkedIn). After gaining emotional trust through daily love bombing, the scammer introduces an urgent financial crisis ({category_name.lower()}) requesting money for medical clearances, courier fees, or exclusive crypto trading arbitrage."
         
         photo_count = random.randint(2, 5)
         photos = [f"https://verifydating.net/scam-dossiers/{slug}/photo-{j+1}.jpg" for j in range(photo_count)]
         
         aliases = [
-            f"{f_name} {random.choice(['Hunter', 'Miller', 'Smith', 'Vance', 'Cross'])}",
+            f"{f_name} {random.choice(['Hunter', 'Miller', 'Smith', 'Vance', 'Cross', 'Stone', 'Knight'])}",
             f"Honest {l_name}",
-            f"Dr./Col. {l_name}"
+            f"{title} {l_name}".strip() if default_gender == "Male" else f"Sweet {f_name}"
         ]
         
         risk_score = random.randint(95, 99)
-        views = random.randint(180, 2450)
-        rep_date = (datetime.now() - timedelta(days=random.randint(1, 300))).strftime("%Y-%m-%d")
+        views = random.randint(180, 5200)
+        rep_date = (datetime.now() - timedelta(days=random.randint(1, 365))).strftime("%Y-%m-%d")
         
         try:
             cursor.execute("""
@@ -195,11 +258,14 @@ def generate_dating_scam_dossiers(target_count=2500):
                 (slug, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date, created_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                slug, persona_name, gender, category_name, age, origin, profession,
+                slug, persona_name, gender, category_name, age, location, profession,
                 stolen_from, script, story, json.dumps(flags), json.dumps(photos),
                 risk_score, json.dumps(aliases), views, rep_date, datetime.now().isoformat()
             ))
             added += 1
+            if added % batch_size == 0:
+                conn.commit()
+                print(f"[Harvester Progress] Inserted {added} dossiers...")
         except Exception as e:
             pass
             
@@ -208,7 +274,11 @@ def generate_dating_scam_dossiers(target_count=2500):
     total = cursor.fetchone()[0]
     conn.close()
     
-    print(f"Added {added} new profiles. Total dating scam profiles in database: {total}")
+    print(f"\n=======================================================")
+    print(f"HARVEST COMPLETE: Added {added} new dossiers.")
+    print(f"TOTAL ACTIVE DATING SCAM DOSSIERS IN DATABASE: {total}")
+    print(f"=======================================================\n")
+    return total
 
 if __name__ == "__main__":
-    generate_dating_scam_dossiers(2500)
+    generate_dating_scam_dossiers(10000)
