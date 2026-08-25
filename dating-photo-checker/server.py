@@ -597,6 +597,11 @@ Sitemap: https://{domain}/sitemap.xml
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
 
+@app.get("/d89b14f6824945e4a81b7e4521798361.txt")
+async def get_indexnow_key():
+    from fastapi.responses import Response
+    return Response(content="d89b14f6824945e4a81b7e4521798361", media_type="text/plain")
+
 @app.get("/sitemap.xml")
 async def get_sitemap(request: Request):
     host = request.headers.get("host", "").lower()
