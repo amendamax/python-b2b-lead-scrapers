@@ -4100,33 +4100,33 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         </p>
 
                         <div style="display: flex; flex-direction: column; gap: 11px;">
-                            <!-- 1. XM Group Green Button -->
-                            <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="full-action-banner-green" style="text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px;">
-                                {t['xm_cta']}
-                            </a>
-
-                            <!-- 2. eToro Green Button -->
-                            <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
-                                {t['etoro_cta']}
-                            </a>
-
-                            <!-- 3. AvaTrade Gold Button -->
-                            <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
-                                {t['avatrade_cta']}
-                            </a>
-
-                            <!-- 4. Plus500 Cyan Button -->
+                            <!-- 01. Plus500 Cyan Blue Button -->
                             <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
                                 {t['plus500_cta']}
                             </a>
 
-                            <!-- 5. Exness Amber Button -->
+                            <!-- 02. AvaTrade Gold Button -->
+                            <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                                {t['avatrade_cta']}
+                            </a>
+
+                            <!-- 03. eToro Emerald Green Button -->
+                            <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                                {t['etoro_cta']}
+                            </a>
+
+                            <!-- 04. Exness Amber Orange Button -->
                             <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
                                 {t['exness_cta']}
                             </a>
 
-                            <!-- 6. IBKR Gold Button -->
-                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px;">
+                            <!-- 05. XM Group Official Red Button -->
+                            <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
+                                {t['xm_cta']}
+                            </a>
+
+                            <!-- 06. Interactive Brokers (IBKR) Metallic Gold Button -->
+                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
                                 {t['ibkr_cta']}
                             </a>
                             <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
