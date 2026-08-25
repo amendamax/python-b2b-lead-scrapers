@@ -3702,9 +3702,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Blacklisted Domains & Clones",
         "safe_alternatives_title": "🛡️ Verified & Regulated Alternatives for Safe Trading",
         "safe_alternatives_subtitle": "Do not deposit funds with unlicensed operators. Choose globally regulated institutions with segregated client accounts:",
-        "ibkr_cta": "🎁 Open Account at Interactive Brokers (Up to $1,000 Free Stock) ➔",
-        "ibkr_sub": "Regulated by FCA (UK), SEC (USA), ASIC (Australia) & Central Bank of Ireland. Publicly traded on NASDAQ (IBKR).",
-        "xm_cta": "🟢 Trade on Regulated XM Group (0% Commission, EU License) ➔",
+        "ibkr_cta": "🎁 Claim Up to $1,000 in Free Stock at Interactive Brokers ➔",
+        "ibkr_sub": "Regulated by FCA, SEC, ASIC & CBI. Publicly traded on NASDAQ (IBKR).",
+        "xm_cta": "🟢 Open Account at XM Group (0% Commission, EU License) ➔",
+        "etoro_cta": "🟢 Copy Top-Performing Traders on eToro (30M+ Investors) ➔",
+        "avatrade_cta": "🟡 Trade with AvaTrade (Multi-Regulated Global Broker) ➔",
+        "plus500_cta": "🔵 Trade CFDs with Plus500 (London Stock Exchange Listed) ➔",
+        "exness_cta": "🟠 Trade on Exness (Instant Withdrawals 24/7) ➔",
         "vpn_title": "🦈 Protect Your IP & Device from Boiler Room Tracking",
         "vpn_desc": "Scam platforms log your IP, device ID, and location to coordinate aggressive phone harassment. Mask your identity with military-grade encryption.",
         "dating_title": "❤️ Was this platform recommended to you on a Dating App or WhatsApp?",
@@ -3722,9 +3726,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Domenii & Clone Pe Lista Neagră",
         "safe_alternatives_title": "🛡️ Alternative Reglementate & Verificate pentru Tranzacționare Sigură",
         "safe_alternatives_subtitle": "Nu depune fonduri la operatori neautorizați. Alege instituții reglementate global cu fonduri segregate:",
-        "ibkr_cta": "🎁 Deschide Cont la Interactive Brokers (Până la 1.000$ Acțiuni Gratuite) ➔",
-        "ibkr_sub": "Reglementat de FCA (Marea Britanie), SEC (SUA), ASIC (Australia) & Banca Centrală a Irlandei. Tranzacționat public pe NASDAQ.",
-        "xm_cta": "🟢 Tranzacționează pe XM Group Reglementat (Comision 0%, Licență UE) ➔",
+        "ibkr_cta": "🎁 Primește Până la 1.000$ Acțiuni Gratuite la Interactive Brokers ➔",
+        "ibkr_sub": "Reglementat de FCA, SEC, ASIC & Banca Centrală a Irlandei. Tranzacționat pe NASDAQ.",
+        "xm_cta": "🟢 Deschide Cont la XM Group (Comision 0%, Reglementat UE) ➔",
+        "etoro_cta": "🟢 Copiază Investitori de Top pe eToro (30M+ Utilizatori) ➔",
+        "avatrade_cta": "🟡 Tranzacționează pe AvaTrade (Broker Global Multi-Reglementat) ➔",
+        "plus500_cta": "🔵 Tranzacționează pe Plus500 (Listat la Bursa din Londra) ➔",
+        "exness_cta": "🟠 Tranzacționează pe Exness (Retrageri Instantanee 24/7) ➔",
         "vpn_title": "🦈 Protejează-ți IP-ul și Dispozitivul de Urmărirea Escrocilor",
         "vpn_desc": "Platformele frauduloase îți înregistrează adresa IP și locația pentru a te hărțui telefonic. Securizează-ți conexiunea cu VPN criptat.",
         "dating_title": "❤️ Ți-a fost recomandată această platformă pe Dating sau WhatsApp?",
@@ -3742,9 +3750,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Domini Oscurati & Blacklist",
         "safe_alternatives_title": "🛡️ Alternative Regolamentate & Sicure per Fare Trading",
         "safe_alternatives_subtitle": "Non depositare su piattaforme abusive. Scegli broker vigilati con conti segregati:",
-        "ibkr_cta": "🎁 Apri Conto su Interactive Brokers (Fino a 1.000$ in Azioni Gratuite) ➔",
+        "ibkr_cta": "🎁 Fino a 1.000$ in Azioni Gratuite su Interactive Brokers ➔",
         "ibkr_sub": "Regolamentato FCA, SEC, BaFin e Banca d'Irlanda. Quotato al NASDAQ (IBKR).",
-        "xm_cta": "🟢 Fai Trading su XM Group Vigilato (Zero Commissioni, Licenza UE) ➔",
+        "xm_cta": "🟢 Apri Conto su XM Group Vigilato (Zero Commissioni, Licenza UE) ➔",
+        "etoro_cta": "🟢 Copia i Migliori Trader su eToro (30M+ Utenti nel Mondo) ➔",
+        "avatrade_cta": "🟡 Fai Trading con AvaTrade (Broker Pluripremiato e Vigilato) ➔",
+        "plus500_cta": "🔵 Fai Trading su Plus500 (Quotato alla Borsa di Londra) ➔",
+        "exness_cta": "🟠 Fai Trading su Exness (Prelievi Istantanei 24/7) ➔",
         "vpn_title": "🦈 Proteggi il tuo IP e Dispositivo dai Call Center Truffaldini",
         "vpn_desc": "I siti truffa tracciano il tuo IP per continuare a chiamarti con operatori aggressivi. Naviga anonimo con crittografia certificata.",
         "dating_title": "❤️ Ti è stata proposta questa piattaforma su Tinder o WhatsApp?",
@@ -3762,9 +3774,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Gesperrte Domains & Klone",
         "safe_alternatives_title": "🛡️ Geprüfte & Regulierte Alternativen für Sicheres Trading",
         "safe_alternatives_subtitle": "Zahlen Sie kein Geld bei illegalen Anbietern ein. Wählen Sie weltweit regulierte Institute:",
-        "ibkr_cta": "🎁 Konto bei Interactive Brokers eröffnen (Bis zu 1.000$ Gratis-Aktien) ➔",
+        "ibkr_cta": "🎁 Bis zu 1.000$ Gratis-Aktien bei Interactive Brokers ➔",
         "ibkr_sub": "Reguliert durch FCA, BaFin, SEC & CBI. Börsennotiert an der NASDAQ.",
-        "xm_cta": "🟢 Sicher handeln mit reguliertem XM Group (0% Provision, EU-Lizenz) ➔",
+        "xm_cta": "🟢 Konto eröffnen bei XM Group (0% Provision, EU-Reguliert) ➔",
+        "etoro_cta": "🟢 Top-Trader kopieren auf eToro (30M+ Anleger weltweit) ➔",
+        "avatrade_cta": "🟡 Sicher handeln mit AvaTrade (Weltweit Mehrfach Reguliert) ➔",
+        "plus500_cta": "🔵 CFDs handeln mit Plus500 (Börsennotiert in London) ➔",
+        "exness_cta": "🟠 Traden auf Exness (Sofortige Auszahlungen 24/7) ➔",
         "vpn_title": "🦈 Schützen Sie Ihre IP & Daten vor betrügerischen Callcentern",
         "vpn_desc": "Betrüger speichern Ihre IP und Telefonnummer für aggressive Kaltakquise. Nutzen Sie geprüften VPN-Schutz.",
         "dating_title": "❤️ Wurde Ihnen dieser Broker auf Tinder oder WhatsApp empfohlen?",
@@ -3782,9 +3798,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Domaines sur Liste Noire",
         "safe_alternatives_title": "🛡️ Alternatives Régulées et Vérifiées pour Trader en Sécurité",
         "safe_alternatives_subtitle": "Ne déposez aucun fond sur des sites non autorisés. Privilégiez des institutions reconnues :",
-        "ibkr_cta": "🎁 Ouvrir un Compte chez Interactive Brokers (Jusqu'à 1 000$ d'Actions Offertes) ➔",
+        "ibkr_cta": "🎁 Jusqu'à 1 000$ d'Actions Offertes chez Interactive Brokers ➔",
         "ibkr_sub": "Régulé par la FCA, SEC, BaFin et Banque Centrale d'Irlande. Coté au NASDAQ.",
-        "xm_cta": "🟢 Trader avec XM Group Régulé (0% de Commission, Agrément UE) ➔",
+        "xm_cta": "🟢 Ouvrir un Compte chez XM Group (0% Commission, Régulé UE) ➔",
+        "etoro_cta": "🟢 Copier les Meilleurs Traders sur eToro (30M+ Utilisateurs) ➔",
+        "avatrade_cta": "🟡 Trader en Sécurité avec AvaTrade (Multi-Régulé) ➔",
+        "plus500_cta": "🔵 Trader sur Plus500 (Coté à la Bourse de Londres) ➔",
+        "exness_cta": "🟠 Trader sur Exness (Retraits Instantanés 24/7) ➔",
         "vpn_title": "🦈 Protégez votre Adresse IP et vos Données Personnelles",
         "vpn_desc": "Les escrocs collectent votre IP pour coordonner des relances téléphoniques agressives. Protégez-vous avec un VPN chiffré.",
         "dating_title": "❤️ Ce broker vous a été suggéré sur une App de Rencontre ou WhatsApp ?",
@@ -3802,9 +3822,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Dominios en Lista Negra",
         "safe_alternatives_title": "🛡️ Alternativas Reguladas y Seguras para Invertir",
         "safe_alternatives_subtitle": "No deposite en operadores clandestinos. Elija instituciones supervisadas globalmente:",
-        "ibkr_cta": "🎁 Abrir Cuenta en Interactive Brokers (Hasta $1.000 en Acciones Gratis) ➔",
-        "ibkr_sub": "Regulado por FCA (Reino Unido), SEC (EE. UU.), ASIC y Banco Central de Irlanda. Cotiza en NASDAQ.",
-        "xm_cta": "🟢 Invertir en XM Group Regulado (0% Comisión, Licencia UE) ➔",
+        "ibkr_cta": "🎁 Hasta $1.000 en Acciones Gratis en Interactive Brokers ➔",
+        "ibkr_sub": "Regulado por FCA, SEC, ASIC y Banco Central de Irlanda. Cotiza en NASDAQ.",
+        "xm_cta": "🟢 Abrir Cuenta en XM Group (0% Comisión, Licencia UE) ➔",
+        "etoro_cta": "🟢 Copiar a los Mejores Inversores en eToro (30M+ Usuarios) ➔",
+        "avatrade_cta": "🟡 Invertir con AvaTrade (Broker Global Supervisado) ➔",
+        "plus500_cta": "🔵 Operar CFDs con Plus500 (Cotiza en la Bolsa de Londres) ➔",
+        "exness_cta": "🟠 Operar en Exness (Retiros Instantáneos 24/7) ➔",
         "vpn_title": "🦈 Proteja su IP y Dispositivo del Acoso Telefónico",
         "vpn_desc": "Las plataformas fraudulentas rastrean su IP y datos para extorsión telefónica. Oculte su identidad con VPN militar.",
         "dating_title": "¿Alguien en Tinder o WhatsApp le recomendó esta plataforma?",
@@ -3822,9 +3846,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Domínios na Lista Negra",
         "safe_alternatives_title": "🛡️ Alternativas Regulamentadas e Seguras para Investir",
         "safe_alternatives_subtitle": "Não envie dinheiro para operadores ilegais. Escolha corretoras com custódia segregada:",
-        "ibkr_cta": "🎁 Abrir Conta na Interactive Brokers (Até $1.000 em Ações Grátis) ➔",
+        "ibkr_cta": "🎁 Até $1.000 em Ações Grátis na Interactive Brokers ➔",
         "ibkr_sub": "Regulada pela FCA, SEC, ASIC e Banco Central da Irlanda. Listada na NASDAQ (IBKR).",
-        "xm_cta": "🟢 Negociar na XM Group Regulamentada (Comissão Zero, Licença UE) ➔",
+        "xm_cta": "🟢 Abrir Conta na XM Group (Comissão Zero, Licença UE) ➔",
+        "etoro_cta": "🟢 Copiar Investidores de Sucesso na eToro (30M+ Usuários) ➔",
+        "avatrade_cta": "🟡 Negociar na AvaTrade (Corretora Global Premiada) ➔",
+        "plus500_cta": "🔵 Negociar na Plus500 (Listada na Bolsa de Londres) ➔",
+        "exness_cta": "🟠 Negociar na Exness (Saques Instantâneos 24/7) ➔",
         "vpn_title": "🦈 Proteja seu IP e Dispositivo contra Rastreamento",
         "vpn_desc": "Sites fraudulentos gravam seu IP para aplicar golpes por telefone. Navegue seguro com VPN criptografada.",
         "dating_title": "❤️ Essa plataforma foi indicada em App de Namoro ou WhatsApp?",
@@ -3842,9 +3870,13 @@ SCAM_LANG_MAP = {
         "blacklisted_domains": "Заблокированные Домены и Клоны",
         "safe_alternatives_title": "🛡️ Проверенные и Надежные Брокеры для Безопасного Трейдинга",
         "safe_alternatives_subtitle": "Не переводите средства нелегальным брокерам. Выбирайте мировые институты с раздельной защитой счетов:",
-        "ibkr_cta": "🎁 Открыть счет в Interactive Brokers (Акции до $1,000 в подарок) ➔",
-        "ibkr_sub": "Регулируется FCA (Великобритания), SEC (США), ASIC и Центробанком Ирландии. Торгуется на NASDAQ.",
+        "ibkr_cta": "🎁 До $1,000 в акциях в подарок в Interactive Brokers ➔",
+        "ibkr_sub": "Регулируется FCA, SEC, ASIC и Центробанком Ирландии. Торгуется на NASDAQ.",
         "xm_cta": "🟢 Торговать через регулируемый XM Group (0% комиссии, Лицензия ЕС) ➔",
+        "etoro_cta": "🟢 Копировать сделки топ-трейдеров на eToro (30M+ инвесторов) ➔",
+        "avatrade_cta": "🟡 Торговать с AvaTrade (Надежный брокер с мировыми лицензиями) ➔",
+        "plus500_cta": "🔵 Торговать на Plus500 (Котируется на Лондонской бирже) ➔",
+        "exness_cta": "🟠 Торговать на Exness (Мгновенный вывод 24/7) ➔",
         "vpn_title": "🦈 Защитите свой IP и устройство от слежки мошенников",
         "vpn_desc": "Мошеннические сайты фиксируют ваш IP для агрессивного телефонного спама и шантажа. Используйте надежный VPN.",
         "dating_title": "❤️ Этого брокера вам порекомендовали в дейтинге или WhatsApp?",
@@ -4058,7 +4090,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
 
                     <hr style="border: none; border-top: 1px dashed rgba(255,255,255,0.1); margin: 25px 0;">
 
-                    <!-- Safe Regulated Alternatives Section (HIGH MONETIZATION) -->
+                    <!-- Safe Regulated Alternatives Section (ALL 6 VERIFIED BROKER AFFILIATES) -->
                     <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
                         <h3 style="color: #38bdf8; font-family: 'Outfit'; font-size: 18px; margin: 0 0 6px 0; font-weight: 800;">
                             {t['safe_alternatives_title']}
@@ -4067,19 +4099,39 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                             {t['safe_alternatives_subtitle']}
                         </p>
 
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <!-- IBKR Gold Button -->
-                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="text-decoration: none; padding: 15px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 15px;">
-                                {t['ibkr_cta']}
-                            </a>
-                            <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -4px;">
-                                ✓ {t['ibkr_sub']}
-                            </div>
-
-                            <!-- XM Group Green Button -->
+                        <div style="display: flex; flex-direction: column; gap: 11px;">
+                            <!-- 1. XM Group Green Button -->
                             <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="full-action-banner-green" style="text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px;">
                                 {t['xm_cta']}
                             </a>
+
+                            <!-- 2. eToro Green Button -->
+                            <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                                {t['etoro_cta']}
+                            </a>
+
+                            <!-- 3. AvaTrade Gold Button -->
+                            <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                                {t['avatrade_cta']}
+                            </a>
+
+                            <!-- 4. Plus500 Cyan Button -->
+                            <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
+                                {t['plus500_cta']}
+                            </a>
+
+                            <!-- 5. Exness Amber Button -->
+                            <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
+                                {t['exness_cta']}
+                            </a>
+
+                            <!-- 6. IBKR Gold Button -->
+                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px;">
+                                {t['ibkr_cta']}
+                            </a>
+                            <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
+                                ✓ {t['ibkr_sub']}
+                            </div>
                         </div>
                     </div>
 
