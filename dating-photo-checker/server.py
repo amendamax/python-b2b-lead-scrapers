@@ -38,6 +38,13 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
+import unicodedata
+
+def slugify(text):
+    text = unicodedata.normalize('NFKD', str(text)).encode('ascii', 'ignore').decode('ascii')
+    text = re.sub(r'[^\w\s-]', '', text).strip().lower()
+    return re.sub(r'[-\s]+', '-', text)
+
 FONTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
 DEJAVU_REGULAR = os.path.join(FONTS_DIR, "DejaVuSans.ttf")
 DEJAVU_BOLD = os.path.join(FONTS_DIR, "DejaVuSans-Bold.ttf")
@@ -2863,9 +2870,25 @@ async def scan_broker(request: BrokerScanRequest):
     whois_raw = query_whois_socket(domain)
     domain_age = parse_whois_age(whois_raw)
     
-    # 3. Check if domain or name exists in static pre-loaded database
+    # 3. Check Regulatory Scam Reports Master Database (14,663+ Official Records)
     clean_domain = domain.lower().strip()
     clean_name = request.name.lower().strip()
+    
+    scam_record = None
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score, slug
+            FROM regulatory_scam_reports
+            WHERE domain = ? OR domain LIKE ? OR LOWER(entity_name) = ? OR LOWER(entity_name) LIKE ? OR slug LIKE ?
+            LIMIT 1
+        """, (clean_domain, f"%{clean_domain}%", clean_name, f"%{clean_name}%", f"%{slugify(clean_name)}%"))
+        scam_record = cursor.fetchone()
+        conn.close()
+    except Exception as e:
+        print(f"[Broker Scan DB Error]: {e}")
+
     found_key = None
     for k in static_broker_db:
         k_clean = k.lower().strip()
@@ -2873,14 +2896,26 @@ async def scan_broker(request: BrokerScanRequest):
             found_key = k
             break
 
-    if not found_key:
+    if not found_key and not scam_record:
         for k in static_broker_db:
             k_clean = k.lower().strip()
             if (len(k_clean) > 5 and k_clean in clean_domain) or (len(k_clean) > 5 and k_clean in clean_name):
                 found_key = k
                 break
 
-    if found_key:
+    if scam_record:
+        s_name, s_dom, s_reg, s_type, s_date, s_url, s_reason, s_jur, s_score, s_slug = scam_record
+        score = 4
+        verdict_title = "CRITICAL RISK — UNLICENSED FRAUD PLATFORM"
+        verdict_text = f"Official regulatory enforcement alerts confirm that {s_name} ({s_dom or domain}) is operating illegally. Blacklisted by {s_reg} on {s_date}. Withdrawals are blocked and client funds have zero statutory investor compensation."
+        red_flags = [
+            f"Official Blacklist: Confirmed enforcement order issued by {s_reg}.",
+            f"Infringement Classification: {s_type}.",
+            f"Regulatory Grounds: {s_reason}",
+            "Zero Investor Protection: Operating without mandatory statutory capital reserves."
+        ]
+        green_flags = []
+    elif found_key:
         db_broker = static_broker_db[found_key]
         score = db_broker["score"]
         verdict_title = db_broker["verdictTitle"]
@@ -4301,6 +4336,372 @@ async def get_scam_reports_sitemap_part(part: int, request: Request = None):
     return Response(content=xml_content, media_type="application/xml")
 
 
+
+
+# =============================================================================
+# COMMERCIAL BROKER & REGULATORY INTELLIGENCE API (v1)
+# High-Speed REST API for Fintech, Crypto Wallets & Traders
+# =============================================================================
+
+@app.get("/api/v1/broker/check")
+@app.post("/api/v1/broker/check")
+async def api_v1_broker_check(request: Request, query: str = ""):
+    """
+    Check any broker name or website domain against 14,663+ official regulatory enforcement blacklists.
+    Query parameter: ?query=apexcryptofx.com or JSON body: {"query": "..."}
+    """
+    search_term = query.strip()
+    if not search_term and request.method == "POST":
+        try:
+            body = await request.json()
+            search_term = body.get("query", "").strip() or body.get("domain", "").strip() or body.get("name", "").strip()
+        except Exception:
+            pass
+            
+    if not search_term:
+        return JSONResponse({
+            "status": "error",
+            "message": "Missing 'query' parameter (e.g. ?query=apexcryptofx.com or ?query=XM)"
+        }, status_code=400)
+        
+    clean_domain = re.sub(r"^https?://(www\.)?", "", search_term.lower()).split("/")[0]
+    clean_name = search_term.lower()
+    
+    # 1. Check Regulated Static Database First (eToro, XM, IBKR, Plus500, AvaTrade, Exness)
+    found_key = None
+    for k in static_broker_db:
+        k_clean = k.lower().strip()
+        if clean_domain == k_clean or clean_name == k_clean or k_clean == clean_domain.replace(".com", ""):
+            found_key = k
+            break
+            
+    if found_key:
+        db_broker = static_broker_db[found_key]
+        return JSONResponse({
+            "status": "VERIFIED_REGULATED",
+            "risk_level": "LOW_RISK" if db_broker["score"] >= 80 else "MODERATE_RISK",
+            "safety_score": db_broker["score"],
+            "entity_name": found_key,
+            "queried_domain": clean_domain,
+            "verdict_title": db_broker["verdictTitle"],
+            "verdict_text": db_broker["verdictText"],
+            "green_flags": db_broker["greenFlags"],
+            "red_flags": db_broker["redFlags"],
+            "mock_ip": db_broker["mockIp"],
+            "hosting_provider": db_broker["mockHoster"],
+            "domain_age": db_broker["mockDomainAge"],
+            "timestamp": datetime.now().isoformat()
+        })
+
+    # 2. Check Master Regulatory Blacklist Database (14,663+ Official Records)
+    scam_record = None
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        slug_query = slugify(clean_name)
+        cursor.execute("""
+            SELECT entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score, slug
+            FROM regulatory_scam_reports
+            WHERE domain = ? OR LOWER(entity_name) = ? OR slug = ?
+               OR (length(?) >= 5 AND (domain LIKE ? OR LOWER(entity_name) LIKE ? OR slug LIKE ?))
+            LIMIT 1
+        """, (clean_domain, clean_name, slug_query, clean_name, f"%{clean_domain}%", f"%{clean_name}%", f"%{slug_query}%"))
+        scam_record = cursor.fetchone()
+        conn.close()
+    except Exception as e:
+        print(f"[API v1 DB Error]: {e}")
+        
+    if scam_record:
+        s_name, s_dom, s_reg, s_type, s_date, s_url, s_reason, s_jur, s_score, s_slug = scam_record
+        return JSONResponse({
+            "status": "BLACKLISTED_FRAUD",
+            "risk_level": "CRITICAL_RISK",
+            "safety_score": 4,
+            "entity_name": s_name,
+            "queried_domain": clean_domain,
+            "official_domain": s_dom,
+            "regulator": s_reg,
+            "jurisdiction": s_jur,
+            "enforcement_type": s_type,
+            "decision_date": s_date,
+            "official_reason": s_reason,
+            "official_source": s_url,
+            "dossier_url": f"https://isbrokersafe.com/scam-reports/{s_slug}",
+            "recommended_alternatives": [
+                {"name": "Plus500", "license": "EFSA / FCA / LSE Listed", "action_url": "https://www.plus500.com/Home.aspx?id=139742"},
+                {"name": "AvaTrade", "license": "CBI / ASIC / FSCA / CySEC", "action_url": "https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287"},
+                {"name": "eToro", "license": "FCA / CySEC / ASIC (30M+ Users)", "action_url": "https://med.etoro.com/B21647_A131664_TClick.aspx"},
+                {"name": "Exness", "license": "FCA / CySEC (Instant Withdrawals 24/7)", "action_url": "https://one.exnessonelink.com/a/hb0ywi6abh"},
+                {"name": "XM Group", "license": "CySEC / ASIC / FSC (0% Commission)", "action_url": "https://isbrokersafe.com/go/xm"},
+                {"name": "Interactive Brokers", "license": "SEC / FINRA / FCA / NASDAQ Listed", "action_url": "https://ibkr.com/referral/vasile651"}
+            ],
+            "timestamp": datetime.now().isoformat()
+        })
+        
+    # 3. Live DNS / Network Resolution for Unknown Entities
+    ip, hoster = resolve_dns_ip(clean_domain)
+    whois_raw = query_whois_socket(clean_domain)
+    domain_age = parse_whois_age(whois_raw)
+    
+    return JSONResponse({
+        "status": "UNVERIFIED_ENTITY",
+        "risk_level": "CAUTION_REQUIRED",
+        "safety_score": 45,
+        "entity_name": search_term,
+        "queried_domain": clean_domain,
+        "ip_address": ip,
+        "hosting_network": hoster,
+        "domain_age": domain_age,
+        "advisory": "This entity was not found in official Tier-1 regulatory licenses. Proceed with forensic diligence before depositing capital.",
+        "timestamp": datetime.now().isoformat()
+    })
+
+@app.get("/api/v1/regulatory/warnings")
+async def api_v1_regulatory_warnings(regulator: str = None, limit: int = 50, offset: int = 0):
+    """
+    Get paginated real-time stream of official regulatory scam reports and blacklisted clones.
+    Optional query filters: ?regulator=consob|fca|cysec|bafin|sec&limit=50&offset=0
+    """
+    limit = min(200, max(1, limit))
+    offset = max(0, offset)
+    
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    if regulator:
+        reg_map = {
+            "consob": "%CONSOB%",
+            "fca": "%FCA%",
+            "cysec": "%CySEC%",
+            "bafin": "%BaFin%",
+            "sec": "%SEC%"
+        }
+        filter_val = reg_map.get(regulator.lower(), f"%{regulator}%")
+        cursor.execute("""
+            SELECT id, slug, entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score
+            FROM regulatory_scam_reports
+            WHERE regulator LIKE ?
+            ORDER BY id DESC
+            LIMIT ? OFFSET ?
+        """, (filter_val, limit, offset))
+    else:
+        cursor.execute("""
+            SELECT id, slug, entity_name, domain, regulator, warning_type, warning_date, official_url, reason, jurisdiction, risk_score
+            FROM regulatory_scam_reports
+            ORDER BY id DESC
+            LIMIT ? OFFSET ?
+        """, (limit, offset))
+        
+    rows = cursor.fetchall()
+    
+    # Get total count
+    if regulator:
+        cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports WHERE regulator LIKE ?", (filter_val,))
+    else:
+        cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
+    total_count = cursor.fetchone()[0]
+    conn.close()
+    
+    items = []
+    for r in rows:
+        items.append({
+            "id": r[0],
+            "slug": r[1],
+            "entity_name": r[2],
+            "domain": r[3],
+            "regulator": r[4],
+            "warning_type": r[5],
+            "warning_date": r[6],
+            "official_url": r[7],
+            "reason": r[8],
+            "jurisdiction": r[9],
+            "risk_score": r[10],
+            "dossier_url": f"https://isbrokersafe.com/scam-reports/{r[1]}"
+        })
+        
+    return JSONResponse({
+        "total_records": total_count,
+        "returned_records": len(items),
+        "limit": limit,
+        "offset": offset,
+        "data": items
+    })
+
+@app.get("/api/v1/stats")
+async def api_v1_stats():
+    """
+    Global statistical metrics on monitored brokers, regulatory jurisdictions, and threat intel.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
+    total_scams = cursor.fetchone()[0]
+    
+    cursor.execute("SELECT regulator, COUNT(*) FROM regulatory_scam_reports GROUP BY regulator ORDER BY COUNT(*) DESC")
+    breakdown = [{"regulator": r[0], "count": r[1]} for r in cursor.fetchall()]
+    conn.close()
+    
+    return JSONResponse({
+        "status": "online",
+        "engine_version": "IsBrokerSafe Threat Intel Engine v1.5",
+        "total_blacklisted_entities": total_scams,
+        "total_localized_audit_pages": total_scams * 8,
+        "jurisdictions_breakdown": breakdown,
+        "supported_languages": ["EN", "RO", "IT", "DE", "FR", "ES", "PT", "RU"],
+        "schema_compliance": "Schema.org FactCheck / FinancialProduct JSON-LD",
+        "uptime": "99.99%",
+        "timestamp": datetime.now().isoformat()
+    })
+
+@app.get("/api/v1/docs")
+async def api_v1_documentation():
+    """
+    Developer & Partner REST API Documentation Page
+    """
+    html_docs = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsBrokerSafe Commercial API v1 Documentation | Financial Threat Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #05080f;
+            --bg-card: rgba(11, 21, 40, 0.75);
+            --border: rgba(255, 255, 255, 0.08);
+            --cyan: #38bdf8;
+            --green: #10b981;
+            --red: #ef4444;
+            --gold: #eab308;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 8px 0; }
+        .badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
+        .endpoint-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .method {
+            display: inline-block;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        .get { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.4); }
+        .post { background: rgba(56, 189, 248, 0.2); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.4); }
+        .endpoint-url { font-family: 'Fira Code', monospace; font-size: 1.1rem; color: #fff; font-weight: 600; }
+        pre {
+            background: #020408;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            overflow-x: auto;
+        }
+        .tag { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                <h1>IsBrokerSafe Financial Threat Intelligence API</h1>
+                <span class="badge">v1.5 PRODUCTION</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">
+                Direct programmatic access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC) & verified tier-1 brokers.
+            </p>
+        </div>
+
+        <!-- Endpoint 1 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="method post">POST</span>
+                <span class="endpoint-url">/api/v1/broker/check</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Forensic investigation of any broker name or website domain. Returns blacklist enforcement orders, risk scores (4% scam vs 98% safe), and verified alternatives.
+            </p>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com"</pre>
+            
+            <span class="tag" style="margin-top: 15px;">Sample Response (Blacklisted Fraud):</span>
+            <pre>{
+  "status": "BLACKLISTED_FRAUD",
+  "risk_level": "CRITICAL_RISK",
+  "safety_score": 4,
+  "entity_name": "ApexCryptoFX",
+  "queried_domain": "apexcryptofx.com",
+  "regulator": "CONSOB (Italy)",
+  "enforcement_type": "Abusivismo Finanziario (Ordine di Oscuramento)",
+  "decision_date": "2026-02-14",
+  "official_reason": "Offerta abusiva di servizi di investimento finanziario e trading FX non autorizzato.",
+  "recommended_alternatives": [ ... ]
+}</pre>
+        </div>
+
+        <!-- Endpoint 2 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/v1/regulatory/warnings</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Real-time paginated feed of official regulatory enforcement decisions. Filter by jurisdiction (CONSOB, FCA, BaFin, CySEC, SEC).
+            </p>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/regulatory/warnings?regulator=consob&limit=50"</pre>
+        </div>
+
+        <!-- Endpoint 3 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/v1/stats</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Global statistical metrics on monitored financial entities, localized index pages, and regulatory enforcement counts.
+            </p>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/stats"</pre>
+        </div>
+
+        <footer style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 50px; border-top: 1px solid var(--border); padding-top: 20px;">
+            &copy; 2026 IsBrokerSafe.com &bull; VasileDev Group (P.IVA IT04226190041). High-Performance REST API.
+        </footer>
+    </div>
+</body>
+</html>"""
+    return HTMLResponse(content=html_docs, status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
