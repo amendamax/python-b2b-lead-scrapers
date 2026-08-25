@@ -501,6 +501,11 @@ async def redirect_nordvpn():
 async def redirect_surfshark():
     return RedirectResponse(url="https://www.anrdoezrs.net/click-101863908-15438547", status_code=307)
 
+@app.get("/go/gearup")
+@app.get("/out/gearup")
+async def redirect_gearup():
+    return RedirectResponse(url="https://www.anrdoezrs.net/click-101863908-17235979", status_code=307)
+
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
     broker_clean = broker_name.lower().strip()
@@ -526,7 +531,16 @@ async def get_lang_broker_review(lang: str, broker_name: str, request: Request):
 async def get_robots(request: Request):
     host = request.headers.get("host", "").lower()
     domain = "verifydating.net" if "dating" in host or "verifydating" in host else "isbrokersafe.com"
-    robots_content = f"User-agent: *\nAllow: /\nSitemap: https://{domain}/sitemap.xml\n"
+    robots_content = f"""User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/dashboard
+Disallow: /api/admin/
+Disallow: /uploads/
+
+Sitemap: https://{domain}/sitemap.xml
+"""
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
 
@@ -639,9 +653,28 @@ async def get_uploaded_image_with_db_recovery(filename: str):
 # Mount uploads directory statically so Google Lens can perform reverse search on the image
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+DEFAULT_ADMIN_TOKEN = "vd_sec_vault_2026_98f4a17e82b941c09d3e8a"
+
+def verify_admin_auth(token: str = None, request: Request = None) -> bool:
+    """Validate administrative access token via query parameter or request headers."""
+    valid_token = os.environ.get("ADMIN_TOKEN", DEFAULT_ADMIN_TOKEN).strip()
+    if token and token.strip() == valid_token:
+        return True
+    if request:
+        auth_header = request.headers.get("authorization", "")
+        if auth_header and auth_header.replace("Bearer ", "").strip() == valid_token:
+            return True
+        x_token = request.headers.get("x-admin-token", "")
+        if x_token and x_token.strip() == valid_token:
+            return True
+    return False
+
 @app.get("/api/admin/uploads")
-async def list_admin_uploads():
-    """List all uploaded images on disk and in database with direct links and automatic DB recovery support."""
+async def list_admin_uploads(request: Request, token: str = None):
+    """List all uploaded images on disk and in database with direct links (Admin Protected)."""
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
+        
     items = []
     seen = set()
     
@@ -678,8 +711,11 @@ async def list_admin_uploads():
     return {"total": len(items), "uploads": items}
 
 @app.get("/api/admin/video-leads")
-async def get_admin_video_leads():
-    """List all collected video lead email addresses."""
+async def get_admin_video_leads(request: Request, token: str = None):
+    """List all collected video lead email addresses (Admin Protected)."""
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
+        
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -1698,11 +1734,10 @@ async def download_dating_pdf(scan_id: str):
 
 @app.get("/admin", response_class=HTMLResponse)
 @app.get("/admin/dashboard", response_class=HTMLResponse)
-async def get_admin_dashboard(token: str = None):
+async def get_admin_dashboard(request: Request, token: str = None):
     try:
-        admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
-        if not token or token != admin_token:
-            return HTMLResponse("<h2 style='color:#ef4444;font-family:sans-serif;'>403 Unauthorized Access Token</h2>", status_code=403)
+        if not verify_admin_auth(token, request):
+            return HTMLResponse("<h2 style='color:#ef4444;font-family:sans-serif;'>403 Unauthorized Access Token</h2>", status_code=403, headers={"X-Robots-Tag": "noindex, nofollow, noarchive"})
             
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -2019,16 +2054,15 @@ async def get_admin_dashboard(token: str = None):
     </script>
 </body>
 </html>"""
-        return HTMLResponse(content=html_content)
+        return HTMLResponse(content=html_content, headers={"X-Robots-Tag": "noindex, nofollow, noarchive"})
     except Exception as e:
         import traceback
         err_msg = traceback.format_exc()
-        return HTMLResponse(content=f"<pre style='color:#ef4444;background:#1e293b;padding:24px;border-radius:12px;font-size:14px;overflow:auto;font-family:monospace;'>Error running dashboard: {e}\\n\\n{err_msg}</pre>", status_code=500)
+        return HTMLResponse(content=f"<pre style='color:#ef4444;background:#1e293b;padding:24px;border-radius:12px;font-size:14px;overflow:auto;font-family:monospace;'>Error running dashboard: {e}\\n\\n{err_msg}</pre>", status_code=500, headers={"X-Robots-Tag": "noindex, nofollow, noarchive"})
 
 @app.post("/api/admin/clear-scans")
-async def clear_admin_scans(token: str = None):
-    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
-    if not token or token != admin_token:
+async def clear_admin_scans(request: Request, token: str = None):
+    if not verify_admin_auth(token, request):
         raise HTTPException(status_code=403, detail="Unauthorized access token.")
         
     conn = sqlite3.connect(DB_PATH)
@@ -2041,9 +2075,8 @@ async def clear_admin_scans(token: str = None):
     return {"status": "success", "cleared": True}
 
 @app.post("/api/admin/mark-paid")
-async def mark_scan_as_paid(scan_id: str, token: str = None):
-    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
-    if not token or token != admin_token:
+async def mark_scan_as_paid(scan_id: str, request: Request, token: str = None):
+    if not verify_admin_auth(token, request):
         raise HTTPException(status_code=403, detail="Unauthorized access token.")
         
     conn = sqlite3.connect(DB_PATH)
@@ -2066,9 +2099,8 @@ async def mark_scan_as_paid(scan_id: str, token: str = None):
     return {"status": "success", "scan_id": scan_id, "unlocked": True}
 
 @app.get("/api/admin/scans")
-async def get_admin_scans(token: str = None):
-    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
-    if not token or token != admin_token:
+async def get_admin_scans(request: Request, token: str = None):
+    if not verify_admin_auth(token, request):
         raise HTTPException(status_code=403, detail="Unauthorized access token.")
         
     conn = sqlite3.connect(DB_PATH)
@@ -3540,7 +3572,10 @@ async def download_broker_pdf(scan_id: str, lang: str = "en"):
     )
 
 @app.get("/api/admin/payment-errors")
-async def get_payment_errors(limit: int = 50):
+async def get_payment_errors(request: Request, token: str = None, limit: int = 50):
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
+        
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
@@ -3572,10 +3607,9 @@ async def get_payment_errors(limit: int = 50):
     return {"success": True, "count": len(errors), "errors": errors}
 
 @app.post("/api/admin/clear-payment-errors")
-async def clear_admin_payment_errors(token: str = None):
-    admin_token = os.environ.get("ADMIN_TOKEN", "verifydating_secret_2026")
-    if not token or token != admin_token:
-        raise HTTPException(status_code=403, detail="Unauthorized access token.")
+async def clear_admin_payment_errors(request: Request, token: str = None):
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
         
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -3586,7 +3620,10 @@ async def clear_admin_payment_errors(token: str = None):
     return {"success": True, "message": "Payment logs and errors cleared."}
 
 @app.post("/api/admin/trigger-test-alert")
-async def trigger_test_alert(request: Request):
+async def trigger_test_alert(request: Request, token: str = None):
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
+        
     try:
         data = await request.json()
     except Exception:
