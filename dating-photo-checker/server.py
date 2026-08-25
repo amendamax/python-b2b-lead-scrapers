@@ -4729,6 +4729,142 @@ async def api_v1_stats():
         "timestamp": datetime.now().isoformat()
     })
 
+
+@app.get("/api/v1/openapi.json")
+async def api_v1_openapi_spec():
+    """
+    Official OpenAPI 3.0 Specification JSON for RapidAPI, Postman & Developer SDK generation.
+    """
+    spec = {
+        "openapi": "3.0.3",
+        "info": {
+            "title": "IsBrokerSafe Financial Threat Intelligence API",
+            "description": "Enterprise REST API providing real-time forensic verification against 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC) and licensed brokers.",
+            "version": "1.5.0",
+            "contact": {
+                "name": "VasileDev Group Support",
+                "email": "amendamax@gmail.com",
+                "url": "https://isbrokersafe.com"
+            }
+        },
+        "servers": [
+            {
+                "url": "https://isbrokersafe.com",
+                "description": "Production Threat Intel Cloud Engine"
+            }
+        ],
+        "paths": {
+            "/api/v1/broker/check": {
+                "get": {
+                    "summary": "Check Broker or Web Domain",
+                    "description": "Forensic threat check of any broker name or website domain against official international regulatory blacklists.",
+                    "parameters": [
+                        {
+                            "name": "query",
+                            "in": "query",
+                            "required": True,
+                            "schema": { "type": "string" },
+                            "description": "Domain or broker name to investigate (e.g. apexcryptofx.com or XM)"
+                        },
+                        {
+                            "name": "api_key",
+                            "in": "query",
+                            "required": False,
+                            "schema": { "type": "string" },
+                            "description": "Optional API Key for high-volume limits"
+                        }
+                    ],
+                    "responses": {
+                        "200": { "description": "Forensic Threat Verdict & Regulatory Status" },
+                        "400": { "description": "Missing query parameter" },
+                        "429": { "description": "Rate limit exceeded" }
+                    }
+                },
+                "post": {
+                    "summary": "Check Broker (JSON Body)",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "query": { "type": "string", "example": "apexcryptofx.com" },
+                                        "api_key": { "type": "string", "example": "ibs_live_..." }
+                                    },
+                                    "required": ["query"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": { "description": "Forensic Threat Verdict" }
+                    }
+                }
+            },
+            "/api/v1/regulatory/warnings": {
+                "get": {
+                    "summary": "Live Stream of Regulatory Scam Warnings",
+                    "description": "Paginated real-time stream of latest blacklisted brokers and clones issued by global regulators.",
+                    "parameters": [
+                        {
+                            "name": "regulator",
+                            "in": "query",
+                            "required": False,
+                            "schema": { "type": "string", "enum": ["consob", "fca", "bafin", "cysec", "sec"] },
+                            "description": "Filter by authority"
+                        },
+                        {
+                            "name": "limit",
+                            "in": "query",
+                            "required": False,
+                            "schema": { "type": "integer", "default": 50, "maximum": 200 }
+                        },
+                        {
+                            "name": "offset",
+                            "in": "query",
+                            "required": False,
+                            "schema": { "type": "integer", "default": 0 }
+                        }
+                    ],
+                    "responses": {
+                        "200": { "description": "Paginated list of enforcement warnings" }
+                    }
+                }
+            },
+            "/api/v1/stats": {
+                "get": {
+                    "summary": "Global Blacklist Statistics",
+                    "description": "Real-time counts of blacklisted entities, indexed audit pages, and regulatory jurisdiction breakdown.",
+                    "responses": {
+                        "200": { "description": "Global statistics metrics" }
+                    }
+                }
+            },
+            "/api/v1/keys/generate": {
+                "post": {
+                    "summary": "Generate Instant Sandbox API Key (100 Free Requests)",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "email": { "type": "string", "example": "developer@fintech.com" }
+                                    },
+                                    "required": ["email"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": { "description": "API Key generated successfully" }
+                    }
+                }
+            }
+        }
+    }
+    return JSONResponse(content=spec)
+
 @app.get("/api/v1/docs")
 async def api_v1_documentation():
     """
