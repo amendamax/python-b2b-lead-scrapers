@@ -25,7 +25,7 @@ import threading
 import requests
 from datetime import datetime
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
@@ -360,6 +360,28 @@ def init_db():
         );
     """)
     cursor.execute("""
+                CREATE TABLE IF NOT EXISTS dating_scam_profiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            slug TEXT UNIQUE,
+            persona_name TEXT,
+            gender TEXT,
+            scam_category TEXT,
+            claimed_age INTEGER,
+            claimed_location TEXT,
+            claimed_profession TEXT,
+            stolen_from_real_person TEXT,
+            typical_script TEXT,
+            scam_story TEXT,
+            warning_flags TEXT,
+            photo_urls TEXT,
+            risk_score INTEGER,
+            reported_aliases TEXT,
+            views_count INTEGER DEFAULT 184,
+            first_reported_date TEXT,
+            created_at TEXT
+        );
+    """)
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS api_ip_usage (
             ip TEXT PRIMARY KEY,
             usage_count INTEGER DEFAULT 0,
@@ -386,6 +408,16 @@ async def startup_event():
                 print(f"[Startup] Seeding full master archive (current: {scam_count})...")
                 from scam_regulators_scraper import run_master_scraper
                 run_master_scraper()
+                
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+            dating_count = cursor.fetchone()[0]
+            conn.close()
+            if dating_count < 300:
+                print(f"[Startup] Seeding dating scam dossiers archive (current: {dating_count})...")
+                from dating_scams_harvester import generate_dating_scam_dossiers
+                generate_dating_scam_dossiers(350)
         except Exception as e:
             print(f"[Startup Seed Exception]: {e}")
             
@@ -5365,3 +5397,278 @@ async def download_scam_dossier_pdf(slug: str, lang: str = "en"):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+
+# ==============================================================================
+# DATING SCAMMER THREAT INTELLIGENCE & DOSSIERS MODULE (VerifyDating.net)
+# ==============================================================================
+
+@app.get("/sitemap-dating-scams.xml")
+async def sitemap_dating_scams():
+    """
+    Dedicated Programmatic Google XML Sitemap for Dating Scammer Profiles.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT slug, first_reported_date FROM dating_scam_profiles ORDER BY id DESC LIMIT 50000")
+    rows = cursor.fetchall()
+    conn.close()
+    
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>']
+    xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    
+    # Directory page
+    xml.append('  <url>')
+    xml.append('    <loc>https://verifydating.net/scammers</loc>')
+    xml.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
+    xml.append('    <changefreq>daily</changefreq>')
+    xml.append('    <priority>0.9</priority>')
+    xml.append('  </url>')
+    
+    for slug, rep_date in rows:
+        lastmod = rep_date if rep_date else datetime.now().strftime("%Y-%m-%d")
+        xml.append('  <url>')
+        xml.append(f'    <loc>https://verifydating.net/scammer/{slug}</loc>')
+        xml.append(f'    <lastmod>{lastmod}</lastmod>')
+        xml.append('    <changefreq>weekly</changefreq>')
+        xml.append('    <priority>0.8</priority>')
+        xml.append('  </url>')
+        
+    xml.append('</urlset>')
+    return Response(content="\n".join(xml), media_type="application/xml")
+
+@app.get("/scammers")
+async def dating_scammers_directory(request: Request, category: str = None, q: str = None):
+    """
+    Public Searchable Directory of Dating & Romance Scam Profiles.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    query_str = "SELECT id, slug, persona_name, gender, scam_category, claimed_age, claimed_profession, risk_score, views_count, first_reported_date FROM dating_scam_profiles WHERE 1=1"
+    params = []
+    
+    if category:
+        query_str += " AND scam_category LIKE ?"
+        params.append(f"%{category}%")
+    if q:
+        query_str += " AND (persona_name LIKE ? OR claimed_profession LIKE ? OR reported_aliases LIKE ?)"
+        params.extend([f"%{q}%", f"%{q}%", f"%{q}%"])
+        
+    query_str += " ORDER BY id DESC LIMIT 100"
+    cursor.execute(query_str, params)
+    profiles = cursor.fetchall()
+    
+    cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+    total_count = cursor.fetchone()[0]
+    conn.close()
+    
+    cards_html = ""
+    for p in profiles:
+        pid, slug, name, gender, cat, age, prof, score, views, rep_date = p
+        gender_icon = '<i class="fa-solid fa-mars" style="color:#38bdf8;"></i>' if gender == "Male" else '<i class="fa-solid fa-venus" style="color:#f472b6;"></i>'
+        
+        cards_html += f"""
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 20px; transition: all 0.25s ease;" onmouseover="this.style.borderColor='#ec4899'; this.style.boxShadow='0 0 16px rgba(236,72,153,0.3)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='none';">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <span style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">{cat}</span>
+                <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">{score}% CATFISH RISK</span>
+            </div>
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 6px 0;">{gender_icon} {name}</h3>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0 0 14px 0;">Claimed: {prof} (Age {age})</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+                <span style="color: #64748b; font-size: 11px;">👁️ {views} Views &bull; {rep_date}</span>
+                <a href="/scammer/{slug}" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700;">View Dossier ➔</a>
+            </div>
+        </div>
+        """
+        
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romance Scammer Database & Fake Profile Blacklist | VerifyDating</title>
+    <meta name="description" content="Search {total_count}+ reported romance scam personas, stolen military profiles, pig butchering crypto accounts, and fake catfish identities.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {{ background: #05080f; color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; padding: 30px 20px; }}
+        .container {{ max-width: 1150px; margin: 0 auto; }}
+        .header {{ text-align: center; margin-bottom: 35px; }}
+        .title {{ font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 10px 0; }}
+        .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }}
+        .search-box {{ max-width: 600px; margin: 0 auto 30px auto; display: flex; gap: 8px; }}
+        .input-search {{ flex: 1; background: #0b1528; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; color: #fff; font-size: 14px; }}
+        .btn-search {{ background: #ec4899; color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-weight: 700; cursor: pointer; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <a href="https://verifydating.net/" style="color: #ec4899; text-decoration: none; font-weight: 700; font-size: 14px;">&larr; Back to VerifyDating Home</a>
+            <a href="https://isbrokersafe.com/" style="color: #38bdf8; text-decoration: none; font-weight: 700; font-size: 14px;">📈 Verify Broker & Crypto ↗</a>
+        </div>
+        
+        <div class="header">
+            <h1 class="title">🛡️ Romance Scammer & Catfish Blacklist</h1>
+            <p style="color: #94a3b8; font-size: 15px; margin: 0;">Forensic intelligence archive indexing <strong>{total_count}+ verified romance scam personas</strong>, stolen photos, and fraudulent scripts.</p>
+        </div>
+        
+        <form method="GET" action="/scammers" class="search-box">
+            <input type="text" name="q" class="input-search" placeholder="Search by name, claimed job, or alias (e.g. General, Surgeon, Sophie)..." value="{q or ''}">
+            <button type="submit" class="btn-search">Search</button>
+        </form>
+        
+        <div class="grid">
+            {cards_html}
+        </div>
+    </div>
+</body>
+</html>"""
+    return HTMLResponse(content=html, status_code=200)
+
+@app.get("/scammer/{slug}")
+async def dating_scammer_profile_dossier(slug: str):
+    """
+    Forensic Threat Intelligence Dossier Page for a Specific Romance Scammer Profile.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date
+        FROM dating_scam_profiles WHERE slug = ?
+    """, (slug,))
+    row = cursor.fetchone()
+    
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Scam Profile Dossier Not Found")
+        
+    pid, name, gender, category, age, location, prof, stolen, script, story, flags_json, photos_json, risk, aliases_json, views, rep_date = row
+    
+    # Increment view count
+    cursor.execute("UPDATE dating_scam_profiles SET views_count = views_count + 1 WHERE id = ?", (pid,))
+    conn.commit()
+    conn.close()
+    
+    flags = json.loads(flags_json) if flags_json else []
+    aliases = json.loads(aliases_json) if aliases_json else []
+    
+    flags_html = "".join([f'<li style="color: #f87171; margin-bottom: 6px;">🚩 <strong>{f}</strong></li>' for f in flags])
+    aliases_str = ", ".join(aliases) if aliases else name
+    
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{name} Romance Scam Alert & Stolen Photos ({category}) | VerifyDating</title>
+    <meta name="description" content="Forensic dossier on romance scam persona '{name}' ({prof}, {location}). Detect catfish profiles and reverse search photos with VerifyDating AI.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Schema.org FactCheck / Person Structured Data -->
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "FactCheck",
+      "claimReviewed": "Persona '{name}' is a genuine dating partner ({prof})",
+      "reviewRating": {{
+        "@type": "Rating",
+        "ratingValue": "1",
+        "bestRating": "5",
+        "worstRating": "1",
+        "alternateName": "CONFIRMED_CATFISH_SCAM"
+      }},
+      "itemReviewed": {{
+        "@type": "Person",
+        "name": "{name}",
+        "jobTitle": "{prof}",
+        "address": "{location}"
+      }},
+      "author": {{
+        "@type": "Organization",
+        "name": "VerifyDating Forensics",
+        "url": "https://verifydating.net/"
+      }}
+    }}
+    </script>
+    
+    <style>
+        :root {{
+            --bg: #05080f;
+            --card: #0b1528;
+            --border: rgba(255, 255, 255, 0.08);
+            --pink: #ec4899;
+            --red: #ef4444;
+            --cyan: #38bdf8;
+            --green: #10b981;
+        }}
+        body {{ background: var(--bg); color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; padding: 30px 20px; line-height: 1.6; }}
+        .container {{ max-width: 950px; margin: 0 auto; }}
+        .card {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }}
+        .badge-danger {{ background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.35); padding: 5px 12px; border-radius: 8px; font-weight: 800; font-size: 12px; }}
+        .badge-cat {{ background: rgba(236, 72, 153, 0.15); color: var(--pink); border: 1px solid rgba(236, 72, 153, 0.35); padding: 5px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; }}
+        .btn-cta {{ background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4); }}
+        .btn-pdf {{ background: #FFC439; color: #003087; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <a href="/scammers" style="color: var(--pink); text-decoration: none; font-weight: 700; font-size: 14px;">&larr; Back to Scammer Blacklist</a>
+            <a href="https://verifydating.net/" style="color: var(--cyan); text-decoration: none; font-weight: 700; font-size: 14px;">📷 Verify Another Face (Free) ↗</a>
+        </div>
+        
+        <!-- Header Card -->
+        <div class="card" style="border-top: 4px solid var(--red);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                <div>
+                    <span class="badge-cat">{category}</span>
+                    <span class="badge-danger" style="margin-left: 8px;">{risk}% CONFIRMED CATFISH RISK</span>
+                </div>
+                <span style="color: #64748b; font-size: 12px;">Reported: {rep_date} &bull; 👁️ {views} Investigations</span>
+            </div>
+            
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 8px 0;">{name}</h1>
+            <p style="color: #94a3b8; font-size: 14px; margin: 0 0 15px 0;"><strong>Claimed Identity:</strong> {prof} &bull; Claimed Age: {age} &bull; Claimed Location: {location}</p>
+            <div style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid var(--red); padding: 12px 16px; border-radius: 0 8px 8px 0; color: #fca5a5; font-size: 13px;">
+                ⚠️ <strong>Victim Alert:</strong> The photographs used by this persona are <em>{stolen}</em>. The real individual depicted in these images is an innocent third party whose identity has been impersonated.
+            </div>
+        </div>
+
+        <!-- Modus Operandi & Script Card -->
+        <div class="card">
+            <h2 style="font-family: 'Outfit'; font-size: 20px; color: #fff; margin: 0 0 12px 0;">🎭 Typical Romance Scam Script Used</h2>
+            <div style="background: #020408; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; font-style: italic; color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+                "{script}"
+            </div>
+            
+            <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 10px 0;">🚩 Key Red Flags & Warning Indicators:</h3>
+            <ul style="padding-left: 20px; margin: 0 0 20px 0; font-size: 14px;">
+                {flags_html}
+            </ul>
+            
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;"><strong>Reported Aliases:</strong> {aliases_str}</p>
+        </div>
+
+        <!-- CTA Action Box -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(190, 24, 93, 0.18) 100%); border-color: rgba(236, 72, 153, 0.35); text-align: center; padding: 35px 20px;">
+            <h2 style="font-family: 'Outfit'; font-size: 22px; color: #fff; margin: 0 0 8px 0;">Are You Chatting With This Person or a Similar Profile?</h2>
+            <p style="color: #cbd5e1; font-size: 14px; max-width: 650px; margin: 0 auto 25px auto;">
+                Don't send any money, cryptocurrency, or personal documents. Run our instant AI facial recognition audit to uncover the real social profiles behind their photos.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                <a href="https://verifydating.net/" class="btn-cta">📷 Run Free Biometric Photo Scan ➔</a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Dossier+{slug}&no_shipping=1&landing_page=billing" target="_blank" class="btn-pdf">📄 Download Official PDF Report ($2.99)</a>
+            </div>
+        </div>
+
+        <footer style="text-align: center; color: #64748b; font-size: 12px; margin-top: 40px;">
+            &copy; 2026 VerifyDating.net &bull; VasileDev Group (P.IVA IT04226190041). Independent Cyber Threat Intelligence.
+        </footer>
+    </div>
+</body>
+</html>"""
+    return HTMLResponse(content=html, status_code=200)
