@@ -177,7 +177,6 @@ if os.path.exists(ro_path):
                     
                     <div class="project-buttons">
                         <a href="https://verifydating.net/ro/" class="btn btn-primary" target="_blank" rel="noopener">Vizitează Site-ul Live 🌐</a>
-                        <a href="https://verifydating.net/admin?token=verifydating_secret_2026" class="btn btn-secondary" target="_blank" rel="noopener">Vezi Panoul Admin 🛡️</a>
                     </div>
                 </div>
             </div>
@@ -398,7 +397,6 @@ if os.path.exists(it_path):
                     
                     <div class="project-buttons">
                         <a href="https://verifydating.net/it/" class="btn btn-primary" target="_blank" rel="noopener">Visita il Sito Live 🌐</a>
-                        <a href="https://verifydating.net/admin?token=verifydating_secret_2026" class="btn btn-secondary" target="_blank" rel="noopener">Vedi Pannello Admin 🛡️</a>
                     </div>
                 </div>
             </div>
