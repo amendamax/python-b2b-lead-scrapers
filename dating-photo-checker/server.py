@@ -4961,7 +4961,21 @@ async def api_v1_documentation():
                 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=29.00&item_name=IsBrokerSafe+API+Pro+Fintech+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-pro">Subscribe to Pro ($29/mo) ↗</a>
             </div>
 
-            <!-- Tier 3: Enterprise -->
+            <!-- Tier 3: Scale Growth Business (50,000 requests) -->
+            <div class="plan-card" style="border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);">
+                <div>
+                    <h4 class="plan-title" style="color: #c084fc;">Scale Growth</h4>
+                    <div class="plan-price">$79 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>50,000 Requests</strong> / month</div>
+                    <div class="plan-feat">✓ High-Frequency Rate Limits</div>
+                    <div class="plan-feat">✓ Real-Time Webhooks & Daily Scraping</div>
+                    <div class="plan-feat">✓ Commercial B2B License</div>
+                    <div class="plan-feat">✓ Priority Fast-Track Support</div>
+                </div>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=79.00&item_name=IsBrokerSafe+API+Scale+Growth+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; border: none; font-weight: 700; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);">Subscribe to Scale ($79/mo) ↗</a>
+            </div>
+
+            <!-- Tier 4: Enterprise -->
             <div class="plan-card">
                 <div>
                     <h4 class="plan-title" style="color: #e5b842;">Enterprise Intel</h4>
