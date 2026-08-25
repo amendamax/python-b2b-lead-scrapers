@@ -458,8 +458,48 @@ async def startup_event():
             # Run every 24 hours (86,400 seconds)
             time.sleep(86400)
 
+    def _weekly_dating_harvester():
+        time.sleep(180)  # Wait 3 minutes after server boot
+        while True:
+            try:
+                print("[Weekly Dating Harvester] Running scheduled weekly romance scam feed update (04:00 AM once a week)...")
+                from dating_scams_harvester import generate_dating_scam_dossiers
+                conn = sqlite3.connect(DB_PATH)
+                cursor = conn.cursor()
+                cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+                curr_count = cursor.fetchone()[0]
+                conn.close()
+                
+                # Expand by 500 fresh weekly scam profiles
+                new_target = curr_count + 500
+                generate_dating_scam_dossiers(new_target)
+                
+                # Notify Bing & Yahoo IndexNow
+                try:
+                    import urllib.request, json
+                    payload = {
+                        "host": "verifydating.net",
+                        "key": "d89b14f6824945e4a81b7e4521798361",
+                        "keyLocation": "https://verifydating.net/d89b14f6824945e4a81b7e4521798361.txt",
+                        "urlList": [
+                            "https://verifydating.net/scammers",
+                            "https://verifydating.net/sitemap-dating-scams.xml"
+                        ]
+                    }
+                    req = urllib.request.Request("https://www.bing.com/indexnow", data=json.dumps(payload).encode('utf-8'), headers={"Content-Type": "application/json"})
+                    urllib.request.urlopen(req, timeout=15)
+                    print("[Weekly Dating Harvester] Successfully notified Bing & Yahoo IndexNow of new weekly dossiers.")
+                except Exception as e:
+                    print(f"[Weekly Dating Harvester IndexNow Error]: {e}")
+            except Exception as e:
+                print(f"[Weekly Dating Harvester Error]: {e}")
+                
+            # Sleep 7 days (604,800 seconds = 1 week)
+            time.sleep(604800)
+
     threading.Thread(target=_seed, daemon=True).start()
     threading.Thread(target=_daily_harvester, daemon=True).start()
+    threading.Thread(target=_weekly_dating_harvester, daemon=True).start()
 
 # ==========================================================================
 # DYNAMIC STATIC FILES SERVING (DOMAIN-BASED ROUTING)
