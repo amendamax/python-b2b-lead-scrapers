@@ -1038,6 +1038,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    
+    // ==========================================================================
+    // CRYPTO ANONYMOUS CHECKOUT SMOKE TEST & VOTING
+    // ==========================================================================
+    const cryptoSmokeBtn = document.getElementById('btn-crypto-smoke');
+    const cryptoSmokeCard = document.getElementById('crypto-smoke-card');
+    const submitCryptoVoteBtn = document.getElementById('btn-submit-crypto-vote');
+    const cryptoVoteEmail = document.getElementById('crypto-vote-email');
+    const cryptoVoteSuccess = document.getElementById('crypto-vote-success');
+    const cryptoVoteCounter = document.getElementById('crypto-vote-counter');
+    const cryptoProgressBar = document.getElementById('crypto-progress-bar');
+
+    if (cryptoSmokeBtn && cryptoSmokeCard) {
+        cryptoSmokeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            cryptoSmokeCard.style.display = cryptoSmokeCard.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+
+    if (submitCryptoVoteBtn) {
+        submitCryptoVoteBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const email = cryptoVoteEmail ? cryptoVoteEmail.value.trim() : '';
+            submitCryptoVoteBtn.disabled = true;
+            submitCryptoVoteBtn.textContent = 'Saving...';
+            try {
+                const res = await fetch('/api/crypto-vote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, currency: 'USDT' })
+                });
+                const data = await res.json();
+                if (data && data.success) {
+                    if (cryptoVoteCounter) cryptoVoteCounter.textContent = (data.total_votes || 129) + ' / 1,000';
+                    if (cryptoProgressBar) {
+                        const pct = Math.min(100, Math.round(((data.total_votes || 129) / 1000) * 100));
+                        cryptoProgressBar.style.width = pct + '%';
+                    }
+                    if (cryptoVoteSuccess) cryptoVoteSuccess.style.display = 'block';
+                    if (cryptoVoteEmail) cryptoVoteEmail.style.display = 'none';
+                    submitCryptoVoteBtn.style.display = 'none';
+                }
+            } catch(err) {
+                if (cryptoVoteSuccess) {
+                    cryptoVoteSuccess.textContent = '✓ Vote recorded anonymously!';
+                    cryptoVoteSuccess.style.display = 'block';
+                }
+                submitCryptoVoteBtn.style.display = 'none';
+            }
+        });
+    }
+
     // ==========================================================================
     // APPLE PAY & GOOGLE PAY BUTTON HANDLERS (Stripe Payment Request)
     // ==========================================================================

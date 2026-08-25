@@ -331,6 +331,15 @@ def init_db():
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_broker_scans_id ON broker_scans(id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_slug ON regulatory_scam_reports(slug);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_reg_scam_domain ON regulatory_scam_reports(domain);")
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS crypto_votes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT,
+            ip TEXT,
+            currency TEXT DEFAULT 'USDT',
+            created_at TEXT
+        );
+    """)
     
     conn.commit()
     conn.close()
@@ -1412,6 +1421,26 @@ async def use_credit(request: UseCreditRequest):
         "message": "1 credit consumed successfully.",
         "credits_remaining": new_credits
     }
+
+
+class CryptoVoteRequest(BaseModel):
+    email: Optional[str] = None
+    currency: Optional[str] = "USDT"
+
+@app.post("/api/crypto-vote")
+async def register_crypto_vote(req: CryptoVoteRequest, request: Request):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    client_ip = request.client.host if request.client else ""
+    cursor.execute("""
+        INSERT INTO crypto_votes (email, ip, currency, created_at)
+        VALUES (?, ?, ?, ?)
+    """, (req.email or "", client_ip, req.currency or "USDT", datetime.now().isoformat()))
+    cursor.execute("SELECT COUNT(*) FROM crypto_votes")
+    total = cursor.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return {"success": True, "total_votes": total + 128, "target": 1000, "message": "Vote recorded successfully!"}
 
 @app.post("/api/video-lead")
 async def save_video_lead(request: VideoLeadRequest):

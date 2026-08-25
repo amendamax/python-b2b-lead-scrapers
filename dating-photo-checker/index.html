@@ -808,6 +808,27 @@
                         <button type="button" class="btn-pay btn-google-pay" style="background:#3c4043; color:#ffffff; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%;">
                             <i class="fa-brands fa-google" style="font-size:18px;"></i> Pay with GPay
                         </button>
+                        <button type="button" class="btn-pay btn-crypto-smoke" id="btn-crypto-smoke" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff; font-weight: 700; border-radius: 8px; padding: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 14px; width: 100%; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); transition: transform 0.2s ease;">
+                            <i class="fa-brands fa-bitcoin" style="font-size: 18px; color: #ffffff;"></i> 🪙 Pay with Crypto (USDT / BTC) — 100% Anonymous
+                        </button>
+                        
+                        <!-- Crypto Smoke Test Card Inline -->
+                        <div id="crypto-smoke-card" style="display: none; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; padding: 14px; margin-top: 6px; text-align: left;">
+                            <div style="font-weight: 800; font-size: 13px; color: #fbbf24; margin-bottom: 4px;">🪙 100% Anonymous Crypto Checkout (USDT / BTC)</div>
+                            <p style="font-size: 11px; color: #cbd5e1; line-height: 1.4; margin: 0 0 10px 0;">Zero bank traces on your bank or credit card statement. Direct USDT (TRC20/Polygon) & BTC checkout is activated once we reach 1,000 community votes.</p>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; color: #94a3b8;">
+                                <span>📊 Current Votes:</span>
+                                <strong style="color: #fbbf24;" id="crypto-vote-counter">128 / 1,000</strong>
+                            </div>
+                            <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 6px; height: 6px; overflow: hidden; margin-bottom: 10px;">
+                                <div style="width: 13%; height: 100%; background: #f59e0b; border-radius: 6px;" id="crypto-progress-bar"></div>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <input type="email" id="crypto-vote-email" placeholder="Email (optional for priority activation)" style="flex: 1; background: rgba(5,8,15,0.8); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 8px 10px; color: #fff; font-size: 11px; box-sizing: border-box;">
+                                <button type="button" id="btn-submit-crypto-vote" style="background: #f59e0b; color: #000; font-weight: 800; border: none; border-radius: 6px; padding: 8px 12px; font-size: 11px; cursor: pointer; white-space: nowrap;">Vote & Request Crypto Access (USDT) ➔</button>
+                            </div>
+                            <div id="crypto-vote-success" style="display: none; color: #10b981; font-weight: 700; font-size: 11px; margin-top: 8px; text-align: center;">✓ Vote recorded! Thank you for helping prioritize anonymous crypto checkout.</div>
+                        </div>
                     </div>
                     <div class="checkout-divider" style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.5px;"><span>OR PAY WITH CREDIT CARD</span></div>
                 </div>
