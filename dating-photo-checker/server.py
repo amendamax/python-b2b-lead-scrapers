@@ -4410,7 +4410,8 @@ async def get_scam_reports_sitemap_part(part: int, request: Request = None):
 
 def check_and_increment_api_quota(request: Request, api_key: str = None):
     """
-    Enforces 100 free requests for demo / trial, and higher quotas for Pro / Enterprise tiers.
+    100% FREE & OPEN Threat Intelligence API.
+    Logs usage metrics for analytics without blocking developers or charging any fees.
     """
     client_ip = request.client.host if request.client else "127.0.0.1"
     forwarded = request.headers.get("x-forwarded-for")
@@ -4419,52 +4420,19 @@ def check_and_increment_api_quota(request: Request, api_key: str = None):
         
     key = api_key or request.headers.get("X-API-Key") or request.query_params.get("api_key")
     
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    
-    if key:
-        cursor.execute("SELECT id, email, tier, monthly_quota, usage_count, is_active FROM api_keys WHERE key = ?", (key,))
-        row = cursor.fetchone()
-        if not row:
-            conn.close()
-            raise HTTPException(status_code=401, detail="Invalid API Key. Generate a free key at https://isbrokersafe.com/api/v1/docs")
-        
-        kid, email, tier, quota, usage, is_active = row
-        if not is_active:
-            conn.close()
-            raise HTTPException(status_code=403, detail="API Key is suspended. Please contact support.")
-            
-        if usage >= quota:
-            conn.close()
-            raise HTTPException(
-                status_code=429, 
-                detail=f"Monthly API quota exceeded ({usage}/{quota} requests). Upgrade to Pro ($29/mo) or Enterprise ($199/mo) at https://isbrokersafe.com/api/v1/docs"
-            )
-            
-        cursor.execute("UPDATE api_keys SET usage_count = usage_count + 1 WHERE id = ?", (kid,))
-        conn.commit()
-        conn.close()
-        return {"tier": tier, "limit": quota, "remaining": max(0, quota - (usage + 1)), "used": usage + 1}
-    else:
-        # Anonymous IP trial (100 free requests)
-        cursor.execute("SELECT usage_count FROM api_ip_usage WHERE ip = ?", (client_ip,))
-        row = cursor.fetchone()
-        if row:
-            usage = row[0]
-            if usage >= 100:
-                conn.close()
-                raise HTTPException(
-                    status_code=429,
-                    detail="Anonymous 100 Free Requests limit reached! Generate your free API key or upgrade to Pro at https://isbrokersafe.com/api/v1/docs"
-                )
-            cursor.execute("UPDATE api_ip_usage SET usage_count = usage_count + 1, last_used = ? WHERE ip = ?", (datetime.now().isoformat(), client_ip))
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        if key:
+            cursor.execute("UPDATE api_keys SET usage_count = usage_count + 1 WHERE key = ?", (key,))
         else:
-            usage = 0
-            cursor.execute("INSERT INTO api_ip_usage (ip, usage_count, last_used) VALUES (?, 1, ?)", (client_ip, datetime.now().isoformat()))
-            
+            cursor.execute("INSERT INTO api_ip_usage (ip, usage_count, last_used) VALUES (?, 1, ?) ON CONFLICT(ip) DO UPDATE SET usage_count = usage_count + 1, last_used = ?", (client_ip, datetime.now().isoformat(), datetime.now().isoformat()))
         conn.commit()
         conn.close()
-        return {"tier": "anonymous_trial", "limit": 100, "remaining": max(0, 100 - (usage + 1)), "used": usage + 1}
+    except Exception:
+        pass
+        
+    return {"tier": "free_unlimited", "status": "active"}
 
 @app.post("/api/v1/keys/generate")
 async def generate_api_key(request: Request):
@@ -4732,14 +4700,14 @@ async def api_v1_stats():
 @app.get("/api/v1/docs")
 async def api_v1_documentation():
     """
-    Developer & Partner REST API Documentation Page with 3-Tier Subscriptions & Interactive Key Generator.
+    Developer & Partner REST API Documentation Page (100% Free & Open Threat Intelligence).
     """
     html_docs = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IsBrokerSafe Commercial API v1.5 | Threat Intelligence & 3-Tier Plans</title>
+    <title>IsBrokerSafe Commercial API v1.5 | 100% Free Threat Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -4771,98 +4739,31 @@ async def api_v1_documentation():
             margin-bottom: 35px;
         }
         h1 { font-family: 'Outfit', sans-serif; font-size: 2.3rem; color: #fff; margin: 0 0 8px 0; }
-        .badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
+        .badge { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
         
-        /* Key Generator Box */
-        .key-gen-box {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.18) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+        /* Free Access Banner */
+        .free-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.18) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 14px;
             padding: 24px;
             margin-bottom: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        .key-input {
-            flex: 1;
-            min-width: 260px;
-            background: #030712;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-        .btn-gen {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-gen:hover { opacity: 0.9; transform: translateY(-1px); }
-        
-        /* 3-Tier Pricing Cards */
-        .pricing-grid {
+        .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 18px;
         }
-        .plan-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 26px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
+        .feat-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 14px;
         }
-        .plan-card.popular {
-            border: 1px solid #0284c7;
-            box-shadow: 0 0 25px rgba(2, 132, 199, 0.25);
-        }
-        .plan-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: #0284c7;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-        .plan-title { font-size: 1.3rem; font-family: 'Outfit'; font-weight: 800; margin: 0 0 6px 0; }
-        .plan-price { font-size: 2rem; font-family: 'Outfit'; font-weight: 900; color: #fff; margin-bottom: 15px; }
-        .plan-price span { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-        .plan-feat { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .plan-btn {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 20px;
-            transition: all 0.2s;
-        }
-        .btn-free { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
-        .btn-pro { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: none; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4); }
-        .btn-ent { background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000; border: none; font-weight: 800; }
+        .feat-card h4 { margin: 0 0 4px 0; font-size: 14px; color: #fff; font-weight: 700; }
+        .feat-card p { margin: 0; font-size: 12px; color: var(--text-muted); }
 
         /* Endpoints */
         .endpoint-card {
@@ -4903,90 +4804,39 @@ async def api_v1_documentation():
         <div class="header">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
                 <h1>IsBrokerSafe Financial Threat Intelligence API</h1>
-                <span class="badge">v1.5 PRODUCTION</span>
+                <span class="badge">100% FREE & OPEN ACCESS</span>
             </div>
             <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">
-                Programmatic access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC) & verified tier-1 brokers.
+                Direct open programmatic access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC) & verified tier-1 brokers.
             </p>
         </div>
 
-        <!-- 100 Free Queries Key Generator -->
-        <div class="key-gen-box">
+        <!-- 100% Free Open Developer Access Banner -->
+        <div class="free-banner">
             <h3 style="font-family: 'Outfit'; font-size: 20px; color: #fff; margin: 0 0 6px 0; font-weight: 800;">
-                ⚡ Get Instant Free API Key (100 Requests/Month Included)
+                🟢 100% Free & Open Threat Intelligence for Developers & Fintech
             </h3>
-            <p style="color: #94a3b8; font-size: 13px; margin: 0;">
-                Enter your developer email below to instantly generate a sandbox API key and begin querying the blacklist registry in seconds.
+            <p style="color: #cbd5e1; font-size: 13px; margin: 0; line-height: 1.5;">
+                We believe financial security data should be freely accessible to everyone. You can integrate the IsBrokerSafe API directly into your crypto wallet, trading bots, fintech apps, or security research without any subscription fees or payment barriers.
             </p>
-            <div class="input-group">
-                <input type="email" id="dev-email" class="key-input" placeholder="developer@fintech.com" required>
-                <button class="btn-gen" onclick="generateApiKey()">Generate API Key ⚡</button>
-            </div>
-            <div id="key-result" style="display: none; margin-top: 15px; background: #030712; border: 1px solid #10b981; border-radius: 8px; padding: 14px; color: #10b981; font-family: 'Fira Code', monospace; font-size: 13px;">
-                <div style="font-weight: 700; margin-bottom: 4px;">✓ API KEY GENERATED:</div>
-                <div id="key-val" style="color: #fff; font-size: 14px; user-select: all;"></div>
-                <div id="key-info" style="color: #94a3b8; font-size: 11px; margin-top: 6px;"></div>
-            </div>
-        </div>
-
-        <!-- 3-TIER PRICING PLANS -->
-        <h2 style="font-family: 'Outfit'; font-size: 24px; color: #fff; margin: 0 0 20px 0;">💳 Developer & B2B Subscription Tiers</h2>
-        <div class="pricing-grid">
-            <!-- Tier 1: Free Developer -->
-            <div class="plan-card">
-                <div>
-                    <h4 class="plan-title" style="color: #38bdf8;">Developer Free</h4>
-                    <div class="plan-price">$0 <span>/ month</span></div>
-                    <div class="plan-feat">✓ <strong>100 Requests</strong> / month</div>
-                    <div class="plan-feat">✓ 14,663+ Blacklist Dossiers</div>
-                    <div class="plan-feat">✓ 5ms Ultra-Low Latency</div>
-                    <div class="plan-feat">✓ Rate limit: 5 req / sec</div>
-                    <div class="plan-feat">✓ Community Support</div>
+            
+            <div class="feature-grid">
+                <div class="feat-card">
+                    <h4 style="color: #10b981;">✓ 14,663+ Dossiers</h4>
+                    <p>Live synchronized records from 5 major global financial regulators.</p>
                 </div>
-                <a href="#dev-email" class="plan-btn btn-free">Generate Free Key</a>
-            </div>
-
-            <!-- Tier 2: Pro Fintech -->
-            <div class="plan-card popular">
-                <span class="plan-badge">MOST POPULAR</span>
-                <div>
-                    <h4 class="plan-title" style="color: #38bdf8;">Pro Fintech</h4>
-                    <div class="plan-price">$29 <span>/ month</span></div>
-                    <div class="plan-feat">✓ <strong>10,000 Requests</strong> / month</div>
-                    <div class="plan-feat">✓ Live Webhook Notifications</div>
-                    <div class="plan-feat">✓ Real-Time Daily Scraping Stream</div>
-                    <div class="plan-feat">✓ Rate limit: 50 req / sec</div>
-                    <div class="plan-feat">✓ Commercial SLA & Priority Support</div>
+                <div class="feat-card">
+                    <h4 style="color: #38bdf8;">✓ 5ms Ultra-Low Latency</h4>
+                    <p>High-speed in-memory SQLite indexing for real-time verification.</p>
                 </div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=29.00&item_name=IsBrokerSafe+API+Pro+Fintech+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-pro">Subscribe to Pro ($29/mo) ↗</a>
-            </div>
-
-            <!-- Tier 3: Scale Growth Business (50,000 requests) -->
-            <div class="plan-card" style="border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);">
-                <div>
-                    <h4 class="plan-title" style="color: #c084fc;">Scale Growth</h4>
-                    <div class="plan-price">$79 <span>/ month</span></div>
-                    <div class="plan-feat">✓ <strong>50,000 Requests</strong> / month</div>
-                    <div class="plan-feat">✓ High-Frequency Rate Limits</div>
-                    <div class="plan-feat">✓ Real-Time Webhooks & Daily Scraping</div>
-                    <div class="plan-feat">✓ Commercial B2B License</div>
-                    <div class="plan-feat">✓ Priority Fast-Track Support</div>
+                <div class="feat-card">
+                    <h4 style="color: #fbbf24;">✓ Zero Fees / 100% Free</h4>
+                    <p>No paywalls or forced credit card requirements.</p>
                 </div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=79.00&item_name=IsBrokerSafe+API+Scale+Growth+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; border: none; font-weight: 700; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);">Subscribe to Scale ($79/mo) ↗</a>
-            </div>
-
-            <!-- Tier 4: Enterprise -->
-            <div class="plan-card">
-                <div>
-                    <h4 class="plan-title" style="color: #e5b842;">Enterprise Intel</h4>
-                    <div class="plan-price">$199 <span>/ month</span></div>
-                    <div class="plan-feat">✓ <strong>100,000+ Requests</strong> / month</div>
-                    <div class="plan-feat">✓ Full SQLite / JSON Database Dumps</div>
-                    <div class="plan-feat">✓ Custom Regulatory Endpoints</div>
-                    <div class="plan-feat">✓ Dedicated Account Manager</div>
-                    <div class="plan-feat">✓ 99.99% Uptime Guarantee</div>
+                <div class="feat-card">
+                    <h4 style="color: #c084fc;">✓ Schema.org Compliant</h4>
+                    <p>JSON-LD FactCheck structure for automated ingestion.</p>
                 </div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=199.00&item_name=IsBrokerSafe+API+Enterprise+Intel+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-ent">Get Enterprise ($199/mo) ↗</a>
             </div>
         </div>
 
@@ -5003,8 +4853,8 @@ async def api_v1_documentation():
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
                 Forensic investigation of any broker name or website domain. Returns blacklist enforcement orders, risk scores (4% scam vs 98% safe), and verified alternatives.
             </p>
-            <span class="tag">Example Request (with API Key):</span>
-            <pre>curl -X GET "https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com&api_key=YOUR_API_KEY"</pre>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com"</pre>
             
             <span class="tag" style="margin-top: 15px;">Sample Response (Blacklisted Fraud):</span>
             <pre>{
@@ -5031,7 +4881,7 @@ async def api_v1_documentation():
                 Real-time paginated feed of official regulatory enforcement decisions. Filter by jurisdiction (CONSOB, FCA, BaFin, CySEC, SEC).
             </p>
             <span class="tag">Example Request:</span>
-            <pre>curl -X GET "https://isbrokersafe.com/api/v1/regulatory/warnings?regulator=consob&limit=50&api_key=YOUR_API_KEY"</pre>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/regulatory/warnings?regulator=consob&limit=50"</pre>
         </div>
 
         <!-- Endpoint 3 -->
@@ -5048,36 +4898,9 @@ async def api_v1_documentation():
         </div>
 
         <footer style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 50px; border-top: 1px solid var(--border); padding-top: 20px;">
-            &copy; 2026 IsBrokerSafe.com &bull; VasileDev Group (P.IVA IT04226190041). High-Performance Threat Intel REST API.
+            &copy; 2026 IsBrokerSafe.com &bull; VasileDev Group (P.IVA IT04226190041). 100% Free & Open Threat Intelligence API.
         </footer>
     </div>
-
-    <script>
-        async function generateApiKey() {
-            const email = document.getElementById('dev-email').value.trim();
-            if (!email || !email.includes('@')) {
-                alert('Please enter a valid developer email.');
-                return;
-            }
-            try {
-                const res = await fetch('/api/v1/keys/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
-                });
-                const data = await res.json();
-                if (data.status === 'success') {
-                    document.getElementById('key-result').style.display = 'block';
-                    document.getElementById('key-val').innerText = data.api_key;
-                    document.getElementById('key-info').innerText = 'Monthly Quota: ' + data.monthly_quota + ' requests | Tier: ' + data.tier.toUpperCase() + ' | Remaining: ' + data.remaining;
-                } else {
-                    alert(data.message || 'Error generating key');
-                }
-            } catch (e) {
-                alert('Error connecting to API server: ' + e);
-            }
-        }
-    </script>
 </body>
 </html>"""
     return HTMLResponse(content=html_docs, status_code=200)
