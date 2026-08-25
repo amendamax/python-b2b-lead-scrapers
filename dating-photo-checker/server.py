@@ -4123,7 +4123,9 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     <meta property="og:description" content="Verified regulatory blacklisting for {entity_name}. High scam probability score ({risk_score}%). Check official enforcement details.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{curr_url}">
-    <meta property="og:image" content="https://isbrokersafe.com/assets/broker_safe_og.png">
+    <meta property="og:image" content="https://isbrokersafe.com/og_image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
