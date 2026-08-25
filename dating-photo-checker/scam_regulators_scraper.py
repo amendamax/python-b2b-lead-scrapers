@@ -31,6 +31,7 @@ PROXY_HOST = "proxy.geonode.io"
 PROXY_PORT = "9000"
 PROXY_USER = "geonode_r5f9bn3waz-type-residential"
 PROXY_PASS = "d9081034-36de-4826-a96a-ac71ba19c884"
+PROXY_URL = f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}"
 
 PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
 os.makedirs(PERSISTENT_DIR, exist_ok=True)
