@@ -5,7 +5,7 @@ import re
 from datetime import datetime, timedelta
 import random
 
-PERSISTENT_DIR = os.environ.get("PERSISTENT_STORAGE_DIR", ".")
+PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
 DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
 def init_db():

@@ -5403,6 +5403,23 @@ if __name__ == "__main__":
 # DATING SCAMMER THREAT INTELLIGENCE & DOSSIERS MODULE (VerifyDating.net)
 # ==============================================================================
 
+@app.get("/api/admin/seed-dating-scams")
+async def admin_seed_dating_scams():
+    """
+    Direct endpoint to trigger population of 350+ dating scam profiles.
+    """
+    try:
+        from dating_scams_harvester import generate_dating_scam_dossiers
+        generate_dating_scam_dossiers(350)
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+        count = cursor.fetchone()[0]
+        conn.close()
+        return JSONResponse({"status": "success", "total_dating_scam_profiles": count})
+    except Exception as e:
+        return JSONResponse({"status": "error", "message": str(e)}, status_code=500)
+
 @app.get("/sitemap-dating-scams.xml")
 async def sitemap_dating_scams():
     """
