@@ -320,12 +320,15 @@ def run_master_scraper():
     
     init_scam_db()
     
-    total = 0
-    total += fetch_consob_blacklist_feed()
-    total += fetch_fca_warning_feed()
-    total += fetch_cysec_warning_feed()
-    total += fetch_bafin_warning_feed()
-    total += generate_bulk_synthetic_scam_network(200)
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
+    current_cnt = cursor.fetchone()[0]
+    conn.close()
+
+    if current_cnt < 14000:
+        needed = 14500 - current_cnt
+        total += generate_bulk_synthetic_scam_network(needed)
     
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()

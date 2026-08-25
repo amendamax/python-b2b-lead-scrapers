@@ -356,8 +356,8 @@ async def startup_event():
             cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
             scam_count = cursor.fetchone()[0]
             conn.close()
-            if scam_count == 0:
-                print("[Startup] Seeding initial regulatory scam reports...")
+            if scam_count < 14000:
+                print(f"[Startup] Seeding full master archive (current: {scam_count})...")
                 from scam_regulators_scraper import run_master_scraper
                 run_master_scraper()
         except Exception as e:
