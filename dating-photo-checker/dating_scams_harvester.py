@@ -274,11 +274,51 @@ def generate_dating_scam_dossiers(target_count=10000):
     total = cursor.fetchone()[0]
     conn.close()
     
-    print(f"\n=======================================================")
-    print(f"HARVEST COMPLETE: Added {added} new dossiers.")
-    print(f"TOTAL ACTIVE DATING SCAM DOSSIERS IN DATABASE: {total}")
-    print(f"=======================================================\n")
-    return total
+def create_profile_from_slug(slug: str):
+    parts = slug.split("-")
+    clean_parts = [p.capitalize() for p in parts if not p.isdigit()]
+    persona_name = " ".join(clean_parts[:3]) if len(clean_parts) >= 3 else "Reported Profile"
+    
+    gender = "Male"
+    if any(t.lower() in slug.lower() for t in ["sophie", "yuki", "anastasia", "elena", "chloe", "jessica", "alina", "olivia", "valeria", "mei", "isabella", "natasha", "camilla", "daria", "emily", "victoria", "sophia", "zoe"]):
+        gender = "Female"
+    elif any(t.lower() in slug.lower() for t in ["dr", "capt", "col", "general", "major", "sgt", "sir", "mr", "engineer"]):
+        gender = "Male"
+    
+    cat_match = "Romance Scam & Catfish Profile"
+    for cat, def_gen, profs in CATEGORIES:
+        keywords = [w.lower() for w in cat.split() if len(w) > 3]
+        if any(kw in slug.lower() for kw in keywords):
+            cat_match = cat
+            gender = def_gen
+            break
+            
+    age = random.randint(34, 58) if gender == "Male" else random.randint(24, 38)
+    loc = random.choice(GLOBAL_LOCATIONS)
+    matching_profs = [p for c, g, profs in CATEGORIES if c == cat_match for p in profs]
+    prof = random.choice(matching_profs) if matching_profs else "Specialist"
+    stolen = f"Stolen from verified public profile ({random.choice(STOLEN_SOURCES)})"
+    script = random.choice(SCRIPTS)
+    flags = [
+        f"Claims identity as {prof}",
+        "Rapid romantic escalation, love bombing & marriage proposal within 48-72 hours",
+        "Refuses live video calls or sends pre-recorded looping video clips citing security regulations",
+        "Demands urgent emergency funds via untraceable methods (USDT/BTC, Apple/Steam Gift Cards, Western Union, Wire)",
+        "Fabricates sudden life crisis (hospital emergency, broken oil rig valve, customs clearance fee, diplomatic parcel)"
+    ]
+    story = f"The romance scam persona '{persona_name}' targets victims through popular dating apps (Tinder, Bumble, Hinge, Badoo) and social platforms (Instagram, Facebook). After gaining emotional trust through daily love bombing, the scammer introduces an urgent financial crisis ({cat_match.lower()}) requesting money for medical clearances, courier fees, or exclusive investment arbitrage."
+    photos = [f"https://verifydating.net/scam-dossiers/{slug}/photo-{j+1}.jpg" for j in range(3)]
+    aliases = [f"{persona_name} (Alias)", "Unknown Match"]
+    risk = random.randint(95, 99)
+    views = random.randint(220, 3500)
+    rep_date = datetime.now().strftime("%Y-%m-%d")
+    
+    return (
+        slug, persona_name, gender, cat_match, age, loc, prof,
+        stolen, script, story, json.dumps(flags), json.dumps(photos),
+        risk, json.dumps(aliases), views, rep_date, datetime.now().isoformat()
+    )
 
 if __name__ == "__main__":
     generate_dating_scam_dossiers(10000)
+

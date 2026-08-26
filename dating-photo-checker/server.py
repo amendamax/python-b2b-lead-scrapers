@@ -5746,8 +5746,24 @@ async def dating_scammer_profile_dossier(slug: str):
         SELECT id, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date
         FROM dating_scam_profiles WHERE slug = ?
     """, (slug,))
-    row = cursor.fetchone()
-    
+    if not row:
+        try:
+            from dating_scams_harvester import create_profile_from_slug
+            profile_data = create_profile_from_slug(slug)
+            cursor.execute("""
+                INSERT OR IGNORE INTO dating_scam_profiles 
+                (slug, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, profile_data)
+            conn.commit()
+            cursor.execute("""
+                SELECT id, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date
+                FROM dating_scam_profiles WHERE slug = ?
+            """, (slug,))
+            row = cursor.fetchone()
+        except Exception as e:
+            print(f"[On-Demand Profile Error]: {e}")
+            
     if not row:
         conn.close()
         raise HTTPException(status_code=404, detail="Scam Profile Dossier Not Found")

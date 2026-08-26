@@ -3290,3 +3290,39 @@ html, body {
     transform: scale(1.15);
     transition: transform 0.2s ease;
 }
+
+/* ==========================================================================
+   VERIFYDATING AFFILIATE TOOLKIT DYNAMIC GLOW & HOVER EFFECTS
+   ========================================================================== */
+#toolkit .card, .affiliate-incogni-card, .affiliate-match-card {
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+}
+
+.affiliate-incogni-card:hover {
+    transform: translateY(-5px) scale(1.015) !important;
+    border-color: rgba(56, 189, 248, 0.85) !important;
+    box-shadow: 0 15px 40px rgba(2, 132, 199, 0.4), 0 0 30px rgba(56, 189, 248, 0.3) !important;
+}
+
+.affiliate-match-card:hover {
+    transform: translateY(-5px) scale(1.015) !important;
+    border-color: rgba(236, 72, 153, 0.85) !important;
+    box-shadow: 0 15px 40px rgba(236, 72, 153, 0.4), 0 0 30px rgba(236, 72, 153, 0.3) !important;
+}
+
+.btn-affiliate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-affiliate:hover {
+    transform: translateY(-2px) scale(1.03) !important;
+    filter: brightness(1.22) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 18px currentColor !important;
+}
