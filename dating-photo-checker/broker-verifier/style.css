@@ -1044,53 +1044,62 @@ body {
 }
 
 .hero-box {
-    background: linear-gradient(135deg, rgba(18, 27, 45, 0.85) 0%, rgba(10, 15, 26, 0.95) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    background: linear-gradient(135deg, rgba(18, 27, 45, 0.95) 0%, rgba(10, 15, 26, 0.98) 100%) !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
     border-radius: 20px;
     padding: 2.25rem 2rem;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.12);
     text-align: center;
 }
 
 .hero-headline {
     font-size: 1.85rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     line-height: 1.35;
     margin-bottom: 0.75rem;
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .hero-subtext {
     font-size: 0.98rem;
-    color: var(--text-muted);
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1 !important;
     max-width: 720px;
     margin: 0 auto 1.5rem auto;
+    line-height: 1.5;
 }
 
 .trust-features-row {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
     font-size: 0.85rem;
-    color: #e2e8f0;
+    color: #f1f5f9 !important;
 }
 
 .trust-feat {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 0.4rem 0.9rem;
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding: 0.45rem 1rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.trust-feat strong {
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8 !important;
 }
 
 .feat-check {
-    color: var(--color-success);
+    color: #10b981 !important;
+    -webkit-text-fill-color: #10b981 !important;
     font-weight: 800;
 }
 

@@ -1044,53 +1044,62 @@ body {
 }
 
 .hero-box {
-    background: linear-gradient(135deg, rgba(18, 27, 45, 0.85) 0%, rgba(10, 15, 26, 0.95) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    background: linear-gradient(135deg, rgba(18, 27, 45, 0.95) 0%, rgba(10, 15, 26, 0.98) 100%) !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
     border-radius: 20px;
     padding: 2.25rem 2rem;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.12);
     text-align: center;
 }
 
 .hero-headline {
     font-size: 1.85rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     line-height: 1.35;
     margin-bottom: 0.75rem;
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .hero-subtext {
     font-size: 0.98rem;
-    color: var(--text-muted);
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1 !important;
     max-width: 720px;
     margin: 0 auto 1.5rem auto;
+    line-height: 1.5;
 }
 
 .trust-features-row {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
     font-size: 0.85rem;
-    color: #e2e8f0;
+    color: #f1f5f9 !important;
 }
 
 .trust-feat {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 0.4rem 0.9rem;
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding: 0.45rem 1rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.trust-feat strong {
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8 !important;
 }
 
 .feat-check {
-    color: var(--color-success);
+    color: #10b981 !important;
+    -webkit-text-fill-color: #10b981 !important;
     font-weight: 800;
 }
 
@@ -1902,3 +1911,162 @@ body {
     }
 }
 
+/* ==========================================================================
+   DYNAMIC REACTIVE BUTTONS & 3D HOVER GLOW SYSTEM
+   ========================================================================== */
+.btn, 
+.in-result-dating-cross-card a, 
+.broker-dating-cross-card a, 
+#download-report-btn, 
+#paywall-unlock-btn, 
+.full-action-banner-download,
+.ticker-chip {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    cursor: pointer;
+}
+
+.btn:hover, 
+.in-result-dating-cross-card a:hover, 
+.broker-dating-cross-card a:hover, 
+#download-report-btn:hover,
+.full-action-banner-download:hover,
+.ticker-chip:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    filter: brightness(1.12) !important;
+}
+
+.btn:active, 
+.in-result-dating-cross-card a:active, 
+.broker-dating-cross-card a:active, 
+#download-report-btn:active,
+.full-action-banner-download:active {
+    transform: translateY(-1px) scale(0.99) !important;
+}
+
+/* Specific Glowing Shadows */
+.in-result-dating-cross-card a:hover, 
+.broker-dating-cross-card a:hover {
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.65), 0 0 18px rgba(236, 72, 153, 0.45) !important;
+}
+
+.full-action-banner-download:hover,
+#download-report-btn:hover {
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.65), 0 0 18px rgba(56, 189, 248, 0.45) !important;
+}
+
+/* Light Shimmer Wave on Hover */
+.in-result-dating-cross-card a::after,
+.full-action-banner-download::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(25deg);
+    transition: all 0.65s ease;
+    pointer-events: none;
+}
+
+.in-result-dating-cross-card a:hover::after,
+.full-action-banner-download:hover::after {
+    left: 130%;
+}
+
+/* ==========================================================================
+   ELEGANT & SOPHISTICATED INTERACTIVE HOVER LIGHTING (IsBrokerSafe 2026)
+   ========================================================================== */
+
+.badge-tag {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* API Badge Hover: Smooth Cyan Glow */
+.badge-api-glow:hover {
+    background: rgba(56, 189, 248, 0.25) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+/* Dating Badge Hover: Smooth Pink/Rose Glow */
+.badge-dating-glow:hover {
+    background: rgba(236, 72, 153, 0.25) !important;
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+/* SSL Badge Hover: Smooth Amber/Gold Glow */
+.badge-ssl-glow:hover {
+    background: rgba(234, 179, 8, 0.2) !important;
+    border-color: #eab308 !important;
+    box-shadow: 0 0 16px rgba(234, 179, 8, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+/* Portal Badge Hover: Smooth Emerald Green Glow */
+.badge-portal-glow:hover {
+    background: rgba(16, 185, 129, 0.25) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.65), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+/* Trust features row hover */
+.trust-feat {
+    background: rgba(11, 21, 40, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.45rem 1.1rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.trust-feat:hover {
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.feat-check {
+    color: #10b981;
+    font-weight: 800;
+    display: inline-block;
+}
+
+
+/* Dynamic Glowing Hover for Verify Broker & Crypto Header Button */
+.nav-broker-glow {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer;
+}
+
+.nav-broker-glow:hover {
+    background: rgba(56, 189, 248, 0.25) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.7), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+.nav-broker-glow:hover i {
+    color: #ffffff !important;
+    transform: scale(1.15);
+    transition: transform 0.2s ease;
+}
