@@ -4619,6 +4619,15 @@ def check_and_increment_api_quota(request: Request, api_key: str = None):
     if key:
         cursor.execute("SELECT id, email, tier, monthly_quota, usage_count, is_active FROM api_keys WHERE key = ?", (key,))
         row = cursor.fetchone()
+        if not row and key.startswith("ibs_trial_"):
+            cursor.execute("""
+                INSERT INTO api_keys (key, email, tier, monthly_quota, usage_count, is_active, created_at)
+                VALUES (?, 'b2b_outbound_prospect@isbrokersafe.com', 'b2b_vip_trial', 500, 0, 1, ?)
+            """, (key, datetime.now().isoformat()))
+            conn.commit()
+            cursor.execute("SELECT id, email, tier, monthly_quota, usage_count, is_active FROM api_keys WHERE key = ?", (key,))
+            row = cursor.fetchone()
+            
         if not row:
             conn.close()
             raise HTTPException(status_code=401, detail="Invalid API Key. Generate a free key at https://isbrokersafe.com/api/v1/docs")
