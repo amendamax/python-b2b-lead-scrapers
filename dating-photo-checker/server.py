@@ -5872,6 +5872,26 @@ async def dating_scammer_profile_dossier(slug: str):
             </a>
         </div>
 
+        <!-- Match.com Safe Dating Alternative Card -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.15) 100%); border: 1px solid rgba(236, 72, 153, 0.35); padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">💖</span>
+                    <div>
+                        <h3 style="margin: 0; font-family: 'Outfit'; font-size: 18px; color: #fff; font-weight: 800;">Tired of Fake Profiles & Catfish Bots?</h3>
+                        <p style="margin: 4px 0 0 0; color: #f472b6; font-size: 12px; font-weight: 700;">OFFICIAL ID-VERIFIED DATING ALTERNATIVE</p>
+                    </div>
+                </div>
+                <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800;">TOP SAFE DATING</span>
+            </div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
+                Avoid unmoderated apps and social media romance traps. <strong>Match.com</strong> is the world's leading ID-verified dating network with active profile moderation, photo verification, and background safety tools.
+            </p>
+            <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
+                <span>💖 Meet Real Verified Singles on Match.com (Free Trial) ➔</span>
+            </a>
+        </div>
+
         <footer style="text-align: center; color: #64748b; font-size: 12px; margin-top: 40px;">
             &copy; 2026 VerifyDating.net &bull; VasileDev Group (P.IVA IT04226190041). Independent Cyber Threat Intelligence.
         </footer>
