@@ -5662,9 +5662,452 @@ async def get_embeddable_badge_js():
     raise HTTPException(status_code=404, detail="Badge script not found")
 
 
+
+@app.get("/dating-widget")
+@app.get("/dating-badge")
+async def get_dating_badge_customizer_page():
+    html_dating_customizer = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyDating™ Official Safety Emblem & Profile Trust Badge Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #07040d;
+            --card-bg: rgba(22, 13, 36, 0.9);
+            --card-border: rgba(236, 72, 153, 0.28);
+            --primary: #ec4899;
+            --primary-glow: rgba(236, 72, 153, 0.45);
+            --success: #10b981;
+            --purple: #a855f7;
+            --gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 14px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .logo-shield {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.25) 0%, rgba(190, 24, 93, 0.4) 100%);
+            border: 1.5px solid #ec4899;
+            color: #f472b6;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 16px rgba(236, 72, 153, 0.6);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span { color: var(--primary); }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 15.5px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            background: rgba(8, 4, 15, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .theme-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .theme-btn {
+            padding: 10px 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .theme-btn.active {
+            border-color: var(--primary);
+            background: rgba(236, 72, 153, 0.2);
+            color: #fff;
+            box-shadow: 0 0 12px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Preview Box */
+        .preview-box {
+            background: #030106;
+            border: 1px dashed rgba(236, 72, 153, 0.35);
+            border-radius: 14px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            margin-bottom: 24px;
+        }
+
+        /* Dynamic Emblem Component */
+        .dating-emblem-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(22, 13, 36, 0.95) 0%, rgba(9, 6, 16, 0.98) 100%);
+            border: 1.5px solid #ec4899;
+            border-radius: 14px;
+            padding: 12px 20px;
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.4), 0 8px 24px rgba(0,0,0,0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .dating-emblem-badge:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 35px rgba(236, 72, 153, 0.75), 0 12px 30px rgba(0,0,0,0.8);
+        }
+
+        .emblem-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.25) 0%, rgba(190, 24, 93, 0.4) 100%);
+            border: 1px solid #ec4899;
+            color: #f472b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .emblem-info h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .emblem-info p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin: 2px 0 0 0;
+        }
+
+        .code-box {
+            background: #020104;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .code-box pre {
+            color: #38bdf8;
+            font-family: monospace;
+            font-size: 12.5px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 800;
+            font-size: 13.5px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            transition: all 0.25s;
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px) scale(1.02);
+            filter: brightness(1.2);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Nav -->
+        <div class="top-bar">
+            <a href="/" class="logo-link">
+                <span class="logo-shield"><i class="fa-solid fa-shield-heart"></i></span>
+                Verify<span style="color: var(--primary);">Dating</span>
+            </a>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <a href="/api/v1/dating-docs#pricing" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 12.5px; font-weight: 700;">💳 Pricing Plans</a>
+                <a href="/api/v1/dating-docs" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.35); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 12.5px; font-weight: 700;">⚡ Face API</a>
+                <a href="https://pypi.org/project/verifydating/" target="_blank" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 12.5px; font-weight: 700;">🐍 PyPI SDK ↗</a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Official <span>Dating Safety Emblem</span> Generator</h1>
+            <p>Embed our real-time AI biometric verification badge on your dating profile, social bio, personal site, or community platform to prove your photos are 100% genuine and verified.</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Controls Card -->
+            <div class="card">
+                <h3 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary);"></i> Customize Your Emblem</h3>
+                
+                <div class="form-group">
+                    <label>Profile / Member Name</label>
+                    <input type="text" id="cfg-name" value="Sarah Jenkins" oninput="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Verification Seal Type</label>
+                    <select id="cfg-type" onchange="updatePreview()">
+                        <option value="face_verified">🛡️ AI Biometric Face-Verified (100% Clean)</option>
+                        <option value="anti_catfish">🔒 Anti-Catfish Protected Profile</option>
+                        <option value="scam_shield">⚡ VerifyDating™ Neural Protection</option>
+                        <option value="genuine_seal">💎 Certified Authentic Human Profile</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Color Theme</label>
+                    <div class="theme-selector">
+                        <button class="theme-btn active" onclick="setTheme('pink', this)">Cyber Pink</button>
+                        <button class="theme-btn" onclick="setTheme('emerald', this)">Emerald</button>
+                        <button class="theme-btn" onclick="setTheme('purple', this)">Violet</button>
+                        <button class="theme-btn" onclick="setTheme('gold', this)">Gold</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Display Format</label>
+                    <select id="cfg-format" onchange="updatePreview()">
+                        <option value="pill">Compact Interactive Badge</option>
+                        <option value="full">Full Verification Certificate Box</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Live Preview & Code Card -->
+            <div class="card">
+                <h3 class="card-title"><i class="fa-solid fa-eye" style="color: #38bdf8;"></i> Live Interactive Preview</h3>
+                
+                <div class="preview-box">
+                    <a id="preview-badge" href="https://verifydating.net/" target="_blank" class="dating-emblem-badge">
+                        <div class="emblem-icon" id="preview-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                        <div class="emblem-info">
+                            <h4 id="preview-title">Sarah Jenkins <span style="color: #10b981; font-size: 11px;">✓ VERIFIED</span></h4>
+                            <p id="preview-desc">AI Biometric Face-Verified · 100% Genuine</p>
+                        </div>
+                    </a>
+                </div>
+
+                <h4 style="font-family: 'Outfit'; font-size: 15px; color: #fff; margin-bottom: 8px;">1-Click Embed Snippet (HTML / Bio Link)</h4>
+                <div class="code-box">
+                    <pre id="embed-code"></pre>
+                </div>
+                <button class="btn-copy" onclick="copyEmbedCode()"><i class="fa-solid fa-copy"></i> Copy Embed Code to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTheme = 'pink';
+
+        const themeColors = {
+            pink: { border: '#ec4899', glow: 'rgba(236, 72, 153, 0.4)', iconColor: '#f472b6' },
+            emerald: { border: '#10b981', glow: 'rgba(16, 185, 129, 0.4)', iconColor: '#34d399' },
+            purple: { border: '#a855f7', glow: 'rgba(168, 85, 247, 0.4)', iconColor: '#c084fc' },
+            gold: { border: '#f59e0b', glow: 'rgba(245, 158, 11, 0.4)', iconColor: '#fbbf24' }
+        };
+
+        function setTheme(theme, btn) {
+            currentTheme = theme;
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('cfg-name').value || 'Verified Member';
+            const type = document.getElementById('cfg-type').value;
+            const tc = themeColors[currentTheme];
+
+            const badge = document.getElementById('preview-badge');
+            badge.style.borderColor = tc.border;
+            badge.style.boxShadow = `0 0 25px ${tc.glow}, 0 8px 24px rgba(0,0,0,0.6)`;
+
+            const icon = document.getElementById('preview-icon');
+            icon.style.borderColor = tc.border;
+            icon.style.color = tc.iconColor;
+
+            let descText = "AI Biometric Face-Verified · 100% Genuine";
+            if (type === 'anti_catfish') descText = "Protected Against Romance Scams · Clean";
+            if (type === 'scam_shield') descText = "Monitored by VerifyDating™ Neural Engine";
+            if (type === 'genuine_seal') descText = "Certified Real Identity · 0% Deepfake Risk";
+
+            document.getElementById('preview-title').innerHTML = `${name} <span style="color: #10b981; font-size: 11px;">✓ VERIFIED</span>`;
+            document.getElementById('preview-desc').textContent = descText;
+
+            const snippet = `<a href="https://verifydating.net/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0d0614;border:1.5px solid ${tc.border};border-radius:12px;padding:10px 16px;color:#fff;text-decoration:none;font-family:sans-serif;box-shadow:0 0 15px ${tc.glow};">
+  <span style="color:${tc.iconColor};font-size:18px;">🛡️</span>
+  <div>
+    <strong style="font-size:13px;display:block;">${name} <span style="color:#10b981;">✓ VERIFIED</span></strong>
+    <small style="font-size:10.5px;color:#94a3b8;">${descText}</small>
+  </div>
+</a>`;
+
+            document.getElementById('embed-code').textContent = snippet;
+        }
+
+        function copyEmbedCode() {
+            const code = document.getElementById('embed-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('✓ Verification Emblem embed code copied to clipboard!');
+            });
+        }
+
+        updatePreview();
+    </script>
+</body>
+</html>"""
+    from fastapi.responses import Response
+    return Response(content=html_dating_customizer, media_type="text/html")
+
 @app.get("/widget")
 @app.get("/badge")
-async def get_badge_customizer_page():
+async def get_badge_customizer_page(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "dating" in host or "verifydating" in host:
+        return await get_dating_badge_customizer_page()
     """
     Interactive Webmaster Trust Badge Customizer & 1-Click Embed Code Generator.
     """

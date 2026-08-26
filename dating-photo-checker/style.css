@@ -3630,3 +3630,177 @@ html, body {
 .logo-link:hover .logo-text .highlight {
     text-shadow: 0 0 25px rgba(236, 72, 153, 0.9) !important;
 }
+
+
+/* ==========================================================================
+   PERFECT HARMONIC PROPORTIONS (MIRRORING BROKERVERIFIER)
+   ========================================================================== */
+.app-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.header-nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+.logo {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.logo-text {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    color: #ffffff !important;
+}
+
+.logo-text .highlight {
+    color: #ec4899 !important;
+    text-shadow: 0 0 15px rgba(236, 72, 153, 0.6) !important;
+}
+
+.header-badges {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.badge-tag {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+}
+
+.badge-tag:hover {
+    transform: translateY(-2px) scale(1.04) !important;
+    filter: brightness(1.2) !important;
+}
+
+.badge-api-glow {
+    background: rgba(236, 72, 153, 0.15) !important;
+    color: #f472b6 !important;
+    border: 1px solid rgba(236, 72, 153, 0.35) !important;
+}
+.badge-api-glow:hover {
+    background: rgba(236, 72, 153, 0.35) !important;
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.75) !important;
+    color: #ffffff !important;
+}
+
+.badge-broker-glow {
+    background: rgba(56, 189, 248, 0.15) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+}
+.badge-broker-glow:hover {
+    background: rgba(56, 189, 248, 0.35) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.75) !important;
+    color: #ffffff !important;
+}
+
+.hero-box {
+    background: linear-gradient(135deg, rgba(22, 13, 36, 0.95) 0%, rgba(9, 6, 16, 0.98) 100%) !important;
+    border: 1px solid rgba(236, 72, 153, 0.35) !important;
+    border-radius: 20px !important;
+    padding: 2.25rem 2rem !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(236, 72, 153, 0.15) !important;
+    text-align: center !important;
+    margin-bottom: 2.5rem !important;
+}
+
+.hero-headline {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 1.85rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.75rem !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+}
+
+.hero-subtext {
+    font-size: 0.98rem !important;
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1 !important;
+    max-width: 720px !important;
+    margin: 0 auto 1.5rem auto !important;
+    line-height: 1.5 !important;
+}
+
+.trust-features-row {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+    font-size: 0.85rem !important;
+    color: #f1f5f9 !important;
+}
+
+.trust-feat {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding: 0.45rem 1rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.trust-feat strong {
+    color: #f472b6 !important;
+    -webkit-text-fill-color: #f472b6 !important;
+}
+
+.feat-check {
+    color: #10b981 !important;
+    -webkit-text-fill-color: #10b981 !important;
+    font-weight: 800 !important;
+}
+
+@media (max-width: 800px) {
+    .header-nav {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+    }
+    .header-badges {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 2px 4px 6px 4px !important;
+        justify-content: center !important;
+    }
+    .hero-headline {
+        font-size: 1.45rem !important;
+    }
+}
