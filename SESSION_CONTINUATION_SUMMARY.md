@@ -1,7 +1,7 @@
 # 📌 RAPORT DE CONTINUITATE ȘI TRANSFER SESIUNE (MASTER HANDOVER)
 **Data generării:** Vineri, 21 August 2026 | **Ora:** 09:18 PM (Ora Italiei)  
 **Utilizator:** Vasile Bratu (`amendamax@gmail.com` / `VasileDev Group` / P.IVA `04226190041`)  
-**Locație:** Garessio (Via Valcasotto 14, 12075 CN), Italia  
+**Locație:** Garessio (CN), Italia  
 
 ---
 
