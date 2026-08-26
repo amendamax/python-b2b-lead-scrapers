@@ -687,6 +687,19 @@ async def get_ru_index(request: Request):
             return FileResponse("ru/index.html")
     raise HTTPException(status_code=404, detail="Page not found")
 
+@app.get("/broker-verifier/style.css")
+@app.get("/broker-verifier/broker-verifier/style.css")
+async def get_broker_verifier_css():
+    if os.path.exists("broker-verifier/style.css"):
+        return FileResponse("broker-verifier/style.css", media_type="text/css")
+    return FileResponse("style.css", media_type="text/css")
+
+@app.get("/broker-verifier/app.js")
+async def get_broker_verifier_js():
+    if os.path.exists("broker-verifier/app.js"):
+        return FileResponse("broker-verifier/app.js", media_type="application/javascript")
+    return FileResponse("app.js", media_type="application/javascript")
+
 @app.get("/style.css")
 async def get_css(request: Request):
     host = request.headers.get("host", "").lower()
