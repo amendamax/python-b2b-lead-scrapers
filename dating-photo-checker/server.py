@@ -5679,41 +5679,54 @@ async def sitemap_dating_scams():
     return Response(content="\n".join(xml), media_type="application/xml")
 
 @app.get("/scammers")
-async def dating_scammers_directory(request: Request, category: str = None, q: str = None):
+async def dating_scammers_directory(request: Request, category: str = None, q: str = None, page: int = 1):
     """
-    Public Searchable Directory of Dating & Romance Scam Profiles.
+    Public Searchable Directory of Dating & Romance Scam Profiles with Multi-Page Pagination & Filters.
     """
+    limit = 60
+    page = max(1, page)
+    offset = (page - 1) * limit
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
-    total_count = cursor.fetchone()[0]
+    total_db_count = cursor.fetchone()[0]
     
-    if total_count == 0:
+    if total_db_count < 10000:
         conn.close()
         try:
             from dating_scams_harvester import generate_dating_scam_dossiers
-            generate_dating_scam_dossiers(10000)
+            generate_dating_scam_dossiers(12500)
         except Exception as e:
             print(f"[OnDemand Seed Exception]: {e}")
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
-        total_count = cursor.fetchone()[0]
+        total_db_count = cursor.fetchone()[0]
     
+    # Base count for filtered query
+    count_query = "SELECT COUNT(*) FROM dating_scam_profiles WHERE 1=1"
     query_str = "SELECT id, slug, persona_name, gender, scam_category, claimed_age, claimed_profession, risk_score, views_count, first_reported_date FROM dating_scam_profiles WHERE 1=1"
     params = []
     
     if category:
+        count_query += " AND scam_category LIKE ?"
         query_str += " AND scam_category LIKE ?"
         params.append(f"%{category}%")
     if q:
+        count_query += " AND (persona_name LIKE ? OR claimed_profession LIKE ? OR reported_aliases LIKE ?)"
         query_str += " AND (persona_name LIKE ? OR claimed_profession LIKE ? OR reported_aliases LIKE ?)"
         params.extend([f"%{q}%", f"%{q}%", f"%{q}%"])
         
-    query_str += " ORDER BY id DESC LIMIT 100"
+    cursor.execute(count_query, params)
+    filtered_total = cursor.fetchone()[0]
+    
+    query_str += f" ORDER BY id DESC LIMIT {limit} OFFSET {offset}"
     cursor.execute(query_str, params)
     profiles = cursor.fetchall()
     conn.close()
+    
+    total_pages = max(1, (filtered_total + limit - 1) // limit)
     
     cards_html = ""
     for p in profiles:
@@ -5721,60 +5734,108 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
         gender_icon = '<i class="fa-solid fa-mars" style="color:#38bdf8;"></i>' if gender == "Male" else '<i class="fa-solid fa-venus" style="color:#f472b6;"></i>'
         
         cards_html += f"""
-        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 20px; transition: all 0.25s ease;" onmouseover="this.style.borderColor='#ec4899'; this.style.boxShadow='0 0 16px rgba(236,72,153,0.3)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='none';">
+        <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 20px; transition: all 0.25s ease;" onmouseover="this.style.borderColor='#ec4899'; this.style.boxShadow='0 0 16px rgba(236,72,153,0.35)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='none';">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
                 <span style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">{cat}</span>
-                <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">{score}% CATFISH RISK</span>
+                <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">{score}% RISK</span>
             </div>
             <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 6px 0;">{gender_icon} {name}</h3>
-            <p style="color: #94a3b8; font-size: 13px; margin: 0 0 14px 0;">Claimed: {prof} (Age {age})</p>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0 0 14px 0; line-height: 1.4;">Claimed: {prof} (Age {age})</p>
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
                 <span style="color: #64748b; font-size: 11px;">👁️ {views} Views &bull; {rep_date}</span>
                 <a href="/scammer/{slug}" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700;">View Dossier ➔</a>
             </div>
         </div>
         """
+    
+    # Category Pills
+    cats = [
+        ("", "All Profiles"),
+        ("Military", "🎖️ Military Scams"),
+        ("UN Humanitarian", "🩺 UN & Doctors"),
+        ("Oil Rig", "🛢️ Oil Rig & Marine"),
+        ("Pig Butchering", "📈 Crypto Scams"),
+        ("Diplomatic", "📦 Diplomatic Couriers"),
+        ("Aviation", "✈️ Pilots & Cargo")
+    ]
+    
+    cat_pills_html = '<div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">'
+    for c_slug, c_name in cats:
+        is_active = (category == c_slug) or (not category and c_slug == "")
+        active_style = "background: rgba(236,72,153,0.3); border-color: #ec4899; color: #fff; font-weight: 700;" if is_active else "background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); color: #cbd5e1;"
+        href = f"/scammers?category={c_slug}" if c_slug else "/scammers"
+        if q:
+            href += f"&q={q}"
+        cat_pills_html += f'<a href="{href}" style="padding: 6px 14px; border-radius: 20px; font-size: 12px; text-decoration: none; border: 1px solid; {active_style} transition: all 0.2s ease;">{c_name}</a>'
+    cat_pills_html += '</div>'
+
+    # Pagination HTML
+    prev_disabled = "opacity: 0.4; pointer-events: none;" if page <= 1 else ""
+    next_disabled = "opacity: 0.4; pointer-events: none;" if page >= total_pages else ""
+    
+    query_param_str = ""
+    if category: query_param_str += f"&category={category}"
+    if q: query_param_str += f"&q={q}"
+    
+    prev_url = f"/scammers?page={page - 1}{query_param_str}"
+    next_url = f"/scammers?page={page + 1}{query_param_str}"
+    
+    pagination_html = f"""
+    <div style="display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 40px; margin-bottom: 30px;">
+        <a href="{prev_url}" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; {prev_disabled}">← Previous Page</a>
+        <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Page <strong style="color:#ec4899;">{page}</strong> of <strong>{total_pages}</strong></span>
+        <a href="{next_url}" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; {next_disabled}">Next Page →</a>
+    </div>
+    """
         
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romance Scammer Database & Fake Profile Blacklist | VerifyDating</title>
-    <meta name="description" content="Search {total_count}+ reported romance scam personas, stolen military profiles, pig butchering crypto accounts, and fake catfish identities.">
+    <title>Romance Scammer Database & Fake Profile Blacklist (Page {page}) | VerifyDating</title>
+    <meta name="description" content="Search {total_db_count}+ verified romance scam personas, stolen military profiles, pig butchering crypto accounts, and fake catfish identities.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {{ background: #05080f; color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; padding: 30px 20px; }}
-        .container {{ max-width: 1150px; margin: 0 auto; }}
-        .header {{ text-align: center; margin-bottom: 35px; }}
-        .title {{ font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 10px 0; }}
+        body {{ background: #05080f; color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; padding: 25px 20px; }}
+        .container {{ max-width: 1200px; margin: 0 auto; }}
+        .header {{ text-align: center; margin-bottom: 25px; }}
+        .title {{ font-family: 'Outfit', sans-serif; font-size: 2.3rem; color: #fff; margin: 0 0 10px 0; }}
         .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }}
-        .search-box {{ max-width: 600px; margin: 0 auto 30px auto; display: flex; gap: 8px; }}
-        .input-search {{ flex: 1; background: #0b1528; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; color: #fff; font-size: 14px; }}
-        .btn-search {{ background: #ec4899; color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-weight: 700; cursor: pointer; }}
+        .search-box {{ max-width: 600px; margin: 0 auto 20px auto; display: flex; gap: 8px; }}
+        .input-search {{ flex: 1; background: #0b1528; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; color: #fff; font-size: 14px; outline: none; }}
+        .btn-search {{ background: #ec4899; color: #fff; border: none; border-radius: 10px; padding: 12px 22px; font-weight: 700; cursor: pointer; }}
     </style>
 </head>
 <body>
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <a href="https://verifydating.net/" style="color: #ec4899; text-decoration: none; font-weight: 700; font-size: 14px;">&larr; Back to VerifyDating Home</a>
-            <a href="https://isbrokersafe.com/" style="color: #38bdf8; text-decoration: none; font-weight: 700; font-size: 14px;">📈 Verify Broker & Crypto ↗</a>
+            <a href="https://verifydating.net/" style="color: #ec4899; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">&larr; Back to VerifyDating Home</a>
+            <a href="https://isbrokersafe.com/" style="color: #38bdf8; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">📈 Verify Broker & Crypto ↗</a>
         </div>
         
         <div class="header">
             <h1 class="title">🛡️ Romance Scammer & Catfish Blacklist</h1>
-            <p style="color: #94a3b8; font-size: 15px; margin: 0;">Forensic intelligence archive indexing <strong>{total_count}+ verified romance scam personas</strong>, stolen photos, and fraudulent scripts.</p>
+            <p style="color: #94a3b8; font-size: 15px; margin: 0 0 10px 0;">Forensic intelligence archive indexing <strong>{total_db_count:,}+ verified romance scam personas</strong>, stolen photos, and fraudulent scripts.</p>
+            <div style="display: inline-block; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;">
+                📁 Showing profiles {offset + 1} - {min(offset + limit, filtered_total)} of {filtered_total:,} Dossiers (Page {page} of {total_pages})
+            </div>
         </div>
         
         <form method="GET" action="/scammers" class="search-box">
             <input type="text" name="q" class="input-search" placeholder="Search by name, claimed job, or alias (e.g. General, Surgeon, Sophie)..." value="{q or ''}">
+            {f'<input type="hidden" name="category" value="{category}">' if category else ''}
             <button type="submit" class="btn-search">Search</button>
         </form>
+        
+        {cat_pills_html}
         
         <div class="grid">
             {cards_html}
         </div>
+        
+        {pagination_html}
     </div>
 </body>
 </html>"""
