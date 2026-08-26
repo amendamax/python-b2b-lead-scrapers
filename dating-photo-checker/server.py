@@ -795,7 +795,9 @@ async def get_lang_broker_review(lang: str, broker_name: str, request: Request):
 @app.get("/robots.txt")
 async def get_robots(request: Request):
     host = request.headers.get("host", "").lower()
-    domain = "verifydating.net" if "dating" in host or "verifydating" in host else "isbrokersafe.com"
+    is_dating = "dating" in host or "verifydating" in host
+    domain = "verifydating.net" if is_dating else "isbrokersafe.com"
+    extra_sitemap = "\nSitemap: https://verifydating.net/sitemap-dating-scams.xml" if is_dating else ""
     robots_content = f"""User-agent: *
 Allow: /
 Disallow: /admin
@@ -804,7 +806,7 @@ Disallow: /admin/dashboard
 Disallow: /api/admin/
 Disallow: /uploads/
 
-Sitemap: https://{domain}/sitemap.xml
+Sitemap: https://{domain}/sitemap.xml{extra_sitemap}
 """
     from fastapi.responses import Response
     return Response(content=robots_content, media_type="text/plain")
@@ -819,69 +821,39 @@ async def get_sitemap(request: Request):
     host = request.headers.get("host", "").lower()
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
+    today = datetime.now().strftime("%Y-%m-%d")
     
-    additional_urls = ""
+    urls = [
+        f'<?xml version="1.0" encoding="UTF-8"?>',
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        f'  <url><loc>https://{domain}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>'
+    ]
+    
     langs = ["ro", "it", "es", "fr", "de", "pt", "ru"]
     for l in langs:
-        additional_urls += f"""
-   <url>
-      <loc>https://{domain}/{l}/</loc>
-      <lastmod>2026-08-22</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>"""
+        urls.append(f'  <url><loc>https://{domain}/{l}/</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>')
+        
     if is_dating:
-        additional_urls += """
-   <url>
-      <loc>https://verifydating.net/scammers</loc>
-      <lastmod>2026-08-25</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>0.9</priority>
-   </url>"""
+        urls.append(f'  <url><loc>https://verifydating.net/scammers</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>')
         try:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
             cursor.execute("SELECT slug, first_reported_date FROM dating_scam_profiles ORDER BY id DESC LIMIT 50000")
             for slug, rep_date in cursor.fetchall():
-                lastmod = rep_date if rep_date else "2026-08-25"
-                additional_urls += f"""
-   <url>
-      <loc>https://verifydating.net/scammer/{slug}</loc>
-      <lastmod>{lastmod}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
-   </url>"""
+                lastmod = rep_date if rep_date else today
+                urls.append(f'  <url><loc>https://verifydating.net/scammer/{slug}</loc><lastmod>{lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>')
             conn.close()
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[Sitemap Exception]: {e}")
             
     if not is_dating:
         for b in ["interactive-brokers", "avatrade", "xm", "exness", "etoro", "plus500"]:
-            additional_urls += f"""
-   <url>
-      <loc>https://{domain}/reviews/{b}</loc>
-      <lastmod>2026-08-22</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-   </url>"""
+            urls.append(f'  <url><loc>https://{domain}/reviews/{b}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>')
             for l in langs:
-                additional_urls += f"""
-   <url>
-      <loc>https://{domain}/{l}/reviews/{b}</loc>
-      <lastmod>2026-08-22</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.85</priority>
-   </url>"""
+                urls.append(f'  <url><loc>https://{domain}/{l}/reviews/{b}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>')
 
-    sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://{domain}/</loc>
-      <lastmod>2026-07-24</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>1.0</priority>
-   </url>{additional_urls}
-</urlset>"""
+    urls.append('</urlset>')
+    sitemap_content = '\n'.join(urls)
     from fastapi.responses import Response
     return Response(content=sitemap_content, media_type="application/xml")
 
@@ -5632,6 +5604,7 @@ async def api_dating_scammers(limit: int = 6, q: str = None):
     return JSONResponse({"status": "success", "total_profiles": total_count, "results": results})
 
 @app.get("/sitemap-dating-scams.xml")
+@app.get("/sitemap_dating_scams.xml")
 async def sitemap_dating_scams():
     """
     Dedicated Programmatic Google XML Sitemap for Dating Scammer Profiles.
