@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+verifydating/__init__.py
+verifydating/client.py
+verifydating/exceptions.py
+verifydating/models.py
+verifydating.egg-info/PKG-INFO
+verifydating.egg-info/SOURCES.txt
+verifydating.egg-info/dependency_links.txt
+verifydating.egg-info/top_level.txt
