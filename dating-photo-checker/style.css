@@ -286,28 +286,25 @@ body::before {
 
 .hero-section h1,
 #main-title {
-    font-family: var(--font-header);
+    font-family: 'Outfit', sans-serif !important;
     font-size: 1.85rem !important;
-    font-weight: 800;
-    line-height: 1.35 !important;
-    margin: 0 auto 12px auto;
-    max-width: 850px;
-    letter-spacing: -0.3px;
+    font-weight: 800 !important;
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    forced-color-adjust: none;
+    line-height: 1.35 !important;
+    margin: 0 auto 0.75rem auto !important;
+    max-width: 780px !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+    forced-color-adjust: none !important;
 }
 
 .hero-subtitle {
-    font-size: 0.98rem;
+    font-size: 0.98rem !important;
     color: #cbd5e1 !important;
-    max-width: 720px;
-    margin: 0 auto 1.5rem auto;
-    line-height: 1.5;
+    -webkit-text-fill-color: #cbd5e1 !important;
+    max-width: 720px !important;
+    margin: 0 auto 1.5rem auto !important;
+    line-height: 1.5 !important;
 }
 
 /* ==========================================================================
@@ -1787,14 +1784,14 @@ body::before {
     
     .hero-section h1,
     #main-title {
-        font-size: 1.35rem !important;
-        line-height: 1.3 !important;
-        margin-bottom: 10px !important;
+        font-size: 1.85rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 0.75rem !important;
     }
     
     .hero-subtitle {
-        font-size: 0.88rem !important;
-        line-height: 1.45 !important;
+        font-size: 0.98rem !important;
+        line-height: 1.5 !important;
     }
     
     .scanner-card {
