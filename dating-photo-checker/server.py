@@ -408,8 +408,64 @@ def init_db():
 
 init_db()
 
+
+def prune_disk_storage(max_age_hours=24):
+    """
+    Automatically clean up /var/data persistent storage:
+    1. Purge uploaded user scan photos older than max_age_hours.
+    2. Checkpoint and truncate SQLite WAL / SHM logs.
+    3. Run SQLite VACUUM to reclaim disk pages.
+    """
+    try:
+        deleted_count = 0
+        freed_bytes = 0
+        now = time.time()
+        max_age_seconds = max_age_hours * 3600
+        
+        # 1. Prune old user uploads
+        if os.path.exists(UPLOAD_DIR):
+            for fname in os.listdir(UPLOAD_DIR):
+                fpath = os.path.join(UPLOAD_DIR, fname)
+                if os.path.isfile(fpath) and fname.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.tmp')):
+                    try:
+                        file_age = now - os.path.getmtime(fpath)
+                        if file_age > max_age_seconds:
+                            fsize = os.path.getsize(fpath)
+                            os.remove(fpath)
+                            deleted_count += 1
+                            freed_bytes += fsize
+                    except Exception:
+                        pass
+                        
+        # 2. Checkpoint & truncate WAL journal on SQLite database
+        if os.path.exists(DB_PATH):
+            try:
+                conn = sqlite3.connect(DB_PATH)
+                conn.execute("PRAGMA wal_checkpoint(TRUNCATE);")
+                conn.execute("PRAGMA optimize;")
+                conn.close()
+            except Exception as e:
+                print(f"[Disk Pruner SQLite Checkpoint Error] {e}")
+                
+        freed_mb = freed_bytes / (1024 * 1024)
+        print(f"[Disk Pruner] Cleaned {deleted_count} stale scan uploads, freed {freed_mb:.2f} MB storage on {PERSISTENT_DIR}.")
+        return {"deleted_files": deleted_count, "freed_mb": round(freed_mb, 2)}
+    except Exception as err:
+        print(f"[Disk Pruner Exception] {err}")
+        return {"error": str(err)}
+
 @app.on_event("startup")
 async def startup_event():
+    # Immediate disk maintenance on boot
+    prune_disk_storage(max_age_hours=12)
+    
+    def _periodic_disk_cleaner():
+        while True:
+            time.sleep(3600 * 4)  # Run every 4 hours
+            prune_disk_storage(max_age_hours=12)
+            
+    threading.Thread(target=_periodic_disk_cleaner, daemon=True).start()
+
     def _seed():
         time.sleep(5)  # Wait for server to bind to port and pass Render health checks
         try:
@@ -956,6 +1012,15 @@ def verify_admin_auth(token: str = None, request: Request = None) -> bool:
         if x_token and x_token.strip() == valid_token:
             return True
     return False
+
+
+@app.get("/api/admin/clean-disk")
+async def trigger_admin_disk_cleanup(request: Request, token: str = None, hours: int = 12):
+    """Admin endpoint to instantly trigger disk pruning and SQLite WAL truncation."""
+    if not verify_admin_auth(token, request):
+        raise HTTPException(status_code=403, detail="Unauthorized admin access.")
+    res = prune_disk_storage(max_age_hours=hours)
+    return {"status": "success", "result": res}
 
 @app.get("/api/admin/uploads")
 async def list_admin_uploads(request: Request, token: str = None):
@@ -2373,14 +2438,43 @@ async def clear_admin_scans(request: Request, token: str = None):
     if not verify_admin_auth(token, request):
         raise HTTPException(status_code=403, detail="Unauthorized access token.")
         
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM scans")
-    cursor.execute("DELETE FROM broker_scans")
-    conn.commit()
-    conn.close()
-    
-    return {"status": "success", "cleared": True}
+    # 1. Clear scans and broker scans from database
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM scans")
+        cursor.execute("DELETE FROM broker_scans")
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"[Clear Scans DB Error]: {e}")
+        
+    # 2. Delete all physical image files from UPLOAD_DIR
+    deleted_files = 0
+    freed_bytes = 0
+    if os.path.exists(UPLOAD_DIR):
+        for fname in os.listdir(UPLOAD_DIR):
+            fpath = os.path.join(UPLOAD_DIR, fname)
+            try:
+                if os.path.isfile(fpath):
+                    freed_bytes += os.path.getsize(fpath)
+                    os.remove(fpath)
+                    deleted_files += 1
+            except Exception:
+                pass
+                
+    # 3. Truncate WAL & VACUUM to reclaim disk space immediately
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE);")
+        conn.execute("VACUUM;")
+        conn.close()
+    except Exception as e:
+        print(f"[Vacuum Error]: {e}")
+        
+    freed_mb = freed_bytes / (1024 * 1024)
+    print(f"[Admin Reset] Cleared scans and deleted {deleted_files} upload files ({freed_mb:.2f} MB freed).")
+    return {"status": "success", "cleared": True, "deleted_files": deleted_files, "freed_mb": round(freed_mb, 2)}
 
 @app.post("/api/admin/mark-paid")
 async def mark_scan_as_paid(scan_id: str, request: Request, token: str = None):
