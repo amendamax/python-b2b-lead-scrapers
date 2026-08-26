@@ -5878,44 +5878,78 @@ async def dating_scammer_profile_dossier(slug: str):
             </div>
         </div>
 
-        <!-- Incogni Privacy & Scammer Data Removal Affiliate Card -->
-        <div class="card affiliate-incogni-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 132, 199, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); padding: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 24px;">🛡️</span>
-                    <div>
-                        <h3 style="margin: 0; font-family: 'Outfit'; font-size: 18px; color: #fff; font-weight: 800;">Did You Share Personal Info, Phone, or Photos with a Scammer?</h3>
-                        <p style="margin: 4px 0 0 0; color: #38bdf8; font-size: 12px; font-weight: 700;">OFFICIAL DATA PRIVACY & IDENTITY DEFENSE</p>
-                    </div>
-                </div>
-                <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800;">VERIFIED PARTNER</span>
+        <!-- ================================================================= -->
+        <!-- VERIFIED INVESTIGATION, PRIVACY & SAFE DATING TOOLKIT (CJ PARTNERS) -->
+        <!-- ================================================================= -->
+        <div style="margin-top: 30px; margin-bottom: 25px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 22px; color: #fff; margin: 0 0 6px 0;">🛡️ Official Investigation & Safety Toolkit</h2>
+                <p style="color: #94a3b8; font-size: 13.5px; margin: 0;">Verified tools to run background checks, delete stolen personal info, and find genuine matches.</p>
             </div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
-                Romance scammers and cybercriminals trade stolen phone numbers, personal emails, and home addresses across 180+ commercial data broker networks. <strong>Incogni</strong> automatically deletes your personal records from broker registries, preventing identity theft and relentless scam attempts.
-            </p>
-            <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);">
-                <span>🛡️ Delete Your Personal Data with Incogni (50% Off Exclusive) ➔</span>
-            </a>
-        </div>
 
-        <!-- Match.com Safe Dating Alternative Card -->
-        <div class="card affiliate-match-card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.15) 100%); border: 1px solid rgba(236, 72, 153, 0.35); padding: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 24px;">💖</span>
-                    <div>
-                        <h3 style="margin: 0; font-family: 'Outfit'; font-size: 18px; color: #fff; font-weight: 800;">Tired of Fake Profiles & Catfish Bots?</h3>
-                        <p style="margin: 4px 0 0 0; color: #f472b6; font-size: 12px; font-weight: 700;">OFFICIAL ID-VERIFIED DATING ALTERNATIVE</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
+                
+                <!-- Card 1: Spokeo & TruthFinder (Reverse Lookup) -->
+                <div class="card affiliate-incogni-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(56, 189, 248, 0.35);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 24px;">🔍</span>
+                        <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">BACKGROUND AUDIT</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 8px 0;">Reverse Phone & Email Lookup</h3>
+                    <p style="color: #cbd5e1; font-size: 13px; margin: 0 0 16px 0; line-height: 1.45;">
+                        Got a phone number, email address, or name from this contact? Run an instant public records & alias search.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://www.spokeo.com/reverse-phone-lookup?g=17177183" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            📞 Reverse Phone / Email Lookup (Spokeo) ➔
+                        </a>
+                        <a href="https://tracking.truthfinder.com/?a=1634&oc=27&c=17128187" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            🕵️ Full Criminal & Public Records (TruthFinder) ➔
+                        </a>
                     </div>
                 </div>
-                <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800;">TOP SAFE DATING</span>
+
+                <!-- Card 2: Incogni & OmniWatch (Privacy & Dark Web) -->
+                <div class="card affiliate-incogni-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.14) 100%); border: 1px solid rgba(16, 185, 129, 0.35);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 24px;">🛡️</span>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">DATA DEFENSE</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 8px 0;">Delete Personal Info & Dark Web</h3>
+                    <p style="color: #cbd5e1; font-size: 13px; margin: 0 0 16px 0; line-height: 1.45;">
+                        Shared phone numbers or photos? Automatically scrub your records from 180+ data brokers and monitor identity leaks.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            🛡️ Remove My Data (Incogni - 50% Off) ➔
+                        </a>
+                        <a href="https://tracking.omniwatch.com/?a=1634&oc=90&c=17316830" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            👁️ 24/7 Dark Web Identity Monitor (OmniWatch) ➔
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Match.com & OurTime (Verified Safe Dating) -->
+                <div class="card affiliate-match-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(219, 39, 119, 0.14) 100%); border: 1px solid rgba(236, 72, 153, 0.35);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 24px;">💖</span>
+                        <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">VERIFIED DATING</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 8px 0;">Meet Genuine, Verified Singles</h3>
+                    <p style="color: #cbd5e1; font-size: 13px; margin: 0 0 16px 0; line-height: 1.45;">
+                        Tired of catfish bots and scammers? Switch to moderated dating networks with official ID and photo verification.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            💖 Meet Verified Singles (Match.com Free Trial) ➔
+                        </a>
+                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=15006955" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            👵 Safe 50+ Mature Matchmaking (OurTime) ➔
+                        </a>
+                    </div>
+                </div>
+
             </div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
-                Avoid unmoderated apps and social media romance traps. <strong>Match.com</strong> is the world's leading ID-verified dating network with active profile moderation, photo verification, and background safety tools.
-            </p>
-            <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
-                <span>💖 Meet Real Verified Singles on Match.com (Free Trial) ➔</span>
-            </a>
         </div>
 
         <footer style="text-align: center; color: #64748b; font-size: 12px; margin-top: 40px;">
