@@ -5348,16 +5348,59 @@ async def api_v1_documentation():
             overflow-x: auto;
         }
         .tag { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; display: block; }
+        .nav-btn-pricing, .nav-btn-widget, .nav-btn-pypi, .nav-btn-dating, .nav-logo-btn {
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer !important;
+        }
+        .nav-logo-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+        .nav-logo-btn:hover .logo-shield-mini {
+            filter: drop-shadow(0 0 16px rgba(56,189,248,1)) !important;
+            transform: scale(1.15);
+        }
+        .nav-btn-pricing:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(16, 185, 129, 0.35) !important;
+            border-color: #10b981 !important;
+            box-shadow: 0 0 22px rgba(16, 185, 129, 0.8), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-widget:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(168, 85, 247, 0.35) !important;
+            border-color: #a855f7 !important;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.8), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-pypi:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(56, 189, 248, 0.35) !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.85), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-dating:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(236, 72, 153, 0.35) !important;
+            border-color: #ec4899 !important;
+            box-shadow: 0 0 22px rgba(236, 72, 153, 0.85), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; flex-wrap: wrap; gap: 12px;">
-            <a href="/" style="color: #fff; font-weight: 800; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 18px;">🛡️ IsBrokerSafe</a>
-            <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
-                <a href="/pricing" class="nav-btn-glow" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">💳 Pricing Plans</a>
-                <a href="/widget" class="nav-btn-glow" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">🛡️ Trust Widget</a>
-                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" class="pypi-btn-glow" style="background: rgba(56,189,248,0.15); color: var(--cyan); border: 1px solid rgba(56,189,248,0.3); padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 12.5px; font-weight: 700; transition: all 0.25s;">🐍 PyPI SDK ↗</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; flex-wrap: wrap; gap: 12px;">
+            <a href="/" class="nav-logo-btn" style="color: #fff; font-weight: 800; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 18px; display: inline-flex; align-items: center; gap: 8px;">
+                <span class="logo-shield-mini" style="color: #38bdf8; font-size: 20px; transition: all 0.3s;">🛡️</span> IsBrokerSafe
+            </a>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <a href="/pricing" class="nav-btn-pricing" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">💳 Pricing Plans</a>
+                <a href="/widget" class="nav-btn-widget" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">🛡️ Trust Widget</a>
+                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" class="nav-btn-pypi" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">🐍 PyPI SDK ↗</a>
+                <a href="https://verifydating.net/" target="_blank" class="nav-btn-dating" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">❤️ VerifyDating ↗</a>
             </div>
         </div>
         <div class="header">
