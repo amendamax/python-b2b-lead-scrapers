@@ -5718,7 +5718,7 @@ async def get_pricing_page():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IsBrokerSafe Pricing | Commercial Threat Intelligence & Verification API</title>
+    <title>IsBrokerSafe Pricing | Commercial Threat Intelligence & 4-Tier Plans</title>
     <meta name="description" content="Flexible pricing plans for FinTechs, Crypto Wallets, and Review Portals. Real-time regulatory license verification and fraud screening API.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -5730,6 +5730,7 @@ async def get_pricing_page():
             --primary: #38bdf8;
             --primary-glow: rgba(56, 189, 248, 0.4);
             --success: #10b981;
+            --purple: #a855f7;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -5746,7 +5747,7 @@ async def get_pricing_page():
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1320px;
             margin: 0 auto;
         }
 
@@ -5758,7 +5759,7 @@ async def get_pricing_page():
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            margin-bottom: 50px;
+            margin-bottom: 45px;
         }
 
         .logo-box {
@@ -5798,7 +5799,7 @@ async def get_pricing_page():
 
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 45px;
         }
 
         .header h1 {
@@ -5813,32 +5814,35 @@ async def get_pricing_page():
 
         .header p {
             color: var(--text-muted);
-            font-size: 17px;
-            max-width: 700px;
+            font-size: 16.5px;
+            max-width: 750px;
             margin: 0 auto;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             margin-bottom: 60px;
         }
 
-        @media (max-width: 950px) {
+        @media (max-width: 1100px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 650px) {
             .pricing-grid { grid-template-columns: 1fr; }
         }
 
         .plan-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 32px 28px;
+            border-radius: 18px;
+            padding: 28px 22px;
             display: flex;
             flex-direction: column;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
 
         .plan-card:hover {
@@ -5859,9 +5863,24 @@ async def get_pricing_page():
             transform: translateX(-50%);
             background: var(--primary);
             color: #000;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
-            padding: 4px 14px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-scale {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 3px 12px;
             border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -5869,66 +5888,69 @@ async def get_pricing_page():
 
         .plan-name {
             font-family: 'Outfit', sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             margin-bottom: 6px;
         }
 
         .plan-desc {
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-muted);
-            margin-bottom: 24px;
-            min-height: 38px;
+            margin-bottom: 20px;
+            min-height: 36px;
+            line-height: 1.4;
         }
 
         .plan-price {
             display: flex;
             align-items: baseline;
             gap: 4px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .price-num {
             font-family: 'Outfit', sans-serif;
-            font-size: 44px;
+            font-size: 40px;
             font-weight: 900;
             color: #fff;
         }
 
         .price-period {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .feature-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 32px;
+            gap: 10px;
+            margin-bottom: 28px;
             flex: 1;
         }
 
         .feature-item {
-            font-size: 13.5px;
+            font-size: 12.5px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: #e2e8f0;
+            line-height: 1.4;
         }
 
         .feature-item i {
             color: var(--success);
-            font-size: 14px;
+            font-size: 13px;
+            flex-shrink: 0;
         }
 
         .btn-plan {
             display: block;
             text-align: center;
-            padding: 13px 20px;
+            padding: 12px 16px;
             border-radius: 10px;
             font-weight: 800;
-            font-size: 14.5px;
+            font-size: 13.5px;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s;
@@ -5946,9 +5968,16 @@ async def get_pricing_page():
         .btn-featured {
             background: var(--primary);
             color: #000;
-            box-shadow: 0 4px 20px var(--primary-glow);
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
         .btn-featured:hover { transform: scale(1.02); }
+
+        .btn-scale {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+        .btn-scale:hover { transform: scale(1.02); }
 
         .btn-enterprise {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -5976,68 +6005,87 @@ async def get_pricing_page():
     </div>
 
     <div class="pricing-grid">
-        <!-- Developer Free Tier -->
+        <!-- 1. Developer Free Tier -->
         <div class="plan-card">
-            <div class="plan-name">Developer Sandbox</div>
-            <div class="plan-desc">For testing, hackathons, and individual developers.</div>
+            <div class="plan-name">Developer Free</div>
+            <div class="plan-desc">For testing, sandbox benchmarks, and individual developers.</div>
             <div class="plan-price">
                 <span class="price-num">$0</span>
                 <span class="price-period">/ forever</span>
             </div>
             <ul class="feature-list">
                 <li class="feature-item"><i class="fa-solid fa-check"></i> 100 Requests / month</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Official Python SDK (pip install)</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Interactive Swagger Sandbox</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> 14,600+ Global Regulatory Records</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Sub-50ms Global Response Time</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Official Python SDK (PyPI)</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Swagger Interactive Sandbox</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> 14,600+ Global Watchdogs</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Sub-50ms Response Time</li>
             </ul>
             <a href="/api/v1/docs" class="btn-plan btn-free">Generate Free Key</a>
         </div>
 
-        <!-- Pro Business Tier -->
+        <!-- 2. Pro Business Tier -->
         <div class="plan-card featured">
             <div class="badge-popular">Most Popular</div>
             <div class="plan-name">Pro Business</div>
-            <div class="plan-desc">For Forex review portals, crypto wallets, and SaaS apps.</div>
+            <div class="plan-desc">For Forex review blogs, media sites, and single applications.</div>
             <div class="plan-price">
                 <span class="price-num">$49</span>
                 <span class="price-period">/ month</span>
             </div>
             <ul class="feature-list">
-                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>10,000 Requests / month</strong></li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Automated Real-Time License Audit</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> WHOIS Domain Forensic Inspection</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Embeddable Trust Badge Widget</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Webhook Alert Notifications</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>10,000 Requests / mo</strong></li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Automated Real-Time Audits</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> WHOIS Forensic Inspection</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Embeddable Trust Badge</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Webhook Alert Feeds</li>
                 <li class="feature-item"><i class="fa-solid fa-check"></i> 99.9% Uptime Guarantee</li>
             </ul>
-            <a href="mailto:support@isbrokersafe.com?subject=Upgrade%20to%20Pro%20Plan%20($49/mo)&body=Hello%20IsBrokerSafe%20Team,%0A%0AI%20would%20like%20to%20upgrade%20my%20API%20account%20to%20the%20Pro%20Business%20Plan%20($49/month).%0A%0ACompany%20Name:%20%0AWebsite:%20%0ABilling%20Email:%20" class="btn-plan btn-featured">Upgrade to Pro ($49/mo)</a>
+            <a href="mailto:support@isbrokersafe.com?subject=Upgrade%20to%20Pro%20Plan%20($49/mo)&body=Hello%20IsBrokerSafe%20Team,%0A%0AI%20would%20like%20to%20upgrade%20to%20the%20Pro%20Business%20Plan%20($49/month).%0A%0ACompany%20Name:%20%0AWebsite:%20%0ABilling%20Email:%20" class="btn-plan btn-featured">Upgrade to Pro ($49/mo)</a>
         </div>
 
-        <!-- Enterprise Tier -->
+        <!-- 3. Scale Growth Tier ($99/mo) -->
+        <div class="plan-card" style="border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);">
+            <div class="badge-scale">Best Value</div>
+            <div class="plan-name" style="color: #c084fc;">Scale Growth</div>
+            <div class="plan-desc">For crypto wallets, high-traffic portals, and active Web3 gateways.</div>
+            <div class="plan-price">
+                <span class="price-num">$99</span>
+                <span class="price-period">/ month</span>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>40,000 Requests / mo</strong></li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Pre-Deposit Fraud Screening</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Multi-Key Management</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> High-Rate Limits (50 req/s)</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Daily Threat Feed Sync</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Priority Email Support</li>
+            </ul>
+            <a href="mailto:support@isbrokersafe.com?subject=Upgrade%20to%20Scale%20Growth%20Plan%20($99/mo)&body=Hello%20IsBrokerSafe%20Team,%0A%0AWe%20would%20like%20to%20activate%20the%20Scale%20Growth%20Plan%20($99/month).%0A%0ACompany%20Name:%20%0AWebsite:%20%0ABilling%20Email:%20" class="btn-plan btn-scale">Get Scale ($99/mo)</a>
+        </div>
+
+        <!-- 4. Enterprise Tier -->
         <div class="plan-card">
             <div class="plan-name">Enterprise & Web3</div>
-            <div class="plan-desc">For high-volume payment gateways, AML SaaS, and exchanges.</div>
+            <div class="plan-desc">For tier-1 payment processors, AML SaaS, and global exchanges.</div>
             <div class="plan-price">
                 <span class="price-num">$199</span>
                 <span class="price-period">/ month</span>
             </div>
             <ul class="feature-list">
-                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>100,000 Requests / month</strong></li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Raw Blacklist Stream (JSON / CSV Feed)</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Custom White-Label Trust Badges</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Pre-Deposit Fraud Screening API</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Dedicated Account Manager & SLA</li>
-                <li class="feature-item"><i class="fa-solid fa-check"></i> Custom Endpoint Rate Limit Expansion</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>100,000 Requests / mo</strong></li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Raw Blacklist Feed (JSON/CSV)</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> White-Label Custom Badges</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Custom Endpoints & Datasets</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Dedicated Account Manager</li>
+                <li class="feature-item"><i class="fa-solid fa-check"></i> Custom SLA & Legal Contract</li>
             </ul>
-            <a href="mailto:support@isbrokersafe.com?subject=Enterprise%20API%20Subscription%20($199/mo)&body=Hello%20IsBrokerSafe%20Team,%0A%0AWe%20are%20interested%20in%20the%20Enterprise%20API%20Plan%20($199/month)%20with%20custom%20data%20streams.%0A%0ACompany%20Name:%20%0AContact%20Person:%20%0AMonthly%20Volume%20Estimate:%20" class="btn-plan btn-enterprise">Get Enterprise ($199/mo)</a>
+            <a href="mailto:support@isbrokersafe.com?subject=Enterprise%20API%20Subscription%20($199/mo)&body=Hello%20IsBrokerSafe%20Team,%0A%0AWe%20are%20interested%20in%20the%20Enterprise%20API%20Plan%20($199/month).%0A%0ACompany%20Name:%20%0AContact%20Person:%20%0AMonthly%20Volume%20Estimate:%20" class="btn-plan btn-enterprise">Get Enterprise ($199/mo)</a>
         </div>
     </div>
 </div>
 </body>
 </html>"""
     return HTMLResponse(content=html_pricing, status_code=200)
-
 
 
 @app.get("/audit/{domain_or_slug}")
