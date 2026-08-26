@@ -5859,58 +5859,109 @@ async def get_dating_badge_customizer_page():
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 240px;
+            min-height: 250px;
             margin-bottom: 24px;
         }
 
-        /* Dynamic Emblem Component */
-        .dating-emblem-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, rgba(22, 13, 36, 0.95) 0%, rgba(9, 6, 16, 0.98) 100%);
+        /* Full Emblem Card Component */
+        .emblem-card-box {
+            background: linear-gradient(135deg, rgba(22, 13, 36, 0.98) 0%, rgba(9, 6, 16, 0.99) 100%);
             border: 1.5px solid #ec4899;
-            border-radius: 14px;
-            padding: 12px 20px;
+            border-radius: 16px;
+            padding: 18px 22px;
             box-shadow: 0 0 25px rgba(236, 72, 153, 0.4), 0 8px 24px rgba(0,0,0,0.6);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             text-decoration: none;
+            max-width: 380px;
+            width: 100%;
         }
 
-        .dating-emblem-badge:hover {
-            transform: translateY(-3px) scale(1.03);
+        .emblem-card-box:hover {
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 0 35px rgba(236, 72, 153, 0.75), 0 12px 30px rgba(0,0,0,0.8);
         }
 
-        .emblem-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.25) 0%, rgba(190, 24, 93, 0.4) 100%);
-            border: 1px solid #ec4899;
-            color: #f472b6;
+        .emblem-top-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 18px;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .emblem-info h4 {
+        .emblem-brand {
             font-family: 'Outfit', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
-            color: #fff;
-            margin: 0;
-            display: flex;
+            color: #ffffff;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
         }
 
-        .emblem-info p {
-            font-size: 11px;
-            color: #94a3b8;
+        .emblem-brand span { color: #ec4899; }
+
+        .emblem-pill-live {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .emblem-main-body {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .emblem-shield-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.25) 0%, rgba(190, 24, 93, 0.4) 100%);
+            border: 1.5px solid #ec4899;
+            color: #f472b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .emblem-meta h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+
+        .emblem-meta p {
+            font-size: 11.5px;
+            color: #cbd5e1;
             margin: 2px 0 0 0;
+        }
+
+        .emblem-bottom-footer {
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+
+        .emblem-bottom-footer strong {
+            color: #38bdf8;
+            letter-spacing: 0.3px;
         }
 
         .code-box {
@@ -5925,7 +5976,7 @@ async def get_dating_badge_customizer_page():
         .code-box pre {
             color: #38bdf8;
             font-family: monospace;
-            font-size: 12.5px;
+            font-size: 12px;
             white-space: pre-wrap;
             word-break: break-all;
         }
@@ -5973,7 +6024,7 @@ async def get_dating_badge_customizer_page():
         <!-- Header -->
         <div class="header">
             <h1>Official <span>Dating Safety Emblem</span> Generator</h1>
-            <p>Embed our real-time AI biometric verification badge on your dating profile, social bio, personal site, or community platform to prove your photos are 100% genuine and verified.</p>
+            <p>Embed our real-time AI biometric verification seal on your dating profile, social bio, blog, or community platform to prove your photos are 100% genuine and verified by <strong>VerifyDating.net</strong>.</p>
         </div>
 
         <!-- Main Grid -->
@@ -6008,10 +6059,10 @@ async def get_dating_badge_customizer_page():
                 </div>
 
                 <div class="form-group">
-                    <label>Display Format</label>
+                    <label>Emblem Layout Style</label>
                     <select id="cfg-format" onchange="updatePreview()">
-                        <option value="pill">Compact Interactive Badge</option>
-                        <option value="full">Full Verification Certificate Box</option>
+                        <option value="card">Full Verification Seal Card (With Site Brand & URL)</option>
+                        <option value="pill">Compact Interactive Pill Badge</option>
                     </select>
                 </div>
             </div>
@@ -6021,11 +6072,24 @@ async def get_dating_badge_customizer_page():
                 <h3 class="card-title"><i class="fa-solid fa-eye" style="color: #38bdf8;"></i> Live Interactive Preview</h3>
                 
                 <div class="preview-box">
-                    <a id="preview-badge" href="https://verifydating.net/" target="_blank" class="dating-emblem-badge">
-                        <div class="emblem-icon" id="preview-icon"><i class="fa-solid fa-shield-heart"></i></div>
-                        <div class="emblem-info">
-                            <h4 id="preview-title">Sarah Jenkins <span style="color: #10b981; font-size: 11px;">✓ VERIFIED</span></h4>
-                            <p id="preview-desc">AI Biometric Face-Verified · 100% Genuine</p>
+                    <!-- Full Card Preview -->
+                    <a id="preview-badge-card" href="https://verifydating.net/" target="_blank" rel="noopener" class="emblem-card-box">
+                        <div class="emblem-top-header">
+                            <div class="emblem-brand">
+                                🛡️ Verify<span>Dating</span>.net
+                            </div>
+                            <span class="emblem-pill-live">✓ VERIFIED 2026</span>
+                        </div>
+                        <div class="emblem-main-body">
+                            <div class="emblem-shield-icon" id="preview-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                            <div class="emblem-meta">
+                                <h4 id="preview-title">Sarah Jenkins</h4>
+                                <p id="preview-desc">AI Biometric Face-Verified · 100% Genuine</p>
+                            </div>
+                        </div>
+                        <div class="emblem-bottom-footer">
+                            <span>Official Trust Seal</span>
+                            <strong>verifydating.net ↗</strong>
                         </div>
                     </a>
                 </div>
@@ -6059,11 +6123,12 @@ async def get_dating_badge_customizer_page():
         function updatePreview() {
             const name = document.getElementById('cfg-name').value || 'Verified Member';
             const type = document.getElementById('cfg-type').value;
+            const format = document.getElementById('cfg-format').value;
             const tc = themeColors[currentTheme];
 
-            const badge = document.getElementById('preview-badge');
-            badge.style.borderColor = tc.border;
-            badge.style.boxShadow = `0 0 25px ${tc.glow}, 0 8px 24px rgba(0,0,0,0.6)`;
+            const card = document.getElementById('preview-badge-card');
+            card.style.borderColor = tc.border;
+            card.style.boxShadow = `0 0 25px ${tc.glow}, 0 8px 24px rgba(0,0,0,0.6)`;
 
             const icon = document.getElementById('preview-icon');
             icon.style.borderColor = tc.border;
@@ -6074,16 +6139,37 @@ async def get_dating_badge_customizer_page():
             if (type === 'scam_shield') descText = "Monitored by VerifyDating™ Neural Engine";
             if (type === 'genuine_seal') descText = "Certified Real Identity · 0% Deepfake Risk";
 
-            document.getElementById('preview-title').innerHTML = `${name} <span style="color: #10b981; font-size: 11px;">✓ VERIFIED</span>`;
+            document.getElementById('preview-title').textContent = name;
             document.getElementById('preview-desc').textContent = descText;
 
-            const snippet = `<a href="https://verifydating.net/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0d0614;border:1.5px solid ${tc.border};border-radius:12px;padding:10px 16px;color:#fff;text-decoration:none;font-family:sans-serif;box-shadow:0 0 15px ${tc.glow};">
-  <span style="color:${tc.iconColor};font-size:18px;">🛡️</span>
-  <div>
-    <strong style="font-size:13px;display:block;">${name} <span style="color:#10b981;">✓ VERIFIED</span></strong>
-    <small style="font-size:10.5px;color:#94a3b8;">${descText}</small>
+            let snippet = '';
+            if (format === 'card') {
+                snippet = `<!-- VerifyDating Official Safety Seal -->
+<a href="https://verifydating.net/" target="_blank" rel="noopener" style="display:inline-block;background:#0d0614;border:1.5px solid ${tc.border};border-radius:14px;padding:14px 18px;color:#fff;text-decoration:none;font-family:sans-serif;box-shadow:0 0 20px ${tc.glow};max-width:340px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:6px;margin-bottom:8px;font-size:11px;font-weight:700;">
+    <span>🛡️ Verify<span style="color:${tc.border};">Dating</span>.net</span>
+    <span style="color:#10b981;">✓ VERIFIED 2026</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="color:${tc.iconColor};font-size:22px;">🛡️</span>
+    <div>
+      <strong style="font-size:13.5px;display:block;">${name}</strong>
+      <small style="font-size:11px;color:#cbd5e1;">${descText}</small>
+    </div>
+  </div>
+  <div style="margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;">
+    <span>Official Trust Seal</span>
+    <span style="color:#38bdf8;font-weight:700;">verifydating.net ↗</span>
   </div>
 </a>`;
+            } else {
+                snippet = `<!-- VerifyDating Compact Pill Emblem -->
+<a href="https://verifydating.net/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0d0614;border:1.5px solid ${tc.border};border-radius:20px;padding:8px 16px;color:#fff;text-decoration:none;font-family:sans-serif;box-shadow:0 0 15px ${tc.glow};">
+  <span style="color:${tc.iconColor};font-size:16px;">🛡️</span>
+  <strong style="font-size:12.5px;">${name} <span style="color:#10b981;">✓ VERIFIED</span></strong>
+  <span style="color:#38bdf8;font-size:11px;border-left:1px solid rgba(255,255,255,0.2);padding-left:8px;">verifydating.net</span>
+</a>`;
+            }
 
             document.getElementById('embed-code').textContent = snippet;
         }
@@ -6091,7 +6177,7 @@ async def get_dating_badge_customizer_page():
         function copyEmbedCode() {
             const code = document.getElementById('embed-code').textContent;
             navigator.clipboard.writeText(code).then(() => {
-                alert('✓ Verification Emblem embed code copied to clipboard!');
+                alert('✓ Official VerifyDating Emblem embed code copied to clipboard!');
             });
         }
 
