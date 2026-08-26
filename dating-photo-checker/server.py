@@ -4592,6 +4592,30 @@ def check_and_increment_api_quota(request: Request, api_key: str = None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
+    try:
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS api_keys (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                key TEXT UNIQUE,
+                email TEXT,
+                tier TEXT DEFAULT 'free',
+                monthly_quota INTEGER DEFAULT 100,
+                usage_count INTEGER DEFAULT 0,
+                is_active INTEGER DEFAULT 1,
+                created_at TEXT
+            )
+        """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS api_ip_usage (
+                ip TEXT PRIMARY KEY,
+                usage_count INTEGER DEFAULT 0,
+                last_used TEXT
+            )
+        """)
+        conn.commit()
+    except Exception:
+        pass
+    
     if key:
         cursor.execute("SELECT id, email, tier, monthly_quota, usage_count, is_active FROM api_keys WHERE key = ?", (key,))
         row = cursor.fetchone()
@@ -4617,24 +4641,30 @@ def check_and_increment_api_quota(request: Request, api_key: str = None):
         return {"tier": tier, "limit": quota, "remaining": max(0, quota - (usage + 1)), "used": usage + 1}
     else:
         # Anonymous IP trial (100 free requests)
-        cursor.execute("SELECT usage_count FROM api_ip_usage WHERE ip = ?", (client_ip,))
-        row = cursor.fetchone()
-        if row:
-            usage = row[0]
-            if usage >= 100:
-                conn.close()
-                raise HTTPException(
-                    status_code=429,
-                    detail="Anonymous 100 Free Requests limit reached! Generate your free API key or upgrade to Pro at https://isbrokersafe.com/api/v1/docs"
-                )
-            cursor.execute("UPDATE api_ip_usage SET usage_count = usage_count + 1, last_used = ? WHERE ip = ?", (datetime.now().isoformat(), client_ip))
-        else:
-            usage = 0
-            cursor.execute("INSERT INTO api_ip_usage (ip, usage_count, last_used) VALUES (?, 1, ?)", (client_ip, datetime.now().isoformat()))
-            
-        conn.commit()
-        conn.close()
-        return {"tier": "anonymous_trial", "limit": 100, "remaining": max(0, 100 - (usage + 1)), "used": usage + 1}
+        try:
+            cursor.execute("SELECT usage_count FROM api_ip_usage WHERE ip = ?", (client_ip,))
+            row = cursor.fetchone()
+            if row:
+                usage = row[0]
+                if usage >= 100:
+                    conn.close()
+                    raise HTTPException(
+                        status_code=429,
+                        detail="Anonymous 100 Free Requests limit reached! Generate your free API key or upgrade to Pro at https://isbrokersafe.com/api/v1/docs"
+                    )
+                cursor.execute("UPDATE api_ip_usage SET usage_count = usage_count + 1, last_used = ? WHERE ip = ?", (datetime.now().isoformat(), client_ip))
+            else:
+                usage = 0
+                cursor.execute("INSERT INTO api_ip_usage (ip, usage_count, last_used) VALUES (?, 1, ?)", (client_ip, datetime.now().isoformat()))
+                
+            conn.commit()
+            conn.close()
+            return {"tier": "anonymous_trial", "limit": 100, "remaining": max(0, 100 - (usage + 1)), "used": usage + 1}
+        except HTTPException:
+            raise
+        except Exception:
+            conn.close()
+            return {"tier": "anonymous_trial", "limit": 100, "remaining": 99, "used": 1}
 
 @app.post("/api/v1/keys/generate")
 async def generate_api_key(request: Request):
