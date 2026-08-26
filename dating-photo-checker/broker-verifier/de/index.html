@@ -32,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Broker-Legitimitätsprüfer - Bedrohungsanalyse für Cybersicherheit</title>
     <meta name="description" content="Überprüfen Sie sofort, ob ein Forex-, CFD- oder Krypto-Broker seriös oder ein potenzieller Betrug ist. Echtzeit-Vertrauensbewertung und detaillierte Risikofaktorenanalyse.">
-    <link rel="stylesheet" href="/broker-verifier/style.css?v=1787763564">
+    <link rel="stylesheet" href="/broker-verifier/broker-verifier/style.css?v=1787763780">
     <!-- FontAwesome Icons for support buttons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
@@ -51,6 +51,71 @@
     <meta property="twitter:title" content="BrokerVerifier 2026 - Offizieller Broker-Sicherheits- & Lizenz-Audit">
     <meta property="twitter:description" content="Überprüfen Sie Regulierung, FCA/CySEC-Lizenzen, Domain-Alter und Sicherheits-Rating von Brokern in Echtzeit.">
     <meta property="twitter:image" content="https://isbrokersafe.com/og_image.png">
+
+    <!-- Critical Mobile Viewport & Grid Protection -->
+    <style>
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            box-sizing: border-box !important;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit !important;
+        }
+        .b2b-api-section, .broker-b2b-section, .hero-box, .app-container {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+        .broker-b2b-actions-grid, .b2b-actions-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 12px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .btn-broker-api,
+        .btn-broker-pricing,
+        .btn-broker-widget,
+        .btn-broker-pypi {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            min-width: 0 !important;
+            white-space: normal !important;
+        }
+        @media (max-width: 900px) {
+            .broker-b2b-actions-grid, .b2b-actions-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .b2b-api-section, .broker-b2b-section {
+                padding: 20px 14px !important;
+                margin: 25px 0 !important;
+                border-radius: 16px !important;
+            }
+            .broker-b2b-actions-grid, .b2b-actions-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+            .btn-broker-api,
+            .btn-broker-pricing,
+            .btn-broker-widget,
+            .btn-broker-pypi {
+                width: 100% !important;
+                padding: 13px 14px !important;
+                font-size: 14px !important;
+            }
+        }
+    </style>
+
 </head>
 <body>
 
