@@ -2402,3 +2402,62 @@ body {
 .logo-link:hover .logo span {
     text-shadow: 0 0 25px rgba(56, 189, 248, 0.9) !important;
 }
+
+
+/* ==========================================================================
+   ENHANCED MOBILE RESPONSIVE B2B ACTION GRID (BROKERVERIFIER)
+   ========================================================================== */
+.b2b-api-section, .broker-b2b-section {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+.broker-b2b-actions-grid, .b2b-actions-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.btn-broker-api,
+.btn-broker-pricing,
+.btn-broker-widget,
+.btn-broker-pypi,
+.btn-broker-dating {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+@media (max-width: 992px) {
+    .broker-b2b-actions-grid, .b2b-actions-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .b2b-api-section, .broker-b2b-section {
+        padding: 22px 14px !important;
+        border-radius: 16px !important;
+        margin: 30px 0 25px 0 !important;
+    }
+    .broker-b2b-actions-grid, .b2b-actions-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    .btn-broker-api,
+    .btn-broker-pricing,
+    .btn-broker-widget,
+    .btn-broker-pypi,
+    .btn-broker-dating {
+        padding: 12px 14px !important;
+        font-size: 13.5px !important;
+    }
+}
