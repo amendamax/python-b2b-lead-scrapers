@@ -2115,6 +2115,47 @@ body {
     transform: translateY(-3px);
 }
 
+/* ==========================================================================
+   CINEMATIC SCANNING FOCUS ZOOM & RADAR PULSE (PC & MOBILE)
+   ========================================================================== */
+@keyframes scanFocusZoomAnimation {
+    0% {
+        transform: scale(0.96);
+        filter: brightness(0.9);
+        box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+    }
+    40% {
+        transform: scale(1.025);
+        filter: brightness(1.08);
+        box-shadow: 0 15px 45px rgba(56, 189, 248, 0.35), 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+        box-shadow: none;
+    }
+}
+
+.scanning-active-pulse {
+    animation: scanFocusZoomAnimation 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform-origin: center top;
+}
+
+@keyframes terminalRadarGlow {
+    0%, 100% {
+        border-color: rgba(56, 189, 248, 0.3);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    50% {
+        border-color: #38bdf8;
+        box-shadow: 0 0 35px rgba(56, 189, 248, 0.55), 0 0 15px rgba(56, 189, 248, 0.35);
+    }
+}
+
+.scanner-console-card.scanning-active {
+    animation: terminalRadarGlow 1.5s infinite ease-in-out;
+}
+
 .nav-broker-glow:hover i {
     color: #ffffff !important;
     transform: scale(1.15);

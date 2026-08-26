@@ -1511,8 +1511,19 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
     scoreGauge.style.strokeDashoffset = 440;
     scoreText.textContent = "---";
 
-    // Automatically smoothly focus and scroll directly to dashboard view / threat terminal
-    smoothScrollTo(window.innerWidth <= 850 ? "#dashboard-view" : ".threat-scanner-card", 20);
+    // Automatically smoothly focus and scroll directly to dashboard view / threat terminal with cinematic zoom
+    const dashboard = document.getElementById("dashboard-view");
+    if (dashboard) {
+        dashboard.classList.remove("scanning-active-pulse");
+        void dashboard.offsetWidth; // Force CSS animation reflow
+        dashboard.classList.add("scanning-active-pulse");
+        smoothScrollTo(dashboard, window.innerWidth <= 850 ? 30 : 80);
+    }
+
+    const scannerConsole = document.querySelector(".scanner-console-card");
+    if (scannerConsole) {
+        scannerConsole.classList.add("scanning-active");
+    }
 
     let payload = {
         name: brokerName,
@@ -1535,6 +1546,9 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
 
         // Run logs animation sequence, then load results
         runThreatScan(brokerName, brokerDomain, data.score, data, () => {
+            if (scannerConsole) {
+                scannerConsole.classList.remove("scanning-active");
+            }
             fetchResults(data.scan_id);
         });
 
