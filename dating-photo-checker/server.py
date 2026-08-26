@@ -4448,7 +4448,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.4;">
                             {t['vpn_desc']}
                         </p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                             <a href="https://isbrokersafe.com/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center;">
                                 🛡️ NordVPN (-72%) ↗
                             </a>
@@ -4456,6 +4456,9 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 🦈 Surfshark (-82%) ↗
                             </a>
                         </div>
+                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" style="display: block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 10px 14px; color: #6ee7b7; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center;">
+                            🛡️ Delete Your Phone & Email from Scammer Data Brokers (Incogni) ➔
+                        </a>
                     </div>
 
                     <!-- Dating Cross-Promotion Card -->
@@ -5847,6 +5850,26 @@ async def dating_scammer_profile_dossier(slug: str):
                 <a href="https://verifydating.net/" class="btn-cta">📷 Run Free Biometric Photo Scan ➔</a>
                 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Dossier+{slug}&no_shipping=1&landing_page=billing" target="_blank" class="btn-pdf">📄 Download Official PDF Report ($2.99)</a>
             </div>
+        </div>
+
+        <!-- Incogni Privacy & Scammer Data Removal Affiliate Card -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 132, 199, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">🛡️</span>
+                    <div>
+                        <h3 style="margin: 0; font-family: 'Outfit'; font-size: 18px; color: #fff; font-weight: 800;">Did You Share Personal Info, Phone, or Photos with a Scammer?</h3>
+                        <p style="margin: 4px 0 0 0; color: #38bdf8; font-size: 12px; font-weight: 700;">OFFICIAL DATA PRIVACY & IDENTITY DEFENSE</p>
+                    </div>
+                </div>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800;">VERIFIED PARTNER</span>
+            </div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
+                Romance scammers and cybercriminals trade stolen phone numbers, personal emails, and home addresses across 180+ commercial data broker networks. <strong>Incogni</strong> automatically deletes your personal records from broker registries, preventing identity theft and relentless scam attempts.
+            </p>
+            <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);">
+                <span>🛡️ Delete Your Personal Data with Incogni (50% Off Exclusive) ➔</span>
+            </a>
         </div>
 
         <footer style="text-align: center; color: #64748b; font-size: 12px; margin-top: 40px;">
