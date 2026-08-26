@@ -5586,6 +5586,51 @@ async def admin_seed_dating_scams():
     except Exception as e:
         return JSONResponse({"status": "error", "message": str(e)}, status_code=500)
 
+@app.get("/api/dating/scammers")
+async def api_dating_scammers(limit: int = 6, q: str = None):
+    """
+    JSON API for Live Dating Scammers Preview and Interactive Instant Search.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
+    total_count = cursor.fetchone()[0]
+    
+    if total_count == 0:
+        conn.close()
+        try:
+            from dating_scams_harvester import generate_dating_scam_dossiers
+            generate_dating_scam_dossiers(10000)
+        except Exception as e:
+            print(f"[OnDemand Seed Exception]: {e}")
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+    query_str = "SELECT slug, persona_name, gender, scam_category, claimed_age, claimed_profession, risk_score, views_count, first_reported_date FROM dating_scam_profiles WHERE 1=1"
+    params = []
+    if q:
+        query_str += " AND (persona_name LIKE ? OR claimed_profession LIKE ? OR scam_category LIKE ?)"
+        params.extend([f"%{q}%", f"%{q}%", f"%{q}%"])
+    query_str += f" ORDER BY id DESC LIMIT {min(max(1, limit), 50)}"
+    cursor.execute(query_str, params)
+    rows = cursor.fetchall()
+    conn.close()
+    
+    results = []
+    for r in rows:
+        results.append({
+            "slug": r[0],
+            "persona_name": r[1],
+            "gender": r[2],
+            "scam_category": r[3],
+            "claimed_age": r[4],
+            "claimed_profession": r[5],
+            "risk_score": r[6],
+            "views_count": r[7],
+            "first_reported_date": r[8]
+        })
+    return JSONResponse({"status": "success", "total_profiles": total_count, "results": results})
+
 @app.get("/sitemap-dating-scams.xml")
 async def sitemap_dating_scams():
     """

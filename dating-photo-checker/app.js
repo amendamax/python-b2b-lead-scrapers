@@ -1886,5 +1886,68 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
         if (riskBannerEl) riskBannerEl.style.display = 'flex';
         if (resultsBodyEl) resultsBodyEl.style.display = 'block';
     }
+
+    // ==========================================================================
+    // HOMEPAGE ROMANCE SCAMMER BLACKLIST PREVIEW & LIVE SEARCH
+    // ==========================================================================
+    const homepageScammersGrid = document.getElementById('homepage-scammers-grid');
+    const homepageScammerSearch = document.getElementById('homepage-scammer-search');
+
+    async function loadHomepageScammers(query = '') {
+        if (!homepageScammersGrid) return;
+        try {
+            const url = query ? `/api/dating/scammers?limit=6&q=${encodeURIComponent(query)}` : `/api/dating/scammers?limit=6`;
+            const resp = await fetch(url);
+            if (!resp.ok) return;
+            const data = await resp.json();
+            
+            if (!data.results || data.results.length === 0) {
+                homepageScammersGrid.innerHTML = `
+                    <div style="padding: 24px; text-align: center; color: #94a3b8; grid-column: 1 / -1;">
+                        No romance scam dossiers found matching "<strong>${query}</strong>". <a href="/scammers" style="color: #f472b6; font-weight: 700;">View full archive</a>.
+                    </div>
+                `;
+                return;
+            }
+
+            homepageScammersGrid.innerHTML = data.results.map(p => {
+                const genderIcon = p.gender === "Male" 
+                    ? '<i class="fa-solid fa-mars" style="color:#38bdf8;"></i>' 
+                    : '<i class="fa-solid fa-venus" style="color:#f472b6;"></i>';
+                
+                return `
+                    <div class="card affiliate-match-card" style="padding: 20px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <span style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">${p.scam_category}</span>
+                            <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">${p.risk_score}% CATFISH RISK</span>
+                        </div>
+                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 17px; color: #fff; margin: 0 0 6px 0;">${genderIcon} ${p.persona_name}</h3>
+                        <p style="color: #94a3b8; font-size: 13px; margin: 0 0 14px 0; line-height: 1.4;">Claimed: ${p.claimed_profession} (Age ${p.claimed_age})</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+                            <span style="color: #64748b; font-size: 11px;">👁️ ${p.views_count} Views</span>
+                            <a href="/scammer/${p.slug}" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700;">View Dossier ➔</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+        } catch (e) {
+            console.error("Failed to load homepage scammers:", e);
+        }
+    }
+
+    if (homepageScammersGrid) {
+        loadHomepageScammers();
+        
+        if (homepageScammerSearch) {
+            let debounceTimer;
+            homepageScammerSearch.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    loadHomepageScammers(e.target.value.trim());
+                }, 300);
+            });
+        }
+    }
 });
 
