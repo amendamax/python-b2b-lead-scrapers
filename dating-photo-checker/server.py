@@ -4456,7 +4456,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 🦈 Surfshark (-82%) ↗
                             </a>
                         </div>
-                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" style="display: block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 10px 14px; color: #6ee7b7; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center;">
+                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="affiliate-incogni-btn" style="display: block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 10px 14px; color: #6ee7b7; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer;">
                             🛡️ Delete Your Phone & Email from Scammer Data Brokers (Incogni) ➔
                         </a>
                     </div>
@@ -4473,7 +4473,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.4;">
                             {t['dating_desc']}
                         </p>
-                        <a href="{target_vd_url}" target="_blank" rel="noopener" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; text-align: center;">
+                        <a href="{target_vd_url}" target="_blank" rel="noopener" class="btn" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; text-align: center;">
                             <span>{t['dating_btn']}</span>
                         </a>
                     </div>
@@ -4497,6 +4497,26 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     </div>
 
     <style>
+    .affiliate-incogni-btn {{
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }}
+    .affiliate-incogni-btn:hover {{
+        transform: translateY(-3px) scale(1.01) !important;
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.55) 100%) !important;
+        border-color: #10b981 !important;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5), 0 0 18px rgba(16, 185, 129, 0.4) !important;
+        color: #ffffff !important;
+    }}
+    .btn:hover {{
+        transform: translateY(-2px) scale(1.02) !important;
+        filter: brightness(1.18) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+    }}
+    .in-result-dating-cross-card:hover {{
+        border-color: rgba(236, 72, 153, 0.7) !important;
+        box-shadow: 0 10px 30px rgba(236, 72, 153, 0.25) !important;
+        transform: translateY(-2px);
+    }}
     @media (max-width: 850px) {{
         .scam-dossier-grid {{
             grid-template-columns: 1fr !important;
@@ -5794,11 +5814,17 @@ async def dating_scammer_profile_dossier(slug: str):
         }}
         body {{ background: var(--bg); color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; padding: 30px 20px; line-height: 1.6; }}
         .container {{ max-width: 950px; margin: 0 auto; }}
-        .card {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }}
+        .card {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }}
+        .affiliate-incogni-card:hover {{ transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.7) !important; box-shadow: 0 15px 35px rgba(2, 132, 199, 0.35), 0 0 25px rgba(56, 189, 248, 0.2) !important; }}
+        .affiliate-match-card:hover {{ transform: translateY(-4px); border-color: rgba(236, 72, 153, 0.7) !important; box-shadow: 0 15px 35px rgba(236, 72, 153, 0.35), 0 0 25px rgba(236, 72, 153, 0.2) !important; }}
         .badge-danger {{ background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.35); padding: 5px 12px; border-radius: 8px; font-weight: 800; font-size: 12px; }}
         .badge-cat {{ background: rgba(236, 72, 153, 0.15); color: var(--pink); border: 1px solid rgba(236, 72, 153, 0.35); padding: 5px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; }}
-        .btn-cta {{ background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4); }}
-        .btn-pdf {{ background: #FFC439; color: #003087; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; }}
+        .btn-cta {{ background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }}
+        .btn-cta:hover {{ transform: translateY(-2px) scale(1.02); filter: brightness(1.2); box-shadow: 0 8px 24px rgba(236, 72, 153, 0.6); }}
+        .btn-pdf {{ background: #FFC439; color: #003087; font-family: 'Outfit'; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }}
+        .btn-pdf:hover {{ transform: translateY(-2px) scale(1.02); filter: brightness(1.15); box-shadow: 0 8px 20px rgba(255, 196, 57, 0.45); }}
+        .btn-affiliate {{ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }}
+        .btn-affiliate:hover {{ transform: translateY(-2px) scale(1.02); filter: brightness(1.2); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5); }}
     </style>
 </head>
 <body>
@@ -5853,7 +5879,7 @@ async def dating_scammer_profile_dossier(slug: str):
         </div>
 
         <!-- Incogni Privacy & Scammer Data Removal Affiliate Card -->
-        <div class="card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 132, 199, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); padding: 24px;">
+        <div class="card affiliate-incogni-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 132, 199, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); padding: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 24px;">🛡️</span>
@@ -5867,13 +5893,13 @@ async def dating_scammer_profile_dossier(slug: str):
             <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
                 Romance scammers and cybercriminals trade stolen phone numbers, personal emails, and home addresses across 180+ commercial data broker networks. <strong>Incogni</strong> automatically deletes your personal records from broker registries, preventing identity theft and relentless scam attempts.
             </p>
-            <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);">
+            <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);">
                 <span>🛡️ Delete Your Personal Data with Incogni (50% Off Exclusive) ➔</span>
             </a>
         </div>
 
         <!-- Match.com Safe Dating Alternative Card -->
-        <div class="card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.15) 100%); border: 1px solid rgba(236, 72, 153, 0.35); padding: 24px;">
+        <div class="card affiliate-match-card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.15) 100%); border: 1px solid rgba(236, 72, 153, 0.35); padding: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 24px;">💖</span>
@@ -5887,7 +5913,7 @@ async def dating_scammer_profile_dossier(slug: str):
             <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin: 0 0 16px 0;">
                 Avoid unmoderated apps and social media romance traps. <strong>Match.com</strong> is the world's leading ID-verified dating network with active profile moderation, photo verification, and background safety tools.
             </p>
-            <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
+            <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
                 <span>💖 Meet Real Verified Singles on Match.com (Free Trial) ➔</span>
             </a>
         </div>

@@ -2050,7 +2050,6 @@ body {
     display: inline-block;
 }
 
-
 /* Dynamic Glowing Hover for Verify Broker & Crypto Header Button */
 .nav-broker-glow {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -2062,7 +2061,58 @@ body {
     border-color: #38bdf8 !important;
     box-shadow: 0 0 16px rgba(56, 189, 248, 0.7), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
     transform: translateY(-2px) scale(1.03) !important;
+}
+
+/* ==========================================================================
+   UNIVERSAL AFFILIATE DYNAMIC GLOW & HOVER ANIMATIONS
+   ========================================================================== */
+.affiliate-btn, .btn-table-action, .btn-primary, .btn-secondary-gold, .btn-cta, .btn-pdf, .affiliate-incogni-btn, .affiliate-match-btn, .affiliate-vpn-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.affiliate-btn:hover, .btn-table-action:hover, .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    filter: brightness(1.18) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 18px rgba(56, 189, 248, 0.4) !important;
+}
+
+.btn-secondary-gold:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 8px 24px rgba(234, 179, 8, 0.45) !important;
+    filter: brightness(1.2) !important;
+}
+
+.affiliate-incogni-btn:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.45) 100%) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 10px 28px rgba(16, 185, 129, 0.5), 0 0 20px rgba(16, 185, 129, 0.35) !important;
     color: #ffffff !important;
+}
+
+.affiliate-match-btn:hover, .btn-cta:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 10px 28px rgba(236, 72, 153, 0.55), 0 0 20px rgba(236, 72, 153, 0.35) !important;
+    filter: brightness(1.2) !important;
+}
+
+.affiliate-vpn-btn:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 10px 28px rgba(2, 132, 199, 0.55), 0 0 20px rgba(2, 132, 199, 0.35) !important;
+    filter: brightness(1.2) !important;
+}
+
+.in-result-dating-cross-card, .homepage-dating-cross-banner {
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.in-result-dating-cross-card:hover, .homepage-dating-cross-banner:hover {
+    border-color: rgba(236, 72, 153, 0.7) !important;
+    box-shadow: 0 12px 35px rgba(236, 72, 153, 0.25), 0 0 25px rgba(236, 72, 153, 0.15) !important;
+    transform: translateY(-3px);
 }
 
 .nav-broker-glow:hover i {
