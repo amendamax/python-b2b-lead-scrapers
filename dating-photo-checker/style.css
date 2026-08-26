@@ -3572,3 +3572,60 @@ html, body {
         grid-template-columns: 1fr !important;
     }
 }
+
+
+/* ==========================================================================
+   DYNAMIC PINK/MAGENTA CYBER SHIELD LOGO PULSE & HOVER (VERIFYDATING)
+   ========================================================================== */
+@keyframes dating-shield-pulse-glow {
+    0% {
+        box-shadow: 0 0 14px rgba(236, 72, 153, 0.5), 0 0 25px rgba(190, 24, 93, 0.3);
+        border-color: rgba(236, 72, 153, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(236, 72, 153, 0.95), 0 0 45px rgba(219, 39, 119, 0.65);
+        border-color: #ec4899;
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 0 14px rgba(236, 72, 153, 0.5), 0 0 25px rgba(190, 24, 93, 0.3);
+        border-color: rgba(236, 72, 153, 0.7);
+        transform: scale(1);
+    }
+}
+
+.logo-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+}
+
+.logo-dating-shield {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.22) 0%, rgba(190, 24, 93, 0.35) 100%) !important;
+    border: 1.5px solid #ec4899 !important;
+    color: #f472b6 !important;
+    font-size: 22px !important;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 35px rgba(190, 24, 93, 0.4) !important;
+    animation: dating-shield-pulse-glow 2.8s infinite ease-in-out !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    flex-shrink: 0 !important;
+}
+
+.logo-link:hover .logo-dating-shield {
+    transform: rotate(-6deg) scale(1.12) !important;
+    box-shadow: 0 0 35px rgba(236, 72, 153, 0.95), 0 0 55px rgba(219, 39, 119, 0.75) !important;
+    filter: brightness(1.3) !important;
+}
+
+.logo-link:hover .logo-text .highlight {
+    text-shadow: 0 0 25px rgba(236, 72, 153, 0.9) !important;
+}
