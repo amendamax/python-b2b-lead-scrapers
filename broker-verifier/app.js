@@ -565,6 +565,39 @@ try {
     console.error("Stripe initialization failed:", e);
 }
 
+// Reliable Mobile & PC Smooth Scroll Helper
+function smoothScrollTo(target, offset = 50) {
+    const el = (typeof target === 'string') ? document.querySelector(target) : target;
+    if (!el) return;
+    
+    // Blur any active input to dismiss virtual keyboard on mobile
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+        document.activeElement.blur();
+    }
+
+    const performScroll = () => {
+        try {
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = el.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = Math.max(0, elementPosition - offset);
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        } catch (e) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
+
+    // Immediate scroll trigger
+    performScroll();
+
+    // Secondary scroll trigger after mobile keyboard collapses (250ms)
+    setTimeout(performScroll, 250);
+}
+
 // UI Elements
 const searchInput = document.getElementById("broker-search");
 const suggestionsBox = document.getElementById("suggestions-box");
@@ -632,11 +665,6 @@ searchInput.addEventListener("input", function() {
             if (e) e.preventDefault();
             searchInput.value = broker.name;
             suggestionsBox.style.display = "none";
-            
-            const dashboardView = document.getElementById("dashboard-view");
-            if (dashboardView) {
-                dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
 
             // Execute search query through backend API
             executeScan(broker.name, broker.domain);
@@ -1483,6 +1511,9 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
     scoreGauge.style.strokeDashoffset = 440;
     scoreText.textContent = "---";
 
+    // Automatically smoothly focus and scroll directly to dashboard view / threat terminal
+    smoothScrollTo(window.innerWidth <= 850 ? "#dashboard-view" : ".threat-scanner-card", 20);
+
     let payload = {
         name: brokerName,
         domain: brokerDomain
@@ -1696,6 +1727,12 @@ async function fetchResults(scanId) {
 
         // Update circular gauge
         updateGauge(data.score);
+        // Reveal in-result dating cross-promotion banner strictly after broker evaluation completes
+        const inResultDatingBanner = document.getElementById("in-result-dating-banner");
+        if (inResultDatingBanner) {
+            inResultDatingBanner.style.display = "block";
+        }
+
 
         // Auto-unlock free forensic report for all verified affiliate partners
         if (isPartnerBroker || data.payment_status === "free_partner") {
@@ -1749,6 +1786,14 @@ async function fetchResults(scanId) {
                 });
             }
         }
+
+        // On mobile, smoothly scroll down to the full audit report & recommendations
+        setTimeout(() => {
+            const brokerDetails = document.getElementById("broker-details");
+            if (brokerDetails && window.innerWidth <= 850) {
+                brokerDetails.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }, 350);
 
     } catch (err) {
         console.error(err);
@@ -2023,11 +2068,8 @@ window.selectBroker = function(name) {
     if (searchInput) {
         searchInput.value = targetName;
     }
-
-    // Smooth scroll down to scanner dashboard view so user immediately sees the live scan
-    const dashboardView = document.getElementById("dashboard-view");
-    if (dashboardView) {
-        dashboardView.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (suggestionsBox) {
+        suggestionsBox.style.display = "none";
     }
 
     executeScan(targetName, targetDomain);

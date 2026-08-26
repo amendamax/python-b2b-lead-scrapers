@@ -566,25 +566,36 @@ try {
 }
 
 // Reliable Mobile & PC Smooth Scroll Helper
-function smoothScrollTo(target, offset = 65) {
+function smoothScrollTo(target, offset = 50) {
     const el = (typeof target === 'string') ? document.querySelector(target) : target;
     if (!el) return;
     
+    // Blur any active input to dismiss virtual keyboard on mobile
     if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
         document.activeElement.blur();
     }
 
-    setTimeout(() => {
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = el.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = Math.max(0, elementPosition - offset);
+    const performScroll = () => {
+        try {
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = el.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = Math.max(0, elementPosition - offset);
 
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-        });
-    }, 60);
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        } catch (e) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
+
+    // Immediate scroll trigger
+    performScroll();
+
+    // Secondary scroll trigger after mobile keyboard collapses (250ms)
+    setTimeout(performScroll, 250);
 }
 
 // UI Elements
@@ -1500,8 +1511,8 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
     scoreGauge.style.strokeDashoffset = 440;
     scoreText.textContent = "---";
 
-    // Automatically smoothly focus and scroll directly to threat terminal lines as they write
-    smoothScrollTo(".threat-scanner-card", 70);
+    // Automatically smoothly focus and scroll directly to dashboard view / threat terminal
+    smoothScrollTo(window.innerWidth <= 850 ? "#dashboard-view" : ".threat-scanner-card", 20);
 
     let payload = {
         name: brokerName,
