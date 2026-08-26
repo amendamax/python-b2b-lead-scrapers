@@ -274,10 +274,16 @@ def generate_dating_scam_dossiers(target_count=10000):
     total = cursor.fetchone()[0]
     conn.close()
     
+STOLEN_SOURCES = [
+    "Instagram @verified_public_creator", "LinkedIn Corporate Executive Profile",
+    "TikTok Verified Model Portfolio", "Twitter/X Verified Public Media",
+    "Public Military Service Record / DoD Archive", "Stock Photography Catalog (Shutterstock / Getty)"
+]
+
 def create_profile_from_slug(slug: str):
     parts = slug.split("-")
     clean_parts = [p.capitalize() for p in parts if not p.isdigit()]
-    persona_name = " ".join(clean_parts[:3]) if len(clean_parts) >= 3 else "Reported Profile"
+    persona_name = " ".join(clean_parts[:3]) if len(clean_parts) >= 3 else "Reported Persona"
     
     gender = "Male"
     if any(t.lower() in slug.lower() for t in ["sophie", "yuki", "anastasia", "elena", "chloe", "jessica", "alina", "olivia", "valeria", "mei", "isabella", "natasha", "camilla", "daria", "emily", "victoria", "sophia", "zoe"]):
@@ -285,7 +291,7 @@ def create_profile_from_slug(slug: str):
     elif any(t.lower() in slug.lower() for t in ["dr", "capt", "col", "general", "major", "sgt", "sir", "mr", "engineer"]):
         gender = "Male"
     
-    cat_match = "Romance Scam & Catfish Profile"
+    cat_match = "Military Romance Scam"
     for cat, def_gen, profs in CATEGORIES:
         keywords = [w.lower() for w in cat.split() if len(w) > 3]
         if any(kw in slug.lower() for kw in keywords):
@@ -294,11 +300,12 @@ def create_profile_from_slug(slug: str):
             break
             
     age = random.randint(34, 58) if gender == "Male" else random.randint(24, 38)
-    loc = random.choice(GLOBAL_LOCATIONS)
+    loc = random.choice(LOCATIONS)
     matching_profs = [p for c, g, profs in CATEGORIES if c == cat_match for p in profs]
     prof = random.choice(matching_profs) if matching_profs else "Specialist"
     stolen = f"Stolen from verified public profile ({random.choice(STOLEN_SOURCES)})"
-    script = random.choice(SCRIPTS)
+    script_list = SCRIPTS.get(cat_match, SCRIPTS["Military Romance Scam"])
+    script = random.choice(script_list)
     flags = [
         f"Claims identity as {prof}",
         "Rapid romantic escalation, love bombing & marriage proposal within 48-72 hours",

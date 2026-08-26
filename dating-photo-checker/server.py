@@ -5746,6 +5746,7 @@ async def dating_scammer_profile_dossier(slug: str):
         SELECT id, persona_name, gender, scam_category, claimed_age, claimed_location, claimed_profession, stolen_from_real_person, typical_script, scam_story, warning_flags, photo_urls, risk_score, reported_aliases, views_count, first_reported_date
         FROM dating_scam_profiles WHERE slug = ?
     """, (slug,))
+    row = cursor.fetchone()
     if not row:
         try:
             from dating_scams_harvester import create_profile_from_slug
