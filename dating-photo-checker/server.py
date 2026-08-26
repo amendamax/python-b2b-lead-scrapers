@@ -5122,10 +5122,17 @@ async def api_v1_documentation():
         .key-gen-box {
             background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.18) 100%);
             border: 1px solid rgba(56, 189, 248, 0.35);
-            border-radius: 14px;
-            padding: 24px;
+            border-radius: 16px;
+            padding: 26px;
             margin-bottom: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .key-gen-box:hover {
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 15px 45px rgba(56, 189, 248, 0.25), 0 0 30px rgba(2, 132, 199, 0.2);
+            transform: translateY(-2px);
         }
         .input-group {
             display: flex;
@@ -5210,28 +5217,69 @@ async def api_v1_documentation():
         .plan-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 26px;
+            border-radius: 16px;
+            padding: 28px 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer;
+        }
+        .plan-card:hover {
+            transform: translateY(-8px) scale(1.02) !important;
+        }
+        .plan-card.card-tier-free:hover {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 18px 45px rgba(56, 189, 248, 0.35), 0 0 25px rgba(56, 189, 248, 0.2) !important;
         }
         .plan-card.popular {
-            border: 1px solid #0284c7;
-            box-shadow: 0 0 25px rgba(2, 132, 199, 0.25);
+            border: 1.5px solid #38bdf8;
+            box-shadow: 0 0 30px rgba(2, 132, 199, 0.35);
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.popular:hover {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 20px 50px rgba(56, 189, 248, 0.55), 0 0 35px rgba(2, 132, 199, 0.4) !important;
+        }
+        .plan-card.card-tier-scale {
+            border: 1.5px solid rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.25);
+            background: linear-gradient(180deg, rgba(168, 85, 247, 0.1) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.card-tier-scale:hover {
+            border-color: #c084fc !important;
+            box-shadow: 0 20px 50px rgba(168, 85, 247, 0.55), 0 0 35px rgba(168, 85, 247, 0.4) !important;
+        }
+        .plan-card.card-tier-ent {
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.card-tier-ent:hover {
+            border-color: #fbbf24 !important;
+            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.55), 0 0 35px rgba(245, 158, 11, 0.4) !important;
         }
         .plan-badge {
             position: absolute;
             top: -12px;
             right: 20px;
-            background: #0284c7;
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
             color: #fff;
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+            animation: pulse-cyan-glow 2.5s infinite ease-in-out;
+        }
+        .plan-badge.badge-purple {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            animation: pulse-pink-glow 2.5s infinite ease-in-out;
         }
         .plan-title { font-size: 1.3rem; font-family: 'Outfit'; font-weight: 800; margin: 0 0 6px 0; }
         .plan-price { font-size: 2rem; font-family: 'Outfit'; font-weight: 900; color: #fff; margin-bottom: 15px; }
@@ -5436,7 +5484,7 @@ async def api_v1_documentation():
         <h2 style="font-family: 'Outfit'; font-size: 24px; color: #fff; margin: 0 0 20px 0;">💳 Developer & B2B Subscription Tiers</h2>
         <div class="pricing-grid">
             <!-- Tier 1: Free Developer -->
-            <div class="plan-card">
+            <div class="plan-card card-tier-free">
                 <div>
                     <h4 class="plan-title" style="color: #38bdf8;">Developer Free</h4>
                     <div class="plan-price">$0 <span>/ month</span></div>
@@ -5465,8 +5513,8 @@ async def api_v1_documentation():
             </div>
 
             <!-- Tier 3: Scale Growth Business ($99) -->
-            <div class="plan-card" style="border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);">
-                <span class="plan-badge" style="background: #a855f7;">BEST VALUE</span>
+            <div class="plan-card card-tier-scale">
+                <span class="plan-badge badge-purple">BEST VALUE</span>
                 <div>
                     <h4 class="plan-title" style="color: #c084fc;">Scale Growth</h4>
                     <div class="plan-price">$99 <span>/ month</span></div>
@@ -5480,7 +5528,7 @@ async def api_v1_documentation():
             </div>
 
             <!-- Tier 4: Enterprise ($199) -->
-            <div class="plan-card">
+            <div class="plan-card card-tier-ent">
                 <div>
                     <h4 class="plan-title" style="color: #e5b842;">Enterprise Intel</h4>
                     <div class="plan-price">$199 <span>/ month</span></div>
