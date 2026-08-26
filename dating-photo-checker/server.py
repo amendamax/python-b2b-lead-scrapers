@@ -5427,6 +5427,277 @@ async def api_v1_documentation():
 </html>"""
     return HTMLResponse(content=html_docs, status_code=200)
 
+@app.get("/static/badge.js")
+@app.get("/api/v1/badge.js")
+async def get_embeddable_badge_js():
+    """
+    Serve Official IsBrokerSafe JavaScript Trust & Safety Badge Widget.
+    """
+    badge_path = os.path.join(os.path.dirname(__file__), "static", "badge.js")
+    if os.path.exists(badge_path):
+        with open(badge_path, "r", encoding="utf-8") as f:
+            js_code = f.read()
+        from fastapi.responses import Response
+        return Response(content=js_code, media_type="application/javascript", headers={"Cache-Control": "public, max-age=3600", "Access-Control-Allow-Origin": "*"})
+    raise HTTPException(status_code=404, detail="Badge script not found")
+
+
+@app.get("/widget")
+@app.get("/badge")
+async def get_badge_customizer_page():
+    """
+    Interactive Webmaster Trust Badge Customizer & 1-Click Embed Code Generator.
+    """
+    html_customizer = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsBrokerSafe Official Trust Badge Widget | Embed Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #070b14;
+            --card-bg: rgba(13, 20, 36, 0.9);
+            --card-border: rgba(56, 189, 248, 0.25);
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.4);
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span { color: var(--primary); }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 11px 14px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .preview-box {
+            background: rgba(0,0,0,0.5);
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            margin-bottom: 20px;
+        }
+
+        .code-box {
+            background: #020617;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #38bdf8;
+            line-height: 1.5;
+            position: relative;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .btn-copy {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>IsBrokerSafe <span>Trust Badge Widget</span></h1>
+        <p>Embed real-time broker regulatory status & safety scores directly onto your review articles, comparison tables, or forum threads with 1 line of code.</p>
+    </div>
+
+    <div class="grid">
+        <!-- Settings Column -->
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-sliders"></i> Widget Customizer</div>
+
+            <div class="form-group">
+                <label class="form-label">Broker Domain to Audit:</label>
+                <input type="text" id="cfg-domain" class="form-input" value="exness.com" oninput="updateWidget()">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Layout Style:</label>
+                <select id="cfg-layout" class="form-select" onchange="updateWidget()">
+                    <option value="card">Full Audit Card (Best for Review Pages & Sidebars)</option>
+                    <option value="pill">Compact Table Pill (Best for Comparison Lists)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Color Theme:</label>
+                <select id="cfg-theme" class="form-select" onchange="updateWidget()">
+                    <option value="dark">Dark Cyber Theme</option>
+                    <option value="light">Clean Light Theme</option>
+                </select>
+            </div>
+
+            <button class="btn-copy" onclick="copyEmbedCode()"><i class="fa-regular fa-copy"></i> Copy Embed HTML Code</button>
+        </div>
+
+        <!-- Live Preview Column -->
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-eye"></i> Live Interactive Preview</div>
+            <div class="preview-box" id="preview-container">
+                <!-- Badge Rendered Here -->
+                <div id="demo-badge" class="isbrokersafe-badge" data-domain="exness.com" data-layout="card" data-theme="dark"></div>
+            </div>
+
+            <div class="card-title" style="font-size: 14px; margin-top: 10px;"><i class="fa-solid fa-code"></i> Embed Snippet (HTML):</div>
+            <div class="code-box" id="embed-code-display">&lt;div class="isbrokersafe-badge" data-domain="exness.com" data-layout="card" data-theme="dark"&gt;&lt;/div&gt;
+&lt;script src="https://isbrokersafe.com/static/badge.js" async&gt;&lt;/script&gt;</div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/badge.js" id="widget-script"></script>
+<script>
+function updateWidget() {
+    const domain = document.getElementById('cfg-domain').value.trim() || 'exness.com';
+    const layout = document.getElementById('cfg-layout').value;
+    const theme = document.getElementById('cfg-theme').value;
+
+    const preview = document.getElementById('preview-container');
+    preview.innerHTML = `<div class="isbrokersafe-badge" data-domain="${domain}" data-layout="${layout}" data-theme="${theme}"></div>`;
+
+    // Re-run badge engine
+    const script = document.createElement('script');
+    script.src = '/static/badge.js?v=' + Date.now();
+    document.body.appendChild(script);
+
+    // Update code display
+    const snippet = `<div class="isbrokersafe-badge" data-domain="${domain}" data-layout="${layout}" data-theme="${theme}"></div>\n<script src="https://isbrokersafe.com/static/badge.js" async><\/script>`;
+    document.getElementById('embed-code-display').innerText = snippet;
+}
+
+function copyEmbedCode() {
+    const text = document.getElementById('embed-code-display').innerText;
+    navigator.clipboard.writeText(text);
+    alert('Embed HTML code copied to clipboard! Paste it into your website or WordPress post! 🛡️');
+}
+</script>
+</body>
+</html>"""
+    return HTMLResponse(content=html_customizer, status_code=200)
+
+
 
 @app.get("/api/v1/broker/pdf/{slug}")
 async def download_scam_dossier_pdf(slug: str, lang: str = "en"):
