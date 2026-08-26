@@ -5155,7 +5155,23 @@ async def api_v1_documentation():
             cursor: pointer;
             transition: all 0.2s;
         }
-        .btn-gen:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-gen {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .btn-gen:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.75), 0 4px 15px rgba(0,0,0,0.5);
+        }
         
         /* 4-Tier Pricing Cards */
         .pricing-grid {
@@ -5204,16 +5220,78 @@ async def api_v1_documentation():
             display: block;
             text-align: center;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 13px;
-            padding: 12px;
+            padding: 13px;
             border-radius: 8px;
             margin-top: 20px;
-            transition: all 0.2s;
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
         }
-        .btn-free { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
-        .btn-pro { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: none; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4); }
-        .btn-ent { background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000; border: none; font-weight: 800; }
+        .btn-free {
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .btn-free:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+        .btn-pro {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        }
+        .btn-pro:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-scale-tier {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+        .btn-scale-tier:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #c084fc;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-ent {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+        }
+        .btn-ent:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #fbbf24;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .nav-btn-glow {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn-glow:hover {
+            transform: translateY(-2px) scale(1.04);
+            color: #38bdf8 !important;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        .pypi-btn-glow:hover {
+            transform: translateY(-2px) scale(1.04);
+            background: rgba(56, 189, 248, 0.3) !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.7) !important;
+        }
 
         /* Endpoints */
         .endpoint-card {
@@ -5254,9 +5332,9 @@ async def api_v1_documentation():
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; flex-wrap: wrap; gap: 12px;">
             <a href="/" style="color: #fff; font-weight: 800; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 18px;">🛡️ IsBrokerSafe</a>
             <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
-                <a href="/pricing" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">💳 Pricing Plans</a>
-                <a href="/widget" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">🛡️ Trust Widget</a>
-                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" style="background: rgba(56,189,248,0.15); color: var(--cyan); border: 1px solid rgba(56,189,248,0.3); padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 12.5px; font-weight: 700;">🐍 PyPI SDK ↗</a>
+                <a href="/pricing" class="nav-btn-glow" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">💳 Pricing Plans</a>
+                <a href="/widget" class="nav-btn-glow" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">🛡️ Trust Widget</a>
+                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" class="pypi-btn-glow" style="background: rgba(56,189,248,0.15); color: var(--cyan); border: 1px solid rgba(56,189,248,0.3); padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 12.5px; font-weight: 700; transition: all 0.25s;">🐍 PyPI SDK ↗</a>
             </div>
         </div>
         <div class="header">
@@ -5994,16 +6072,51 @@ async def get_dating_api_docs_page():
         }
 
         .btn-free { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
-        .btn-free:hover { background: rgba(255,255,255,0.18); border-color: var(--pink); }
+        .btn-free:hover {
+            background: rgba(236, 72, 153, 0.2) !important;
+            border-color: var(--pink) !important;
+            color: var(--pink) !important;
+            transform: translateY(-3px) scale(1.03) !important;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
+        }
 
-        .btn-featured { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; box-shadow: 0 4px 15px var(--pink-glow); }
-        .btn-featured:hover { transform: scale(1.02); }
+        .btn-featured {
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+            color: #fff;
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            box-shadow: 0 4px 15px var(--pink-glow);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-featured:hover {
+            transform: translateY(-3px) scale(1.03) !important;
+            filter: brightness(1.2) !important;
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.8), 0 4px 15px rgba(0,0,0,0.5) !important;
+        }
 
-        .btn-scale { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); }
-        .btn-scale:hover { transform: scale(1.02); }
+        .btn-scale {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-scale:hover {
+            transform: translateY(-3px) scale(1.03) !important;
+            filter: brightness(1.2) !important;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8), 0 4px 15px rgba(0,0,0,0.5) !important;
+        }
 
-        .btn-ent { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; }
-        .btn-ent:hover { transform: scale(1.02); }
+        .btn-ent {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-ent:hover {
+            transform: translateY(-3px) scale(1.03) !important;
+            filter: brightness(1.2) !important;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 4px 15px rgba(0,0,0,0.5) !important;
+        }
 
         /* Sandbox Terminal & Docs */
         .card-doc {
