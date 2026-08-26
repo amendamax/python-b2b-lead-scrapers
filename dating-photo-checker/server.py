@@ -6837,40 +6837,40 @@ async def get_dating_api_docs_page():
             <a href="#key-sandbox" class="btn-plan btn-free">Generate Sandbox Key</a>
         </div>
 
-        <!-- Starter Dating App -->
+        <!-- Starter Dating App (Launch Promo: $49/mo) -->
         <div class="plan-card">
             <h3 class="plan-title" style="color: var(--pink);">Starter App</h3>
-            <div class="plan-price">$99 <span>/ month</span></div>
+            <div class="plan-price">$49 <span>/ month</span></div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> <strong>2,500 Scans</strong> / month</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Automated On-Registration Scan</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Romance Scam Risk Score</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Email Fast-Track Support</div>
-            <a href="mailto:amendamax@gmail.com?subject=VerifyDating%20Starter%20API%20Plan%20($99/mo)&body=Hello%20VerifyDating%20Team,%0A%0AWe%20would%20like%20to%20activate%20the%20Starter%20Dating%20API%20Plan%20($99/month).%0A%0AApp%20Name:%20%0AWebsite:%20%0ABilling%20Email:%20" class="btn-plan" style="background: rgba(236,72,153,0.25); border: 1px solid var(--pink); color: #fff;">Get Starter ($99/mo)</a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=49.00&item_name=VerifyDating+API+Starter+Monthly&no_shipping=1&landing_page=billing" target="_blank" rel="noopener" class="btn-plan" style="background: rgba(236,72,153,0.25); border: 1px solid var(--pink); color: #fff;">Subscribe Starter ($49/mo) ↗</a>
         </div>
 
-        <!-- Pro Growth Platform -->
+        <!-- Pro Growth Platform (Launch Promo: $99/mo) -->
         <div class="plan-card featured">
             <div class="badge-popular">MOST POPULAR</div>
             <h3 class="plan-title" style="color: #fff;">Pro Growth</h3>
-            <div class="plan-price">$299 <span>/ month</span></div>
+            <div class="plan-price">$99 <span>/ month</span></div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> <strong>25,000 Scans</strong> / month</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> <strong>Deepfake AI Face Detection</strong></div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Webhook Auto-Ban Trigger</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Multi-Key Team Access</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> 99.9% Uptime Guarantee</div>
-            <a href="mailto:amendamax@gmail.com?subject=VerifyDating%20Pro%20Growth%20API%20Plan%20($299/mo)&body=Hello%20VerifyDating%20Team,%0A%0AWe%20would%20like%20to%20subscribe%20to%20the%20Pro%20Growth%20Dating%20API%20Plan%20($299/month).%0A%0AApp/Company%20Name:%20%0AWebsite:%20%0ABilling%20Email:%20" class="btn-plan btn-featured">Get Pro Growth ($299/mo)</a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=99.00&item_name=VerifyDating+API+Pro+Growth+Monthly&no_shipping=1&landing_page=billing" target="_blank" rel="noopener" class="btn-plan btn-featured">Subscribe Pro ($99/mo) ↗</a>
         </div>
 
-        <!-- Scale & Enterprise -->
+        <!-- Scale & Enterprise (Launch Promo: $199/mo) -->
         <div class="plan-card">
             <h3 class="plan-title" style="color: var(--purple);">Enterprise Scale</h3>
-            <div class="plan-price">$699 <span>/ month</span></div>
+            <div class="plan-price">$199 <span>/ month</span></div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> <strong>100,000+ Scans</strong> / month</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Raw Scam Hash Stream</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Dedicated SLA (99.99%)</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> Custom Face Match Models</div>
             <div class="plan-feat"><i class="fa-solid fa-check"></i> 24/7 Priority Support</div>
-            <a href="mailto:amendamax@gmail.com?subject=VerifyDating%20Enterprise%20Plan%20($699/mo)&body=Hello%20VerifyDating%20Team,%0A%0AWe%20are%20interested%20in%20an%20Enterprise%20Dating%20API%20Contract%20with%20custom%20high-volume%20scans.%0A%0ACompany%20Name:%20%0AContact%20Person:%20%0AMonthly%20Volume%20Estimate:%20" class="btn-plan btn-scale">Get Enterprise ($699/mo)</a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=199.00&item_name=VerifyDating+API+Enterprise+Monthly&no_shipping=1&landing_page=billing" target="_blank" rel="noopener" class="btn-plan btn-scale">Subscribe Scale ($199/mo) ↗</a>
         </div>
     </div>
 
