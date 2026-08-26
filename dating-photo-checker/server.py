@@ -5157,12 +5157,18 @@ async def api_v1_documentation():
         }
         .btn-gen:hover { opacity: 0.9; transform: translateY(-1px); }
         
-        /* 3-Tier Pricing Cards */
+        /* 4-Tier Pricing Cards */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
             margin-bottom: 40px;
+        }
+        @media (max-width: 1050px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .pricing-grid { grid-template-columns: 1fr; }
         }
         .plan-card {
             background: var(--bg-card);
@@ -5282,7 +5288,7 @@ async def api_v1_documentation():
             </div>
         </div>
 
-        <!-- 3-TIER PRICING PLANS -->
+        <!-- 4-TIER PRICING PLANS -->
         <h2 style="font-family: 'Outfit'; font-size: 24px; color: #fff; margin: 0 0 20px 0;">💳 Developer & B2B Subscription Tiers</h2>
         <div class="pricing-grid">
             <!-- Tier 1: Free Developer -->
@@ -5292,52 +5298,53 @@ async def api_v1_documentation():
                     <div class="plan-price">$0 <span>/ month</span></div>
                     <div class="plan-feat">✓ <strong>100 Requests</strong> / month</div>
                     <div class="plan-feat">✓ 14,663+ Blacklist Dossiers</div>
-                    <div class="plan-feat">✓ 5ms Ultra-Low Latency</div>
+                    <div class="plan-feat">✓ Official Python SDK (PyPI)</div>
                     <div class="plan-feat">✓ Rate limit: 5 req / sec</div>
                     <div class="plan-feat">✓ Community Support</div>
                 </div>
                 <a href="#dev-email" class="plan-btn btn-free">Generate Free Key</a>
             </div>
 
-            <!-- Tier 2: Pro Fintech -->
+            <!-- Tier 2: Pro Fintech ($49) -->
             <div class="plan-card popular">
                 <span class="plan-badge">MOST POPULAR</span>
                 <div>
-                    <h4 class="plan-title" style="color: #38bdf8;">Pro Fintech</h4>
-                    <div class="plan-price">$29 <span>/ month</span></div>
+                    <h4 class="plan-title" style="color: #38bdf8;">Pro Business</h4>
+                    <div class="plan-price">$49 <span>/ month</span></div>
                     <div class="plan-feat">✓ <strong>10,000 Requests</strong> / month</div>
                     <div class="plan-feat">✓ Live Webhook Notifications</div>
-                    <div class="plan-feat">✓ Real-Time Daily Scraping Stream</div>
-                    <div class="plan-feat">✓ Rate limit: 50 req / sec</div>
-                    <div class="plan-feat">✓ Commercial SLA & Priority Support</div>
+                    <div class="plan-feat">✓ Real-Time Daily Threat Feed</div>
+                    <div class="plan-feat">✓ Embeddable Trust Badges</div>
+                    <div class="plan-feat">✓ 99.9% Uptime Guarantee</div>
                 </div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=29.00&item_name=IsBrokerSafe+API+Pro+Fintech+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-pro">Subscribe to Pro ($29/mo) ↗</a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=49.00&item_name=IsBrokerSafe+API+Pro+Business+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-pro">Subscribe to Pro ($49/mo) ↗</a>
             </div>
 
-            <!-- Tier 3: Scale Growth Business (50,000 requests) -->
+            <!-- Tier 3: Scale Growth Business ($99) -->
             <div class="plan-card" style="border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);">
+                <span class="plan-badge" style="background: #a855f7;">BEST VALUE</span>
                 <div>
                     <h4 class="plan-title" style="color: #c084fc;">Scale Growth</h4>
-                    <div class="plan-price">$79 <span>/ month</span></div>
-                    <div class="plan-feat">✓ <strong>50,000 Requests</strong> / month</div>
-                    <div class="plan-feat">✓ High-Frequency Rate Limits</div>
-                    <div class="plan-feat">✓ Real-Time Webhooks & Daily Scraping</div>
-                    <div class="plan-feat">✓ Commercial B2B License</div>
+                    <div class="plan-price">$99 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>40,000 Requests</strong> / month</div>
+                    <div class="plan-feat">✓ Pre-Deposit Fraud Screening</div>
+                    <div class="plan-feat">✓ Multi-Key Team Access</div>
+                    <div class="plan-feat">✓ High-Frequency (50 req/s)</div>
                     <div class="plan-feat">✓ Priority Fast-Track Support</div>
                 </div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=79.00&item_name=IsBrokerSafe+API+Scale+Growth+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; border: none; font-weight: 700; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);">Subscribe to Scale ($79/mo) ↗</a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=99.00&item_name=IsBrokerSafe+API+Scale+Growth+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; border: none; font-weight: 700; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);">Subscribe to Scale ($99/mo) ↗</a>
             </div>
 
-            <!-- Tier 4: Enterprise -->
+            <!-- Tier 4: Enterprise ($199) -->
             <div class="plan-card">
                 <div>
                     <h4 class="plan-title" style="color: #e5b842;">Enterprise Intel</h4>
                     <div class="plan-price">$199 <span>/ month</span></div>
                     <div class="plan-feat">✓ <strong>100,000+ Requests</strong> / month</div>
-                    <div class="plan-feat">✓ Full SQLite / JSON Database Dumps</div>
-                    <div class="plan-feat">✓ Custom Regulatory Endpoints</div>
+                    <div class="plan-feat">✓ Raw Blacklist JSON/CSV Streams</div>
+                    <div class="plan-feat">✓ Custom White-Label Badges</div>
                     <div class="plan-feat">✓ Dedicated Account Manager</div>
-                    <div class="plan-feat">✓ 99.99% Uptime Guarantee</div>
+                    <div class="plan-feat">✓ Custom SLA & Contract</div>
                 </div>
                 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=199.00&item_name=IsBrokerSafe+API+Enterprise+Intel+Monthly&no_shipping=1&landing_page=billing" target="_blank" class="plan-btn btn-ent">Get Enterprise ($199/mo) ↗</a>
             </div>
