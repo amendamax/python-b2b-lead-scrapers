@@ -5155,10 +5155,22 @@ async def api_v1_documentation():
             cursor: pointer;
             transition: all 0.2s;
         }
+        
+        @keyframes pulse-cyan-glow {
+            0% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.8), 0 4px 18px rgba(0,0,0,0.6); }
+            100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+        }
+        @keyframes pulse-pink-glow {
+            0% { box-shadow: 0 0 10px rgba(236, 72, 153, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 0 22px rgba(236, 72, 153, 0.85), 0 4px 18px rgba(0,0,0,0.6); }
+            100% { box-shadow: 0 0 10px rgba(236, 72, 153, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+        }
+
         .btn-gen {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
             color: #fff;
-            border: none;
+            border: 1px solid rgba(56, 189, 248, 0.5);
             border-radius: 8px;
             padding: 12px 24px;
             font-weight: 800;
@@ -5166,11 +5178,20 @@ async def api_v1_documentation():
             cursor: pointer;
             transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            animation: pulse-cyan-glow 2.5s infinite ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .btn-gen:hover {
-            transform: translateY(-3px) scale(1.03);
-            filter: brightness(1.2);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.75), 0 4px 15px rgba(0,0,0,0.5);
+            transform: translateY(-3px) scale(1.04);
+            filter: brightness(1.25);
+            border-color: #38bdf8;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.95), 0 6px 20px rgba(0,0,0,0.6) !important;
+        }
+        .btn-gen:active {
+            transform: scale(0.98);
         }
         
         /* 4-Tier Pricing Cards */
@@ -5230,16 +5251,18 @@ async def api_v1_documentation():
             cursor: pointer;
         }
         .btn-free {
-            background: rgba(255,255,255,0.06);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.15);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(2, 132, 199, 0.2) 100%);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .btn-free:hover {
-            background: rgba(255,255,255,0.15);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(2, 132, 199, 0.4) 100%);
             border-color: #38bdf8;
-            color: #38bdf8;
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.85), 0 4px 15px rgba(0,0,0,0.5);
         }
         .btn-pro {
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
@@ -6165,7 +6188,7 @@ async def get_dating_api_docs_page():
         <div style="display: flex; gap: 14px; align-items: center;">
             <a href="https://verifydating.net/" style="color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600;">Consumer Portal</a>
             <a href="https://isbrokersafe.com/api/v1/docs" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 13px; font-weight: 600;">IsBrokerSafe API ↗</a>
-            <a href="#key-sandbox" style="background: var(--pink); color: #fff; padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 12.5px; font-weight: 700;">Get Free API Key</a>
+            <a href="#key-sandbox" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 12.5px; font-weight: 800; border: 1px solid rgba(236, 72, 153, 0.4); transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; gap: 6px;" onmouseover="this.style.transform='translateY(-2px) scale(1.04)'; this.style.boxShadow='0 0 20px rgba(236,72,153,0.8)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">⚡ Get Free API Key</a>
         </div>
     </nav>
 
@@ -6230,7 +6253,7 @@ async def get_dating_api_docs_page():
         <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Generate your free API Key to screen dating profile photos directly from your backend.</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <input type="email" id="dev-email" placeholder="cto@datingapp.com" style="flex: 1; min-width: 260px; background: #000; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px 16px; color: #fff; font-size: 14px; outline: none;">
-            <button onclick="generateDatingApiKey()" style="background: var(--pink); color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-weight: 700; cursor: pointer;">Generate Key ⚡</button>
+            <button onclick="generateDatingApiKey()" class="btn-gen-dating" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: #fff; border: 1px solid rgba(236, 72, 153, 0.5); border-radius: 8px; padding: 12px 26px; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1); animation: pulse-pink-glow 2.5s infinite ease-in-out;">Generate Key ⚡</button>
         </div>
         <div id="key-output" style="display: none; margin-top: 16px; background: #040208; border: 1px solid var(--green); border-radius: 8px; padding: 14px; color: var(--green); font-family: 'Fira Code', monospace; font-size: 13px;">
             <div>✓ API KEY READY:</div>
