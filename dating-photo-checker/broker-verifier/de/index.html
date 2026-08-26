@@ -730,47 +730,49 @@
 
 
     
-        <!-- DEVELOPER & FINTECH THREAT INTEL API SECTION -->
-        <section style="margin: 40px 0; background: linear-gradient(135deg, rgba(11, 21, 40, 0.95) 0%, rgba(5, 8, 15, 0.98) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
-                <div>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">
-                        ⚡ B2B REST API & Developers
-                    </div>
-                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 22px; color: #fff; margin: 0 0 6px 0; font-weight: 800;">
-                        IsBrokerSafe™ Financial Threat Intelligence API
-                    </h3>
-                    <p style="color: #94a3b8; font-size: 13px; margin: 0; max-width: 650px; line-height: 1.5;">
-                        Protect your fintech platform, crypto wallet, or trading community with programmatic access to 14,663+ official regulatory blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC). Ultra-low latency under 5ms.
-                    </p>
+                <!-- DEVELOPER & FINTECH THREAT INTEL API SECTION (SYMMETRICAL 4-COLUMN GRID) -->
+        <section style="margin: 40px 0; background: linear-gradient(135deg, rgba(11, 21, 40, 0.95) 0%, rgba(5, 8, 15, 0.98) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 18px; padding: 32px 28px; box-shadow: 0 10px 35px rgba(0,0,0,0.55);">
+            <!-- Header Block -->
+            <div style="margin-bottom: 24px;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 6px; color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">
+                    ⚡ B2B REST API & Developer Solutions
                 </div>
-                                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="/api/v1/docs" class="btn-b2b-api">
-                        <span>⚡ API Docs & Sandbox</span>
-                    </a>
-                    <a href="/pricing" class="btn-b2b-pricing">
-                        <span>💳 Pricing Plans</span>
-                    </a>
-                    <a href="/widget" class="btn-b2b-widget">
-                        <span>🛡️ Embed Widget</span>
-                    </a>
-                    <a href="https://pypi.org/project/isbrokersafe/" target="_blank" rel="noopener" class="btn-b2b-pypi">
-                        <span>🐍 pip install isbrokersafe ↗</span>
-                    </a>
-                </div>
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 24px; color: #fff; margin: 0 0 8px 0; font-weight: 800; letter-spacing: -0.3px;">
+                    IsBrokerSafe™ Financial Threat Intelligence API & Embeddable Widgets
+                </h3>
+                <p style="color: #94a3b8; font-size: 13.5px; margin: 0; max-width: 850px; line-height: 1.6;">
+                    Protect your fintech platform, crypto wallet, payment gateway, or review portal with programmatic real-time access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC). Ultra-low latency under 5ms worldwide.
+                </p>
             </div>
 
-            <!-- Code Preview -->
-            <div style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px; font-family: monospace; font-size: 12px; color: #38bdf8; overflow-x: auto;">
+            <!-- Symmetrical 4-Column Action Buttons Grid -->
+            <div class="b2b-actions-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;">
+                <a href="/api/v1/docs" class="btn-b2b-api" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>⚡ API Docs & Sandbox</span>
+                </a>
+                <a href="/pricing" class="btn-b2b-pricing" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>💳 Pricing Plans</span>
+                </a>
+                <a href="/widget" class="btn-b2b-widget" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>🛡️ Embed Trust Widget</span>
+                </a>
+                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" rel="noopener" class="btn-b2b-pypi" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>🐍 pip install isbrokersafe ↗</span>
+                </a>
+            </div>
+
+            <!-- Code Preview Block -->
+            <div style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px 20px; font-family: monospace; font-size: 12.5px; color: #38bdf8; overflow-x: auto; margin-bottom: 20px;">
                 <span style="color: #64748b;"># Example Live cURL Request</span><br>
                 <span style="color: #10b981;">curl -X GET</span> <span style="color: #f8fafc;">"https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com"</span>
             </div>
 
-            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 18px; font-size: 12px; color: #cbd5e1;">
-                <div><span style="color: #38bdf8; font-weight: 700;">✓ 14,663+</span> Official Dossiers</div>
-                <div><span style="color: #38bdf8; font-weight: 700;">✓ 5ms</span> Response Latency</div>
-                <div><span style="color: #38bdf8; font-weight: 700;">✓ JSON-LD</span> FactCheck Compliant</div>
-                <div><span style="color: #38bdf8; font-weight: 700;">✓ Free Tier</span> Available</div>
+            <!-- Highlights Row -->
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; color: #cbd5e1; justify-content: space-between; padding-top: 4px;">
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ 14,663+</span> Official Enforcement Dossiers</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ 5ms</span> Global Edge Latency</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ JSON-LD</span> FactCheck Compliant</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ Free Tier</span> 100 Requests/Month Included</div>
             </div>
         </section>
 

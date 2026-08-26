@@ -2333,3 +2333,15 @@ body {
     transform: translateY(-2px) scale(1.05) !important;
     filter: brightness(1.25);
 }
+
+
+@media (max-width: 900px) {
+    .b2b-actions-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 550px) {
+    .b2b-actions-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
