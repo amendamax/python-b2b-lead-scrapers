@@ -51,7 +51,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../style.css?v=2.4">
+    <link rel="stylesheet" href="../style.css?v=6.0">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
     <script src="https://js.stripe.com/v3/"></script>
     <!-- PayPal JS SDK for Direct PayPal & Card Checkout -->
@@ -64,6 +64,7 @@
     <div class="bg-glow bg-glow-2"></div>
 
     <!-- Header Navigation -->
+        <!-- Header Navigation -->
     <header class="app-header">
         <div class="logo">
             <span class="logo-icon"><i class="fa-solid fa-heart-crack"></i></span>
@@ -71,14 +72,15 @@
         </div>
         <nav class="nav-links">
             <a href="#about" class="nav-link">Chi Siamo</a>
-            <a href="#redflags" class="nav-link">Segnali di Pericolo</a>
+            <a href="#toolkit" class="nav-link nav-pill-cyan"><i class="fa-solid fa-shield-halved"></i> 🛡️ Safety Toolkit</a>
+            <a href="/scammers" class="nav-link nav-pill-pink"><i class="fa-solid fa-user-shield"></i> 👤 Scammer Blacklist</a>
+            <a href="#redflags" class="nav-link">Segnali Allarme</a>
             <a href="#faq" class="nav-link">FAQ</a>
-            <a href="/scammers" class="nav-link" style="color: #f472b6; font-weight: 700;"><i class="fa-solid fa-user-shield"></i> Scammer Blacklist</a>
-            <a href="https://isbrokersafe.com/it/" target="_blank" rel="noopener" class="nav-link" style="color: #38bdf8; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;"><i class="fa-solid fa-chart-line"></i> 📈 Verifica Broker & Crypto</a>
         </nav>
-                <div class="header-action" style="display: flex; align-items: center; gap: 10px;">
-            <a href="https://isbrokersafe.com/api/v1/docs" target="_blank" rel="noopener" class="badge-tag badge-api-glow" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; padding: 6px 12px; border-radius: 20px; font-size: 12px; transition: all 0.25s ease;">⚡ B2B Threat Intel API ↗</a>
-            <span class="badge badge-live"><span class="pulse-dot"></span> Live Scan Active</span>
+        <div class="header-action">
+            <a href="https://isbrokersafe.com/it/" target="_blank" rel="noopener" class="nav-badge-pill nav-pill-broker"><i class="fa-solid fa-chart-line"></i> 📈 Verifica Broker ↗</a>
+            <a href="https://isbrokersafe.com/api/v1/docs" target="_blank" rel="noopener" class="nav-badge-pill nav-pill-api">⚡ B2B API ↗</a>
+            <span class="badge badge-live"><span class="pulse-dot"></span> 🟢 Live Scan</span>
         </div>
     </header>
 
@@ -88,9 +90,9 @@
         <!-- Hero Section -->
                 <!-- Hero Section -->
         <section class="hero-section">
-            <div class="hero-badge-row">
-                <span class="hero-tag"><i class="fa-solid fa-shield-cat"></i> Motore AI di Riconoscimento Facciale Biometrico</span>
-                <span class="hero-tag hero-tag-warning"><i class="fa-solid fa-triangle-exclamation"></i> 1/7</span>
+                        <div class="hero-badge-row">
+                <span class="hero-tag"><i class="fa-solid fa-shield-cat"></i> Motore AI Riconoscimento Facciale</span>
+                <span class="hero-tag hero-tag-warning"><i class="fa-solid fa-triangle-exclamation"></i> 1 su 7 profili dating è falso</span>
             </div>
             <h1 id="main-title">Ricerca Immagine Inversa & Biometrica Facciale per la Sicurezza nei Dating</h1>
             <p class="hero-subtitle">Rileva all'istante profili catfish, truffe romantiche, foto rubate sui social e false identità utilizzando il riconoscimento facciale AI.</p>
@@ -415,6 +417,131 @@
 
             </div>
         </section>
+
+        <!-- ================================================================= -->
+        <!-- VERIFIED INVESTIGATION, PRIVACY & SAFE DATING TOOLKIT (CJ PARTNERS) -->
+        <!-- ================================================================= -->
+        <section id="toolkit" class="toolkit-main-section" style="max-width: 1200px; margin: 40px auto 45px auto; padding: 0 20px; display: block; position: relative; z-index: 10;">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <span class="hero-tag" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border-color: rgba(236, 72, 153, 0.35); font-weight: 800; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-shield-halved"></i> RETE UFFICIALE DI SICUREZZA & DATING</span>
+                <h2 class="section-heading" style="margin-top: 12px; margin-bottom: 8px; font-size: 28px;"><i class="fa-solid fa-toolbox highlight"></i> 🛡️ Complete Dating Safety & Investigation Toolkit</h2>
+                <p style="color: #94a3b8; font-size: 14.5px; max-width: 680px; margin: 0 auto; line-height: 1.5;">Strumenti ufficiali per verificare numeri di telefono, eliminare dati personali e trovare single verificati.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px;">
+                
+                <!-- Card 1: Spokeo & TruthFinder (Reverse Lookup) -->
+                <div class="card affiliate-incogni-card" style="padding: 24px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 28px;">🔍</span>
+                        <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">BACKGROUND AUDIT</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 8px 0;">Reverse Phone & Email Lookup</h3>
+                    <p style="color: #cbd5e1; font-size: 13.5px; margin: 0 0 18px 0; line-height: 1.5;">
+                        Got a phone number, email address, or name from a dating match? Run an instant search across US public records and aliases.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://www.spokeo.com/reverse-phone-lookup?g=17177183" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
+                            📞 Reverse Phone & Email Search (Spokeo) ➔
+                        </a>
+                        <a href="https://tracking.truthfinder.com/?a=1634&oc=27&c=17128187" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            🕵️ Full Background & Public Records (TruthFinder) ➔
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Incogni & OmniWatch (Privacy & Dark Web) -->
+                <div class="card affiliate-incogni-card" style="padding: 24px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.14) 100%); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 28px;">🛡️</span>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">DATA DEFENSE</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 8px 0;">Delete Personal Info & Dark Web Defense</h3>
+                    <p style="color: #cbd5e1; font-size: 13.5px; margin: 0 0 18px 0; line-height: 1.5;">
+                        Shared your phone, email, or selfies? Automatically delete your records from 180+ data brokers and monitor dark web leaks.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
+                            🛡️ Remove My Data (Incogni - 50% Off Exclusive) ➔
+                        </a>
+                        <a href="https://tracking.omniwatch.com/?a=1634&oc=90&c=17316830" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            👁️ 24/7 Dark Web Identity Monitor (OmniWatch) ➔
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Match.com & OurTime (Verified Safe Dating) -->
+                <div class="card affiliate-match-card" style="padding: 24px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(219, 39, 119, 0.14) 100%); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 28px;">💖</span>
+                        <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">VERIFIED DATING</span>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 8px 0;">Meet Genuine, Verified Singles</h3>
+                    <p style="color: #cbd5e1; font-size: 13.5px; margin: 0 0 18px 0; line-height: 1.5;">
+                        Tired of fake profiles, bots, and catfish traps? Switch to moderated dating networks with official identity verification.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
+                            💖 Meet Verified Singles (Match.com Free Trial) ➔
+                        </a>
+                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=15006955" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            👵 Safe 50+ Mature Dating (OurTime) ➔
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- ROMANCE SCAMMER & CATFISH BLACKLIST PREVIEW (HOMEPAGE SHORTCUT) -->
+        <!-- ================================================================= -->
+        <section id="scammer-blacklist-preview" style="max-width: 1200px; margin: 30px auto 45px auto; padding: 0 20px;">
+            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 20px; padding: 32px 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+                    <div>
+                        <span class="hero-tag" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border-color: rgba(236, 72, 153, 0.35); font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-shield-halved"></i> LIVE THREAT INTELLIGENCE
+                        </span>
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 26px; color: #fff; margin: 10px 0 6px 0; display: flex; align-items: center; gap: 10px;">
+                            <span>🛡️ Romance Scammer & Catfish Blacklist</span>
+                        </h2>
+                        <p style="color: #94a3b8; font-size: 14px; margin: 0; max-width: 650px;">
+                            Archivio investigativo che indicizza oltre 350.000 profili verificati di truffatori sentimentali.
+                        </p>
+                    </div>
+
+                    <!-- Instant Search Input & Full Directory Link -->
+                    <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1; max-width: 480px;">
+                        <div style="position: relative; width: 100%;">
+                            <input type="text" id="homepage-scammer-search" placeholder="Cerca per nome, professione o alias (es. Generale, Chirurgo)..." style="width: 100%; padding: 12px 16px 12px 38px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
+                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 13px;"></i>
+                        </div>
+                        <a href="/scammers" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">
+                            <span>Lista Completa ➔</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dynamic Grid of 6 Scammer Cards -->
+                <div id="homepage-scammers-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+                    <div style="padding: 24px; text-align: center; color: #64748b; grid-column: 1 / -1;">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i> Loading latest reported romance scam dossiers...
+                    </div>
+                </div>
+
+                <!-- Bottom CTA: View All Dossiers -->
+                <div style="text-align: center; margin-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px;">
+                    <a href="/scammers" class="btn-affiliate" style="background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6; text-decoration: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                        <span>🕵️ Sfoglia Blacklist Completa (350.000+ Dossier) ➔</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
 
         <!-- Press / Media Mentions -->
         <section class="press-section">

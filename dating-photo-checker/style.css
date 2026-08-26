@@ -1720,36 +1720,82 @@ body::before {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
     .app-header {
-        padding: 20px 15px;
+        padding: 14px 12px;
         flex-direction: column;
-        gap: 15px;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .nav-links {
-        gap: 15px;
-        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 2px 4px 6px 4px;
+        box-sizing: border-box;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .header-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 2px 4px;
+        box-sizing: border-box;
+    }
+    
+    .header-action::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-link, .nav-badge-pill, .badge-live {
+        font-size: 11.5px !important;
+        padding: 5px 11px !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        padding: 12px 8px;
+        gap: 8px;
     }
     
     .app-container {
-        padding: 30px 15px;
+        padding: 20px 12px;
     }
     
     .hero-section h1 {
-        font-size: 30px;
+        font-size: 26px;
+        line-height: 1.2;
     }
     
     .hero-subtitle {
-        font-size: 15px;
+        font-size: 14px;
     }
     
     .scanner-card {
-        padding: 20px;
+        padding: 16px;
     }
     
     .drop-zone {
-        height: 220px;
+        height: 200px;
     }
     
     .score-grid {
