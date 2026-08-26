@@ -1016,31 +1016,103 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.75rem;
-    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
     gap: 1rem;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .header-badges {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
 }
 
 .badge-tag {
     background: rgba(56, 189, 248, 0.08);
     border: 1px solid rgba(56, 189, 248, 0.25);
     color: var(--color-primary);
-    padding: 0.35rem 0.85rem;
+    padding: 6px 13px;
     border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(8px);
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.badge-tag.green {
+.badge-api-glow:hover {
+    background: rgba(56, 189, 248, 0.25) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.7), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+.badge-dating-glow {
+    color: #f472b6 !important;
+    background: rgba(236, 72, 153, 0.1) !important;
+    border: 1px solid rgba(236, 72, 153, 0.3) !important;
+}
+
+.badge-dating-glow:hover {
+    background: rgba(236, 72, 153, 0.25) !important;
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 18px rgba(236, 72, 153, 0.7), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+.badge-ssl-glow:hover {
+    background: rgba(56, 189, 248, 0.2) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.5) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+.badge-portal-glow {
     background: rgba(16, 185, 129, 0.08);
     border-color: rgba(16, 185, 129, 0.25);
     color: var(--color-success);
+}
+
+.badge-portal-glow:hover {
+    background: rgba(16, 185, 129, 0.25) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.65), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    color: #ffffff !important;
+}
+
+@media (max-width: 850px) {
+    .header-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .header-badges {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 2px 4px 6px 4px;
+        box-sizing: border-box;
+        justify-content: flex-start;
+    }
+    .header-badges::-webkit-scrollbar {
+        display: none;
+    }
+    .badge-tag {
+        font-size: 11.5px !important;
+        padding: 5px 11px !important;
+    }
 }
 
 .hero-box {
