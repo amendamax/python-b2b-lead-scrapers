@@ -14,23 +14,27 @@ from playwright_stealth import Stealth
 TELEGRAM_TOKEN = "8677428441:AAEKsz-dfn_zlF7asRXEy1qtutCYPQOdLdE"
 TELEGRAM_CHAT_ID = "1367224738"
 
-# Listează aici căutările tale de pe Upwork cu filtrele dorite, sortate după cele mai noi (recency)
+# Listează aici căutările tale de pe Upwork cu noile filtre de elită: Minim $300 Fixed / Minim $40/hr Hourly
 UPWORK_SEARCH_QUERIES = [
     {
-        "nume": "Data Scraping",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=100-&contractor_tier=2,3&hourly_rate=20-&payment_verified=1&q=data+scraping&sort=recency"
+        "nume": "Python & Scraping / Anti-Bot",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=300-&contractor_tier=2,3&hourly_rate=40-&payment_verified=1&q=python+scraping&sort=recency"
     },
     {
-        "nume": "Web Scraping",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=100-&contractor_tier=2,3&hourly_rate=20-&payment_verified=1&q=web+scraping&sort=recency"
+        "nume": "Playwright & Browser Automation",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=300-&contractor_tier=2,3&hourly_rate=40-&payment_verified=1&q=playwright+selenium&sort=recency"
     },
     {
-        "nume": "Python Developer",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=100-&contractor_tier=2,3&hourly_rate=20-&payment_verified=1&q=python&sort=recency"
+        "nume": "Data Extraction & Lead Generation",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=300-&contractor_tier=2,3&hourly_rate=40-&payment_verified=1&q=data+extraction+leads&sort=recency"
     },
     {
-        "nume": "Data Extraction",
-        "url": "https://www.upwork.com/nx/search/jobs/?amount=100-&contractor_tier=2,3&hourly_rate=20-&payment_verified=1&q=data+extraction&sort=recency"
+        "nume": "FastAPI & Python Backend",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=300-&contractor_tier=2,3&hourly_rate=40-&payment_verified=1&q=fastapi+python&sort=recency"
+    },
+    {
+        "nume": "MQL5 & Algorithmic Trading Bots",
+        "url": "https://www.upwork.com/nx/search/jobs/?amount=300-&contractor_tier=2,3&hourly_rate=40-&payment_verified=1&q=mql5+trading&sort=recency"
     }
 ]
 
@@ -202,17 +206,17 @@ async def monitor_upwork():
                             budget_text = "Nespecificat"
                             hourly_text = "Nespecificat"
                             
-                            # 3. Filtrare după Buget Fix (Minim $100)
+                            # 3. Filtrare după Buget Fix (Minim $300)
                             budget_match = re.search(r'Est\.\s*Budget:\s*\$([\d,]+)|Fixed-price\s*-\s*Est\.\s*budget:\s*\$([\d,]+)', details_text, re.IGNORECASE)
                             if budget_match:
                                 budget_val = budget_match.group(1) or budget_match.group(2)
                                 budget_val_clean = int(budget_val.replace(',', ''))
-                                if budget_val_clean < 100:
+                                if budget_val_clean < 300:
                                     print(f"    [-] Sarit (Buget fix prea mic: ${budget_val_clean}): {title_text}")
                                     continue
                                 budget_text = f"${budget_val}"
                                 
-                            # 4. Filtrare după Tarif Orar (Minim $20/h)
+                            # 4. Filtrare după Tarif Orar (Minim $40/h)
                             hourly_match = re.search(r'Hourly:\s*(\$[\d\.-]+)|Hourly\s*Range:\s*(\$[\d\.-]+)', details_text, re.IGNORECASE)
                             if hourly_match:
                                 hourly_val = hourly_match.group(1) or hourly_match.group(2)
@@ -223,7 +227,7 @@ async def monitor_upwork():
                                 if rates:
                                     rates_float = [float(r) for r in rates]
                                     max_rate = max(rates_float)
-                                    if max_rate < 20:
+                                    if max_rate < 40:
                                         print(f"    [-] Sarit (Tarif orar prea mic: {hourly_val}): {title_text}")
                                         continue
                             
