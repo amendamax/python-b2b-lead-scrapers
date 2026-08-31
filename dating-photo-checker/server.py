@@ -5076,6 +5076,61 @@ async def api_v1_postman_collection():
     raise HTTPException(status_code=404, detail="Postman Collection not found")
 
 
+@app.get("/privacy", response_class=HTMLResponse)
+@app.get("/privacy-policy", response_class=HTMLResponse)
+async def privacy_policy_page():
+    """
+    Official Privacy Policy for Google Chrome Web Store, RapidAPI, and International GDPR / DSA Compliance.
+    """
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - IsBrokerSafe & VerifyDating (SafeShield)</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b1120; color: #f1f5f9; line-height: 1.6; padding: 40px 20px; max-width: 800px; margin: auto; }
+        h1 { color: #38bdf8; font-size: 28px; border-bottom: 1px solid #1e293b; padding-bottom: 12px; }
+        h2 { color: #10b981; font-size: 20px; margin-top: 24px; }
+        p, li { color: #cbd5e1; font-size: 15px; }
+        ul { padding-left: 20px; }
+        .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid #0284c7; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: bold; margin-bottom: 20px; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; color: #64748b; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="badge">VasileDev Group Cybersecurity & Privacy Standard</div>
+    <h1>Privacy Policy — SafeShield Extension & Platform</h1>
+    <p>Last updated: August 31, 2026</p>
+
+    <h2>1. Overview</h2>
+    <p>SafeShield (operated by VasileDev Group under IsBrokerSafe and VerifyDating) provides real-time cybersecurity protection, financial broker regulatory verification, and romance scam detection.</p>
+
+    <h2>2. Data Collection & Zero-Tracking Commitment</h2>
+    <p>SafeShield is built on a strict privacy-first architecture:</p>
+    <ul>
+        <li><strong>No Personal Data Collection:</strong> We do not collect names, email addresses, passwords, IP addresses, or payment credentials through the extension.</li>
+        <li><strong>No Browsing History Stored:</strong> When you navigate to a webpage, the extension extracts only the domain name (e.g. <code>broker-name.com</code>) to check against public financial enforcement databases (CONSOB, FCA, BaFin). No URLs or browsing history are logged or retained.</li>
+        <li><strong>No Data Sale:</strong> We never sell, rent, or transfer user data to third parties, advertising networks, or data brokers.</li>
+    </ul>
+
+    <h2>3. Permissions Used</h2>
+    <ul>
+        <li><code>activeTab</code> / <code>tabs</code>: Used strictly to detect the active website domain for real-time safety badge updates.</li>
+        <li><code>storage</code>: Used strictly on your local device to store UI preferences and cached threat lookups for faster response times.</li>
+    </ul>
+
+    <h2>4. Contact Us</h2>
+    <p>For any privacy-related inquiries, please contact our Data Protection Office at: <strong>amendamax@gmail.com</strong> or <strong>amendamax@vasiledev.com</strong>.</p>
+
+    <div class="footer">
+        © 2026 VasileDev Group (Vasile Bratu). All rights reserved. Registered Office: Garessio (CN), Italy.
+    </div>
+</body>
+</html>
+"""
+
+
 @app.get("/api/v1/openapi.json")
 async def api_v1_openapi_spec():
     """
