@@ -34,11 +34,13 @@
             "url": {
               "raw": "https://isbrokersafe.com/health",
               "host": [
-                "https://isbrokersafe.com"
+                "isbrokersafe",
+                "com"
               ],
               "path": [
                 "health"
-              ]
+              ],
+              "protocol": "https"
             },
             "description": "Returns system uptime, database connection state, and total indexed dossiers count."
           }
@@ -62,7 +64,8 @@
             "url": {
               "raw": "https://isbrokersafe.com/api/v1/broker/check?domain=xm.com",
               "host": [
-                "https://isbrokersafe.com"
+                "isbrokersafe",
+                "com"
               ],
               "path": [
                 "api",
@@ -76,7 +79,8 @@
                   "value": "xm.com",
                   "description": "The domain name or broker identifier to verify"
                 }
-              ]
+              ],
+              "protocol": "https"
             },
             "description": "Real-time multi-jurisdiction lookup against CONSOB (IT), FCA (UK), BaFin (DE), and CySEC databases."
           }
@@ -95,7 +99,8 @@
             "url": {
               "raw": "https://isbrokersafe.com/api/v1/broker/search?q=etoro",
               "host": [
-                "https://isbrokersafe.com"
+                "isbrokersafe",
+                "com"
               ],
               "path": [
                 "api",
@@ -109,7 +114,8 @@
                   "value": "etoro",
                   "description": "Fuzzy search keyword for regulated or blacklisted brokers"
                 }
-              ]
+              ],
+              "protocol": "https"
             },
             "description": "Full-text fuzzy search across regulated brokers and scam warnings."
           }
@@ -122,13 +128,15 @@
             "url": {
               "raw": "https://isbrokersafe.com/api/v1/stats",
               "host": [
-                "https://isbrokersafe.com"
+                "isbrokersafe",
+                "com"
               ],
               "path": [
                 "api",
                 "v1",
                 "stats"
-              ]
+              ],
+              "protocol": "https"
             },
             "description": "Returns aggregated stats on blocked domains, active alerts, and regulatory coverage."
           }
@@ -162,7 +170,8 @@
               "raw": "https://verifydating.net/api/v1/face/check",
               "protocol": "https",
               "host": [
-                "https://verifydating.net"
+                "verifydating",
+                "net"
               ],
               "path": [
                 "api",
@@ -183,7 +192,8 @@
               "raw": "https://verifydating.net/api/v1/face/stats",
               "protocol": "https",
               "host": [
-                "https://verifydating.net"
+                "verifydating",
+                "net"
               ],
               "path": [
                 "api",
