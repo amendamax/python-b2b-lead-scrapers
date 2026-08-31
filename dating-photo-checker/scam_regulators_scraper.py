@@ -33,7 +33,7 @@ PROXY_USER = "geonode_r5f9bn3waz-type-residential"
 PROXY_PASS = "d9081034-36de-4826-a96a-ac71ba19c884"
 PROXY_URL = f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}"
 
-PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
+PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(PERSISTENT_DIR, exist_ok=True)
 DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
@@ -50,8 +50,8 @@ def slugify(text):
     return re.sub(r'[-\s]+', '-', text)
 
 def init_scam_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.execute("PRAGMA journal_mode = WAL;"); conn.execute("PRAGMA temp_store = MEMORY;"); cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS regulatory_scam_reports (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -97,8 +97,8 @@ def insert_scam_report(entity_name, domain, regulator, warning_type, warning_dat
     
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.execute("PRAGMA journal_mode = WAL;"); conn.execute("PRAGMA temp_store = MEMORY;"); cursor = conn.cursor()
     try:
         cursor.execute("""
             INSERT OR IGNORE INTO regulatory_scam_reports 
@@ -321,8 +321,8 @@ def run_master_scraper():
     
     init_scam_db()
     
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.execute("PRAGMA journal_mode = WAL;"); conn.execute("PRAGMA temp_store = MEMORY;"); cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
     current_cnt = cursor.fetchone()[0]
     conn.close()
@@ -331,8 +331,8 @@ def run_master_scraper():
         needed = 14500 - current_cnt
         total += generate_bulk_synthetic_scam_network(needed)
     
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.execute("PRAGMA journal_mode = WAL;"); conn.execute("PRAGMA temp_store = MEMORY;"); cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM regulatory_scam_reports")
     db_total = cursor.fetchone()[0]
     conn.close()

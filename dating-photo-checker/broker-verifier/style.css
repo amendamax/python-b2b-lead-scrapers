@@ -1014,19 +1014,20 @@ body {
    ========================================================================== */
 .header-nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 1.5rem;
-    gap: 1rem;
-    flex-wrap: nowrap;
+    gap: 20px;
+    flex-wrap: wrap;
     width: 100%;
 }
 
 .header-badges {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .badge-tag {

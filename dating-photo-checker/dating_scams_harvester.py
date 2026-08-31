@@ -5,11 +5,11 @@ import re
 from datetime import datetime, timedelta
 import random
 
-PERSISTENT_DIR = "/var/data" if os.path.exists("/var/data") else "."
+PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS dating_scam_profiles (
@@ -176,7 +176,7 @@ LOCATIONS = [
 
 def generate_dating_scam_dossiers(target_count=10000):
     init_db()
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
     cursor = conn.cursor()
     
     cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")

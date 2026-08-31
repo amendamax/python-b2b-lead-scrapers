@@ -3676,8 +3676,9 @@ html, body {
 
 .header-badges {
     display: flex !important;
-    gap: 8px !important;
+    gap: 10px !important;
     align-items: center !important;
+    justify-content: flex-start !important;
     flex-wrap: wrap !important;
 }
 
