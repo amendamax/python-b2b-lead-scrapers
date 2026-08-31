@@ -5057,6 +5057,20 @@ async def api_v1_stats():
     })
 
 
+@app.get("/api/v1/postman.json")
+@app.get("/postman.json")
+async def api_v1_postman_collection():
+    """
+    Official Postman Collection v2.1.0 for 1-click import into Postman and Postman Public Network.
+    """
+    file_path = "IsBrokerSafe_and_VerifyDating_API.postman_collection.json"
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="application/json", filename="IsBrokerSafe_and_VerifyDating_API.postman_collection.json")
+    if os.path.exists("dating-photo-checker/" + file_path):
+        return FileResponse("dating-photo-checker/" + file_path, media_type="application/json", filename="IsBrokerSafe_and_VerifyDating_API.postman_collection.json")
+    raise HTTPException(status_code=404, detail="Postman Collection not found")
+
+
 @app.get("/api/v1/openapi.json")
 async def api_v1_openapi_spec():
     """

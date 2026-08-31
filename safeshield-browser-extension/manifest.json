@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "SafeShield - Broker & Dating Scam Detector",
+  "version": "1.0.0",
+  "description": "Real-time AI threat intelligence detecting fraudulent brokers, CONSOB/FCA blacklists, and romance scammer profiles.",
+  "author": "VasileDev Group (Vasile Bratu)",
+  "homepage_url": "https://isbrokersafe.com",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://isbrokersafe.com/*",
+    "https://verifydating.net/*",
+    "https://dating-photo-checker.onrender.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SafeShield Protection",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

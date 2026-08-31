@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeShield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-group">
+        <div class="shield-icon">🛡️</div>
+        <div>
+          <h1 class="title">SafeShield</h1>
+          <p class="subtitle">By IsBrokerSafe & VerifyDating</p>
+        </div>
+      </div>
+      <span class="badge-live">● LIVE</span>
+    </header>
+
+    <div id="active-tab-card" class="card active-tab-box">
+      <div class="domain-row">
+        <span class="label">Current Domain:</span>
+        <span id="current-domain" class="domain-name">Scanning...</span>
+      </div>
+      <div id="domain-status-badge" class="status-pill neutral">Checking Database...</div>
+      <div id="domain-details" class="domain-meta"></div>
+    </div>
+
+    <div class="card search-card">
+      <h2 class="section-title">🔍 Check Any Broker or Domain</h2>
+      <div class="input-group">
+        <input type="text" id="broker-input" placeholder="e.g. eToro, XM, scam-broker.com..." autocomplete="off">
+        <button id="search-btn" class="btn btn-primary">Check</button>
+      </div>
+      <div id="search-result" class="search-result-box hidden"></div>
+    </div>
+
+    <div class="tools-grid">
+      <a href="https://verifydating.net" target="_blank" class="tool-btn tool-dating">
+        <span class="tool-icon">🕵️‍♀️</span>
+        <div class="tool-text">
+          <strong>Verify Dating Photo</strong>
+          <small>AI Biometric & Scam Face Match (1.43M DB)</small>
+        </div>
+      </a>
+      <a href="https://isbrokersafe.com" target="_blank" class="tool-btn tool-broker">
+        <span class="tool-icon">🏦</span>
+        <div class="tool-text">
+          <strong>IsBrokerSafe Portal</strong>
+          <small>14,660+ CONSOB/FCA/BaFin Blacklists</small>
+        </div>
+      </a>
+    </div>
+
+    <footer class="footer">
+      <span>Protected by VasileDev Cyber Intelligence</span>
+      <a href="https://rapidapi.com/user/amendamax" target="_blank" class="api-link">Developer API</a>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
