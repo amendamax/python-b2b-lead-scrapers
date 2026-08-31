@@ -34,3 +34,5 @@ body { width: 360px; background-color: #0b1120; color: #f8fafc; padding: 14px; }
 .tool-text small { font-size: 10px; color: #94a3b8; }
 .footer { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #64748b; padding-top: 6px; border-top: 1px solid #1e293b; }
 .api-link { color: #38bdf8; text-decoration: none; font-weight: 600; }
+
+.shield-img { width: 28px; height: 28px; filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6)); border-radius: 50%; vertical-align: middle; }
