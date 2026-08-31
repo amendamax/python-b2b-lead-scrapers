@@ -5076,6 +5076,18 @@ async def api_v1_postman_collection():
     raise HTTPException(status_code=404, detail="Postman Collection not found")
 
 
+
+@app.get("/extension")
+@app.get("/safeshield")
+async def redirect_to_chrome_store():
+    """
+    Redirects directly to official SafeShield Chrome Web Store extension page.
+    """
+    return RedirectResponse(
+        url="https://chromewebstore.google.com/detail/safeshield-broker-dating/kofccbiknbhbmjdpagddiiaggleehdoj",
+        status_code=302
+    )
+
 @app.get("/privacy", response_class=HTMLResponse)
 @app.get("/privacy-policy", response_class=HTMLResponse)
 async def privacy_policy_page():
