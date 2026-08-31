@@ -7,8 +7,13 @@
   },
   "variable": [
     {
-      "key": "base_url",
+      "key": "broker_base_url",
       "value": "https://isbrokersafe.com",
+      "type": "string"
+    },
+    {
+      "key": "dating_base_url",
+      "value": "https://verifydating.net",
       "type": "string"
     },
     {
@@ -27,9 +32,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/health",
+              "raw": "https://isbrokersafe.com/health",
               "host": [
-                "{{base_url}}"
+                "https://isbrokersafe.com"
               ],
               "path": [
                 "health"
@@ -55,9 +60,9 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api/v1/broker/check?domain=xm.com",
+              "raw": "https://isbrokersafe.com/api/v1/broker/check?domain=xm.com",
               "host": [
-                "{{base_url}}"
+                "https://isbrokersafe.com"
               ],
               "path": [
                 "api",
@@ -88,9 +93,9 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api/v1/broker/search?q=etoro",
+              "raw": "https://isbrokersafe.com/api/v1/broker/search?q=etoro",
               "host": [
-                "{{base_url}}"
+                "https://isbrokersafe.com"
               ],
               "path": [
                 "api",
@@ -115,9 +120,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/v1/stats",
+              "raw": "https://isbrokersafe.com/api/v1/stats",
               "host": [
-                "{{base_url}}"
+                "https://isbrokersafe.com"
               ],
               "path": [
                 "api",
@@ -157,8 +162,7 @@
               "raw": "https://verifydating.net/api/v1/face/check",
               "protocol": "https",
               "host": [
-                "verifydating",
-                "net"
+                "https://verifydating.net"
               ],
               "path": [
                 "api",
@@ -179,8 +183,7 @@
               "raw": "https://verifydating.net/api/v1/face/stats",
               "protocol": "https",
               "host": [
-                "verifydating",
-                "net"
+                "https://verifydating.net"
               ],
               "path": [
                 "api",
