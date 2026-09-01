@@ -2241,14 +2241,12 @@ body {
 .app-header {
     width: 100%;
     max-width: 1350px;
-    margin: 0 auto;
-    padding: 16px 25px;
+    margin: 0 auto 2.5rem auto;
+    padding: 0 0 1.5rem 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    gap: 15px;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.8rem;
     box-sizing: border-box;
 }
 
