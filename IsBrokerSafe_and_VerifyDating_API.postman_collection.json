@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "8f3e2d1a-4b5c-6e7f-8a9b-0c1d2e3f4a5b",
     "name": "IsBrokerSafe & VerifyDating Unified Cyber Intelligence API",
-    "description": "Official REST API suite for real-time Broker Risk Intelligence (14,660+ regulatory blacklists) and AI Biometric Dating Scammer Detection (1.43M profiles). Powered by VasileDev Group.",
+    "description": "Official Postman Collection for IsBrokerSafe? & VerifyDating? Threat Intelligence REST APIs. Aggregates real-time regulatory enforcement actions, blacklist orders, and broker safety ratings across 15 Worldwide Supervisory Authorities (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) with sub-5ms latency and 34,670+ live enforcement dossiers.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
