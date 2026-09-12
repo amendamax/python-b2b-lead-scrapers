@@ -508,6 +508,7 @@ section {
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
     background: #060a12;
     width: 100%;
+    position: relative;
 }
 
 .project-visual > div {
@@ -953,6 +954,7 @@ footer p {
 
     .project-visual {
         width: 100% !important;
+        position: relative !important;
     }
 
     .project-visual > div {
@@ -962,12 +964,15 @@ footer p {
         background-size: 100% 100% !important;
         background-repeat: no-repeat !important;
         background-position: center center !important;
-        padding: 8px 10px !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
-    .project-visual > div > span {
-        font-size: 0.65rem !important;
-        padding: 4px 10px !important;
+    .project-floating-badge {
+        top: 8px !important;
+        right: 8px !important;
+        font-size: 0.62rem !important;
+        padding: 3px 8px !important;
     }
     
     .project-item {
@@ -1143,12 +1148,11 @@ footer p {
 }
 
 @media (max-width: 480px) {
-    .project-visual > div {
-        padding: 5px 6px !important;
-    }
-    .project-visual > div > span {
-        font-size: 0.55rem !important;
+    .project-floating-badge {
+        top: 6px !important;
+        right: 6px !important;
+        font-size: 0.54rem !important;
         padding: 2px 6px !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
     }
 }
