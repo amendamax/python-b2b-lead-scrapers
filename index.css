@@ -506,17 +506,32 @@ section {
     overflow: hidden;
     border: 1px solid var(--border-color);
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    background: #000;
+    background: #060a12;
+    width: 100%;
+}
+
+.project-visual > div {
+    width: 100%;
+    aspect-ratio: 1376 / 768;
+    height: auto !important;
+    min-height: 0 !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    box-sizing: border-box;
+    transition: transform 0.4s ease;
+}
+
+@media (hover: hover) {
+    .project-item:hover .project-visual > div {
+        transform: scale(1.02);
+    }
 }
 
 .project-visual img {
     width: 100%;
     display: block;
     transition: transform 0.6s ease;
-}
-
-.project-item:hover .project-visual img {
-    transform: scale(1.03);
 }
 
 .project-info {
@@ -936,12 +951,23 @@ footer p {
         -webkit-text-fill-color: initial !important;
     }
 
+    .project-visual {
+        width: 100% !important;
+    }
+
     .project-visual > div {
-        height: 220px !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1376 / 768 !important;
+        background-size: 100% 100% !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        padding: 8px 10px !important;
     }
     
-    .project-visual span:first-child {
-        font-size: 3rem !important;
+    .project-visual > div > span {
+        font-size: 0.65rem !important;
+        padding: 4px 10px !important;
     }
     
     .project-item {
@@ -1114,4 +1140,15 @@ footer p {
     0% { transform: scale(1); }
     50% { transform: scale(1.08); }
     100% { transform: scale(1); }
+}
+
+@media (max-width: 480px) {
+    .project-visual > div {
+        padding: 5px 6px !important;
+    }
+    .project-visual > div > span {
+        font-size: 0.55rem !important;
+        padding: 2px 6px !important;
+        border-radius: 12px !important;
+    }
 }
