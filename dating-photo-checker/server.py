@@ -4530,6 +4530,9 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                             <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
                                 {t['plus500_cta']}
                             </a>
+                            <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: -3px; margin-bottom: 3px;">
+                                81% of retail CFD accounts lose money.
+                            </div>
 
                             <!-- 02. AvaTrade Gold Button -->
                             <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
