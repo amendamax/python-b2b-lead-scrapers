@@ -807,9 +807,15 @@ async def get_index_css(request: Request):
 
 @app.get("/favicon.svg")
 @app.get("/favicon.ico")
-async def get_favicon():
+async def get_favicon(request: Request):
+    host = request.headers.get("host", "").lower()
+    if "isbrokersafe" in host or "broker" in host:
+        if os.path.exists("broker-verifier/favicon.svg"):
+            return FileResponse("broker-verifier/favicon.svg", media_type="image/svg+xml")
+    if os.path.exists("dating-favicon.svg"):
+        return FileResponse("dating-favicon.svg", media_type="image/svg+xml")
     if os.path.exists("favicon.svg"):
-        return FileResponse("favicon.svg")
+        return FileResponse("favicon.svg", media_type="image/svg+xml")
     return JSONResponse(status_code=404, content={"message": "Favicon not found"})
 
 @app.get("/app.js")
