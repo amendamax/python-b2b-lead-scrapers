@@ -8262,33 +8262,21 @@ async def sitemap_dating_scams_index():
     """
     Standard Google Sitemap Index XML for VerifyDating Scammer Profiles.
     Google enforces max 50,000 URLs and recommends chunking large databases.
-    Splits 50,000+ dossiers into 5 clean sub-sitemaps of 10,000 URLs each.
+    Splits 50,000+ dossiers into 10 clean sub-sitemaps of 40,000 localized URLs each (8 languages).
     """
     base_url = "https://verifydating.net"
     today = datetime.now().strftime("%Y-%m-%d")
     
+    parts_xml = "\n".join([
+        f"""  <sitemap>
+    <loc>{base_url}/sitemap-dating-scams-{i}.xml</loc>
+    <lastmod>{today}</lastmod>
+  </sitemap>""" for i in range(1, 11)
+    ])
+    
     xml_index = f"""<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>{base_url}/sitemap-dating-scams-1.xml</loc>
-    <lastmod>{today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>{base_url}/sitemap-dating-scams-2.xml</loc>
-    <lastmod>{today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>{base_url}/sitemap-dating-scams-3.xml</loc>
-    <lastmod>{today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>{base_url}/sitemap-dating-scams-4.xml</loc>
-    <lastmod>{today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>{base_url}/sitemap-dating-scams-5.xml</loc>
-    <lastmod>{today}</lastmod>
-  </sitemap>
+{parts_xml}
 </sitemapindex>"""
     from fastapi.responses import Response
     return Response(content=xml_index, media_type="application/xml")
@@ -8297,11 +8285,11 @@ async def sitemap_dating_scams_index():
 @app.get("/sitemap-dating-scams-{part}.xml")
 async def sitemap_dating_scams_part(part: int):
     """
-    Individual chunked sub-sitemap of 10,000 URLs. Fast, validated, 0% timeout.
+    Individual chunked sub-sitemap of 5,000 dossiers * 8 languages = 40,000 URLs. Fast, validated, 0% timeout.
     """
     import html as html_lib
-    part = max(1, min(5, part))
-    chunk_size = 10000
+    part = max(1, min(10, part))
+    chunk_size = 5000
     offset = (part - 1) * chunk_size
 
     conn = get_db_connection()
@@ -8326,15 +8314,18 @@ async def sitemap_dating_scams_part(part: int):
         xml.append('    <priority>0.9</priority>')
         xml.append('  </url>')
 
+    langs = ["en", "ro", "it", "de", "fr", "es", "pt", "ru"]
     for slug, rep_date in rows:
         safe_slug = html_lib.escape(slug)
         lastmod = rep_date if rep_date else today
-        xml.append('  <url>')
-        xml.append(f'    <loc>https://verifydating.net/scammer/{safe_slug}</loc>')
-        xml.append(f'    <lastmod>{lastmod}</lastmod>')
-        xml.append('    <changefreq>weekly</changefreq>')
-        xml.append('    <priority>0.8</priority>')
-        xml.append('  </url>')
+        for l in langs:
+            loc = f"https://verifydating.net/{l}/scammer/{safe_slug}" if l != "en" else f"https://verifydating.net/scammer/{safe_slug}"
+            xml.append('  <url>')
+            xml.append(f'    <loc>{loc}</loc>')
+            xml.append(f'    <lastmod>{lastmod}</lastmod>')
+            xml.append('    <changefreq>weekly</changefreq>')
+            xml.append('    <priority>0.8</priority>')
+            xml.append('  </url>')
 
     xml.append('</urlset>')
     return Response(content="\n".join(xml), media_type="application/xml")
@@ -8503,10 +8494,17 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
     return HTMLResponse(content=html, status_code=200)
 
 @app.get("/scammer/{slug}")
-async def dating_scammer_profile_dossier(slug: str):
+@app.get("/{lang}/scammer/{slug}")
+async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
     """
     Forensic Threat Intelligence Dossier Page for a Specific Romance Scammer Profile.
+    Supports 8 languages (EN, RO, IT, DE, FR, ES, PT, RU) with canonical & hreflang SEO tags.
     """
+    valid_langs = ["en", "ro", "it", "de", "fr", "es", "pt", "ru"]
+    lang = lang.lower().strip() if lang else "en"
+    if lang not in valid_langs:
+        lang = "en"
+
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("""
@@ -8552,14 +8550,192 @@ async def dating_scammer_profile_dossier(slug: str):
     
     flags_html = "".join([f'<li style="color: #f87171; margin-bottom: 6px;">🚩 <strong>{f}</strong></li>' for f in flags])
     aliases_str = ", ".join(aliases) if aliases else name
+
+    T = {
+        "en": {
+            "title": f"{name} Romance Scam Alert & Stolen Photos ({category}) | VerifyDating",
+            "meta_desc": f"Forensic dossier on romance scam persona '{name}' ({prof}, {location}). Detect catfish profiles and reverse search photos with VerifyDating AI.",
+            "back": "&larr; Back to Scammer Blacklist",
+            "verify_face": "📷 Verify Another Face (Free) ↗",
+            "risk_label": f"{risk}% CONFIRMED CATFISH RISK",
+            "reported": "Reported",
+            "investigations": "Investigations",
+            "claimed_label": f"<strong>Claimed Identity:</strong> {prof} &bull; Claimed Age: {age} &bull; Claimed Location: {location}",
+            "victim_alert": f"⚠️ <strong>Victim Alert:</strong> The photographs used by this persona are <em>{stolen}</em>. The real individual depicted in these images is an innocent third party whose identity has been impersonated.",
+            "script_heading": "🎭 Typical Romance Scam Script Used",
+            "flags_heading": "🚩 Key Red Flags & Warning Indicators:",
+            "aliases_heading": f"<strong>Reported Aliases:</strong> {aliases_str}",
+            "chatting_q": "Are You Chatting With This Person or a Similar Profile?",
+            "chatting_desc": "Don't send any money, cryptocurrency, or personal documents. Run our instant AI facial recognition audit to uncover the real social profiles behind their photos.",
+            "scan_cta": "📷 Run Free Biometric Photo Scan ➔",
+            "pdf_cta": "📄 Download Official PDF Report ($2.99)",
+            "toolkit_title": "🛡️ Official Investigation & Safety Toolkit",
+            "toolkit_desc": "Verified tools to run background checks, delete stolen personal info, and find genuine matches.",
+        },
+        "ro": {
+            "title": f"Alertă Înșelăciune {name} & Poze Furate ({category}) | VerifyDating",
+            "meta_desc": f"Dosar de investigație asupra profilului fals '{name}' ({prof}, {location}). Detectează escrocii sentimentali și verifică pozele cu AI pe VerifyDating.",
+            "back": "&larr; Înapoi la Lista de Escroci",
+            "verify_face": "📷 Verifică Altă Poză (Gratuit) ↗",
+            "risk_label": f"{risk}% RISC CONFIRMAT DE CATFISH",
+            "reported": "Raportat",
+            "investigations": "Investigații",
+            "claimed_label": f"<strong>Identitate Declarată:</strong> {prof} &bull; Vârstă: {age} &bull; Locație: {location}",
+            "victim_alert": f"⚠️ <strong>Alertă Victimă:</strong> Fotografiile utilizate de acest profil sunt <em>{stolen}</em>. Persoana reală din imagini este nevinovată, fiindu-i furată identitatea.",
+            "script_heading": "🎭 Mesaje și Scenarii Tipice Folosite de Escroc",
+            "flags_heading": "🚩 Semnale Majore de Alarmă (Red Flags):",
+            "aliases_heading": f"<strong>Pseudonime Raportate:</strong> {aliases_str}",
+            "chatting_q": "Discuți cu această persoană sau cu un profil similar?",
+            "chatting_desc": "Nu trimite bani, criptomonede sau documente de identitate. Rulează scanarea biometrică gratuită pentru a descoperi profilul real din spatele pozelor.",
+            "scan_cta": "📷 Scanează Gratuit Poza Biometric ➔",
+            "pdf_cta": "📄 Descarcă Raportul Oficial PDF ($2.99)",
+            "toolkit_title": "🛡️ Unelte Oficiale de Investigație & Siguranță",
+            "toolkit_desc": "Unelte verificate pentru verificarea antecedentelor, ștergerea datelor compromise și dating sigur.",
+        },
+        "it": {
+            "title": f"Allerta Truffa Amorosa {name} & Foto Rubate ({category}) | VerifyDating",
+            "meta_desc": f"Dossier investigativo sul profilo falso '{name}' ({prof}, {location}). Rileva truffe sentimentali e cerca foto rubate con l'AI di VerifyDating.",
+            "back": "&larr; Torna alla Blacklist Truffatori",
+            "verify_face": "📷 Verifica un'altra Foto (Gratis) ↗",
+            "risk_label": f"{risk}% RISCHIO TRUFFA CONFERMATO",
+            "reported": "Segnalato",
+            "investigations": "Indagini",
+            "claimed_label": f"<strong>Identità Dichiarata:</strong> {prof} &bull; Età: {age} &bull; Luogo: {location}",
+            "victim_alert": f"⚠️ <strong>Allerta Vittima:</strong> Le foto usate da questo profilo sono <em>{stolen}</em>. La persona reale è innocente e vittima di furto d'identità.",
+            "script_heading": "🎭 Copione Tipico Usato dal Truffatore",
+            "flags_heading": "🚩 Campanelli d'Allarme Principali (Red Flags):",
+            "aliases_heading": f"<strong>Alias Segnalati:</strong> {aliases_str}",
+            "chatting_q": "Stai chattando con questa persona o un profilo simile?",
+            "chatting_desc": "Non inviare denaro, criptovalute o documenti personali. Esegui la scansione biometrica gratuita per scoprire i veri profili social.",
+            "scan_cta": "📷 Scansione Facciale Gratuita con AI ➔",
+            "pdf_cta": "📄 Scarica Dossier Ufficiale PDF ($2.99)",
+            "toolkit_title": "🛡️ Strumenti Ufficiali di Investigazione e Sicurezza",
+            "toolkit_desc": "Strumenti verificati per controlli su numeri/email, rimozione dati rubati e incontri sicuri.",
+        },
+        "de": {
+            "title": f"{name} Liebesbetrug-Warnung & Gestohlene Fotos ({category}) | VerifyDating",
+            "meta_desc": f"Forensisches Dossier über Romance-Scam-Profil '{name}' ({prof}, {location}). Catfish-Profile erkennen und Bilder rückwärtssuchen mit VerifyDating AI.",
+            "back": "&larr; Zurück zur Betrüger-Liste",
+            "verify_face": "📷 Weiteres Foto prüfen (Kostenlos) ↗",
+            "risk_label": f"{risk}% BESTÄTIGTES CATFISH-RISIKO",
+            "reported": "Gemeldet",
+            "investigations": "Untersuchungen",
+            "claimed_label": f"<strong>Behauptete Identität:</strong> {prof} &bull; Alter: {age} &bull; Ort: {location}",
+            "victim_alert": f"⚠️ <strong>Opfer-Warnung:</strong> Die von diesem Profil verwendeten Fotos sind <em>{stolen}</em>. Die reale Person ist unschuldig und Opfer von Identitätsdiebstahl.",
+            "script_heading": "🎭 Typisches Betrugs-Skript",
+            "flags_heading": "🚩 Wichtige Warnsignale (Red Flags):",
+            "aliases_heading": f"<strong>Bekannte Decknamen:</strong> {aliases_str}",
+            "chatting_q": "Chatten Sie mit dieser Person oder einem ähnlichen Profil?",
+            "chatting_desc": "Senden Sie kein Geld, keine Kryptowährungen oder Dokumente. Nutzen Sie unseren KI-Fotoscan, um die echten Profile aufzudecken.",
+            "scan_cta": "📷 Kostenlosen KI-Fotoscan starten ➔",
+            "pdf_cta": "📄 Offiziellen PDF-Bericht herunterladen ($2.99)",
+            "toolkit_title": "🛡️ Offizielle Ermittlungs- & Sicherheits-Tools",
+            "toolkit_desc": "Verifizierte Tools für Background-Checks, Löschung gestohlener Daten und sicheres Dating.",
+        },
+        "fr": {
+            "title": f"Alerte Arnaque Sentimentale {name} & Photos Volées ({category}) | VerifyDating",
+            "meta_desc": f"Dossier d'investigation sur le faux profil '{name}' ({prof}, {location}). Détectez les brouteurs et vérifiez les photos avec VerifyDating AI.",
+            "back": "&larr; Retour à la Liste des Escrocs",
+            "verify_face": "📷 Vérifier une autre Photo (Gratuit) ↗",
+            "risk_label": f"{risk}% RISQUE ESCROQUERIE CONFIRMÉ",
+            "reported": "Signalé",
+            "investigations": "Enquêtes",
+            "claimed_label": f"<strong>Identité Déclarée:</strong> {prof} &bull; Âge: {age} &bull; Lieu: {location}",
+            "victim_alert": f"⚠️ <strong>Alerte Victime:</strong> Les photos utilisées par ce profil sont <em>{stolen}</em>. La vraie personne est innocente et victime d'usurpation.",
+            "script_heading": "🎭 Scénario d'Arnaque Typique Utilisé",
+            "flags_heading": "🚩 Signaux d'Alerte Majeurs (Red Flags):",
+            "aliases_heading": f"<strong>Pseudonymes Signalés:</strong> {aliases_str}",
+            "chatting_q": "Discutez-vous avec cette personne ou un profil similaire ?",
+            "chatting_desc": "N'envoyez ni argent, ni cryptomonnaies, ni pièces d'identité. Lancez un scan biométrique gratuit pour démasquer l'usurpateur.",
+            "scan_cta": "📷 Scanner Gratuitement la Photo ➔",
+            "pdf_cta": "📄 Télécharger le Rapport Officiel PDF ($2.99)",
+            "toolkit_title": "🛡️ Outils Officiels d'Enquête & de Sécurité",
+            "toolkit_desc": "Outils vérifiés pour les vérifications d'antécédents, la suppression de données volées et les rencontres saines.",
+        },
+        "es": {
+            "title": f"Alerta Estafa Amorosa {name} & Fotos Robadas ({category}) | VerifyDating",
+            "meta_desc": f"Dossier forense sobre el perfil falso '{name}' ({prof}, {location}). Detecta perfiles falsos y busca fotos robadas con VerifyDating AI.",
+            "back": "&larr; Volver a la Lista de Estafadores",
+            "verify_face": "📷 Verificar otra Foto (Gratis) ↗",
+            "risk_label": f"{risk}% RIESGO ESTAFA CONFIRMADO",
+            "reported": "Reportado",
+            "investigations": "Investigaciones",
+            "claimed_label": f"<strong>Identidad Declarada:</strong> {prof} &bull; Edad: {age} &bull; Ubicación: {location}",
+            "victim_alert": f"⚠️ <strong>Alerta Víctima:</strong> Las fotos usadas por este perfil son <em>{stolen}</em>. La persona real en las fotos es una víctima inocente de suplantación.",
+            "script_heading": "🎭 Guion Típico de Estafa Usado",
+            "flags_heading": "🚩 Señales de Advertencia Clave (Red Flags):",
+            "aliases_heading": f"<strong>Alias Reportados:</strong> {aliases_str}",
+            "chatting_q": "¿Estás chateando con esta persona o un perfil similar?",
+            "chatting_desc": "No envíes dinero, criptomonedas ni documentos personales. Realiza un escaneo biométrico gratuito para descubrir la verdadera identidad.",
+            "scan_cta": "📷 Escanear Foto Gratis con IA ➔",
+            "pdf_cta": "📄 Descargar Reporte Oficial PDF ($2.99)",
+            "toolkit_title": "🛡️ Herramientas Oficiales de Investigación y Seguridad",
+            "toolkit_desc": "Herramientas verificadas para verificación de antecedentes, eliminación de datos robados y citas seguras.",
+        },
+        "pt": {
+            "title": f"Alerta Golpe Amoroso {name} & Fotos Roubadas ({category}) | VerifyDating",
+            "meta_desc": f"Dossiê forense sobre o perfil falso '{name}' ({prof}, {location}). Detecte perfis falsos e busque fotos com VerifyDating AI.",
+            "back": "&larr; Voltar à Lista de Golpistas",
+            "verify_btn": "📷 Verificar outra Foto (Grátis) ↗",
+            "risk_label": f"{risk}% RISCO DE GOLPE CONFIRMADO",
+            "reported": "Reportado",
+            "investigations": "Investigações",
+            "claimed_label": f"<strong>Identidade Declarada:</strong> {prof} &bull; Idade: {age} &bull; Localização: {location}",
+            "victim_alert": f"⚠️ <strong>Alerta à Vítima:</strong> As fotos usadas por este perfil são <em>{stolen}</em>. A pessoa real nas fotos é inocente e teve a identidade usurpada.",
+            "script_heading": "🎭 Roteiro Típico de Golpe Utilizado",
+            "flags_heading": "🚩 Principais Sinais de Alerta (Red Flags):",
+            "aliases_heading": f"<strong>Apelidos Reportados:</strong> {aliases_str}",
+            "chatting_q": "Você está conversando com esta pessoa ou perfil similar?",
+            "chatting_desc": "Não envie dinheiro, criptomoedas ou documentos pessoais. Faça a verificação biométrica gratuita para descobrir quem está por trás das fotos.",
+            "scan_cta": "📷 Fazer Varredura Facial Gratuita ➔",
+            "pdf_cta": "📄 Baixar Relatório Oficial em PDF ($2.99)",
+            "toolkit_title": "🛡️ Ferramentas Oficiais de Investigação & Segurança",
+            "toolkit_desc": "Ferramentas para checagem de antecedentes, exclusão de dados vazados e relacionamentos seguros.",
+        },
+        "ru": {
+            "title": f"{name} Предупреждение о брачной афере & Украденные фото ({category}) | VerifyDating",
+            "meta_desc": f"Судебное досье на скам-профиль '{name}' ({prof}, {location}). Распознавание брачных аферистов и поиск по фото с AI VerifyDating.",
+            "back": "&larr; Назад к Списку Мошенников",
+            "verify_btn": "📷 Проверить другое Фото (Бесплатно) ↗",
+            "risk_label": f"{risk}% ПОДТВЕРЖДЕННЫЙ РИСК ОБМАНА",
+            "reported": "Зарегистрировано",
+            "investigations": "Расследований",
+            "claimed_label": f"<strong>Заявленная Личность:</strong> {prof} &bull; Возраст: {age} &bull; Город: {location}",
+            "victim_alert": f"⚠️ <strong>Внимание Жертвам:</strong> Фотографии этого профиля <em>{stolen}</em>. Настоящий человек невиновен и является жертвой кражи личности.",
+            "script_heading": "🎭 Типичный Сценарий Брачной Аферы",
+            "flags_heading": "🚩 Главные Тревожные Сигналы (Red Flags):",
+            "aliases_heading": f"<strong>Известные Псевдонимы:</strong> {aliases_str}",
+            "chatting_q": "Вы переписываетесь с этим человеком или похожим профилем?",
+            "chatting_desc": "Не отправляйте деньги, криптовалюту или документы. Запустите бесплатный биометрический поиск по фото для проверки личности.",
+            "scan_cta": "📷 Бесплатная Биометрическая Проверка ➔",
+            "pdf_cta": "📄 Скачать Официальный PDF-Отчет ($2.99)",
+            "toolkit_title": "🛡️ Официальные Инструменты Расследования и Безопасности",
+            "toolkit_desc": "Проверенные сервисы проверки контактов, удаления украденных данных и безопасных знакомств.",
+        }
+    }
+    t = T.get(lang, T["en"])
+
+    hreflangs_html = f"""
+    <link rel="canonical" href="https://verifydating.net{f'/{lang}' if lang != 'en' else ''}/scammer/{slug}">
+    <link rel="alternate" hreflang="en" href="https://verifydating.net/scammer/{slug}">
+    <link rel="alternate" hreflang="ro" href="https://verifydating.net/ro/scammer/{slug}">
+    <link rel="alternate" hreflang="it" href="https://verifydating.net/it/scammer/{slug}">
+    <link rel="alternate" hreflang="de" href="https://verifydating.net/de/scammer/{slug}">
+    <link rel="alternate" hreflang="fr" href="https://verifydating.net/fr/scammer/{slug}">
+    <link rel="alternate" hreflang="es" href="https://verifydating.net/es/scammer/{slug}">
+    <link rel="alternate" hreflang="pt" href="https://verifydating.net/pt/scammer/{slug}">
+    <link rel="alternate" hreflang="ru" href="https://verifydating.net/ru/scammer/{slug}">
+    <link rel="alternate" hreflang="x-default" href="https://verifydating.net/scammer/{slug}">
+    """
     
     html = f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{lang}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{name} Romance Scam Alert & Stolen Photos ({category}) | VerifyDating</title>
-    <meta name="description" content="Forensic dossier on romance scam persona '{name}' ({prof}, {location}). Detect catfish profiles and reverse search photos with VerifyDating AI.">
+    <title>{t['title']}</title>
+    <meta name="description" content="{t['meta_desc']}">
+    {hreflangs_html}
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -8618,8 +8794,8 @@ async def dating_scammer_profile_dossier(slug: str):
 <body>
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <a href="/scammers" style="color: var(--pink); text-decoration: none; font-weight: 700; font-size: 14px;">&larr; Back to Scammer Blacklist</a>
-            <a href="https://verifydating.net/" style="color: var(--cyan); text-decoration: none; font-weight: 700; font-size: 14px;">📷 Verify Another Face (Free) ↗</a>
+            <a href="/scammers" style="color: var(--pink); text-decoration: none; font-weight: 700; font-size: 14px;">{t['back']}</a>
+            <a href="https://verifydating.net/" style="color: var(--cyan); text-decoration: none; font-weight: 700; font-size: 14px;">{t['verify_face']}</a>
         </div>
         
         <!-- Header Card -->
@@ -8627,42 +8803,42 @@ async def dating_scammer_profile_dossier(slug: str):
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
                 <div>
                     <span class="badge-cat">{category}</span>
-                    <span class="badge-danger" style="margin-left: 8px;">{risk}% CONFIRMED CATFISH RISK</span>
+                    <span class="badge-danger" style="margin-left: 8px;">{t['risk_label']}</span>
                 </div>
-                <span style="color: #64748b; font-size: 12px;">Reported: {rep_date} &bull; 👁️ {views} Investigations</span>
+                <span style="color: #64748b; font-size: 12px;">{t['reported']}: {rep_date} &bull; 👁️ {views} {t['investigations']}</span>
             </div>
             
             <h1 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; color: #fff; margin: 0 0 8px 0;">{name}</h1>
-            <p style="color: #94a3b8; font-size: 14px; margin: 0 0 15px 0;"><strong>Claimed Identity:</strong> {prof} &bull; Claimed Age: {age} &bull; Claimed Location: {location}</p>
+            <p style="color: #94a3b8; font-size: 14px; margin: 0 0 15px 0;">{t['claimed_label']}</p>
             <div style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid var(--red); padding: 12px 16px; border-radius: 0 8px 8px 0; color: #fca5a5; font-size: 13px;">
-                ⚠️ <strong>Victim Alert:</strong> The photographs used by this persona are <em>{stolen}</em>. The real individual depicted in these images is an innocent third party whose identity has been impersonated.
+                {t['victim_alert']}
             </div>
         </div>
 
         <!-- Modus Operandi & Script Card -->
         <div class="card">
-            <h2 style="font-family: 'Outfit'; font-size: 20px; color: #fff; margin: 0 0 12px 0;">🎭 Typical Romance Scam Script Used</h2>
+            <h2 style="font-family: 'Outfit'; font-size: 20px; color: #fff; margin: 0 0 12px 0;">{t['script_heading']}</h2>
             <div style="background: #020408; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 16px; font-style: italic; color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
                 "{script}"
             </div>
             
-            <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 10px 0;">🚩 Key Red Flags & Warning Indicators:</h3>
+            <h3 style="font-family: 'Outfit'; font-size: 17px; color: #fff; margin: 0 0 10px 0;">{t['flags_heading']}</h3>
             <ul style="padding-left: 20px; margin: 0 0 20px 0; font-size: 14px;">
                 {flags_html}
             </ul>
             
-            <p style="color: #94a3b8; font-size: 13px; margin: 0;"><strong>Reported Aliases:</strong> {aliases_str}</p>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">{t['aliases_heading']}</p>
         </div>
 
         <!-- CTA Action Box -->
         <div class="card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(190, 24, 93, 0.18) 100%); border-color: rgba(236, 72, 153, 0.35); text-align: center; padding: 35px 20px;">
-            <h2 style="font-family: 'Outfit'; font-size: 22px; color: #fff; margin: 0 0 8px 0;">Are You Chatting With This Person or a Similar Profile?</h2>
+            <h2 style="font-family: 'Outfit'; font-size: 22px; color: #fff; margin: 0 0 8px 0;">{t['chatting_q']}</h2>
             <p style="color: #cbd5e1; font-size: 14px; max-width: 650px; margin: 0 auto 25px auto;">
-                Don't send any money, cryptocurrency, or personal documents. Run our instant AI facial recognition audit to uncover the real social profiles behind their photos.
+                {t['chatting_desc']}
             </p>
             <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-                <a href="https://verifydating.net/" class="btn-cta">📷 Run Free Biometric Photo Scan ➔</a>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Dossier+{slug}&no_shipping=1&landing_page=billing" target="_blank" class="btn-pdf">📄 Download Official PDF Report ($2.99)</a>
+                <a href="https://verifydating.net/" class="btn-cta">{t['scan_cta']}</a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Dossier+{slug}&no_shipping=1&landing_page=billing" target="_blank" class="btn-pdf">{t['pdf_cta']}</a>
             </div>
         </div>
 
@@ -8671,8 +8847,8 @@ async def dating_scammer_profile_dossier(slug: str):
         <!-- ================================================================= -->
         <div style="margin-top: 30px; margin-bottom: 25px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="font-family: 'Outfit', sans-serif; font-size: 22px; color: #fff; margin: 0 0 6px 0;">🛡️ Official Investigation & Safety Toolkit</h2>
-                <p style="color: #94a3b8; font-size: 13.5px; margin: 0;">Verified tools to run background checks, delete stolen personal info, and find genuine matches.</p>
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 22px; color: #fff; margin: 0 0 6px 0;">{t['toolkit_title']}</h2>
+                <p style="color: #94a3b8; font-size: 13.5px; margin: 0;">{t['toolkit_desc']}</p>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
