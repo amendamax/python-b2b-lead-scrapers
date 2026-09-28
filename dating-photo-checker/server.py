@@ -924,7 +924,7 @@ async def get_robots(request: Request):
     host = request.headers.get("host", "").lower()
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
-    extra_sitemap = "\nSitemap: https://verifydating.net/sitemap-dating-scams.xml" if is_dating else ""
+    extra_sitemap = "\nSitemap: https://verifydating.net/sitemap-dating-scams.xml" if is_dating else "\nSitemap: https://isbrokersafe.com/sitemap-scam-reports.xml"
     robots_content = f"""User-agent: *
 Allow: /
 Disallow: /admin
@@ -4663,35 +4663,39 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     return HTMLResponse(content=html_content, status_code=200)
 
 @app.get("/sitemap-scam-reports.xml")
+@app.get("/sitemap-broker-scams.xml")
+@app.get("/sitemap_broker_scams.xml")
 async def get_scam_reports_sitemap_index(request: Request = None):
     """
     Standard Google Sitemap Index XML (Google enforces max 50,000 URLs per sub-sitemap).
     Splits our 117,000+ dossiers into 4 sub-sitemaps of ~30,000 URLs each.
     """
+    today = datetime.now().strftime("%Y-%m-%d")
     base_url = "https://isbrokersafe.com"
     xml_index = f"""<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>{base_url}/sitemap-scam-reports-1.xml</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>{today}</lastmod>
   </sitemap>
   <sitemap>
     <loc>{base_url}/sitemap-scam-reports-2.xml</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>{today}</lastmod>
   </sitemap>
   <sitemap>
     <loc>{base_url}/sitemap-scam-reports-3.xml</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>{today}</lastmod>
   </sitemap>
   <sitemap>
     <loc>{base_url}/sitemap-scam-reports-4.xml</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>{today}</lastmod>
   </sitemap>
 </sitemapindex>"""
     from fastapi.responses import Response
     return Response(content=xml_index, media_type="application/xml")
 
 @app.get("/sitemap-scam-reports-{part}.xml")
+@app.get("/sitemap-broker-scams-{part}.xml")
 async def get_scam_reports_sitemap_part(part: int, request: Request = None):
     conn = get_db_connection()
     cursor = conn.cursor()
