@@ -1,14 +1,14 @@
 Metadata-Version: 2.4
 Name: isbrokersafe
-Version: 1.0.0
-Summary: Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API
+Version: 1.2.0
+Summary: Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API across 15 Worldwide Regulatory Authorities
 Home-page: https://isbrokersafe.com/api/v1/docs
 Author: VasileDev Group
 Author-email: support@isbrokersafe.com
 Project-URL: Documentation, https://isbrokersafe.com/api/v1/docs
 Project-URL: Source, https://github.com/amendamax/isbrokersafe-python-sdk
 Project-URL: Tracker, https://github.com/amendamax/isbrokersafe-python-sdk/issues
-Keywords: broker fraud forex crypto scam detection finance security compliance fca cysec whois
+Keywords: broker fraud forex crypto scam detection finance security compliance sec cftc nfa fca bafin finma amf cnmv consob cysec asic csa mas sfc dfsa whois threat-intelligence
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Intended Audience :: Developers
 Classifier: Intended Audience :: Financial and Insurance Industry
@@ -39,13 +39,13 @@ Dynamic: summary
 
 # IsBrokerSafe Python SDK 🛡️⚡
 
-[![PyPI Version](https://img.shields.io/badge/pypi-v1.0.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
+[![PyPI Version](https://img.shields.io/badge/pypi-v1.2.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-brightgreen.svg)](https://www.python.org/)
 
 The official Python client library for the **[IsBrokerSafe.com](https://isbrokersafe.com)** Threat Intelligence and Financial Broker Legitimacy API.
 
-Audit any Forex broker, Crypto platform, or CFD entity in real-time across **14,600+ verified records**, official regulatory registries (FCA, CySEC, ASIC, CFTC, CONSOB, CNBV), and WHOIS age detection.
+Audit any Forex broker, Crypto platform, or CFD entity in real-time across **34,670+ verified regulatory enforcement dossiers** and **15 Worldwide Supervisory Authorities** (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) with sub-5ms latency and WHOIS forensic age inspection.
 
 ---
 

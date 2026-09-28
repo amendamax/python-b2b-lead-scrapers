@@ -4522,16 +4522,21 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
 
                     <hr style="border: none; border-top: 1px dashed rgba(255,255,255,0.1); margin: 25px 0;">
 
-                    <!-- Safe Regulated Alternatives Section (ALL 6 VERIFIED BROKER AFFILIATES) -->
+                    <!-- Safe Regulated Alternatives Section (GEO-TARGETED ACROSS 4-5 GLOBAL ZONES) -->
                     <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
-                        <h3 style="color: #38bdf8; font-family: 'Outfit'; font-size: 18px; margin: 0 0 6px 0; font-weight: 800;">
-                            {t['safe_alternatives_title']}
-                        </h3>
-                        <p style="color: #94a3b8; font-size: 13px; margin: 0 0 16px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+                            <h3 style="color: #38bdf8; font-family: 'Outfit'; font-size: 18px; margin: 0; font-weight: 800;">
+                                {t['safe_alternatives_title']}
+                            </h3>
+                            <span id="geo-zone-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.4);">
+                                🛡️ TIER-1 VERIFIED
+                            </span>
+                        </div>
+                        <p id="geo-zone-subtitle" style="color: #94a3b8; font-size: 13px; margin: 0 0 16px 0;">
                             {t['safe_alternatives_subtitle']}
                         </p>
 
-                        <div style="display: flex; flex-direction: column; gap: 11px;">
+                        <div id="geo-broker-container" style="display: flex; flex-direction: column; gap: 11px;">
                             <!-- 01. Plus500 Cyan Blue Button -->
                             <a href="https://www.plus500.com/Home.aspx?id=139742" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
                                 {t['plus500_cta']}
@@ -4540,32 +4545,42 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 81% of retail CFD accounts lose money.
                             </div>
 
-                            <!-- 02. AvaTrade Gold Button -->
+                            <!-- 02. BlackBull Markets ECN Execution (Top CPA) -->
+                            <a href="https://blackbull.com/en?ib=43450" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
+                                ⚡ Trade on BlackBull Markets (Institutional ECN Spreads from 0.0) ➔
+                            </a>
+
+                            <!-- 03. AvaTrade Gold Button -->
                             <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
                                 {t['avatrade_cta']}
                             </a>
 
-                            <!-- 03. eToro Emerald Green Button -->
+                            <!-- 04. eToro Emerald Green Button -->
                             <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
                                 {t['etoro_cta']}
                             </a>
 
-                            <!-- 04. Exness Amber Orange Button -->
+                            <!-- 05. Exness Amber Orange Button -->
                             <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
                                 {t['exness_cta']}
                             </a>
 
-                            <!-- 05. XM Group Official Red Button -->
+                            <!-- 06. XM Group Official Red Button -->
                             <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
                                 {t['xm_cta']}
                             </a>
 
-                            <!-- 06. Interactive Brokers (IBKR) Metallic Gold Button -->
+                            <!-- 07. Interactive Brokers (IBKR) Metallic Gold Button -->
                             <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
                                 {t['ibkr_cta']}
                             </a>
                             <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
                                 ✓ {t['ibkr_sub']}
+                            </div>
+
+                            <!-- PENDING EU BROKER SLOTS -->
+                            <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
+                                🔒 XTB (X-Trade Brokers) European partnership integration under regulatory audit.
                             </div>
                         </div>
                     </div>
@@ -4657,6 +4672,97 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         }}
     }}
     </style>
+    <script>
+    (function() {{
+        function getClientZone() {{
+            var tz = "";
+            try {{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; }} catch(e) {{}}
+            if (/New_York|Chicago|Los_Angeles|Denver|Phoenix|Anchorage|Honolulu|Toronto|Vancouver|Edmonton|Winnipeg/i.test(tz)) return "US";
+            if (/Sao_Paulo|Buenos_Aires|Bogota|Mexico_City|Santiago|Lima|Caracas|Montevideo|Panama|Costa_Rica/i.test(tz)) return "LATAM";
+            if (/Dubai|Riyadh|Qatar|Muscat|Bahrain|Kuwait|Singapore|Tokyo|Seoul|Hong_Kong|Bangkok|Jakarta|Kolkata|Kuala_Lumpur/i.test(tz)) return "ASIA_MENA";
+            return "EU";
+        }}
+
+        function renderZoneBrokers(zone) {{
+            var container = document.getElementById("geo-broker-container");
+            var badge = document.getElementById("geo-zone-badge");
+            var subtitle = document.getElementById("geo-zone-subtitle");
+            if (!container) return;
+
+            if (zone === "US") {{
+                if (badge) badge.innerHTML = "🇺🇸 US SEC & FINRA REGULATED";
+                if (subtitle) subtitle.innerText = "Authorized brokerages for United States & North America investors (CFTC & SEC compliant):";
+                container.innerHTML = `
+                    <a href="https://med.etoro.com/B21933_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                        🟢 Trade Stocks & Crypto on eToro USA (SEC Regulated) ➔
+                    </a>
+                    <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
+                        🎁 Up to $1,000 in Free Stock at Interactive Brokers US ➔
+                    </a>
+                    <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
+                        ✓ Member FINRA/SIPC. Direct exchange execution on NASDAQ & NYSE.
+                    </div>
+                    <!-- PENDING US BROKER SLOTS -->
+                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
+                        🔒 Additional US Tier-1 integrations in regulatory audit (Webull Financial, FOREX.com / StoneX, TradeStation).
+                    </div>
+                `;
+            }} else if (zone === "LATAM") {{
+                if (badge) badge.innerHTML = "🌎 AMÉRICA LATINA REGULADO";
+                if (subtitle) subtitle.innerText = "Corretoras licenciadas com depósitos locais (PIX, SPEI) e saques rápidos:";
+                container.innerHTML = `
+                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
+                        🟠 Negociar na Exness (#1 em Saques Instantâneos 24/7) ➔
+                    </a>
+                    <a href="https://rinfinity.com/a/chlsg" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
+                        🔵 Negociar na RoboForex (Conta Cent & CopyFX) ➔
+                    </a>
+                    <a href="https://affs.click/E17wj" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
+                        🔴 Abrir Conta na XM Group (Zero Comissões) ➔
+                    </a>
+                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                        🟡 Negociar na AvaTrade (Corretora Global Premiada) ➔
+                    </a>
+                    <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                        🟢 Copiar Melhores Traders no eToro (30M+ Usuários) ➔
+                    </a>
+                `;
+            }} else if (zone === "ASIA_MENA") {{
+                if (badge) badge.innerHTML = "🌏 ASIA & MENA VERIFIED";
+                if (subtitle) subtitle.innerText = "Tier-1 authorized brokerages for Asia-Pacific & Middle East (ADGM Dubai, MAS, FSA):";
+                container.innerHTML = `
+                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
+                        🟠 Trade on Exness (#1 in Asia — Instant Withdrawals 24/7) ➔
+                    </a>
+                    <a href="https://affs.click/E17wj" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
+                        🔴 Trade on XM Global (Ultra Low Spreads & 0% Fees) ➔
+                    </a>
+                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                        🟡 Trade on AvaTrade Gulf (ADGM Dubai & FSRA Licensed) ➔
+                    </a>
+                    <a href="https://blackbull.com/en?ib=43450" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
+                        ⚡ Trade on BlackBull Markets (Institutional ECN Execution) ➔
+                    </a>
+                    <!-- PENDING MENA BROKER SLOTS -->
+                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
+                        🔒 Tickmill MENA institutional partnership review in progress.
+                    </div>
+                `;
+            }}
+        }}
+
+        var initialZone = getClientZone();
+        if (initialZone !== "EU") {{
+            renderZoneBrokers(initialZone);
+        }}
+
+        fetch("/api/v1/geo-meta").then(function(r) {{ return r.json(); }}).then(function(d) {{
+            if (d && d.zone && d.zone !== initialZone) {{
+                renderZoneBrokers(d.zone);
+            }}
+        }}).catch(function() {{}});
+    }})();
+    </script>
 </body>
 </html>
 """
@@ -4892,6 +4998,27 @@ async def generate_api_key(request: Request):
         "usage_count": 0,
         "remaining": 100
     })
+
+@app.get("/api/v1/geo-meta")
+async def get_geo_meta(request: Request):
+    country = request.headers.get("cf-ipcountry", "").upper()
+    if not country:
+        country = "US"
+    
+    us_countries = {"US", "CA"}
+    latam_countries = {"BR", "MX", "AR", "CO", "CL", "PE", "EC", "GT", "CR", "PA", "UY", "DO", "BO", "PY", "SV", "HN", "NI"}
+    asia_mena_countries = {"AE", "SA", "QA", "KW", "OM", "BH", "IN", "SG", "MY", "TH", "VN", "ID", "PH", "JP", "KR", "HK", "TW", "TR", "EG", "JO", "LB"}
+    
+    if country in us_countries:
+        zone = "US"
+    elif country in latam_countries:
+        zone = "LATAM"
+    elif country in asia_mena_countries:
+        zone = "ASIA_MENA"
+    else:
+        zone = "EU"
+        
+    return JSONResponse(content={"country": country, "zone": zone})
 
 @app.get("/api/v1/broker/check")
 @app.post("/api/v1/broker/check")

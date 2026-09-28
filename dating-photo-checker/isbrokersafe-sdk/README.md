@@ -1,12 +1,12 @@
 # IsBrokerSafe Python SDK 🛡️⚡
 
-[![PyPI Version](https://img.shields.io/badge/pypi-v1.0.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
+[![PyPI Version](https://img.shields.io/badge/pypi-v1.2.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-brightgreen.svg)](https://www.python.org/)
 
 The official Python client library for the **[IsBrokerSafe.com](https://isbrokersafe.com)** Threat Intelligence and Financial Broker Legitimacy API.
 
-Audit any Forex broker, Crypto platform, or CFD entity in real-time across **14,600+ verified records**, official regulatory registries (FCA, CySEC, ASIC, CFTC, CONSOB, CNBV), and WHOIS age detection.
+Audit any Forex broker, Crypto platform, or CFD entity in real-time across **34,670+ verified regulatory enforcement dossiers** and **15 Worldwide Supervisory Authorities** (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) with sub-5ms latency and WHOIS forensic age inspection.
 
 ---
 

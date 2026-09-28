@@ -6,10 +6,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="isbrokersafe",
-    version="1.0.0",
+    version="1.2.0",
     author="VasileDev Group",
     author_email="support@isbrokersafe.com",
-    description="Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API",
+    description="Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API across 15 Worldwide Regulatory Authorities",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://isbrokersafe.com/api/v1/docs",
@@ -36,5 +36,5 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[],
-    keywords="broker fraud forex crypto scam detection finance security compliance fca cysec whois",
+    keywords="broker fraud forex crypto scam detection finance security compliance sec cftc nfa fca bafin finma amf cnmv consob cysec asic csa mas sfc dfsa whois threat-intelligence",
 )
