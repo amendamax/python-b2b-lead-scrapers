@@ -882,7 +882,7 @@ async def get_promo():
         return FileResponse("promo_video.html")
     return JSONResponse(status_code=404, content={"message": "Promo video file not found"})
 
-# High-Yield CJ Affiliate Redirect Endpoints (AdBlock-Proof Cloaking)
+# High-Yield Affiliate Redirect Endpoints (AdBlock-Proof Cloaking)
 @app.get("/go/nordvpn")
 @app.get("/out/nordvpn")
 async def redirect_nordvpn():
@@ -897,6 +897,56 @@ async def redirect_surfshark():
 @app.get("/out/gearup")
 async def redirect_gearup():
     return RedirectResponse(url="https://www.anrdoezrs.net/click-101863908-17235979", status_code=307)
+
+@app.get("/go/xm")
+@app.get("/out/xm")
+async def redirect_xm():
+    return RedirectResponse(url="https://affs.click/E17wj", status_code=307)
+
+@app.get("/go/exness")
+@app.get("/out/exness")
+async def redirect_exness():
+    return RedirectResponse(url="https://one.exnessonelink.com/a/hb0ywi6abh", status_code=307)
+
+@app.get("/go/plus500")
+@app.get("/out/plus500")
+async def redirect_plus500():
+    return RedirectResponse(url="https://www.plus500.com/Home.aspx?id=139742", status_code=307)
+
+@app.get("/go/etoro")
+@app.get("/out/etoro")
+async def redirect_etoro():
+    return RedirectResponse(url="https://med.etoro.com/B21647_A131664_TClick.aspx", status_code=307)
+
+@app.get("/go/etoro-us")
+@app.get("/out/etoro-us")
+async def redirect_etoro_us():
+    return RedirectResponse(url="https://med.etoro.com/B21933_A131664_TClick.aspx", status_code=307)
+
+@app.get("/go/avatrade")
+@app.get("/out/avatrade")
+async def redirect_avatrade():
+    return RedirectResponse(url="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287", status_code=307)
+
+@app.get("/go/blackbull")
+@app.get("/out/blackbull")
+async def redirect_blackbull():
+    return RedirectResponse(url="https://blackbull.com/en?ib=43450", status_code=307)
+
+@app.get("/go/ibkr")
+@app.get("/out/ibkr")
+async def redirect_ibkr():
+    return RedirectResponse(url="https://ibkr.com/referral/vasile651", status_code=307)
+
+@app.get("/go/roboforex")
+@app.get("/out/roboforex")
+async def redirect_roboforex():
+    return RedirectResponse(url="https://rinfinity.com/a/chlsg", status_code=307)
+
+@app.get("/go/incogni")
+@app.get("/out/incogni")
+async def redirect_incogni():
+    return RedirectResponse(url="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505", status_code=307)
 
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
@@ -4680,6 +4730,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
             if (/New_York|Chicago|Los_Angeles|Denver|Phoenix|Anchorage|Honolulu|Toronto|Vancouver|Edmonton|Winnipeg/i.test(tz)) return "US";
             if (/Sao_Paulo|Buenos_Aires|Bogota|Mexico_City|Santiago|Lima|Caracas|Montevideo|Panama|Costa_Rica/i.test(tz)) return "LATAM";
             if (/Dubai|Riyadh|Qatar|Muscat|Bahrain|Kuwait|Singapore|Tokyo|Seoul|Hong_Kong|Bangkok|Jakarta|Kolkata|Kuala_Lumpur/i.test(tz)) return "ASIA_MENA";
+            if (/Sydney|Melbourne|Brisbane|Perth|Adelaide|Hobart|Darwin|Auckland/i.test(tz)) return "OCEANIA";
             return "EU";
         }}
 
@@ -4693,10 +4744,10 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                 if (badge) badge.innerHTML = "🇺🇸 US SEC & FINRA REGULATED";
                 if (subtitle) subtitle.innerText = "Authorized brokerages for United States & North America investors (CFTC & SEC compliant):";
                 container.innerHTML = `
-                    <a href="https://med.etoro.com/B21933_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                    <a href="https://isbrokersafe.com/go/etoro-us" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
                         🟢 Trade Stocks & Crypto on eToro USA (SEC Regulated) ➔
                     </a>
-                    <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
+                    <a href="https://isbrokersafe.com/go/ibkr" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
                         🎁 Up to $1,000 in Free Stock at Interactive Brokers US ➔
                     </a>
                     <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
@@ -4711,41 +4762,72 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                 if (badge) badge.innerHTML = "🌎 AMÉRICA LATINA REGULADO";
                 if (subtitle) subtitle.innerText = "Corretoras licenciadas com depósitos locais (PIX, SPEI) e saques rápidos:";
                 container.innerHTML = `
-                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
+                    <a href="https://isbrokersafe.com/go/exness" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
                         🟠 Negociar na Exness (#1 em Saques Instantâneos 24/7) ➔
                     </a>
-                    <a href="https://rinfinity.com/a/chlsg" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
+                    <a href="https://isbrokersafe.com/go/roboforex" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
                         🔵 Negociar na RoboForex (Conta Cent & CopyFX) ➔
                     </a>
-                    <a href="https://affs.click/E17wj" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
+                    <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
                         🔴 Abrir Conta na XM Group (Zero Comissões) ➔
                     </a>
-                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                    <a href="https://isbrokersafe.com/go/avatrade" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
                         🟡 Negociar na AvaTrade (Corretora Global Premiada) ➔
                     </a>
-                    <a href="https://med.etoro.com/B21647_A131664_TClick.aspx" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                    <a href="https://isbrokersafe.com/go/etoro" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
                         🟢 Copiar Melhores Traders no eToro (30M+ Usuários) ➔
                     </a>
+                    <!-- PENDING LATAM BROKER SLOTS -->
+                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
+                        🔒 Parcerias adicionais em processo de homologação regulatória (XP Investimentos, BTG Pactual).
+                    </div>
                 `;
             }} else if (zone === "ASIA_MENA") {{
                 if (badge) badge.innerHTML = "🌏 ASIA & MENA VERIFIED";
                 if (subtitle) subtitle.innerText = "Tier-1 authorized brokerages for Asia-Pacific & Middle East (ADGM Dubai, MAS, FSA):";
                 container.innerHTML = `
-                    <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
+                    <a href="https://isbrokersafe.com/go/exness" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffa800 0%, #e07000 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 168, 0, 0.35);">
                         🟠 Trade on Exness (#1 in Asia — Instant Withdrawals 24/7) ➔
                     </a>
-                    <a href="https://affs.click/E17wj" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
+                    <a href="https://isbrokersafe.com/go/xm" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #e01e28 0%, #9b0a14 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(224, 30, 40, 0.35);">
                         🔴 Trade on XM Global (Ultra Low Spreads & 0% Fees) ➔
                     </a>
-                    <a href="https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                    <a href="https://isbrokersafe.com/go/avatrade" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
                         🟡 Trade on AvaTrade Gulf (ADGM Dubai & FSRA Licensed) ➔
                     </a>
-                    <a href="https://blackbull.com/en?ib=43450" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
+                    <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
                         ⚡ Trade on BlackBull Markets (Institutional ECN Execution) ➔
                     </a>
                     <!-- PENDING MENA BROKER SLOTS -->
                     <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
                         🔒 Tickmill MENA institutional partnership review in progress.
+                    </div>
+                `;
+            }} else if (zone === "OCEANIA") {{
+                if (badge) badge.innerHTML = "🇦🇺 AUSTRALIA & NZ (ASIC / FMA)";
+                if (subtitle) subtitle.innerText = "Tier-1 regulated brokerages authorized by ASIC (Australia) & FMA (New Zealand):";
+                container.innerHTML = `
+                    <a href="https://isbrokersafe.com/go/plus500" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);">
+                        🔵 Trade on Plus500AU (ASIC Regulated AFSL #417727) ➔
+                    </a>
+                    <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px; line-height: 1.35;">
+                        ⚠️ 81% of retail CFD accounts lose money. You should consider whether you can afford the high risk of losing your money.
+                    </div>
+                    <a href="https://isbrokersafe.com/go/avatrade" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
+                        🟡 Trade on AvaTrade Australia (ASIC Regulated AFSL #406684) ➔
+                    </a>
+                    <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
+                        ⚡ Trade on BlackBull Markets (FMA New Zealand Tier-1 ECN) ➔
+                    </a>
+                    <a href="https://isbrokersafe.com/go/etoro" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                        🟢 Copy Top Traders on eToro AUS Capital (ASIC #491139) ➔
+                    </a>
+                    <a href="https://isbrokersafe.com/go/ibkr" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
+                        🎁 Interactive Brokers Australia (ASIC Regulated AFSL #245574) ➔
+                    </a>
+                    <!-- PENDING OCEANIA BROKER SLOTS -->
+                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
+                        🔒 Additional ASIC Tier-1 integrations in regulatory audit (CMC Markets Australia, Stake / Macquarie).
                     </div>
                 `;
             }}
@@ -5008,6 +5090,7 @@ async def get_geo_meta(request: Request):
     us_countries = {"US", "CA"}
     latam_countries = {"BR", "MX", "AR", "CO", "CL", "PE", "EC", "GT", "CR", "PA", "UY", "DO", "BO", "PY", "SV", "HN", "NI"}
     asia_mena_countries = {"AE", "SA", "QA", "KW", "OM", "BH", "IN", "SG", "MY", "TH", "VN", "ID", "PH", "JP", "KR", "HK", "TW", "TR", "EG", "JO", "LB"}
+    oceania_countries = {"AU", "NZ"}
     
     if country in us_countries:
         zone = "US"
@@ -5015,6 +5098,8 @@ async def get_geo_meta(request: Request):
         zone = "LATAM"
     elif country in asia_mena_countries:
         zone = "ASIA_MENA"
+    elif country in oceania_countries:
+        zone = "OCEANIA"
     else:
         zone = "EU"
         
@@ -5106,12 +5191,12 @@ async def api_v1_broker_check(request: Request, query: str = "", api_key: str = 
             "official_source": s_url,
             "dossier_url": f"https://isbrokersafe.com/scam-reports/{s_slug}",
             "recommended_alternatives": [
-                {"name": "Plus500", "license": "EFSA / FCA / LSE Listed", "action_url": "https://www.plus500.com/Home.aspx?id=139742"},
-                {"name": "AvaTrade", "license": "CBI / ASIC / FSCA / CySEC", "action_url": "https://www.avatrade.com/trading-account?tag=MetaTrader5&key=222287"},
-                {"name": "eToro", "license": "FCA / CySEC / ASIC (30M+ Users)", "action_url": "https://med.etoro.com/B21647_A131664_TClick.aspx"},
-                {"name": "Exness", "license": "FCA / CySEC (Instant Withdrawals 24/7)", "action_url": "https://one.exnessonelink.com/a/hb0ywi6abh"},
+                {"name": "Plus500", "license": "EFSA / FCA / LSE Listed", "action_url": "https://isbrokersafe.com/go/plus500"},
+                {"name": "AvaTrade", "license": "CBI / ASIC / FSCA / CySEC", "action_url": "https://isbrokersafe.com/go/avatrade"},
+                {"name": "eToro", "license": "FCA / CySEC / ASIC (30M+ Users)", "action_url": "https://isbrokersafe.com/go/etoro"},
+                {"name": "Exness", "license": "FCA / CySEC (Instant Withdrawals 24/7)", "action_url": "https://isbrokersafe.com/go/exness"},
                 {"name": "XM Group", "license": "CySEC / ASIC / FSC (0% Commission)", "action_url": "https://isbrokersafe.com/go/xm"},
-                {"name": "Interactive Brokers", "license": "SEC / FINRA / FCA / NASDAQ Listed", "action_url": "https://ibkr.com/referral/vasile651"}
+                {"name": "Interactive Brokers", "license": "SEC / FINRA / FCA / NASDAQ Listed", "action_url": "https://isbrokersafe.com/go/ibkr"}
             ],
             "timestamp": datetime.now().isoformat()
         })
