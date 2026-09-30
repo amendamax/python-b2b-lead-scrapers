@@ -4818,11 +4818,6 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                             <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
                                 ✓ {t['ibkr_sub']}
                             </div>
-
-                            <!-- PENDING EU BROKER SLOTS -->
-                            <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
-                                🔒 XTB (X-Trade Brokers) European partnership integration under regulatory audit.
-                            </div>
                         </div>
                     </div>
 
@@ -5278,10 +5273,9 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                     <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
                         ✓ Member FINRA/SIPC. Direct exchange execution on NASDAQ & NYSE.
                     </div>
-                    <!-- PENDING US BROKER SLOTS -->
-                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
-                        🔒 Additional US Tier-1 integrations in regulatory audit (Webull Financial, FOREX.com / StoneX, TradeStation).
-                    </div>
+                    <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
+                        ⚡ Trade on BlackBull Markets (Global Institutional ECN Spreads) ➔
+                    </a>
                 `;
             }} else if (zone === "LATAM") {{
                 if (badge) badge.innerHTML = "🌎 AMÉRICA LATINA REGULADO";
@@ -5302,10 +5296,6 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                     <a href="https://isbrokersafe.com/go/etoro" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
                         🟢 Copiar Melhores Traders no eToro (30M+ Usuários) ➔
                     </a>
-                    <!-- PENDING LATAM BROKER SLOTS -->
-                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
-                        🔒 Parcerias adicionais em processo de homologação regulatória (XP Investimentos, BTG Pactual).
-                    </div>
                 `;
             }} else if (zone === "ASIA_MENA") {{
                 if (badge) badge.innerHTML = "🌏 ASIA & MENA VERIFIED";
@@ -5323,10 +5313,6 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                     <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
                         ⚡ Trade on BlackBull Markets (Institutional ECN Execution) ➔
                     </a>
-                    <!-- PENDING MENA BROKER SLOTS -->
-                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
-                        🔒 Tickmill MENA institutional partnership review in progress.
-                    </div>
                 `;
             }} else if (zone === "OCEANIA") {{
                 if (badge) badge.innerHTML = "🇦🇺 AUSTRALIA & NZ (ASIC / FMA)";
@@ -5350,10 +5336,6 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                     <a href="https://isbrokersafe.com/go/ibkr" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
                         🎁 Interactive Brokers Australia (ASIC Regulated AFSL #245574) ➔
                     </a>
-                    <!-- PENDING OCEANIA BROKER SLOTS -->
-                    <div style="padding: 10px 14px; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; background: rgba(255,255,255,0.02);">
-                        🔒 Additional ASIC Tier-1 integrations in regulatory audit (CMC Markets Australia, Stake / Macquarie).
-                    </div>
                 `;
             }}
         }}
