@@ -997,6 +997,11 @@ async def redirect_roboforex():
 async def redirect_incogni():
     return RedirectResponse(url="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505", status_code=307)
 
+@app.get("/go/tradingview")
+@app.get("/out/tradingview")
+async def redirect_tradingview():
+    return RedirectResponse(url="https://www.tradingview.com/?aff_id=isbrokersafe", status_code=307)
+
 @app.get("/go/socialcatfish")
 @app.get("/out/socialcatfish")
 async def redirect_socialcatfish():
@@ -1665,7 +1670,7 @@ async def pay_card(request: PaymentRequest):
     if package_type == 'basic':
         stripe_amount = 199
         credits_to_add = 1
-        package_name_log = "Quick Unlock ($2.99)"
+        package_name_log = "Quick Unlock (100% Free)"
         description_text = f"VerifyDating Quick Unlock - Scan {request.scan_id}"
     elif package_type == 'single':
         stripe_amount = 399
@@ -1780,7 +1785,7 @@ async def pay_paypal(request: PaypalPaymentRequest):
     package_type = request.package if request.package in ["basic", "single", "bundle"] else "basic"
     if package_type == 'basic':
         amt_str = "$2.99"
-        package_name_log = "Quick Unlock ($2.99)"
+        package_name_log = "Quick Unlock (100% Free)"
         credits_to_add = 1
     elif package_type == 'single':
         amt_str = "$3.99"
@@ -4282,7 +4287,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Was this platform recommended to you on a Dating App or WhatsApp?",
         "dating_desc": "84% of fake trading platforms originate from romance scam profiles ('Pig Butchering'). Verify your contact's photo against stolen model databases.",
         "dating_btn": "🛡️ Verify Dating Contact Photo Free on VerifyDating.net ↗",
-        "pdf_btn": "📄 Download Official Legal Evidence Dossier ($2.99)",
+        "pdf_btn": "📄 Download Official Legal Evidence Dossier (100% Free)",
         "sticky_title": "Looking for a safe broker? 🌐 [Top 5 Regulated Brokers]",
         "sticky_btn": "View Brokers",
         "lead_capture_title": "🛡️ Free Capital Protection & Broker Audit Guide",
@@ -4314,7 +4319,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ți-a fost recomandată această platformă pe Dating sau WhatsApp?",
         "dating_desc": "84% dintre platformele false pornesc din escrocherii sentimentale ('Pig Butchering'). Verifică biometric poza persoanei.",
         "dating_btn": "🛡️ Verifică Poza Persoanei Gratuit pe VerifyDating.net ↗",
-        "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (2.99$)",
+        "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (100% Free)",
         "sticky_title": "Cauți un broker sigur? 🇷🇴 [Top 5 brokeri licențiați în România]",
         "sticky_btn": "Vezi Brokeri",
         "lead_capture_title": "🛡️ Ghid Gratuit de Recuperare & Protecție Capital",
@@ -4346,7 +4351,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ti è stata proposta questa piattaforma su Tinder o WhatsApp?",
         "dating_desc": "L'84% delle truffe finanziarie nasce da falsi profili romantici ('Pig Butchering'). Verifica gratis la foto del contatto.",
         "dating_btn": "🛡️ Verifica Foto del Contatto Gratis su VerifyDating.net ↗",
-        "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (2.99$)",
+        "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (100% Free)",
         "sticky_title": "Cerchi un broker sicuro? 🇮🇹 [I 5 broker autorizzati in Italia]",
         "sticky_btn": "Vedi Broker",
         "lead_capture_title": "🛡️ Guida Gratuita Recupero Fondi & Broker Sicuri",
@@ -4378,7 +4383,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Wurde Ihnen dieser Broker auf Tinder oder WhatsApp empfohlen?",
         "dating_desc": "84% gefälschter Plattformen beginnen mit Romance-Scams ('Pig Butchering'). Überprüfen Sie das Profilfoto biometrisch.",
         "dating_btn": "🛡️ Foto kostenlos prüfen auf VerifyDating.net ↗",
-        "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (2.99$)",
+        "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (100% Free)",
         "sticky_title": "Sicherer Broker gesucht? 🇩🇪 [Top 5 lizenzierte Broker]",
         "sticky_btn": "Broker anzeigen",
         "lead_capture_title": "🛡️ Kostenloser Anlegerschutz- & Rückforderungsleitfaden",
@@ -4410,7 +4415,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ce broker vous a été suggéré sur une App de Rencontre ou WhatsApp ?",
         "dating_desc": "84% des arnaques au trading dérivent d'arnaques sentimentales ('Pig Butchering'). Vérifiez la photo du profil avec l'IA.",
         "dating_btn": "🛡️ Vérifier la Photo Gratuitement sur VerifyDating.net ↗",
-        "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (2.99$)",
+        "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (100% Free)",
         "sticky_title": "Courtier fiable ? 🇫🇷 [Top 5 courtiers régulés]",
         "sticky_btn": "Voir courtiers",
         "lead_capture_title": "🛡️ Guide Gratuit de Récupération & Courtiers Vérifiés",
@@ -4442,7 +4447,7 @@ SCAM_LANG_MAP = {
         "dating_title": "¿Alguien en Tinder o WhatsApp le recomendó esta plataforma?",
         "dating_desc": "El 84% de plataformas falsas provienen de estafas románticas ('Pig Butchering'). Verifique la foto del contacto gratis.",
         "dating_btn": "🛡️ Verificar Foto Gratis en VerifyDating.net ↗",
-        "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF ($2.99)",
+        "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF (100% Free)",
         "sticky_title": "¿Buscas un broker seguro? 🇪🇸 [Los 5 brokers regulados]",
         "sticky_btn": "Ver brokers",
         "lead_capture_title": "🛡️ Guía Gratuita de Recuperación de Fondos y Brókers Seguros",
@@ -4474,7 +4479,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Essa plataforma foi indicada em App de Namoro ou WhatsApp?",
         "dating_desc": "84% dos golpes de investimento derivam de perfis falsos ('Pig Butchering'). Faça a verificação biométrica da foto.",
         "dating_btn": "🛡️ Verificar Foto Grátis no VerifyDating.net ↗",
-        "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF ($2.99)",
+        "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF (100% Free)",
         "sticky_title": "Corretora segura? 🇵🇹 [Top 5 corretoras reguladas]",
         "sticky_btn": "Ver corretoras",
         "lead_capture_title": "🛡️ Guia Gratuito de Recuperação & Corretoras Regulamentadas",
@@ -4506,7 +4511,7 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Этого брокера вам порекомендовали в дейтинге или WhatsApp?",
         "dating_desc": "84% фальшивых площадок исходят от романтических аферистов («Pig Butchering»). Проверьте фото бесплатно.",
         "dating_btn": "🛡️ Проверить фото бесплатно на VerifyDating.net ↗",
-        "pdf_btn": "📄 Скачать официальное юридическое PDF-досье ($2.99)",
+        "pdf_btn": "📄 Скачать официальное юридическое PDF-досье (100% Free)",
         "sticky_title": "Ищете надежного брокера? 🌐 [Топ-5 лицензированных брокеров]",
         "sticky_btn": "Смотреть",
         "lead_capture_title": "🛡️ Бесплатная инструкция по возврату средств и надежные брокеры",
@@ -4703,7 +4708,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         <p style="color: #cbd5e1; font-size: 13px; margin: 0 0 12px 0; line-height: 1.5;">
                             {t['verdict_text']}
                         </p>
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=IsBrokerSafe+Official+Audit+{slug}&return=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fv1%2Fbroker%2Fpdf%2F{slug}%3Fpaid%3D1&no_shipping=1&landing_page=billing" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;">
+                        <a href="/api/v1/broker/pdf/{slug}" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;">
                             <span>{t['pdf_btn']}</span>
                         </a>
                     </div>
@@ -9128,7 +9133,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Are You Chatting With This Person or a Similar Profile?",
             "chatting_desc": "Don't send any money, cryptocurrency, or personal documents. Run our instant AI facial recognition audit to uncover the real social profiles behind their photos.",
             "scan_cta": "📷 Run Free Biometric Photo Scan ➔",
-            "pdf_cta": "📄 Download Official PDF Report ($2.99)",
+            "pdf_cta": "📄 Download Official PDF Report (100% Free)",
             "toolkit_title": "🛡️ Official Investigation & Safety Toolkit",
             "toolkit_desc": "Verified tools to run background checks, delete stolen personal info, and find genuine matches.",
         },
@@ -9148,7 +9153,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Discuți cu această persoană sau cu un profil similar?",
             "chatting_desc": "Nu trimite bani, criptomonede sau documente de identitate. Rulează scanarea biometrică gratuită pentru a descoperi profilul real din spatele pozelor.",
             "scan_cta": "📷 Scanează Gratuit Poza Biometric ➔",
-            "pdf_cta": "📄 Descarcă Raportul Oficial PDF ($2.99)",
+            "pdf_cta": "📄 Descarcă Raportul Oficial PDF (100% Free)",
             "toolkit_title": "🛡️ Unelte Oficiale de Investigație & Siguranță",
             "toolkit_desc": "Unelte verificate pentru verificarea antecedentelor, ștergerea datelor compromise și dating sigur.",
         },
@@ -9168,7 +9173,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Stai chattando con questa persona o un profilo simile?",
             "chatting_desc": "Non inviare denaro, criptovalute o documenti personali. Esegui la scansione biometrica gratuita per scoprire i veri profili social.",
             "scan_cta": "📷 Scansione Facciale Gratuita con AI ➔",
-            "pdf_cta": "📄 Scarica Dossier Ufficiale PDF ($2.99)",
+            "pdf_cta": "📄 Scarica Dossier Ufficiale PDF (100% Free)",
             "toolkit_title": "🛡️ Strumenti Ufficiali di Investigazione e Sicurezza",
             "toolkit_desc": "Strumenti verificati per controlli su numeri/email, rimozione dati rubati e incontri sicuri.",
         },
@@ -9188,7 +9193,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Chatten Sie mit dieser Person oder einem ähnlichen Profil?",
             "chatting_desc": "Senden Sie kein Geld, keine Kryptowährungen oder Dokumente. Nutzen Sie unseren KI-Fotoscan, um die echten Profile aufzudecken.",
             "scan_cta": "📷 Kostenlosen KI-Fotoscan starten ➔",
-            "pdf_cta": "📄 Offiziellen PDF-Bericht herunterladen ($2.99)",
+            "pdf_cta": "📄 Offiziellen PDF-Bericht herunterladen (100% Free)",
             "toolkit_title": "🛡️ Offizielle Ermittlungs- & Sicherheits-Tools",
             "toolkit_desc": "Verifizierte Tools für Background-Checks, Löschung gestohlener Daten und sicheres Dating.",
         },
@@ -9208,7 +9213,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Discutez-vous avec cette personne ou un profil similaire ?",
             "chatting_desc": "N'envoyez ni argent, ni cryptomonnaies, ni pièces d'identité. Lancez un scan biométrique gratuit pour démasquer l'usurpateur.",
             "scan_cta": "📷 Scanner Gratuitement la Photo ➔",
-            "pdf_cta": "📄 Télécharger le Rapport Officiel PDF ($2.99)",
+            "pdf_cta": "📄 Télécharger le Rapport Officiel PDF (100% Free)",
             "toolkit_title": "🛡️ Outils Officiels d'Enquête & de Sécurité",
             "toolkit_desc": "Outils vérifiés pour les vérifications d'antécédents, la suppression de données volées et les rencontres saines.",
         },
@@ -9228,7 +9233,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "¿Estás chateando con esta persona o un perfil similar?",
             "chatting_desc": "No envíes dinero, criptomonedas ni documentos personales. Realiza un escaneo biométrico gratuito para descubrir la verdadera identidad.",
             "scan_cta": "📷 Escanear Foto Gratis con IA ➔",
-            "pdf_cta": "📄 Descargar Reporte Oficial PDF ($2.99)",
+            "pdf_cta": "📄 Descargar Reporte Oficial PDF (100% Free)",
             "toolkit_title": "🛡️ Herramientas Oficiales de Investigación y Seguridad",
             "toolkit_desc": "Herramientas verificadas para verificación de antecedentes, eliminación de datos robados y citas seguras.",
         },
@@ -9248,7 +9253,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Você está conversando com esta pessoa ou perfil similar?",
             "chatting_desc": "Não envie dinheiro, criptomoedas ou documentos pessoais. Faça a verificação biométrica gratuita para descobrir quem está por trás das fotos.",
             "scan_cta": "📷 Fazer Varredura Facial Gratuita ➔",
-            "pdf_cta": "📄 Baixar Relatório Oficial em PDF ($2.99)",
+            "pdf_cta": "📄 Baixar Relatório Oficial em PDF (100% Free)",
             "toolkit_title": "🛡️ Ferramentas Oficiais de Investigação & Segurança",
             "toolkit_desc": "Ferramentas para checagem de antecedentes, exclusão de dados vazados e relacionamentos seguros.",
         },
@@ -9268,7 +9273,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "chatting_q": "Вы переписываетесь с этим человеком или похожим профилем?",
             "chatting_desc": "Не отправляйте деньги, криптовалюту или документы. Запустите бесплатный биометрический поиск по фото для проверки личности.",
             "scan_cta": "📷 Бесплатная Биометрическая Проверка ➔",
-            "pdf_cta": "📄 Скачать Официальный PDF-Отчет ($2.99)",
+            "pdf_cta": "📄 Скачать Официальный PDF-Отчет (100% Free)",
             "toolkit_title": "🛡️ Официальные Инструменты Расследования и Безопасности",
             "toolkit_desc": "Проверенные сервисы проверки контактов, удаления украденных данных и безопасных знакомств.",
         }
@@ -9398,7 +9403,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             </p>
             <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
                 <a href="https://verifydating.net/" class="btn-cta">{t['scan_cta']}</a>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Dossier+{slug}&no_shipping=1&landing_page=billing" target="_blank" class="btn-pdf">{t['pdf_cta']}</a>
+                <a href="https://verifydating.net/" class="btn-pdf" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff;">🛡️ 100% Free Verification</a>
             </div>
         </div>
 
