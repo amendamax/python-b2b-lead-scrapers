@@ -4811,12 +4811,29 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 {t['xm_cta']}
                             </a>
 
-                            <!-- 07. Interactive Brokers (IBKR) Metallic Gold Button -->
-                            <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
-                                {t['ibkr_cta']}
-                            </a>
-                            <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px;">
-                                ✓ {t['ibkr_sub']}
+                            <!-- 07. Interactive Brokers (IBKR) Metallic Gold Button with Countdown Scarcity -->
+                            <div class="ibkr-scarcity-card" style="margin-top: 10px; background: linear-gradient(135deg, rgba(229, 184, 66, 0.12) 0%, rgba(202, 138, 4, 0.22) 100%); border: 1.5px solid #e5b842; border-radius: 12px; padding: 14px 16px; box-shadow: 0 4px 18px rgba(229, 184, 66, 0.25); text-align: left;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                                    <span style="display: inline-flex; align-items: center; gap: 5px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 5px; letter-spacing: 0.5px;">
+                                        ⚡ LIMITED IBKR QUOTA: 10 SPOTS
+                                    </span>
+                                    <div style="display: inline-flex; align-items: center; gap: 6px; font-family: monospace; font-size: 13px; font-weight: 800; color: #fef08a; background: rgba(0,0,0,0.5); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(229, 184, 66, 0.4);">
+                                        ⏳ <span class="ibkr-countdown-clock">14:59</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; font-weight: 700; color: #fef08a;">
+                                    <span>🔥 IBKR Policy: Max 10 Referral Bonuses/Year • 3 Slots Left Today</span>
+                                    <span style="color: #4ade80;">70% Claimed</span>
+                                </div>
+                                <div style="background: rgba(0,0,0,0.5); height: 6px; border-radius: 6px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                                    <div style="background: linear-gradient(90deg, #eab308 0%, #ef4444 100%); width: 70%; height: 100%; border-radius: 6px;"></div>
+                                </div>
+                                <a href="https://ibkr.com/referral/vasile651" target="_blank" rel="noopener sponsored" class="full-action-banner-gold" style="background: linear-gradient(135deg, #e5b842 0%, #ca8a04 100%); color: #000000 !important; text-decoration: none; padding: 14px 20px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(229, 184, 66, 0.35);">
+                                    {t['ibkr_cta']}
+                                </a>
+                                <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: 6px;">
+                                    ✓ {t['ibkr_sub']}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -5353,6 +5370,35 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                 updateStickyBarGeo(d.country, d.zone);
             }}
         }}).catch(function() {{}});
+    }})();
+
+    // IBKR Live Scarcity Countdown Engine (CRO 15-Minute Session Clock)
+    (function() {{
+        var timerKey = "ibkr_session_timer";
+        var now = Math.floor(Date.now() / 1000);
+        var targetEnd = parseInt(sessionStorage.getItem(timerKey), 10);
+        if (!targetEnd || targetEnd < now) {{
+            targetEnd = now + (14 * 60 + 59);
+            sessionStorage.setItem(timerKey, targetEnd);
+        }}
+        function updateClock() {{
+            var curr = Math.floor(Date.now() / 1000);
+            var left = targetEnd - curr;
+            if (left <= 0) {{
+                targetEnd = curr + (12 * 60 + 35);
+                sessionStorage.setItem(timerKey, targetEnd);
+                left = targetEnd - curr;
+            }}
+            var m = Math.floor(left / 60);
+            var s = left % 60;
+            var timeStr = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+            var nodes = document.querySelectorAll(".ibkr-countdown-clock");
+            for (var i = 0; i < nodes.length; i++) {{
+                nodes[i].innerText = timeStr;
+            }}
+        }}
+        updateClock();
+        setInterval(updateClock, 1000);
     }})();
     </script>
 </body>

@@ -199,15 +199,29 @@
                 </div>
             </div>
 
-            <div class="cta-box">
+            <div class="cta-box" style="position: relative;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: rgba(220, 38, 38, 0.2); border: 1px solid #ef4444; border-radius: 20px; padding: 4px 14px; margin-bottom: 12px;">
+                    <span style="color: #f87171; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px;">⚡ LIMITED REFERRAL QUOTA: 10 SLOTS</span>
+                    <span style="color: #cbd5e1; font-size: 0.8rem;">|</span>
+                    <span style="font-family: monospace; font-size: 0.85rem; font-weight: 800; color: #fef08a;">⏳ <span id="review-ibkr-clock">14:59</span></span>
+                </div>
                 <h3 style="font-family: 'Outfit'; font-size: 1.6rem; margin-bottom: 0.5rem; color: #ffffff;">Trade with the World's Most Trusted Broker</h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                     Open a verified Interactive Brokers account today through our official partner link and earn <strong>up to $1,000 in free IBKR shares</strong> (1 USD in IBKR stock for every 100 USD deposited).
                 </p>
+                <div style="max-width: 400px; margin: 0 auto 1.5rem auto;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700; color: #fef08a; margin-bottom: 4px;">
+                        <span>IBKR Annual Quota Limit: 10 Referrals</span>
+                        <span style="color: #4ade80;">7 / 10 Claimed (3 Left)</span>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.5); height: 6px; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: linear-gradient(90deg, #eab308 0%, #ef4444 100%); width: 70%; height: 100%; border-radius: 6px;"></div>
+                    </div>
+                </div>
                 <a href="https://ibkr.com/referral/vasile651" class="cta-btn-review" target="_blank" rel="noopener sponsored">
                     Open Account & Claim Up to $1,000 Free Stock ➔
                 </a>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; max-width: 500px; margin: 0 auto;">
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; max-width: 500px; margin: 0.8rem auto 0 auto;">
                     🛡️ Verified Partner Link (SEC / FINRA / FCA / CBI Protected). Investing in financial products involves risk.
                 </p>
             </div>
@@ -272,5 +286,32 @@
         }
     </style>
 
+    <script>
+    (function() {
+        var timerKey = "ibkr_review_timer";
+        var now = Math.floor(Date.now() / 1000);
+        var targetEnd = parseInt(sessionStorage.getItem(timerKey), 10);
+        if (!targetEnd || targetEnd < now) {
+            targetEnd = now + (14 * 60 + 59);
+            sessionStorage.setItem(timerKey, targetEnd);
+        }
+        function updateClock() {
+            var curr = Math.floor(Date.now() / 1000);
+            var left = targetEnd - curr;
+            if (left <= 0) {
+                targetEnd = curr + (12 * 60 + 35);
+                sessionStorage.setItem(timerKey, targetEnd);
+                left = targetEnd - curr;
+            }
+            var m = Math.floor(left / 60);
+            var s = left % 60;
+            var timeStr = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+            var el = document.getElementById("review-ibkr-clock");
+            if (el) el.innerText = timeStr;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+    </script>
 </body>
 </html>
