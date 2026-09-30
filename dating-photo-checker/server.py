@@ -82,6 +82,43 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ==========================================================================
+# ULTRA-FAST HTTP CACHING & PERFORMANCE MIDDLEWARE (CORE WEB VITALS 98+)
+# ==========================================================================
+@app.middleware("http")
+async def add_performance_cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path.lower()
+    
+    # 1. Static Assets (CSS, JS, Fonts, Images, Icons, Favicons, WebP, PDF guides): 1-year immutable caching
+    STATIC_EXTS = (
+        ".css", ".js", ".svg", ".png", ".jpg", ".jpeg", 
+        ".webp", ".gif", ".ico", ".woff", ".woff2", ".ttf", ".eot", ".pdf"
+    )
+    if any(path.endswith(ext) for ext in STATIC_EXTS) or path.startswith("/static/") or path.startswith("/uploads/"):
+        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        
+    # 2. Sitemaps & robots.txt (12-hour CDN/browser caching)
+    elif path == "/robots.txt" or path.endswith(".xml"):
+        response.headers["Cache-Control"] = "public, max-age=43200, stale-while-revalidate=86400"
+        
+    # 3. Public SEO Landing Pages & Dossiers (GET/HEAD 200 OK only): 1 hour cache with 1 day stale-while-revalidate
+    elif request.method in ("GET", "HEAD") and response.status_code == 200:
+        if not path.startswith("/api/") and not path.startswith("/webhook"):
+            is_public_content = (
+                "/scammer/" in path
+                or "/scam-reports/" in path
+                or "/reviews/" in path
+                or path in ("/", "/ro", "/it", "/es", "/fr", "/de", "/pt", "/ru", "/brokers", "/scammers", "/promo")
+                or any(path == f"/{lang}" or path == f"/{lang}/" for lang in ("ro", "it", "es", "fr", "de", "pt", "ru"))
+            )
+            if is_public_content:
+                response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+                
+    return response
+
+
 @app.get("/api/debug/import-error")
 async def debug_import_error():
     import sys
