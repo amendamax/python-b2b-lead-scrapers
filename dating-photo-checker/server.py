@@ -1000,7 +1000,7 @@ async def redirect_incogni():
 @app.get("/go/tradingview")
 @app.get("/out/tradingview")
 async def redirect_tradingview():
-    return RedirectResponse(url="https://www.tradingview.com/?aff_id=isbrokersafe", status_code=307)
+    return RedirectResponse(url="https://www.tradingview.com/pricing/?share_your_love=amendamax", status_code=307)
 
 @app.get("/go/socialcatfish")
 @app.get("/out/socialcatfish")
@@ -4288,6 +4288,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% of fake trading platforms originate from romance scam profiles ('Pig Butchering'). Verify your contact's photo against stolen model databases.",
         "dating_btn": "🛡️ Verify Dating Contact Photo Free on VerifyDating.net ↗",
         "pdf_btn": "📄 Download Official Legal Evidence Dossier (100% Free)",
+        "tradingview_title": "📊 Real-Time Charts & Market Verification",
+        "tradingview_desc": "Verify real-time exchange pricing, detect fraudulent price spikes, and run technical analysis on TradingView before opening any trade.",
+        "tradingview_cta": "📊 Open Free Live Charts on TradingView (Get $15 Reward) ➔",
         "sticky_title": "Looking for a safe broker? 🌐 [Top 5 Regulated Brokers]",
         "sticky_btn": "View Brokers",
         "lead_capture_title": "🛡️ Free Capital Protection & Broker Audit Guide",
@@ -4320,6 +4323,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% dintre platformele false pornesc din escrocherii sentimentale ('Pig Butchering'). Verifică biometric poza persoanei.",
         "dating_btn": "🛡️ Verifică Poza Persoanei Gratuit pe VerifyDating.net ↗",
         "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (100% Free)",
+        "tradingview_title": "📊 Grafice în Timp Real & Verificare Cotații",
+        "tradingview_desc": "Verifică cotațiile reale de pe bursă, depistează lumânările false și analizează piața pe TradingView înainte de orice ordin.",
+        "tradingview_cta": "📊 Deschide Gratuit Grafice pe TradingView (Primești 15$ Bonus) ➔",
         "sticky_title": "Cauți un broker sigur? 🇷🇴 [Top 5 brokeri licențiați în România]",
         "sticky_btn": "Vezi Brokeri",
         "lead_capture_title": "🛡️ Ghid Gratuit de Recuperare & Protecție Capital",
@@ -4352,6 +4358,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "L'84% delle truffe finanziarie nasce da falsi profili romantici ('Pig Butchering'). Verifica gratis la foto del contatto.",
         "dating_btn": "🛡️ Verifica Foto del Contatto Gratis su VerifyDating.net ↗",
         "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (100% Free)",
+        "tradingview_title": "📊 Grafici in Tempo Reale & Verifica Quotazioni",
+        "tradingview_desc": "Verifica i prezzi ufficiali di borsa, scopri spike manipolati ed esegui analisi tecnica su TradingView prima di investire.",
+        "tradingview_cta": "📊 Apri Grafici Gratuiti su TradingView (Ottieni 15$ di Bonus) ➔",
         "sticky_title": "Cerchi un broker sicuro? 🇮🇹 [I 5 broker autorizzati in Italia]",
         "sticky_btn": "Vedi Broker",
         "lead_capture_title": "🛡️ Guida Gratuita Recupero Fondi & Broker Sicuri",
@@ -4384,6 +4393,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% gefälschter Plattformen beginnen mit Romance-Scams ('Pig Butchering'). Überprüfen Sie das Profilfoto biometrisch.",
         "dating_btn": "🛡️ Foto kostenlos prüfen auf VerifyDating.net ↗",
         "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (100% Free)",
+        "tradingview_title": "📊 Echtzeit-Charts & Kurs-Verifizierung",
+        "tradingview_desc": "Überprüfen Sie offizielle Börsenkurse, erkennen Sie manipulierte Preissprünge und nutzen Sie TradingView vor jeder Order.",
+        "tradingview_cta": "📊 Kostenlose Live-Charts auf TradingView öffnen (15$ Bonus) ➔",
         "sticky_title": "Sicherer Broker gesucht? 🇩🇪 [Top 5 lizenzierte Broker]",
         "sticky_btn": "Broker anzeigen",
         "lead_capture_title": "🛡️ Kostenloser Anlegerschutz- & Rückforderungsleitfaden",
@@ -4416,6 +4428,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% des arnaques au trading dérivent d'arnaques sentimentales ('Pig Butchering'). Vérifiez la photo du profil avec l'IA.",
         "dating_btn": "🛡️ Vérifier la Photo Gratuitement sur VerifyDating.net ↗",
         "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (100% Free)",
+        "tradingview_title": "📊 Graphiques en Temps Réel & Vérification des Cours",
+        "tradingview_desc": "Vérifiez les cours réels du marché, détectez les fausses mèches et analysez les actifs sur TradingView avant d'investir.",
+        "tradingview_cta": "📊 Ouvrir les Graphiques Gratuits sur TradingView (15$ de Bonus) ➔",
         "sticky_title": "Courtier fiable ? 🇫🇷 [Top 5 courtiers régulés]",
         "sticky_btn": "Voir courtiers",
         "lead_capture_title": "🛡️ Guide Gratuit de Récupération & Courtiers Vérifiés",
@@ -4448,6 +4463,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "El 84% de plataformas falsas provienen de estafas románticas ('Pig Butchering'). Verifique la foto del contacto gratis.",
         "dating_btn": "🛡️ Verificar Foto Gratis en VerifyDating.net ↗",
         "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF (100% Free)",
+        "tradingview_title": "📊 Gráficos en Tiempo Real y Verificación de Precios",
+        "tradingview_desc": "Comprueba las cotizaciones reales del mercado, detecta velas falsas y analiza tendencias en TradingView antes de operar.",
+        "tradingview_cta": "📊 Abrir Gráficos Gratuitos en TradingView (Obtén 15$ de Bono) ➔",
         "sticky_title": "¿Buscas un broker seguro? 🇪🇸 [Los 5 brokers regulados]",
         "sticky_btn": "Ver brokers",
         "lead_capture_title": "🛡️ Guía Gratuita de Recuperación de Fondos y Brókers Seguros",
@@ -4480,6 +4498,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% dos golpes de investimento derivam de perfis falsos ('Pig Butchering'). Faça a verificação biométrica da foto.",
         "dating_btn": "🛡️ Verificar Foto Grátis no VerifyDating.net ↗",
         "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF (100% Free)",
+        "tradingview_title": "📊 Gráficos em Tempo Real e Verificação de Cotações",
+        "tradingview_desc": "Verifique cotações reais de mercado, identifique velas manipuladas e use o TradingView antes de qualquer operação.",
+        "tradingview_cta": "📊 Abrir Gráficos Grátis no TradingView (Ganhe $15 de Bônus) ➔",
         "sticky_title": "Corretora segura? 🇵🇹 [Top 5 corretoras reguladas]",
         "sticky_btn": "Ver corretoras",
         "lead_capture_title": "🛡️ Guia Gratuito de Recuperação & Corretoras Regulamentadas",
@@ -4512,6 +4533,9 @@ SCAM_LANG_MAP = {
         "dating_desc": "84% фальшивых площадок исходят от романтических аферистов («Pig Butchering»). Проверьте фото бесплатно.",
         "dating_btn": "🛡️ Проверить фото бесплатно на VerifyDating.net ↗",
         "pdf_btn": "📄 Скачать официальное юридическое PDF-досье (100% Free)",
+        "tradingview_title": "📊 Графики в реальном времени и проверка цен",
+        "tradingview_desc": "Сверяйте котировки с реальными биржами, выявляйте манипуляции и анализируйте рынок на TradingView перед сделкой.",
+        "tradingview_cta": "📊 Открыть бесплатные графики на TradingView (Бонус $15) ➔",
         "sticky_title": "Ищете надежного брокера? 🌐 [Топ-5 лицензированных брокеров]",
         "sticky_btn": "Смотреть",
         "lead_capture_title": "🛡️ Бесплатная инструкция по возврату средств и надежные брокеры",
@@ -4841,6 +4865,23 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- TradingView Pro Market Verification Card -->
+                    <div class="affiliate-card tradingview-card" style="margin-top: 18px; background: linear-gradient(135deg, rgba(41, 98, 255, 0.08) 0%, rgba(30, 64, 175, 0.15) 100%); border: 1px solid rgba(41, 98, 255, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-chart-line" style="color: #60a5fa; font-size: 18px;"></i>
+                                <h4 style="margin: 0; font-size: 14px; color: #fff; font-weight: 700;">{t['tradingview_title']}</h4>
+                            </div>
+                            <span style="background: rgba(41, 98, 255, 0.25); color: #93c5fd; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px;">OFFICIAL PARTNER</span>
+                        </div>
+                        <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.4;">
+                            {t['tradingview_desc']}
+                        </p>
+                        <a href="https://isbrokersafe.com/go/tradingview" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2962ff 0%, #1e40af 100%); border: none; font-weight: 800; font-size: 13px; padding: 12px; border-radius: 8px; color: #fff; text-decoration: none; display: block; text-align: center; box-shadow: 0 4px 14px rgba(41, 98, 255, 0.35);">
+                            {t['tradingview_cta']}
+                        </a>
                     </div>
 
                     <!-- Surfshark / NordVPN Security Card -->
@@ -9469,8 +9510,8 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                         Tired of catfish bots and scammers? Switch to moderated dating networks with official ID and photo verification.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="/#pricing" target="_blank" rel="noopener" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
-                            ⭐ Deep Biometric Face Audit (VerifyDating PRO - $4.99) ➔
+                        <a href="/" target="_blank" rel="noopener" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            ⭐ Deep Biometric Face Audit (VerifyDating - 100% Free) ➔
                         </a>
                         <a href="/go/dating-singles" target="_blank" rel="noopener" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
                             💖 Browse Verified Profiles & Real Singles ➔
