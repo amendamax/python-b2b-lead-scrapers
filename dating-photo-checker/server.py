@@ -96,14 +96,14 @@ async def add_performance_cache_headers(request: Request, call_next):
         ".webp", ".gif", ".ico", ".woff", ".woff2", ".ttf", ".eot", ".pdf"
     )
     if any(path.endswith(ext) for ext in STATIC_EXTS) or path.startswith("/static/") or path.startswith("/uploads/"):
-        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        response.headers["Cache-Control"] = "public, max-age=31536000, s-maxage=31536000, immutable"
         response.headers["X-Content-Type-Options"] = "nosniff"
         
     # 2. Sitemaps & robots.txt (12-hour CDN/browser caching)
     elif path == "/robots.txt" or path.endswith(".xml"):
-        response.headers["Cache-Control"] = "public, max-age=43200, stale-while-revalidate=86400"
+        response.headers["Cache-Control"] = "public, max-age=43200, s-maxage=604800, stale-while-revalidate=86400"
         
-    # 3. Public SEO Landing Pages & Dossiers (GET/HEAD 200 OK only): 1 hour cache with 1 day stale-while-revalidate
+    # 3. Public SEO Landing Pages & Dossiers (GET/HEAD 200 OK only): 1 hour browser cache, 7 days Cloudflare edge cache
     elif request.method in ("GET", "HEAD") and response.status_code == 200:
         if not path.startswith("/api/") and not path.startswith("/webhook"):
             is_public_content = (
@@ -114,7 +114,15 @@ async def add_performance_cache_headers(request: Request, call_next):
                 or any(path == f"/{lang}" or path == f"/{lang}/" for lang in ("ro", "it", "es", "fr", "de", "pt", "ru"))
             )
             if is_public_content:
-                response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+                response.headers["Cache-Control"] = "public, max-age=3600, s-maxage=604800, stale-while-revalidate=86400"
+
+    # 4. Remove Vary: Origin on non-API routes so Cloudflare Edge Caches 100% of HTML/Assets without DYNAMIC bypass
+    if not path.startswith("/api/") and "vary" in response.headers:
+        vary_items = [v.strip() for v in response.headers["vary"].split(",") if v.strip().lower() != "origin"]
+        if vary_items:
+            response.headers["vary"] = ", ".join(vary_items)
+        else:
+            del response.headers["vary"]
                 
     return response
 
