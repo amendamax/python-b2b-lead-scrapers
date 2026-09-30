@@ -397,6 +397,18 @@ def init_db():
         );
     """)
     cursor.execute("""
+        CREATE TABLE IF NOT EXISTS investor_leads (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            broker_name TEXT,
+            country TEXT,
+            ip_address TEXT,
+            source_url TEXT,
+            created_at TEXT
+        );
+    """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_investor_leads_email ON investor_leads(email);")
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS api_keys (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             key TEXT UNIQUE NOT NULL,
@@ -947,6 +959,16 @@ async def redirect_roboforex():
 @app.get("/out/incogni")
 async def redirect_incogni():
     return RedirectResponse(url="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505", status_code=307)
+
+@app.get("/go/socialcatfish")
+@app.get("/out/socialcatfish")
+async def redirect_socialcatfish():
+    return RedirectResponse(url="https://socialcatfish.com/?kw=verifydating", status_code=307)
+
+@app.get("/go/dating-singles")
+@app.get("/out/dating-singles")
+async def redirect_dating_singles():
+    return RedirectResponse(url="https://www.internationalcupid.com", status_code=307)
 
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
@@ -4149,6 +4171,52 @@ async def trigger_test_alert(request: Request, token: str = None):
         
     return {"success": True, "message": f"Test alert ({test_type}) sent to WhatsApp (+39 320 948 1876) & Telegram."}
 
+class InvestorLeadRequest(BaseModel):
+    email: str
+    broker_name: Optional[str] = None
+    country: Optional[str] = None
+    source_url: Optional[str] = None
+
+@app.post("/api/v1/investor-lead")
+async def save_investor_lead(req: InvestorLeadRequest, request: Request):
+    client_ip = request.client.host if request.client else "unknown"
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        clean_email = req.email.strip().lower()
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO investor_leads (email, broker_name, country, ip_address, source_url, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (clean_email, req.broker_name or "", req.country or "", client_ip, req.source_url or "", now_str))
+        conn.commit()
+        conn.close()
+
+        alert_msg = f"🎯 LEAD INVESTITOR NOU!\nEmail: {clean_email}\nBroker: {req.broker_name}\nIP: {client_ip}\nURL: {req.source_url}\nOra: {now_str}"
+        send_whatsapp_message(alert_msg)
+
+        if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+            tg_msg = (
+                f"🎯 *LEAD NOU INVESTITOR*\n\n"
+                f"📧 *Email:* `{clean_email}`\n"
+                f"🏢 *Broker:* `{req.broker_name}`\n"
+                f"🌐 *IP:* `{client_ip}`\n"
+                f"🔗 *URL:* `{req.source_url}`\n"
+                f"⏰ *Ora:* `{now_str}`"
+            )
+            def _send_tg_lead():
+                try:
+                    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+                    requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": tg_msg, "parse_mode": "Markdown"}, timeout=5)
+                except Exception as err:
+                    print(f"[Telegram Lead Exception] {err}")
+            threading.Thread(target=_send_tg_lead, daemon=True).start()
+
+        return {"success": True, "message": "Lead registered successfully"}
+    except Exception as e:
+        print(f"[Investor Lead DB Error] {e}")
+        return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
 
 # ==========================================================================
 # PROGRAMMATIC SEO ENGINE: REGULATORY SCAM DOSSIERS (50,000+ PAGES)
@@ -4177,7 +4245,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Was this platform recommended to you on a Dating App or WhatsApp?",
         "dating_desc": "84% of fake trading platforms originate from romance scam profiles ('Pig Butchering'). Verify your contact's photo against stolen model databases.",
         "dating_btn": "🛡️ Verify Dating Contact Photo Free on VerifyDating.net ↗",
-        "pdf_btn": "📄 Download Official Legal Evidence Dossier ($2.99)"
+        "pdf_btn": "📄 Download Official Legal Evidence Dossier ($2.99)",
+        "sticky_title": "Looking for a safe broker? 🌐 [Top 5 Regulated Brokers]",
+        "sticky_btn": "View Brokers",
+        "lead_capture_title": "🛡️ Free Capital Protection & Broker Audit Guide",
+        "lead_capture_desc": "Enter your email to receive official watchdog recovery steps, verified tier-1 broker options, and scam alert updates.",
+        "lead_popup_title": "🛡️ Check Any Broker Before Depositing",
+        "lead_popup_desc": "Get the official watchdog security audit & recovery guide free by email.",
+        "lead_btn": "Get Free Guide ➔",
+        "lead_success": "✓ Protection guide sent! Check your inbox shortly."
     },
     "ro": {
         "badge_alert": "AVERTISMENT OFICIAL DE REGLEMENTARE",
@@ -4201,7 +4277,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ți-a fost recomandată această platformă pe Dating sau WhatsApp?",
         "dating_desc": "84% dintre platformele false pornesc din escrocherii sentimentale ('Pig Butchering'). Verifică biometric poza persoanei.",
         "dating_btn": "🛡️ Verifică Poza Persoanei Gratuit pe VerifyDating.net ↗",
-        "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (2.99$)"
+        "pdf_btn": "📄 Descarcă Dosarul Oficial de Probe Juridice (2.99$)",
+        "sticky_title": "Cauți un broker sigur? 🇷🇴 [Top 5 brokeri licențiați în România]",
+        "sticky_btn": "Vezi Brokeri",
+        "lead_capture_title": "🛡️ Ghid Gratuit de Recuperare & Protecție Capital",
+        "lead_capture_desc": "Introdu adresa de email pentru pașii oficiali de recuperare a banilor, lista brokerilor licențiați și alerte de fraudă.",
+        "lead_popup_title": "🛡️ Verifică un broker înainte de depunere",
+        "lead_popup_desc": "Primești raportul de securitate și pașii de protecție gratuit pe email.",
+        "lead_btn": "Trimite Ghidul Gratuit ➔",
+        "lead_success": "✓ Ghidul a fost trimis! Verifică-ți căsuța de email."
     },
     "it": {
         "badge_alert": "ALLERTA UFFICIALE DI REGOLAMENTAZIONE",
@@ -4225,7 +4309,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ti è stata proposta questa piattaforma su Tinder o WhatsApp?",
         "dating_desc": "L'84% delle truffe finanziarie nasce da falsi profili romantici ('Pig Butchering'). Verifica gratis la foto del contatto.",
         "dating_btn": "🛡️ Verifica Foto del Contatto Gratis su VerifyDating.net ↗",
-        "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (2.99$)"
+        "pdf_btn": "📄 Scarica Dossier Legale Ufficiale PDF (2.99$)",
+        "sticky_title": "Cerchi un broker sicuro? 🇮🇹 [I 5 broker autorizzati in Italia]",
+        "sticky_btn": "Vedi Broker",
+        "lead_capture_title": "🛡️ Guida Gratuita Recupero Fondi & Broker Sicuri",
+        "lead_capture_desc": "Inserisci la tua email per ricevere la procedura ufficiale di disconoscimento e l'elenco dei broker con licenza europea.",
+        "lead_popup_title": "🛡️ Verifica un broker prima di depositare",
+        "lead_popup_desc": "Ricevi il report di sicurezza ufficiale e la procedura di tutela via email.",
+        "lead_btn": "Ricevi la Guida ➔",
+        "lead_success": "✓ Guida inviata con successo! Controlla la tua casella di posta."
     },
     "de": {
         "badge_alert": "OFFIZIELLE BEHÖRDLICHE WARNUNG",
@@ -4249,7 +4341,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Wurde Ihnen dieser Broker auf Tinder oder WhatsApp empfohlen?",
         "dating_desc": "84% gefälschter Plattformen beginnen mit Romance-Scams ('Pig Butchering'). Überprüfen Sie das Profilfoto biometrisch.",
         "dating_btn": "🛡️ Foto kostenlos prüfen auf VerifyDating.net ↗",
-        "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (2.99$)"
+        "pdf_btn": "📄 Offizielles juristisches PDF-Dossier herunterladen (2.99$)",
+        "sticky_title": "Sicherer Broker gesucht? 🇩🇪 [Top 5 lizenzierte Broker]",
+        "sticky_btn": "Broker anzeigen",
+        "lead_capture_title": "🛡️ Kostenloser Anlegerschutz- & Rückforderungsleitfaden",
+        "lead_capture_desc": "Geben Sie Ihre E-Mail ein, um offizielle Schritte zur Rückforderung und sichere BaFin/EU-regulierte Broker zu erhalten.",
+        "lead_popup_title": "🛡️ Prüfen Sie jeden Broker vor der Einzahlung",
+        "lead_popup_desc": "Erhalten Sie den offiziellen Sicherheitsbericht & Schutzleitfaden kostenlos per E-Mail.",
+        "lead_btn": "Leitfaden Anfordern ➔",
+        "lead_success": "✓ Leitfaden gesendet! Bitte prüfen Sie Ihren Posteingang."
     },
     "fr": {
         "badge_alert": "MISE EN GARDE OFFICIELLE DU RÉGULATEUR",
@@ -4273,7 +4373,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Ce broker vous a été suggéré sur une App de Rencontre ou WhatsApp ?",
         "dating_desc": "84% des arnaques au trading dérivent d'arnaques sentimentales ('Pig Butchering'). Vérifiez la photo du profil avec l'IA.",
         "dating_btn": "🛡️ Vérifier la Photo Gratuitement sur VerifyDating.net ↗",
-        "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (2.99$)"
+        "pdf_btn": "📄 Télécharger le Dossier Juridique Officiel (2.99$)",
+        "sticky_title": "Courtier fiable ? 🇫🇷 [Top 5 courtiers régulés]",
+        "sticky_btn": "Voir courtiers",
+        "lead_capture_title": "🛡️ Guide Gratuit de Récupération & Courtiers Vérifiés",
+        "lead_capture_desc": "Indiquez votre email pour recevoir les démarches officielles de signalement et la liste des courtiers agréés.",
+        "lead_popup_title": "🛡️ Vérifiez un courtier avant tout dépôt",
+        "lead_popup_desc": "Recevez gratuitement par email le rapport d'audit et le guide de recours officiel.",
+        "lead_btn": "Recevoir le Guide ➔",
+        "lead_success": "✓ Guide envoyé ! Vérifiez votre boîte de réception."
     },
     "es": {
         "badge_alert": "ALERTA OFICIAL DE REGULACIÓN FINANCIERA",
@@ -4297,14 +4405,22 @@ SCAM_LANG_MAP = {
         "dating_title": "¿Alguien en Tinder o WhatsApp le recomendó esta plataforma?",
         "dating_desc": "El 84% de plataformas falsas provienen de estafas románticas ('Pig Butchering'). Verifique la foto del contacto gratis.",
         "dating_btn": "🛡️ Verificar Foto Gratis en VerifyDating.net ↗",
-        "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF ($2.99)"
+        "pdf_btn": "📄 Descargar Dossier Jurídico Oficial en PDF ($2.99)",
+        "sticky_title": "¿Buscas un broker seguro? 🇪🇸 [Los 5 brokers regulados]",
+        "sticky_btn": "Ver brokers",
+        "lead_capture_title": "🛡️ Guía Gratuita de Recuperación de Fondos y Brókers Seguros",
+        "lead_capture_desc": "Ingrese su correo para recibir los pasos legales de reclamo y la lista de brókers con licencia oficial.",
+        "lead_popup_title": "🛡️ Verifique un bróker antes de depositar",
+        "lead_popup_desc": "Reciba gratis por correo el informe de auditoría oficial y la guía de recuperación.",
+        "lead_btn": "Recibir Guía ➔",
+        "lead_success": "✓ ¡Guía enviada! Revise su bandeja de entrada."
     },
     "pt": {
         "badge_alert": "ALERTA OFICIAL DE REGULAMENTAÇÃO",
         "verdict_title": "RISCO CRÍTICO — PLATAFORMA FRAUDULENTA NÃO AUTORIZADA",
         "verdict_text": "Alertas oficiais confirmam que esta entidade opera sem autorização legal. Seus fundos NÃO possuem garantia ou compensação.",
         "warning_issued_by": "Alerta Emitido Por",
-        "enforcement_date": "Data da Decisão",
+        "enforcement_date": "Data Deciziei",
         "infringement_type": "Tipo de Infração",
         "blacklisted_domains": "Domínios na Lista Negra",
         "safe_alternatives_title": "🛡️ Alternativas Regulamentadas e Seguras para Investir",
@@ -4321,7 +4437,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Essa plataforma foi indicada em App de Namoro ou WhatsApp?",
         "dating_desc": "84% dos golpes de investimento derivam de perfis falsos ('Pig Butchering'). Faça a verificação biométrica da foto.",
         "dating_btn": "🛡️ Verificar Foto Grátis no VerifyDating.net ↗",
-        "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF ($2.99)"
+        "pdf_btn": "📄 Baixar Dossiê Jurídico Oficial em PDF ($2.99)",
+        "sticky_title": "Corretora segura? 🇵🇹 [Top 5 corretoras reguladas]",
+        "sticky_btn": "Ver corretoras",
+        "lead_capture_title": "🛡️ Guia Gratuito de Recuperação & Corretoras Regulamentadas",
+        "lead_capture_desc": "Digite seu e-mail para receber as orientações oficiais de contestação e lista de corretoras autorizadas.",
+        "lead_popup_title": "🛡️ Verifique uma corretora antes de depositar",
+        "lead_popup_desc": "Receba o relatório oficial de segurança e orientações de contestação por e-mail.",
+        "lead_btn": "Receber Guia ➔",
+        "lead_success": "✓ Guia enviado! Verifique sua caixa de entrada."
     },
     "ru": {
         "badge_alert": "ОФИЦИАЛЬНОЕ ПРЕДУПРЕЖДЕНИЕ РЕГУЛЯТОРА",
@@ -4345,7 +4469,15 @@ SCAM_LANG_MAP = {
         "dating_title": "❤️ Этого брокера вам порекомендовали в дейтинге или WhatsApp?",
         "dating_desc": "84% фальшивых площадок исходят от романтических аферистов («Pig Butchering»). Проверьте фото бесплатно.",
         "dating_btn": "🛡️ Проверить фото бесплатно на VerifyDating.net ↗",
-        "pdf_btn": "📄 Скачать официальное юридическое PDF-досье ($2.99)"
+        "pdf_btn": "📄 Скачать официальное юридическое PDF-досье ($2.99)",
+        "sticky_title": "Ищете надежного брокера? 🌐 [Топ-5 лицензированных брокеров]",
+        "sticky_btn": "Смотреть",
+        "lead_capture_title": "🛡️ Бесплатная инструкция по возврату средств и надежные брокеры",
+        "lead_capture_desc": "Введите email, чтобы получить официальный алгоритм чарджбэка и список проверенных мировых брокеров.",
+        "lead_popup_title": "🛡️ Проверьте любого брокера перед депозитом",
+        "lead_popup_desc": "Получите официальный аудит безопасности и инструкцию по защите бесплатно на email.",
+        "lead_btn": "Получить инструкцию ➔",
+        "lead_success": "✓ Инструкция отправлена! Проверьте почту."
     }
 }
 
@@ -4404,6 +4536,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     
     target_vd_url = "https://verifydating.net/" if lang == "en" else f"https://verifydating.net/{lang}/"
     clean_reason = reason.replace('"', ' ').replace('\n', ' ').strip() if reason else ""
+    clean_name = entity_name.replace('"', '').replace("'", "").strip() if entity_name else "Unknown Broker"
     
     html_content = f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -4572,8 +4705,29 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
 
                     <hr style="border: none; border-top: 1px dashed rgba(255,255,255,0.1); margin: 25px 0;">
 
+                    <!-- Investor Lead Capture Card -->
+                    <div class="investor-lead-card" style="margin-bottom: 22px; background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 20px; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                            <span style="font-size: 20px;">🛡️</span>
+                            <h4 style="margin: 0; font-size: 15px; color: #38bdf8; font-weight: 800; font-family: 'Outfit', sans-serif;">{t['lead_capture_title']}</h4>
+                        </div>
+                        <p style="font-size: 12px; color: #94a3b8; margin: 0 0 14px 0; line-height: 1.5;">
+                            {t['lead_capture_desc']}
+                        </p>
+                        <form id="investor-lead-form" onsubmit="submitInvestorLead(event)" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <input type="email" id="investor-lead-email" required placeholder="name@domain.com" style="flex: 1 1 200px; padding: 11px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.35); color: #fff; font-size: 13px; outline: none;">
+                            <input type="hidden" id="investor-lead-broker" value="{entity_name}">
+                            <button type="submit" id="investor-lead-submit-btn" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; font-weight: 700; font-size: 13px; padding: 11px 18px; border-radius: 8px; border: none; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);">
+                                {t['lead_btn']}
+                            </button>
+                        </form>
+                        <div id="investor-lead-status" style="display: none; margin-top: 10px; font-size: 12px; font-weight: 700; color: #34d399; padding: 8px 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px;">
+                            {t['lead_success']}
+                        </div>
+                    </div>
+
                     <!-- Safe Regulated Alternatives Section (GEO-TARGETED ACROSS 4-5 GLOBAL ZONES) -->
-                    <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
+                    <div id="safe-alternatives" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
                             <h3 style="color: #38bdf8; font-family: 'Outfit'; font-size: 18px; margin: 0; font-weight: 800;">
                                 {t['safe_alternatives_title']}
@@ -4683,13 +4837,32 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
 
         </div>
 
-        <!-- Footer -->
-        <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; color: #64748b; font-size: 12px;">
-            <div style="margin-bottom: 8px;">
-                🛡️ IsBrokerSafe.com Regulatory Registry Intelligence & Fraud Defense • P.IVA IT04226190041
+        <!-- Institutional Footer & Legal Disclosures (FTC & ESMA Compliant - CRO Point 5) -->
+        <footer style="margin-top: 50px; padding: 26px 20px; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.65); border-radius: 16px; color: #94a3b8; font-size: 11px; line-height: 1.6; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="font-size: 13px; font-weight: 800; color: #f8fafc;">
+                    🛡️ IsBrokerSafe.com Regulatory Intelligence Registry
+                </div>
+                <div style="display: flex; gap: 14px; font-size: 11.5px;">
+                    <a href="mailto:partners@isbrokersafe.com" style="color: #38bdf8; text-decoration: none; font-weight: 700;">Partner & Tenancy Inquiries</a>
+                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                    <a href="mailto:compliance@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">Legal / DMCA</a>
+                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                    <a href="mailto:support@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">Report a Scam</a>
+                </div>
             </div>
-            <div>
-                Data sourced from official securities commissions (CONSOB, FCA, CySEC, BaFin, SEC). All rights reserved.
+            
+            <div style="margin-bottom: 12px;">
+                <strong style="color: #cbd5e1;">Advertiser & Affiliate Disclosure (FTC 16 CFR Part 255):</strong> IsBrokerSafe.com is an independent consumer defense and cybersecurity intelligence registry. Some verified brokerages featured on this site maintain commercial affiliate partnerships with us. We may receive financial compensation when users open accounts through verified links. This relationship never influences our independent regulatory blacklist assessments, scam determinations, or mathematical safety scores.
+            </div>
+
+            <div style="margin-bottom: 12px; padding: 10px 14px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; color: #fca5a5;">
+                <strong style="color: #f87171;">ESMA / FCA High-Risk Investment Warning:</strong> CFDs and leveraged financial products are complex instruments and come with a high risk of losing money rapidly due to leverage. Between 74% and 89% of retail investor accounts lose money when trading CFDs with regulated providers. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your capital. Digital assets and cryptocurrencies may be unregulated in your jurisdiction.
+            </div>
+
+            <div style="color: #64748b; font-size: 10.5px; margin-top: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <span>© 2026 IsBrokerSafe.com • Operated by VasileDev Group (P.IVA IT04226190041). Sourced from 15 global regulators (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).</span>
+                <span>All registered trademarks belong to their respective regulatory authorities.</span>
             </div>
         </footer>
 
@@ -4721,9 +4894,324 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
             grid-template-columns: 1fr !important;
         }}
     }}
+    .mobile-sticky-bar {{
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: rgba(11, 15, 25, 0.92);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-top: 1px solid rgba(56, 189, 248, 0.35);
+        padding: 10px 14px;
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.65);
+    }}
+    .mobile-sticky-inner {{
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }}
+    .mobile-sticky-info {{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }}
+    .mobile-sticky-dot {{
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ef4444;
+        box-shadow: 0 0 8px #ef4444;
+        flex-shrink: 0;
+        animation: pulseDot 1.5s infinite;
+    }}
+    @keyframes pulseDot {{
+        0% {{ opacity: 1; transform: scale(1); }}
+        50% {{ opacity: 0.4; transform: scale(1.3); }}
+        100% {{ opacity: 1; transform: scale(1); }}
+    }}
+    .mobile-sticky-text {{
+        color: #f1f5f9;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }}
+    .mobile-sticky-btn {{
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+        color: #ffffff !important;
+        font-weight: 800;
+        font-size: 12px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+    }}
+    @media (max-width: 768px) {{
+        .mobile-sticky-bar {{
+            display: block;
+        }}
+        body {{
+            padding-bottom: 65px !important;
+        }}
+    }}
+
+    /* Discreet Investor Slide-In Popup (CRO Point 3) */
+    .investor-lead-popup {{
+        display: none;
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        max-width: 380px;
+        width: calc(100% - 32px);
+        background: rgba(15, 23, 42, 0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 14px;
+        padding: 16px 18px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.15);
+        z-index: 9998;
+        animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }}
+    @keyframes slideInUp {{
+        from {{ opacity: 0; transform: translateY(20px); }}
+        to {{ opacity: 1; transform: translateY(0); }}
+    }}
+    .investor-popup-close {{
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 18px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px;
+        transition: color 0.2s;
+    }}
+    .investor-popup-close:hover {{
+        color: #ffffff;
+    }}
+    .investor-popup-badge {{
+        font-size: 13px;
+        font-weight: 800;
+        color: #38bdf8;
+        margin-bottom: 6px;
+        padding-right: 22px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }}
+    .investor-popup-text {{
+        font-size: 11.5px;
+        color: #cbd5e1;
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+    }}
+    .investor-popup-form {{
+        display: flex;
+        gap: 8px;
+    }}
+    .investor-popup-input {{
+        flex: 1;
+        background: rgba(30, 41, 59, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+        padding: 9px 12px;
+        color: #ffffff;
+        font-size: 12px;
+        outline: none;
+        transition: border-color 0.2s;
+    }}
+    .investor-popup-input:focus {{
+        border-color: #38bdf8;
+    }}
+    .investor-popup-btn {{
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+        border: none;
+        border-radius: 8px;
+        padding: 9px 14px;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        transition: all 0.2s;
+    }}
+    .investor-popup-btn:hover {{
+        transform: translateY(-1px);
+        filter: brightness(1.15);
+    }}
+    @media (max-width: 768px) {{
+        .investor-lead-popup {{
+            bottom: 70px;
+            left: 12px;
+            right: 12px;
+            width: auto;
+            max-width: none;
+        }}
+    }}
     </style>
+    <!-- Mobile Floating Sticky Bar (CRO Point 1) -->
+    <div class="mobile-sticky-bar" id="mobile-sticky-bar">
+        <div class="mobile-sticky-inner">
+            <div class="mobile-sticky-info">
+                <span class="mobile-sticky-dot"></span>
+                <span class="mobile-sticky-text" id="sticky-bar-text">{t['sticky_title']}</span>
+            </div>
+            <a href="#safe-alternatives" class="mobile-sticky-btn" id="sticky-bar-btn">{t['sticky_btn']} ➔</a>
+        </div>
+    </div>
+
+    <!-- Discreet Slide-in Investor Lead Popup (CRO Point 3) -->
+    <div id="investor-lead-popup" class="investor-lead-popup">
+        <button class="investor-popup-close" onclick="closeInvestorPopup()" title="Close">&times;</button>
+        <div class="investor-popup-badge">{t.get('lead_popup_title', t['lead_capture_title'])}</div>
+        <p class="investor-popup-text">{t.get('lead_popup_desc', t['lead_capture_desc'])}</p>
+        <form onsubmit="submitPopupLead(event)" class="investor-popup-form">
+            <input type="email" id="popup-lead-email" placeholder="investor@domain.com" required class="investor-popup-input">
+            <button type="submit" id="popup-lead-btn" class="investor-popup-btn">{t['lead_btn']}</button>
+        </form>
+        <div id="popup-lead-status" style="display:none; font-size:11px; color:#34d399; margin-top:8px; font-weight:700;">{t['lead_success']}</div>
+    </div>
     <script>
     (function() {{
+        window.submitInvestorLead = function(e) {{
+            e.preventDefault();
+            var emailEl = document.getElementById("investor-lead-email");
+            var brokerEl = document.getElementById("investor-lead-broker");
+            var btn = document.getElementById("investor-lead-submit-btn");
+            var status = document.getElementById("investor-lead-status");
+            if (!emailEl || !emailEl.value) return;
+
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+            btn.innerText = "...";
+
+            fetch("/api/v1/investor-lead", {{
+                method: "POST",
+                headers: {{ "Content-Type": "application/json" }},
+                body: JSON.stringify({{
+                    email: emailEl.value.trim(),
+                    broker_name: brokerEl ? brokerEl.value : "{clean_name}",
+                    source_url: window.location.href
+                }})
+            }}).then(function(res) {{
+                return res.json();
+            }}).then(function(data) {{
+                if (status) status.style.display = "block";
+                emailEl.value = "";
+                btn.innerText = "✓";
+                try {{ localStorage.setItem('ibs_lead_closed', '1'); }} catch(e) {{}}
+            }}).catch(function(err) {{
+                if (status) {{
+                    status.style.display = "block";
+                    status.innerText = "✓";
+                }}
+            }});
+        }};
+
+        // Discreet Slide-in Popup Logic (CRO Point 3)
+        var popupShown = false;
+        function showInvestorPopup() {{
+            if (popupShown) return;
+            try {{
+                if (localStorage.getItem('ibs_lead_closed') === '1') return;
+            }} catch(e) {{}}
+            var p = document.getElementById("investor-lead-popup");
+            if (p) {{
+                p.style.display = "block";
+                popupShown = true;
+            }}
+        }}
+
+        window.closeInvestorPopup = function() {{
+            var p = document.getElementById("investor-lead-popup");
+            if (p) p.style.display = "none";
+            try {{ localStorage.setItem('ibs_lead_closed', '1'); }} catch(e) {{}}
+        }};
+
+        window.submitPopupLead = function(e) {{
+            e.preventDefault();
+            var emailEl = document.getElementById("popup-lead-email");
+            var btn = document.getElementById("popup-lead-btn");
+            var status = document.getElementById("popup-lead-status");
+            if (!emailEl || !emailEl.value) return;
+
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+            btn.innerText = "...";
+
+            fetch("/api/v1/investor-lead", {{
+                method: "POST",
+                headers: {{ "Content-Type": "application/json" }},
+                body: JSON.stringify({{
+                    email: emailEl.value.trim(),
+                    broker_name: "{clean_name}",
+                    source_url: window.location.href
+                }})
+            }}).then(function(res) {{
+                return res.json();
+            }}).then(function(data) {{
+                if (status) status.style.display = "block";
+                emailEl.value = "";
+                btn.innerText = "✓";
+                try {{ localStorage.setItem('ibs_lead_closed', '1'); }} catch(e) {{}}
+                setTimeout(function() {{
+                    var p = document.getElementById("investor-lead-popup");
+                    if (p) p.style.display = "none";
+                }}, 3500);
+            }}).catch(function(err) {{
+                if (status) status.style.display = "block";
+                btn.innerText = "✓";
+            }});
+        }};
+
+        // Trigger popup after 8s or upon scrolling 450px
+        setTimeout(showInvestorPopup, 8000);
+        window.addEventListener("scroll", function() {{
+            if (!popupShown && window.scrollY > 450) {{
+                showInvestorPopup();
+            }}
+        }}, {{ passive: true }});
+
+        // Dynamic Flag and Localization for Mobile Sticky Bar (CRO Point 1)
+        function updateStickyBarGeo(country, zone) {{
+            var textEl = document.getElementById("sticky-bar-text");
+            var btnEl = document.getElementById("sticky-bar-btn");
+            if (!textEl) return;
+            var flagMap = {{
+                "RO": {{ text: "Cauți un broker sigur? 🇷🇴 [Top 5 brokeri licențiați în România]", btn: "Vezi Brokeri ➔" }},
+                "IT": {{ text: "Cerchi un broker sicuro? 🇮🇹 [I 5 broker autorizzati in Italia]", btn: "Vedi Broker ➔" }},
+                "DE": {{ text: "Sicherer Broker gesucht? 🇩🇪 [Top 5 BaFin Broker]", btn: "Anzeigen ➔" }},
+                "AT": {{ text: "Sicherer Broker gesucht? 🇦🇹 [Top 5 lizenzierte Broker]", btn: "Anzeigen ➔" }},
+                "CH": {{ text: "Sicherer Broker gesucht? 🇨🇭 [FINMA Broker]", btn: "Anzeigen ➔" }},
+                "FR": {{ text: "Courtier fiable ? 🇫🇷 [Top 5 courtiers régulés AMF]", btn: "Voir ➔" }},
+                "ES": {{ text: "¿Buscas un broker seguro? 🇪🇸 [Top 5 regulados CNMV]", btn: "Ver ➔" }},
+                "GB": {{ text: "Looking for a safe broker? 🇬🇧 [Top 5 FCA Regulated]", btn: "View ➔" }},
+                "US": {{ text: "Looking for a safe broker? 🇺🇸 [Top 5 SEC / FINRA]", btn: "View ➔" }},
+                "BR": {{ text: "Corretora segura? 🇧🇷 [Top 5 corretoras reguladas]", btn: "Ver ➔" }},
+                "PT": {{ text: "Corretora segura? 🇵🇹 [Top 5 corretoras reguladas]", btn: "Ver ➔" }},
+                "AU": {{ text: "Looking for a safe broker? 🇦🇺 [Top 5 ASIC Regulated]", btn: "View ➔" }}
+            }};
+            if (country && flagMap[country]) {{
+                textEl.innerText = flagMap[country].text;
+                if (btnEl) btnEl.innerText = flagMap[country].btn;
+            }}
+        }}
+
         function getClientZone() {{
             var tz = "";
             try {{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; }} catch(e) {{}}
@@ -4842,13 +5330,20 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
             if (d && d.zone && d.zone !== initialZone) {{
                 renderZoneBrokers(d.zone);
             }}
+            if (d && d.country) {{
+                updateStickyBarGeo(d.country, d.zone);
+            }}
         }}).catch(function() {{}});
     }})();
     </script>
 </body>
 </html>
 """
-    return HTMLResponse(content=html_content, status_code=200)
+    return HTMLResponse(
+        content=html_content,
+        status_code=200,
+        headers={"Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"}
+    )
 
 @app.get("/sitemap-scam-reports.xml")
 @app.get("/sitemap-broker-scams.xml")
@@ -8676,7 +9171,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "title": f"Alerta Golpe Amoroso {name} & Fotos Roubadas ({category}) | VerifyDating",
             "meta_desc": f"Dossiê forense sobre o perfil falso '{name}' ({prof}, {location}). Detecte perfis falsos e busque fotos com VerifyDating AI.",
             "back": "&larr; Voltar à Lista de Golpistas",
-            "verify_btn": "📷 Verificar outra Foto (Grátis) ↗",
+            "verify_face": "📷 Verificar outra Foto (Grátis) ↗",
             "risk_label": f"{risk}% RISCO DE GOLPE CONFIRMADO",
             "reported": "Reportado",
             "investigations": "Investigações",
@@ -8696,7 +9191,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             "title": f"{name} Предупреждение о брачной афере & Украденные фото ({category}) | VerifyDating",
             "meta_desc": f"Судебное досье на скам-профиль '{name}' ({prof}, {location}). Распознавание брачных аферистов и поиск по фото с AI VerifyDating.",
             "back": "&larr; Назад к Списку Мошенников",
-            "verify_btn": "📷 Проверить другое Фото (Бесплатно) ↗",
+            "verify_face": "📷 Проверить другое Фото (Бесплатно) ↗",
             "risk_label": f"{risk}% ПОДТВЕРЖДЕННЫЙ РИСК ОБМАНА",
             "reported": "Зарегистрировано",
             "investigations": "Расследований",
@@ -8794,8 +9289,8 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
 <body>
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <a href="/scammers" style="color: var(--pink); text-decoration: none; font-weight: 700; font-size: 14px;">{t['back']}</a>
-            <a href="https://verifydating.net/" style="color: var(--cyan); text-decoration: none; font-weight: 700; font-size: 14px;">{t['verify_face']}</a>
+            <a href="/scammers" style="color: var(--pink); text-decoration: none; font-weight: 700; font-size: 14px;">{t.get('back', '&larr; Back')}</a>
+            <a href="https://verifydating.net/" style="color: var(--cyan); text-decoration: none; font-weight: 700; font-size: 14px;">{t.get('verify_face', '📷 Verify Another Face (Free) ↗')}</a>
         </div>
         
         <!-- Header Card -->
@@ -8853,7 +9348,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
                 
-                <!-- Card 1: Spokeo & TruthFinder (Reverse Lookup) -->
+                <!-- Card 1: Social Catfish & Surfshark (Reverse Lookup) -->
                 <div class="card affiliate-incogni-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(56, 189, 248, 0.35);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <span style="font-size: 24px;">🔍</span>
@@ -8864,16 +9359,16 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                         Got a phone number, email address, or name from this contact? Run an instant public records & alias search.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://www.spokeo.com/reverse-phone-lookup?g=17177183" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
-                            📞 Reverse Phone / Email Lookup (Spokeo) ➔
+                        <a href="/go/socialcatfish" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            🔍 Reverse Phone & Name Search (Social Catfish) ➔
                         </a>
-                        <a href="https://tracking.truthfinder.com/?a=1634&oc=27&c=17128187" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
-                            🕵️ Full Criminal & Public Records (TruthFinder) ➔
+                        <a href="/go/surfshark" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            🦈 Instant Identity & Data Leak Search (Surfshark) ➔
                         </a>
                     </div>
                 </div>
 
-                <!-- Card 2: Incogni & OmniWatch (Privacy & Dark Web) -->
+                <!-- Card 2: Incogni & NordVPN (Privacy & Dark Web) -->
                 <div class="card affiliate-incogni-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.14) 100%); border: 1px solid rgba(16, 185, 129, 0.35);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <span style="font-size: 24px;">🛡️</span>
@@ -8884,16 +9379,16 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                         Shared phone numbers or photos? Automatically scrub your records from 180+ data brokers and monitor identity leaks.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
-                            🛡️ Remove My Data (Incogni - 50% Off) ➔
+                        <a href="/go/incogni" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            🛡️ Remove My Data from Scammer Brokers (Incogni - 50% Off) ➔
                         </a>
-                        <a href="https://tracking.omniwatch.com/?a=1634&oc=90&c=17316830" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
-                            👁️ 24/7 Dark Web Identity Monitor (OmniWatch) ➔
+                        <a href="/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            👁️ 24/7 Dark Web Identity Monitor & Threat Defense (NordVPN) ➔
                         </a>
                     </div>
                 </div>
 
-                <!-- Card 3: Match.com & OurTime (Verified Safe Dating) -->
+                <!-- Card 3: VerifyDating PRO & Safe Dating Alternatives -->
                 <div class="card affiliate-match-card" style="margin-bottom: 0; padding: 22px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(219, 39, 119, 0.14) 100%); border: 1px solid rgba(236, 72, 153, 0.35);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <span style="font-size: 24px;">💖</span>
@@ -8904,11 +9399,11 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                         Tired of catfish bots and scammers? Switch to moderated dating networks with official ID and photo verification.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=13193691" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
-                            💖 Meet Verified Singles (Match.com Free Trial) ➔
+                        <a href="/#pricing" target="_blank" rel="noopener" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                            ⭐ Deep Biometric Face Audit (VerifyDating PRO - $4.99) ➔
                         </a>
-                        <a href="https://mt-k.madmetrics.com/mck/1/?kaPt=cj&kaPcl=15006955" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
-                            👵 Safe 50+ Mature Matchmaking (OurTime) ➔
+                        <a href="/go/dating-singles" target="_blank" rel="noopener" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            💖 Browse Verified Profiles & Real Singles ➔
                         </a>
                     </div>
                 </div>
