@@ -4917,6 +4917,9 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 🦈 Surfshark (-82%) ↗
                             </a>
                         </div>
+                        <a href="https://isbrokersafe.com/go/intego" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="display: block; background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center; margin-bottom: 10px;">
+                            🍏 Intego Mac & iPhone Anti-Malware Protection (-35% Discount) ↗
+                        </a>
                         <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="affiliate-incogni-btn" style="display: block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 10px 14px; color: #6ee7b7; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer;">
                             🛡️ Delete Your Phone & Email from Scammer Data Brokers (Incogni) ➔
                         </a>
@@ -9509,6 +9512,9 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                         <a href="/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
                             👁️ 24/7 Dark Web Identity Monitor & Threat Defense (NordVPN) ➔
                         </a>
+                        <a href="/go/intego" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(79, 70, 229, 0.3) 100%); border: 1px solid rgba(129, 140, 248, 0.4); color: #c7d2fe; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            🍏 Intego Mac & iPhone Anti-Malware Suite (-35% Off) ➔
+                        </a>
                     </div>
                 </div>
 
@@ -9535,8 +9541,46 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             </div>
         </div>
 
-        <footer style="text-align: center; color: #64748b; font-size: 12px; margin-top: 40px;">
-            &copy; 2026 VerifyDating.net &bull; VasileDev Group (P.IVA IT04226190041). Independent Cyber Threat Intelligence.
+        <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
+        <footer class="vasiledev-ecosystem-footer" style="background: #03060a; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 40px 20px 24px; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #94a3b8; font-size: 0.85rem; line-height: 1.6; text-align: left; margin-top: 50px;">
+            <div style="max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px; margin-bottom: 30px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(236, 72, 153, 0.15); color: #ec4899; font-size: 16px;">
+                            <i class="fa-solid fa-heart-crack"></i>
+                        </span>
+                        <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.3px;">
+                            VERIFY<strong style="color: #ec4899;">DATING</strong>
+                        </span>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+                        AI Biometric Facial Recognition &amp; Romance Scam Blacklist. Protecting dating singles and exposing romance fraud syndicates.
+                    </p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✓ VIES Verified EU</span>
+                        <span style="background: rgba(236, 72, 153, 0.12); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
+                    <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
+                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+                    <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Contact: <a href="mailto:amendamax@gmail.com" style="color: #cbd5e1; text-decoration: none;">amendamax@gmail.com</a></p>
+                </div>
+
+                <div>
+                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">Official Network</h4>
+                    <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
+                    <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" style="color: #ec4899; font-weight: 700; text-decoration: none;">🛡️ VerifyDating.net</a></p>
+                    <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
+                    <p style="margin: 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">👑 VasileDev.com</a></p>
+                </div>
+            </div>
+
+            <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 18px; text-align: center; font-size: 0.8rem; color: #64748b;">
+                <p style="margin: 0;">&copy; 2026 VerifyDating™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
+            </div>
         </footer>
     </div>
 </body>
