@@ -34,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Broker Legitimacy Verifier & Forex Scam Checker | IsBrokerSafe</title>
     <meta name="description" content="Verify instantly if your Forex, CFD, or Crypto broker is safe or a scam. Real-time trust score, FCA/CySEC regulation checks, and WHOIS domain audit.">
-    <link rel="stylesheet" href="/style.css?v=4.0">
+    <link rel="stylesheet" href="/broker-verifier/broker-verifier/style.css?v=1787763780">
     <!-- FontAwesome Icons for support buttons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
@@ -52,6 +52,71 @@
     <meta property="twitter:title" content="BrokerVerifier 2026 - Official Broker Security & Cyber Audit">
     <meta property="twitter:description" content="Verify broker regulation, FCA/CySEC licences, domain age, and financial security rating in real-time.">
     <meta property="twitter:image" content="https://isbrokersafe.com/og_image.jpg">
+
+    <!-- Critical Mobile Viewport & Grid Protection -->
+    <style>
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            box-sizing: border-box !important;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit !important;
+        }
+        .b2b-api-section, .broker-b2b-section, .hero-box, .app-container {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+        .broker-b2b-actions-grid, .b2b-actions-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 12px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .btn-broker-api,
+        .btn-broker-pricing,
+        .btn-broker-widget,
+        .btn-broker-pypi {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            min-width: 0 !important;
+            white-space: normal !important;
+        }
+        @media (max-width: 900px) {
+            .broker-b2b-actions-grid, .b2b-actions-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .b2b-api-section, .broker-b2b-section {
+                padding: 20px 14px !important;
+                margin: 25px 0 !important;
+                border-radius: 16px !important;
+            }
+            .broker-b2b-actions-grid, .b2b-actions-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+            .btn-broker-api,
+            .btn-broker-pricing,
+            .btn-broker-widget,
+            .btn-broker-pypi {
+                width: 100% !important;
+                padding: 13px 14px !important;
+                font-size: 14px !important;
+            }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -60,15 +125,21 @@
         <!-- Header -->
         <header class="app-header">
             <div class="header-nav">
-                <h1 class="logo">Broker<span>Verifier</span></h1>
-                                <div class="header-badges">
-                    <a href="/api/v1/docs" class="badge-tag badge-api-glow">⚡ B2B Threat API ↗</a>
+                <a href="/" class="logo-link"><span class="logo-cyber-shield"><i class="fa-solid fa-shield-halved"></i></span><h1 class="logo" style="margin: 0;">Broker<span>Verifier</span></h1></a>
+                
+                <div class="header-badges">
+                    <a href="/pricing" class="badge-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35);">💳 Pricing</a>
+                    <a href="/widget" class="badge-tag" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35);">🛡️ Trust Widget</a>
+                    <a href="/api/v1/docs" class="badge-tag badge-api-glow">⚡ Threat API</a>
+                </div>
+
+                <div class="header-action">
+                    <a href="/extension" target="_blank" rel="noopener" class="badge-tag" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5); font-weight: 800;"><i class="fa-brands fa-chrome"></i> 🛡️ Add to Chrome — Free</a>
+                    <a href="https://pypi.org/project/isbrokersafe/" target="_blank" rel="noopener" class="badge-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35);">🐍 PyPI SDK ↗</a>
                     <a href="https://verifydating.net/" target="_blank" rel="noopener" class="badge-tag badge-dating-glow">❤️ Dating Check ↗</a>
-                    <span class="badge-tag badge-ssl-glow">🔒 256-Bit SSL</span>
-                    <span class="badge-tag green badge-portal-glow">✓ Independent Portal</span>
+                    <span class="badge badge-live" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35); padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;"><span class="pulse-dot" style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981;"></span> Live Audit</span>
                 </div>
             </div>
-            
             <div class="hero-box">
                 <h2 class="hero-headline">Verify Any Forex, CFD & Crypto Broker Before Depositing Your Money</h2>
                 <p class="hero-subtext">Instant regulatory license audit (FCA, ASIC, CySEC), WHOIS domain age inspection, and scam risk detection.</p>
@@ -80,7 +151,6 @@
                 </div>
             
                                 <!-- Global 15-Authority Regulatory Shield Bar -->
-                <!-- Global 15-Authority Regulatory Shield Bar -->
                 <div class="regulators-trust-bar" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 8px; margin: 16px auto 0 auto; max-width: 940px; padding: 12px 14px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; font-size: 11.5px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
                     <span style="color: #38bdf8; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 6px; margin-right: 4px;"><i class="fa-solid fa-shield-halved"></i> 15 Global Regulators Monitored:</span>
                     <span class="reg-pill" style="display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 3px 8px; font-size: 11px; color: #e2e8f0; white-space: nowrap;"><span style="color: #38bdf8; font-size: 9.5px; font-weight: 800; background: rgba(56, 189, 248, 0.15); padding: 1px 4px; border-radius: 3px; letter-spacing: 0.5px;">US</span><strong style="color: #fff; font-weight: 700;">SEC</strong></span>
@@ -147,7 +217,23 @@
             </div>
         </section>
 
-        <!-- Main Dashboard View -->
+        <!-- Homepage Cross-Promotion: VerifyDating.net Romance Scam & Deepfake Audit -->
+        <div class="homepage-dating-cross-banner" style="max-width: 1200px; margin: 0 auto 28px auto; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(190, 24, 93, 0.12) 100%); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 16px; padding: 20px 24px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">❤️</span>
+                    <h3 style="margin: 0; font-size: 16px; color: #fff; font-weight: 700;">❤️ Met Someone on Dating Apps Recommending This Broker?</h3>
+                </div>
+                <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(236, 72, 153, 0.3);">ROMANCE SCAM DEFENSE</span>
+            </div>
+            <p style="font-size: 13px; color: #94a3b8; margin: 0 0 14px 0; line-height: 1.5;">
+                84% of romance scams transition to fake investment platforms ("Pig Butchering"). Before trusting any investment advice from online matches, verify their identity with AI face-matching.
+            </p>
+            <a href="https://verifydating.net/" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px 20px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);">
+                <span>🛡️ Check Dating Match Photo Free on VerifyDating.net ↗</span>
+            </a>
+        </div>
+
         <main id="dashboard-view" class="dashboard-grid">
             
             <!-- Left Side: Trust Gauge & Scanner Terminal -->
@@ -242,235 +328,31 @@
                         Download Forensic PDF Report 📄
                     </a>
                 </div>
+            <!-- In-Result Cross-Promotion: VerifyDating.net Romance Scam Audit -->
+                <div id="in-result-dating-banner" class="in-result-dating-cross-card" style="display: none; margin-top: 24px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(190, 24, 93, 0.12) 100%); border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 12px; padding: 18px 20px; text-align: left; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.15);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 22px;">❤️</span>
+                            <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">❤️ Was This Broker Recommended to You on a Dating App or WhatsApp?</h4>
+                        </div>
+                        <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(236, 72, 153, 0.3);">ROMANCE SCAM DEFENSE</span>
+                    </div>
+                    <p style="font-size: 12px; color: #94a3b8; margin: 0 0 14px 0; line-height: 1.4;">
+                        84% of romance scams transition to fake investment platforms ("Pig Butchering"). Before trusting any investment advice from online matches, verify their identity.
+                    </p>
+                    <a href="https://verifydating.net/" target="_blank" rel="noopener" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border: none; font-weight: 700; font-size: 13px; padding: 12px 18px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35); text-align: center;">
+                        <span>🛡️ Verify Dating Match Photo Free on VerifyDating.net</span>
+                        <span>↗</span>
+                    </a>
+                </div>
             </section>
 
         </main>
 
-        <!-- Threat Intelligence Checklist Footer -->
-        <section class="panel checklist-section" style="margin-top: 3rem; animation: fadeInUp 1s ease-out;">
-            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-                🛡️ Fraud Prevention Checklist
-            </h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
-                Before sending funds to any trading provider, run through these mandatory checks to ensure the security of your capital:
-            </p>
-            <div class="checklist-grid">
-                <div class="checklist-item">
-                    <h5>1. Regulatory License Check</h5>
-                    <p>Always verify the license number directly on the regulator's official register (e.g. FCA, ASIC, CySEC). Scam brokers often copy real license numbers belonging to other companies.</p>
-                </div>
-                <div class="checklist-item">
-                    <h5>2. Verify Domain Age</h5>
-                    <p>Copy the website link into a WHOIS database. If the website was registered less than 12 months ago, but the company claims "years of experience," it is a guaranteed scam.</p>
-                </div>
-                <div class="checklist-item">
-                    <h5>3. Refuse Cold Calling</h5>
-                    <p>Legitimate financial institutions will NEVER call you to offer unsolicited trading tips, ask you to deposit money, or promise account managers to trade on your behalf.</p>
-                </div>
-                <div class="checklist-item">
-                    <h5>4. Payment Security</h5>
-                    <p>If a broker asks you to deposit via Crypto (Bitcoin/USDT) to a private wallet or to send money to a personal bank account under a different name, do not send any funds.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trader Reviews Section -->
-        <section class="panel reviews-section" style="margin-top: 3rem; animation: fadeInUp 1.2s ease-out;">
-            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                ⭐ Trader Protection Testimonials
-            </h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
-                Here is how BrokerVerifier is helping traders identify scams and protect their capital worldwide:
-            </p>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"I was on the verge of sending $8,500 to ApexCryptoFX after a Telegram 'account manager' convinced me it was safe. Decided to run a quick scan here first. High threat alert, domain registered just 2 months ago. Saved my life savings!"</p>
-                    <span class="review-author">Elena M.</span><span class="review-meta">· Bucharest, RO</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"As a retail forex trader, checking offshore entities is critical. BrokerVerifier has saved me and my trading community from several shady CFD brokers. The PDF forensic reports are worth every penny of that $9.99."</p>
-                    <span class="review-author">Marcus T.</span><span class="review-meta">· London, UK</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Outstanding service. The live WHOIS checking is super fast and revealed that a broker claiming 8 years of history was actually registered last Tuesday. Absolutely brilliant threat intelligence."</p>
-                    <span class="review-author">David K.</span><span class="review-meta">· Chicago, IL</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"I paid the $9.99 to get the deep audit on an offshore MT5 broker. It immediately flagged CySEC blacklist warnings that were hidden under another shell company name. Absolute life-saver tool."</p>
-                    <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Clean UI, fast scan, and the PDF forensic report is highly detailed. It found that the broker was hosted on a cheap shared server in Panama. Insane value for $9.99. Highly recommended!"</p>
-                    <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"My uncle almost fell for a cold-call broker scam promising 15% guaranteed weekly profits. Ran the checklist and the scanner here, flagged it as an immediate Ponzi threat. Beyond grateful!"</p>
-                    <span class="review-author">Roxana I.</span><span class="review-meta">· Cluj-Napoca, RO</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"I'm a financial advisor and I now make all my retail clients verify their brokers here before they fund any trading account. Best preventive security tool out there."</p>
-                    <span class="review-author">Thomas S.</span><span class="review-meta">· Frankfurt, DE</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Stripe payment was secure, report was generated in under a second and sent directly to my email. Extremely professional setup. 10/10."</p>
-                    <span class="review-author">Liam O.</span><span class="review-meta">· Dublin, IE</span>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★☆</div>
-                    <p class="review-text">"Great tool for checking domains. The wizard questionnaire is spot on for evaluating offshore entities. Saved me from depositing $2,000 to an unregulated broker."</p>
-                    <span class="review-author">Alexander P.</span><span class="review-meta">· Vancouver, CA</span>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- Interactive Wizard Modal Overlay -->
-    <div id="wizard-modal" class="modal-overlay">
-        <div class="wizard-card">
-            <button id="close-wizard-btn" class="close-modal-btn">&times;</button>
-            
-            <!-- Progress Tracker -->
-            <div class="wizard-progress">
-                <div id="progress-bar-fill" class="progress-bar-fill"></div>
-                <div class="progress-node active" data-step="1">1</div>
-                <div class="progress-node" data-step="2">2</div>
-                <div class="progress-node" data-step="3">3</div>
-                <div class="progress-node" data-step="4">4</div>
-                <div class="progress-node" data-step="5">5</div>
-            </div>
-
-            <!-- Step 1: Broker Name & Domain -->
-            <div class="wizard-step active" data-step="1">
-                <h3 class="wizard-step-title">Step 1: Broker Identity</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.95rem;">Enter the name or website address of the broker you want to evaluate:</p>
-                <input type="text" id="wiz-broker-name" class="wizard-text-input" placeholder="E.g. ForexCapital24">
-                <input type="text" id="wiz-broker-domain" class="wizard-text-input" placeholder="E.g. forexcapital24.com">
-            </div>
-
-            <!-- Step 2: Regulation & Jurisdiction -->
-            <div class="wizard-step" data-step="2">
-                <h3 class="wizard-step-title">Step 2: Where is it registered / regulated?</h3>
-                <div class="options-grid">
-                    <button class="option-btn" data-val="tier1">
-                        <span class="option-icon">🇬🇧</span>
-                        <span>Top-Tier Authorities (FCA UK, ASIC Australia, CySEC Cyprus, NFA USA)</span>
-                    </button>
-                    <button class="option-btn" data-val="offshore">
-                        <span class="option-icon">🏝️</span>
-                        <span>Offshore Jurisdictions (St. Vincent, Seychelles, Belize, Vanuatu)</span>
-                    </button>
-                    <button class="option-btn" data-val="unregulated">
-                        <span class="option-icon">🛑</span>
-                        <span>Unlicensed / Unregulated / Not Mentioned</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 3: Leverage & Trade Conditions -->
-            <div class="wizard-step" data-step="3">
-                <h3 class="wizard-step-title">Step 3: What leverage do they offer?</h3>
-                <div class="options-grid">
-                    <button class="option-btn" data-val="regulated-leverage">
-                        <span class="option-icon">📉</span>
-                        <span>Standard Leverage (Max 1:30 - ESMA/FCA Compliant)</span>
-                    </button>
-                    <button class="option-btn" data-val="high-leverage">
-                        <span class="option-icon">📈</span>
-                        <span>High Leverage (1:100 up to 1:500 or 1:1000)</span>
-                    </button>
-                    <button class="option-btn" data-val="unlimited-leverage">
-                        <span class="option-icon">⚡</span>
-                        <span>Unlimited leverage or unregulated crypto</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 4: Acquisition Channel (How did you hear about them?) -->
-            <div class="wizard-step" data-step="4">
-                <h3 class="wizard-step-title">Step 4: How did you get in touch with this broker?</h3>
-                <div class="options-grid">
-                    <button class="option-btn" data-val="organic">
-                        <span class="option-icon">🔍</span>
-                        <span>Own research / Trusted recommendation / Comparison websites</span>
-                    </button>
-                    <button class="option-btn" data-val="coldcall">
-                        <span class="option-icon">📞</span>
-                        <span>Unsolicited cold call / Social media advertisement</span>
-                    </button>
-                    <button class="option-btn" data-val="socialmanager">
-                        <span class="option-icon">👥</span>
-                        <span>Telegram group / Instagram or WhatsApp account manager / Tinder</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 5: Profit Promises -->
-            <div class="wizard-step" data-step="5">
-                <h3 class="wizard-step-title">Step 5: Profit Promises</h3>
-                <div class="options-grid">
-                    <button class="option-btn" data-val="realistic">
-                        <span class="option-icon">⚖️</span>
-                        <span>Standard risk warning (Most retail accounts lose money, realistic trading)</span>
-                    </button>
-                    <button class="option-btn" data-val="guaranteed">
-                        <span class="option-icon">💰</span>
-                        <span>Guaranteed / Fixed profit promises (E.g. 10% weekly with no risk)</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Wizard Navigation -->
-            <div class="wizard-navigation">
-                <button id="wiz-back-btn" class="btn btn-wizard-trigger" style="margin-left: 0; display: none;">← Back</button>
-                <div style="flex-grow: 1;"></div>
-                <button id="wiz-next-btn" class="btn btn-primary">Next →</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stripe Checkout Modal -->
-    <div id="checkout-modal" class="modal-overlay">
-        <div class="wizard-card" style="max-width: 450px;">
-            <button id="close-checkout-btn" class="close-modal-btn">&times;</button>
-            
-            <div style="text-align: center; margin-bottom: 1.5rem;">
-                <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 0.3rem;">Forensic Audit Checkout</h3>
-                <p style="font-size: 0.82rem; color: var(--text-muted);">Secure payment powered by Stripe</p>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.2rem;">
-                <span style="font-size: 0.9rem;">Forensic Risk PDF Report</span>
-                <strong style="color: var(--color-primary); font-size: 1rem;">$9.99</strong>
-            </div>
-
-            <form id="payment-form" onsubmit="event.preventDefault();">
-                <div style="margin-bottom: 1rem; text-align: left;">
-                    <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Email Address</label>
-                    <input type="email" id="card-email" required placeholder="name@example.com" class="wizard-text-input" style="width: 100%; box-sizing: border-box; background: rgba(5,8,15,0.8); color: #fff;">
-                </div>
-                <div style="margin-bottom: 1.5rem; text-align: left;">
-                    <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Card Details</label>
-                    <div id="card-element" style="background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.8rem;"></div>
-                    <div id="card-errors" role="alert" style="color: var(--color-danger); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 600;"></div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" id="confirm-payment-btn" style="width: 100%;">
-                    Pay $9.99 and Download Report
-                </button>
-            </form>
-        </div>
-    </div>
-
-
+    
+    
+    
+    
     <!-- COMPARISON TABLE CONTAINER -->
     <div class="broker-table-container">
         <!-- Plus500 -->
@@ -717,24 +599,368 @@
         </div>
     </div>
 
-            <footer class="app-footer" style="margin-top: 4rem; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); text-align: center;">
-        <div class="footer-content" style="max-width: 1100px; margin: 0 auto;">
-            <!-- Corporate Legal Entity & P.IVA Badge -->
-            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; background: rgba(15, 23, 42, 0.7); padding: 8px 20px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 1.2rem;">
-                <span style="color: #cbd5e1; font-size: 0.85rem; font-weight: 600;">🏛️ Legal Entity: <strong style="color: #38bdf8;">VasileDev Group</strong></span>
-                <span style="color: rgba(255, 255, 255, 0.2);">|</span>
-                <span style="color: #cbd5e1; font-size: 0.85rem; font-weight: 600;">Partita IVA: <strong style="color: #10b981;">IT04226190041</strong></span>
-                <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">VIES Verified 🇪🇺</span>
-                <span style="color: rgba(255, 255, 255, 0.2);">|</span>
-                <span style="color: #94a3b8; font-size: 0.82rem;">Garessio (CN), Italy</span>
+
+        <!-- Threat Intelligence Checklist Footer -->
+        <section class="panel checklist-section" style="margin-top: 3rem; animation: fadeInUp 1s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                🛡️ Fraud Prevention Checklist
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Before sending funds to any trading provider, run through these mandatory checks to ensure the security of your capital:
+            </p>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h5>1. Regulatory License Check</h5>
+                    <p>Always verify the license number directly on the regulator's official register (e.g. FCA, ASIC, CySEC). Scam brokers often copy real license numbers belonging to other companies.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>2. Verify Domain Age</h5>
+                    <p>Copy the website link into a WHOIS database. If the website was registered less than 12 months ago, but the company claims "years of experience," it is a guaranteed scam.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>3. Refuse Cold Calling</h5>
+                    <p>Legitimate financial institutions will NEVER call you to offer unsolicited trading tips, ask you to deposit money, or promise account managers to trade on your behalf.</p>
+                </div>
+                <div class="checklist-item">
+                    <h5>4. Payment Security</h5>
+                    <p>If a broker asks you to deposit via Crypto (Bitcoin/USDT) to a private wallet or to send money to a personal bank account under a different name, do not send any funds.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trader Reviews Section -->
+        <section class="panel reviews-section" style="margin-top: 3rem; animation: fadeInUp 1.2s ease-out;">
+            <h3 style="font-family: 'Outfit'; font-size: 1.4rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                ⭐ Trader Protection Testimonials
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem;">
+                Here is how BrokerVerifier is helping traders identify scams and protect their capital worldwide:
+            </p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I was on the verge of sending $8,500 to ApexCryptoFX after a Telegram 'account manager' convinced me it was safe. Decided to run a quick scan here first. High threat alert, domain registered just 2 months ago. Saved my life savings!"</p>
+                    <span class="review-author">Elena M.</span><span class="review-meta">· Bucharest, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"As a retail forex trader, checking offshore entities is critical. BrokerVerifier has saved me and my trading community from several shady CFD brokers. The PDF forensic reports are worth every penny of that $9.99."</p>
+                    <span class="review-author">Marcus T.</span><span class="review-meta">· London, UK</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Outstanding service. The live WHOIS checking is super fast and revealed that a broker claiming 8 years of history was actually registered last Tuesday. Absolutely brilliant threat intelligence."</p>
+                    <span class="review-author">David K.</span><span class="review-meta">· Chicago, IL</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I paid the $9.99 to get the deep audit on an offshore MT5 broker. It immediately flagged CySEC blacklist warnings that were hidden under another shell company name. Absolute life-saver tool."</p>
+                    <span class="review-author">Sophia L.</span><span class="review-meta">· Sydney, AU</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Clean UI, fast scan, and the PDF forensic report is highly detailed. It found that the broker was hosted on a cheap shared server in Panama. Insane value for $9.99. Highly recommended!"</p>
+                    <span class="review-author">Carlos R.</span><span class="review-meta">· Madrid, ES</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"My uncle almost fell for a cold-call broker scam promising 15% guaranteed weekly profits. Ran the checklist and the scanner here, flagged it as an immediate Ponzi threat. Beyond grateful!"</p>
+                    <span class="review-author">Roxana I.</span><span class="review-meta">· Cluj-Napoca, RO</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"I'm a financial advisor and I now make all my retail clients verify their brokers here before they fund any trading account. Best preventive security tool out there."</p>
+                    <span class="review-author">Thomas S.</span><span class="review-meta">· Frankfurt, DE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Stripe payment was secure, report was generated in under a second and sent directly to my email. Extremely professional setup. 10/10."</p>
+                    <span class="review-author">Liam O.</span><span class="review-meta">· Dublin, IE</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">"Great tool for checking domains. The wizard questionnaire is spot on for evaluating offshore entities. Saved me from depositing $2,000 to an unregulated broker."</p>
+                    <span class="review-author">Alexander P.</span><span class="review-meta">· Vancouver, CA</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Interactive Wizard Modal Overlay -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="wizard-card">
+            <button id="close-wizard-btn" class="close-modal-btn">&times;</button>
+            
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                <div class="progress-node active" data-step="1">1</div>
+                <div class="progress-node" data-step="2">2</div>
+                <div class="progress-node" data-step="3">3</div>
+                <div class="progress-node" data-step="4">4</div>
+                <div class="progress-node" data-step="5">5</div>
             </div>
 
-            <p class="footer-copyright" style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem;">&copy; 2026 isbrokersafe.com &bull; VasileDev Group (P.IVA IT04226190041). All rights reserved. Created to protect investors from financial fraud. Powered by <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: underline;">VasileDev</a></p>
-            <div class="footer-contact" style="display: flex; justify-content: center; align-items: center; gap: 1.2rem; flex-wrap: wrap;">
-                <span class="contact-title" style="color: #94a3b8; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-headset highlight" style="color: #38bdf8; margin-right: 4px;"></i> Customer Support:</span>
-                <a href="mailto:amendamax@gmail.com" class="contact-link" style="color: #cbd5e1; text-decoration: none; font-size: 0.9rem; background: rgba(30, 41, 59, 0.6); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-color);"><i class="fa-solid fa-envelope" style="color: #38bdf8; margin-right: 4px;"></i> amendamax@gmail.com</a>
-                <a href="https://wa.me/393209481876" target="_blank" class="contact-link" style="color: #cbd5e1; text-decoration: none; font-size: 0.9rem; background: rgba(30, 41, 59, 0.6); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-color);"><i class="fa-brands fa-whatsapp" style="color: #22c55e; margin-right: 4px;"></i> Live Chat Support</a>
+            <!-- Step 1: Broker Name & Domain -->
+            <div class="wizard-step active" data-step="1">
+                <h3 class="wizard-step-title">Step 1: Broker Identity</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.95rem;">Enter the name or website address of the broker you want to evaluate:</p>
+                <input type="text" id="wiz-broker-name" class="wizard-text-input" placeholder="E.g. ForexCapital24">
+                <input type="text" id="wiz-broker-domain" class="wizard-text-input" placeholder="E.g. forexcapital24.com">
             </div>
+
+            <!-- Step 2: Regulation & Jurisdiction -->
+            <div class="wizard-step" data-step="2">
+                <h3 class="wizard-step-title">Step 2: Where is it registered / regulated?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="tier1">
+                        <span class="option-icon">🇬🇧</span>
+                        <span>Top-Tier Authorities (FCA UK, ASIC Australia, CySEC Cyprus, NFA USA)</span>
+                    </button>
+                    <button class="option-btn" data-val="offshore">
+                        <span class="option-icon">🏝️</span>
+                        <span>Offshore Jurisdictions (St. Vincent, Seychelles, Belize, Vanuatu)</span>
+                    </button>
+                    <button class="option-btn" data-val="unregulated">
+                        <span class="option-icon">🛑</span>
+                        <span>Unlicensed / Unregulated / Not Mentioned</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Leverage & Trade Conditions -->
+            <div class="wizard-step" data-step="3">
+                <h3 class="wizard-step-title">Step 3: What leverage do they offer?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="regulated-leverage">
+                        <span class="option-icon">📉</span>
+                        <span>Standard Leverage (Max 1:30 - ESMA/FCA Compliant)</span>
+                    </button>
+                    <button class="option-btn" data-val="high-leverage">
+                        <span class="option-icon">📈</span>
+                        <span>High Leverage (1:100 up to 1:500 or 1:1000)</span>
+                    </button>
+                    <button class="option-btn" data-val="unlimited-leverage">
+                        <span class="option-icon">⚡</span>
+                        <span>Unlimited leverage or unregulated crypto</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Acquisition Channel (How did you hear about them?) -->
+            <div class="wizard-step" data-step="4">
+                <h3 class="wizard-step-title">Step 4: How did you get in touch with this broker?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="organic">
+                        <span class="option-icon">🔍</span>
+                        <span>Own research / Trusted recommendation / Comparison websites</span>
+                    </button>
+                    <button class="option-btn" data-val="coldcall">
+                        <span class="option-icon">📞</span>
+                        <span>Unsolicited cold call / Social media advertisement</span>
+                    </button>
+                    <button class="option-btn" data-val="socialmanager">
+                        <span class="option-icon">👥</span>
+                        <span>Telegram group / Instagram or WhatsApp account manager / Tinder</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Profit Promises -->
+            <div class="wizard-step" data-step="5">
+                <h3 class="wizard-step-title">Step 5: Profit Promises</h3>
+                <div class="options-grid">
+                    <button class="option-btn" data-val="realistic">
+                        <span class="option-icon">⚖️</span>
+                        <span>Standard risk warning (Most retail accounts lose money, realistic trading)</span>
+                    </button>
+                    <button class="option-btn" data-val="guaranteed">
+                        <span class="option-icon">💰</span>
+                        <span>Guaranteed / Fixed profit promises (E.g. 10% weekly with no risk)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wizard Navigation -->
+            <div class="wizard-navigation">
+                <button id="wiz-back-btn" class="btn btn-wizard-trigger" style="margin-left: 0; display: none;">← Back</button>
+                <div style="flex-grow: 1;"></div>
+                <button id="wiz-next-btn" class="btn btn-primary">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="wizard-card" style="max-width: 450px;">
+            <button id="close-checkout-btn" class="close-modal-btn">&times;</button>
+            
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h3 style="font-family: 'Outfit'; font-size: 1.3rem; margin-bottom: 0.3rem;">Forensic Audit Checkout</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Secure payment powered by Stripe</p>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.2rem;">
+                <span style="font-size: 0.9rem;">Forensic Risk PDF Report</span>
+                <strong style="color: var(--color-primary); font-size: 1rem;">$9.99</strong>
+            </div>
+
+            <form id="payment-form" onsubmit="event.preventDefault();">
+                <div style="margin-bottom: 1rem; text-align: left;">
+                    <label for="card-email" style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Email Address</label>
+                    <input type="email" id="card-email" required placeholder="name@example.com" class="wizard-text-input" style="width: 100%; box-sizing: border-box; background: rgba(5,8,15,0.8); color: #fff;">
+                </div>
+                <div style="margin-bottom: 1.5rem; text-align: left;">
+                    <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem;">Card Details</label>
+                    <div id="card-element" style="background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.8rem;"></div>
+                    <div id="card-errors" role="alert" style="color: var(--color-danger); font-size: 0.8rem; margin-top: 0.5rem; font-weight: 600;"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="confirm-payment-btn" style="width: 100%;">
+                    Pay $9.99 and Download Report
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    
+                <!-- DEVELOPER & FINTECH THREAT INTEL API SECTION (SYMMETRICAL 4-COLUMN GRID) -->
+        <section style="margin: 40px 0; background: linear-gradient(135deg, rgba(11, 21, 40, 0.95) 0%, rgba(5, 8, 15, 0.98) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 18px; padding: 32px 28px; box-shadow: 0 10px 35px rgba(0,0,0,0.55);">
+            <!-- Header Block -->
+            <div style="margin-bottom: 24px;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 6px; color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">
+                    ⚡ B2B REST API & Developer Solutions
+                </div>
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 24px; color: #fff; margin: 0 0 8px 0; font-weight: 800; letter-spacing: -0.3px;">
+                    IsBrokerSafe™ Financial Threat Intelligence API & Embeddable Widgets
+                </h3>
+                <p style="color: #94a3b8; font-size: 13.5px; margin: 0; max-width: 850px; line-height: 1.6;">
+                    Protect your fintech platform, crypto wallet, payment gateway, or review portal with programmatic real-time access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC). Ultra-low latency under 5ms worldwide.
+                </p>
+            </div>
+
+            <!-- Symmetrical 4-Column Action Buttons Grid -->
+            <div class="b2b-actions-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;">
+                <a href="/api/v1/docs" class="btn-b2b-api" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>⚡ API Docs & Sandbox</span>
+                </a>
+                <a href="/pricing" class="btn-b2b-pricing" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>💳 Pricing Plans</span>
+                </a>
+                <a href="/widget" class="btn-b2b-widget" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>🛡️ Embed Trust Widget</span>
+                </a>
+                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" rel="noopener" class="btn-b2b-pypi" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
+                    <span>🐍 pip install isbrokersafe ↗</span>
+                </a>
+            </div>
+
+            <!-- Code Preview Block -->
+            <div style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px 20px; font-family: monospace; font-size: 12.5px; color: #38bdf8; overflow-x: auto; margin-bottom: 20px;">
+                <span style="color: #64748b;"># Example Live cURL Request</span><br>
+                <span style="color: #10b981;">curl -X GET</span> <span style="color: #f8fafc;">"https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com"</span>
+            </div>
+
+            <!-- Highlights Row -->
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; color: #cbd5e1; justify-content: space-between; padding-top: 4px;">
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ 14,663+</span> Official Enforcement Dossiers</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ 5ms</span> Global Edge Latency</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ JSON-LD</span> FactCheck Compliant</div>
+                <div><span style="color: #38bdf8; font-weight: 800;">✓ Free Tier</span> 100 Requests/Month Included</div>
+            </div>
+        </section>
+
+        <!-- VERIFIABLE STATUTORY DATA & CYBERSECURITY ARCHITECTURE -->
+    <section class="awards-showcase-bar" style="margin: 45px 0 35px 0; padding: 34px 28px; background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, rgba(11, 21, 40, 0.95) 75%); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6);">
+        <div style="text-align: center; margin-bottom: 26px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); padding: 5px 14px; border-radius: 20px; color: #38bdf8; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">
+                🛡️ VERIFIABLE STATUTORY DATA & CYBERSECURITY ARCHITECTURE
+            </div>
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 26px; color: #fff; margin: 0 0 8px 0; font-weight: 800; letter-spacing: -0.3px;">
+                Built on 100% Objective Statutory Data & Real-Time Open Intelligence
+            </h3>
+            <p style="color: #94a3b8; font-size: 13.5px; margin: 0 auto; max-width: 820px; line-height: 1.55;">
+                No sponsored rankings. No self-proclaimed marketing. Every forensic verdict is calculated directly from official government records and cryptographic WHOIS telemetry.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+            <!-- Pillar 1 -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#38bdf8'; this.style.boxShadow='0 8px 25px rgba(56,189,248,0.25)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.boxShadow='none';">
+                <div style="font-size: 32px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(56,189,248,0.5));">🏛️</div>
+                <h4 style="color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">14,663+ Official Records</h4>
+                <div style="color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Statutory Enforcement Feeds</div>
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.45; margin: 0;">Continuous daily ingestion from FCA, CONSOB, BaFin, CySEC, ASIC, CFTC and CNMV registers.</p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#10b981'; this.style.boxShadow='0 8px 25px rgba(16,185,129,0.25)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(16, 185, 129, 0.3)'; this.style.boxShadow='none';">
+                <div style="font-size: 32px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(16,185,129,0.5));">🐍</div>
+                <h4 style="color: #34d399; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">Verified Python SDK</h4>
+                <div style="color: #38bdf8; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Global PyPI Package</div>
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.45; margin: 0;">Official open-source developer package installable worldwide via 'pip install isbrokersafe'.</p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#a855f7'; this.style.boxShadow='0 8px 25px rgba(168,85,247,0.25)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(168, 85, 247, 0.3)'; this.style.boxShadow='none';">
+                <div style="font-size: 32px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(168,85,247,0.5));">⚡</div>
+                <h4 style="color: #c084fc; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">Sub-5ms Response Speed</h4>
+                <div style="color: #34d399; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Asynchronous Edge API</div>
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.45; margin: 0;">Ultra-low latency threat intelligence screening before client capital leaves the gateway.</p>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#f59e0b'; this.style.boxShadow='0 8px 25px rgba(245,158,11,0.25)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(245, 158, 11, 0.3)'; this.style.boxShadow='none';">
+                <div style="font-size: 32px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(245,158,11,0.5));">🏛️</div>
+                <h4 style="color: #fbbf24; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">VIES-Verified EU Entity</h4>
+                <div style="color: #38bdf8; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">P.IVA IT04226190041</div>
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.45; margin: 0;">Registered European enterprise (VasileDev Group) operating under strict EU commercial law.</p>
+            </div>
+        </div>
+    </section>
+
+            <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
+    <footer class="vasiledev-ecosystem-footer" style="background: #03060a; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 50px 20px 24px; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #94a3b8; font-size: 0.85rem; line-height: 1.6; text-align: left;">
+        <div style="max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px; margin-bottom: 36px;">
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 16px;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </span>
+                    <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.3px;">
+                        ISBROKER<strong style="color: #38bdf8;">SAFE</strong>
+                    </span>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+                    The Global Financial Intelligence &amp; Statutory Broker Defense Platform. Detecting unregulated brokers and protecting retail capital.
+                </p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✓ VIES Verified EU</span>
+                    <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
+                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
+                <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+                <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Contact: <a href="mailto:amendamax@gmail.com" style="color: #cbd5e1; text-decoration: none;">amendamax@gmail.com</a></p>
+            </div>
+
+            <div>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Official Network</h4>
+                <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🛡️ VerifyDating.net</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">✈️ AirParkRefund.com</a></p>
+                <p style="margin: 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">👑 VasileDev.com</a></p>
+            </div>
+        </div>
+
+        <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
+            <p style="margin: 0;">&copy; 2026 IsBrokerSafe™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
         </div>
     </footer>
 
