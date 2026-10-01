@@ -1020,6 +1020,11 @@ async def redirect_socialcatfish():
 async def redirect_dating_singles():
     return RedirectResponse(url="https://www.internationalcupid.com", status_code=307)
 
+@app.get("/go/intego")
+@app.get("/out/intego")
+async def redirect_intego():
+    return RedirectResponse(url="https://www.anrdoezrs.net/click-101863908-15733644", status_code=307)
+
 @app.get("/reviews/{broker_name}")
 async def get_broker_review(broker_name: str, request: Request):
     broker_clean = broker_name.lower().strip()
