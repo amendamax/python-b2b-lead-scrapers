@@ -1,9 +1,21 @@
 # PARTNERSHIP AGREEMENT — VasileDev & carVertical (cV Group UAB)
 **Date of Execution:** 01.10.2026  
+**Document Registry No.:** `1.1.1-336/26`  
 **Document ID:** `f5fb0dec331345129179f1d90d1c49c33fa2d5e3`  
-**Electronic Signature ID:** `b74f367b0a134e68b465` (Verified by SignNow / Avokaado)  
-**Execution Timestamp:** 10/01/2026 08:38:12 UTC (10:38:12 CET)  
-**Signer IP:** `212.105.155.254`
+**Document Status:** **SIGNED (Bilateral Execution Complete)**  
+
+### Signatures Log:
+1. **Service Provider (VasileDev):**
+   * **Signer:** Vasile Bratu (amendamax@gmail.com)
+   * **Signature ID:** `b74f367b0a134e68b465` (Verified by SignNow)
+   * **Timestamp:** 10/01/2026 08:38:12 UTC (10:38:12 CET)
+   * **IP Address:** `212.105.155.254`
+
+2. **Principal (carVertical / cV Group UAB):**
+   * **Signer:** Ervinas Baubinas (ervinas@carvertical.com)
+   * **Signature ID:** `a44bf8023a464fbbb4af` (Verified by SignNow)
+   * **Timestamp:** 10/01/2026 09:17:18 UTC (11:17:18 CET)
+   * **IP Address:** `103.94.215.100`
 
 ---
 
