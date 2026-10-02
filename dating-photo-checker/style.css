@@ -3914,3 +3914,27 @@ html, body {
         right: 18px;
     }
 }
+
+/* ==========================================================================
+   STATUTORY INTEGRITY PILLARS GRID RESPONSIVE FIX
+   ========================================================================== */
+.statutory-pillars-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 992px) {
+    .statutory-pillars-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .statutory-pillars-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+}
