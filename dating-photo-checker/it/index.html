@@ -132,6 +132,7 @@
         }
     </style>
 
+<link rel="preload" as="image" href="/dating_bg.webp">
 </head>
 <body class="dark-theme">
     
@@ -639,8 +640,8 @@
         <section class="video-section" id="how-it-works">
             <h2 class="section-heading"><i class="fa-solid fa-play-circle highlight"></i> Vedi Come Funziona</h2>
             <p class="video-section-sub">Guarda la nostra presentazione di 60 secondi per capire come VerifyDating rileva i profili falsi in tempo reale.</p>
-            <div class="video-container" id="video-player-container">
-                <img src="/video_thumbnail.png" alt="Video presentativo VerifyDating" class="video-thumbnail" id="video-thumb">
+            <div class="video-container" id="video-player-container" onclick="this.innerHTML = '<iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/jlxWxH0mgU8?autoplay=1&rel=0&modestbranding=1&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen style=&quot;border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.5); aspect-ratio: 16/9; background: #000;&quot;></iframe>'">
+                <img src="/video_thumbnail.png" alt="VerifyDating explainer video thumbnail" class="video-thumbnail" id="video-thumb" loading="lazy" width="800" height="450" style="aspect-ratio: 16/9;">
                 <button class="video-play-btn" id="play-video-btn" aria-label="Riproduci video">
                     <i class="fa-solid fa-play"></i>
                 </button>
@@ -914,7 +915,7 @@
 
             <div class="testimonials-cta">
                 <p class="testimonials-rating-summary"><i class="fa-solid fa-star text-warning"></i> <strong>4.9 / 5</strong> valutazione media da <strong>2.847</strong> recensioni verificate</p>
-                <button class="btn btn-primary" onclick="document.getElementById('scanner-workspace').scrollIntoView({behavior:'smooth'})">
+                <button class="btn btn-primary">
                     <span class="btn-text">Scansiona il Tuo Partner Ora</span>
                     <span class="btn-icon"><i class="fa-solid fa-shield-halved"></i></span>
                 </button>
@@ -1143,6 +1144,8 @@
             <div>
                 <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">Official Network</h4>
                 <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
+                        <p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🛡️ JobScamRadar.com</a></p>
+                        <p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">💊 PillScamRadar.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" style="color: #ec4899; font-weight: 700; text-decoration: none;">🛡️ VerifyDating.net</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">✈️ AirParkRefund.com</a></p>
@@ -1151,7 +1154,8 @@
         </div>
 
         <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
-            <p style="margin: 0;">&copy; 2026 VerifyDating™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
+                          <p style="margin: 0 0 10px 0;"><a href="/directory" style="color: #ec4899; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-folder-tree"></i> Scam Directory (A-Z)</a></p>
+              <p style="margin: 0;">&copy; 2026 VerifyDating™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
         </div>
     </footer>
 

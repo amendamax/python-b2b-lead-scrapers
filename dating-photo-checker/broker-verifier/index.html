@@ -13,7 +13,7 @@
     <link rel="alternate" hreflang="de" href="https://isbrokersafe.com/de/" />
     <link rel="alternate" hreflang="pt" href="https://isbrokersafe.com/pt/" />
     <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/ru/" />
-    <link rel="alternate" hreflang="x-default" href="https://isbrokersafe.com/" />
+    <link rel="alternate" hreflang="en" href="https://isbrokersafe.com/" />
     <meta name="impact-site-verification" value="47d92ca6-6c50-4d41-bca4-c842d9b2dd07" content="47d92ca6-6c50-4d41-bca4-c842d9b2dd07">
     <!-- Impact STAT Tag -->
     <script>
@@ -39,20 +39,20 @@
     <!-- FontAwesome Icons for support buttons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
-    <script src="https://js.stripe.com/v3/"></script>
+    
 
         <meta property="og:type" content="website">
     <meta property="og:title" content="BrokerVerifier 2026 - Official Broker Security & Cyber Audit">
     <meta property="og:description" content="Verify broker regulation, FCA/CySEC licences, domain age, and financial security rating in real-time.">
-    <meta property="og:image" content="https://isbrokersafe.com/og_image.jpg">
-    <meta property="og:image:secure_url" content="https://isbrokersafe.com/og_image.jpg">
+    <meta property="og:image" content="https://isbrokersafe.com/og_image.jpg?v=cloudflare_bust_3">
+    <meta property="og:image:secure_url" content="https://isbrokersafe.com/og_image.jpg?v=cloudflare_bust_3">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="BrokerVerifier 2026 - Official Broker Security & Cyber Audit">
     <meta property="twitter:description" content="Verify broker regulation, FCA/CySEC licences, domain age, and financial security rating in real-time.">
-    <meta property="twitter:image" content="https://isbrokersafe.com/og_image.jpg">
+    <meta property="twitter:image" content="https://isbrokersafe.com/og_image.jpg?v=cloudflare_bust_3">
 
     <!-- Critical Mobile Viewport & Grid Protection -->
     <style>
@@ -118,6 +118,10 @@
         }
     </style>
 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -189,12 +193,12 @@
                 <div class="ticker-group">
                     <span class="ticker-group-label safe">🟢 Verified Safe Brokers</span>
                     <div class="ticker-chips">
-                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('Interactive Brokers')">Interactive Brokers <span class="score">98% Safe</span></button>
+                        <button class="ticker-chip safe">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe">AvaTrade <span class="score">90% Safe</span></button>
+                        <button class="ticker-chip safe">Interactive Brokers <span class="score">98% Safe</span></button>
                     </div>
                 </div>
 
@@ -202,16 +206,17 @@
                 <div class="ticker-group">
                     <span class="ticker-group-label danger">🚨 Blacklisted Scam Alerts</span>
                     <div class="ticker-chips">
-                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                        <button class="ticker-chip warning">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
                     </div>
                 </div>
             </div>
             
-            <!-- Quick Actions -->
+            
+        <!-- Quick Actions -->
             <div class="alternative-actions">
                 <span>Broker not in the database?</span>
                 <button id="open-wizard-btn" class="btn btn-wizard-trigger">🛡️ Analyze a New Broker</button>
@@ -311,6 +316,9 @@
                     <div id="verdict-title" class="verdict-title">Awaiting Evaluation</div>
                     <div id="verdict-text" class="verdict-text">The system is ready for a new analysis. Use the search bar above for instant results.</div>
                 </div>
+
+                
+
 
                 <!-- Paywall / Lock Overlay -->
                 <div class="paywall-overlay" id="results-paywall" style="display: none;">
@@ -953,7 +961,10 @@
             <div>
                 <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Official Network</h4>
                 <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
+                        <p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🛡️ JobScamRadar.com</a></p>
+                        <p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">💊 PillScamRadar.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🛡️ VerifyDating.net</a></p>
+                  <p style="margin: 0 0 8px 0;"><a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🐛 AppScamRadar.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">✈️ AirParkRefund.com</a></p>
                 <p style="margin: 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">👑 VasileDev.com</a></p>
@@ -961,12 +972,13 @@
         </div>
 
         <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
-            <p style="margin: 0;">&copy; 2026 IsBrokerSafe™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
+                          <p style="margin: 0 0 10px 0;"><a href="/directory" style="color: #38bdf8; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-folder-tree"></i> Scam Directory (A-Z)</a></p>
+              <p style="margin: 0;">&copy; 2026 IsBrokerSafe™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
         </div>
     </footer>
 
     <!-- Logic Script -->
-    <script src="/app.js?v=3.5"></script>
+    <script src="/app.js?v=9.10" defer></script>
 
     <!-- Floating WhatsApp Live Support Widget -->
     <a href="https://wa.me/393209481876" target="_blank" rel="noopener" class="floating-wa-btn" title="💬 Live Support (WhatsApp)">

@@ -13,7 +13,7 @@
     <link rel="alternate" hreflang="de" href="https://isbrokersafe.com/de/" />
     <link rel="alternate" hreflang="pt" href="https://isbrokersafe.com/pt/" />
     <link rel="alternate" hreflang="ru" href="https://isbrokersafe.com/ru/" />
-    <link rel="alternate" hreflang="x-default" href="https://isbrokersafe.com/" />
+    <link rel="alternate" hreflang="en" href="https://isbrokersafe.com/" />
     <meta name="impact-site-verification" value="47d92ca6-6c50-4d41-bca4-c842d9b2dd07" content="47d92ca6-6c50-4d41-bca4-c842d9b2dd07">
     <!-- Impact STAT Tag -->
     <script>
@@ -39,7 +39,7 @@
     <!-- FontAwesome Icons for support buttons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
-    <script src="https://js.stripe.com/v3/"></script>
+    
 
         <!-- Open Graph & Social Media Share Cards -->
     <meta property="og:type" content="website">
@@ -119,6 +119,10 @@
         }
     </style>
 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -184,19 +188,20 @@
             <!-- Suggestions Dropdown -->
             <div id="suggestions-box" class="autocomplete-suggestions"></div>
             
-            <!-- Quick Actions -->
+            
+        <!-- Quick Actions -->
                         <!-- Popular Searches Ticker -->
             <div class="recent-audits-ticker" style="margin-top: 1rem; margin-bottom: 1rem;">
                 <!-- Row 1: Verified Safe Brokers -->
                 <div class="ticker-group">
                     <span class="ticker-group-label safe">🟢 Corretoras Verificadas Seguras</span>
                     <div class="ticker-chips">
-                        <button class="ticker-chip safe" onclick="selectBroker('Exness')">Exness <span class="score">96% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('eToro')">eToro <span class="score">95% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('XM Group')">XM Group <span class="score">92% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('Plus500')">Plus500 <span class="score">91% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('AvaTrade')">AvaTrade <span class="score">90% Safe</span></button>
-                        <button class="ticker-chip safe" onclick="selectBroker('Interactive Brokers')">Interactive Brokers <span class="score">98% Safe</span></button>
+                        <button class="ticker-chip safe">Exness <span class="score">96% Safe</span></button>
+                        <button class="ticker-chip safe">eToro <span class="score">95% Safe</span></button>
+                        <button class="ticker-chip safe">XM Group <span class="score">92% Safe</span></button>
+                        <button class="ticker-chip safe">Plus500 <span class="score">91% Safe</span></button>
+                        <button class="ticker-chip safe">AvaTrade <span class="score">90% Safe</span></button>
+                        <button class="ticker-chip safe">Interactive Brokers <span class="score">98% Safe</span></button>
                     </div>
                 </div>
 
@@ -204,11 +209,11 @@
                 <div class="ticker-group">
                     <span class="ticker-group-label danger">🚨 Alertas de Golpe na Lista Negra</span>
                     <div class="ticker-chips">
-                        <button class="ticker-chip warning" onclick="selectBroker('PocketOption')">PocketOption <span class="score">42% Risk ⚠️</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('ApexCryptoFX')">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('FxTradersGold')">FxTradersGold <span class="score">8% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('CapitalInvestFX')">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
-                        <button class="ticker-chip danger" onclick="selectBroker('CryptoWealth24')">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
+                        <button class="ticker-chip warning">PocketOption <span class="score">42% Risk ⚠️</span></button>
+                        <button class="ticker-chip danger">ApexCryptoFX <span class="score">5% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">FxTradersGold <span class="score">8% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">CapitalInvestFX <span class="score">4% Scam 🚨</span></button>
+                        <button class="ticker-chip danger">CryptoWealth24 <span class="score">6% Scam 🚨</span></button>
                     </div>
                 </div>
             </div>
@@ -833,26 +838,26 @@
             <!-- Header Block -->
             <div style="margin-bottom: 24px;">
                 <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 6px; color: #38bdf8; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">
-                    ⚡ B2B REST API & Developer Solutions
+                    ⚡ API B2B REST & Soluções para Desenvolvedores
                 </div>
                 <h3 style="font-family: 'Outfit', sans-serif; font-size: 24px; color: #fff; margin: 0 0 8px 0; font-weight: 800; letter-spacing: -0.3px;">
-                    IsBrokerSafe™ Financial Threat Intelligence API & Embeddable Widgets
+                    IsBrokerSafe™ API de Inteligência de Ameaças Financeiras & Widgets
                 </h3>
                 <p style="color: #94a3b8; font-size: 13.5px; margin: 0; max-width: 850px; line-height: 1.6;">
-                    Protect your fintech platform, crypto wallet, payment gateway, or review portal with programmatic real-time access to 14,663+ official regulatory enforcement blacklists (CONSOB, FCA, BaFin, CySEC, SEC/CFTC). Ultra-low latency under 5ms worldwide.
+                    Proteja sua plataforma fintech, carteira cripto ou gateway de pagamentos com acesso em tempo real a mais de 14.663 listas negras regulatórias oficiais (CONSOB, FCA, BaFin, CySEC). Latência ultrabaixa de menos de 5ms em todo o mundo.
                 </p>
             </div>
 
             <!-- Symmetrical 4-Column Action Buttons Grid -->
             <div class="b2b-actions-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;">
                 <a href="/api/v1/docs" class="btn-b2b-api" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
-                    <span>⚡ API Docs & Sandbox</span>
+                    <span>⚡ Documentação API & Sandbox</span>
                 </a>
                 <a href="/pricing" class="btn-b2b-pricing" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
-                    <span>💳 Pricing Plans</span>
+                    <span>💳 Planos de Preços</span>
                 </a>
                 <a href="/widget" class="btn-b2b-widget" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
-                    <span>🛡️ Embed Trust Widget</span>
+                    <span>🛡️ Integrar Widget de Confiança</span>
                 </a>
                 <a href="https://pypi.org/project/isbrokersafe/" target="_blank" rel="noopener" class="btn-b2b-pypi" style="width: 100%; justify-content: center; text-align: center; padding: 13px 14px; font-size: 13px;">
                     <span>🐍 pip install isbrokersafe ↗</span>
@@ -939,20 +944,20 @@
                     The Global Financial Intelligence &amp; Statutory Broker Defense Platform. Detecting unregulated brokers and protecting retail capital.
                 </p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✓ VIES Verified EU</span>
-                    <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
+                    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✓ Verificado VIES UE</span>
+                    <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ Utilidade Pública 100% Gratuita</span>
                 </div>
             </div>
 
             <div>
-                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
-                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Ecossistema VasileDev Group</h4>
+                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">NIF / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
                 <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
-                <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
+                <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direto: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
             </div>
 
             <div>
-                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Official Network</h4>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Rede Oficial</h4>
                 <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🛡️ VerifyDating.net</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
@@ -962,12 +967,13 @@
         </div>
 
         <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
-            <p style="margin: 0;">&copy; 2026 IsBrokerSafe™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
+                          <p style="margin: 0 0 10px 0;"><a href="/directory" style="color: #38bdf8; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-folder-tree"></i> Scam Directory (A-Z)</a></p>
+              <p style="margin: 0;">&copy; 2026 IsBrokerSafe™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
         </div>
     </footer>
 
     <!-- Logic Script -->
-    <script src="../app.js?v=3.5"></script>
+    <script src="../app.js?v=9.10"></script>
 
     <!-- Floating WhatsApp Live Support Widget -->
     <a href="https://wa.me/393209481876" target="_blank" rel="noopener" class="floating-wa-btn" title="💬 Suporte ao Vivo (WhatsApp)">
