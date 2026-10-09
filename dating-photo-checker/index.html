@@ -56,8 +56,10 @@
     <link rel="stylesheet" href="style.css?v=20261002c">
     <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
     <script src="https://js.stripe.com/v3/"></script>
+    
     <!-- PayPal JS SDK for Direct PayPal & Card Checkout -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AUa3fD4-fR1XmD0z4W0Y5k1W3P6J7I8T9L0N1M2O3P4Q5R6S7T8U9V0W1X2Y3Z&currency=USD"></script>
+    
     <!-- Schema.org Structured Data for Google AI Overview & Entity Recognition -->
     <script type="application/ld+json">
     {
@@ -163,6 +165,7 @@
         }
     </style>
 
+<link rel="preload" as="image" href="/dating_bg.webp">
 </head>
 <body class="dark-theme">
     
@@ -673,8 +676,8 @@
         <section class="video-section" id="how-it-works">
             <h2 class="section-heading"><i class="fa-solid fa-play-circle highlight"></i> See How It Works</h2>
             <p class="video-section-sub">Watch our 60-second explainer to understand how VerifyDating catches catfish profiles in real time.</p>
-            <div class="video-container" id="video-player-container">
-                <img src="/video_thumbnail.png" alt="VerifyDating explainer video thumbnail" class="video-thumbnail" id="video-thumb">
+            <div class="video-container" id="video-player-container" onclick="this.innerHTML = '<iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/jlxWxH0mgU8?autoplay=1&rel=0&modestbranding=1&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen style=&quot;border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.5); aspect-ratio: 16/9; background: #000;&quot;></iframe>'">
+                <img src="/video_thumbnail.png" alt="VerifyDating explainer video thumbnail" class="video-thumbnail" id="video-thumb" loading="lazy" width="800" height="450" style="aspect-ratio: 16/9;">
                 <button class="video-play-btn" id="play-video-btn" aria-label="Play video">
                     <i class="fa-solid fa-play"></i>
                 </button>
@@ -966,7 +969,7 @@
 
             <div class="testimonials-cta">
                 <p class="testimonials-rating-summary"><i class="fa-solid fa-star text-warning"></i> <strong>4.9 / 5</strong> average rating from <strong>2,847</strong> verified reviews</p>
-                <button class="btn btn-primary" onclick="document.getElementById('scanner-workspace').scrollIntoView({behavior:'smooth'})">
+                <button class="btn btn-primary">
                     <span class="btn-text">Scan Your Match Now</span>
                     <span class="btn-icon"><i class="fa-solid fa-shield-halved"></i></span>
                 </button>
@@ -1165,37 +1168,42 @@
 
             <!-- Footer -->
         <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
-    <footer class="vasiledev-ecosystem-footer" style="background: #03060a; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 50px 20px 24px; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #94a3b8; font-size: 0.85rem; line-height: 1.6; text-align: left;">
+    
+    <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
+    <footer class="vasiledev-ecosystem-footer" style="background: #03060a; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 50px 20px 24px; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #94a3b8; font-size: 0.85rem; line-height: 1.6; text-align: left; margin-top: 60px;">
         <div style="max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px; margin-bottom: 36px;">
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(236, 72, 153, 0.15); color: #ec4899; font-size: 16px;">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 16px;">
                         <i class="fa-solid fa-heart-crack"></i>
                     </span>
                     <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.3px;">
-                        VERIFY<strong style="color: #ec4899;">DATING</strong>
+                        VERIFY<strong style="color: #38bdf8;">DATING</strong>
                     </span>
                 </div>
                 <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-                    AI Biometric Facial Recognition &amp; Romance Scam Blacklist. Protecting dating singles and exposing romance fraud syndicates.
+                    Romance scam detection and AI photo verification platform. Protecting singles from financial fraud and catfishing.
                 </p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✓ VIES Verified EU</span>
-                    <span style="background: rgba(236, 72, 153, 0.12); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
+                    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✔️ VIES Verified EU</span>
+                    <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
                 </div>
             </div>
 
             <div>
-                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
-                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
+                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
                 <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
                 <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
             </div>
 
             <div>
-                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">Official Network</h4>
-                <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏛️ IsBrokerSafe.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" style="color: #ec4899; font-weight: 700; text-decoration: none;">🛡️ VerifyDating.net</a></p>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Official Network</h4>
+                <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏦 IsBrokerSafe.com</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🛡️ JobScamRadar.com</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💊 PillScamRadar.com</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🛡️ VerifyDating.net</a></p>
+                <p style="margin: 0 0 8px 0;"><a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🐛 AppScamRadar.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
                 <p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">✈️ AirParkRefund.com</a></p>
                 <p style="margin: 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">👑 VasileDev.com</a></p>
@@ -1207,6 +1215,7 @@
         </div>
     </footer>
 
+
     <!-- Social Proof Toast Notification Container -->
     <div class="social-proof-toast" id="social-proof-toast">
         <div class="toast-avatar" id="toast-avatar-icon"><i class="fa-solid fa-lock"></i></div>
@@ -1217,7 +1226,7 @@
         <button class="toast-close" id="close-toast-btn" aria-label="Close">&times;</button>
     </div>
 
-    <script src="app.js?v=6.2"></script>
+    <script src="/app.js?v=9.2"></script>
 
     <!-- EXIT-INTENT MODAL (100% FREE VALUE PROPOSITION + DATING CPA) -->
     <div id="exit-intent-modal" class="exit-modal-backdrop" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2, 6, 23, 0.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center; padding:16px;">
