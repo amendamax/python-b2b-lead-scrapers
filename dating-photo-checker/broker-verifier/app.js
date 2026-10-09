@@ -1650,6 +1650,200 @@ async function fetchResults(scanId) {
         verdictTitle.textContent = vTitle;
         verdictText.textContent = vText;
 
+        // Inject Prop Trading Alternative dynamically if it's a scam
+        let propBox = document.getElementById("sabio-dynamic-box");
+        if (data && data.score < 75) {
+            if (!propBox) {
+                propBox = document.createElement("div");
+                propBox.id = "sabio-dynamic-box";
+                // Insert it right after the verdict box (or before the broker table container)
+                const brokerContainer = document.querySelector('.broker-table-container');
+                if (brokerContainer) {
+                    brokerContainer.parentNode.insertBefore(propBox, brokerContainer);
+                } else {
+                    verdictBox.parentNode.insertBefore(propBox, verdictBox.nextSibling);
+                }
+            }
+            
+            const propLangs = {
+                "en": {
+                    "prop_title": "Safe Alternative: Prop Trading",
+                    "prop_desc": "Don't risk your own capital with unregulated brokers. Trade with a verified Proprietary Trading firm's funds and keep up to 90% of the profits.",
+                    "ftmo_badge": "GOLD STANDARD",
+                    "ftmo_desc": "$10k-$200k Funded &bull; 90% Profit Split",
+                    "fn_badge": "FASTEST PAYOUTS",
+                    "fn_desc": "15% Reward from Challenge Phase",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "View"
+                },
+                "ro": {
+                    "prop_title": "Alternativă Sigură: Prop Trading",
+                    "prop_desc": "Nu-ți risca propriul capital cu brokeri nereglementați. Tranzacționează cu fondurile unei firme verificate de Proprietary Trading și păstrează până la 90% din profit.",
+                    "ftmo_badge": "LIDER MONDIAL",
+                    "ftmo_desc": "Finanțare $10k-$200k &bull; Păstrezi 90% din Profit",
+                    "fn_badge": "PLĂȚI RAPIDE",
+                    "fn_desc": "Bonus 15% încă din faza de Testare",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Vezi"
+                },
+                "es": {
+                    "prop_title": "Alternativa Segura: Prop Trading",
+                    "prop_desc": "No arriesgues tu propio capital con brókeres no regulados. Opera con fondos de una empresa de Proprietary Trading verificada y conserva hasta el 90% de las ganancias.",
+                    "ftmo_badge": "LÍDER MUNDIAL",
+                    "ftmo_desc": "Fondeo $10k-$200k &bull; Retienes 90% del Beneficio",
+                    "fn_badge": "PAGOS RÁPIDOS",
+                    "fn_desc": "15% de Recompensa desde la Fase de Prueba",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Ver"
+                },
+                "it": {
+                    "prop_title": "Alternativa Sicura: Prop Trading",
+                    "prop_desc": "Non rischiare il tuo capitale con broker non regolamentati. Fai trading con i fondi di una società di Proprietary Trading verificata e tieni fino al 90% dei profitti.",
+                    "ftmo_badge": "LEADER MONDIALE",
+                    "ftmo_desc": "Finanziamenti $10k-$200k &bull; Trattieni il 90% dei Profitti",
+                    "fn_badge": "PAGAMENTI VELOCI",
+                    "fn_desc": "Ricompensa del 15% dalla Fase di Test",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Vedi"
+                },
+                "de": {
+                    "prop_title": "Sichere Alternative: Prop Trading",
+                    "prop_desc": "Riskieren Sie nicht Ihr eigenes Kapital bei unregulierten Brokern. Handeln Sie mit den Mitteln einer verifizierten Proprietary Trading Firma und behalten Sie bis zu 90% der Gewinne.",
+                    "ftmo_badge": "GOLDSTANDARD",
+                    "ftmo_desc": "$10k-$200k Finanziert &bull; 90% Gewinnbeteiligung",
+                    "fn_badge": "SCHNELLSTE AUSZAHLUNGEN",
+                    "fn_desc": "15% Belohnung aus der Challenge-Phase",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Ansehen"
+                },
+                "fr": {
+                    "prop_title": "Alternative Sûre : Prop Trading",
+                    "prop_desc": "Ne risquez pas votre propre capital avec des courtiers non réglementés. Tradez avec les fonds d'une société de Proprietary Trading vérifiée et conservez jusqu'à 90% des profits.",
+                    "ftmo_badge": "RÉFÉRENCE MONDIALE",
+                    "ftmo_desc": "Financement $10k-$200k &bull; Conservez 90% des Profits",
+                    "fn_badge": "PAIEMENTS RAPIDES",
+                    "fn_desc": "Récompense de 15% dès la Phase de Test",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Voir"
+                },
+                "pt": {
+                    "prop_title": "Alternativa Segura: Prop Trading",
+                    "prop_desc": "Não arrisque o seu próprio capital com corretoras não regulamentadas. Negocie com fundos de uma empresa de Proprietary Trading verificada e mantenha até 90% dos lucros.",
+                    "ftmo_badge": "LÍDER MUNDIAL",
+                    "ftmo_desc": "Financiamento $10k-$200k &bull; Retenha 90% do Lucro",
+                    "fn_badge": "PAGAMENTOS RÁPIDOS",
+                    "fn_desc": "Recompensa de 15% desde a Fase de Teste",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Ver"
+                },
+                "ru": {
+                    "prop_title": "Безопасная Альтернатива: Prop Trading",
+                    "prop_desc": "Не рискуйте своим капиталом с нерегулируемыми брокерами. Торгуйте средствами проверенной Proprietary Trading компании и оставляйте себе до 90% прибыли.",
+                    "ftmo_badge": "ЗОЛОТОЙ СТАНДАРТ",
+                    "ftmo_desc": "Финансирование $10k-$200k &bull; 90% Прибыли Вам",
+                    "fn_badge": "БЫСТРЫЕ ВЫПЛАТЫ",
+                    "fn_desc": "Награда 15% уже с Фазы Тестирования",
+                    "sabio_badge": "PROMO: SAFE30",
+                    "sabio_desc": "30% Discount (code SAFE30) &bull; High Approval",
+                    "view_btn": "Смотреть"
+                }
+            };
+            
+            const tr = propLangs[currentLang] || propLangs['en'];
+            
+            propBox.innerHTML = `
+            <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 20px; margin-top: 25px; margin-bottom: 25px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <span style="font-size: 20px;">🛡️</span>
+                    <h4 style="color: #10b981; font-size: 16px; margin: 0; font-weight: 700;">${tr.prop_title}</h4>
+                </div>
+                <p style="color: #cbd5e1; font-size: 13.5px; margin: 0 0 16px 0; line-height: 1.5;">
+                    ${tr.prop_desc}
+                </p>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                    <!-- SabioTrade -->
+                    <a href="https://isbrokersafe.com/go/sabiotrade" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0b1528; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; border: 2px solid #10b981;">1</div>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                    <span style="color: #fff; font-weight: 800; font-size: 15px;">SabioTrade</span>
+                                    <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">${tr.sabio_badge}</span>
+                                </div>
+                                <div style="color: #94a3b8; font-size: 11px;">${tr.sabio_desc}</div>
+                            </div>
+                        </div>
+                        <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">${tr.view_btn} &rarr;</div>
+                    </a>
+
+                    <!-- FTMO -->
+                    <a href="/go/ftmo" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0b1528; border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">2</div>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                    <span style="color: #fff; font-weight: 800; font-size: 15px;">FTMO</span>
+                                    <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;">${tr.ftmo_badge}</span>
+                                </div>
+                                <div style="color: #94a3b8; font-size: 11px;">${tr.ftmo_desc}</div>
+                            </div>
+                        </div>
+                        <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">${tr.view_btn} &rarr;</div>
+                    </a>
+
+                    <!-- FundedNext -->
+                    <a href="/go/fundednext" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0b1528; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">3</div>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                    <span style="color: #fff; font-weight: 800; font-size: 15px;">FundedNext</span>
+                                    <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">${tr.fn_badge}</span>
+                                </div>
+                                <div style="color: #94a3b8; font-size: 11px;">${tr.fn_desc}</div>
+                            </div>
+                        </div>
+                        <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">${tr.view_btn} &rarr;</div>
+                    </a>
+                </div>
+            </div>
+            `;
+            propBox.style.display = "block";
+        } else {
+            if (propBox) {
+                propBox.style.display = "none";
+            }
+        }
+
+        // Geo-Location Filter for US visitors (CFTC Restrictions)
+        fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {
+            if (geo.country === "US") {
+                const propCard = document.getElementById('sabio-dynamic-box');
+                if (propCard) {
+                    const props = propCard.querySelectorAll('a');
+                    if (props.length > 0) {
+                        const sabio = props[0]; 
+                        sabio.href = "https://apextraderfunding.com"; 
+                        const name = sabio.querySelector('span[style*="color: #fff"]');
+                        if (name) name.innerText = "Apex Trader Funding";
+                        const badge = sabio.querySelectorAll('span')[1];
+                        if (badge) { badge.innerText = "FUTURES TRADING"; badge.style.background = "rgba(14, 165, 233, 0.2)"; badge.style.color = "#38bdf8"; }
+                        const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                        if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                    }
+                }
+            }
+        });
+
+
         // Render partner affiliate CTA box if available
         let partnerBox = document.getElementById("partner-cta-box");
         const bClean = (data.broker_domain || data.broker_name).toLowerCase().replace('.com','').replace(/\s+/g,'');
@@ -1660,13 +1854,13 @@ async function fetchResults(scanId) {
         let affLink = data.affiliate_link;
         if (!affLink) {
             if (bClean.includes("exness")) {
-                affLink = "https://one.exnessonelink.com/a/hb0ywi6abh";
+                affLink = "/go/exness";
             } else if (bClean.includes("etoro")) {
-                affLink = "https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx";
+                affLink = "/go/etoro";
             } else if (bClean.includes("xm")) {
-                affLink = "https://affs.click/E17wj";
+                affLink = "/go/xm";
             } else if (isIbkr) {
-                affLink = "https://ibkr.com/referral/vasile651";
+                affLink = "/go/ibkr";
             } else if (bClean.includes("avatrade") || bClean.includes("plus500")) {
                 affLink = reviewUrl;
             }
@@ -2057,7 +2251,10 @@ function completeWizardAndAnalyze() {
 document.addEventListener("DOMContentLoaded", () => {
     // Mount Stripe Card Element
     if (cardElement) {
-        cardElement.mount('#card-element');
+        const el = document.getElementById('card-element');
+        if (el) {
+            cardElement.mount('#card-element');
+        }
     }
 
     // Load default broker (XM Group) on startup with API integration
@@ -2088,3 +2285,16 @@ window.selectBroker = function(name) {
 
     executeScan(targetName, targetDomain);
 };
+// Append this to broker-verifier/app.js
+document.addEventListener("DOMContentLoaded", () => {
+    // Bind all ticker chips to selectBroker
+    const chips = document.querySelectorAll('.ticker-chip');
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const brokerName = chip.childNodes[0].textContent.trim();
+            if (window.selectBroker) {
+                window.selectBroker(brokerName);
+            }
+        });
+    });
+});
