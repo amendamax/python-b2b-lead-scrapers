@@ -67,6 +67,31 @@ from fastapi.middleware.gzip import GZipMiddleware
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
+import asyncio
+try:
+    from google_indexer import main as run_google_indexer
+except ImportError:
+    run_google_indexer = None
+
+@app.on_event("startup")
+async def start_background_indexer():
+    if not run_google_indexer:
+        return
+        
+    async def indexer_loop():
+        print("[Cron Job Intern] Am pornit robotul de indexare automata Google...")
+        while True:
+            try:
+                run_google_indexer()
+            except Exception as e:
+                print(f"[Cron Job Eroare]: {e}")
+            
+            # Pauza de 12 ore intre rulari (asa prinde 2 iteratii pe zi)
+            await asyncio.sleep(43200) 
+            
+    asyncio.create_task(indexer_loop())
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -149,7 +174,11 @@ async def debug_import_error():
         "sys_path": sys.path
     }
 
-PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
+import platform
+if os.path.exists("/var/data"):
+    PERSISTENT_DIR = "/var/data"
+else:
+    PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(PERSISTENT_DIR, exist_ok=True)
 DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
@@ -495,8 +524,17 @@ def init_db():
         );
     """)
     
+
+    # --- PERFORMANCE INDEXES PENTRU DIRECTORY ---
+    try:
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_dating_name ON dating_scam_profiles(persona_name);")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_broker_name ON regulatory_scam_reports(entity_name);")
+    except Exception as e:
+        print(f"Index creation error: {e}")
+        
     conn.commit()
     conn.close()
+
 
 init_db()
 
@@ -940,6 +978,25 @@ async def get_promo():
     return JSONResponse(status_code=404, content={"message": "Promo video file not found"})
 
 # High-Yield Affiliate Redirect Endpoints (AdBlock-Proof Cloaking)
+@app.get("/go/sabiotrade")
+@app.get("/out/sabiotrade")
+
+@app.get("/go/ftmo")
+@app.get("/out/ftmo")
+async def redirect_ftmo():
+    # INLOCUIESTE LINK-UL DE MAI JOS CAND AI APROBAREA DE LA FTMO
+    return RedirectResponse(url="https://join.ftmo.com/kclcyQANbTsQxpzBCCEQ", status_code=302)
+
+@app.get("/go/fundednext")
+@app.get("/out/fundednext")
+async def redirect_fundednext():
+    # INLOCUIESTE LINK-UL DE MAI JOS CAND AI APROBAREA (KYC) DE LA FUNDEDNEXT
+    return RedirectResponse(url="https://fundednext.com/?fpr=BROKERSAFE", status_code=302)
+
+async def redirect_sabiotrade():
+    # TODO: Replace with official SabioTrade affiliate link
+    return RedirectResponse(url="https://sabiotrade.com/?aff=838346&aff_model=revenue&afftrack=BrokerVerifier", status_code=307)
+
 @app.get("/go/nordvpn")
 @app.get("/out/nordvpn")
 async def redirect_nordvpn():
@@ -972,7 +1029,10 @@ async def redirect_plus500():
 
 @app.get("/go/etoro")
 @app.get("/out/etoro")
-async def redirect_etoro():
+async def redirect_etoro(request: Request):
+    country = request.headers.get("cf-ipcountry", "US").upper()
+    if country == "US":
+        return RedirectResponse(url="https://med.etoro.com/B21933_A131664_TClick.aspx", status_code=307)
     return RedirectResponse(url="https://med.etoro.com/B21647_A131664_TClick.aspx", status_code=307)
 
 @app.get("/go/etoro-us")
@@ -1057,8 +1117,10 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 Disallow: /admin/dashboard
+Disallow: /api/
 Disallow: /api/admin/
 Disallow: /uploads/
+Disallow: /go/
 
 Sitemap: https://{domain}/sitemap.xml{extra_sitemap}
 """
@@ -2596,6 +2658,36 @@ async def get_admin_dashboard(request: Request, token: str = None):
         if (overlay) overlay.style.display = 'none';
     }}
     </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
         return HTMLResponse(content=html_content, headers={"X-Robots-Tag": "noindex, nofollow, noarchive"})
@@ -4286,6 +4378,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Enforcement Date",
         "infringement_type": "Infringement Classification",
         "blacklisted_domains": "Blacklisted Domains & Clones",
+        "prop_trading_title": "Safe Alternative: Prop Trading",
+        "prop_trading_desc": "Do not risk your own capital with unregulated brokers. Trade with a verified Proprietary Trading firm money and keep up to 90% of the profits.",
+        "prop_btn_1": "Get Funded (SabioTrade) &rarr;",
+        "footer_partner": "Partner & Tenancy Inquiries",
+        "footer_legal": "Legal / DMCA",
+        "footer_report": "Report a Scam",
+        "footer_disclosure_title": "Advertiser & Affiliate Disclosure (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com is an independent consumer defense and cybersecurity intelligence registry. Some verified brokerages featured on this site maintain commercial affiliate partnerships with us. We may receive financial compensation when users open accounts through verified links. This relationship never influences our independent regulatory blacklist assessments, scam determinations, or mathematical safety scores.",
+        "footer_esma_title": "ESMA / FCA High-Risk Investment Warning:",
+        "footer_esma_text": "CFDs and leveraged financial products are complex instruments and come with a high risk of losing money rapidly due to leverage. Between 74% and 89% of retail investor accounts lose money when trading CFDs with regulated providers. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your capital. Digital assets and cryptocurrencies may be unregulated in your jurisdiction.",
+        "footer_operated": "Operated by VasileDev Group (P.IVA IT04226190041). Sourced from 15 global regulators (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "All registered trademarks belong to their respective regulatory authorities.",
+        "blackbull_cta": "{t.get('blackbull_cta', 'Trade on BlackBull Markets (Institutional ECN Spreads from 0.0)')}",
+        "nordvpn_cta": "{t.get('nordvpn_cta', 'NordVPN (-72%)')}",
+        "surfshark_cta": "{t.get('surfshark_cta', 'Surfshark (-82%)')}",
+        "intego_cta": "{t.get('intego_cta', 'Intego Mac & iPhone Anti-Malware Protection (-35% Discount)')}",
+        "incogni_cta": "{t.get('incogni_cta', 'Delete Your Phone & Email from Scammer Data Brokers (Incogni)')}",
+        "prop_features": "{t.get('prop_features', '✅ No Personal Capital Risk &bull; 💶 €10k-€200k Funded Accounts')}",
+          "ftmo_badge": "GOLD STANDARD",
+          "ftmo_desc": "$10k-$200k Funded &bull; 90% Profit Split",
+          "fn_badge": "FASTEST PAYOUTS",
+          "fn_desc": "15% Reward from Challenge Phase",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "View &rarr;",
+        "reason_title": "{t.get('reason_title', 'Official Regulatory Reason & Grounds:')}",
+        "cfd_warning_1": "{t.get('cfd_warning_1', '81% of retail CFD accounts lose money.')}",
+        "cfd_warning_2": "{t.get('cfd_warning_1', '81% of retail CFD accounts lose money.')} You should consider whether you can afford the high risk of losing your money.",
+        "ibkr_quota": "{t.get('ibkr_quota', 'LIMITED IBKR QUOTA: 10 SPOTS')}",
+        "ibkr_policy": "{t.get('ibkr_policy', 'IBKR Policy: Max 10 Referral Bonuses/Year • 3 Slots Left Today')}",
+        "ibkr_claimed": "{t.get('ibkr_claimed', '70% Claimed')}",
+        "default_warning_type": "Regulatory Enforcement Warning",
+        "default_reason": "Official regulatory warning and fraud risk advisory issued regarding unauthorized financial activities by {entity_name}.",
+        "default_jurisdiction": "Global",
+        "safety_rating": "{t.get('safety_rating', 'Safety Rating')}",
+        "scam_alert": "{t.get('scam_alert', 'SCAM ALERT (CRITICAL RISK)')}",
+        "source_registry": "{t.get('source_registry', 'Source: Official Regulatory Enforcement Registry')}",
+        "audit_log": "{t.get('audit_log', 'FORENSIC AUDIT LOG:')}",
+        "target_ent": "{t.get('target_ent', 'Target Entity:')}",
+        "domain_lbl": "{t.get('domain_lbl', 'Domain:')}",
+        "reg_action": "{t.get('reg_action', 'Regulatory Action:')}",
+        "off_black": "Official Blacklist:",
+        "conf_enf": "CONFIRMED ENFORCEMENT",
+        "juris_lbl": "Jurisdiction:",
+        "glob_enf": "Global Enforcement Flag",
+        "verd_lbl": "Verdict:",
+        "do_not_dep": "DO NOT DEPOSIT / FRAUD WARNING",
         "safe_alternatives_title": "🛡️ Verified & Regulated Alternatives for Safe Trading",
         "safe_alternatives_subtitle": "Do not deposit funds with unlicensed operators. Choose globally regulated institutions with segregated client accounts:",
         "ibkr_cta": "🎁 Claim Up to $1,000 in Free Stock at Interactive Brokers ➔",
@@ -4321,6 +4460,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Data Deciziei",
         "infringement_type": "Tipul de Încălcare Legală",
         "blacklisted_domains": "Domenii & Clone Pe Lista Neagră",
+        "prop_trading_title": "Alternativă Sigură: Prop Trading",
+        "prop_trading_desc": "Nu-ți risca propriul capital cu brokeri nereglementați. Tranzacționează cu banii unei firme de Proprietary Trading verificate și păstrează până la 90% din profituri.",
+        "prop_btn_1": "Obține Finanțare (SabioTrade) &rarr;",
+        "footer_partner": "Parteneriate și Publicitate",
+        "footer_legal": "Legal / DMCA",
+        "footer_report": "Raportează o Țeapă",
+        "footer_disclosure_title": "Declarație privind Afilierile (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com este un registru independent de informații privind securitatea cibernetică și apărarea consumatorilor. Anumiți brokeri verificați prezentați pe acest site mențin parteneriate comerciale de afiliere cu noi. Putem primi compensații financiare atunci când utilizatorii deschid conturi prin link-uri verificate. Această relație nu influențează niciodată evaluările noastre independente ale listelor negre de reglementare, determinările înșelătoriilor sau scorurile matematice de siguranță.",
+        "footer_esma_title": "Avertisment ESMA / FCA privind investițiile cu risc ridicat:",
+        "footer_esma_text": "CFD-urile și produsele financiare cu efect de levier sunt instrumente complexe și prezintă un risc ridicat de a pierde bani rapid din cauza efectului de levier. Între 74% și 89% din conturile investitorilor de retail pierd bani atunci când tranzacționează CFD-uri cu furnizori reglementați. Ar trebui să vă gândiți dacă înțelegeți cum funcționează CFD-urile și dacă vă puteți permite să vă asumați riscul ridicat de a vă pierde capitalul. Activele digitale și criptomonedele pot fi nereglementate în jurisdicția dvs.",
+        "footer_operated": "Operat de VasileDev Group (P.IVA IT04226190041). Date preluate de la 15 autorități globale (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Toate mărcile înregistrate aparțin autorităților de reglementare respective.",
+        "blackbull_cta": "Tranzacționează pe BlackBull Markets (Spread-uri Instituționale ECN)",
+        "nordvpn_cta": "NordVPN (Reducere -72%)",
+        "surfshark_cta": "Surfshark (Reducere -82%)",
+        "intego_cta": "Protecție Anti-Malware Mac & iPhone Intego (-35% Discount)",
+        "incogni_cta": "Șterge-ți Numărul și Emailul de la Brokerii de Date (Incogni)",
+        "prop_features": "✅ Fără Risc pentru Capitalul Personal &bull; 💶 Conturi Finanțate de €10k-€200k",
+          "ftmo_badge": "LIDER MONDIAL",
+          "ftmo_desc": "Finanțare $10k-$200k &bull; Păstrezi 90% din Profit",
+          "fn_badge": "PLĂȚI RAPIDE",
+          "fn_desc": "Bonus 15% încă din faza de Testare",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Vezi &rarr;",
+        "reason_title": "Motivul Oficial și Temeiul de Reglementare:",
+        "cfd_warning_1": "81% din conturile de retail CFD pierd bani.",
+        "cfd_warning_2": "81% din conturile de retail CFD pierd bani. Ar trebui să vă gândiți dacă vă permiteți riscul ridicat de a vă pierde banii.",
+        "ibkr_quota": "COTĂ LIMITATĂ IBKR: 10 LOCURI",
+        "ibkr_policy": "Politică IBKR: Max 10 Bonusuri/An • 3 Locuri Rămase Azi",
+        "ibkr_claimed": "70% Revendicat",
+        "default_warning_type": "Avertisment de Reglementare și Executare",
+        "default_reason": "Avertisment oficial de reglementare și risc de fraudă emis cu privire la activitățile financiare neautorizate ale {entity_name}.",
+        "default_jurisdiction": "Global",
+        "safety_rating": "Scor de Siguranță",
+        "scam_alert": "ALERTA DE FRAUDĂ (RISC CRITIC)",
+        "source_registry": "Sursă: Registrul Oficial de Reglementare",
+        "audit_log": "JURNAL DE AUDIT FORENSIC:",
+        "target_ent": "Entitate Țintă:",
+        "domain_lbl": "Domeniu:",
+        "reg_action": "Acțiune de Reglementare:",
+        "off_black": "Lista Neagră Oficială:",
+        "conf_enf": "EXECUTARE CONFIRMATĂ",
+        "juris_lbl": "Jurisdicție:",
+        "glob_enf": "Marcaj Global de Executare",
+        "verd_lbl": "Verdict:",
+        "do_not_dep": "NU DEPUNEȚI / AVERTISMENT",
         "safe_alternatives_title": "🛡️ Alternative Reglementate & Verificate pentru Tranzacționare Sigură",
         "safe_alternatives_subtitle": "Nu depune fonduri la operatori neautorizați. Alege instituții reglementate global cu fonduri segregate:",
         "ibkr_cta": "🎁 Primește Până la 1.000$ Acțiuni Gratuite la Interactive Brokers ➔",
@@ -4356,6 +4542,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Data Provvedimento",
         "infringement_type": "Tipo di Infrazione",
         "blacklisted_domains": "Domini Oscurati & Blacklist",
+        "prop_trading_title": "Alternativa Sicura: Prop Trading",
+        "prop_trading_desc": "Non rischiare il tuo capitale con broker non regolamentati. Fai trading con i fondi di una società di Proprietary Trading verificata e trattieni fino al 90% dei profitti.",
+        "prop_btn_1": "Ottieni un Conto Finanziato (SabioTrade) &rarr;",
+        "footer_partner": "Partner e Pubblicità",
+        "footer_legal": "Legale / DMCA",
+        "footer_report": "Segnala una Truffa",
+        "footer_disclosure_title": "Divulgazione su Inserzionisti e Affiliati (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com è un registro indipendente di intelligence sulla sicurezza informatica e difesa dei consumatori. Alcuni broker verificati presenti su questo sito mantengono partnership commerciali di affiliazione con noi. Potremmo ricevere compensi finanziari quando gli utenti aprono conti tramite link verificati. Questa relazione non influenza mai le nostre valutazioni indipendenti delle blacklist normative, le determinazioni delle truffe o i punteggi matematici di sicurezza.",
+        "footer_esma_title": "Avviso ESMA / FCA sugli investimenti ad alto rischio:",
+        "footer_esma_text": "I CFD e i prodotti finanziari con leva sono strumenti complessi e presentano un rischio elevato di perdere denaro rapidamente a causa della leva finanziaria. Tra il 74% e l'89% dei conti degli investitori al dettaglio perdono denaro quando fanno trading di CFD con fornitori regolamentati. Dovresti considerare se comprendi come funzionano i CFD e se puoi permetterti di correre il rischio elevato di perdere il tuo capitale. Le risorse digitali e le criptovalute potrebbero non essere regolamentate nella tua giurisdizione.",
+        "footer_operated": "Gestito da VasileDev Group (P.IVA IT04226190041). Tratto da 15 regolatori globali (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Tutti i marchi registrati appartengono alle rispettive autorità di regolamentazione.",
+        "blackbull_cta": "Fai Trading su BlackBull Markets (Spread Istituzionali ECN)",
+        "nordvpn_cta": "NordVPN (Sconto -72%)",
+        "surfshark_cta": "Surfshark (Sconto -82%)",
+        "intego_cta": "Protezione Anti-Malware Mac e iPhone Intego (-35% Sconto)",
+        "incogni_cta": "Elimina il Tuo Telefono e Email dai Data Broker (Incogni)",
+        "prop_features": "✅ Nessun Rischio di Capitale Personale &bull; 💶 Conti Finanziati da €10k-€200k",
+          "ftmo_badge": "LEADER MONDIALE",
+          "ftmo_desc": "Finanziamenti $10k-$200k &bull; Trattieni il 90% dei Profitti",
+          "fn_badge": "PAGAMENTI VELOCI",
+          "fn_desc": "Ricompensa del 15% dalla Fase di Test",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Vedi &rarr;",
+        "reason_title": "Motivo Ufficiale e Basi Normative:",
+        "cfd_warning_1": "L'81% dei conti CFD al dettaglio perde denaro.",
+        "cfd_warning_2": "L'81% dei conti CFD perde denaro. Dovresti considerare se puoi permetterti l'alto rischio di perdere i tuoi soldi.",
+        "ibkr_quota": "QUOTA IBKR LIMITATA: 10 POSTI",
+        "ibkr_policy": "Politica IBKR: Max 10 Bonus/Anno • 3 Posti Rimasti Oggi",
+        "ibkr_claimed": "70% Richiesto",
+        "default_warning_type": "Avviso di Esecuzione Normativa",
+        "default_reason": "Avviso normativo ufficiale e avviso di rischio frode emessi in merito alle attività finanziarie non autorizzate di {entity_name}.",
+        "default_jurisdiction": "Globale",
+        "safety_rating": "Valutazione di Sicurezza",
+        "scam_alert": "ALLARME TRUFFA (RISCHIO CRITICO)",
+        "source_registry": "Fonte: Registro Ufficiale Normativo",
+        "audit_log": "REGISTRO DI AUDIT FORENSE:",
+        "target_ent": "Entità Bersaglio:",
+        "domain_lbl": "Dominio:",
+        "reg_action": "Azione Normativa:",
+        "off_black": "Blacklist Ufficiale:",
+        "conf_enf": "SANZIONE CONFERMATA",
+        "juris_lbl": "Giurisdizione:",
+        "glob_enf": "Segnalazione Globale",
+        "verd_lbl": "Verdetto:",
+        "do_not_dep": "NON DEPOSITARE / FRODE",
         "safe_alternatives_title": "🛡️ Alternative Regolamentate & Sicure per Fare Trading",
         "safe_alternatives_subtitle": "Non depositare su piattaforme abusive. Scegli broker vigilati con conti segregati:",
         "ibkr_cta": "🎁 Fino a 1.000$ in Azioni Gratuite su Interactive Brokers ➔",
@@ -4391,6 +4624,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Datum der Veröffentlichung",
         "infringement_type": "Art des Verstoßes",
         "blacklisted_domains": "Gesperrte Domains & Klone",
+        "prop_trading_title": "Sichere Alternative: Prop Trading",
+        "prop_trading_desc": "Riskieren Sie nicht Ihr eigenes Kapital bei unregulierten Brokern. Handeln Sie mit dem Geld einer verifizierten Proprietary Trading Firma und behalten Sie bis zu 90% der Gewinne.",
+        "prop_btn_1": "Fremdkapital Erhalten (SabioTrade) &rarr;",
+        "footer_partner": "Partner & Werbung",
+        "footer_legal": "Rechtliches / DMCA",
+        "footer_report": "Betrug Melden",
+        "footer_disclosure_title": "Offenlegung zu Werbetreibenden und Partnern (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com ist ein unabhängiges Register für Cybersicherheitsinformationen und Verbraucherschutz. Einige auf dieser Website vorgestellte verifizierte Broker unterhalten kommerzielle Affiliate-Partnerschaften mit uns. Wir können eine finanzielle Entschädigung erhalten, wenn Benutzer Konten über verifizierte Links eröffnen. Diese Beziehung hat niemals Einfluss auf unsere unabhängigen Bewertungen behördlicher schwarzer Listen, Betrugsermittlungen oder mathematischen Sicherheitsbewertungen.",
+        "footer_esma_title": "ESMA / FCA Hochrisiko-Investmentwarnung:",
+        "footer_esma_text": "CFDs und gehebelte Finanzprodukte sind komplexe Instrumente und bergen ein hohes Risiko, aufgrund der Hebelwirkung schnell Geld zu verlieren. Zwischen 74% und 89% der Konten von Kleinanlegern verlieren Geld beim Handel mit CFDs bei regulierten Anbietern. Sie sollten abwägen, ob Sie verstehen, wie CFDs funktionieren, und ob Sie es sich leisten können, das hohe Risiko einzugehen, Ihr Kapital zu verlieren. Digitale Vermögenswerte und Kryptowährungen können in Ihrer Gerichtsbarkeit unreguliert sein.",
+        "footer_operated": "Betrieben von der VasileDev Group (P.IVA IT04226190041). Bezogen von 15 globalen Aufsichtsbehörden (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Alle eingetragenen Marken gehören den jeweiligen Aufsichtsbehörden.",
+        "blackbull_cta": "Handeln Sie auf BlackBull Markets (Institutionelle ECN Spreads)",
+        "nordvpn_cta": "NordVPN (-72% Rabatt)",
+        "surfshark_cta": "Surfshark (-82% Rabatt)",
+        "intego_cta": "Intego Mac & iPhone Anti-Malware Schutz (-35% Rabatt)",
+        "incogni_cta": "Löschen Sie Ihr Telefon & E-Mail von Daten-Brokern (Incogni)",
+        "prop_features": "✅ Kein Persönliches Kapitalrisiko &bull; 💶 Finanziertes Konto €10k-€200k",
+          "ftmo_badge": "GOLDSTANDARD",
+          "ftmo_desc": "$10k-$200k Finanziert &bull; 90% Gewinnbeteiligung",
+          "fn_badge": "SCHNELLSTE AUSZAHLUNGEN",
+          "fn_desc": "15% Belohnung aus der Challenge-Phase",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Ansehen &rarr;",
+        "reason_title": "Offizieller Regulatorischer Grund & Grundlagen:",
+        "cfd_warning_1": "81% der CFD-Kleinanlegerkonten verlieren Geld.",
+        "cfd_warning_2": "81% der CFD-Konten verlieren Geld. Sie sollten überlegen, ob Sie sich das hohe Risiko leisten können.",
+        "ibkr_quota": "BEGRENZTE IBKR-QUOTE: 10 PLÄTZE",
+        "ibkr_policy": "IBKR-Richtlinie: Max 10 Boni/Jahr • 3 Plätze Heute Übrig",
+        "ibkr_claimed": "70% Beansprucht",
+        "default_warning_type": "Regulatorische Durchsetzungswarnung",
+        "default_reason": "Offizielle behördliche Warnung und Betrugsrisiko-Hinweis bezüglich unbefugter Finanzaktivitäten von {entity_name} ausgestellt.",
+        "default_jurisdiction": "Global",
+        "safety_rating": "Sicherheitsbewertung",
+        "scam_alert": "BETRUGSWARNUNG (KRITISCHES RISIKO)",
+        "source_registry": "Quelle: Offizielles Register",
+        "audit_log": "FORENSISCHES AUDIT-PROTOKOLL:",
+        "target_ent": "Zieleinheit:",
+        "domain_lbl": "{t.get('domain_lbl', 'Domain:')}",
+        "reg_action": "Regulatorische Maßnahme:",
+        "off_black": "Offizielle Schwarze Liste:",
+        "conf_enf": "BESTÄTIGTE DURCHSETZUNG",
+        "juris_lbl": "Gerichtsbarkeit:",
+        "glob_enf": "Globale Durchsetzungsmarkierung",
+        "verd_lbl": "Urteil:",
+        "do_not_dep": "NICHT EINZAHLEN / BETRUG",
         "safe_alternatives_title": "🛡️ Geprüfte & Regulierte Alternativen für Sicheres Trading",
         "safe_alternatives_subtitle": "Zahlen Sie kein Geld bei illegalen Anbietern ein. Wählen Sie weltweit regulierte Institute:",
         "ibkr_cta": "🎁 Bis zu 1.000$ Gratis-Aktien bei Interactive Brokers ➔",
@@ -4426,6 +4706,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Date de la Décision",
         "infringement_type": "Infraction Constatée",
         "blacklisted_domains": "Domaines sur Liste Noire",
+        "prop_trading_title": "Alternative Sûre : Prop Trading",
+        "prop_trading_desc": "Ne risquez pas votre propre capital avec des courtiers non réglementés. Négociez avec les fonds d'une société de Proprietary Trading vérifiée et conservez jusqu'à 90 % des bénéfices.",
+        "prop_btn_1": "Obtenir un Financement (SabioTrade) &rarr;",
+        "footer_partner": "Partenariats & Publicité",
+        "footer_legal": "Légal / DMCA",
+        "footer_report": "Signaler une Arnaque",
+        "footer_disclosure_title": "Divulgation des Annonceurs et Affiliés (FTC 16 CFR Part 255) :",
+        "footer_disclosure_text": "IsBrokerSafe.com est un registre indépendant de renseignements sur la cybersécurité et de défense des consommateurs. Certains courtiers vérifiés présentés sur ce site entretiennent des partenariats commerciaux d'affiliation avec nous. Nous pouvons recevoir une compensation financière lorsque les utilisateurs ouvrent des comptes via des liens vérifiés. Cette relation n'influence jamais nos évaluations indépendantes des listes noires réglementaires, nos déterminations d'escroquerie ou nos scores de sécurité mathématiques.",
+        "footer_esma_title": "Avertissement ESMA / FCA sur les investissements à haut risque :",
+        "footer_esma_text": "Les CFD et les produits financiers à effet de levier sont des instruments complexes et présentent un risque élevé de perdre de l'argent rapidement en raison de l'effet de levier. Entre 74 % et 89 % des comptes d'investisseurs particuliers perdent de l'argent lors de la négociation de CFD avec des fournisseurs réglementés. Vous devez déterminer si vous comprenez le fonctionnement des CFD et si vous pouvez vous permettre de prendre le risque élevé de perdre votre capital. Les actifs numériques et les crypto-monnaies peuvent ne pas être réglementés dans votre juridiction.",
+        "footer_operated": "Exploité par VasileDev Group (P.IVA IT04226190041). Provenant de 15 régulateurs mondiaux (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Toutes les marques déposées appartiennent à leurs autorités de réglementation respectives.",
+        "blackbull_cta": "Négociez sur BlackBull Markets (Spreads Institutionnels ECN)",
+        "nordvpn_cta": "NordVPN (-72% de Réduction)",
+        "surfshark_cta": "Surfshark (-82% de Réduction)",
+        "intego_cta": "Protection Anti-Malware Mac et iPhone Intego (-35% de Réduction)",
+        "incogni_cta": "Supprimez Votre Téléphone et Email des Courtiers en Données (Incogni)",
+        "prop_features": "✅ Aucun Risque de Capital Personnel &bull; 💶 Comptes Financés de €10k-€200k",
+          "ftmo_badge": "RÉFÉRENCE MONDIALE",
+          "ftmo_desc": "Financement $10k-$200k &bull; Conservez 90% des Profits",
+          "fn_badge": "PAIEMENTS RAPIDES",
+          "fn_desc": "Récompense de 15% dès la Phase de Test",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Voir &rarr;",
+        "reason_title": "Motif Réglementaire Officiel :",
+        "cfd_warning_1": "81% des comptes CFD de détail perdent de l'argent.",
+        "cfd_warning_2": "81% des comptes CFD perdent de l'argent. Vous devez vous demander si vous pouvez vous permettre ce risque élevé.",
+        "ibkr_quota": "QUOTA IBKR LIMITÉ : 10 PLACES",
+        "ibkr_policy": "Politique IBKR : Max 10 Bonus/An • 3 Places Restantes Aujourd'hui",
+        "ibkr_claimed": "70% Réclamé",
+        "default_warning_type": "Avertissement d'Application Réglementaire",
+        "default_reason": "Avertissement réglementaire officiel et avis de risque de fraude émis concernant les activités financières non autorisées de {entity_name}.",
+        "default_jurisdiction": "Mondial",
+        "safety_rating": "Score de Sécurité",
+        "scam_alert": "ALERTE À L'ARNAQUE (RISQUE CRITIQUE)",
+        "source_registry": "Source : Registre Officiel",
+        "audit_log": "JOURNAL D'AUDIT LÉGAL :",
+        "target_ent": "Entité Cible :",
+        "domain_lbl": "Domaine :",
+        "reg_action": "Action Réglementaire :",
+        "off_black": "Liste Noire Officielle :",
+        "conf_enf": "APPLICATION CONFIRMÉE",
+        "juris_lbl": "Juridiction :",
+        "glob_enf": "Signalement Mondial",
+        "verd_lbl": "Verdict :",
+        "do_not_dep": "NE PAS DÉPOSER / FRAUDE",
         "safe_alternatives_title": "🛡️ Alternatives Régulées et Vérifiées pour Trader en Sécurité",
         "safe_alternatives_subtitle": "Ne déposez aucun fond sur des sites non autorisés. Privilégiez des institutions reconnues :",
         "ibkr_cta": "🎁 Jusqu'à 1 000$ d'Actions Offertes chez Interactive Brokers ➔",
@@ -4461,6 +4788,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Fecha de Publicación",
         "infringement_type": "Tipo de Infracción",
         "blacklisted_domains": "Dominios en Lista Negra",
+        "prop_trading_title": "Alternativa Segura: Prop Trading",
+        "prop_trading_desc": "No arriesgues tu propio capital con brókeres no regulados. Opera con fondos de una empresa de Proprietary Trading verificada y conserva hasta el 90% de las ganancias.",
+        "prop_btn_1": "Obtén Fondeo (SabioTrade) &rarr;",
+        "footer_partner": "Socios y Publicidad",
+        "footer_legal": "Legal / DMCA",
+        "footer_report": "Reportar una Estafa",
+        "footer_disclosure_title": "Divulgación de Anunciantes y Afiliados (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com es un registro independiente de inteligencia en ciberseguridad y defensa del consumidor. Algunos brókeres verificados que aparecen en este sitio mantienen asociaciones comerciales de afiliados con nosotros. Es posible que recibamos compensación financiera cuando los usuarios abren cuentas a través de enlaces verificados. Esta relación nunca influye en nuestras evaluaciones independientes de listas negras regulatorias, determinaciones de estafas o puntajes matemáticos de seguridad.",
+        "footer_esma_title": "Advertencia de ESMA / FCA sobre inversiones de alto riesgo:",
+        "footer_esma_text": "Los CFD y los productos financieros apalancados son instrumentos complejos y conllevan un alto riesgo de perder dinero rápidamente debido al apalancamiento. Entre el 74% y el 89% de las cuentas de inversores minoristas pierden dinero cuando operan con CFD con proveedores regulados. Debe considerar si comprende cómo funcionan los CFD y si puede permitirse asumir el alto riesgo de perder su capital. Los activos digitales y las criptomonedas pueden no estar regulados en su jurisdicción.",
+        "footer_operated": "Operado por VasileDev Group (P.IVA IT04226190041). Obtenido de 15 reguladores globales (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Todas las marcas registradas pertenecen a sus respectivas autoridades reguladoras.",
+        "blackbull_cta": "Opera en BlackBull Markets (Spreads Institucionales ECN)",
+        "nordvpn_cta": "NordVPN (-72% Descuento)",
+        "surfshark_cta": "Surfshark (-82% Descuento)",
+        "intego_cta": "Protección Anti-Malware Mac y iPhone Intego (-35% Descuento)",
+        "incogni_cta": "Elimina tu Teléfono y Email de los Brókeres de Datos (Incogni)",
+        "prop_features": "✅ Sin Riesgo de Capital Personal &bull; 💶 Cuentas Fondeadas de €10k-€200k",
+          "ftmo_badge": "LÍDER MUNDIAL",
+          "ftmo_desc": "Fondeo $10k-$200k &bull; Retienes 90% del Beneficio",
+          "fn_badge": "PAGOS RÁPIDOS",
+          "fn_desc": "15% de Recompensa desde la Fase de Prueba",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Ver &rarr;",
+        "reason_title": "Motivo y Fundamentos Regulatorios Oficiales:",
+        "cfd_warning_1": "El 81% de las cuentas minoristas de CFD pierden dinero.",
+        "cfd_warning_2": "El 81% de las cuentas de CFD pierden dinero. Debe considerar si puede permitirse el alto riesgo de perder su dinero.",
+        "ibkr_quota": "CUPO LIMITADO IBKR: 10 PLAZAS",
+        "ibkr_policy": "Política de IBKR: Máx 10 Bonos/Año • 3 Plazas Restantes Hoy",
+        "ibkr_claimed": "70% Reclamado",
+        "default_warning_type": "Advertencia de Ejecución Regulatoria",
+        "default_reason": "Advertencia regulatoria oficial y aviso de riesgo de fraude emitidos con respecto a las actividades financieras no autorizadas de {entity_name}.",
+        "default_jurisdiction": "Global",
+        "safety_rating": "Puntuación de Seguridad",
+        "scam_alert": "ALERTA DE ESTAFA (RIESGO CRÍTICO)",
+        "source_registry": "Fuente: Registro Oficial de Ejecución",
+        "audit_log": "REGISTRO DE AUDITORÍA FORENSE:",
+        "target_ent": "Entidad Objetivo:",
+        "domain_lbl": "Dominio:",
+        "reg_action": "Acción Regulatoria:",
+        "off_black": "Lista Negra Oficial:",
+        "conf_enf": "EJECUCIÓN CONFIRMADA",
+        "juris_lbl": "Jurisdicción:",
+        "glob_enf": "Marca de Ejecución Global",
+        "verd_lbl": "Veredicto:",
+        "do_not_dep": "NO DEPOSITAR / FRAUDE",
         "safe_alternatives_title": "🛡️ Alternativas Reguladas y Seguras para Invertir",
         "safe_alternatives_subtitle": "No deposite en operadores clandestinos. Elija instituciones supervisadas globalmente:",
         "ibkr_cta": "🎁 Hasta $1.000 en Acciones Gratis en Interactive Brokers ➔",
@@ -4496,6 +4870,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Data Deciziei",
         "infringement_type": "Tipo de Infração",
         "blacklisted_domains": "Domínios na Lista Negra",
+        "prop_trading_title": "Alternativa Segura: Prop Trading",
+        "prop_trading_desc": "Não arrisque seu próprio capital com corretoras não regulamentadas. Negocie com os fundos de uma empresa de Proprietary Trading verificada e fique com até 90% dos lucros.",
+        "prop_btn_1": "Obter Financiamento (SabioTrade) &rarr;",
+        "footer_partner": "Parcerias e Publicidade",
+        "footer_legal": "Legal / DMCA",
+        "footer_report": "Denunciar um Golpe",
+        "footer_disclosure_title": "Divulgação de Anunciantes e Afiliados (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com é um registro independente de inteligência de segurança cibernética e defesa do consumidor. Algumas corretoras verificadas apresentadas neste site mantêm parcerias comerciais de afiliados conosco. Podemos receber compensação financeira quando os usuários abrem contas através de links verificados. Esta relação nunca influencia as nossas avaliações independentes de listas negras regulamentares, determinações de golpes ou pontuações matemáticas de segurança.",
+        "footer_esma_title": "Aviso da ESMA / FCA sobre investimentos de alto risco:",
+        "footer_esma_text": "CFDs e produtos financeiros alavancados são instrumentos complexos e apresentam um alto risco de perder dinheiro rapidamente devido à alavancagem. Entre 74% e 89% das contas de pequenos investidores perdem dinheiro ao negociar CFDs com fornecedores regulamentados. Você deve considerar se entende como os CFDs funcionam e se pode correr o alto risco de perder seu capital. Os ativos digitais e as criptomoedas podem não ser regulamentados na sua jurisdição.",
+        "footer_operated": "Operado pelo VasileDev Group (P.IVA IT04226190041). Proveniente de 15 reguladores globais (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Todas as marcas registradas pertencem às suas respectivas autoridades reguladoras.",
+        "blackbull_cta": "Negocie na BlackBull Markets (Spreads Institucionais ECN)",
+        "nordvpn_cta": "NordVPN (-72% de Desconto)",
+        "surfshark_cta": "Surfshark (-82% de Desconto)",
+        "intego_cta": "Proteção Anti-Malware Mac e iPhone Intego (-35% de Desconto)",
+        "incogni_cta": "Apague Seu Telefone e Email dos Corretores de Dados (Incogni)",
+        "prop_features": "✅ Sem Risco de Capital Pessoal &bull; 💶 Contas Financiadas de €10k-€200k",
+          "ftmo_badge": "LÍDER MUNDIAL",
+          "ftmo_desc": "Financiamento $10k-$200k &bull; Retenha 90% do Lucro",
+          "fn_badge": "PAGAMENTOS RÁPIDOS",
+          "fn_desc": "Recompensa de 15% desde a Fase de Teste",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Ver &rarr;",
+        "reason_title": "Motivo e Fundamentos Regulatórios Oficiais:",
+        "cfd_warning_1": "81% das contas de CFD de varejo perdem dinheiro.",
+        "cfd_warning_2": "81% das contas de CFD perdem dinheiro. Você deve considerar se pode arcar com o alto risco de perder seu dinheiro.",
+        "ibkr_quota": "COTA IBKR LIMITADA: 10 VAGAS",
+        "ibkr_policy": "Política IBKR: Máx 10 Bônus/Ano • 3 Vagas Restantes Hoje",
+        "ibkr_claimed": "70% Reivindicado",
+        "default_warning_type": "Aviso de Execução Regulatória",
+        "default_reason": "Aviso regulatório oficial e aviso de risco de fraude emitidos em relação às atividades financeiras não autorizadas da {entity_name}.",
+        "default_jurisdiction": "Global",
+        "safety_rating": "Classificação de Segurança",
+        "scam_alert": "ALERTA DE GOLPE (RISCO CRÍTICO)",
+        "source_registry": "Fonte: Registro Oficial",
+        "audit_log": "REGISTRO DE AUDITORIA FORENSE:",
+        "target_ent": "Entidade Alvo:",
+        "domain_lbl": "Domínio:",
+        "reg_action": "Ação Regulatória:",
+        "off_black": "Lista Negra Oficial:",
+        "conf_enf": "EXECUÇÃO CONFIRMADA",
+        "juris_lbl": "Jurisdição:",
+        "glob_enf": "Sinalização Global",
+        "verd_lbl": "Veredito:",
+        "do_not_dep": "NÃO DEPOSITAR / FRAUDE",
         "safe_alternatives_title": "🛡️ Alternativas Regulamentadas e Seguras para Investir",
         "safe_alternatives_subtitle": "Não envie dinheiro para operadores ilegais. Escolha corretoras com custódia segregada:",
         "ibkr_cta": "🎁 Até $1.000 em Ações Grátis na Interactive Brokers ➔",
@@ -4531,6 +4952,53 @@ SCAM_LANG_MAP = {
         "enforcement_date": "Дата Решения",
         "infringement_type": "Тип Нарушения",
         "blacklisted_domains": "Заблокированные Домены и Клоны",
+        "prop_trading_title": "Безопасная Альтернатива: Prop Trading",
+        "prop_trading_desc": "Не рискуйте собственным капиталом с нерегулируемыми брокерами. Торгуйте на средства проверенной проп-трейдинговой компании и оставляйте себе до 90% прибыли.",
+        "prop_btn_1": "Получить Финансирование (SabioTrade) &rarr;",
+        "footer_partner": "Партнерство и Реклама",
+        "footer_legal": "Юридическая информация / DMCA",
+        "footer_report": "Сообщить о Мошенничестве",
+        "footer_disclosure_title": "Раскрытие информации о рекламодателях и партнерах (FTC 16 CFR Part 255):",
+        "footer_disclosure_text": "IsBrokerSafe.com — это независимый реестр информации о кибербезопасности и защите прав потребителей. Некоторые проверенные брокеры, представленные на этом сайте, поддерживают с нами коммерческие партнерские отношения. Мы можем получать финансовую компенсацию, когда пользователи открывают счета по проверенным ссылкам. Эти отношения никогда не влияют на наши независимые оценки нормативных черных списков, выявление мошенничества или математические оценки безопасности.",
+        "footer_esma_title": "Предупреждение ESMA / FCA об инвестициях с высоким риском:",
+        "footer_esma_text": "CFD и финансовые продукты с кредитным плечом являются сложными инструментами и несут высокий риск быстрой потери денег из-за кредитного плеча. От 74% до 89% счетов розничных инвесторов теряют деньги при торговле CFD с регулируемыми провайдерами. Вам следует подумать, понимаете ли вы, как работают CFD, и можете ли вы позволить себе принять высокий риск потери вашего капитала. Цифровые активы и криптовалюты могут не регулироваться в вашей юрисдикции.",
+        "footer_operated": "Управляется VasileDev Group (P.IVA IT04226190041). Данные получены от 15 мировых регуляторов (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).",
+        "footer_trademarks": "Все зарегистрированные торговые марки принадлежат соответствующим регулирующим органам.",
+        "blackbull_cta": "Торгуйте на BlackBull Markets (Институциональные ECN-спреды)",
+        "nordvpn_cta": "NordVPN (Скидка -72%)",
+        "surfshark_cta": "Surfshark (Скидка -82%)",
+        "intego_cta": "Антивирусная защита Intego для Mac и iPhone (Скидка -35%)",
+        "incogni_cta": "Удалите свой телефон и email из баз данных брокеров (Incogni)",
+        "prop_features": "✅ Без Риска Для Личного Капитала &bull; 💶 Финансируемые Счета €10k-€200k",
+          "ftmo_badge": "ЗОЛОТОЙ СТАНДАРТ",
+          "ftmo_desc": "Финансирование $10k-$200k &bull; 90% Прибыли Вам",
+          "fn_badge": "БЫСТРЫЕ ВЫПЛАТЫ",
+          "fn_desc": "Награда 15% уже с Фазы Тестирования",
+          "sabio_badge": "PROMO: SAFE30",
+          "sabio_desc": "-30% Discount (code SAFE30) &bull; High Approval",
+          "view_btn": "Смотреть &rarr;",
+        "reason_title": "Официальная Причина Регулятора:",
+        "cfd_warning_1": "81% розничных счетов CFD теряют деньги.",
+        "cfd_warning_2": "81% счетов CFD теряют деньги. Подумайте, можете ли вы позволить себе высокий риск потери денег.",
+        "ibkr_quota": "ОГРАНИЧЕННАЯ КВОТА IBKR: 10 МЕСТ",
+        "ibkr_policy": "Политика IBKR: Макс 10 бонусов/год • Осталось 3 места сегодня",
+        "ibkr_claimed": "70% Заявлено",
+        "default_warning_type": "Предупреждение о Нарушении Регулирования",
+        "default_reason": "Официальное нормативное предупреждение и предупреждение о риске мошенничества, выпущенное в отношении несанкционированной финансовой деятельности {entity_name}.",
+        "default_jurisdiction": "Глобальный",
+        "safety_rating": "Оценка Безопасности",
+        "scam_alert": "ВНИМАНИЕ! МОШЕННИЧЕСТВО",
+        "source_registry": "Источник: Официальный Реестр",
+        "audit_log": "ЖУРНАЛ АУДИТА:",
+        "target_ent": "Целевая организация:",
+        "domain_lbl": "Домен:",
+        "reg_action": "Действия регулятора:",
+        "off_black": "Официальный черный список:",
+        "conf_enf": "ПОДТВЕРЖДЕНО",
+        "juris_lbl": "Юрисдикция:",
+        "glob_enf": "Глобальная Отметка",
+        "verd_lbl": "Вердикт:",
+        "do_not_dep": "НЕ ВНОСИТЬ ДЕПОЗИТ",
         "safe_alternatives_title": "🛡️ Проверенные и Надежные Брокеры для Безопасного Трейдинга",
         "safe_alternatives_subtitle": "Не переводите средства нелегальным брокерам. Выбирайте мировые институты с раздельной защитой счетов:",
         "ibkr_cta": "🎁 До $1,000 в акциях в подарок в Interactive Brokers ➔",
@@ -4576,6 +5044,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     row = cursor.fetchone()
     conn.close()
     
+    t = SCAM_LANG_MAP.get(lang, SCAM_LANG_MAP["en"])
     if not row:
         # Graceful dynamic fallback generation from slug (prevents 404s for search bots)
         parts = slug.split("-scam-")
@@ -4584,11 +5053,11 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         entity_name = raw_name
         domain = f"{slugify(raw_name)}.com"
         regulator = raw_reg
-        warning_type = "Regulatory Enforcement Warning"
+        warning_type = t.get("default_warning_type", "Regulatory Enforcement Warning")
         warning_date = "2026-08-25"
         official_url = "https://isbrokersafe.com"
-        reason = f"Official regulatory warning and fraud risk advisory issued regarding unauthorized financial activities by {entity_name}."
-        jurisdiction = "Global"
+        reason = t.get("default_reason", "Official regulatory warning and fraud risk advisory issued regarding unauthorized financial activities by {entity_name}.").replace("{entity_name}", entity_name)
+        jurisdiction = t.get("default_jurisdiction", "Global")
         risk_score = 5
         blacklisted_urls_json = json.dumps([domain])
         clone_of = None
@@ -4599,8 +5068,6 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         blacklisted_urls = json.loads(blacklisted_urls_json) if blacklisted_urls_json else [domain]
     except Exception:
         blacklisted_urls = [domain] if domain else []
-        
-    t = SCAM_LANG_MAP.get(lang, SCAM_LANG_MAP["en"])
     
     base_url = "https://isbrokersafe.com"
     curr_url = f"{base_url}/{lang}/scam-reports/{slug}" if lang != "en" else f"{base_url}/scam-reports/{slug}"
@@ -4632,9 +5099,11 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     <meta property="og:description" content="Verified regulatory blacklisting for {entity_name}. High scam probability score ({risk_score}%). Check official enforcement details.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{curr_url}">
-    <meta property="og:image" content="https://isbrokersafe.com/og_image.jpg">
+    <meta property="og:image" content="https://isbrokersafe.com/og_image.jpg?v=cloudflare_bust_3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://isbrokersafe.com/og_image.jpg?v=cloudflare_bust_3">
     
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -4693,24 +5162,24 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                 
                 <!-- Trust Gauge Card -->
                 <div class="panel trust-score-card" style="background: rgba(10, 15, 26, 0.85); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                    <h3 style="font-family: 'Outfit'; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 15px;">Safety Rating</h3>
+                    <h3 style="font-family: 'Outfit'; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 15px;">{t.get('safety_rating', 'Safety Rating')}</h3>
                     <div style="font-size: 48px; font-weight: 900; color: #ef4444; font-family: 'Outfit'; margin: 10px 0;">
                         {risk_score}%
                     </div>
                     <div style="background: rgba(239, 68, 68, 0.2); color: #ef4444; font-weight: 800; padding: 6px 14px; border-radius: 20px; font-size: 12px; display: inline-block; letter-spacing: 0.5px;">
-                        🚨 SCAM ALERT (CRITICAL RISK)
+                        🚨 {t.get('scam_alert', 'SCAM ALERT (CRITICAL RISK)')}
                     </div>
                     <p style="font-size: 12px; color: #94a3b8; margin-top: 15px; line-height: 1.4;">
-                        Source: Official Regulatory Enforcement Registry ({regulator})
+                        {t.get('source_registry', 'Source: Official Regulatory Enforcement Registry')} ({regulator})
                     </p>
                 </div>
 
                 <!-- Threat Terminal Log -->
                 <div class="panel threat-scanner-card" style="background: rgba(5, 8, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px; text-align: left; font-family: monospace; font-size: 12px;">
-                    <div style="color: #38bdf8; font-weight: 700; margin-bottom: 8px;">> FORENSIC AUDIT LOG:</div>
-                    <div style="color: #94a3b8;">> Target Entity: {entity_name}</div>
-                    <div style="color: #94a3b8;">> Domain: {domain or 'Unlisted Domain'}</div>
-                    <div style="color: #ef4444;">> Regulatory Action: {warning_type}</div>
+                    <div style="color: #38bdf8; font-weight: 700; margin-bottom: 8px;">> {t.get('audit_log', 'FORENSIC AUDIT LOG:')}</div>
+                    <div style="color: #94a3b8;">> {t.get('target_ent', 'Target Entity:')} {entity_name}</div>
+                    <div style="color: #94a3b8;">> {t.get('domain_lbl', 'Domain:')} {domain or 'Unlisted Domain'}</div>
+                    <div style="color: #ef4444;">> {t.get('reg_action', 'Regulatory Action:')} {warning_type}</div>
                     <div style="color: #ef4444;">> Official Blacklist: CONFIRMED ENFORCEMENT</div>
                     <div style="color: #eab308;">> Jurisdiction: {jurisdiction} Enforcement Flag</div>
                     <div style="color: #ef4444;">> Verdict: DO NOT DEPOSIT / FRAUD WARNING</div>
@@ -4768,7 +5237,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
 
                     <!-- Reason -->
                     <div style="margin-bottom: 22px;">
-                        <h4 style="color: #fff; font-size: 14px; margin-bottom: 8px; font-weight: 700;">📌 Official Regulatory Reason & Grounds:</h4>
+                        <h4 style="color: #fff; font-size: 14px; margin-bottom: 8px; font-weight: 700;">📌 {t.get('reason_title', 'Official Regulatory Reason & Grounds:')}</h4>
                         <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; background: rgba(0,0,0,0.25); padding: 14px; border-radius: 8px; border-left: 3px solid #ef4444;">
                             {reason}
                         </p>
@@ -4805,6 +5274,63 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         </div>
                     </div>
 
+                    
+                    <!-- Prop Trading Alternative (Injected) -->
+                    <div class="prop-trading-card" style="margin-bottom: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.12) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 14px; padding: 22px; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,0.2);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                            <span style="font-size: 24px;">🛡️</span>
+                            <h4 style="margin: 0; font-size: 16px; color: #34d399; font-weight: 800; font-family: 'Outfit', sans-serif;">{t.get('prop_trading_title', 'Safe Alternative: Prop Trading')}</h4>
+                        </div>
+                        <p style="font-size: 14px; color: #a7f3d0; margin: 0 0 18px 0; line-height: 1.5;">
+                            {t.get('prop_trading_desc', 'Do not risk your own capital with unregulated brokers. Trade with a verified Proprietary Trading firm money and keep up to 90% of the profits.')}
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                                                          <!-- SabioTrade -->
+                              <a href="/go/sabiotrade" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0f172a; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                                  <div style="display: flex; align-items: center; gap: 12px;">
+                                      <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; border: 2px solid #10b981;">1</div>
+                                      <div>
+                                          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                              <span style="color: #fff; font-weight: 800; font-size: 15px;">SabioTrade</span>
+                                              <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">{t.get('sabio_badge', 'PROMO: SAFE30')}</span>
+                                          </div>
+                                          <div style="color: #94a3b8; font-size: 11px;">{t.get('sabio_desc', '30% Discount with code SAFE30 &bull; High Approval')}</div>
+                                      </div>
+                                  </div>
+                                  <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">{t.get('view_btn', 'View &rarr;')}</div>
+                              </a>
+<!-- FTMO -->
+                              <a href="/go/ftmo" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0f172a; border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                                  <div style="display: flex; align-items: center; gap: 12px;">
+                                      <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">2</div>
+                                      <div>
+                                          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                              <span style="color: #fff; font-weight: 800; font-size: 15px;">FTMO</span>
+                                              <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;">{t.get('ftmo_badge', 'GOLD STANDARD')}</span>
+                                          </div>
+                                          <div style="color: #94a3b8; font-size: 11px;">{t.get('ftmo_desc', '$10k-$200k Funded &bull; 90% Profit Split')}</div>
+                                      </div>
+                                  </div>
+                                  <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">{t.get('view_btn', 'View &rarr;')}</div>
+                              </a>
+<!-- FundedNext -->
+                              <a href="/go/fundednext" target="_blank" rel="noopener sponsored" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #0f172a; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px 16px; text-decoration: none; transition: all 0.3s ease;">
+                                  <div style="display: flex; align-items: center; gap: 12px;">
+                                      <div style="background: #1e293b; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">3</div>
+                                      <div>
+                                          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                              <span style="color: #fff; font-weight: 800; font-size: 15px;">FundedNext</span>
+                                              <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">{t.get('fn_badge', 'FASTEST PAYOUTS')}</span>
+                                          </div>
+                                          <div style="color: #94a3b8; font-size: 11px;">{t.get('fn_desc', '15% Reward from Challenge Phase')}</div>
+                                      </div>
+                                  </div>
+                                  <div style="background: #10b981; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; text-align: center;">{t.get('view_btn', 'View &rarr;')}</div>
+                              </a>
+                        </div>
+                    </div>
+
                     <!-- Safe Regulated Alternatives Section (GEO-TARGETED ACROSS 4-5 GLOBAL ZONES) -->
                     <div id="safe-alternatives" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 14px; padding: 22px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
@@ -4825,12 +5351,12 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                                 {t['plus500_cta']}
                             </a>
                             <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: -3px; margin-bottom: 3px;">
-                                81% of retail CFD accounts lose money.
+                                {t.get('cfd_warning_1', '81% of retail CFD accounts lose money.')}
                             </div>
 
                             <!-- 02. BlackBull Markets ECN Execution (Top CPA) -->
                             <a href="https://blackbull.com/en?ib=43450" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
-                                ⚡ Trade on BlackBull Markets (Institutional ECN Spreads from 0.0) ➔
+                                ⚡ {t.get('blackbull_cta', 'Trade on BlackBull Markets (Institutional ECN Spreads from 0.0)')} ➔
                             </a>
 
                             <!-- 03. AvaTrade Gold Button -->
@@ -4857,15 +5383,15 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                             <div class="ibkr-scarcity-card" style="margin-top: 10px; background: linear-gradient(135deg, rgba(229, 184, 66, 0.12) 0%, rgba(202, 138, 4, 0.22) 100%); border: 1.5px solid #e5b842; border-radius: 12px; padding: 14px 16px; box-shadow: 0 4px 18px rgba(229, 184, 66, 0.25); text-align: left;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                                     <span style="display: inline-flex; align-items: center; gap: 5px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 5px; letter-spacing: 0.5px;">
-                                        ⚡ LIMITED IBKR QUOTA: 10 SPOTS
+                                        ⚡ {t.get('ibkr_quota', 'LIMITED IBKR QUOTA: 10 SPOTS')}
                                     </span>
                                     <div style="display: inline-flex; align-items: center; gap: 6px; font-family: monospace; font-size: 13px; font-weight: 800; color: #fef08a; background: rgba(0,0,0,0.5); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(229, 184, 66, 0.4);">
                                         ⏳ <span class="ibkr-countdown-clock">14:59</span>
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; font-weight: 700; color: #fef08a;">
-                                    <span>🔥 IBKR Policy: Max 10 Referral Bonuses/Year • 3 Slots Left Today</span>
-                                    <span style="color: #4ade80;">70% Claimed</span>
+                                    <span>🔥 {t.get('ibkr_policy', 'IBKR Policy: Max 10 Referral Bonuses/Year • 3 Slots Left Today')}</span>
+                                    <span style="color: #4ade80;">{t.get('ibkr_claimed', '70% Claimed')}</span>
                                 </div>
                                 <div style="background: rgba(0,0,0,0.5); height: 6px; border-radius: 6px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">
                                     <div style="background: linear-gradient(90deg, #eab308 0%, #ef4444 100%); width: 70%; height: 100%; border-radius: 6px;"></div>
@@ -4911,17 +5437,17 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         </p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                             <a href="https://isbrokersafe.com/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center;">
-                                🛡️ NordVPN (-72%) ↗
+                                🛡️ {t.get('nordvpn_cta', 'NordVPN (-72%)')} ↗
                             </a>
                             <a href="https://isbrokersafe.com/go/surfshark" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center;">
-                                🦈 Surfshark (-82%) ↗
+                                🦈 {t.get('surfshark_cta', 'Surfshark (-82%)')} ↗
                             </a>
                         </div>
                         <a href="https://isbrokersafe.com/go/intego" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="display: block; background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); border: none; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; text-align: center; margin-bottom: 10px;">
-                            🍏 Intego Mac & iPhone Anti-Malware Protection (-35% Discount) ↗
+                            🍏 {t.get('intego_cta', 'Intego Mac & iPhone Anti-Malware Protection (-35% Discount)')} ↗
                         </a>
                         <a href="https://deal.incogni.io/aff_c?offer_id=11&aff_id=1505" target="_blank" rel="noopener sponsored" class="affiliate-incogni-btn" style="display: block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 10px 14px; color: #6ee7b7; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer;">
-                            🛡️ Delete Your Phone & Email from Scammer Data Brokers (Incogni) ➔
+                            🛡️ {t.get('incogni_cta', 'Delete Your Phone & Email from Scammer Data Brokers (Incogni)')} ➔
                         </a>
                     </div>
 
@@ -4949,31 +5475,31 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         </div>
 
         <!-- Institutional Footer & Legal Disclosures (FTC & ESMA Compliant - CRO Point 5) -->
-        <footer style="margin-top: 50px; padding: 26px 20px; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.65); border-radius: 16px; color: #94a3b8; font-size: 11px; line-height: 1.6; text-align: left;">
+                <footer style="margin-top: 50px; padding: 26px 20px; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.65); border-radius: 16px; color: #94a3b8; font-size: 11px; line-height: 1.6; text-align: left;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);">
                 <div style="font-size: 13px; font-weight: 800; color: #f8fafc;">
                     🛡️ IsBrokerSafe.com Regulatory Intelligence Registry
                 </div>
                 <div style="display: flex; gap: 14px; font-size: 11.5px;">
-                    <a href="mailto:partners@isbrokersafe.com" style="color: #38bdf8; text-decoration: none; font-weight: 700;">Partner & Tenancy Inquiries</a>
+                    <a href="mailto:partners@isbrokersafe.com" style="color: #38bdf8; text-decoration: none; font-weight: 700;">{t.get('footer_partner', 'Partner & Tenancy Inquiries')}</a>
                     <span style="color: rgba(255,255,255,0.2);">|</span>
-                    <a href="mailto:compliance@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">Legal / DMCA</a>
+                    <a href="mailto:compliance@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">{t.get('footer_legal', 'Legal / DMCA')}</a>
                     <span style="color: rgba(255,255,255,0.2);">|</span>
-                    <a href="mailto:support@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">Report a Scam</a>
+                    <a href="mailto:support@isbrokersafe.com" style="color: #94a3b8; text-decoration: none;">{t.get('footer_report', 'Report a Scam')}</a>
                 </div>
             </div>
             
             <div style="margin-bottom: 12px;">
-                <strong style="color: #cbd5e1;">Advertiser & Affiliate Disclosure (FTC 16 CFR Part 255):</strong> IsBrokerSafe.com is an independent consumer defense and cybersecurity intelligence registry. Some verified brokerages featured on this site maintain commercial affiliate partnerships with us. We may receive financial compensation when users open accounts through verified links. This relationship never influences our independent regulatory blacklist assessments, scam determinations, or mathematical safety scores.
+                <strong style="color: #cbd5e1;">{t.get('footer_disclosure_title', 'Advertiser & Affiliate Disclosure (FTC 16 CFR Part 255):')}</strong> {t.get('footer_disclosure_text', 'IsBrokerSafe.com is an independent consumer defense and cybersecurity intelligence registry. Some verified brokerages featured on this site maintain commercial affiliate partnerships with us. We may receive financial compensation when users open accounts through verified links. This relationship never influences our independent regulatory blacklist assessments, scam determinations, or mathematical safety scores.')}
             </div>
 
             <div style="margin-bottom: 12px; padding: 10px 14px; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 6px; color: #fca5a5;">
-                <strong style="color: #f87171;">ESMA / FCA High-Risk Investment Warning:</strong> CFDs and leveraged financial products are complex instruments and come with a high risk of losing money rapidly due to leverage. Between 74% and 89% of retail investor accounts lose money when trading CFDs with regulated providers. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your capital. Digital assets and cryptocurrencies may be unregulated in your jurisdiction.
+                <strong style="color: #f87171;">{t.get('footer_esma_title', 'ESMA / FCA High-Risk Investment Warning:')}</strong> {t.get('footer_esma_text', 'CFDs and leveraged financial products are complex instruments and come with a high risk of losing money rapidly due to leverage. Between 74% and 89% of retail investor accounts lose money when trading CFDs with regulated providers. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your capital. Digital assets and cryptocurrencies may be unregulated in your jurisdiction.')}
             </div>
 
             <div style="color: #64748b; font-size: 10.5px; margin-top: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                <span>© 2026 IsBrokerSafe.com • Operated by VasileDev Group (P.IVA IT04226190041). Sourced from 15 global regulators (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).</span>
-                <span>All registered trademarks belong to their respective regulatory authorities.</span>
+                <span>&copy; 2026 IsBrokerSafe.com • {t.get('footer_operated', 'Operated by VasileDev Group (P.IVA IT04226190041). Sourced from 15 global regulators (FCA, SEC, CySEC, BaFin, CONSOB, AMF, CNMV, ASIC, MAS).')}</span>
+                <span>{t.get('footer_trademarks', 'All registered trademarks belong to their respective regulatory authorities.')}</span>
             </div>
         </footer>
 
@@ -5353,7 +5879,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         ✓ Member FINRA/SIPC. Direct exchange execution on NASDAQ & NYSE.
                     </div>
                     <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
-                        ⚡ Trade on BlackBull Markets (Global Institutional ECN Spreads) ➔
+                        ⚡ {t.get('blackbull_cta', 'Trade on BlackBull Markets (Global Institutional ECN Spreads)')} ➔
                     </a>
                 `;
             }} else if (zone === "LATAM") {{
@@ -5390,7 +5916,7 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         🟡 Trade on AvaTrade Gulf (ADGM Dubai & FSRA Licensed) ➔
                     </a>
                     <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
-                        ⚡ Trade on BlackBull Markets (Institutional ECN Execution) ➔
+                        ⚡ {t.get('blackbull_cta', 'Trade on BlackBull Markets (Institutional ECN Execution)')} ➔
                     </a>
                 `;
             }} else if (zone === "OCEANIA") {{
@@ -5401,13 +5927,13 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
                         🔵 Trade on Plus500AU (ASIC Regulated AFSL #417727) ➔
                     </a>
                     <div style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: -3px; line-height: 1.35;">
-                        ⚠️ 81% of retail CFD accounts lose money. You should consider whether you can afford the high risk of losing your money.
+                        ⚠️ {t.get('cfd_warning_1', '81% of retail CFD accounts lose money.')} You should consider whether you can afford the high risk of losing your money.
                     </div>
                     <a href="https://isbrokersafe.com/go/avatrade" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #ffbb00 0%, #c69200 100%); color: #0b1528 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 800; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(255, 187, 0, 0.35);">
                         🟡 Trade on AvaTrade Australia (ASIC Regulated AFSL #406684) ➔
                     </a>
                     <a href="https://isbrokersafe.com/go/blackbull" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #38bdf8; color: #38bdf8 !important; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);">
-                        ⚡ Trade on BlackBull Markets (FMA New Zealand Tier-1 ECN) ➔
+                        ⚡ {t.get('blackbull_cta', 'Trade on BlackBull Markets (FMA New Zealand Tier-1 ECN)')} ➔
                     </a>
                     <a href="https://isbrokersafe.com/go/etoro" target="_blank" rel="noopener sponsored" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-decoration: none; padding: 13px 18px; border-radius: 10px; display: block; text-align: center; font-weight: 700; font-size: 14px; border: none; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
                         🟢 Copy Top Traders on eToro AUS Capital (ASIC #491139) ➔
@@ -5463,6 +5989,36 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
         setInterval(updateClock, 1000);
     }})();
     </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>
 """
@@ -6020,6 +6576,36 @@ async def privacy_policy_page():
     <div class="footer">
         © 2026 VasileDev Group (Vasile Bratu). All rights reserved. Registered Office: Garessio (CN), Italy.
     </div>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>
 """
@@ -6716,6 +7302,36 @@ async def api_v1_documentation():
             }
         }
     </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html_docs, status_code=200)
@@ -7256,6 +7872,36 @@ async def get_dating_badge_customizer_page():
 
         updatePreview();
     </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     from fastapi.responses import Response
@@ -7515,6 +8161,36 @@ function copyEmbedCode() {
     alert('Embed HTML code copied to clipboard! Paste it into your website or WordPress post! 🛡️');
 }
 </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html_customizer, status_code=200)
@@ -8030,6 +8706,36 @@ async function generateDatingApiKey() {
     }
 }
 </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html_dating_docs, status_code=200)
@@ -8411,6 +9117,36 @@ async def get_pricing_page():
         </div>
     </div>
 </div>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html_pricing, status_code=200)
@@ -8642,6 +9378,36 @@ function copyModalSnippet() {{
     alert('Embed badge snippet copied to clipboard! 🛡️');
 }}
 </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html_audit, status_code=200)
@@ -8731,7 +9497,7 @@ async def download_scam_dossier_pdf(slug: str, lang: str = "en"):
     # 2. Key Metadata Table
     meta_data = [
         [Paragraph("Target Entity Name:", label_style), Paragraph(str(entity_name), body_style)],
-        [Paragraph("Flagged Web Domain:", label_style), Paragraph(str(domain or "Unlisted Domain"), body_style)],
+        [Paragraph("Flagged Web {t.get('domain_lbl', 'Domain:')}", label_style), Paragraph(str(domain or "Unlisted Domain"), body_style)],
         [Paragraph("Enforcement Authority:", label_style), Paragraph(f"<b>{regulator}</b>", body_style)],
         [Paragraph("Infringement Action:", label_style), Paragraph(f"<font color='#dc2626'><b>{warning_type}</b></font>", body_style)],
         [Paragraph("Decision Date:", label_style), Paragraph(str(warning_date), body_style)],
@@ -9111,6 +9877,36 @@ async def dating_scammers_directory(request: Request, category: str = None, q: s
         
         {pagination_html}
     </div>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html, status_code=200)
@@ -9513,7 +10309,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                             👁️ 24/7 Dark Web Identity Monitor & Threat Defense (NordVPN) ➔
                         </a>
                         <a href="/go/intego" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(79, 70, 229, 0.3) 100%); border: 1px solid rgba(129, 140, 248, 0.4); color: #c7d2fe; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
-                            🍏 Intego Mac & iPhone Anti-Malware Suite (-35% Off) ➔
+                            🍏 {t.get('intego_cta', 'Intego Mac & iPhone Anti-Malware Suite (-35% Off)')} ➔
                         </a>
                     </div>
                 </div>
@@ -9563,11 +10359,16 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                 </div>
 
                 <div>
-                    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
-                    <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
-                    <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Contact: <a href="mailto:amendamax@gmail.com" style="color: #cbd5e1; text-decoration: none;">amendamax@gmail.com</a></p>
-                </div>
+    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
+    <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏛️ isbrokersafe.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🛡️ verifydating.net</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💼 jobscamradar.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💊 pillscamradar.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">📱 appscamradar.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏎️ dreamcarhunt.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">✈️ airparkrefund.com</a></p>
+<p style="margin: 0 0 8px 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">👑 vasiledev.com</a></p>
+</div>
 
                 <div>
                     <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">Official Network</h4>
@@ -9584,6 +10385,219 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
             </div>
         </footer>
     </div>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
 </body>
 </html>"""
     return HTMLResponse(content=html, status_code=200)
+
+
+
+@app.get("/directory")
+async def get_main_directory(request: Request):
+    host = request.headers.get("host", "").lower()
+    is_dating = "dating" in host
+    
+    if is_dating:
+        buttons_html = '''
+            <a href="/directory/dating" class="dir-card" style="margin: 0 auto;">
+                <h2>💔 Dating Scams (A-Z)</h2>
+                <p>Browse our extensive database of fake dating profiles and romance scammers alphabetically.</p>
+            </a>
+        '''
+        title = "Dating Scams Directory"
+    else:
+        buttons_html = '''
+            <a href="/directory/brokers" class="dir-card" style="margin: 0 auto;">
+                <h2>📈 Broker Scams (A-Z)</h2>
+                <p>Browse our complete database of unregulated and fraudulent financial brokers alphabetically.</p>
+            </a>
+        '''
+        title = "Broker Scams Directory"
+
+    html = f'''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{title}</title>
+        <style>
+            body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b1528; color: #f8fafc; margin: 0; padding: 0; }}
+            .container {{ max-width: 1000px; margin: 50px auto; padding: 20px; }}
+            h1 {{ color: #10b981; text-align: center; margin-bottom: 40px; }}
+            .dir-cards {{ display: flex; gap: 20px; justify-content: center; }}
+            .dir-card {{ background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; text-align: center; flex: 1; max-width: 400px; text-decoration: none; transition: all 0.3s ease; display: block; }}
+            .dir-card:hover {{ border-color: #10b981; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(16,185,129,0.1); }}
+            .dir-card h2 {{ color: #f8fafc; margin-top: 0; }}
+            .dir-card p {{ color: #94a3b8; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{title}</h1>
+            <div class="dir-cards">
+                {buttons_html}
+            </div>
+        </div>
+    </body>
+    </html>
+    '''
+    return HTMLResponse(content=html)
+@app.get("/directory/brokers")
+async def get_broker_directory(request: Request):
+    return HTMLResponse(content=generate_az_page("Broker Scams Directory (A-Z)", "/directory/brokers"))
+
+@app.get("/directory/dating")
+async def get_dating_directory(request: Request):
+    return HTMLResponse(content=generate_az_page("Dating Scams Directory (A-Z)", "/directory/dating"))
+
+
+@app.get("/directory/{category}/{letter}")
+async def get_directory_letter_page(request: Request, category: str, letter: str, page: int = 1):
+    host = request.headers.get("host", "").lower()
+    is_dating_domain = "dating" in host
+    
+    # Securizare stricta la nivel de domeniu (blocheaza accesul manual la URL-uri straine)
+    if is_dating_domain and category == "brokers":
+        raise HTTPException(status_code=404, detail="Not Found on this domain")
+    if not is_dating_domain and category == "dating":
+        raise HTTPException(status_code=404, detail="Not Found on this domain")
+
+    limit = 1000
+    offset = (page - 1) * limit
+    letter = letter.upper()
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    if category == "brokers":
+        table = "regulatory_scam_reports"
+        name_col = "entity_name"
+        link_base = "https://isbrokersafe.com/scam-reports"
+        title_prefix = "Broker Scams"
+        extra_cols = ", domain"
+    elif category == "dating":
+        table = "dating_scam_profiles"
+        name_col = "persona_name"
+        link_base = "https://verifydating.net/scammer"
+        title_prefix = "Dating Scams"
+        extra_cols = ", scam_category, claimed_age"
+    else:
+        conn.close()
+        return HTMLResponse(content="Category not found", status_code=404)
+        
+    if letter == "0-9":
+        where_clause = f"SUBSTR({name_col}, 1, 1) NOT BETWEEN 'A' AND 'Z' AND SUBSTR({name_col}, 1, 1) NOT BETWEEN 'a' AND 'z'"
+        params = []
+    else:
+        where_clause = f"{name_col} LIKE ?"
+        params = [f"{letter}%"]
+        
+    cursor.execute(f"SELECT COUNT(*) FROM {table} WHERE {where_clause}", params)
+    total_count = cursor.fetchone()[0]
+    
+    cursor.execute(f"SELECT {name_col}, slug {extra_cols} FROM {table} WHERE {where_clause} ORDER BY {name_col} ASC LIMIT {limit} OFFSET {offset}", params)
+    items = cursor.fetchall()
+    conn.close()
+    
+    total_pages = max(1, (total_count + limit - 1) // limit)
+    
+    items_html = ""
+    for item in items:
+        name = item[0]
+        slug = item[1]
+        
+        # Formatare inteligenta ca sa evitam duplicatele vizuale
+        if category == "dating":
+            cat = item[2] if item[2] else "Scam"
+            age = item[3] if item[3] else "??"
+            # Adaugam ID-ul unic din slug pentru siguranta vizuala
+            unique_id = slug.split('-')[-1] if '-' in slug else ''
+            display_name = f"{name} ({age}yo) - {cat} #{unique_id}"
+        else:
+            domain = item[2] if item[2] else ""
+            display_name = f"{name} - {domain}" if domain else name
+            
+        items_html += f'<li><a href="{link_base}/{slug}">{display_name}</a></li>'
+        
+    if not items_html:
+        items_html = "<li>No entries found for this letter.</li>"
+        
+    pagination_html = ""
+    if total_pages > 1:
+        pagination_html += '<div class="pagination">'
+        if page > 1:
+            pagination_html += f'<a href="?page={page-1}">&laquo; Previous 1000</a>'
+        pagination_html += f'<span>Page {page} of {total_pages}</span>'
+        if page < total_pages:
+            pagination_html += f'<a href="?page={page+1}">Next 1000 &raquo;</a>'
+        pagination_html += '</div>'
+        
+    html = f'''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{title_prefix} starting with {letter}</title>
+        <style>
+            body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b1528; color: #f8fafc; margin: 0; padding: 40px 20px; }}
+            .container {{ max-width: 900px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; }}
+            h1 {{ color: #10b981; margin-top: 0; border-bottom: 1px solid #334155; padding-bottom: 20px; }}
+            ul {{ list-style-type: none; padding: 0; column-count: 2; column-gap: 40px; }}
+            @media (max-width: 768px) {{ ul {{ column-count: 1; }} }}
+            li {{ margin-bottom: 12px; font-size: 15px; border-bottom: 1px dashed #334155; padding-bottom: 8px; }}
+            a {{ color: #38bdf8; text-decoration: none; transition: color 0.2s; }}
+            a:hover {{ color: #10b981; text-decoration: underline; }}
+            .back-link {{ display: inline-block; margin-bottom: 20px; color: #94a3b8; text-decoration: none; }}
+            .back-link:hover {{ color: #10b981; }}
+            .pagination {{ display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #334155; }}
+            .pagination a {{ background: #10b981; color: white; padding: 10px 20px; border-radius: 6px; }}
+            .pagination a:hover {{ background: #059669; text-decoration: none; }}
+            .stat {{ color: #94a3b8; font-size: 14px; margin-bottom: 20px; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <a href="/directory/{category}" class="back-link">&larr; Back to A-Z Index</a>
+            <h1>{title_prefix} starting with "{letter}"</h1>
+            <div class="stat">Found {total_count:,} profiles. Showing page {page} of {total_pages}.</div>
+            <ul>
+                {items_html}
+            </ul>
+            {pagination_html}
+        </div>
+    </body>
+    </html>
+    '''
+    return HTMLResponse(content=html)
+

@@ -3,7 +3,7 @@
    ========================================================================== */
 
 /* Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
 
 :root {
     /* Color Palette */
@@ -693,8 +693,8 @@ body {
     background-image: url('tech_bg.webp') !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-    background-attachment: fixed !important;
-    background-position: center !important;
+    background-attachment: scroll !important; /* FIXED MOBILE LAG */
+    background-position: center top !important;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;

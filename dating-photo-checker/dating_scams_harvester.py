@@ -5,7 +5,10 @@ import re
 from datetime import datetime, timedelta
 import random
 
-PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
+if os.path.exists('/var/data'):
+    PERSISTENT_DIR = '/var/data'
+else:
+    PERSISTENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(PERSISTENT_DIR, "database.db")
 
 def init_db():
@@ -182,16 +185,15 @@ def generate_dating_scam_dossiers(target_count=10000):
     cursor.execute("SELECT COUNT(*) FROM dating_scam_profiles")
     existing_count = cursor.fetchone()[0]
     print(f"Existing profiles: {existing_count}. Scaling database to {target_count}+ dossiers...")
-    
-    generated_slugs = set()
-    cursor.execute("SELECT slug FROM dating_scam_profiles")
-    for row in cursor.fetchall():
-        generated_slugs.add(row[0])
-        
+            
     added = 0
     batch_size = 1000
     
-    for i in range(1, target_count + 1):
+    amount_to_add = max(0, target_count - existing_count)
+    if amount_to_add == 0:
+        print("Already at target count.")
+        return
+    for i in range(1, amount_to_add + 1):
         cat_info = random.choice(CATEGORIES)
         category_name, default_gender, prof_list = cat_info
         
@@ -214,14 +216,9 @@ def generate_dating_scam_dossiers(target_count=10000):
         script_list = SCRIPTS.get(category_name, SCRIPTS["Military Romance Scam"])
         script = random.choice(script_list)
         
-        slug_raw = f"{f_name}-{l_name}-{category_name}-{i}"
+        slug_raw = f"{f_name}-{l_name}-{category_name}-{random.randint(10000, 999999)}"
         slug = re.sub(r'[^a-z0-9]+', '-', slug_raw.lower()).strip('-')
-        
-        if slug in generated_slugs:
-            continue
-            
-        generated_slugs.add(slug)
-        
+                
         stolen_source = random.choice([
             "Instagram @verified_public_creator", "LinkedIn Corporate Executive Profile",
             "TikTok Verified Model Portfolio", "Twitter/X Verified Public Media",

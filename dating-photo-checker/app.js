@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    
+
     
     // ==========================================================================
     // MULTILINGUAL LOCALIZATION ENGINE
@@ -1004,29 +1007,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const paywallUnlockBasicBtn = document.getElementById('paywall-unlock-basic-btn');
     const paywallUnlockSingleBtn = document.getElementById('paywall-unlock-single-btn');
 
-    if (paywallUnlockBasicBtn) {
-        paywallUnlockBasicBtn.addEventListener('click', () => {
-            updateCheckoutModalUI('basic');
-            checkoutModal.classList.add('open');
-            cardEmailInput.focus();
-        });
-    }
+    if (paywallUnlockBasicBtn) { paywallUnlockBasicBtn.addEventListener('click', () => { showUnlockedResults(); }); }
 
-    if (paywallUnlockSingleBtn) {
-        paywallUnlockSingleBtn.addEventListener('click', () => {
-            updateCheckoutModalUI('single');
-            checkoutModal.classList.add('open');
-            cardEmailInput.focus();
-        });
-    }
+    if (paywallUnlockSingleBtn) { paywallUnlockSingleBtn.addEventListener('click', () => { showUnlockedResults(); }); }
 
-    if (paywallUnlockBtn) {
-        paywallUnlockBtn.addEventListener('click', () => {
-            updateCheckoutModalUI('bundle');
-            checkoutModal.classList.add('open');
-            cardEmailInput.focus();
-        });
-    }
+    if (paywallUnlockBtn) { paywallUnlockBtn.addEventListener('click', () => { showUnlockedResults(); }); }
 
     closeModalBtn.addEventListener('click', () => {
         checkoutModal.classList.remove('open');
@@ -1661,62 +1646,6 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
     }
 
     initSocialProofToasts();
-
-    // ==========================================================================
-    // VIDEO PLAY BUTTON HANDLER (Click anywhere on container or play button)
-    // ==========================================================================
-    const playVideoBtn = document.getElementById('play-video-btn');
-    const videoContainer = document.getElementById('video-player-container');
-
-    function playExplainerVideo() {
-        if (!videoContainer) return;
-        videoContainer.innerHTML = `
-            <video src="/explainer.mp4" controls autoplay playsinline style="
-                width: 100%;
-                height: 100%;
-                aspect-ratio: 16/9;
-                border-radius: 20px;
-                border: 1px solid rgba(255,255,255,0.08);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                background: #000;
-                object-fit: cover;
-            "></video>
-        `;
-    }
-
-    if (videoContainer) {
-        videoContainer.style.cursor = 'pointer';
-        videoContainer.addEventListener('click', playExplainerVideo);
-    }
-    if (playVideoBtn) {
-        playVideoBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            playExplainerVideo();
-        });
-    }
-
-    // Auto-unlock polling function & session restore on page refresh
-    let autoUnlockTimer = null;
-    function startAutoUnlockPolling(scanId) {
-        if (autoUnlockTimer) clearInterval(autoUnlockTimer);
-        autoUnlockTimer = setInterval(async () => {
-            try {
-                const res = await fetch(`/api/results/${scanId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && (data.payment_status === 'paid' || data.unlocked || data.matches)) {
-                        clearInterval(autoUnlockTimer);
-                        renderPremiumDetails(data);
-                        showUnlockedResults();
-                        const workspaceEl = document.getElementById('scanner-workspace');
-                        if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
-            } catch (err) {
-                console.error("Polling error: ", err);
-            }
-        }, 2000); // Check every 2 seconds for instant admin unlock
-    }
 
     // Check URL parameters ONLY for return from PayPal / explicit report link
     const urlParams = new URLSearchParams(window.location.search);
