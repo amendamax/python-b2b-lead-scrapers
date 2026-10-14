@@ -52,3 +52,7 @@ gmail-automation-engine/app_passwords.json
 **/*-key.json
 **/.env
 **/.dev.vars
+dreamcarhunt/
+job-scam-radar/
+pill-scam-radar/
+app-scam-radar/
