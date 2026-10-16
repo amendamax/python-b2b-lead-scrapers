@@ -1,0 +1,25 @@
+{
+  "name": "radar-indexer",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-10-11",
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "radar-network-db",
+      "database_id": "fb926a0f-f76c-4a9c-addf-abaf17f3fd2a"
+    },
+    {
+      "binding": "DB_ITALY",
+      "database_name": "master_italy",
+      "database_id": "08eee5f4-d966-41f9-8981-7da60a395807"
+    },
+    {
+      "binding": "DB_ROMANIA",
+      "database_name": "master_romania",
+      "database_id": "59928b3b-b4b7-45e2-8c79-7a2a6f0fa83a"
+    }
+  ]
+}
