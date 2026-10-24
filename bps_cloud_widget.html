@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ BPS™ Cloud Autopilot &amp; BPS-15K Smart BESS — Bratu Power Systems (RO • HU • IT)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #060b16;
+      color: #f8fafc;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .bps-grid-bg {
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.14) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+    @keyframes pulseGlowGreen {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45), 0 15px 35px -10px rgba(16, 185, 129, 0.25); }
+      50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0), 0 20px 45px -5px rgba(16, 185, 129, 0.4); }
+    }
+    @keyframes pulseGlowBlue {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.45), 0 15px 35px -10px rgba(59, 130, 246, 0.25); }
+      50% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0), 0 20px 45px -5px rgba(59, 130, 246, 0.4); }
+    }
+    .card-door-green {
+      animation: pulseGlowGreen 4s infinite;
+    }
+    .card-door-blue {
+      animation: pulseGlowBlue 4.5s infinite;
+    }
+  </style>
+</head>
+<body class="bps-grid-bg min-h-screen antialiased selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- ===================================================================== -->
+  <!-- MODUL INJECTABIL BPS™ CLOUD + CELE 2 UȘI (RO / HU / IT)               -->
+  <!-- ===================================================================== -->
+  <section id="bps-cloud-module" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+    <!-- 1. HEADER DE AUTORITATE & SELECTOR PIAȚĂ (RO / HU / IT) -->
+    <div class="rounded-3xl bg-slate-900/90 border border-slate-700/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl mb-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-800 pb-5">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-extrabold tracking-wide uppercase">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            ⚡ BPS™ — Bratu Power Systems
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-bold">
+            🇮🇹 Engineered in Italy (P.IVA IT04226190041)
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold">
+            🇷🇴 Assembled in EU — Odobești, Romania
+          </span>
+        </div>
+
+        <!-- Language / Market Switcher -->
+        <div class="flex items-center gap-2 self-start lg:self-auto bg-slate-950/90 p-1.5 rounded-xl border border-slate-800">
+          <span class="text-[11px] font-bold text-slate-400 px-2 uppercase">Piață / Limbă:</span>
+          <button type="button" onclick="setBpsLang('ro')" id="btn-lang-ro" class="px-3 py-1.5 rounded-lg text-xs font-extrabold bg-emerald-500 text-slate-950 transition">
+            🇷🇴 RO (OPCOM)
+          </button>
+          <button type="button" onclick="setBpsLang('hu')" id="btn-lang-hu" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
+            🇭🇺 HU (HUPX)
+          </button>
+          <button type="button" onclick="setBpsLang('it')" id="btn-lang-it" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
+            🇮🇹 IT (GME PUN)
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-8">
+          <h1 id="bps-hero-title" class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white leading-tight">
+            Cloud Energy Autopilot &amp; AI-UPS: <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-300 to-blue-400">Încărcăm Bateria pe Tarif Minim la 03:00 și Înghețăm Contorul la 0 W Seara!</span>
+          </h1>
+          <p id="bps-hero-sub" class="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+            Majoritatea bateriilor fotovoltaice stau <strong>goale toată iarna (la 15% SOC)</strong> când e înnorat, iar proprietarii plătesc curent scump seara. Algoritmul <strong>BPS™ Cloud</strong> citește radiația solară pe următoarele 24h (Open-Meteo) și prețurile bursiere (OPCOM / HUPX / GME), comandând de la distanță invertorul tău să cumpere curent ieftin noaptea și să livreze <strong>0 W consum din rețea între orele 18:00–22:00</strong>.
+          </p>
+        </div>
+
+        <div class="lg:col-span-4 bg-slate-950/90 border border-emerald-500/30 rounded-2xl p-4 flex flex-col justify-between gap-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Telemetrie Nod Pilot Live</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono-tech font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              ● ONLINE • MODBUS CLOUD
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-800">
+              <div class="text-[10px] text-slate-400 uppercase font-bold">ORA 03:00</div>
+              <div class="text-xs sm:text-sm font-black text-cyan-400 font-mono-tech mt-0.5" id="stat-box1-val">ÎNCĂRCARE 95%</div>
+              <div class="text-[10px] text-slate-400" id="stat-night-price">0,38 RON/kWh</div>
+            </div>
+            <div class="bg-slate-900/90 p-2.5 rounded-xl border border-emerald-500/40">
+              <div class="text-[10px] text-emerald-300 uppercase font-bold">ORA 19:00 VÂRF</div>
+              <div class="text-xs sm:text-sm font-black text-emerald-400 font-mono-tech mt-0.5" id="stat-box2-val">REȚEA 0 W</div>
+              <div class="text-[10px] text-emerald-300">Contor Înghețat</div>
+            </div>
+            <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-800">
+              <div class="text-[10px] text-slate-400 uppercase font-bold">BACKUP AI-UPS</div>
+              <div class="text-xs sm:text-sm font-black text-amber-400 font-mono-tech mt-0.5" id="stat-box3-val">72 ORE (3 ZILE)</div>
+              <div class="text-[10px] text-slate-400">Centrală &amp; Casă</div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1">
+            <span>Economie Medie Verificată:</span>
+            <strong id="stat-annual-saving" class="text-emerald-400 font-mono-tech text-xs">+1.150 € / an (5.720 RON)</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. SIMULATOR / DASHBOARD LIVE (DEMO VIZUAL 24 ORE) -->
+    <div class="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 md:p-8 shadow-xl mb-10">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-cyan-400 mb-1">
+            <i class="fa-solid fa-microchip"></i>
+            <span id="sim-badge-title">SIMULATOR LIVE 24H — DECIZIA AUTOPILOTULUI BPS™ CLOUD</span>
+          </div>
+          <h2 id="sim-main-title" class="text-xl sm:text-2xl font-black text-white">
+            Cum arată o zi de iarnă / înnorată cu Autopilotul BPS™ activat pe bateria ta (15 kWh)
+          </h2>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="setSimScenario('winter')" id="btn-scen-winter" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-extrabold bg-cyan-500 text-slate-950 transition">
+            <i class="fa-solid fa-cloud-moon-rain"></i>
+            <span>Zi Înnorată / Iarnă (Force Charge 03:00)</span>
+          </button>
+          <button type="button" onclick="setSimScenario('negative')" id="btn-scen-negative" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+            <i class="fa-solid fa-sun"></i>
+            <span>Prânz cu Preț Negativ (Absorbție 13:00)</span>
+          </button>
+          <button type="button" onclick="setSimScenario('bess')" id="btn-scen-bess" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+            <i class="fa-solid fa-server"></i>
+            <span>Dulap BPS-15K (Fără Panouri)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual 24-Hour Bar Chart -->
+      <div class="bg-slate-950 border border-slate-800/90 rounded-2xl p-4 sm:p-6 mb-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs">
+          <div class="flex flex-wrap items-center gap-4">
+            <span class="inline-flex items-center gap-1.5 font-semibold text-cyan-300">
+              <span class="w-3 h-3 rounded bg-cyan-400 inline-block"></span>
+              01:00–05:00: Force Charge din Rețea (Tarif Minim)
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-semibold text-amber-300">
+              <span class="w-3 h-3 rounded bg-amber-400 inline-block"></span>
+              08:00–17:00: Solar / Standby AI-UPS
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-300">
+              <span class="w-3 h-3 rounded bg-emerald-400 inline-block"></span>
+              18:00–22:00: Contor Înghețat la 0 W (Descărcare Baterie în Vârf Scump)
+            </span>
+          </div>
+          <span id="sim-status-pill" class="font-mono-tech text-xs font-bold text-emerald-400">
+            Registru Modbus #142 = 2 (ZERO_EXPORT_TO_CT)
+          </span>
+        </div>
+
+        <!-- 8 Key Time Slots Visual Timeline -->
+        <div id="sim-timeline-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Live Telemetry Comparison Table -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-slate-950 text-slate-400 border-b border-slate-800 uppercase text-[11px] tracking-wider">
+              <th class="py-3.5 px-4">Interval Orar</th>
+              <th class="py-3.5 px-4">Preț Spot / Tarif</th>
+              <th class="py-3.5 px-4">Fără BPS™ Cloud (Invertoare Standard)</th>
+              <th class="py-3.5 px-4 text-emerald-400">Cu Autopilotul BPS™ Cloud Activat</th>
+              <th class="py-3.5 px-4 text-right">Consum Rețea</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/70 bg-slate-900/60">
+            <tr class="hover:bg-slate-800/40">
+              <td class="py-3.5 px-4 font-mono-tech font-bold text-cyan-300">🌙 01:00 – 05:00 (Ora 03:00)</td>
+              <td class="py-3.5 px-4 font-mono-tech text-cyan-300" id="tbl-price-03">0,031 €/kWh (Minim PZU/HUPX)</td>
+              <td class="py-3.5 px-4 text-rose-300">❌ Bateria doarme goală la 15% SOC toată noaptea</td>
+              <td class="py-3.5 px-4 text-emerald-300 font-semibold">⚡ Comandă API: Force Charge la 95% SOC pe cel mai ieftin curent</td>
+              <td class="py-3.5 px-4 text-right font-mono-tech text-cyan-300">4.800 W (Ieftin)</td>
+            </tr>
+            <tr class="hover:bg-slate-800/40">
+              <td class="py-3.5 px-4 font-mono-tech font-bold text-amber-300">☀️ 11:00 – 15:00 (Prânz)</td>
+              <td class="py-3.5 px-4 font-mono-tech text-amber-300" id="tbl-price-13">0,00 € / Negativ sau Înnorat</td>
+              <td class="py-3.5 px-4 text-rose-300">❌ Injectează în rețea pe 5 Ft / 0,25 RON sau stă descărcată</td>
+              <td class="py-3.5 px-4 text-emerald-300 font-semibold">🛡️ Absoarbe 100% vârful solar/negativ sau menține rezerva AI-UPS 95%</td>
+              <td class="py-3.5 px-4 text-right font-mono-tech text-emerald-400 font-bold">0 W</td>
+            </tr>
+            <tr class="bg-emerald-950/25 hover:bg-emerald-950/40">
+              <td class="py-3.5 px-4 font-mono-tech font-extrabold text-emerald-400">🔥 18:00 – 22:00 (Ora 19:00 Vârf)</td>
+              <td class="py-3.5 px-4 font-mono-tech font-bold text-rose-400" id="tbl-price-19">0,36 €/kWh (Maxim Seară)</td>
+              <td class="py-3.5 px-4 text-rose-300 font-semibold">❌ Trage 3.200 W din rețea la preț maxim de vârf!</td>
+              <td class="py-3.5 px-4 text-emerald-300 font-extrabold">❄️ ZERO EXPORT TO CT: Casa merge 100% din baterie! Contor înghețat!</td>
+              <td class="py-3.5 px-4 text-right font-mono-tech text-base font-black text-emerald-400">0 W (ÎNGHEȚAT)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- 3. BIFURCAREA ÎN „CELE 2 UȘI” (CONVERSIE CLIENTUL ZERO + BESS 15K)  -->
+    <!-- =================================================================== -->
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-extrabold uppercase tracking-wider">
+        👇 ALEGE SITUAȚIA TA ACTUALĂ (CELE 2 UȘI BPS™)
+      </span>
+      <h2 id="doors-heading" class="text-2xl sm:text-3xl font-black text-white mt-3">
+        Ai deja panouri cu baterie sau vrei sistemul fizic la cheie fără panouri?
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+      <!-- ================================================================= -->
+      <!-- UȘA 1: CARDUL VERDE ELECTRIC (BPS CLOUD SaaS — 5 CLIENȚI PILOT)   -->
+      <!-- ================================================================= -->
+      <div class="card-door-green rounded-3xl bg-gradient-to-b from-emerald-950/70 via-slate-900 to-slate-950 border-2 border-emerald-500 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-500 text-slate-950 font-black text-xs uppercase tracking-wider">
+              🟢 UȘA 1 • DOAR SOFTWARE CLOUD (TOATĂ EUROPA)
+            </span>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono-tech text-xs font-bold">
+              5 LOCURI PILOT • 7 ZILE TEST TEHNIC GRATUIT
+            </span>
+          </div>
+
+          <h3 id="door1-title" class="text-2xl sm:text-3xl font-black text-white leading-tight">
+            AI DEJA PANOURI ȘI BATERIE? <span class="text-emerald-400">Căutăm 5 Clienți Pilot (7 Zile Test Tehnic GRATUIT)!</span>
+          </h3>
+
+          <p id="door1-desc" class="mt-3 text-sm text-slate-300 leading-relaxed">
+            Dacă ai invertor <strong>Deye, Huawei, Victron, ZCS Azzurro, Fronius sau Sungrow</strong>, iarna și în zilele înnorate bateria ta stă descărcată la 15–20%, iar în Ungaria (<em>Bruttó Elszámolás</em>) sau România (<em>PZU</em>) vinzi curentul pe mărunțiș (5 Ft / 0,25 RON) și îl cumperi seara de 10 ori mai scump!
+          </p>
+
+          <ul class="mt-4 space-y-2.5 text-xs sm:text-sm text-slate-200">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+              <span><strong>Conectare 100% la distanță în 15 minute:</strong> Ne conectăm direct prin API-ul Solarman / Deye Cloud / FusionSolar / VRM. <strong>Nu vine nimeni acasă la tine și nu se taie niciun fir!</strong></span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+              <span><strong>Autopilot Meteo + Bursă:</strong> Dacă mâine plouă sau ninge, BPS™ Cloud îți încarcă automat bateria noaptea la 03:00 pe tarif minim și îți ține contorul la <strong>0 W seara (18:00–22:00)</strong>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+              <span><strong>Zero risc (7 Zile Beta Tester 0 €):</strong> Testezi gratuit 7 zile (Test Tehnic Gratuit). Dacă nu vezi pe aplicația ta că factura scade cu încă 35%–50%, îl oprim cu un click! (Apoi doar 15 €/lună).</span>
+            </li>
+          </ul>
+
+          <!-- Formular Ușa 1 (Clientul Zero) -->
+          <form id="form-door-1" onsubmit="submitBpsDoor1(event)" class="mt-6 bg-slate-950/90 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 space-y-3.5">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center justify-between">
+              <span>⚡ Înscriere Rapidă Client Pilot (7 Zile Test Tehnic Gratuit 0 €)</span>
+              <span class="text-[11px] text-amber-300">Mai sunt 3 din 5 locuri!</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Marca Invertorului Tău *</label>
+                <select id="d1-inverter" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-400 outline-none">
+                  <option value="Deye Hybrid (Solarman / Deye Cloud)">Deye Hybrid (Solarman / Deye Cloud)</option>
+                  <option value="Huawei SUN2000 (LUNA2000)">Huawei SUN2000 + LUNA2000</option>
+                  <option value="Victron Energy (Cerbo GX / VRM)">Victron Energy (Cerbo GX / VRM)</option>
+                  <option value="ZCS Azzurro / Sofar Solar">ZCS Azzurro / Sofar Solar</option>
+                  <option value="Fronius GEN24 + BYD">Fronius GEN24 + BYD</option>
+                  <option value="Sungrow / Growatt / Altul">Sungrow / Growatt / Altul</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Capacitate Baterie (kWh) *</label>
+                <input type="text" id="d1-battery" required placeholder="ex: 10 kWh, 15 kWh, 20 kWh" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-400 outline-none" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Localitate &amp; Țară (RO/HU/IT) *</label>
+                <input type="text" id="d1-city" required placeholder="ex: București / Budapesta / Torino" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-400 outline-none" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Telefon / WhatsApp *</label>
+                <input type="tel" id="d1-phone" required placeholder="ex: +40 7xx / +36 30 / +39 3xx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-400 outline-none" />
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-400 hover:from-emerald-400 hover:to-green-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-satellite-dish"></i>
+              <span>Activează-mi Testul Tehnic Gratuit 7 Zile (Fără Vizită Acasă) →</span>
+            </button>
+            <div id="d1-feedback" class="hidden text-xs font-bold text-emerald-300 text-center pt-1"></div>
+          </form>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+          <span>🔒 Acces API Read/Write securizat • Oprire oricând</span>
+          <span class="text-emerald-400 font-bold">Suport WhatsApp Direct: +39 320 948 1876</span>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- UȘA 2: CARDUL ALBASTRU INDUSTRIAL (DULAPUL BPS-15K / 30K BESS)    -->
+      <!-- ================================================================= -->
+      <div class="card-door-blue rounded-3xl bg-gradient-to-b from-blue-950/70 via-slate-900 to-slate-950 border-2 border-blue-500 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+        <div>
+          <!-- Badge de Status Ingineresc & Contor Lot Pilot (5 Unități) -->
+          <div class="mb-3 rounded-2xl bg-amber-500/15 border border-amber-400/50 px-3.5 py-2.5 flex items-center gap-2.5 text-amber-300 text-xs font-extrabold tracking-wide uppercase shadow-inner">
+            <i class="fa-solid fa-screwdriver-wrench text-amber-400 text-sm shrink-0"></i>
+            <span>PROTOTIP ÎN TESTARE PE BANC (ODOBEȘTI, RO) • DESCHIS PENTRU REZERVĂRI LOTUL #1 (0€ AVANS)</span>
+          </div>
+
+          <div class="mb-4 rounded-xl bg-blue-950/80 border border-blue-400/40 px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span class="text-blue-200 font-bold"><i class="fa-solid fa-boxes-stacked text-blue-400 mr-1.5"></i>Lotul Pilot #1 (Noiembrie/Decembrie): 5 Unități Alocate — Înscrie-te pe lista prioritară pentru preț direct de fabrică</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono-tech text-[11px] font-extrabold shrink-0">5 / 5 DISPONIBILE • 0€ AVANS</span>
+          </div>
+
+          <h3 id="door2-title" class="text-2xl sm:text-3xl font-black text-white leading-tight">
+            NU AI PANOURI ȘI VREI FACTURA LA JUMĂTATE? <span class="text-blue-400">Dulapul Inteligent BPS-15K Plug &amp; Play!</span>
+          </h3>
+
+          <p id="door2-desc" class="mt-3 text-sm text-slate-300 leading-relaxed">
+            Nu ai acoperiș bun, stai la casă/vilă sau ai o firmă (brutărie, clinică, pensiune, depozit, seră) și nu vrei șantier pe acoperiș sau dosar de prosumator? Îți livrăm pe palet din fabrica noastră din <strong>Odobești (RO)</strong> dulapul industrial blindat <strong>BPS-15K (15 kWh) sau BPS-30K (30 kWh)</strong> pre-cablat și pre-configurat cu <strong>BPS™ Cloud Autopilot</strong>!
+          </p>
+
+          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-slate-200">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-bolt text-blue-400 mt-1"></i>
+              <span><strong>Fără șantier pe acoperiș &amp; fără dosar de prosumator:</strong> Se leagă direct la tabloul electric în 2 ore ca un electrocasnic industrial. Nu injectează nimic în rețea (<em>Zero-Export garantat</em>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-shield-halved text-blue-400 mt-1"></i>
+              <span><strong>Autonomie 72 Ore AI-UPS (&lt; 4 ms) + Arbitraj de Noapte:</strong> Ține centrala termică pe gaz/peleți, pompele, frigiderele, serverele și luminile pornite <strong>3 zile</strong> la orice pană de curent, iar zilnic încarcă curent ieftin la 03:00 și îl consumă ziua!</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-file-invoice-dollar text-amber-400 mt-1"></i>
+              <span><strong>Facturare cu 0% TVA Intracomunitar (B2B Reverse Charge):</strong> Facturat direct de pe compania noastră din Italia (<strong>VasileDev Group • P.IVA IT04226190041</strong>) pentru firme din România și Ungaria (economisești din start 19% / 27% TVA!).</span>
+            </li>
+          </ul>
+
+          <!-- Specificații Tehnice Rapide Dulap BPS-15K / 30K -->
+          <div class="mt-4 grid grid-cols-3 gap-2 bg-slate-950/80 border border-blue-500/30 rounded-xl p-2.5 text-center text-xs">
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase font-bold">BPS-15K HOME</div>
+              <div class="font-mono-tech font-extrabold text-white">15 kWh + 6 kW</div>
+              <div class="text-[10px] text-blue-300">230V Monofazat</div>
+            </div>
+            <div class="border-x border-slate-800">
+              <div class="text-[10px] text-slate-400 uppercase font-bold">BPS-15K PRO</div>
+              <div class="font-mono-tech font-extrabold text-white">15 kWh + 10 kW</div>
+              <div class="text-[10px] text-blue-300">400V Trifazat</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase font-bold">BPS-30K IND.</div>
+              <div class="font-mono-tech font-extrabold text-amber-400">30 kWh + 12 kW</div>
+              <div class="text-[10px] text-emerald-300">400V Trifazat</div>
+            </div>
+          </div>
+
+          <!-- Formular Ușa 2 (Lista de Rezervare Prioritară Lotul Pilot #1 — 5 Unități, Fără Avans) -->
+          <form id="form-door-2" onsubmit="submitBpsDoor2(event)" class="mt-4 bg-slate-950/90 border border-blue-500/40 rounded-2xl p-4 sm:p-5 space-y-3">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-blue-400 flex items-center justify-between gap-2">
+              <span><i class="fa-solid fa-server mr-1.5"></i>LISTA DE REZERVARE PRIORITARĂ (LOTUL PILOT — 5 UNITĂȚI, FĂRĂ AVANS)</span>
+            </div>
+
+            <!-- Câmp 1: Model & Configurație dorită -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">1. Model &amp; Configurație Dorită *</label>
+              <select id="d2-model" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-blue-400 outline-none">
+                <option value="BPS-15K HOME — 15 kWh LiFePO4 + Invertor 6 kW (230V Monofazat • Casă & Centrală Termică)">BPS-15K HOME — 15 kWh LiFePO4 + Invertor 6 kW (230V Monofazat • Casă &amp; Centrală Termică)</option>
+                <option value="BPS-15K PRO — 15 kWh LiFePO4 + Invertor 10 kW (400V Trifazat • Vilă / Atelier)">BPS-15K PRO — 15 kWh LiFePO4 + Invertor 10 kW (400V Trifazat • Vilă / Atelier)</option>
+                <option value="BPS-30K INDUSTRIAL — 30 kWh LiFePO4 + Invertor 12 kW (400V Trifazat • Cramă / Magazin / HoReCa)">BPS-30K INDUSTRIAL — 30 kWh LiFePO4 + Invertor 12 kW (400V Trifazat • Cramă / Magazin / HoReCa)</option>
+              </select>
+            </div>
+
+            <!-- Câmp 2 & Câmp 3: Scopul Principal + Tip Achiziție -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">2. Scopul Principal *</label>
+                <select id="d2-purpose" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-blue-400 outline-none">
+                  <option value="Reducere Factură 50% (Arbitraj Tarif de Noapte fără panouri)">Reducere Factură 50% (Arbitraj Tarif de Noapte fără panouri)</option>
+                  <option value="Backup 72h Pană de Curent (UPS Centrală / Pompă de căldură / Firmă)">Backup 72h Pană de Curent (UPS Centrală / Pompă de căldură / Firmă)</option>
+                  <option value="Integrare cu Panouri Fotovoltaice Existente">Integrare cu Panouri Fotovoltaice Existente</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">3. Tip Achiziție *</label>
+                <select id="d2-buyer" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-blue-400 outline-none">
+                  <option value="Firmă / B2B (Facturare cu 0% TVA Intracomunitar — VIES IT04226190041)">Firmă / B2B (Facturare cu 0% TVA Intracomunitar — VIES IT04226190041)</option>
+                  <option value="Persoană Fizică (Livrare pe palet Plug & Play)">Persoană Fizică (Livrare pe palet Plug &amp; Play)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Câmp 4 & Câmp 5: Localitate + Țară și Telefon / WhatsApp -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">4. Localitate + Țară *</label>
+                <input type="text" id="d2-city" required placeholder="ex: Focșani (RO), Budapesta (HU), Torino (IT)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-blue-400 outline-none" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">5. Telefon / WhatsApp *</label>
+                <input type="tel" id="d2-phone" required placeholder="ex: +40 7xx / +36 30 / +39 3xx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white focus:border-blue-400 outline-none" />
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-lock"></i>
+              <span>REZERVĂ 1 DIN CELE 5 UNITĂȚI PILOT (FĂRĂ AVANS) &amp; PRIMEȘTE FIȘA TEHNICĂ -></span>
+            </button>
+            <div id="d2-feedback" class="hidden text-xs font-bold text-blue-300 text-center pt-1"></div>
+          </form>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+          <span><i class="fa-solid fa-industry text-blue-400 mr-1"></i>Asamblat în UE (Odobești, RO) • Factură VIES 0% TVA (IT04226190041)</span>
+          <span class="text-blue-400 font-bold">Ing. Vasile Bratu</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- LOGICA INTERACTIVĂ SIMULATOR 24H + TRADUCERI RO/HU/IT + TRIMITERE LEAD -->
+  <!-- ===================================================================== -->
+  <script>
+    const BPS_WHATSAPP_NUMBER = "393209481876";
+
+    const SIM_SCENARIOS = {
+      winter: [
+        { hour: "01:00", mode: "ÎNCĂRCARE FORȚATĂ", soc: "45%", grid: "4.800 W", price: "0,034 €", color: "border-cyan-500/60 bg-cyan-950/30 text-cyan-300" },
+        { hour: "03:00", mode: "ÎNCĂRCARE FORȚATĂ", soc: "95%", grid: "4.800 W", price: "0,031 € (MIN)", color: "border-cyan-400 bg-cyan-900/40 text-cyan-200 ring-2 ring-cyan-400/50" },
+        { hour: "08:00", mode: "VÂRF DIMINEAȚĂ", soc: "84%", grid: "0 W", price: "0,24 €", color: "border-emerald-500/50 bg-emerald-950/20 text-emerald-300" },
+        { hour: "12:00", mode: "ÎNNORAT / IARNĂ", soc: "78%", grid: "0 W", price: "0,16 €", color: "border-slate-700 bg-slate-900 text-slate-300" },
+        { hour: "16:00", mode: "PREGĂTIRE VÂRF", soc: "74%", grid: "0 W", price: "0,21 €", color: "border-amber-500/40 bg-amber-950/20 text-amber-300" },
+        { hour: "19:00", mode: "CONTOR ÎNGHEȚAT", soc: "52%", grid: "0 W (BLOCAT)", price: "0,36 € (MAX)", color: "border-emerald-400 bg-emerald-900/40 text-emerald-200 ring-2 ring-emerald-400/60" },
+        { hour: "21:00", mode: "ZERO EXPORT", soc: "31%", grid: "0 W (BLOCAT)", price: "0,31 €", color: "border-emerald-500/60 bg-emerald-950/30 text-emerald-300" },
+        { hour: "23:00", mode: "REZERVĂ AI-UPS", soc: "25%", grid: "280 W", price: "0,11 €", color: "border-slate-700 bg-slate-900 text-slate-300" }
+      ],
+      negative: [
+        { hour: "01:00", mode: "BLOCAT (AȘTEAPTĂ)", soc: "25%", grid: "250 W", price: "0,06 €", color: "border-slate-700 bg-slate-900 text-slate-400" },
+        { hour: "03:00", mode: "NU ÎNCARCĂ NOAPTEA", soc: "25%", grid: "220 W", price: "0,05 €", color: "border-slate-700 bg-slate-900 text-slate-400" },
+        { hour: "09:00", mode: "CONSUM CASĂ", soc: "30%", grid: "0 W", price: "0,14 €", color: "border-slate-700 bg-slate-900 text-slate-300" },
+        { hour: "13:00", mode: "ABSORBȚIE 100%", soc: "95%", grid: "0 W (SOARE)", price: "-0,01 € (NEG)", color: "border-amber-400 bg-amber-900/40 text-amber-200 ring-2 ring-amber-400/60" },
+        { hour: "16:00", mode: "BATERIE PLINĂ", soc: "95%", grid: "0 W", price: "0,15 €", color: "border-emerald-500/40 bg-emerald-950/20 text-emerald-300" },
+        { hour: "19:00", mode: "CONTOR ÎNGHEȚAT", soc: "68%", grid: "0 W (BLOCAT)", price: "0,35 € (MAX)", color: "border-emerald-400 bg-emerald-900/40 text-emerald-200 ring-2 ring-emerald-400/60" },
+        { hour: "21:00", mode: "ZERO EXPORT", soc: "42%", grid: "0 W (BLOCAT)", price: "0,29 €", color: "border-emerald-500/60 bg-emerald-950/30 text-emerald-300" },
+        { hour: "23:00", mode: "REZERVĂ AI-UPS", soc: "28%", grid: "0 W", price: "0,10 €", color: "border-slate-700 bg-slate-900 text-slate-300" }
+      ],
+      bess: [
+        { hour: "01:00", mode: "ARBITRAJ NOAPTE", soc: "55%", grid: "5.000 W", price: "0,033 €", color: "border-cyan-500/60 bg-cyan-950/30 text-cyan-300" },
+        { hour: "03:00", mode: "ÎNCĂRCARE FORȚATĂ", soc: "95%", grid: "5.000 W", price: "0,030 € (MIN)", color: "border-cyan-400 bg-cyan-900/40 text-cyan-200 ring-2 ring-cyan-400/50" },
+        { hour: "08:00", mode: "VÂRF DIMINEAȚĂ", soc: "80%", grid: "0 W (BLOCAT)", price: "0,25 €", color: "border-emerald-500/50 bg-emerald-950/20 text-emerald-300" },
+        { hour: "12:00", mode: "UPS 72 ORE ACTIV", soc: "72%", grid: "0 W", price: "0,14 €", color: "border-blue-500/50 bg-blue-950/30 text-blue-300" },
+        { hour: "16:00", mode: "UPS 72 ORE ACTIV", soc: "65%", grid: "0 W", price: "0,19 €", color: "border-blue-500/50 bg-blue-950/30 text-blue-300" },
+        { hour: "19:00", mode: "CONTOR ÎNGHEȚAT", soc: "44%", grid: "0 W (BLOCAT)", price: "0,36 € (MAX)", color: "border-emerald-400 bg-emerald-900/40 text-emerald-200 ring-2 ring-emerald-400/60" },
+        { hour: "21:00", mode: "ZERO EXPORT", soc: "28%", grid: "0 W (BLOCAT)", price: "0,30 €", color: "border-emerald-500/60 bg-emerald-950/30 text-emerald-300" },
+        { hour: "23:00", mode: "BACKUP CENTRALĂ", soc: "25%", grid: "260 W", price: "0,11 €", color: "border-slate-700 bg-slate-900 text-slate-300" }
+      ]
+    };
+
+    function setSimScenario(key) {
+      const slots = SIM_SCENARIOS[key] || SIM_SCENARIOS.winter;
+      const grid = document.getElementById("sim-timeline-grid");
+      grid.innerHTML = slots.map(s => `
+        <div class="rounded-xl border p-3 flex flex-col justify-between ${s.color}">
+          <div class="flex items-center justify-between text-[11px] font-mono-tech font-bold">
+            <span><i class="fa-regular fa-clock mr-1"></i>${s.hour}</span>
+            <span>SOC ${s.soc}</span>
+          </div>
+          <div class="my-2 text-xs font-black tracking-tight uppercase">${s.mode}</div>
+          <div class="text-[11px] font-mono-tech flex items-center justify-between border-t border-white/10 pt-1.5">
+            <span>Rețea: <strong>${s.grid}</strong></span>
+            <span>${s.price}</span>
+          </div>
+        </div>
+      `).join("");
+
+      ["winter", "negative", "bess"].forEach(k => {
+        const btn = document.getElementById("btn-scen-" + k);
+        if (!btn) return;
+        if (k === key) {
+          btn.className = "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-extrabold bg-cyan-500 text-slate-950 transition";
+        } else {
+          btn.className = "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+        }
+      });
+    }
+
+    const BPS_I18N = {
+      ro: {
+        heroTitle: `Cloud Energy Autopilot &amp; AI-UPS: <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-300 to-blue-400">Încărcăm Bateria pe Tarif Minim la 03:00 și Înghețăm Contorul la 0 W Seara!</span>`,
+        heroSub: `Majoritatea bateriilor fotovoltaice stau <strong>goale toată iarna (la 15% SOC)</strong> când e înnorat, iar proprietarii plătesc curent scump seara. Algoritmul <strong>BPS™ Cloud</strong> citește radiația solară pe următoarele 24h (Open-Meteo) și prețurile bursiere (OPCOM / HUPX / GME), comandând de la distanță invertorul tău să cumpere curent ieftin noaptea și să livreze <strong>0 W consum din rețea între orele 18:00–22:00</strong>.`,
+        nightPrice: "0,38 RON/kWh",
+        annualSaving: "+1.150 € / an (5.720 RON)",
+        door1Title: `AI DEJA PANOURI ȘI BATERIE? <span class="text-emerald-400">Căutăm 5 Clienți Pilot (7 Zile Test Tehnic GRATUIT)!</span>`,
+        door2Title: `NU AI PANOURI ȘI VREI FACTURA LA JUMĂTATE? <span class="text-blue-400">Dulapul Inteligent BPS-15K Plug &amp; Play!</span>`
+      },
+      hu: {
+        heroTitle: `BPS™ Cloud Energia-Autopilóta &amp; AI-UPS: <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-300 to-blue-400">03:00-kor Olcsó Árammal Töltjük az Akkut, 19:00-kor 0 W a Hálózati Fogyasztás!</span>`,
+        heroSub: `Bruttó elszámolásban 5 Ft/kWh-ért veszik át a nappali áramot, este pedig 70 Ft/kWh-ért vásárolja vissza, télen pedig üresen (15%-on) áll az akkumulátor! A <strong>BPS™ Cloud</strong> az Open-Meteo napsugárzás-előrejelzés és a HUPX tőzsdei árak alapján távolról vezérli Deye / Huawei / Victron inverterét: éjjel feltölt, este 18:00–22:00 között pedig <strong>0 W-ra fagyasztja a villanyórát</strong>.`,
+        nightPrice: "14 Ft/kWh (HUPX)",
+        annualSaving: "+455 000 Ft / év (+1.150 €)",
+        door1Title: `MÁR VAN NAPELEME ÉS AKKUJA? <span class="text-emerald-400">5 Tesztügyfelet Keresünk (7 Napos Ingyenes Teszt)!</span>`,
+        door2Title: `NINCS NAPELEME, DE FELEZNÉ A REZSIT? <span class="text-blue-400">BPS-15K Plug &amp; Play Okos Akku-Szekrény (0% ÁFA B2B)!</span>`
+      },
+      it: {
+        heroTitle: `BPS™ Cloud Energy Autopilot &amp; AI-UPS: <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-300 to-blue-400">Ricarica Notturna alle 03:00 a Prezzo Minimo e Contatore Congelato a 0 W la Sera!</span>`,
+        heroSub: `In inverno o nelle giornate nuvolose le batterie fotovoltaiche restano scariche al 15% e la sera paghi l'energia al prezzo massimo F1! L'algoritmo <strong>BPS™ Cloud</strong> legge le previsioni solari (Open-Meteo) e il PUN GME, programmando da remoto il tuo inverter (Deye, Huawei, ZCS Azzurro, Victron) per caricare ai minimi notturni e azzerare il prelievo (<strong>0 W tra le 18:00 e le 22:00</strong>).`,
+        nightPrice: "0,031 €/kWh (PUN)",
+        annualSaving: "+1.150 € / anno",
+        door1Title: `HAI GIÀ FOTOVOLTAICO E BATTERIA? <span class="text-emerald-400">Cerchiamo 5 Clienti Pilota (7 Giorni di Prova Gratuita)!</span>`,
+        door2Title: `NON HAI I PANNELLI E VUOI DIMEZZARE LA BOLLETTA? <span class="text-blue-400">Armadio Smart BPS-15K Plug &amp; Play!</span>`
+      }
+    };
+
+    function setBpsLang(lang) {
+      const t = BPS_I18N[lang] || BPS_I18N.ro;
+      document.getElementById("bps-hero-title").innerHTML = t.heroTitle;
+      document.getElementById("bps-hero-sub").innerHTML = t.heroSub;
+      document.getElementById("stat-night-price").textContent = t.nightPrice;
+      document.getElementById("stat-annual-saving").textContent = t.annualSaving;
+      document.getElementById("door1-title").innerHTML = t.door1Title;
+      document.getElementById("door2-title").innerHTML = t.door2Title;
+
+      ["ro", "hu", "it"].forEach(l => {
+        const b = document.getElementById("btn-lang-" + l);
+        if (!b) return;
+        b.className = (l === lang)
+          ? "px-3 py-1.5 rounded-lg text-xs font-extrabold bg-emerald-500 text-slate-950 transition"
+          : "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition";
+      });
+    }
+
+    async function sendBpsLeadToBackend(payload) {
+      try {
+        await fetch("/api/v1/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
+    }
+
+    function submitBpsDoor1(ev) {
+      ev.preventDefault();
+      const inv = document.getElementById("d1-inverter").value.trim();
+      const bat = document.getElementById("d1-battery").value.trim();
+      const city = document.getElementById("d1-city").value.trim();
+      const phone = document.getElementById("d1-phone").value.trim();
+
+      sendBpsLeadToBackend({
+        name: `BPS Cloud Pilot (${inv} - ${bat})`,
+        phone,
+        city_manual: city,
+        channel_mode: "bps_cloud_pilot"
+      });
+
+      const fb = document.getElementById("d1-feedback");
+      fb.classList.remove("hidden");
+      fb.textContent = "✅ Cerere înregistrată! Se deschide confirmarea rapidă pe WhatsApp cu Ing. Vasile Bratu...";
+
+      const msg = `Salut Vasile! Vreau să aplic pentru cele 7 zile de Test Tehnic GRATUIT în programul Pilot BPS Cloud Autopilot (Ușa 1).\n• Invertor: ${inv}\n• Baterie: ${bat}\n• Localitate: ${city}\n• Telefon: ${phone}`;
+      window.open(`https://wa.me/${BPS_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function submitBpsDoor2(ev) {
+      ev.preventDefault();
+      const model = document.getElementById("d2-model").value.trim();
+      const purpose = document.getElementById("d2-purpose").value.trim();
+      const buyer = document.getElementById("d2-buyer").value.trim();
+      const city = document.getElementById("d2-city").value.trim();
+      const phone = document.getElementById("d2-phone").value.trim();
+
+      sendBpsLeadToBackend({
+        name: `PILOT_LOT1_BPS_CABINET | ${model} | ${purpose} | ${buyer}`,
+        phone,
+        city_manual: city,
+        channel_mode: "PILOT_LOT1_BPS_CABINET"
+      });
+
+      const fb = document.getElementById("d2-feedback");
+      fb.classList.remove("hidden");
+      fb.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i>Rezervare prioritară înregistrată în Lotul Pilot #1! Se deschide WhatsApp-ul cu configurația ta...`;
+
+      const msg = `Salut Vasile! Vreau să rezerv 1 unitate din Lotul Pilot #1 (5 unități, 0€ avans) — Dulap Fizic BPS Smart BESS:\n• 1. Model: ${model}\n• 2. Scop principal: ${purpose}\n• 3. Achiziție: ${buyer}\n• 4. Localitate + Țară: ${city}\n• 5. Telefon / WhatsApp: ${phone}`;
+      window.open(`https://wa.me/${BPS_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    // Initialize default 24h timeline on load
+    setSimScenario("winter");
+  </script>
+</body>
+</html>
