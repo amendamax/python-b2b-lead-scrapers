@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /vasile-bratu.jpg
+Allow: /images/vasile-bratu.jpg
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /vasile-bratu.jpg
+Allow: /images/vasile-bratu.jpg
 
 # Disallow crawling of raw PDF and Excel report files to prevent non-indexed asset warnings
 Disallow: /amazon_scraper/*.xlsx$
