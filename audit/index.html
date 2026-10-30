@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>B2B Black Friday Price & Stock Matrix — Instant Self-Service Portal | VasileDev Group (IT04226190041)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        :root {
+            --bg-main: #060b16;
+            --bg-card: #0d1629;
+            --bg-card-alt: #121e36;
+            --border: rgba(148, 163, 184, 0.18);
+            --border-accent: rgba(56, 189, 248, 0.42);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --danger: #f43f5e;
+            --pp-gold: #ffc439;
+            --pp-navy: #003087;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: radial-gradient(circle at 50% 0%, #10203d 0%, var(--bg-main) 65%);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        .topbar {
+            background: rgba(6, 11, 22, 0.92);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        .topbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            color: #fff;
+        }
+        .brand-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -0.3px;
+        }
+        .brand-sub {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            display: block;
+            font-weight: 500;
+        }
+        .trust-pills {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .pill {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.32);
+            color: #34d399;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pill-blue {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.32);
+            color: #38bdf8;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 4px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 7px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: #031525;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 28px auto 60px;
+            padding: 0 20px;
+        }
+        .grid-main {
+            display: grid;
+            grid-template-columns: 1.38fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        @media (max-width: 960px) {
+            .grid-main { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+        }
+        .checkout-card {
+            border-color: var(--border-accent);
+            background: linear-gradient(180deg, #101d36 0%, #0b1324 100%);
+            position: sticky;
+            top: 76px;
+        }
+        .shop-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 27px;
+            line-height: 1.22;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.4px;
+        }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0 0 20px 0;
+        }
+        .file-box {
+            background: var(--bg-card-alt);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 12px;
+            padding: 15px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .file-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+        .excel-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.16);
+            color: #34d399;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .file-name {
+            font-family: monospace;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #fff;
+            word-break: break-all;
+        }
+        .file-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .status-ready {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .stat-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stat-lbl {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+        .preview-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--text-muted);
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            margin-bottom: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+        th {
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-muted);
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        td {
+            padding: 11px 12px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            vertical-align: middle;
+        }
+        tr:last-child td { border-bottom: none; }
+        .delta-high {
+            color: #fb7185;
+            font-weight: 700;
+            background: rgba(244, 63, 94, 0.13);
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 11.5px;
+            white-space: nowrap;
+        }
+        .locked-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(245, 158, 11, 0.14);
+            border: 1px dashed rgba(245, 158, 11, 0.45);
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .deliverables {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0 0;
+            display: grid;
+            gap: 8px;
+        }
+        .deliverables li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+        }
+        .deliverables li i {
+            color: var(--emerald);
+            margin-top: 3px;
+        }
+        .flash-banner {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(234, 88, 12, 0.12));
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            color: #fcd34d;
+            border-radius: 10px;
+            padding: 10px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 16px;
+        }
+        .tier-option {
+            border: 1.5px solid var(--border);
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 12px;
+            padding: 14px 15px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.16s ease;
+        }
+        .tier-option.selected {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.09);
+            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25);
+        }
+        .tier-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .tier-name {
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .price-block {
+            text-align: right;
+            white-space: nowrap;
+        }
+        .price-old {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 12.5px;
+            margin-right: 6px;
+        }
+        .price-new {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .tier-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        .form-group {
+            margin-bottom: 11px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .form-input {
+            width: 100%;
+            background: rgba(6, 11, 22, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 11px;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn-paypal {
+            width: 100%;
+            background: var(--pp-gold);
+            color: var(--pp-navy);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 22px rgba(255, 196, 57, 0.28);
+            transition: transform 0.12s ease, filter 0.12s ease;
+            margin-top: 14px;
+        }
+        .btn-paypal:hover {
+            filter: brightness(1.04);
+            transform: translateY(-1px);
+        }
+        .btn-paypal:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+        .cards-note {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.45;
+        }
+        .cards-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        /* Paid / Unlocked View */
+        .paid-box {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(6, 78, 59, 0.28));
+            border: 1.5px solid rgba(16, 185, 129, 0.55);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 26px;
+        }
+        .btn-download {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        .btn-invoice {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        /* Printable EU Commercial Invoice */
+        #printable-invoice {
+            display: none;
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 12px;
+            padding: 36px;
+            margin-top: 24px;
+        }
+        @media print {
+            body { background: #fff !important; color: #000 !important; }
+            .topbar, .grid-main, .no-print { display: none !important; }
+            .container { margin: 0; padding: 0; max-width: 100%; }
+            #printable-invoice { display: block !important; box-shadow: none; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="https://vasiledev.com" class="brand">
+                <span class="brand-logo">VD</span>
+                <span>
+                    <span class="brand-text">VasileDev Group</span>
+                    <span class="brand-sub">E-Commerce Price &amp; Stock Intelligence · EU VAT IT04226190041</span>
+                </span>
+            </a>
+            <div class="trust-pills">
+                <span class="pill"><i class="fa-solid fa-building-shield"></i> EU VIES: IT04226190041</span>
+                <span class="pill pill-blue"><i class="fa-solid fa-bolt"></i> Instant .XLSX Unlock</span>
+                <div class="lang-switch" id="lang-switch">
+                    <button class="lang-btn" data-lang="de">DE</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="nl">NL</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                    <button class="lang-btn" data-lang="it">IT</button>
+                    <button class="lang-btn" data-lang="es">ES</button>
+                    <button class="lang-btn" data-lang="ro">RO</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Paid Verification / Download Banner -->
+        <section id="paid-section" class="paid-box">
+            <div id="verifying-state" style="display:none;">
+                <h2 style="margin:0 0 8px 0; font-family:'Outfit',sans-serif; font-size:22px;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="color:#38bdf8;"></i>
+                    <span id="txt-verifying">Verifying PayPal payment confirmation...</span>
+                </h2>
+                <p style="margin:0; color:var(--text-secondary); font-size:14px;" id="txt-verifying-sub">
+                    This usually completes in 3–8 seconds automatically. Please keep this tab open.
+                </p>
+            </div>
+            <div id="unlocked-state" style="display:none;">
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <span class="pill" style="margin-bottom:8px;"><i class="fa-solid fa-circle-check"></i> PAYMENT VERIFIED · PAID IN FULL</span>
+                        <h2 style="margin:0 0 6px 0; font-family:'Outfit',sans-serif; font-size:24px;" id="unlocked-title">
+                            Your Full Black Friday Audit Matrix is Ready
+                        </h2>
+                        <p style="margin:0; color:var(--text-secondary); font-size:13.5px;" id="unlocked-meta"></p>
+                    </div>
+                    <div class="no-print" style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <a id="btn-download-xlsx" href="#" class="btn-download">
+                            <i class="fa-solid fa-file-excel"></i> Download Full_Audit (.XLSX)
+                        </a>
+                        <button type="button" onclick="showAndPrintInvoice()" class="btn-invoice">
+                            <i class="fa-solid fa-file-invoice"></i> Paid EU Invoice (PDF)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Printable Paid Commercial Invoice -->
+        <section id="printable-invoice"></section>
+
+        <!-- Loading / Error Fallback -->
+        <div id="loading-box" class="card" style="text-align:center; padding:48px;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:28px; color:var(--accent); margin-bottom:12px;"></i>
+            <div style="font-size:15px; color:var(--text-secondary);">Loading encrypted store audit metadata...</div>
+        </div>
+
+        <!-- Main 2-Column Checkout Grid -->
+        <div id="main-grid" class="grid-main" style="display:none;">
+            <!-- Left Dossier -->
+            <div class="card">
+                <div class="shop-badge">
+                    <i class="fa-solid fa-lock-open"></i>
+                    <span id="ui-prepared-for">Prepared exclusively for</span>: <strong id="shop-domain-pill"></strong>
+                </div>
+                <h1 id="ui-main-title">Black Friday Competitor Price &amp; Live Stock Matrix</h1>
+                <p class="subtitle" id="ui-subtitle"></p>
+
+                <div class="file-box">
+                    <div class="file-left">
+                        <div class="excel-icon"><i class="fa-solid fa-file-excel"></i></div>
+                        <div>
+                            <div class="file-name" id="file-name-lbl"></div>
+                            <div class="file-meta" id="file-meta-lbl"></div>
+                        </div>
+                    </div>
+                    <span class="status-ready" id="ui-ready-badge">READY ON SERVER</span>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-val" id="stat-skus">--</div>
+                        <div class="stat-lbl" id="ui-stat-skus">Exact MPN Models</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="stat-comps">10</div>
+                        <div class="stat-lbl" id="ui-stat-comps">Direct Competitors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val">2 Tabs</div>
+                        <div class="stat-lbl" id="ui-stat-tabs">Matrix + ERP Import</div>
+                    </div>
+                </div>
+
+                <div class="preview-title">
+                    <span id="ui-preview-heading">Live Sample from Your File (3 of <span id="preview-total-skus"></span> SKUs)</span>
+                    <span style="color:var(--accent); font-size:11.5px;" id="brands-list-lbl"></span>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-model">MPN / Product</th>
+                                <th id="th-yours">Your Store</th>
+                                <th id="th-best">Lowest In-Stock</th>
+                                <th id="th-comp">Competitor Domain</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preview-tbody"></tbody>
+                    </table>
+                </div>
+
+                <ul class="deliverables" id="ui-deliverables"></ul>
+            </div>
+
+            <!-- Right Self-Checkout Box -->
+            <div class="card checkout-card">
+                <div class="flash-banner">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="ui-flash-banner">FRIDAY SELF-SERVICE UNLOCK — Automated ~55% Pre-Black-Friday Discount (Valid until Nov 1, 23:59 CET)</span>
+                </div>
+
+                <!-- Option 1 -->
+                <div class="tier-option selected" id="card-opt1" onclick="selectTier('opt1')">
+                    <div class="tier-head">
+                        <div class="tier-name">
+                            <input type="radio" name="tier" id="rad-opt1" checked>
+                            <span id="ui-opt1-title">Full Excel Audit + ERP Import</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="price-old" id="price-old-1"></span>
+                            <span class="price-new" id="price-new-1"></span>
+                        </div>
+                    </div>
+                    <div class="tier-desc" id="ui-opt1-desc">Instant download of the unlocked .XLSX file (all competitor names, live stock &amp; Sheet 2 shop price import). One-time payment.</div>
+                </div>
+
+                <!-- Option 2 -->
+                <div class="tier-option" id="card-opt2" onclick="selectTier('opt2')">
+                    <div class="tier-head">
+                        <div class="tier-name">
+                            <input type="radio" name="tier" id="rad-opt2">
+                            <span id="ui-opt2-title">30-Day Live Radar (Nov) + Full Excel</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="price-old" id="price-old-2"></span>
+                            <span class="price-new" id="price-new-2"></span>
+                        </div>
+                    </div>
+                    <div class="tier-desc" id="ui-opt2-desc">Includes immediate .XLSX download + automated 3x/day price &amp; stock alerts throughout November (max 3 stores/country).</div>
+                </div>
+
+                <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
+                    <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-bottom:10px;" id="ui-billing-hdr">
+                        B2B Invoice Details (0% VAT EU Reverse-Charge)
+                    </div>
+                    <div class="form-group">
+                        <label id="lbl-company">Company Legal Name</label>
+                        <input type="text" id="inp-company" class="form-input" placeholder="Company Ltd / GmbH / SRL">
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <div class="form-group">
+                            <label id="lbl-vat">VAT ID / Tax No. (Optional)</label>
+                            <input type="text" id="inp-vat" class="form-input" placeholder="DE / NL / RO / GB...">
+                        </div>
+                        <div class="form-group">
+                            <label id="lbl-email">Delivery &amp; Invoice Email</label>
+                            <input type="email" id="inp-email" class="form-input" placeholder="name@company.com">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-pay" class="btn-paypal" onclick="startCheckout()">
+                    <i class="fa-brands fa-paypal" style="font-size:21px;"></i>
+                    <span id="btn-pay-txt">Pay &amp; Download .XLSX Instantly</span>
+                </button>
+
+                <div class="cards-note" id="ui-cards-note">
+                    Secure checkout via <strong>PayPal Business</strong> or <strong>Corporate Visa / Mastercard / Amex</strong> (no PayPal account needed). File &amp; 0% VAT B2B Invoice unlock immediately on return.
+                </div>
+                <div class="cards-icons">
+                    <i class="fa-brands fa-cc-paypal"></i>
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                </div>
+
+                <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--border); font-size:11.5px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+                    <span><i class="fa-solid fa-envelope"></i> amendamax@vasiledev.com</span>
+                    <span><i class="fa-solid fa-phone"></i> +39 320 948 1876</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = "https://b2b-audit-checkout.amendamax.workers.dev";
+
+        const I18N = {
+            en: {
+                prepared: "Prepared exclusively for",
+                title: "Black Friday Competitor Price & Live Stock Matrix",
+                sub: "Verified manufacturer MPN cross-check across your direct national competitors. Identify immediately where you are overpriced and where cheaper competitors are already out of stock.",
+                ready: "READY FOR DOWNLOAD",
+                skus: "Verified MPN Models",
+                comps: "National Competitors",
+                tabs: "Matrix + ERP Import",
+                preview: "Live Preview from Your File",
+                thModel: "MPN / Model",
+                thYours: "Your Price",
+                thBest: "Lowest In-Stock",
+                thComp: "Competitor Domain",
+                locked: "Unlocked after payment",
+                deliv: [
+                    "Complete unlocked Excel file (.XLSX) with all competitor store names, prices & stock statuses",
+                    "Second worksheet formatted for instant ERP / Shop price import",
+                    "Official 0% VAT B2B Commercial Invoice (VasileDev Group · EU VAT IT04226190041)"
+                ],
+                flash: "FRIDAY SELF-SERVICE UNLOCK — Pre-Black-Friday ~55% Instant Discount (Valid until Nov 1, 23:59)",
+                opt1Title: "Full Excel Market Matrix (.XLSX)",
+                opt1Desc: "Immediate automated download of your complete unlocked Excel file + B2B Invoice. One-time fee.",
+                opt2Title: "30-Day Live Price Radar (Nov) + Excel",
+                opt2Desc: "Immediate .XLSX download + 3x/day automated competitor price & stock alerts all November.",
+                billing: "B2B Commercial Invoice Details (0% VAT Export / Reverse-Charge)",
+                company: "Company Name",
+                vat: "VAT / Company Reg. (Optional)",
+                email: "Email for Receipt & Backup",
+                payBtn: "Pay & Download .XLSX Now",
+                note: "Instant checkout via PayPal Business or Corporate Debit/Credit Card (Guest Checkout supported). Your .XLSX file & Paid B2B Invoice unlock automatically on this screen."
+            },
+            de: {
+                prepared: "Exklusiv erstellt für",
+                title: "Black-Friday Preis- & Echtzeit-Bestandsmatrix",
+                sub: "Exakter Hersteller-MPN-Abgleich mit Ihren direkten Fachhandels-Mitbewerbern. Sehen Sie sofort, wo Sie preislich nachziehen sollten und wo günstigere Konkurrenten bereits ausverkauft sind.",
+                ready: "SOFORT VERFÜGBAR",
+                skus: "Geprüfte MPN-Modelle",
+                comps: "Direkte Mitbewerber",
+                tabs: "Matrix + Shop-Import",
+                preview: "Live-Vorschau aus Ihrer Datei",
+                thModel: "MPN / Modell",
+                thYours: "Ihr Preis",
+                thBest: "Günstigster (Lagernd)",
+                thComp: "Mitbewerber-Shop",
+                locked: "Sofort nach Zahlung sichtbar",
+                deliv: [
+                    "Vollständig freigeschaltete Excel-Datei (.XLSX) mit allen Shopnamen, Preisen & Lagerbeständen",
+                    "Zweites Tabellenblatt direkt vorbereitet für den Preisimport in Ihr Shopsystem",
+                    "Ordentliche EU-B2B-Rechnung mit 0 % USt. (Reverse-Charge · USt-IdNr. IT04226190041)"
+                ],
+                flash: "FREITAG SELF-SERVICE-FREISCHALTUNG — Vor-Black-Friday Direkt-Rabatt (Gültig bis 01.11., 23:59 Uhr)",
+                opt1Title: "Komplettes Excel-Marktaudit (.XLSX)",
+                opt1Desc: "Sofortiger Direkt-Download Ihrer vollständigen Excel-Auswertung inkl. B2B-Rechnung (einmalig netto).",
+                opt2Title: "30-Tage Live-Preisradar (Nov.) + Excel",
+                opt2Desc: "Sofort-Download der Excel-Matrix + 3x täglich Live-Preis- & Out-of-Stock-Alarm im November.",
+                billing: "Angaben für Ihre B2B-Rechnung (0 % USt. Reverse-Charge)",
+                company: "Firmenname",
+                vat: "USt-IdNr. (Optional)",
+                email: "E-Mail für Rechnung & Backup",
+                payBtn: "Jetzt freischalten & .XLSX laden",
+                note: "Sichere Zahlung per PayPal oder Firmen-Kreditkarte (Visa/Mastercard ohne PayPal-Konto). Der .XLSX-Download und Ihre bezahlte 0%-USt.-Rechnung werden sofort hier freigeschaltet."
+            },
+            ro: {
+                prepared: "Pregătit exclusiv pentru",
+                title: "Matricea Completă de Prețuri și Stocuri Reale — Black Friday",
+                sub: "Verificare exactă pe cod oficial de producător (MPN) față de concurenții tăi direcți din România. Vezi pe loc unde pierzi comenzi la preț și unde concurenții mai ieftini au deja stoc epuizat.",
+                ready: "GATA DE DESCĂRCARE",
+                skus: "Coduri MPN Verificate",
+                comps: "Magazine Concurente",
+                tabs: "Matrice + Import ERP",
+                preview: "Mostră Live din Fișierul Vostru",
+                thModel: "Cod MPN / Produs",
+                thYours: "Prețul Vostru",
+                thBest: "Minim Piață (În Stoc)",
+                thComp: "Magazin Concurent",
+                locked: "Deblocat instant după plată",
+                deliv: [
+                    "Fișierul Excel complet (.XLSX) cu toate numele magazinelor concurente, prețuri și stocuri la zi",
+                    "A doua foaie Excel formatată direct pentru import rapid de prețuri în platforma voastră",
+                    "Factură fiscală B2B intracomunitară cu 0% TVA (taxare inversă · VIES IT04226190041)"
+                ],
+                flash: "DEBLOCARE INSTANT SELF-SERVICE DE VINERI — Reducere ~50% înainte de 1 Noiembrie ( până Duminică 23:59 )",
+                opt1Title: "Auditul Complet Excel (.XLSX + Import)",
+                opt1Desc: "Descărcare automată pe loc a tabelului complet deblocat + Factură fiscală B2B 0% TVA (plată unică).",
+                opt2Title: "Radar Live 30 Zile (Noiembrie) + Excel",
+                opt2Desc: "Include tabelul complet acum + monitorizare automată de 3x/zi și alerte de preț/stoc toată luna noiembrie.",
+                billing: "Date Facturare B2B (Factură Fiscală EU 0% TVA emisă automat)",
+                company: "Denumire Firmă (S.R.L.)",
+                vat: "CUI / CIF (Opțional)",
+                email: "Email pentru Factură & Backup",
+                payBtn: "Plătește și Descarcă .XLSX pe Loc",
+                note: "Plată securizată prin PayPal sau direct cu Cardul Firmei Visa / Mastercard (fără cont PayPal). Fișierul .XLSX și Factura PDF se deblochează automat pe acest ecran în 3 secunde."
+            },
+            it: {
+                prepared: "Preparato esclusivamente per",
+                title: "Matrice Completa Prezzi e Stock Reali — Black Friday",
+                sub: "Confronto esatto per codice produttore (MPN) sui tuoi concorrenti diretti in Italia. Scopri subito dove riallineare i prezzi e dove i concorrenti più economici sono già esauriti.",
+                ready: "PRONTO AL DOWNLOAD",
+                skus: "Codici MPN Verificati",
+                comps: "Concorrenti Diretti",
+                tabs: "Matrice + Import ERP",
+                preview: "Anteprima Reale dal Tuo File",
+                thModel: "MPN / Modello",
+                thYours: "Tuo Prezzo",
+                thBest: "Minimo In Stock",
+                thComp: "Store Concorrente",
+                locked: "Sbloccato subito dopo il pagamento",
+                deliv: [
+                    "File Excel completo (.XLSX) sbloccato con tutti i nomi dei concorrenti, prezzi e disponibilità",
+                    "Secondo foglio già pronto per l'importazione listino nel tuo e-commerce / gestionale",
+                    "Fattura elettronica / commerciale B2B esente IVA (Regime Forfettario L. 190/2014 · P.IVA IT04226190041)"
+                ],
+                flash: "SBLOCCO RAPIDO SELF-SERVICE DEL VENERDÌ — Sconto ~55% Pre-Black Friday (Valido fino al 1° Novembre)",
+                opt1Title: "Audit Completo Excel (.XLSX + Import)",
+                opt1Desc: "Download immediato automatico della matrice Excel completa + Fattura B2B (pagamento unico).",
+                opt2Title: "Radar Prezzi Live 30 Giorni (Nov) + Excel",
+                opt2Desc: "Download immediato .XLSX + controllo automatico 3 volte al giorno con avvisi variazioni prezzo/stock.",
+                billing: "Dati per Fattura B2B (Esente IVA L. 190/2014 · P.IVA IT04226190041)",
+                company: "Ragione Sociale",
+                vat: "Partita IVA (Opzionale)",
+                email: "Email per Fattura & Backup",
+                payBtn: "Paga e Scarica Subito il File .XLSX",
+                note: "Pagamento sicuro tramite PayPal Business o Carta Aziendale Visa / Mastercard (anche senza conto PayPal). Il download .XLSX e la fattura si sbloccano istantaneamente su questa schermata."
+            },
+            nl: {
+                prepared: "Exclusief samengesteld voor",
+                title: "Black Friday Prijs- & Live Voorraadmatrix",
+                sub: "Exacte vergelijking op fabrikantcode (MPN) met uw directe concurrenten. Zie direct waar u prijs moet matchen en waar goedkopere aanbieders al uitverkocht zijn.",
+                ready: "DIRECT BESCHIKBAAR",
+                skus: "Geverifieerde MPN's",
+                comps: "Directe Concurrenten",
+                tabs: "Matrix + Shop-Import",
+                preview: "Live Voorbeeld uit Uw Bestand",
+                thModel: "MPN / Product",
+                thYours: "Uw Prijs",
+                thBest: "Laagste op Voorraad",
+                thComp: "Concurrent Webshop",
+                locked: "Direct zichtbaar na betaling",
+                deliv: [
+                    "Volledig ontgrendeld Excel-bestand (.XLSX) met alle webshopnamen, prijzen en voorraadstatussen",
+                    "Tweede tabblad direct klaar voor prijsimport in uw webshop / ERP",
+                    "Officiële EU B2B-factuur met 0% btw verlegd (EU-btw-nr. IT04226190041)"
+                ],
+                flash: "VRIJDAG SELF-SERVICE KORTING — Directe Pre-Black-Friday Ontgrendeling (Geldig t/m 1 nov 23:59)",
+                opt1Title: "Volledige Excel Marktaudit (.XLSX)",
+                opt1Desc: "Directe automatische download van uw complete Excel-matrix + 0% btw B2B-factuur (eenmalig).",
+                opt2Title: "30 Dagen Live Prijsradar (Nov) + Excel",
+                opt2Desc: "Directe .XLSX download + 3x per dag automatische prijs- en voorraadmeldingen in november.",
+                billing: "Factuurgegevens B2B (0% btw intracommunautair verlegd)",
+                company: "Bedrijfsnaam",
+                vat: "Btw-nummer (Optioneel)",
+                email: "E-mail voor Factuur & Kopie",
+                payBtn: "Direct Betalen & .XLSX Downloaden",
+                note: "Veilig afrekenen via PayPal of Zakelijke Creditcard / Betaalkaart (Visa/Mastercard zonder PayPal-account). Het .XLSX-bestand en uw B2B-factuur worden direct hier ontgrendeld."
+            },
+            fr: {
+                prepared: "Préparé exclusivement pour",
+                title: "Matrice Complète Prix & Stocks Réels — Black Friday",
+                sub: "Comparatif exact par référence fabricant (MPN) face à vos concurrents directs. Identifiez immédiatement où ajuster vos prix et où les concurrents moins chers sont déjà en rupture.",
+                ready: "PRÊT AU TÉLÉCHARGEMENT",
+                skus: "Références MPN",
+                comps: "Concurrents Directs",
+                tabs: "Matrice + Import ERP",
+                preview: "Aperçu Réel de Votre Fichier",
+                thModel: "MPN / Modèle",
+                thYours: "Votre Prix",
+                thBest: "Meilleur Prix en Stock",
+                thComp: "Site Concurrent",
+                locked: "Débloqué immédiatement après paiement",
+                deliv: [
+                    "Fichier Excel complet (.XLSX) débloqué avec tous les noms des concurrents, prix et stocks",
+                    "Deuxième onglet prêt pour l'importation directe dans votre boutique / ERP",
+                    "Facture commerciale B2B UE à 0 % de TVA (Autoliquidation · TVA VIES IT04226190041)"
+                ],
+                flash: "ACCÈS DIRECT SELF-SERVICE DU VENDREDI — Remise ~55 % Pré-Black Friday (Valable jusqu'au 1er Nov.)",
+                opt1Title: "Audit Complet Excel (.XLSX + Import)",
+                opt1Desc: "Téléchargement automatique immédiat du fichier Excel complet + Facture B2B 0 % TVA (paiement unique).",
+                opt2Title: "Radar Prix Live 30 Jours (Nov.) + Excel",
+                opt2Desc: "Téléchargement immédiat .XLSX + alertes automatiques 3x/jour sur les prix et ruptures en novembre.",
+                billing: "Coordonnées Facture B2B (0 % TVA Intracommunautaire)",
+                company: "Raison Sociale",
+                vat: "N° TVA Intracom. (Optionnel)",
+                email: "E-mail Facture & Sauvegarde",
+                payBtn: "Payer et Télécharger le .XLSX Maintenant",
+                note: "Paiement sécurisé via PayPal Business ou Carte Bancaire Entreprise Visa / Mastercard (sans compte PayPal requis). Le fichier .XLSX et votre facture sont débloqués instantanément."
+            },
+            es: {
+                prepared: "Preparado exclusivamente para",
+                title: "Matriz Completa de Precios y Stock Real — Black Friday",
+                sub: "Cruce exacto por referencia oficial de fabricante (MPN) frente a vuestros competidores directos. Ved al instante dónde ajustar precio y dónde los competidores más baratos ya están sin stock.",
+                ready: "LISTO PARA DESCARGAR",
+                skus: "Modelos MPN Auditados",
+                comps: "Competidores Directos",
+                tabs: "Matriz + Importación ERP",
+                preview: "Muestra Real de Vuestro Archivo",
+                thModel: "MPN / Producto",
+                thYours: "Vuestro Precio",
+                thBest: "Mínimo En Stock",
+                thComp: "Tienda Competidora",
+                locked: "Desbloqueado al instante tras el pago",
+                deliv: [
+                    "Archivo Excel completo (.XLSX) desbloqueado con todos los competidores, precios y estado de stock",
+                    "Segunda pestaña lista para importación directa de precios en vuestro e-commerce / ERP",
+                    "Factura comercial B2B intracomunitaria con 0 % IVA (Inversión sujeto pasivo · VIES IT04226190041)"
+                ],
+                flash: "DESBLOQUEO DIRECTO SELF-SERVICE DE VIERNES — ~55 % Dto. Pre-Black Friday (Hasta el 1 de Noviembre)",
+                opt1Title: "Auditoría Completa Excel (.XLSX + Import)",
+                opt1Desc: "Descarga automática inmediata de la matriz Excel completa + Factura B2B 0 % IVA (pago único).",
+                opt2Title: "Radar de Precios 30 Días (Nov) + Excel",
+                opt2Desc: "Descarga inmediata .XLSX + monitorización automática 3 veces al día con alertas en noviembre.",
+                billing: "Datos para Factura B2B (0 % IVA Intracomunitario)",
+                company: "Razón Social / Empresa",
+                vat: "NIF-IVA / CIF (Opcional)",
+                email: "Email para Factura y Copia",
+                payBtn: "Pagar y Descargar .XLSX al Instante",
+                note: "Pago seguro con PayPal Business o Tarjeta Corporativa Visa / Mastercard (sin necesidad de cuenta PayPal). El archivo .XLSX y la factura se desbloquean al instante en esta pantalla."
+            }
+        };
+
+        let currentShop = null;
+        let currentLang = "en";
+        let selectedTier = "opt1";
+        let currentOrder = null;
+
+        function fmtMoney(amount, currency) {
+            if (currency === "GBP") return `£${Number(amount).toFixed(2)}`;
+            return `€${Number(amount).toFixed(2)}`;
+        }
+
+        function setLanguage(lang) {
+            currentLang = I18N[lang] ? lang : "en";
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll(".lang-btn").forEach(b => {
+                b.classList.toggle("active", b.dataset.lang === currentLang);
+            });
+            const t = I18N[currentLang];
+            document.getElementById("ui-prepared-for").textContent = t.prepared;
+            document.getElementById("ui-main-title").textContent = t.title;
+            document.getElementById("ui-subtitle").textContent = t.sub;
+            document.getElementById("ui-ready-badge").textContent = t.ready;
+            document.getElementById("ui-stat-skus").textContent = t.skus;
+            document.getElementById("ui-stat-comps").textContent = t.comps;
+            document.getElementById("ui-stat-tabs").textContent = t.tabs;
+            document.getElementById("th-model").textContent = t.thModel;
+            document.getElementById("th-yours").textContent = t.thYours;
+            document.getElementById("th-best").textContent = t.thBest;
+            document.getElementById("th-comp").textContent = t.thComp;
+            document.getElementById("ui-flash-banner").textContent = t.flash;
+            document.getElementById("ui-opt1-title").textContent = t.opt1Title;
+            document.getElementById("ui-opt1-desc").textContent = t.opt1Desc;
+            document.getElementById("ui-opt2-title").textContent = t.opt2Title;
+            document.getElementById("ui-opt2-desc").textContent = t.opt2Desc;
+            document.getElementById("ui-billing-hdr").textContent = t.billing;
+            document.getElementById("lbl-company").textContent = t.company;
+            document.getElementById("lbl-vat").textContent = t.vat;
+            document.getElementById("lbl-email").textContent = t.email;
+            document.getElementById("ui-cards-note").textContent = t.note;
+
+            const ul = document.getElementById("ui-deliverables");
+            ul.innerHTML = t.deliv.map(item => `<li><i class="fa-solid fa-circle-check"></i><span>${item}</span></li>`).join("");
+
+            if (currentShop) {
+                document.getElementById("ui-preview-heading").textContent = `${t.preview} (3 / ${currentShop.sku_count} SKUs)`;
+                renderPreviewRows();
+                updatePayButtonLabel();
+            }
+        }
+
+        function renderPreviewRows() {
+            const t = I18N[currentLang];
+            const tbody = document.getElementById("preview-tbody");
+            const rows = (currentShop && currentShop.preview_rows) || [];
+            let html = rows.map(r => {
+                const deltaBadge = r.diff_pct > 0
+                    ? `<span class="delta-high">+${r.diff_pct}%</span>`
+                    : "";
+                return `
+                    <tr>
+                        <td>
+                            <div style="font-weight:700; color:#fff;">${escapeHtml(r.brand)} · <span style="font-family:monospace; color:var(--accent);">${escapeHtml(r.mpn)}</span></div>
+                            <div style="font-size:11.5px; color:var(--text-muted);">${escapeHtml(r.model)}</div>
+                        </td>
+                        <td>
+                            <div style="font-weight:700;">${escapeHtml(r.our_price)} ${deltaBadge}</div>
+                            <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.our_stock)}</div>
+                        </td>
+                        <td style="font-weight:700; color:#34d399;">${escapeHtml(r.best_market)}</td>
+                        <td><span class="locked-chip"><i class="fa-solid fa-lock"></i> ${escapeHtml(t.locked)}</span></td>
+                    </tr>
+                `;
+            }).join("");
+
+            const rem = Math.max(0, (currentShop.sku_count || 18) - rows.length);
+            html += `
+                <tr>
+                    <td colspan="4" style="text-align:center; background:rgba(56,189,248,0.06); color:var(--text-secondary); font-size:12px; font-weight:600;">
+                        + ${rem} additional MPN rows, exact competitor domains &amp; Sheet 2 (${escapeHtml((currentShop.sheets && currentShop.sheets[1]) || "ERP Import")}) inside <strong>${escapeHtml(currentShop.file_name)}</strong>
+                    </td>
+                </tr>
+            `;
+            tbody.innerHTML = html;
+        }
+
+        function selectTier(tier) {
+            selectedTier = tier;
+            document.getElementById("card-opt1").classList.toggle("selected", tier === "opt1");
+            document.getElementById("card-opt2").classList.toggle("selected", tier === "opt2");
+            document.getElementById("rad-opt1").checked = (tier === "opt1");
+            document.getElementById("rad-opt2").checked = (tier === "opt2");
+            updatePayButtonLabel();
+        }
+
+        function updatePayButtonLabel() {
+            if (!currentShop) return;
+            const t = I18N[currentLang];
+            const p = currentShop.pricing;
+            const amt = selectedTier === "opt2" ? p.flash_opt2 : p.flash_opt1;
+            document.getElementById("btn-pay-txt").textContent = `${t.payBtn} — ${fmtMoney(amt, p.currency)}`;
+        }
+
+        function escapeHtml(s) {
+            return String(s || "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+
+        async function startCheckout() {
+            if (!currentShop) return;
+            const btn = document.getElementById("btn-pay");
+            btn.disabled = true;
+            try {
+                const payload = {
+                    domain: currentShop.domain,
+                    tier: selectedTier,
+                    company_name: document.getElementById("inp-company").value.trim(),
+                    vat_id: document.getElementById("inp-vat").value.trim(),
+                    buyer_email: document.getElementById("inp-email").value.trim()
+                };
+                const resp = await fetch(`${API_BASE}/api/create-order`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+                if (!data.ok || !data.paypal_url) {
+                    alert(data.error || "Unable to initialize PayPal session.");
+                    btn.disabled = false;
+                    return;
+                }
+                localStorage.setItem(`vd_order_${currentShop.domain}`, JSON.stringify({
+                    order_id: data.order_id,
+                    key: data.access_secret
+                }));
+                window.location.href = data.paypal_url;
+            } catch (err) {
+                alert("Connection error. Please retry.");
+                btn.disabled = false;
+            }
+        }
+
+        async function pollOrderStatus(orderId, key) {
+            const paidSec = document.getElementById("paid-section");
+            const verState = document.getElementById("verifying-state");
+            const unlState = document.getElementById("unlocked-state");
+            paidSec.style.display = "block";
+            verState.style.display = "block";
+
+            for (let attempt = 0; attempt < 45; attempt++) {
+                try {
+                    const r = await fetch(`${API_BASE}/api/order-status?order=${encodeURIComponent(orderId)}&key=${encodeURIComponent(key)}`);
+                    const d = await r.json();
+                    if (d.ok && d.order && d.order.status === "PAID") {
+                        currentOrder = d.order;
+                        verState.style.display = "none";
+                        unlState.style.display = "block";
+                        const dlUrl = `${API_BASE}/api/download-xlsx?order=${encodeURIComponent(orderId)}&key=${encodeURIComponent(key)}`;
+                        document.getElementById("btn-download-xlsx").href = dlUrl;
+                        document.getElementById("unlocked-meta").textContent =
+                            `Invoice ${d.order.invoice_no} · Order ${d.order.order_id} · PayPal Ref: ${d.order.txn_id || "Verified"} · File: Full_Audit_BlackFriday_${d.order.domain}.xlsx`;
+                        buildPrintableInvoice(d.order);
+                        if (attempt <= 2) {
+                            window.location.href = dlUrl;
+                        }
+                        return;
+                    }
+                } catch {}
+                await new Promise(res => setTimeout(res, 2500));
+            }
+            document.getElementById("txt-verifying").textContent = "PayPal confirmation is taking slightly longer than usual.";
+            document.getElementById("txt-verifying-sub").innerHTML =
+                `If your PayPal payment for Order <strong>${escapeHtml(orderId)}</strong> completed, refresh this page in 15 seconds or email <strong>amendamax@vasiledev.com</strong> for immediate manual release.`;
+        }
+
+        function buildPrintableInvoice(ord) {
+            const el = document.getElementById("printable-invoice");
+            const dt = (ord.paid_at || ord.created_at || new Date().toISOString()).slice(0, 10);
+            const desc = ord.tier === "opt2"
+                ? `30-Day Live Black Friday Price Radar (November 2026) + Complete Competitor Matrix (.XLSX) for ${ord.domain}`
+                : `Complete Black Friday Competitor Price & Stock Audit Matrix (.XLSX + ERP Import) for ${ord.domain}`;
+            el.innerHTML = `
+                <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0f172a; padding-bottom:18px; margin-bottom:22px;">
+                    <div>
+                        <div style="font-size:22px; font-weight:800;">VASILEDEV GROUP — VASILE BRATU</div>
+                        <div style="font-size:13px; color:#334155;">Python Automation &amp; E-Commerce Data Intelligence</div>
+                        <div style="font-size:13px; color:#334155;">Via Valcasotto 14, 12075 Garessio (CN), Piemonte, Italy</div>
+                        <div style="font-size:13px; font-weight:700; margin-top:4px;">EU VIES VAT / Partita IVA: IT04226190041</div>
+                        <div style="font-size:12.5px; color:#475569;">Email: amendamax@vasiledev.com · PayPal Business: amendamax@gmail.com</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:24px; font-weight:800; color:#0f172a;">COMMERCIAL INVOICE</div>
+                        <div style="font-size:13.5px; font-weight:700; margin-top:4px;">Invoice No: ${escapeHtml(ord.invoice_no)}</div>
+                        <div style="font-size:13px;">Date: ${escapeHtml(dt)}</div>
+                        <div style="margin-top:8px; display:inline-block; background:#dcfce7; color:#166534; font-weight:800; font-size:12px; padding:4px 10px; border-radius:4px; border:1px solid #86efac;">
+                            PAID IN FULL (PAYPAL ${escapeHtml(ord.txn_id || ord.order_id)})
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-bottom:24px; background:#f8fafc; padding:14px 18px; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="font-size:11.5px; text-transform:uppercase; font-weight:700; color:#64748b;">Billed To (Client B2B):</div>
+                    <div style="font-size:16px; font-weight:800; margin-top:2px;">${escapeHtml(ord.company_name || ord.domain)}</div>
+                    ${ord.vat_id ? `<div style="font-size:13px;">VAT / Tax ID: <strong>${escapeHtml(ord.vat_id)}</strong></div>` : ""}
+                    <div style="font-size:13px;">Store Domain: ${escapeHtml(ord.domain)} ${ord.buyer_email ? " · " + escapeHtml(ord.buyer_email) : ""}</div>
+                </div>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:24px; color:#0f172a;">
+                    <thead>
+                        <tr style="background:#f1f5f9;">
+                            <th style="background:#f1f5f9; color:#0f172a; padding:10px; border:1px solid #cbd5e1;">Description of B2B Digital Data Service</th>
+                            <th style="background:#f1f5f9; color:#0f172a; padding:10px; border:1px solid #cbd5e1; text-align:right;">Qty</th>
+                            <th style="background:#f1f5f9; color:#0f172a; padding:10px; border:1px solid #cbd5e1; text-align:right;">Net Amount</th>
+                            <th style="background:#f1f5f9; color:#0f172a; padding:10px; border:1px solid #cbd5e1; text-align:right;">VAT (0%)</th>
+                            <th style="background:#f1f5f9; color:#0f172a; padding:10px; border:1px solid #cbd5e1; text-align:right;">Total Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:12px 10px; border:1px solid #cbd5e1;">${escapeHtml(desc)}</td>
+                            <td style="padding:12px 10px; border:1px solid #cbd5e1; text-align:right;">1</td>
+                            <td style="padding:12px 10px; border:1px solid #cbd5e1; text-align:right;">${fmtMoney(ord.amount, ord.currency)}</td>
+                            <td style="padding:12px 10px; border:1px solid #cbd5e1; text-align:right;">0.00</td>
+                            <td style="padding:12px 10px; border:1px solid #cbd5e1; text-align:right; font-weight:800;">${fmtMoney(ord.amount, ord.currency)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="font-size:12px; color:#475569; border-top:1px solid #cbd5e1; padding-top:14px; line-height:1.55;">
+                    <strong>Tax &amp; VAT Exemption Legal Note:</strong> Issued under Italian Regime Forfettario (Art. 1, c. 54-89, Legge n. 190/2014 — operation not subject to VAT) &amp; Intra-EU B2B Reverse Charge mechanism (Art. 196 Council Directive 2006/112/EC / Export of B2B Digital Data Services). Settled electronically via PayPal Business (amendamax@gmail.com).
+                </div>
+            `;
+        }
+
+        function showAndPrintInvoice() {
+            const el = document.getElementById("printable-invoice");
+            el.style.display = "block";
+            window.print();
+        }
+
+        document.querySelectorAll(".lang-btn").forEach(btn => {
+            btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+        });
+
+        (async function init() {
+            const params = new URLSearchParams(window.location.search);
+            const shopParam = (params.get("shop") || params.get("domain") || "").trim().toLowerCase();
+            const orderParam = (params.get("order") || "").trim();
+            const keyParam = (params.get("key") || "").trim();
+            const previewFlag = params.get("preview") === "1" ? "&preview=1" : "";
+
+            if (!shopParam) {
+                document.getElementById("loading-box").innerHTML = `
+                    <h2 style="margin:0 0 8px 0; font-family:'Outfit',sans-serif;">VasileDev B2B Price &amp; Stock Audit Vault</h2>
+                    <p style="color:var(--text-muted); font-size:14px;">Please use the personalized checkout link provided in your store's audit email (e.g. <code>?shop=yourdomain.com</code>).</p>
+                `;
+                return;
+            }
+
+            try {
+                const resp = await fetch(`${API_BASE}/api/shop?domain=${encodeURIComponent(shopParam)}${previewFlag}`);
+                const data = await resp.json();
+                if (!data.ok || !data.shop) {
+                    document.getElementById("loading-box").innerHTML = `
+                        <h3 style="margin:0 0 8px 0;">Audit File Not Found for ${escapeHtml(shopParam)}</h3>
+                        <p style="color:var(--text-muted); font-size:14px;">Contact <strong>amendamax@vasiledev.com</strong> for direct assistance.</p>
+                    `;
+                    return;
+                }
+                currentShop = data.shop;
+                document.getElementById("loading-box").style.display = "none";
+                document.getElementById("main-grid").style.display = "grid";
+
+                document.getElementById("shop-domain-pill").textContent = currentShop.domain;
+                document.getElementById("file-name-lbl").textContent = currentShop.file_name;
+                document.getElementById("file-meta-lbl").textContent =
+                    `${currentShop.file_kb} KB · Sheets: ${(currentShop.sheets || []).join(" + ")} · Pre-Black-Friday Verified Snapshot`;
+                document.getElementById("stat-skus").textContent = currentShop.sku_count;
+                document.getElementById("stat-comps").textContent = currentShop.competitor_count + "+";
+                document.getElementById("brands-list-lbl").textContent = (currentShop.brands || []).join(" · ");
+
+                const p = currentShop.pricing;
+                document.getElementById("price-old-1").textContent = fmtMoney(p.orig_opt1, p.currency);
+                document.getElementById("price-new-1").textContent = fmtMoney(p.flash_opt1, p.currency);
+                document.getElementById("price-old-2").textContent = fmtMoney(p.orig_opt2, p.currency);
+                document.getElementById("price-new-2").textContent = fmtMoney(p.flash_opt2, p.currency);
+
+                document.getElementById("inp-company").value = currentShop.company_name || "";
+                document.getElementById("inp-vat").value = currentShop.vat_id || "";
+                document.getElementById("inp-email").value = currentShop.email || "";
+
+                const forcedLang = params.get("lang");
+                setLanguage(forcedLang || currentShop.lang || "en");
+
+                if (orderParam && keyParam) {
+                    pollOrderStatus(orderParam, keyParam);
+                }
+            } catch (e) {
+                document.getElementById("loading-box").innerHTML = `<p style="color:#fb7185;">Failed to connect to Vault API. Please refresh.</p>`;
+            }
+        })();
+    </script>
+</body>
+</html>
