@@ -59,19 +59,19 @@
     </image:image>
   </url>
   <url>
-    <loc>https://vasiledev.com/articles/beyond-requests-tls-fingerprinting.html</loc>
+    <loc>https://vasiledev.com/articles/beyond-requests-get.html</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vasiledev.com/articles/stop-burning-leads-ZeroBounce-automation.html</loc>
+    <loc>https://vasiledev.com/articles/why-scrapers-fail.html</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vasiledev.com/articles/why-scrapers-fail-cloudflare-turnstile.html</loc>
+    <loc>https://vasiledev.com/articles/stop-burning-leads.html</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
