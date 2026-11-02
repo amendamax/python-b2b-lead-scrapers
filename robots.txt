@@ -16,4 +16,14 @@ Disallow: /bookstore_scraper/*.pdf$
 Disallow: /lead_generator/*.xlsx$
 Disallow: /lead_generator/*.pdf$
 
+# Disallow dynamic query parameters
+Disallow: /*?q=*
+Disallow: /*?city=*
+Disallow: /*?comune=*
+Disallow: /*?mode=*
+Disallow: /*?broker=*
+Disallow: /*?domain=*
+Disallow: /*?installer=*
+Disallow: /*?search=*
+
 Sitemap: https://vasiledev.com/sitemap.xml
