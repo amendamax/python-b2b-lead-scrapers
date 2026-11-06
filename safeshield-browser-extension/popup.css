@@ -1,13 +1,13 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 body { width: 360px; background-color: #0b1120; color: #f8fafc; padding: 14px; }
-.container { display: flex; flex-direction: column; gap: 12px; }
+.container { display: flex; flex-direction: column; gap: 10px; }
 .header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid #1e293b; }
 .logo-group { display: flex; align-items: center; gap: 10px; }
 .shield-icon { font-size: 24px; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5)); }
 .title { font-size: 16px; font-weight: 700; color: #38bdf8; letter-spacing: -0.3px; }
 .subtitle { font-size: 10px; color: #94a3b8; }
 .badge-live { font-size: 10px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 9999px; border: 1px solid rgba(16, 185, 129, 0.3); }
-.card { background: #131d31; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; }
+.card { background: #131d31; border: 1px solid #1e293b; border-radius: 10px; padding: 11px; }
 .domain-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 8px; }
 .label { color: #94a3b8; }
 .domain-name { font-weight: 600; color: #f1f5f9; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -32,7 +32,85 @@ body { width: 360px; background-color: #0b1120; color: #f8fafc; padding: 14px; }
 .tool-text { display: flex; flex-direction: column; }
 .tool-text strong { font-size: 12px; color: #f1f5f9; }
 .tool-text small { font-size: 10px; color: #94a3b8; }
+
+/* B2B CTA Box */
+.b2b-cta-box {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.14) 0%, rgba(168, 85, 247, 0.14) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: 10px;
+  padding: 10px 11px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.b2b-cta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.b2b-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+.b2b-free-pill {
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+.b2b-cta-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+.b2b-cta-sub {
+  font-size: 10px;
+  color: #cbd5e1;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.b2b-cta-actions {
+  display: flex;
+  gap: 6px;
+}
+.btn-b2b-primary {
+  flex: 1;
+  text-align: center;
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  transition: filter 0.2s;
+}
+.btn-b2b-primary:hover {
+  filter: brightness(1.15);
+}
+.btn-b2b-secondary {
+  background: rgba(236, 72, 153, 0.18);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 7px 9px;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-b2b-secondary:hover {
+  background: rgba(236, 72, 153, 0.3);
+  color: #ffffff;
+}
+
 .footer { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #64748b; padding-top: 6px; border-top: 1px solid #1e293b; }
 .api-link { color: #38bdf8; text-decoration: none; font-weight: 600; }
-
 .shield-img { width: 28px; height: 28px; filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6)); border-radius: 50%; vertical-align: middle; }

@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "SafeShield - Broker & Dating Scam Detector",
-  "version": "1.2.0",
-  "description": "Real-time AI threat intelligence detecting fraudulent brokers, 15 Global Regulatory Blacklists (SEC, CFTC, FCA, BaFin, FINMA, AMF, CNMV, ASIC, MAS), and romance scammer profiles.",
-  "author": "VasileDev Group (Vasile Bratu)",
+  "version": "1.2.2",
+  "description": "Real-time AI threat intelligence detecting fraudulent brokers across 82+ Global Regulatory Blacklists (SEC, CFTC, FCA, BaFin, CONSOB, CySEC, ASIC) and romance scammer profiles.",
+  "author": "VasileDev Group (Vasile Bratu - P.IVA IT04226190041)",
   "homepage_url": "https://isbrokersafe.com",
   "permissions": [
     "activeTab",

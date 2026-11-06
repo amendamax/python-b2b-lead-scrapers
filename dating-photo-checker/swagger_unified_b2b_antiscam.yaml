@@ -1,0 +1,222 @@
+openapi: 3.0.3
+info:
+  title: IsBrokerSafe & VerifyDating Unified Anti-Scam B2B API
+  description: >-
+    Unified B2B Threat Intelligence REST API by VasileDev Group (EU VAT: IT04226190041).
+    Combines Financial Broker Regulation & Blacklist Auditing (9,732+ official records across 82+ IOSCO regulators)
+    with Biometric Catfish, Deepfake & Romance Scam Detection (5,842+ OSINT scammer dossiers).
+    One API Key (X-API-Key) unlocks all endpoints across both platforms.
+  version: 1.6.0
+  contact:
+    name: VasileDev Group B2B Compliance Desk
+    email: amendamax@vasiledev.com
+    url: https://isbrokersafe.com/api/v1/docs
+servers:
+  - url: https://isbrokersafe.com
+    description: IsBrokerSafe Production Engine (Financial & Unified Endpoints)
+  - url: https://verifydating.net
+    description: VerifyDating Production Engine (Biometric & Romance Scam Endpoints)
+security:
+  - ApiKeyHeader: []
+  - ApiKeyQuery: []
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Unified B2B API Key (ibs_live_...)
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Optional API Key via query string
+paths:
+  /api/v1/broker/check:
+    get:
+      operationId: checkBrokerGet
+      summary: Check Broker Name or Website Domain (82+ Regulators)
+      tags:
+        - Financial Threat Intel (IsBrokerSafe)
+      parameters:
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Broker name or domain (e.g. apexcryptofx.com, etoro.com)
+        - name: domain
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Alias for query parameter
+      responses:
+        '200':
+          description: Forensic Regulatory Verdict & Safety Score
+    post:
+      operationId: checkBrokerPost
+      summary: Check Broker Name or Domain (JSON Body)
+      tags:
+        - Financial Threat Intel (IsBrokerSafe)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  example: apexcryptofx.com
+      responses:
+        '200':
+          description: Forensic Regulatory Verdict
+  /api/v1/regulatory/warnings:
+    get:
+      operationId: getRegulatoryWarnings
+      summary: Paginated Stream of Official Regulatory Warnings
+      tags:
+        - Financial Threat Intel (IsBrokerSafe)
+      parameters:
+        - name: regulator
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [consob, fca, cysec, bafin, sec, asic, sfc, cssf, fsma, iosco]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+            maximum: 200
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Paginated enforcement warnings
+  /api/v1/broker/licensed:
+    get:
+      operationId: getLicensedBrokers
+      summary: Verified Licensed Brokers Registry
+      tags:
+        - Financial Threat Intel (IsBrokerSafe)
+      parameters:
+        - name: regulator
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: List of regulated institutions
+  /api/v1/face/check:
+    post:
+      operationId: checkFacePhoto
+      summary: Screen Profile Photo for Stolen Identity, Catfish & Deepfake AI
+      tags:
+        - Biometric & Romance Scam Intel (VerifyDating)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image_url:
+                  type: string
+                  example: https://example.com/suspicious_photo.jpg
+                image_base64:
+                  type: string
+      responses:
+        '200':
+          description: Biometric Scam Probability & Action Recommendation
+  /api/v1/dating/check:
+    get:
+      operationId: checkDatingProfileGet
+      summary: Check Username, Handle, Persona, or Dating Domain
+      tags:
+        - Biometric & Romance Scam Intel (VerifyDating)
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          example: captain_mark_usarmy
+      responses:
+        '200':
+          description: Romance Scam Profile Verdict
+    post:
+      operationId: checkDatingProfilePost
+      summary: Check Username, Handle, or Dating Domain (JSON Body)
+      tags:
+        - Biometric & Romance Scam Intel (VerifyDating)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  example: captain_mark_usarmy
+      responses:
+        '200':
+          description: Romance Scam Profile Verdict
+  /api/v1/stats:
+    get:
+      operationId: getGlobalStats
+      summary: Global Financial Blacklist & Jurisdiction Metrics
+      tags:
+        - System & Quota
+      responses:
+        '200':
+          description: Global statistics
+  /api/v1/face/stats:
+    get:
+      operationId: getDatingStats
+      summary: Global Romance Scam & Biometric Database Metrics
+      tags:
+        - System & Quota
+      responses:
+        '200':
+          description: Dating scam statistics
+  /api/v1/keys/generate:
+    post:
+      operationId: generateSandboxKey
+      summary: Generate Instant Free B2B API Key (100 Requests/Month)
+      tags:
+        - System & Quota
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  example: developer@fintech.com
+      responses:
+        '200':
+          description: API Key generated or retrieved
