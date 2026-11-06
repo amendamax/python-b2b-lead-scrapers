@@ -33,6 +33,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://verifydating.net/">
+    <link rel="canonical" href="https://verifydating.net/" />
     <meta property="og:title" content="Romance Scam Detector & Catfish Face Search | VerifyDating">
     <meta property="og:description" content="Use our advanced catfish face search and reverse image search face scanner. VerifyDating is the ultimate catfish photo checker and dating photo verifier to detect romance scams.">
     <meta property="og:image" content="https://verifydating.net/verifydating_og_banner.jpg">
@@ -54,8 +55,6 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=20261002c">
-    <!-- Stripe JS SDK for Secure Client-Side Tokenization -->
-    <script src="https://js.stripe.com/v3/"></script>
     
     <!-- PayPal JS SDK for Direct PayPal & Card Checkout -->
     <script src="https://www.paypal.com/sdk/js?client-id=AUa3fD4-fR1XmD0z4W0Y5k1W3P6J7I8T9L0N1M2O3P4Q5R6S7T8U9V0W1X2Y3Z&currency=USD"></script>
@@ -74,7 +73,7 @@
           "applicationCategory": "SecurityApplication",
           "offers": {
             "@type": "Offer",
-            "price": "2.99",
+            "price": "0",
             "priceCurrency": "USD"
           },
           "description": "Official AI Biometric Facial Recognition & Romance Scam Protection Platform. VerifyDating is an independent cybersecurity service helping users detect catfish profiles and fake photos using facial recognition AI."
@@ -181,6 +180,7 @@
             <a href="/api/v1/dating-docs" class="nav-link nav-pill-pink"><i class="fa-solid fa-code"></i> B2B API</a>
             <a href="#toolkit" class="nav-link nav-pill-cyan"><i class="fa-solid fa-shield-halved"></i> Safety Toolkit</a>
             <a href="/scammers" class="nav-link nav-pill-pink"><i class="fa-solid fa-user-shield"></i> Scammer Blacklist</a>
+            <a href="/guides" class="nav-link nav-pill-cyan"><i class="fa-solid fa-book-open-reader"></i> Safety Guides</a>
             </nav>
         <div class="header-action">
             <a href="/extension" target="_blank" rel="noopener" class="nav-badge-pill" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5); font-weight: 800;"><i class="fa-brands fa-chrome"></i> 🛡️ Add to Chrome — Free</a>
@@ -384,8 +384,8 @@
                     <!-- Scan Results State (100% Free Instant Analysis + High-Yield Monetization) -->
                     <div class="panel-state" id="state-results" style="display: none; position: relative;">
                         <div class="results-header" id="risk-banner">
-                            <div class="risk-badge" id="risk-badge-element">High Risk</div>
-                            <h3 id="risk-title">Fake Profile Detected</h3>
+                            <div class="risk-badge" id="risk-badge-element">?</div>
+                            <h3 id="risk-title">?</h3>
                         </div>
 
                         <div class="results-body" style="display: block;">
@@ -393,41 +393,24 @@
                             <div class="score-grid">
                                 <div class="score-widget">
                                     <span class="score-label">Scam Probability</span>
-                                    <span class="score-value text-danger" id="scam-prob-val">94%</span>
+                                    <span class="score-value text-danger" id="scam-prob-val">?</span>
                                 </div>
                                 <div class="score-widget">
                                     <span class="score-label">Internet Matches</span>
-                                    <span class="score-value text-warning" id="matches-found-val">12 sites</span>
+                                    <span class="score-value text-warning" id="matches-found-val">?</span>
                                 </div>
                             </div>
 
                             <!-- Match Preview & Diagnostic Summary -->
                             <div class="match-details">
                                 <h4><i class="fa-solid fa-microchip"></i> FaceMatch Analysis Summary (Free Report)</h4>
-                                <ul class="details-list" id="diagnostic-details-list">
-                                    <li><i class="fa-solid fa-triangle-exclamation text-danger"></i> Image found on other web sources under multiple aliases.</li>
-                                    <li><i class="fa-solid fa-circle-info text-info"></i> Image metadata indicates digital manipulation / social media compression.</li>
-                                    <li><i class="fa-solid fa-globe text-warning"></i> Public match sources identified across indexed networks.</li>
-                                </ul>
+                                <ul class="details-list" id="diagnostic-details-list"></ul>
                             </div>
 
                             <!-- Unlocked Details: Identified Platforms -->
                             <div class="premium-results" id="unlocked-premium-details" style="display: block;">
                                 <h4><i class="fa-solid fa-link-slash"></i> Detected Match Sources & Platforms:</h4>
-                                <div class="match-links-container">
-                                    <div class="match-link-card">
-                                        <span class="platform-badge platform-pinterest">Pinterest</span>
-                                        <span class="match-url">pinterest.com/pin/match-source-detected <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
-                                    </div>
-                                    <div class="match-link-card">
-                                        <span class="platform-badge platform-vk">Social Profile</span>
-                                        <span class="match-url">social-network.com/profile/match <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
-                                    </div>
-                                    <div class="match-link-card">
-                                        <span class="platform-badge platform-forum">Web Forum</span>
-                                        <span class="match-url">dating-forum-archive.com/users <i class="fa-solid fa-check-circle" style="color:#10B981;"></i></span>
-                                    </div>
-                                </div>
+                                <div class="match-links-container"></div>
 
                                 <div class="scammer-profile-card">
                                     <h4><i class="fa-solid fa-user-ninja"></i> Scam Signature Diagnostic</h4>
@@ -438,21 +421,26 @@
                                 <div class="affiliate-offers-container" style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px;">
                                     
                                     <!-- Offer 1: Background Check Partner ($35-$60 CPA) -->
-                                    <div class="affiliate-card socialcatfish-card" style="background: rgba(2, 132, 199, 0.09); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 16px; text-align: left;">
-                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div class="affiliate-card socialcatfish-card" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.14) 0%, rgba(236, 72, 153, 0.12) 100%); border: 1px solid rgba(56, 189, 248, 0.45); border-radius: 12px; padding: 16px; text-align: left;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
                                             <div style="display: flex; align-items: center; gap: 10px;">
                                                 <i class="fa-solid fa-user-secret" style="font-size: 20px; color: #38bdf8;"></i>
-                                                <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 700;">🔍 Deep Background & Social Profile Search (Social Catfish)</h4>
+                                                <h4 style="margin: 0; font-size: 15px; color: #fff; font-weight: 800;">🔍 Catfish &amp; Dating Safety Check — 120+ Social &amp; Dating Sites (Spokeo)</h4>
                                             </div>
-                                            <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">RECOMMENDED INVESTIGATION</span>
+                                            <span style="background: rgba(245, 158, 11, 0.22); color: #fbbf24; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">AS SEEN ON MTV'S CATFISH • $0.95 REPORT</span>
                                         </div>
-                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.4;">
-                                            Verify real name, phone carrier, social profiles, email aliases & criminal background history linked to this person across 200M+ public records.
+                                        <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.45;">
+                                            Search without them knowing! Uncover hidden online dating profiles, real name, phone owner, email photos across 70+ social networks &amp; background records in seconds.
                                         </p>
-                                        <a href="/go/socialcatfish" target="_blank" rel="noopener noreferrer" class="btn btn-block" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; font-weight: 700; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);">
-                                            <span>🔍 Run Deep Identity Search on Social Catfish ➔</span>
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
+                                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                                            <a href="/go/catfish-check?sid=vd_scan_en" target="_blank" rel="nofollow noopener sponsored" class="btn btn-block" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); border: none; font-weight: 800; font-size: 13px; padding: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
+                                                <span>💘 Uncover 120+ Dating &amp; Social Profiles Confidentially ➔</span>
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                            <a href="/go/background-report?sid=vd_scan95_en" target="_blank" rel="nofollow noopener sponsored" class="btn btn-block" style="background: rgba(245, 158, 11, 0.14); border: 1px solid rgba(245, 158, 11, 0.45); font-weight: 800; font-size: 12.5px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 8px; color: #fcd34d;">
+                                                <span>📄 Get a Single-Page Background Report for Just $0.95 ➔</span>
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <!-- Offer 2: Verified Safe Singles Dating ($40-$80 CPA) -->
@@ -465,17 +453,17 @@
                                             Protect your real GPS location, photos, and chat privacy from scammers and catfishers with certified encryption.
                                         </p>
                                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                            <a href="/go/nordvpn" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: 1; min-width: 140px; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);">
+                                            <a href="/go/nordvpn" target="_blank" rel="nofollow noopener sponsored" class="btn btn-primary" style="flex: 1; min-width: 140px; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);">
                                                 <span>🛡️ NordVPN (-72%)</span>
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                             </a>
-                                            <a href="/go/surfshark" target="_blank" rel="noopener noreferrer" class="btn" style="flex: 1; min-width: 140px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);">
+                                            <a href="/go/surfshark" target="_blank" rel="nofollow noopener sponsored" class="btn" style="flex: 1; min-width: 140px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);">
                                                 <span>🦈 Surfshark (-82%)</span>
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                             </a>
                                         </div>
                                         <div style="margin-top: 10px;">
-                                            <a href="/go/intego" target="_blank" rel="noopener sponsored" class="btn" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);">
+                                            <a href="/go/intego" target="_blank" rel="nofollow noopener sponsored" class="btn" style="width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); border: none; font-weight: 700; font-size: 12px; padding: 11px 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);">
                                                 <span>🍏 Intego Mac & iPhone Anti-Malware Protection (-35%)</span>
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                             </a>
@@ -528,6 +516,91 @@
         <!-- ================================================================= -->
         <!-- VERIFIED INVESTIGATION, PRIVACY & SAFE DATING TOOLKIT (CJ PARTNERS) -->
         <!-- ================================================================= -->
+        
+        <!-- ================================================================= -->
+        <!-- INTERACTIVE CATFISH & DATING SAFETY CHECK WIDGET (CJ SPOKEO)      -->
+        <!-- ================================================================= -->
+        <section id="catfish-safety-check" class="spokeo-catfish-widget" style="max-width: 1200px; margin: 32px auto 36px auto; padding: 0 20px; position: relative; z-index: 10;">
+            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.97) 0%, rgba(12, 34, 62, 0.95) 55%, rgba(30, 17, 45, 0.96) 100%); border: 1px solid rgba(56, 189, 248, 0.45); border-radius: 20px; padding: 28px 26px; box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55); text-align: left;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="background: rgba(236, 72, 153, 0.18); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.45); font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px;">📺 AS SEEN ON MTV'S CATFISH</span>
+                        <span style="background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px;">🔒 100% CONFIDENTIAL • SEARCH WITHOUT THEM KNOWING</span>
+                    </div>
+                    <span style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #05080f; font-size: 11.5px; font-weight: 900; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);">🔥 SINGLE-PAGE REPORT JUST $0.95</span>
+                </div>
+
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 24px; color: #ffffff; margin: 0 0 8px 0; font-weight: 800; line-height: 1.25;">
+                    🕵️ Catfish &amp; Dating Safety Check: Verify Your Match in 30 Seconds (120+ Social &amp; Dating Sites)
+                </h2>
+                <p style="color: #cbd5e1; font-size: 14px; margin: 0 0 18px 0; line-height: 1.55; max-width: 960px;">
+                    Uncover their hidden online dating profiles, real name, phone owner, social media photos across 70+ networks, and background records! Enter any Name, Phone Number, Email, or Username below to launch a confidential check via our #1 recommended background verification partner, <strong>Spokeo</strong>.
+                </p>
+
+                <!-- Interactive Lookup Mode Tabs -->
+                <div class="vd-lookup-tabs" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+                    <button type="button" onclick="window.__vdSelectTab(this, '/go/catfish-check?sid=vd_home_en_catfish', 'Enter match\'s Full Name or Dating Username (120+ Social &amp; Dating Sites)...')" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: 1px solid #38bdf8; border-radius: 10px; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer;">💘 120+ Dating &amp; Social Profiles</button>
+                    <button type="button" onclick="window.__vdSelectTab(this, '/go/email-profile-check?sid=vd_home_en_email', 'Is He/She Cheating? Enter any Email Address (70+ Social Networks)...')" style="background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 9px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">📧 Email Lookup (&quot;Is He/She Cheating?&quot;)</button>
+                    <button type="button" onclick="window.__vdSelectTab(this, '/go/background-report?sid=vd_home_en_phone95', 'Enter Phone Number (e.g. +1 555-234-5678) for $0.95 Single-Page Report...')" style="background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 9px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">📞 Reverse Phone ($0.95 Report)</button>
+                    <button type="button" onclick="window.__vdSelectTab(this, '/go/dating-safety-check?sid=vd_home_en_safety', 'Be Aware While Dating Online! Enter Name &amp; City for Safety Check...')" style="background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 9px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">🛡️ Dating Safety Background Check</button>
+                </div>
+
+                <!-- Interactive Search Form -->
+                <form onsubmit="return window.__vdSubmitLookup(this);" data-target="/go/catfish-check?sid=vd_home_en_catfish" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
+                    <input type="text" class="vd-lookup-input" placeholder="Enter match's Full Name, Phone Number, Email, or Dating Username..." style="flex: 1; min-width: 240px; background: rgba(5, 8, 15, 0.85); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 12px; padding: 14px 16px; color: #ffffff; font-size: 14px; outline: none;">
+                    <button type="submit" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #ffffff; border: none; border-radius: 12px; padding: 14px 24px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(236, 72, 153, 0.45); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;">
+                        <span>🔍 Search 120+ Sites Confidentially ➔</span>
+                    </button>
+                </form>
+
+                <!-- Direct One-Click Sponsored Offer Pills -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                    <a href="/go/catfish-check?sid=vd_home_en_pill1" target="_blank" rel="nofollow noopener sponsored" style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.35); color: #7dd3fc; text-decoration: none; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <span>💘 Uncover Online Dating Profiles (120+ Sites)</span>
+                        <span>➔</span>
+                    </a>
+                    <a href="/go/background-report?sid=vd_home_en_pill2" target="_blank" rel="nofollow noopener sponsored" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #fcd34d; text-decoration: none; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <span>📄 Get a Single-Page Report for Just $0.95</span>
+                        <span>➔</span>
+                    </a>
+                    <a href="/go/email-profile-check?sid=vd_home_en_pill3" target="_blank" rel="nofollow noopener sponsored" style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.35); color: #f9a8d4; text-decoration: none; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <span>💌 &quot;Is He Cheating?&quot; Email &amp; 70+ Social Pics</span>
+                        <span>➔</span>
+                    </a>
+                </div>
+            </div>
+            <script>
+            if (!window.__vdSelectTab) {
+                window.__vdSelectTab = function(btn, targetUrl, placeholderText) {
+                    var wrap = btn.closest('.spokeo-catfish-widget');
+                    if (!wrap) return;
+                    var buttons = wrap.querySelectorAll('.vd-lookup-tabs button');
+                    for (var i = 0; i < buttons.length; i++) {
+                        buttons[i].style.background = 'rgba(255,255,255,0.06)';
+                        buttons[i].style.color = '#cbd5e1';
+                        buttons[i].style.borderColor = 'rgba(255,255,255,0.16)';
+                    }
+                    btn.style.background = 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)';
+                    btn.style.color = '#ffffff';
+                    btn.style.borderColor = '#38bdf8';
+                    var form = wrap.querySelector('form');
+                    var input = wrap.querySelector('.vd-lookup-input');
+                    if (form) form.setAttribute('data-target', targetUrl);
+                    if (input) { input.placeholder = placeholderText; input.focus(); }
+                };
+                window.__vdSubmitLookup = function(form) {
+                    var target = form.getAttribute('data-target') || '/go/catfish-check?sid=vd_widget_submit';
+                    var input = form.querySelector('.vd-lookup-input');
+                    if (input && input.value && navigator.clipboard && navigator.clipboard.writeText) {
+                        try { navigator.clipboard.writeText(input.value.trim()); } catch (e) {}
+                    }
+                    window.open(target, '_blank', 'noopener,noreferrer');
+                    return false;
+                };
+            }
+            </script>
+        </section>
+
         <section id="toolkit" class="toolkit-main-section" style="max-width: 1200px; margin: 40px auto 45px auto; padding: 0 20px; display: block; position: relative; z-index: 10;">
             <div style="text-align: center; margin-bottom: 25px;">
                 <span class="hero-tag" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border-color: rgba(236, 72, 153, 0.35); font-weight: 800; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-shield-halved"></i> OFFICIAL SECURITY & MATCHING NETWORK</span>
@@ -537,22 +610,25 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px;">
                 
-                <!-- Card 1: Spokeo & TruthFinder (Reverse Lookup) -->
-                <div class="card affiliate-incogni-card" style="padding: 24px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(2, 132, 199, 0.14) 100%); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px;">
+                <!-- Card 1: Spokeo Official Catfish & Reverse Lookup ($0.95 Report) -->
+                <div class="card affiliate-incogni-card" style="padding: 24px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(236, 72, 153, 0.12) 100%); border: 1px solid rgba(56, 189, 248, 0.45); border-radius: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <span style="font-size: 28px;">🔍</span>
-                        <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">BACKGROUND AUDIT</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">#1 RECOMMENDED • $0.95</span>
                     </div>
-                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 8px 0;">Reverse Phone & Email Lookup</h3>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; color: #fff; margin: 0 0 8px 0;">Reverse Phone, Email &amp; 120+ Dating Sites</h3>
                     <p style="color: #cbd5e1; font-size: 13.5px; margin: 0 0 18px 0; line-height: 1.5;">
-                        Got a phone number, email address, or name from a dating match? Run an instant search across US public records and aliases.
+                        As Seen on MTV's Catfish! Got a phone number, email, or name from a match? Check 120+ social &amp; dating sites confidentially with Spokeo.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <a href="/go/socialcatfish" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
-                            📞 Reverse Phone & Email Search (Social Catfish) ➔
+                        <a href="/go/catfish-check?sid=vd_toolkit_en" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 800; text-align: center;">
+                            💘 Uncover 120+ Dating &amp; Social Profiles (Spokeo) ➔
                         </a>
-                        <a href="/go/surfshark" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
-                            🕵️ Identity Leak & Dark Web Alert (Surfshark) ➔
+                        <a href="/go/background-report?sid=vd_toolkit95_en" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: rgba(245, 158, 11, 0.14); border: 1px solid rgba(245, 158, 11, 0.4); color: #fcd34d; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 800; text-align: center;">
+                            📄 Single-Page Background Report — Just $0.95 ➔
+                        </a>
+                        <a href="/go/email-profile-check?sid=vd_toolkit_em_en" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; text-decoration: none; padding: 10px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;">
+                            💌 &quot;Is He/She Cheating?&quot; Email &amp; 70+ Social Pics ➔
                         </a>
                     </div>
                 </div>
@@ -568,10 +644,10 @@
                         Shared your phone, email, or selfies? Automatically delete your records from 180+ data brokers and monitor dark web leaks.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <a href="/go/incogni" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
+                        <a href="/go/incogni" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
                             🛡️ Remove My Data (Incogni - 50% Off Exclusive) ➔
                         </a>
-                        <a href="/go/nordvpn" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                        <a href="/go/nordvpn" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
                             👁️ 24/7 Threat Protection & Dark Web Monitor (NordVPN) ➔
                         </a>
                     </div>
@@ -588,10 +664,10 @@
                         Tired of fake profiles, bots, and catfish traps? Switch to moderated dating networks with official identity verification.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <a href="/go/dating-singles" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
+                        <a href="/go/dating-singles" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;">
                             💖 Meet Verified Safe Singles (Cupid Network) ➔
                         </a>
-                        <a href="/go/dating-singles" target="_blank" rel="noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
+                        <a href="/go/dating-singles" target="_blank" rel="nofollow noopener sponsored" class="btn-affiliate" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; text-decoration: none; padding: 11px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-align: center;">
                             👵 Safe Moderated Dating (ID-Verified Only) ➔
                         </a>
                     </div>
@@ -599,6 +675,99 @@
 
             </div>
         </section>
+
+        <!-- ================================================================= -->
+        <!-- BACKGROUND CHECK & CATFISH TOOLS COMPARISON + SAFETY GUIDES       -->
+        <!-- ================================================================= -->
+        <section id="background-check-comparison" style="max-width: 1200px; margin: 10px auto 42px auto; padding: 0 20px; position: relative; z-index: 10;">
+            <div style="background: rgba(15, 23, 42, 0.92); border: 1px solid rgba(56, 189, 248, 0.32); border-radius: 20px; padding: 28px 24px; box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45); text-align: left;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="hero-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); font-weight: 800;">🏆 #1 RECOMMENDED IDENTITY &amp; BACKGROUND VERIFICATION</span>
+                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 25px; color: #ffffff; margin: 10px 0 6px 0; font-weight: 800;">
+                        Top Catfish, Reverse Phone &amp; Dating Background Check Tools Compared
+                    </h2>
+                    <p style="color: #94a3b8; font-size: 13.5px; margin: 0 auto; max-width: 740px; line-height: 1.5;">
+                        Protect yourself with a complete 2-layer Dating Safety Check: free AI facial biometrics plus confidential verification across 120+ social &amp; dating platforms.
+                    </p>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 680px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.12); color: #94a3b8; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.5px;">
+                                <th style="padding: 12px 14px; text-align: left;">Platform</th>
+                                <th style="padding: 12px 14px; text-align: left;">Best Verification Angle</th>
+                                <th style="padding: 12px 14px; text-align: left;">Database Coverage</th>
+                                <th style="padding: 12px 14px; text-align: left;">Entry Cost</th>
+                                <th style="padding: 12px 14px; text-align: center;">Official Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: linear-gradient(90deg, rgba(2, 132, 199, 0.2) 0%, rgba(236, 72, 153, 0.14) 100%); border-bottom: 1px solid rgba(56, 189, 248, 0.38);">
+                                <td style="padding: 16px 14px; font-weight: 800; color: #ffffff;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                        <span>🥇 Spokeo</span>
+                                        <span style="background: #10b981; color: #05080f; font-size: 10px; font-weight: 900; padding: 2px 7px; border-radius: 6px;">#1 RECOMMENDED</span>
+                                    </div>
+                                    <div style="font-size: 11.5px; color: #7dd3fc; font-weight: 600; margin-top: 3px;">As Seen on MTV's Catfish</div>
+                                </td>
+                                <td style="padding: 16px 14px; color: #e2e8f0;">Reverse Phone, Email, Full Name &amp; Hidden Dating Profiles</td>
+                                <td style="padding: 16px 14px; color: #38bdf8; font-weight: 700;">120+ Social &amp; Dating Sites + Billions of Public Records</td>
+                                <td style="padding: 16px 14px;"><strong style="color: #fbbf24; font-size: 15px;">$0.95</strong> <span style="display: block; font-size: 11px; color: #cbd5e1;">Single-Page Report</span></td>
+                                <td style="padding: 16px 14px; text-align: center;">
+                                    <a href="/go/background-report?sid=vd_tbl_en_spokeo" target="_blank" rel="nofollow noopener sponsored" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #fff; text-decoration: none; padding: 10px 16px; border-radius: 8px; font-weight: 800; font-size: 12.5px; display: inline-block; white-space: nowrap; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">Verify Match ($0.95) ➔</a>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <td style="padding: 14px; font-weight: 700; color: #ffffff;">
+                                    🛡️ VerifyDating™ AI
+                                    <div style="font-size: 11px; color: #34d399; font-weight: 600; margin-top: 2px;">Biometric Photo Scanner</div>
+                                </td>
+                                <td style="padding: 14px; color: #cbd5e1;">Stolen Influencer Photos, AI Deepfakes &amp; Scam Blacklist</td>
+                                <td style="padding: 14px; color: #cbd5e1;">5,842+ Verified Romance Scam Dossiers</td>
+                                <td style="padding: 14px; color: #34d399; font-weight: 800;">100% FREE</td>
+                                <td style="padding: 14px; text-align: center;">
+                                    <a href="#scanner-workspace" style="background: rgba(16, 185, 129, 0.16); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; font-size: 12px; display: inline-block; white-space: nowrap;">Scan Photo Free ↑</a>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <td style="padding: 14px; font-weight: 700; color: #ffffff;">
+                                    🔒 Incogni
+                                    <div style="font-size: 11px; color: #94a3b8; font-weight: 600; margin-top: 2px;">Data Broker Removal</div>
+                                </td>
+                                <td style="padding: 14px; color: #cbd5e1;">Deleting Your Own Phone, Email &amp; Address from Scammers</td>
+                                <td style="padding: 14px; color: #cbd5e1;">180+ People-Search &amp; Data Brokers</td>
+                                <td style="padding: 14px; color: #cbd5e1;">50% Off Exclusive</td>
+                                <td style="padding: 14px; text-align: center;">
+                                    <a href="/go/incogni" target="_blank" rel="nofollow noopener sponsored" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #e2e8f0; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; font-size: 12px; display: inline-block; white-space: nowrap;">Remove My Data ➔</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 14px; font-weight: 700; color: #cbd5e1;">Social Catfish</td>
+                                <td style="padding: 14px; color: #94a3b8;">Monthly Subscription Image &amp; Record Search</td>
+                                <td style="padding: 14px; color: #94a3b8;">Social Profiles &amp; Public Records</td>
+                                <td style="padding: 14px; color: #94a3b8;">$26.99 / mo</td>
+                                <td style="padding: 14px; text-align: center;">
+                                    <a href="/go/dating-safety-check?sid=vd_tbl_en_safety" target="_blank" rel="nofollow noopener sponsored" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #7dd3fc; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; font-size: 12px; display: inline-block; white-space: nowrap;">Try $0.95 Safety Check ➔</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Featured Online Dating Safety & Catfish Guides Bar -->
+                <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div style="font-size: 13px; color: #cbd5e1; font-weight: 600;">
+                        📚 <strong>Featured Dating Safety Guides:</strong>
+                        <a href="/guides/catfish-reverse-phone-email-social-lookup-guide" style="color: #38bdf8; text-decoration: none; margin-left: 8px;">Reverse Phone &amp; 120+ Sites Guide</a> &bull;
+                        <a href="/guides/how-to-spot-romance-scammer" style="color: #f472b6; text-decoration: none; margin-left: 4px;">How to Spot a Romance Scammer</a> &bull;
+                        <a href="/guides/tinder-catfish-red-flags" style="color: #34d399; text-decoration: none; margin-left: 4px;">5 Tinder Catfish Red Flags</a>
+                    </div>
+                    <a href="/guides" style="background: rgba(236, 72, 153, 0.14); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 800; white-space: nowrap;">View All 11 Safety Guides ➔</a>
+                </div>
+            </div>
+        </section>
+
 
         <!-- ================================================================= -->
         <!-- ROMANCE SCAMMER & CATFISH BLACKLIST PREVIEW (HOMEPAGE SHORTCUT) -->
@@ -615,7 +784,7 @@
                             <span>🛡️ Romance Scammer & Catfish Blacklist</span>
                         </h2>
                         <p style="color: #94a3b8; font-size: 14px; margin: 0; max-width: 650px;">
-                            Forensic intelligence archive indexing <strong>350,000+ verified romance scam personas</strong>, stolen photos, and fraudulent scripts.
+                            Forensic intelligence archive indexing <strong>5,842+ verified romance & pig-butchering dossiers</strong>, stolen photos, and fraudulent scripts.
                         </p>
                     </div>
 
@@ -641,7 +810,7 @@
                 <!-- Bottom CTA: View All Dossiers -->
                 <div style="text-align: center; margin-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px;">
                     <a href="/scammers" class="btn-affiliate" style="background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6; text-decoration: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
-                        <span>🕵️ Browse Full Scammer Blacklist (350,000+ Dossiers) ➔</span>
+                        <span>🕵️ Browse Full Scammer Blacklist (5,842+ Dossiers) ➔</span>
                     </a>
                 </div>
 
@@ -761,7 +930,7 @@
                 <div class="accordion-item">
                     <button class="accordion-header">Why is VerifyDating a better Social Catfish alternative? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="accordion-content">
-                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. You can unlock a quick report starting at just $2.99, or get 10 scan credits for 100% Free with no recurring charges, no accounts, and no hidden fees.</p>
+                        <p>Most platforms charge high monthly subscriptions (up to $29.99/mo) and auto-renew without your consent. VerifyDating is a pay-as-you-go <strong>social catfish alternative</strong>. VerifyDating is 100% Free for instant AI biometric photo scanning, with an optional $2.99 certified forensic PDF dossier if you need an official timestamped case file ? with zero recurring charges, no accounts, and no hidden fees.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -988,7 +1157,7 @@
                     VerifyDating™ Real-Time Facial Scam Intelligence & Auto-Ban API
                 </h3>
                 <p style="color: #cbd5e1; font-size: 13.5px; margin: 0; max-width: 860px; line-height: 1.6;">
-                    Protect your dating app, social network, classified marketplace, or trust & safety operations with programmatic access to 482,930+ monitored stolen identities, reverse-face matching, and AI deepfake detection.
+                    Protect your dating app, social network, classified marketplace, or trust & safety operations with programmatic access to 5,842+ verified romance & pig-butchering dossiers (FBI IC3, FTC, Europol, ASIC, SFC, CySEC, IOSCO), reverse-face matching, and AI deepfake detection.
                 </p>
             </div>
 
@@ -1020,7 +1189,7 @@
 
             <!-- Highlights Row -->
             <div style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; color: #cbd5e1; justify-content: space-between; padding-top: 4px;">
-                <div><span style="color: #f472b6; font-weight: 800;">✓ 482,930+</span> Stolen Identity Signatures</div>
+                <div><span style="color: #f472b6; font-weight: 800;">✓ 5,842+</span> Verified Scam Dossiers</div>
                 <div><span style="color: #f472b6; font-weight: 800;">✓ Sub-100ms</span> AI Facial Matching</div>
                 <div><span style="color: #f472b6; font-weight: 800;">✓ Deepfake AI</span> Synthetic Face Detection</div>
                 <div><span style="color: #f472b6; font-weight: 800;">✓ Free Tier</span> 100 Scans/Month Included</div>
@@ -1045,7 +1214,7 @@
                 <!-- Pillar 1 -->
                 <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center;">
                     <div style="font-size: 32px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(236,72,153,0.5));">👁️</div>
-                    <h4 style="color: #f472b6; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">482,930+ Stolen Faces</h4>
+                    <h4 style="color: #f472b6; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; margin: 0 0 4px 0;">5,842+ Official Dossiers</h4>
                     <div style="color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Global Fraud Database</div>
                     <p style="color: #cbd5e1; font-size: 12px; line-height: 1.45; margin: 0;">Continuous indexing of photos used in romance scams and pig-butchering syndicates.</p>
                 </div>
@@ -1078,15 +1247,15 @@
     
     </main>
 
-    <!-- Modal for Stripe-like Checkout Demo -->
+        <!-- Modal for Certified Forensic PDF Case File ($2.99 Optional via PayPal) -->
     <div class="modal-backdrop" id="checkout-modal">
         <div class="checkout-card">
             <div class="checkout-header">
                 <div class="merchant-info">
                     <span class="app-icon"><i class="fa-solid fa-heart-crack"></i></span>
                     <div>
-                        <h3>Dating Security Report</h3>
-                        <p>VerifyDating Inc.</p>
+                        <h3>Official Forensic PDF Case File</h3>
+                        <p>VasileDev Group (VIES: IT04226190041)</p>
                     </div>
                 </div>
                 <button class="modal-close" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
@@ -1094,24 +1263,18 @@
             
             <div class="checkout-body">
                 <div class="payment-summary">
-                    <span class="summary-label">Total due</span>
+                    <span class="summary-label">Total due (Optional PDF Dossier)</span>
                     <div style="text-align: right;">
-                        <span class="summary-amount">100% Free</span>
-                        <p style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Package includes 5 scans</p>
+                        <span class="summary-amount">$2.99</span>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Instant Web Scans are 100% Free &bull; Certified Stamped PDF</p>
                     </div>
                 </div>
                 
                 <div class="payment-methods" style="margin-bottom: 12px;">
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
                         <a id="direct-paypal-btn" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=2.99&item_name=VerifyDating+Forensic+Audit+Report&no_shipping=1&no_note=1&landing_page=billing&return=https://verifydating.net/" target="_blank" style="background:#FFC439; color:#003087; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%; text-decoration:none; box-shadow: 0 4px 12px rgba(255, 196, 57, 0.3);">
-                            <i class="fa-brands fa-paypal" style="font-size:22px;color:#003087;"></i> Pay with PayPal
+                            <i class="fa-brands fa-paypal" style="font-size:22px;color:#003087;"></i> Unlock Certified PDF Dossier — $2.99 (PayPal)
                         </a>
-                        <button type="button" class="btn-pay btn-apple-pay" style="background:#ffffff; color:#000000; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%;">
-                            <i class="fa-brands fa-apple" style="font-size:20px;"></i> Pay with Apple Pay
-                        </button>
-                        <button type="button" class="btn-pay btn-google-pay" style="background:#3c4043; color:#ffffff; font-weight:700; border-radius:8px; padding:12px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Outfit', sans-serif; font-size:15px; width:100%;">
-                            <i class="fa-brands fa-google" style="font-size:18px;"></i> Pay with GPay
-                        </button>
                         <button type="button" class="btn-pay btn-crypto-smoke" id="btn-crypto-smoke" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff; font-weight: 700; border-radius: 8px; padding: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 14px; width: 100%; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); transition: transform 0.2s ease;">
                             <i class="fa-brands fa-bitcoin" style="font-size: 18px; color: #ffffff;"></i> 🪙 Pay with Crypto (USDT / BTC) — 100% Anonymous
                         </button>
@@ -1119,7 +1282,7 @@
                         <!-- Crypto Smoke Test Card Inline -->
                         <div id="crypto-smoke-card" style="display: none; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; padding: 14px; margin-top: 6px; text-align: left;">
                             <div style="font-weight: 800; font-size: 13px; color: #fbbf24; margin-bottom: 4px;">🪙 100% Anonymous Crypto Checkout (USDT / BTC)</div>
-                            <p style="font-size: 11px; color: #cbd5e1; line-height: 1.4; margin: 0 0 10px 0;">Zero bank traces on your bank or credit card statement. Direct USDT (TRC20/Polygon) & BTC checkout is activated once we reach 1,000 community votes.</p>
+                            <p style="font-size: 11px; color: #cbd5e1; line-height: 1.4; margin: 0 0 10px 0;">Zero bank traces on your bank or credit card statement. Direct USDT (TRC20/Polygon) &amp; BTC checkout is activated once we reach 1,000 community votes.</p>
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; color: #94a3b8;">
                                 <span>📊 Current Votes:</span>
                                 <strong style="color: #fbbf24;" id="crypto-vote-counter">128 / 1,000</strong>
@@ -1129,36 +1292,16 @@
                             </div>
                             <div style="display: flex; gap: 6px;">
                                 <input type="email" id="crypto-vote-email" placeholder="Email (optional for priority activation)" style="flex: 1; background: rgba(5,8,15,0.8); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 8px 10px; color: #fff; font-size: 11px; box-sizing: border-box;">
-                                <button type="button" id="btn-submit-crypto-vote" style="background: #f59e0b; color: #000; font-weight: 800; border: none; border-radius: 6px; padding: 8px 12px; font-size: 11px; cursor: pointer; white-space: nowrap;">Vote & Request Crypto Access (USDT) ➔</button>
+                                <button type="button" id="btn-submit-crypto-vote" style="background: #f59e0b; color: #000; font-weight: 800; border: none; border-radius: 6px; padding: 8px 12px; font-size: 11px; cursor: pointer; white-space: nowrap;">Vote &amp; Request Crypto Access (USDT) ➔</button>
                             </div>
                             <div id="crypto-vote-success" style="display: none; color: #10b981; font-weight: 700; font-size: 11px; margin-top: 8px; text-align: center;">✓ Vote recorded! Thank you for helping prioritize anonymous crypto checkout.</div>
                         </div>
                     </div>
-                    <div class="checkout-divider" style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.5px;"><span>OR PAY WITH CREDIT CARD</span></div>
                 </div>
-
-<form id="payment-form" onsubmit="event.preventDefault();">
-                    <div class="form-group">
-                        <label for="card-email">Email Address</label>
-                        <input type="email" id="card-email" required placeholder="amendamax@vasiledev.com">
-                        <small style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Your 5 scan credits will be linked to this email address.</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Card Details</label>
-                        <div id="card-element" class="card-element-stripe"></div>
-                        <div id="card-errors" role="alert"></div>
-                    </div>
-
-                    <button type="submit" class="btn btn-success btn-lg btn-block" id="confirm-payment-btn">
-                        <span class="btn-text">Pay 100% Free (10 Scans)</span>
-                        <span class="btn-icon"><i class="fa-solid fa-lock"></i></span>
-                    </button>
-                </form>
             </div>
             <div class="checkout-divider"></div>
             <div class="checkout-footer">
-                <p><i class="fa-solid fa-shield-halved"></i> 256-bit encrypted SSL connection. Your details are secure.</p>
+                <p><i class="fa-solid fa-shield-halved"></i> 256-bit encrypted SSL connection &bull; VasileDev Group (IT04226190041)</p>
             </div>
         </div>
     </div>
@@ -1167,58 +1310,55 @@
     <div id="social-proof-toast" class="toast-notification"></div>
 
             <!-- Footer -->
-        <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
-    
-    <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
-    
-    <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
+            <!-- UNIFIED VASILEDEV ECOSYSTEM FOOTER -->
     <footer class="vasiledev-ecosystem-footer" style="background: #03060a; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 50px 20px 24px; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #94a3b8; font-size: 0.85rem; line-height: 1.6; text-align: left; margin-top: 60px;">
-        <div style="max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px; margin-bottom: 36px;">
+        <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 36px; margin-bottom: 36px;">
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 16px;">
-                        <i class="fa-solid fa-heart-crack"></i>
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(56, 189, 248, 0.15); color: #ec4899; font-size: 16px;">
+                        🛡️
                     </span>
                     <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.3px;">
-                        VERIFY<strong style="color: #38bdf8;">DATING</strong>
+                        VERIFY<strong style="color: #ec4899;">DATING</strong>
                     </span>
                 </div>
                 <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-                    Romance scam detection and AI photo verification platform. Protecting singles from financial fraud and catfishing.
+                    AI Biometric Facial Recognition &amp; Romance Scam Blacklist. Protecting dating singles and exposing romance fraud syndicates globally.
                 </p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                     <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">✔️ VIES Verified EU</span>
-                    <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
+                    <span style="background: rgba(56, 189, 248, 0.12); color: #ec4899; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">🛡️ 100% Free Public Utility</span>
                 </div>
             </div>
 
             <div>
-    <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
-    <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏛️ isbrokersafe.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🛡️ verifydating.net</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💼 jobscamradar.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💊 pillscamradar.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">📱 appscamradar.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏎️ dreamcarhunt.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">✈️ airparkrefund.com</a></p>
-<p style="margin: 0 0 8px 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">👑 vasiledev.com</a></p>
-</div>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
+                <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
+                <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+                <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
+                <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">WhatsApp: <strong style="color: #cbd5e1;">+39 320 948 1876</strong></p>
+            </div>
 
             <div>
-                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">Official Network</h4>
-                <p style="margin: 0 0 8px 0;"><a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🏦 IsBrokerSafe.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🛡️ JobScamRadar.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">💊 PillScamRadar.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700; text-decoration: none;">🛡️ VerifyDating.net</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none;">🐛 AppScamRadar.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">🏎️ DreamCarHunt.com</a></p>
-                <p style="margin: 0 0 8px 0;"><a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">✈️ AirParkRefund.com</a></p>
-                <p style="margin: 0;"><a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none;">👑 VasileDev.com</a></p>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">Official Network</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 0.85rem;">
+                    <a href="https://isbrokersafe.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>🏛️</span><span>IsBrokerSafe.com</span></a>
+                    <a href="https://verifydating.net" style="color: #ec4899; font-weight: 700; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>🛡️</span><span>VerifyDating.net</span></a>
+                    <a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>🏎️</span><span>DreamCarHunt.com</span></a>
+                    <a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>✈️</span><span>AirParkRefund.com</span></a>
+                    <a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>💼</span><span>JobScamRadar.com</span></a>
+                    <a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>💊</span><span>PillScamRadar.com</span></a>
+                    <a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>📱</span><span>AppScamRadar.com</span></a>
+                    <a href="https://calcolaincentivi.it" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>⚡</span><span>CalcolaIncentivi.it</span></a>
+                    <a href="https://calculeazasubventii.ro" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>🇷🇴</span><span>CalculeazaSubventii.ro</span></a>
+                    <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>👑</span><span>VasileDev.com</span></a>
+                </div>
             </div>
         </div>
 
-        <div style="max-width: 1140px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
-            <p style="margin: 0;">&copy; 2026 VerifyDating™ by VasileDev Group. All rights reserved. Powered globally by Cloudflare Edge Network.</p>
+        <div style="max-width: 1180px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.8rem; color: #64748b;">
+            <p style="margin: 0;">&copy; 2026 VerifyDating™ by VasileDev Group (P.IVA IT04226190041). All Rights Reserved. Intellectual Property Protected under EU Copyright Law.</p>
+        <div style="text-align: center; margin-top: 16px;"><a href="/scammers" style="color: #ec4899; text-decoration: none; font-weight: 600;">&bull; Public Romance Scam Blacklist &amp; Dossiers</a></div>
         </div>
     </footer>
 
@@ -1258,7 +1398,7 @@
                     <i class="fa-solid fa-check-circle" style="color:#10b981;"></i> Instant biometric facial analysis
                 </div>
                 <div style="display:flex; align-items:center; gap:8px; color:#38bdf8; font-size:13px; font-weight:600; margin-bottom:6px;">
-                    <i class="fa-solid fa-check-circle" style="color:#10b981;"></i> Cross-checks 200,000+ indexed romance scams
+                    <i class="fa-solid fa-check-circle" style="color:#10b981;"></i> Cross-checks 5,842+ indexed romance scams
                 </div>
                 <div style="display:flex; align-items:center; gap:8px; color:#38bdf8; font-size:13px; font-weight:600;">
                     <i class="fa-solid fa-check-circle" style="color:#10b981;"></i> 100% Free • No registration • No credit card required
@@ -1275,8 +1415,8 @@
             </div>
 
             <!-- Secondary CTA: Social Catfish Reverse Phone / Email Search -->
-            <a href="/go/socialcatfish" target="_blank" rel="noopener sponsored" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(56, 189, 248, 0.35); color:#7dd3fc; text-decoration:none; padding:11px 16px; border-radius:10px; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.2s;">
-                <i class="fa-solid fa-phone-volume"></i> <span>🔍 Run Deep Identity Search on Social Catfish ➔</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            <a href="/go/background-report?sid=vd_exit_en" target="_blank" rel="nofollow noopener sponsored" style="width:100%; background:rgba(245, 158, 11, 0.12); border:1px solid rgba(245, 158, 11, 0.45); color:#fcd34d; text-decoration:none; padding:11px 16px; border-radius:10px; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.2s;">
+                <i class="fa-solid fa-phone-volume"></i> <span>🔍 Check Phone, Email &amp; 120+ Dating Sites (Spokeo — $0.95 Report) ➔</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
             </a>
 
             <div style="margin-top:14px;">
@@ -1349,6 +1489,5 @@
         <i class="fa-brands fa-whatsapp"></i>
         <span class="floating-wa-pulse"></span>
     </a>
-
 </body>
 </html>

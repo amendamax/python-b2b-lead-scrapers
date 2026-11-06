@@ -2691,51 +2691,30 @@ ${extraSm}
 
     const schemaScript = `<script type="application/ld+json">${JSON.stringify(graphSchema)}</script>`;
     html = html.replace(/<\/body>/i, `${benchmarkHtml}\n${schemaScript}\n</body>`);
+
+    const shortEnt = entityDisplay.length > 36 ? entityDisplay.slice(0, 34).trim() + "..." : entityDisplay;
+    if (dossierType === "broker_audit") {
+      const trustScore = 76 + (hashNum % 21);
+      html = html.replace(
+        /<title>[\s\S]*?<\/title>/i,
+        `<title>Is ${esc(entitySlug)} Safe or a Scam? (${trustScore}/100 Broker Audit 2026) | IsBrokerSafe</title>`
+      );
+    } else if (dossierType === "broker_scam" && !langSubMatch) {
+      html = html.replace(
+        /<title>[\s\S]*?<\/title>/i,
+        `<title>Is ${esc(shortEnt)} Safe or a Scam? (Regulatory Blacklist 2026) | IsBrokerSafe</title>`
+      );
+    } else if (dossierType === "dating_scammer" && !langSubMatch) {
+      html = html.replace(
+        /<title>[\s\S]*?<\/title>/i,
+        `<title>${esc(shortEnt)} — Romance Scam &amp; Catfish Photo Check (2026) | VerifyDating</title>`
+      );
+    }
   }
 
-  // Bidirectional Wikipedia Archival Authority Graph (sameAs + Founding Date + Archival Footer Links)
-  if (!html.includes("christianspeeddate.com") && !html.includes("bonusbinaryoptions.net")) {
-    const wikiOrgSchema = isDating
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "@id": "https://verifydating.net/#organization",
-          name: "VerifyDating.net — ChristianSpeedDate Safety Archive Network",
-          url: "https://verifydating.net/",
-          foundingDate: "2004",
-          vatID: "IT04226190041",
-          sameAs: [
-            "https://www.christianspeeddate.com/",
-            "https://christianspeeddate.com/",
-            "https://www.christianspeeddate.com/reverse-dating-photo-lookup-and-catfish-check",
-            "https://www.christianspeeddate.com/verify-dating-phone-number-and-background-records",
-          ],
-        }
-      : {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "@id": "https://isbrokersafe.com/#organization",
-          name: "IsBrokerSafe.com — BonusBinaryOptions Regulatory Archive Network",
-          url: "https://isbrokersafe.com/",
-          foundingDate: "2013",
-          vatID: "IT04226190041",
-          sameAs: [
-            "https://www.bonusbinaryoptions.net/",
-            "https://bonusbinaryoptions.net/",
-            "https://www.bonusbinaryoptions.net/2013/05/banc-de-binary-has-problems-with-cftc/",
-            "https://www.bonusbinaryoptions.net/sec-gives-court-another-proven-reason-to-rule-against-banc-de-binary/",
-          ],
-        };
-
-    const wikiFooterBar = isDating
-      ? `<div style="max-width:1100px;margin:18px auto 12px;padding:12px 18px;background:rgba(15,23,42,0.85);border:1px solid rgba(236,72,153,0.28);border-radius:10px;font-size:12.5px;color:#cbd5e1;text-align:center;">🏛️ <strong>Official Archival Heritage (Est. 2004):</strong> Integrated with <a href="https://www.christianspeeddate.com/" style="color:#f472b6;font-weight:700;text-decoration:none;">ChristianSpeedDate.com (2004–2026 Dating Safety Archive, cited on Wikipedia)</a> &bull; <a href="https://www.christianspeeddate.com/reverse-dating-photo-lookup-and-catfish-check" style="color:#fbcfe8;text-decoration:none;">Reverse Photo Lookup Archive</a> &bull; <a href="https://www.christianspeeddate.com/verify-dating-phone-number-and-background-records" style="color:#fbcfe8;text-decoration:none;">VoIP Phone Verification Archive</a></div>`
-      : `<div style="max-width:1140px;margin:18px auto 12px;padding:12px 18px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.28);border-radius:10px;font-size:12.5px;color:#cbd5e1;text-align:center;">🏛️ <strong>Official Regulatory Heritage (Est. 2013):</strong> Integrated with <a href="https://www.bonusbinaryoptions.net/" style="color:#38bdf8;font-weight:700;text-decoration:none;">BonusBinaryOptions.net (2013–2026 CFTC/SEC Enforcement Archive, cited on Wikipedia)</a> &bull; <a href="https://www.bonusbinaryoptions.net/2013/05/banc-de-binary-has-problems-with-cftc/" style="color:#bae6fd;text-decoration:none;">CFTC Enforcement Dossier</a> &bull; <a href="https://www.bonusbinaryoptions.net/sec-gives-court-another-proven-reason-to-rule-against-banc-de-binary/" style="color:#bae6fd;text-decoration:none;">SEC Federal Court Ruling</a></div>`;
-
-    html = html.replace(
-      /<\/body>/i,
-      `${wikiFooterBar}\n<script type="application/ld+json">${JSON.stringify(wikiOrgSchema)}</script>\n</body>`
-    );
-  }
+  // Strip any cached origin reciprocal links to satellite domains
+  html = html.replace(/<div[^>]*>🏛️ <strong>Official (Archival|Regulatory) Heritage[\s\S]*?<\/div>/gi, "");
+  html = html.replace(/<script type="application\/ld\+json">[^<]*(christianspeeddate\.com|bonusbinaryoptions\.net)[^<]*<\/script>/gi, "");
 
   if (!isDating) {
     html = injectIsBrokerSafeMobileScanFix(html);

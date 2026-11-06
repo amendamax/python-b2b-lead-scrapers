@@ -6199,45 +6199,47 @@ async def get_scam_report_page(request: Request, slug: str, lang: str = "en"):
     clean_name = entity_name.replace('"', '').replace("'", "").strip() if entity_name else "Unknown Broker"
     robots_directive = '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">'
     entity_with_domain = f"{entity_name} ({domain})" if (domain and domain.lower() not in (entity_name or "").lower()) else entity_name
+    short_entity = (entity_with_domain[:36].rstrip() + "...") if len(entity_with_domain) > 38 else entity_with_domain
+    short_reg = (regulator.split("(")[0].strip()[:14]) if regulator else "Regulator"
 
     SCAM_SEO_META = {
         "en": {
-            "title": f"Is {entity_with_domain} Legit or a Scam? {regulator} Warning & Review | IsBrokerSafe",
+            "title": f"Is {short_entity} Safe or a Scam? ({short_reg} Warning 2026) | IsBrokerSafe",
             "desc": f"Is {entity_with_domain} safe or a scam? Official {regulator} regulatory blacklist warning ({warning_date}), clone domain check, and how to recover funds via chargeback.",
             "h1": f"{entity_name} — Scam Warning & Official {regulator} Audit"
         },
         "ro": {
-            "title": f"{entity_with_domain} Păreri & Alertă Țeapă ({regulator}) — Este Sigur sau Fraudă? | IsBrokerSafe",
+            "title": f"{short_entity} Păreri & Alertă Țeapă ({short_reg} 2026) | IsBrokerSafe",
             "desc": f"Este {entity_with_domain} un broker sigur sau țeapă? Avertisment oficial {regulator} ({warning_date}), domenii clonă pe lista neagră și ghid recuperare bani (Chargeback).",
             "h1": f"Alertă Fraudă {entity_name}: Verificare Licență & Lista Neagră ({regulator})"
         },
         "it": {
-            "title": f"{entity_with_domain} Truffa o Sicuro? Recensioni & Avviso {regulator} | IsBrokerSafe",
+            "title": f"{short_entity} Truffa o Sicuro? Recensioni & Avviso {short_reg} | IsBrokerSafe",
             "desc": f"{entity_with_domain} è affidabile o una truffa? Provvedimento ufficiale {regulator} ({warning_date}), domini oscurati e guida al recupero fondi (Chargeback).",
             "h1": f"Allerta Truffa {entity_name}: Verifica Licenza & Blacklist ({regulator})"
         },
         "de": {
-            "title": f"{entity_with_domain} Erfahrungen & Betrugswarnung ({regulator}) — Seriös oder Scam? | IsBrokerSafe",
+            "title": f"{short_entity} Erfahrungen & Betrugswarnung ({short_reg} 2026) | IsBrokerSafe",
             "desc": f"Ist {entity_with_domain} seriös oder Betrug? Offizielle {regulator} Warnung ({warning_date}), Klon-Domains und Leitfaden zur Geldrückforderung (Chargeback).",
             "h1": f"Betrugswarnung {entity_name}: Offizielle {regulator} Blacklist & Lizenzprüfung"
         },
         "fr": {
-            "title": f"Avis {entity_with_domain} : Arnaque ou Fiable ? Alerte Officielle {regulator} | IsBrokerSafe",
+            "title": f"Avis {short_entity} : Arnaque ou Fiable ? ({short_reg} 2026) | IsBrokerSafe",
             "desc": f"{entity_with_domain} est-il fiable ou une arnaque ? Mise en garde officielle {regulator} ({warning_date}), domaines clones et procédure de rétrofacturation (Chargeback).",
             "h1": f"Alerte Arnaque {entity_name} : Liste Noire Officielle & Audit ({regulator})"
         },
         "es": {
-            "title": f"{entity_with_domain} Opiniones y Alerta de Estafa ({regulator}) — ¿Es Seguro o Fraude? | IsBrokerSafe",
+            "title": f"{short_entity} Opiniones y Alerta de Estafa ({short_reg} 2026) | IsBrokerSafe",
             "desc": f"¿Es {entity_with_domain} seguro o una estafa? Advertencia oficial de {regulator} ({warning_date}), dominios clonados y guía para recuperar su dinero.",
             "h1": f"Alerta de Estafa {entity_name}: Lista Negra Oficial y Auditoría ({regulator})"
         },
         "pt": {
-            "title": f"{entity_with_domain} É Confiável ou Golpe? Reclamações e Alerta {regulator} | IsBrokerSafe",
+            "title": f"{short_entity} É Confiável ou Golpe? Alerta {short_reg} (2026) | IsBrokerSafe",
             "desc": f"{entity_with_domain} é confiável ou fraude? Alerta oficial {regulator} ({warning_date}), verificação de domínios clonados e como recuperar seu dinheiro.",
             "h1": f"Alerta de Golpe {entity_name}: Lista Negra Oficial e Auditoria ({regulator})"
         },
         "ru": {
-            "title": f"{entity_with_domain} Отзывы и Проверка ({regulator}) — Развод или Надежный Брокер? | IsBrokerSafe",
+            "title": f"{short_entity} Отзывы и Проверка ({short_reg} 2026) — Развод или Нет? | IsBrokerSafe",
             "desc": f"Брокер {entity_with_domain} — это обман или нет? Официальное предупреждение регулятора {regulator} ({warning_date}), проверка домена и инструкция по чарджбэку.",
             "h1": f"Предупреждение о мошенничестве {entity_name}: Черный список ({regulator})"
         }
@@ -11268,7 +11270,7 @@ async def get_domain_audit_page(domain_or_slug: str):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audit Report: {domain} — Safety Score: {score}/100 | IsBrokerSafe</title>
+    <title>Is {domain} Safe or a Scam? ({score}/100 Broker Audit 2026) | IsBrokerSafe</title>
     <link rel="canonical" href="https://isbrokersafe.com/audit/{domain}" />
     <meta name="description" content="Official regulatory audit report for {domain} (Safety Score: {score}/100 — {status_text}). Cross-referenced across 82+ global financial regulators on IsBrokerSafe.com.">
     <meta property="og:type" content="website">
@@ -12142,9 +12144,10 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
     flags_html = "".join([f'<li style="color: #f87171; margin-bottom: 6px;">🚩 <strong>{f}</strong></li>' for f in flags])
     aliases_str = ", ".join(aliases) if aliases else name
 
+    short_persona = (name[:36].rstrip() + "...") if len(name) > 38 else name
     T = {
         "en": {
-            "title": f"{name} — Fake Profile, Stolen Photos & Romance Scam Check | VerifyDating",
+            "title": f"{short_persona} — Romance Scam & Catfish Photo Check (2026) | VerifyDating",
             "meta_desc": f"Is '{name}' ({prof}, {location}) a real person or a romance scammer? Run a free AI reverse photo lookup and inspect catfish warning flags on VerifyDating.",
             "h1": f"{name} — Romance Scam & Stolen Photo Verification",
             "back": "&larr; Back to Scammer Blacklist",
