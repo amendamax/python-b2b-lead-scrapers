@@ -20,7 +20,7 @@ import {
   FAVICON_APP,
 } from "./templates.js";
 
-const STATIC_LASTMOD = "2026-11-02";
+const STATIC_LASTMOD = "2026-11-07";
 
 function esc(val) {
   return String(val ?? "")
@@ -100,6 +100,650 @@ function renderStrict404(brandName, domain, backHref = "/", backLabel = "Back to
   });
 }
 
+const AMAZON_GUARD_SKU_EN = {
+  "ledger-wallet": "Ledger+Nano+X+Trezor+Safe+3+Crypto+Hardware+Wallet",
+  "yubikey-2fa": "YubiKey+5C+NFC+Two+Factor+Authentication+Security+Key",
+  "faraday-vault": "Faraday+Bag+Signal+Blocker+Crypto+Seed+Phrase+Steel+Backup",
+  "trading-books": "Technical+Analysis+Financial+Markets+Trading+Investing+Book",
+  "faraday-webcam": "Faraday+Bag+Phone+Signal+Blocker+Webcam+Cover+Privacy+Kit",
+  "safety-alarm": "Apple+AirTag+Samsung+SmartTag+Personal+Safety+Alarm+130dB",
+  "rfid-wallet": "RFID+Blocking+Wallet+Credit+Card+Protector+Anti+Skimming",
+  "omega-magnesium": "Magnesium+Bisglycinate+Omega+3+Fish+Oil+Lab+Tested",
+  "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Immune+Support+Certified",
+  "probiotics-gut": "Probiotics+60+Billion+CFU+Digestive+Enzymes+Certified",
+  "creatine-collagen": "Creatine+Monohydrate+Hydrolyzed+Collagen+Peptides+Pure",
+};
+
+const AMAZON_GUARD_SKU_LOCALIZED = {
+  IT: {
+    "ledger-wallet": "Portafoglio+Hardware+Cripto+Ledger+Nano+X+Trezor+Safe+3",
+    "yubikey-2fa": "Chiavetta+Sicurezza+YubiKey+5C+NFC+Autenticazione+2FA",
+    "faraday-vault": "Bustina+Faraday+Schermata+Backup+Acciaio+Seed+Phrase+Crypto",
+    "trading-books": "Libri+Analisi+Tecnica+Trading+Mercati+Finanziari+Investimenti",
+    "faraday-webcam": "Bustina+Faraday+Blocca+Segnale+Copri+Webcam+Privacy",
+    "safety-alarm": "Localizzatore+GPS+Smart+Tag+Allarme+Personale+Sicurezza+130dB",
+    "rfid-wallet": "Portafoglio+Schermato+RFID+Anti+Clonazione+Carte",
+    "omega-magnesium": "Magnesio+Bisglicinato+Omega+3+Olio+Pesce+Certificato",
+    "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Immunitario+Certificata",
+    "probiotics-gut": "Fermenti+Lattici+Probiotici+60+Miliardi+Enzimi+Digestivi",
+    "creatine-collagen": "Creatina+Monoidrato+Pura+Collagene+Idrolizzato+Peptidi",
+  },
+  DE: {
+    "ledger-wallet": "Ledger+Nano+X+Trezor+Safe+3+Krypto+Hardware+Wallet",
+    "yubikey-2fa": "YubiKey+5C+NFC+Sicherheitsschluessel+Zwei+Faktor+2FA",
+    "faraday-vault": "Faraday+Tasche+Funkschutz+Seed+Phrase+Stahl+Backup",
+    "trading-books": "Technische+Analyse+Finanzmaerkte+Trading+Boerse+Buch",
+    "faraday-webcam": "Faraday+Tasche+Handy+Signalblocker+Webcam+Abdeckung",
+    "safety-alarm": "SmartTag+AirTag+Taschenalarm+130dB+Persoenlicher+Alarm",
+    "rfid-wallet": "RFID+Schutz+Geldboerse+Kartenetui+Anti+Skimming",
+    "omega-magnesium": "Magnesium+Bisglycinat+Omega+3+Fischoel+Laborgeprueft",
+    "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Hochdosiert+Laborgeprueft",
+    "probiotics-gut": "Probiotika+Darmflora+60+Milliarden+KBE+Verdauungsenzyme",
+    "creatine-collagen": "Kreatin+Monohydrat+Kollagen+Hydrolysat+Pulver+Rein",
+  },
+  FR: {
+    "ledger-wallet": "Portefeuille+Crypto+Materiel+Ledger+Nano+X+Trezor+Safe+3",
+    "yubikey-2fa": "Cle+Securite+YubiKey+5C+NFC+Authentification+2FA",
+    "faraday-vault": "Pochette+Faraday+Anti+Onde+Sauvegarde+Acier+Crypto",
+    "trading-books": "Livre+Analyse+Technique+Trading+Marchés+Financiers",
+    "faraday-webcam": "Pochette+Faraday+Telephone+Cache+Webcam+Confidentialite",
+    "safety-alarm": "Traceur+GPS+SmartTag+Alarme+Personnelle+Securite+130dB",
+    "rfid-wallet": "Portefeuille+Anti+RFID+Protection+Carte+Bancaire",
+    "omega-magnesium": "Magnesium+Bisglycinate+Omega+3+Huile+Poisson+Certifie",
+    "vitamin-d3-k2": "Vitamine+D3+K2+MK7+Immunite+Certifie",
+    "probiotics-gut": "Probiotiques+60+Milliards+Enzymes+Digestives+Flore",
+    "creatine-collagen": "Creatine+Monohydrate+Collagene+Hydrolyse+Peptides",
+  },
+  ES: {
+    "ledger-wallet": "Cartera+Hardware+Cripto+Ledger+Nano+X+Trezor+Safe+3",
+    "yubikey-2fa": "Llave+Seguridad+YubiKey+5C+NFC+Autenticacion+2FA",
+    "faraday-vault": "Funda+Faraday+Bloqueador+Senal+Acero+Semilla+Cripto",
+    "trading-books": "Libro+Analisis+Tecnico+Mercados+Financieros+Trading",
+    "faraday-webcam": "Funda+Faraday+Movil+Tapa+Webcam+Privacidad",
+    "safety-alarm": "Localizador+GPS+Alarma+Personal+Seguridad+130dB",
+    "rfid-wallet": "Cartera+Bloqueo+RFID+Tarjetero+Anti+Clonacion",
+    "omega-magnesium": "Magnesio+Bisglicinato+Omega+3+Aceite+Pescado+Certificado",
+    "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Inmune+Certificada",
+    "probiotics-gut": "Probioticos+60+Mil+Millones+Enzimas+Digestivas",
+    "creatine-collagen": "Creatina+Monohidrato+Colageno+Hidrolizado+Puro",
+  },
+};
+
+const AMAZON_COUNTRY_TAGS = {
+  IT: "vasiledev-21",
+  SM: "vasiledev-21",
+  VA: "vasiledev-21",
+  MT: "vasiledev-21",
+  DE: "vasiledev0c-21",
+  AT: "vasiledev0c-21",
+  CH: "vasiledev0c-21",
+  RO: "vasiledev0c-21",
+  DK: "vasiledev0c-21",
+  CZ: "vasiledev0c-21",
+  HU: "vasiledev0c-21",
+  BG: "vasiledev0c-21",
+  HR: "vasiledev0c-21",
+  SI: "vasiledev0c-21",
+  SK: "vasiledev0c-21",
+  GR: "vasiledev0c-21",
+  FI: "vasiledev0c-21",
+  NO: "vasiledev0c-21",
+  EE: "vasiledev0c-21",
+  LV: "vasiledev0c-21",
+  LT: "vasiledev0c-21",
+  CY: "vasiledev0c-21",
+  FR: "vasiledev0a-21",
+  LU: "vasiledev0a-21",
+  MC: "vasiledev0a-21",
+  ES: "vasiledev09-21",
+  PT: "vasiledev09-21",
+  AD: "vasiledev09-21",
+  UK: "vasiledev0b-21",
+  GB: "vasiledev0b-21",
+  IE: "vasiledev0b-21",
+  NL: "vasiledev03-21",
+  BE: "vasiledev0a9-21",
+  PL: "vasiledev02-21",
+  SE: "vasiledev09c-21",
+};
+
+function buildAmazonGuardUrl(countryCode, sku) {
+  const cc = String(countryCode || "GB").toUpperCase().trim();
+  const cleanSku = String(sku || "yubikey-2fa").toLowerCase().trim();
+  const tag = AMAZON_COUNTRY_TAGS[cc] || "vasiledev0b-21";
+  const enKw = AMAZON_GUARD_SKU_EN[cleanSku] || AMAZON_GUARD_SKU_EN["yubikey-2fa"];
+
+  if (["IT", "SM", "VA", "MT"].includes(cc)) {
+    const kw = AMAZON_GUARD_SKU_LOCALIZED.IT[cleanSku] || enKw;
+    return { url: `https://www.amazon.it/s?tag=${tag}&linkCode=ll2&k=${kw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (["DE", "AT", "CH"].includes(cc)) {
+    const kw = AMAZON_GUARD_SKU_LOCALIZED.DE[cleanSku] || enKw;
+    return { url: `https://www.amazon.de/s?tag=${tag}&linkCode=ll2&k=${kw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (["RO", "DK", "CZ", "HU", "BG", "HR", "SI", "SK", "GR", "FI", "NO", "EE", "LV", "LT", "CY"].includes(cc)) {
+    // Strictly English interface (&language=en_GB) + English search terms + tag=vasiledev0c-21 on amazon.de
+    return { url: `https://www.amazon.de/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank&language=en_GB`, tag };
+  }
+  if (["FR", "LU", "MC"].includes(cc)) {
+    const kw = AMAZON_GUARD_SKU_LOCALIZED.FR[cleanSku] || enKw;
+    return { url: `https://www.amazon.fr/s?tag=${tag}&linkCode=ll2&k=${kw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (["ES", "PT", "AD"].includes(cc)) {
+    const kw = AMAZON_GUARD_SKU_LOCALIZED.ES[cleanSku] || enKw;
+    const langParam = cc === "PT" ? "&language=pt_PT" : "";
+    return { url: `https://www.amazon.es/s?tag=${tag}&linkCode=ll2&k=${kw}&s=exact-aware-popularity-rank${langParam}`, tag };
+  }
+  if (cc === "NL") {
+    return { url: `https://www.amazon.nl/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (cc === "BE") {
+    return { url: `https://www.amazon.com.be/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank&language=nl_BE`, tag };
+  }
+  if (cc === "PL") {
+    return { url: `https://www.amazon.pl/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (cc === "SE") {
+    return { url: `https://www.amazon.se/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  return { url: `https://www.amazon.co.uk/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+}
+
+function isEdgeAffiliateBotRequest(request, clientIp, uaLow) {
+  if (request.method !== "GET") return true;
+  if (!uaLow || uaLow.length < 25 || !uaLow.startsWith("mozilla/5.0")) return true;
+  if (/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegrambot|discordbot|linkedinbot|headless|lighthouse|pagespeed|gtmetrix|pingdom|uptimerobot|semrush|ahrefs|mj12bot|dotbot|bytespider|petalbot|claudebot|gptbot|oai-searchbot|perplexity|amazonbot|applebot|yandex|baiduspider|sogou|exabot|ia_archiver|curl|wget|python-requests|httpx|aiohttp|go-http-client|java\/|libwww|okhttp|scrapy|undici|apache-httpclient|postmanruntime/i.test(uaLow)) {
+    return true;
+  }
+  if (/chrome\/(?:14[89]|1[5-9]\d|[2-9]\d\d)\./i.test(uaLow)) return true;
+  const purpose = (
+    request.headers.get("purpose") ||
+    request.headers.get("sec-purpose") ||
+    request.headers.get("x-purpose") ||
+    request.headers.get("x-moz") ||
+    ""
+  ).toLowerCase();
+  if (purpose.includes("prefetch") || purpose.includes("preview") || purpose.includes("prerender")) return true;
+  const secMode = (request.headers.get("sec-fetch-mode") || "").toLowerCase();
+  if (secMode && secMode !== "navigate" && secMode !== "nested-navigate") return true;
+  if (clientIp && (clientIp.startsWith("213.209.159.") || clientIp.startsWith("47.74.") || clientIp.startsWith("47.88.") || clientIp.startsWith("51.210.") || clientIp.startsWith("54.36."))) {
+    return true;
+  }
+  return false;
+}
+
+let CURRENT_VISITOR_CC = "GB";
+
+const AMAZON_BANNER_I18N = {
+  ro: {
+    cc: "RO",
+    broker: {
+      title: "🔐 Securitate Hardware Cripto &amp; Protecție Cont (Magazinul Oficial Amazon — Livrare Rapidă în România):",
+      sub: "Nu lăsa niciodată fondurile pe platforme nereglementate și nu expune codurile 2FA la phishing. Securizează-ți cheile private și conturile de tranzacționare cu protecție hardware:",
+      b1: "🔐 1. Portofele Hardware Ledger Nano X &amp; Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Cheie Hardware 2FA YubiKey 5C NFC (Anti-Phishing) &rarr;",
+      b3: "🛡️ 3. Husă Faraday Anti-Semnal &amp; Seif Oțel Seed Phrase &rarr;",
+      b4: "📚 4. Cărți Bestseller #1 de Price Action &amp; Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Kit Fizic de Confidențialitate, Anti-Stalking &amp; Siguranță la Întâlniri (Bestseller Oficial Amazon):",
+      sub: "Protejează-ți camera web, locația GPS și cardurile bancare împotriva escrocilor sentimentali, șantajului video (sextortion) și riscurilor la întâlnirile față în față:",
+      b1: "📵 1. Husă Faraday Telefon &amp; Scut Cameră Web &rarr;",
+      b2: "🚨 2. Localizator Smart GPS &amp; Alarmă Personală 130dB &rarr;",
+      b3: "🔑 3. Cheie Fizică 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Portofel cu Blocare RFID Anti-Clonare Carduri &rarr;"
+    },
+    pill: {
+      title: "🌿 Suplimente Zilnice Testate în Laborator &amp; Certificate GMP (Magazinul Oficial Amazon — Bestseller):",
+      sub: "Nu cumpăra niciodată pastile neverificate de pe site-uri fantomă. Alege vitamine și suplimente certificate GMP (4.5★+), testate independent în laborator, pe Amazon:",
+      b1: "💊 1. Magneziu Bisglicinat &amp; Omega-3 Certificat &rarr;",
+      b2: "☀️ 2. Vitamina D3 + K2 (MK-7) Concentrație Maximă &rarr;",
+      b3: "🧬 3. Probiotice 60 Miliarde CFU &amp; Enzime Digestive &rarr;",
+      b4: "⚡ 4. Creatină Monohidrată Pură &amp; Colagen Hidrolizat &rarr;"
+    },
+    radar: {
+      title: "🔐 Kit Hardware Anti-Phishing &amp; Securitate Dispozitive (Magazinul Oficial Amazon — Bestseller):",
+      sub: "Aplicațiile APK malițioase, escrocii de pe WhatsApp și falșii recrutori fură codurile SMS 2FA și accesul la cameră. Blochează-ți conturile cu securitate fizică hardware:",
+      b1: "🔑 1. Cheie 2FA YubiKey 5C NFC (Oprește Furtul SMS) &rarr;",
+      b2: "📵 2. Husă Faraday Anti-Spionaj &amp; Scut Cameră Web &rarr;",
+      b3: "🔐 3. Portofel Hardware Cripto Ledger &amp; Trezor &rarr;",
+      b4: "💳 4. Portofel cu Protecție RFID pentru Carduri &amp; Acte &rarr;"
+    }
+  },
+  it: {
+    cc: "IT",
+    broker: {
+      title: "🔐 Sicurezza Hardware Crypto e Protezione Account (Negozio Ufficiale Amazon.it — Bestseller):",
+      sub: "Non lasciare mai i tuoi fondi su broker non regolamentati e proteggi i codici 2FA dal phishing. Metti al sicuro le tue chiavi private e i conti di trading con dispositivi hardware certificati:",
+      b1: "🔐 1. Hardware Wallet Ledger Nano X e Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Chiave di Sicurezza 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Custodia Faraday Schermata e Cassaforte Seed in Acciaio &rarr;",
+      b4: "📚 4. Libri Bestseller #1 di Price Action e Analisi Tecnica &rarr;"
+    },
+    dating: {
+      title: "🛡️ Kit Privacy Fisica, Anti-Stalking e Sicurezza al Primo Appuntamento (Bestseller Ufficiali Amazon.it):",
+      sub: "Proteggi fotocamera, posizione GPS e carte di credito da truffatori romantici, ricatti video (sextortion) e rischi durante gli incontri dal vivo (Consegna Rapida Prime):",
+      b1: "📵 1. Bustina Faraday Anti-Tracciamento e Copri Webcam &rarr;",
+      b2: "🚨 2. Localizzatore Smart GPS e Allarme Personale 130dB &rarr;",
+      b3: "🔑 3. Chiave Hardware 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Portafoglio Schermato RFID Anti-Clonazione Carte &rarr;"
+    },
+    pill: {
+      title: "🌿 Integratori Giornalieri Testati in Laboratorio e Certificati GMP (Negozio Ufficiale Amazon.it):",
+      sub: "Non acquistare mai pillole non verificate da farmacie online sospette. Scegli vitamine e integratori certificati GMP (4.5★+) testati da laboratori indipendenti su Amazon.it:",
+      b1: "💊 1. Magnesio Bisglicinato e Omega-3 Certificato &rarr;",
+      b2: "☀️ 2. Vitamina D3 + K2 (MK-7) ad Alto Dosaggio &rarr;",
+      b3: "🧬 3. Probiotici 60 Miliardi CFU ed Enzimi Digestivi &rarr;",
+      b4: "⚡ 4. Creatina Monoidrato Pura e Collagene Idrolizzato &rarr;"
+    },
+    radar: {
+      title: "🔐 Kit Hardware Anti-Phishing e Sicurezza Dispositivi (Bestseller Ufficiali Amazon.it):",
+      sub: "APK malevoli, truffatori su WhatsApp e falsi selezionatori rubano i codici SMS 2FA e spiano la webcam. Proteggi i tuoi conti con dispositivi fisici di sicurezza:",
+      b1: "🔑 1. Chiave 2FA YubiKey 5C NFC (Blocca Furto SMS) &rarr;",
+      b2: "📵 2. Bustina Faraday Schermata e Copri Webcam Privacy &rarr;",
+      b3: "🔐 3. Hardware Wallet Crypto Ledger e Trezor &rarr;",
+      b4: "💳 4. Portafoglio RFID Anti-Clonazione Carte e Documenti &rarr;"
+    }
+  },
+  de: {
+    cc: "DE",
+    broker: {
+      title: "🔐 Physische Krypto- &amp; Kontosicherheit (Offizieller Amazon.de Store — Bestseller):",
+      sub: "Lassen Sie niemals Gelder auf unregulierten Plattformen und schützen Sie 2FA-Codes vor Phishing. Sichern Sie Ihre Private Keys und Handelskonto-Zugänge mit zertifizierter Hardware:",
+      b1: "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hardware-Wallets &rarr;",
+      b2: "🔑 2. YubiKey 5C NFC 2FA-Sicherheitsschlüssel &rarr;",
+      b3: "🛡️ 3. Faraday-Schutztasche &amp; Edelstahl Seed-Tresor &rarr;",
+      b4: "📚 4. #1 Bestseller-Bücher für Price Action &amp; Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Physischer Datenschutz, Anti-Stalking &amp; Sicherheits-Kit fürs Erste Date (Amazon.de Bestseller):",
+      sub: "Schützen Sie Kamera, GPS-Standort und Bankkarten vor Romance-Scammern, Sextortion-Erpressern und Risiken bei Offline-Treffen:",
+      b1: "📵 1. Faraday-Handytasche &amp; Webcam-Abdeckung Set &rarr;",
+      b2: "🚨 2. Smart GPS-Tracker &amp; 130dB Taschenalarm &rarr;",
+      b3: "🔑 3. YubiKey 5C NFC Hardware 2FA-Schlüssel &rarr;",
+      b4: "💳 4. RFID-Blocker Geldbörse gegen Karten-Skimming &rarr;"
+    },
+    pill: {
+      title: "🌿 Laborgeprüfte Tägliche Vitalstoffe &amp; GMP-Nahrungsergänzung (Offizielle Amazon.de Bestseller):",
+      sub: "Kaufen Sie niemals ungeprüfte Pillen aus dubiosen Online-Shops. Setzen Sie auf 4,5★+ GMP-zertifizierte, laborgeprüfte Vitamine auf Amazon.de:",
+      b1: "💊 1. Zertifiziertes Magnesiumbisglycinat &amp; Omega-3 &rarr;",
+      b2: "☀️ 2. Hochdosiertes Vitamin D3 + K2 (MK-7) &rarr;",
+      b3: "🧬 3. 60 Mrd. KBE Probiotika &amp; Verdauungsenzyme &rarr;",
+      b4: "⚡ 4. Reines Kreatin-Monohydrat &amp; Kollagen-Peptide &rarr;"
+    },
+    radar: {
+      title: "🔐 Hardware Anti-Phishing &amp; Gerätesicherheits-Kit (Offizielle Amazon.de Bestseller):",
+      sub: "Schädliche APKs, WhatsApp-Jobbetrüger und falsche Recruiter stehlen SMS-2FA-Codes und Webcam-Streams. Schützen Sie Ihre Konten mit physischer Hardware:",
+      b1: "🔑 1. YubiKey 5C NFC 2FA-Key (Stoppt SMS-Hijacking) &rarr;",
+      b2: "📵 2. Faraday-Tasche &amp; Webcam-Sichtschutz &rarr;",
+      b3: "🔐 3. Ledger &amp; Trezor Krypto Hardware-Wallet &rarr;",
+      b4: "💳 4. RFID-Schutz Geldbörse für Bankkarten &amp; Ausweise &rarr;"
+    }
+  },
+  fr: {
+    cc: "FR",
+    broker: {
+      title: "🔐 Sécurité Matérielle Crypto &amp; Protection de Compte (Boutique Officielle Amazon.fr — Meilleures Ventes) :",
+      sub: "Ne laissez jamais vos fonds sur des courtiers non régulés et protégez vos codes 2FA contre le phishing. Sécurisez vos clés privées et vos comptes de trading avec du matériel certifié :",
+      b1: "🔐 1. Portefeuilles Matériels Ledger Nano X &amp; Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Clé de Sécurité 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Pochette Faraday Anti-Signal &amp; Coffre Seed en Acier &rarr;",
+      b4: "📚 4. Livres N°1 des Ventes sur le Price Action &amp; Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Kit de Confidentialité Physique, Anti-Harceleur &amp; Sécurité Premier Rendez-Vous (Amazon.fr) :",
+      sub: "Protégez votre caméra, votre localisation GPS et vos cartes bancaires contre les brouteurs sentimentaux, le chantage vidéo (sextorsion) et les risques de rencontres :",
+      b1: "📵 1. Pochette Faraday Téléphone &amp; Cache Webcam &rarr;",
+      b2: "🚨 2. Traceur GPS Intelligent &amp; Alarme Personnelle 130dB &rarr;",
+      b3: "🔑 3. Clé Matérielle 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Portefeuille Anti-RFID Contre le Piratage de Carte &rarr;"
+    },
+    pill: {
+      title: "🌿 Compléments Quotidiens Testés en Laboratoire &amp; Certifiés GMP (Boutique Officielle Amazon.fr) :",
+      sub: "N'achetez jamais de pilules non vérifiées sur des sites douteux. Privilégiez les vitamines certifiées GMP (4,5★+) testées en laboratoire sur Amazon.fr :",
+      b1: "💊 1. Magnésium Bisglycinate &amp; Oméga-3 Certifié &rarr;",
+      b2: "☀️ 2. Vitamine D3 + K2 (MK-7) Haute Absorption &rarr;",
+      b3: "🧬 3. Probiotiques 60 Milliards UFC &amp; Enzymes Digestives &rarr;",
+      b4: "⚡ 4. Créatine Pure &amp; Collagène Marin Hydrolysé &rarr;"
+    },
+    radar: {
+      title: "🔐 Kit Matériel Anti-Phishing &amp; Sécurité des Appareils (Meilleures Ventes Amazon.fr) :",
+      sub: "Les APK malveillants, les arnaques aux tâches WhatsApp et les faux recruteurs volent vos codes SMS 2FA. Verrouillez vos comptes avec une sécurité matérielle :",
+      b1: "🔑 1. Clé 2FA YubiKey 5C NFC (Bloque le Piratage SMS) &rarr;",
+      b2: "📵 2. Pochette Faraday &amp; Cache Webcam Confidentialité &rarr;",
+      b3: "🔐 3. Portefeuille Crypto à Froid Ledger &amp; Trezor &rarr;",
+      b4: "💳 4. Portefeuille Blindé RFID pour Cartes &amp; Identité &rarr;"
+    }
+  },
+  es: {
+    cc: "ES",
+    broker: {
+      title: "🔐 Seguridad Física Cripto y Protección de Cuentas (Tienda Oficial Amazon.es — Más Vendidos):",
+      sub: "Nunca deje fondos en brókers no regulados ni exponga sus códigos 2FA al phishing. Asegure sus claves privadas y cuentas de trading con protección por hardware:",
+      b1: "🔐 1. Billeteras Frías Ledger Nano X y Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Llave de Seguridad 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Bolsa Faraday Antirrastreo y Placa Seed de Acero &rarr;",
+      b4: "📚 4. Libros N.º 1 en Ventas de Price Action y Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Kit de Privacidad Física, Antiacoso y Seguridad para la Primera Cita (Más Vendidos en Amazon.es):",
+      sub: "Proteja su cámara, ubicación GPS y tarjetas bancarias contra estafadores románticos, extorsión por vídeo (sextorsión) y riesgos en citas presenciales:",
+      b1: "📵 1. Funda Faraday para Móvil y Cubierta de Webcam &rarr;",
+      b2: "🚨 2. Localizador GPS Inteligente y Alarma Personal 130dB &rarr;",
+      b3: "🔑 3. Llave Física 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Cartera con Bloqueo RFID Anticlonación &rarr;"
+    },
+    pill: {
+      title: "🌿 Suplementos Diarios Probados en Laboratorio y Certificados GMP (Tienda Oficial Amazon.es):",
+      sub: "Nunca compre pastillas sin verificar en farmacias falsas. Elija vitaminas y suplementos certificados GMP (4.5★+) en Amazon.es:",
+      b1: "💊 1. Magnesio Bisglicinato y Omega-3 Certificado &rarr;",
+      b2: "☀️ 2. Vitamina D3 + K2 (MK-7) de Alta Potencia &rarr;",
+      b3: "🧬 3. Probióticos 60 Mil Millones UFC y Enzimas &rarr;",
+      b4: "⚡ 4. Creatina Monohidrato Pura y Colágeno Hidrolizado &rarr;"
+    },
+    radar: {
+      title: "🔐 Kit Hardware Anti-Phishing y Seguridad de Dispositivos (Más Vendidos en Amazon.es):",
+      sub: "Las APK maliciosas, estafas de tareas en WhatsApp y falsos reclutadores roban códigos SMS 2FA. Proteja sus cuentas con seguridad física por hardware:",
+      b1: "🔑 1. Llave 2FA YubiKey 5C NFC (Evita Robo de SMS) &rarr;",
+      b2: "📵 2. Funda Faraday y Tapa de Privacidad para Webcam &rarr;",
+      b3: "🔐 3. Billetera Fría Cripto Ledger y Trezor &rarr;",
+      b4: "💳 4. Cartera con Bloqueo RFID para Tarjetas y DNI &rarr;"
+    }
+  },
+  pt: {
+    cc: "PT",
+    broker: {
+      title: "🔐 Segurança Física Cripto e Proteção de Contas (Loja Oficial Amazon — Mais Vendidos):",
+      sub: "Nunca deixe fundos em corretoras não regulamentadas nem exponha códigos 2FA a phishing. Proteja as suas chaves privadas e contas de trading com segurança de hardware:",
+      b1: "🔐 1. Carteiras Hardware Ledger Nano X e Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Chave de Segurança 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Bolsa Faraday Anti-Sinal e Cofre Seed em Aço &rarr;",
+      b4: "📚 4. Livros N.º 1 Mais Vendidos de Price Action e Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Kit de Privacidade Física, Anti-Stalking e Segurança no Primeiro Encontro (Amazon Oficial):",
+      sub: "Proteja a sua câmara, localização GPS e cartões bancários contra burlões românticos, extorsão de vídeo (sextortion) e riscos em encontros presenciais:",
+      b1: "📵 1. Bolsa Faraday para Telemóvel e Tampa de Webcam &rarr;",
+      b2: "🚨 2. Localizador Smart GPS e Alarme Pessoal 130dB &rarr;",
+      b3: "🔑 3. Chave Física 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Carteira com Bloqueio RFID Anti-Clonagem &rarr;"
+    },
+    pill: {
+      title: "🌿 Suplementos Diários Testados em Laboratório e Certificados GMP (Loja Oficial Amazon):",
+      sub: "Nunca compre comprimidos não verificados em farmácias falsas. Escolha vitaminas e suplementos certificados GMP (4.5★+) na Amazon:",
+      b1: "💊 1. Magnésio Bisglicinato e Ómega-3 Certificado &rarr;",
+      b2: "☀️ 2. Vitamina D3 + K2 (MK-7) de Alta Potência &rarr;",
+      b3: "🧬 3. Probióticos 60 Mil Milhões UFC e Enzimas &rarr;",
+      b4: "⚡ 4. Creatina Monohidratada Pura e Colagénio Hidrolisado &rarr;"
+    },
+    radar: {
+      title: "🔐 Kit Hardware Anti-Phishing e Segurança de Dispositivos (Mais Vendidos Amazon):",
+      sub: "APKs maliciosos, burlas no WhatsApp e falsos recrutadores roubam códigos SMS 2FA. Bloqueie as suas contas com segurança física de hardware:",
+      b1: "🔑 1. Chave 2FA YubiKey 5C NFC (Trava Roubo de SMS) &rarr;",
+      b2: "📵 2. Bolsa Faraday e Tampa de Privacidade para Webcam &rarr;",
+      b3: "🔐 3. Carteira Hardware Cripto Ledger e Trezor &rarr;",
+      b4: "💳 4. Carteira com Proteção RFID para Cartões e Documentos &rarr;"
+    }
+  },
+  nl: {
+    cc: "NL",
+    broker: {
+      title: "🔐 Fysieke Crypto- &amp; Accountbeveiliging (Officiële Amazon Winkel — Bestsellers):",
+      sub: "Laat nooit tegoeden achter bij ongereguleerde brokers en bescherm 2FA-codes tegen phishing. Beveilig uw private keys en handelsaccounts met gecertificeerde hardware:",
+      b1: "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hardware Wallets &rarr;",
+      b2: "🔑 2. YubiKey 5C NFC Hardware 2FA-Beveiligingssleutel &rarr;",
+      b3: "🛡️ 3. Faraday-Signaalhoes &amp; Stalen Seed Phrase Kluis &rarr;",
+      b4: "📚 4. #1 Bestseller Boeken over Price Action &amp; Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Fysieke Privacy, Anti-Stalking &amp; Eerste-Date Veiligheidskit (Amazon Bestsellers):",
+      sub: "Bescherm uw camera, GPS-locatie en bankpassen tegen datingoplichters, sextortion en risico's bij offline afspraken:",
+      b1: "📵 1. Faraday Telefoonhoes &amp; Webcam Cover Kit &rarr;",
+      b2: "🚨 2. Smart GPS-Tracker &amp; 130dB Persoonlijk Alarm &rarr;",
+      b3: "🔑 3. YubiKey 5C NFC Hardware 2FA-Sleutel &rarr;",
+      b4: "💳 4. RFID-Blokkerende Anti-Skimming Portemonnee &rarr;"
+    },
+    pill: {
+      title: "🌿 Laboratorium-Geteste Dagelijkse Supplementen &amp; GMP-Vitamines (Amazon Bestsellers):",
+      sub: "Koop nooit ongecontroleerde pillen bij dubieuze webshops. Kies voor 4,5★+ GMP-gecertificeerde, onafhankelijk geteste supplementen op Amazon:",
+      b1: "💊 1. Gecertificeerd Magnesiumbisglycinaat &amp; Omega-3 &rarr;",
+      b2: "☀️ 2. Hooggedoseerde Vitamine D3 + K2 (MK-7) &rarr;",
+      b3: "🧬 3. 60 Miljard KVE Probiotica &amp; Spijsverteringsenzymen &rarr;",
+      b4: "⚡ 4. Pure Creatine Monohydraat &amp; Gehydrolyseerd Collageen &rarr;"
+    },
+    radar: {
+      title: "🔐 Hardware Anti-Phishing &amp; Apparaatbeveiligingskit (Amazon Bestsellers):",
+      sub: "Schadelijke APK's, WhatsApp-oplichters en neprecruiters stelen sms-2FA-codes. Vergrendel uw accounts met fysieke hardwarebeveiliging:",
+      b1: "🔑 1. YubiKey 5C NFC 2FA-Sleutel (Stopt SMS-Hijacking) &rarr;",
+      b2: "📵 2. Faraday-Signaalhoes &amp; Webcam Privacy Schuifje &rarr;",
+      b3: "🔐 3. Ledger &amp; Trezor Cold Crypto Hardware Wallet &rarr;",
+      b4: "💳 4. RFID-Blokkerende Pasjeshouder &amp; Portemonnee &rarr;"
+    }
+  },
+  pl: {
+    cc: "PL",
+    broker: {
+      title: "🔐 Sprzętowe Bezpieczeństwo Krypto i Konta (Oficjalny Sklep Amazon.pl — Bestsellery):",
+      sub: "Nigdy nie zostawiaj środków u nieregulowanych brokerów i chroń kody 2FA przed phishingiem. Zabezpiecz klucze prywatne i konta handlowe certyfikowanym sprzętem:",
+      b1: "🔐 1. Portfele Sprzętowe Ledger Nano X i Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Klucz Bezpieczeństwa 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Etui Faraday Blokujące Sygnał i Stalowy Sejf Seed &rarr;",
+      b4: "📚 4. Bestsellery #1 o Price Action i Inwestowaniu &rarr;"
+    },
+    dating: {
+      title: "🛡️ Zestaw Prywatności, Anty-Stalking i Bezpieczeństwa na Randce (Bestsellery Amazon.pl):",
+      sub: "Chroń kamerę, lokalizację GPS i karty płatnicze przed oszustami matrymonialnymi, szantażem wideo (sextortion) i zagrożeniami na spotkaniach:",
+      b1: "📵 1. Etui Faraday na Telefon i Osłona Kamery &rarr;",
+      b2: "🚨 2. Lokalizator Smart GPS i Alarm Osobisty 130dB &rarr;",
+      b3: "🔑 3. Klucz Sprzętowy 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Portfel z Blokadą RFID Anty-Skimming &rarr;"
+    },
+    pill: {
+      title: "🌿 Przebadane Laboratoryjnie Suplementy GMP (Oficjalny Sklep Amazon.pl — Bestsellery):",
+      sub: "Nigdy nie kupuj niesprawdzonych tabletek z podejrzanych stron. Wybieraj certyfikowane suplementy GMP (4,5★+) na Amazon.pl:",
+      b1: "💊 1. Certyfikowany Diglicynian Magnezu i Omega-3 &rarr;",
+      b2: "☀️ 2. Witamina D3 + K2 (MK-7) Wysoka Dawka &rarr;",
+      b3: "🧬 3. Probiotyki 60 Mld CFU i Enzymy Trawienne &rarr;",
+      b4: "⚡ 4. Czysty Monohydrat Kreatyny i Hydrolizowany Kolagen &rarr;"
+    },
+    radar: {
+      title: "🔐 Sprzętowy Zestaw Anty-Phishing i Ochrony Urządzeń (Bestsellery Amazon.pl):",
+      sub: "Złośliwe pliki APK, oszuści na WhatsAppie i fałszywi rekruterzy kradną kody SMS 2FA. Zabezpiecz swoje konta fizycznym kluczem sprzętowym:",
+      b1: "🔑 1. Klucz 2FA YubiKey 5C NFC (Blokuje Przejęcie SMS) &rarr;",
+      b2: "📵 2. Etui Faraday i Zaślepka Prywatności na Kamerę &rarr;",
+      b3: "🔐 3. Portfel Sprzętowy Krypto Ledger i Trezor &rarr;",
+      b4: "💳 4. Portfel z Ochroną RFID na Karty i Dokumenty &rarr;"
+    }
+  },
+  sv: {
+    cc: "SE",
+    broker: {
+      title: "🔐 Fysisk Krypto- &amp; Kontosäkerhet (Officiell Amazon.se Butik — Bästsäljare):",
+      sub: "Lämna aldrig kapital hos oreglerade mäklare och skydda 2FA-koder mot nätfiske. Säkra dina privata nycklar och handelskonton med hårdvaruskydd:",
+      b1: "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hårdvaruplånböcker &rarr;",
+      b2: "🔑 2. YubiKey 5C NFC Hårdvaru-2FA Säkerhetsnyckel &rarr;",
+      b3: "🛡️ 3. Faraday-Signalpåse &amp; Seed-Kassaskåp i Stål &rarr;",
+      b4: "📚 4. #1 Bästsäljande Böcker inom Price Action &amp; Trading &rarr;"
+    },
+    dating: {
+      title: "🛡️ Fysisk Integritet, Anti-Stalking &amp; Säkerhetskit för Första Dejten (Amazon.se Bästsäljare):",
+      sub: "Skydda din kamera, GPS-position och bankkort mot romansbedragare, sextortion och risker vid fysiska möten:",
+      b1: "📵 1. Faraday-Mobilfodral &amp; Webbkameraskydd &rarr;",
+      b2: "🚨 2. Smart GPS-Spårare &amp; 130dB Personlarm &rarr;",
+      b3: "🔑 3. YubiKey 5C NFC Hårdvaru-2FA Nyckel &rarr;",
+      b4: "💳 4. RFID-Blockerande Plånbok mot Kortskimming &rarr;"
+    },
+    pill: {
+      title: "🌿 Labbtestade Dagliga Kosttillskott &amp; GMP-Vitaminer (Officiella Amazon.se Bästsäljare):",
+      sub: "Köp aldrig overifierade piller från osäkra nätapotek. Välj 4,5★+ GMP-certifierade och labbtestade tillskott på Amazon.se:",
+      b1: "💊 1. Certifierat Magnesiumbisglycinat &amp; Omega-3 &rarr;",
+      b2: "☀️ 2. Högdoserad Vitamin D3 + K2 (MK-7) &rarr;",
+      b3: "🧬 3. 60 Miljarder CFU Probiotika &amp; Matsmältningsenzymer &rarr;",
+      b4: "⚡ 4. Rent Kreatinmonohydrat &amp; Hydrolyserat Kollagen &rarr;"
+    },
+    radar: {
+      title: "🔐 Hårdvarusäkerhet &amp; Anti-Phishing Kit (Officiella Amazon.se Bästsäljare):",
+      sub: "Skadliga APK-appar, WhatsApp-bedragare och falska rekryterare stjäl SMS-2FA-koder. Lås dina konton med fysisk hårdvarusäkerhet:",
+      b1: "🔑 1. YubiKey 5C NFC 2FA-Nyckel (Stoppar SMS-Kapning) &rarr;",
+      b2: "📵 2. Faraday-Signalpåse &amp; Webbkameraskydd &rarr;",
+      b3: "🔐 3. Ledger &amp; Trezor Hårdvaruplånbok för Krypto &rarr;",
+      b4: "💳 4. RFID-Skyddad Plånbok för Kort &amp; ID &rarr;"
+    }
+  },
+  ru: {
+    cc: "DE",
+    broker: {
+      title: "🔐 Аппаратная защита криптоактивов и счетов (Официальный магазин Amazon — Бестселлеры):",
+      sub: "Никогда не храните средства у нерегулируемых брокеров и защищайте коды 2FA от фишинга. Защитите свои приватные ключи и торговые счета аппаратной защитой:",
+      b1: "🔐 1. Аппаратные кошельки Ledger Nano X и Trezor Safe 3 &rarr;",
+      b2: "🔑 2. Аппаратный ключ 2FA YubiKey 5C NFC &rarr;",
+      b3: "🛡️ 3. Чехол Фарадея и стальная капсула для Seed-фразы &rarr;",
+      b4: "📚 4. Книги-бестселлеры №1 по Price Action и трейдингу &rarr;"
+    },
+    dating: {
+      title: "🛡️ Набор физической приватности, анти-сталкинга и безопасности на свиданиях (Amazon):",
+      sub: "Защитите камеру, GPS-локацию и банковские карты от брачных аферистов, видеошантажа (sextortion) и рисков на личных встречах:",
+      b1: "📵 1. Чехол Фарадея для смартфона и шторка для веб-камеры &rarr;",
+      b2: "🚨 2. Умный GPS-трекер и персональная сирена 130 дБ &rarr;",
+      b3: "🔑 3. Аппаратный ключ 2FA YubiKey 5C NFC &rarr;",
+      b4: "💳 4. Кошелек с RFID-защитой от скимминга карт &rarr;"
+    },
+    pill: {
+      title: "🌿 Проверенные в лаборатории добавки и витамины стандарта GMP (Официальный магазин Amazon):",
+      sub: "Никогда не покупайте непроверенные таблетки в сомнительных интернет-аптеках. Выбирайте сертифицированные GMP (4.5★+) витамины на Amazon:",
+      b1: "💊 1. Сертифицированный бисглицинат магния и Омега-3 &rarr;",
+      b2: "☀️ 2. Витамин D3 + K2 (MK-7) высокой концентрации &rarr;",
+      b3: "🧬 3. Пробиотики 60 млрд КОЕ и пищеварительные ферменты &rarr;",
+      b4: "⚡ 4. Чистый моногидрат креатина и гидролизованный коллаген &rarr;"
+    },
+    radar: {
+      title: "🔐 Аппаратный набор анти-фишинга и защиты устройств (Бестселлеры Amazon):",
+      sub: "Вредоносные APK, мошенники в WhatsApp и фальшивые рекрутеры крадут SMS-коды 2FA. Защитите свои аккаунты физическим ключом:",
+      b1: "🔑 1. Ключ 2FA YubiKey 5C NFC (Защита от перехвата SMS) &rarr;",
+      b2: "📵 2. Чехол Фарадея и шторка приватности для камеры &rarr;",
+      b3: "🔐 3. Холодный криптокошелек Ledger и Trezor &rarr;",
+      b4: "💳 4. Кошелек с RFID-блокировкой для карт и документов &rarr;"
+    }
+  },
+  en: {
+    cc: "",
+    broker: {
+      title: "🔐 Physical Crypto &amp; Account Hardware Security (Amazon Official Store — Bestsellers):",
+      sub: "Never leave funds on unregulated exchanges or expose 2FA codes to phishing. Secure your self-custody keys and trading accounts with hardware-grade protection:",
+      b1: "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Cold Wallets &rarr;",
+      b2: "🔑 2. YubiKey 5C NFC Hardware 2FA Security Key &rarr;",
+      b3: "🛡️ 3. Faraday Signal Bag &amp; Steel Seed Vault &rarr;",
+      b4: "📚 4. #1 Bestselling Price Action &amp; Trading Books &rarr;"
+    },
+    dating: {
+      title: "🛡️ Physical Privacy, Anti-Stalking &amp; First-Date Safety Kit (Amazon Official Bestsellers):",
+      sub: "Protect your camera, location, and credit cards against romance scammers, sextortion blackmailers, and offline meeting risks:",
+      b1: "📵 1. Faraday Phone Bag &amp; Webcam Cover Kit &rarr;",
+      b2: "🚨 2. Smart GPS Tracker &amp; 130dB Safety Alarm &rarr;",
+      b3: "🔑 3. YubiKey 5C NFC Hardware 2FA Key &rarr;",
+      b4: "💳 4. RFID-Blocking Anti-Skimming Wallet &rarr;"
+    },
+    pill: {
+      title: "🌿 Certified Lab-Tested Daily Wellness &amp; GMP Supplements (Amazon Official Store — Bestsellers):",
+      sub: "Never buy unverified pills from rogue pharmacies. Stick to 4.5★+ GMP-certified, third-party lab-tested vitamins and daily essentials on your local Amazon store:",
+      b1: "💊 1. Certified Magnesium Bisglycinate &amp; Omega-3 &rarr;",
+      b2: "☀️ 2. High-Potency Vitamin D3 + K2 (MK-7) &rarr;",
+      b3: "🧬 3. 60B CFU Probiotics &amp; Digestive Enzymes &rarr;",
+      b4: "⚡ 4. Pure Creatine &amp; Hydrolyzed Collagen &rarr;"
+    },
+    radar: {
+      title: "🔐 Hardware Anti-Phishing &amp; Device Security Kit (Amazon Official Bestsellers):",
+      sub: "Malicious APKs, WhatsApp task scammers, and fake recruiters steal SMS 2FA codes and webcam feeds. Lock down your accounts with physical hardware security:",
+      b1: "🔑 1. YubiKey 5C NFC 2FA Key (Stops SMS Hijacking) &rarr;",
+      b2: "📵 2. Faraday Signal Bag &amp; Webcam Privacy Slider &rarr;",
+      b3: "🔐 3. Ledger &amp; Trezor Cold Crypto Hardware Wallet &rarr;",
+      b4: "💳 4. RFID-Blocking Identity &amp; Bank Card Wallet &rarr;"
+    }
+  }
+};
+
+function resolveAmazonBannerLocale(urlPath = "/", visitorCc = "") {
+  const p = String(urlPath || "/").toLowerCase();
+  const cc = String(visitorCc || CURRENT_VISITOR_CC || "GB").toUpperCase();
+  if (p === "/ro" || p.startsWith("/ro/")) return { lang: "ro", cc: "RO" };
+  if (p === "/it" || p.startsWith("/it/")) return { lang: "it", cc: "IT" };
+  if (p === "/de" || p.startsWith("/de/")) return { lang: "de", cc: "DE" };
+  if (p === "/fr" || p.startsWith("/fr/")) return { lang: "fr", cc: "FR" };
+  if (p === "/es" || p.startsWith("/es/")) return { lang: "es", cc: "ES" };
+  if (p === "/pt" || p.startsWith("/pt/")) return { lang: "pt", cc: "PT" };
+  if (p === "/ru" || p.startsWith("/ru/")) return { lang: "ru", cc: cc || "DE" };
+
+  if (cc === "RO" || cc === "MD") return { lang: "ro", cc: "RO" };
+  if (cc === "IT" || cc === "SM" || cc === "VA") return { lang: "it", cc: "IT" };
+  if (cc === "DE" || cc === "AT" || cc === "CH") return { lang: "de", cc: "DE" };
+  if (cc === "FR" || cc === "MC" || cc === "LU") return { lang: "fr", cc: "FR" };
+  if (cc === "ES" || cc === "AD") return { lang: "es", cc: "ES" };
+  if (cc === "PT" || cc === "BR") return { lang: "pt", cc: "PT" };
+  if (cc === "NL") return { lang: "nl", cc: "NL" };
+  if (cc === "BE") return { lang: "nl", cc: "BE" };
+  if (cc === "PL") return { lang: "pl", cc: "PL" };
+  if (cc === "SE") return { lang: "sv", cc: "SE" };
+  return { lang: "en", cc: cc || "GB" };
+}
+
+function buildDomainAmazonBarHtml(domain, urlPath = "/", visitorCc = "") {
+  const dom = String(domain || "").toLowerCase();
+  const { lang, cc } = resolveAmazonBannerLocale(urlPath, visitorCc);
+  const pack = AMAZON_BANNER_I18N[lang] || AMAZON_BANNER_I18N.en;
+  const ccParam = cc ? `&amp;cc=${encodeURIComponent(cc)}` : "";
+
+  if (dom.includes("pillscamradar")) {
+    const t = pack.pill;
+    return `<section class="amazon-guard-suite" style="max-width:1000px;margin:28px auto;padding:22px;background:linear-gradient(135deg,rgba(2,44,34,0.92),rgba(15,23,42,0.96));border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;font-family:system-ui,sans-serif;text-align:left;">
+      <div style="font-size:15px;color:#fbbf24;font-weight:800;margin-bottom:6px;">${t.title}</div>
+      <div style="font-size:13px;color:#cbd5e1;margin-bottom:14px;">${t.sub}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;">
+        <a href="/go/amazon-guard?sku=omega-magnesium&amp;sid=pill_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b1}</a>
+        <a href="/go/amazon-guard?sku=vitamin-d3-k2&amp;sid=pill_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b2}</a>
+        <a href="/go/amazon-guard?sku=probiotics-gut&amp;sid=pill_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b3}</a>
+        <a href="/go/amazon-guard?sku=creatine-collagen&amp;sid=pill_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#a78bfa;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b4}</a>
+      </div>
+    </section>`;
+  }
+  if (dom.includes("verifydating")) {
+    const t = pack.dating;
+    return `<section class="amazon-guard-suite" style="max-width:960px;margin:24px auto;padding:20px;background:linear-gradient(135deg,rgba(15,23,42,0.97),rgba(49,16,66,0.9));border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;font-family:system-ui,sans-serif;text-align:left;">
+      <div style="font-size:14.5px;color:#fbbf24;font-weight:800;margin-bottom:6px;">${t.title}</div>
+      <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:12px;">${t.sub}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;">
+        <a href="/go/amazon-guard?sku=faraday-webcam&amp;sid=vd_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b1}</a>
+        <a href="/go/amazon-guard?sku=safety-alarm&amp;sid=vd_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#ec4899;color:#fff;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b2}</a>
+        <a href="/go/amazon-guard?sku=yubikey-2fa&amp;sid=vd_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b3}</a>
+        <a href="/go/amazon-guard?sku=rfid-wallet&amp;sid=vd_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b4}</a>
+      </div>
+    </section>`;
+  }
+  if (dom.includes("isbrokersafe")) {
+    const t = pack.broker;
+    return `<section class="amazon-guard-suite" style="max-width:960px;margin:24px auto;padding:20px;background:linear-gradient(135deg,rgba(15,23,42,0.97),rgba(6,78,59,0.88));border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;font-family:system-ui,sans-serif;text-align:left;">
+      <div style="font-size:14.5px;color:#fbbf24;font-weight:800;margin-bottom:6px;">${t.title}</div>
+      <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:12px;">${t.sub}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;">
+        <a href="/go/amazon-guard?sku=ledger-wallet&amp;sid=ibs_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b1}</a>
+        <a href="/go/amazon-guard?sku=yubikey-2fa&amp;sid=ibs_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b2}</a>
+        <a href="/go/amazon-guard?sku=faraday-vault&amp;sid=ibs_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b3}</a>
+        <a href="/go/amazon-guard?sku=trading-books&amp;sid=ibs_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#e2e8f0;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b4}</a>
+      </div>
+    </section>`;
+  }
+  const t = pack.radar;
+  return `<section class="amazon-guard-suite" style="max-width:960px;margin:28px auto;padding:22px;background:linear-gradient(135deg,rgba(15,23,42,0.97),rgba(30,41,59,0.94));border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;font-family:system-ui,sans-serif;text-align:left;">
+    <div style="font-size:15px;color:#fbbf24;font-weight:800;margin-bottom:6px;">${t.title}</div>
+    <div style="font-size:13px;color:#cbd5e1;margin-bottom:14px;">${t.sub}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;">
+      <a href="/go/amazon-guard?sku=yubikey-2fa&amp;sid=radar_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b1}</a>
+      <a href="/go/amazon-guard?sku=faraday-webcam&amp;sid=radar_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b2}</a>
+      <a href="/go/amazon-guard?sku=ledger-wallet&amp;sid=radar_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b3}</a>
+      <a href="/go/amazon-guard?sku=rfid-wallet&amp;sid=radar_amazon${ccParam}" target="_blank" rel="nofollow noopener sponsored" style="background:#a78bfa;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">${t.b4}</a>
+    </div>
+  </section>`;
+}
+
 function finalizeHtmlResponse(html, url, domain, canonicalPath, isTier3 = false, status = 200) {
   if (status === 404) {
     const cleaned404 = html
@@ -135,6 +779,49 @@ function finalizeHtmlResponse(html, url, domain, canonicalPath, isTier3 = false,
     /<head>/i,
     `<head>\n  <meta name="robots" content="${robotsValue}">\n  <meta name="googlebot" content="${robotsValue}">\n  <link rel="canonical" href="${cleanCanonical}">`
   );
+
+  if (status === 200 && canonicalPath !== "/privacy") {
+    const amzBar = buildDomainAmazonBarHtml(domain, url.pathname, CURRENT_VISITOR_CC);
+    // Strip any legacy bottom-placed amazon-guard-suite right above <footer
+    processed = processed.replace(
+      /<section\s+class=["']amazon-guard-suite["'][^>]*>[\s\S]*?<\/section>\s*(?=<footer)/gi,
+      ""
+    );
+    processed = processed.replace(
+      /<div\s+class=["']amazon-guard-suite["'][^>]*>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<\/div>\s*(?=<footer)/gi,
+      ""
+    );
+    // Replace any existing server-rendered amazon-guard-suite in-place with the localized version
+    if (/<section\s+class=["']amazon-guard-suite["'][^>]*>[\s\S]*?<\/section>/i.test(processed)) {
+      processed = processed.replace(
+        /<section\s+class=["']amazon-guard-suite["'][^>]*>[\s\S]*?<\/section>/gi,
+        amzBar
+      );
+    } else if (/<div\s+class=["']amazon-guard-suite["'][^>]*>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<\/div>/i.test(processed)) {
+      processed = processed.replace(
+        /<div\s+class=["']amazon-guard-suite["'][^>]*>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<div[\s\S]*?<\/div>\s*<\/div>/gi,
+        amzBar
+      );
+    } else if (!processed.includes("/go/amazon-guard")) {
+      if (/(<section[^>]*id=["']catfish-safety-check["'])/i.test(processed)) {
+        processed = processed.replace(/(<section[^>]*id=["']catfish-safety-check["'])/i, `${amzBar}\n$1`);
+      } else if (/(<div[^>]*class=["'][^"']*broker-table-container[^"']*["'])/i.test(processed)) {
+        processed = processed.replace(/(<div[^>]*class=["'][^"']*broker-table-container[^"']*["'])/i, `${amzBar}\n$1`);
+      } else if (/(<div[^>]*class=["'][^"']*scam-grid[^"']*["'])/i.test(processed)) {
+        processed = processed.replace(/(<div[^>]*class=["'][^"']*scam-grid[^"']*["'])/i, `${amzBar}\n$1`);
+      } else if (/(<div[^>]*class=["'][^"']*search-box[^"']*["'])/i.test(processed)) {
+        processed = processed.replace(/(<div[^>]*class=["'][^"']*search-box[^"']*["'])/i, `${amzBar}\n$1`);
+      } else if (/(<div[^>]*class=["']container["'])/i.test(processed)) {
+        processed = processed.replace(/(<div[^>]*class=["']container["'])/i, `${amzBar}\n$1`);
+      } else if (/(<section[^>]*class=["'][^"']*legal-entity-section[^"']*["'])/i.test(processed)) {
+        processed = processed.replace(/(<section[^>]*class=["'][^"']*legal-entity-section[^"']*["'])/i, `${amzBar}\n$1`);
+      } else if (/<footer/i.test(processed)) {
+        processed = processed.replace(/<footer/i, `${amzBar}\n<footer`);
+      } else if (/<\/body>/i.test(processed)) {
+        processed = processed.replace(/<\/body>/i, `${amzBar}\n</body>`);
+      }
+    }
+  }
 
   return new Response(processed, {
     status,
@@ -172,7 +859,7 @@ const JOB_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="backg
       <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #ffffff; font-weight: 600; font-size: 0.85rem;">VasileDev Group</p>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">amendamax@vasiledev.com</a></p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">WhatsApp: <strong style="color: #cbd5e1;">+39 320 948 1876</strong></p>
     </div>
@@ -706,7 +1393,7 @@ JobScamRadar monitors, curates, and indexes fraudulent job offers, imposter recr
     const content = `
       <div class="dossier">
         <div class="header"><h1>Privacy Policy, GDPR &amp; Legal Disclosure</h1></div>
-        <p style="color:#cbd5e1;line-height:1.65;"><strong>JobScamRadar.com</strong> is a public-interest cybersecurity and employment fraud awareness portal operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), with operational offices in Garessio (CN), Italy and Odobești, Romania.</p>
+        <p style="color:#cbd5e1;line-height:1.65;"><strong>JobScamRadar.com</strong> is a public-interest cybersecurity and employment fraud awareness portal operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
         <h3 style="color:#38bdf8;">1. Data Collection &amp; GDPR Compliance (EU Reg. 2016/679)</h3>
         <p style="color:#cbd5e1;line-height:1.65;">Queries submitted to our instant Job &amp; Recruiter Verifier are processed transiently to match known fraud patterns and public regulatory alerts. For GDPR inquiries or data removal requests, contact <a href="mailto:amendamax@vasiledev.com" style="color:#38bdf8;">amendamax@vasiledev.com</a>.</p>
       </div>`;
@@ -748,7 +1435,7 @@ const PILL_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="back
     <div>
       <h4 style="font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
     </div>
     <div>
@@ -1184,7 +1871,7 @@ async function handlePillScamRadar(request, env, url) {
   <div class="container">
     <p><a href="/">&larr; Back to PillScamRadar</a></p>
     <h1>Privacy Policy, GDPR &amp; Regulatory Disclaimer</h1>
-    <p><strong>PillScamRadar.com</strong> is a public healthcare regulatory intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), with operational offices in Garessio (CN), Italy and Odobești, Romania.</p>
+    <p><strong>PillScamRadar.com</strong> is a public healthcare regulatory intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
   </div>
   ${PILL_FOOTER_HTML}
 </body>
@@ -1225,7 +1912,7 @@ const APP_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="backg
     <div>
       <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
     </div>
     <div>
@@ -1663,7 +2350,7 @@ async function handleAppScamRadar(request, env, url) {
   <div class="container">
     <p><a href="/">&larr; Back to AppScamRadar</a></p>
     <h1>Privacy Policy, GDPR &amp; Legal Disclosure</h1>
-    <p><strong>AppScamRadar.com</strong> is an open-source mobile malware and APK threat intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), with operational offices in Garessio (CN), Italy and Odobești, Romania.</p>
+    <p><strong>AppScamRadar.com</strong> is an open-source mobile malware and APK threat intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
   </div>
   ${APP_FOOTER_HTML}
 </body>
@@ -1953,6 +2640,188 @@ const EDGE_CURATED_BROKERS = {
   },
 };
 
+
+function getEdgeVisitorZone(countryCode) {
+  const cc = String(countryCode || "GB").toUpperCase();
+  if (cc === "US") return "US";
+  if (["AU", "NZ", "CA", "SG"].includes(cc)) return "OCEANIA_CA";
+  if (["MX", "BR", "CO", "AR", "CL", "PE", "EC", "UY", "PY", "BO", "PA", "CR", "DO", "GT"].includes(cc)) return "LATAM";
+  if (["AE", "SA", "QA", "KW", "BH", "OM", "IN", "ID", "MY", "TH", "VN", "PH", "PK", "BD", "ZA", "NG", "KE", "EG", "MA", "TR", "JP", "KR", "HK", "TW"].includes(cc)) return "ASIA_MENA";
+  return "EU_UK";
+}
+
+function buildEdgeGeoBrokerSuiteHtml(countryCode, entityLabel) {
+  const cc = String(countryCode || "GB").toUpperCase();
+  const zone = getEdgeVisitorZone(cc);
+  const zoneLabelMap = {
+    US: "🇺🇸 United States Regulated & Prop Suite (SEC / FINRA / CFTC)",
+    OCEANIA_CA: "🇦🇺🇳🇿🇨🇦 ASIC / FMA / CIRO Regulated Tier-1 Brokers",
+    LATAM: "🌎 LATAM Regulated Multi-Asset & Instant Withdrawal Brokers",
+    ASIA_MENA: "🌍 International & MENA Licensed Tier-1 ECN Brokers (DFSA / ADGM / FCA)",
+    EU_UK: "🇪🇺🇬🇧 European & UK Regulated Tier-1 Brokers (FCA / CySEC / BaFin / CONSOB)"
+  };
+  const cardsByZone = {
+    US: [
+      { name: "eToro USA", badge: "98/100 SEC & FINRA", href: "/go/etoro-us", desc: "FINRA, SEC & FinCEN Registered US Social Investing • Stocks, ETFs, Options & Crypto", cta: "Open eToro USA Account →", color: "#10b981" },
+      { name: "Interactive Brokers US", badge: "99/100 NASDAQ: IBKR", href: "/go/ibkr", desc: "SEC, FINRA, NYSE & SIPC Insured ($500k) • Institutional Execution & Lowest Margin Rates", cta: "Open IBKR Pro/Lite →", color: "#38bdf8" },
+      { name: "BlackBull Markets", badge: "97/100 ECN 0.0 PIPS", href: "/go/blackbull", desc: "Institutional ECN Execution • Free TradingView Pro+ Integration • 26,000+ Tradable Assets", cta: "Visit BlackBull ECN →", color: "#818cf8" },
+      { name: "TradingView Pro", badge: "99/100 #1 CHARTING", href: "/go/tradingview", desc: "World's #1 Institutional Charting, Multi-Broker Terminal & Real-Time Stock/Forex Screener", cta: "Claim 30-Day Free Pro+ →", color: "#f59e0b" },
+      { name: "SabioTrade Prop Firm", badge: "98/100 FUNDED PROP", href: "/go/sabiotrade", desc: "Up to $200,000 Funded Trading Account • Keep up to 90% Profit Split • No Risk to Personal Capital", cta: "Get Funded Prop Account →", color: "#34d399" },
+      { name: "FTMO Prop Trading", badge: "98/100 PROP LEADER", href: "/go/ftmo", desc: "Industry-Standard Prop Trading Evaluation • Up to $200k Simulated Funded Capital", cta: "Start FTMO Challenge →", color: "#2dd4bf" }
+    ],
+    OCEANIA_CA: [
+      { name: "BlackBull Markets NZ/AU", badge: "99/100 FMA LICENSED", href: "/go/blackbull", desc: "FMA New Zealand Registered (#FSP403326) • Raw 0.0 Pips ECN • Free TradingView Pro+", cta: "Open BlackBull Account →", color: "#10b981" },
+      { name: "Plus500 AU", badge: "98/100 ASIC & FTSE 250", href: "/go/plus500", desc: "ASIC Regulated (AFSL #417727) & LSE FTSE 250 Listed • Segregated Trust Accounts", cta: "Trade on Plus500 →", color: "#38bdf8" },
+      { name: "AvaTrade AU", badge: "97/100 ASIC TIER-1", href: "/go/avatrade", desc: "ASIC Regulated & 9 Global Licenses • AvaProtect™ Risk Shield & MT4/MT5", cta: "Open AvaTrade Account →", color: "#818cf8" },
+      { name: "eToro AUS", badge: "98/100 ASIC LICENSED", href: "/go/etoro", desc: "ASIC Regulated (AFSL 491139) • CopyTrader™ & 35M+ Verified Global Investors", cta: "Visit Official eToro →", color: "#34d399" },
+      { name: "Interactive Brokers", badge: "99/100 NASDAQ: IBKR", href: "/go/ibkr", desc: "ASIC & CIRO Regulated • Direct Global Market Access to 150+ Stock & Options Exchanges", cta: "Open IBKR Account →", color: "#f59e0b" },
+      { name: "Exness Global", badge: "97/100 INSTANT PAYOUT", href: "/go/exness", desc: "Over $4 Trillion Monthly Volume • Raw Zero Spreads & Instant Automated Withdrawals", cta: "Trade with Exness →", color: "#2dd4bf" },
+      { name: "XM Group", badge: "96/100 MULTI-REGULATED", href: "/go/xm", desc: "Tier-1 Multi-Regulated • Ultra-Low Micro/Standard Spreads & 99.35% Execution Under 1s", cta: "Open XM Account →", color: "#fbbf24" },
+      { name: "TradingView & FTMO Prop", badge: "98/100 PRO TOOLS", href: "/go/tradingview", desc: "Institutional Charting Suite (/go/tradingview) & Funded Prop Trading (/go/ftmo)", cta: "Explore TradingView Pro →", color: "#a78bfa" }
+    ],
+    LATAM: [
+      { name: "Exness LATAM", badge: "98/100 INSTANT PAYOUT", href: "/go/exness", desc: "Spreads from 0.0 Pips • Instant Local Withdrawals 24/7 • Segregated Tier-1 Banking", cta: "Open Exness Account →", color: "#10b981" },
+      { name: "XM Global", badge: "97/100 $30 BONUS", href: "/go/xm", desc: "Multi-Regulated Global Broker • Spanish/Portuguese Support & Ultra-Fast MT4/MT5 Execution", cta: "Claim XM Account →", color: "#38bdf8" },
+      { name: "RoboForex", badge: "96/100 COPYFX & ECN", href: "/go/roboforex", desc: "FSC Regulated • Prime ECN Spreads from 0.0 Pips • CopyFX Automated Social Trading", cta: "Open RoboForex Account →", color: "#818cf8" },
+      { name: "AvaTrade Global", badge: "97/100 9 LICENSES", href: "/go/avatrade", desc: "Central Bank of Ireland, ASIC & FSCA Regulated • AvaProtect™ Loss Protection", cta: "Trade with AvaTrade →", color: "#34d399" },
+      { name: "BlackBull Markets", badge: "97/100 ECN 0.0 PIPS", href: "/go/blackbull", desc: "FMA Regulated ECN Broker • Equinix NY4/LD4 Servers & Free TradingView Pro", cta: "Visit BlackBull ECN →", color: "#f59e0b" },
+      { name: "eToro Multi-Asset", badge: "98/100 35M+ USERS", href: "/go/etoro", desc: "FCA, CySEC & ASIC Regulated • Copy Top Performing Traders Automatically", cta: "Visit Official eToro →", color: "#2dd4bf" },
+      { name: "Interactive Brokers", badge: "99/100 NASDAQ: IBKR", href: "/go/ibkr", desc: "Direct US & Global Stock/Options Access • SIPC Protected Institutional Brokerage", cta: "Open IBKR Account →", color: "#fbbf24" },
+      { name: "SabioTrade / FTMO Prop", badge: "98/100 $200K FUNDED", href: "/go/sabiotrade", desc: "Get Funded up to $200,000 with 90% Profit Split — Zero Risk to Personal Savings", cta: "Get Funded Account →", color: "#a78bfa" }
+    ],
+    ASIA_MENA: [
+      { name: "Exness Global", badge: "98/100 #1 VOLUME", href: "/go/exness", desc: "FCA, CySEC & FSCA Licensed • Raw 0.0 Pips, Swap-Free Islamic Accounts & Instant Withdrawals", cta: "Open Exness Account →", color: "#10b981" },
+      { name: "XM Global", badge: "97/100 DFSA & CYSEC", href: "/go/xm", desc: "DFSA Dubai, CySEC & FSC Licensed • Swap-Free Islamic Accounts & Zero Requotes", cta: "Open XM Account →", color: "#38bdf8" },
+      { name: "AvaTrade Gulf / Global", badge: "97/100 ADGM & CBI", href: "/go/avatrade", desc: "ADGM Abu Dhabi (FRSA), Central Bank of Ireland & ASIC Regulated • MT4/MT5 & AvaProtect", cta: "Trade with AvaTrade →", color: "#818cf8" },
+      { name: "BlackBull Markets", badge: "97/100 ECN 0.0 PIPS", href: "/go/blackbull", desc: "FMA & FSA Regulated Institutional ECN • 1:500 Leverage & Free TradingView Pro", cta: "Visit BlackBull ECN →", color: "#34d399" },
+      { name: "RoboForex", badge: "96/100 ECN & COPYFX", href: "/go/roboforex", desc: "Tight ECN Spreads from 0.0 Pips • Instant Automatic Withdrawals & CopyFX", cta: "Open RoboForex →", color: "#f59e0b" },
+      { name: "Interactive Brokers", badge: "99/100 NASDAQ: IBKR", href: "/go/ibkr", desc: "Global Institutional Access to 150+ Markets in 34 Countries • Listed NASDAQ: IBKR", cta: "Open IBKR Account →", color: "#2dd4bf" },
+      { name: "eToro Multi-Asset", badge: "98/100 TIER-1", href: "/go/etoro", desc: "FCA, CySEC, ASIC & ADGM Regulated Social Investing & Multi-Asset Platform", cta: "Visit Official eToro →", color: "#fbbf24" },
+      { name: "FTMO & TradingView Pro", badge: "98/100 PROP & CHARTS", href: "/go/ftmo", desc: "Up to $200k Funded Prop Capital (/go/ftmo) & TradingView Pro Charting (/go/tradingview)", cta: "Start FTMO Challenge →", color: "#a78bfa" }
+    ],
+    EU_UK: [
+      { name: "eToro (UK & Europe)", badge: "98/100 FCA & CYSEC", href: "/go/etoro", desc: "FCA (UK), CySEC (EU) & MiFID II Regulated • 35M+ Investors • Stocks, ETFs & CopyTrader™", cta: "Visit Official eToro →", color: "#10b981" },
+      { name: "Plus500 (FTSE 250)", badge: "98/100 LSE LISTED", href: "/go/plus500", desc: "FTSE 250 Listed Company • FCA, CySEC & BaFin Authorised • Negative Balance Protection", cta: "Trade on Plus500 →", color: "#38bdf8" },
+      { name: "AvaTrade EU", badge: "97/100 CENTRAL BANK IE", href: "/go/avatrade", desc: "Regulated by Central Bank of Ireland (#C53877) • Segregated EU Client Accounts & MT4/MT5", cta: "Open AvaTrade EU →", color: "#818cf8" },
+      { name: "BlackBull Markets ECN", badge: "97/100 0.0 PIPS ECN", href: "/go/blackbull", desc: "Institutional ECN Execution • Equinix LD4 London Servers & Free TradingView Pro+", cta: "Visit BlackBull ECN →", color: "#34d399" },
+      { name: "Interactive Brokers", badge: "99/100 NASDAQ: IBKR", href: "/go/ibkr", desc: "FCA, Central Bank of Ireland & SEC Regulated • $16B+ Equity Capital • 150+ Exchanges", cta: "Open IBKR Account →", color: "#f59e0b" },
+      { name: "Exness Tier-1", badge: "97/100 FCA & CYSEC", href: "/go/exness", desc: "Instant Automated Withdrawals • Raw Zero Spreads & Transparent Deloitte-Audited Volume", cta: "Trade with Exness →", color: "#2dd4bf" },
+      { name: "XM Group (CySEC)", badge: "96/100 EU LICENSED", href: "/go/xm", desc: "CySEC (#120/10), FCA & DFSA Regulated • 99.35% Orders Executed in Under 1 Second", cta: "Open XM Account →", color: "#fbbf24" },
+      { name: "FTMO & SabioTrade Prop", badge: "98/100 $200K FUNDED", href: "/go/ftmo", desc: "Trade up to $200,000 Funded Prop Capital (FTMO / SabioTrade) without risking personal funds", cta: "Get Funded Prop Account →", color: "#a78bfa" },
+      { name: "TradingView Pro+", badge: "99/100 #1 CHARTING", href: "/go/tradingview", desc: "Official Institutional Charting, PineScript Strategy Tester & Multi-Broker Execution", cta: "Claim 30-Day Free Trial →", color: "#f472b6" }
+    ]
+  };
+  const cards = cardsByZone[zone] || cardsByZone.EU_UK;
+  const cardsHtml = cards.map(c => `
+    <a href="${c.href}" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.28);border-radius:12px;padding:15px;transition:transform 0.15s ease;">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;">
+          <span style="font-weight:800;font-size:15.5px;color:#fff;">${c.name}</span>
+          <span style="font-size:10px;font-weight:800;background:rgba(16,185,129,0.18);color:${c.color};padding:3px 7px;border-radius:6px;white-space:nowrap;">${c.badge}</span>
+        </div>
+        <div style="font-size:12.5px;color:#cbd5e1;line-height:1.45;margin-bottom:10px;">${c.desc}</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,0.07);">
+        <span style="font-size:12.5px;font-weight:800;color:${c.color};">${c.cta}</span>
+        <span style="font-size:10.5px;color:#94a3b8;">Verified Partner</span>
+      </div>
+    </a>`).join("");
+
+  return `
+  <div style="margin-top:22px;padding:20px;background:linear-gradient(145deg,rgba(6,78,59,0.28),rgba(15,23,42,0.96));border:1.5px solid rgba(16,185,129,0.45);border-radius:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+      <div>
+        <span style="font-size:11px;font-weight:800;color:#34d399;text-transform:uppercase;letter-spacing:0.7px;">🛡️ Geo-Matched Regulated Alternatives (${cc} — ${zoneLabelMap[zone]})</span>
+        <h3 style="margin:4px 0 0 0;font-size:18px;font-weight:800;color:#fff;">Verified Tier-1 Brokers &amp; Funded Prop Accounts (Score 96–99/100)</h3>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/go/sabiotrade" target="_blank" rel="nofollow noopener sponsored" style="font-size:11.5px;font-weight:800;background:#10b981;color:#022c22;padding:6px 12px;border-radius:8px;text-decoration:none;">⚡ SabioTrade $200k Prop →</a>
+        <a href="/go/tradingview" target="_blank" rel="nofollow noopener sponsored" style="font-size:11.5px;font-weight:800;background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);padding:6px 12px;border-radius:8px;text-decoration:none;">📈 TradingView Pro →</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px;">
+      ${cardsHtml}
+    </div>
+    ${buildDomainAmazonBarHtml("isbrokersafe.com")}
+  </div>`;
+}
+
+function buildEdgeGeoDatingSuiteHtml(countryCode, entityLabel) {
+  const cc = String(countryCode || "US").toUpperCase();
+  return `
+  <div style="margin-top:22px;padding:20px;background:linear-gradient(145deg,rgba(131,24,67,0.28),rgba(15,23,42,0.96));border:1.5px solid rgba(244,114,182,0.45);border-radius:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+      <div>
+        <span style="font-size:11px;font-weight:800;color:#f472b6;text-transform:uppercase;letter-spacing:0.7px;">🔍 Instant OSINT &amp; Identity Protection Tools (${cc} Verified Access)</span>
+        <h3 style="margin:4px 0 0 0;font-size:18px;font-weight:800;color:#fff;">Uncover Secret Dating Profiles, Real Names, Phone Owners &amp; Remove Leaked Data</h3>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;">
+      <a href="/go/catfish-check" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(244,114,182,0.4);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">🕵️ Catfish &amp; Dating Profile Finder</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(244,114,182,0.2);color:#f472b6;padding:3px 7px;border-radius:6px;">120+ NETWORKS</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">As seen on MTV's Catfish! Scan 120+ dating apps &amp; social networks by name, phone, or username.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#f472b6;">Run Deep Dating Profile Scan →</span>
+      </a>
+      <a href="/go/background-report" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(56,189,248,0.35);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">📋 Full Background &amp; Court Report</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(56,189,248,0.2);color:#38bdf8;padding:3px 7px;border-radius:6px;">$0.95 TRIAL</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">Verify real identity, marriage/divorce records, criminal history, lawsuits, and registered addresses.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#38bdf8;">Get $0.95 Background Report →</span>
+      </a>
+      <a href="/go/email-profile-check" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(16,185,129,0.35);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">📧 Reverse Email &amp; Phone Lookup</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(16,185,129,0.2);color:#34d399;padding:3px 7px;border-radius:6px;">70+ SITES</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">Enter any email address or WhatsApp/Telegram number to uncover hidden photos and linked accounts.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#34d399;">Check Email / Phone Owner →</span>
+      </a>
+      <a href="/go/incogni" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(167,139,250,0.35);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">🛡️ Incogni Data Broker Removal</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(167,139,250,0.2);color:#a78bfa;padding:3px 7px;border-radius:6px;">ANTI-DOXXING</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">Automatically erase your personal photos, phone number, and home address from 180+ data brokers.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#a78bfa;">Erase My Personal Data →</span>
+      </a>
+      <a href="/go/nordvpn" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(251,191,36,0.35);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">🔒 NordVPN Threat Protection Pro</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(251,191,36,0.2);color:#fbbf24;padding:3px 7px;border-radius:6px;">ANTI-SCAM VPN</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">Block phishing links, pig-butchering fake crypto portals, and IP grabbers on WhatsApp &amp; Telegram.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#fbbf24;">Activate NordVPN Shield →</span>
+      </a>
+      <a href="/go/intego" target="_blank" rel="nofollow noopener sponsored" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:rgba(15,23,42,0.88);border:1px solid rgba(45,212,191,0.35);border-radius:12px;padding:15px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:800;font-size:15px;color:#fff;">💻 Intego Anti-Spyware &amp; AV</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(45,212,191,0.2);color:#2dd4bf;padding:3px 7px;border-radius:6px;">DEVICE AUDIT</span>
+          </div>
+          <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px;">Remove AnyDesk/TeamViewer remote-access trojans and stalkerware installed by romance scammers.</div>
+        </div>
+        <span style="font-size:12.5px;font-weight:800;color:#2dd4bf;">Scan Device for Spyware →</span>
+      </a>
+    </div>
+    ${buildDomainAmazonBarHtml("verifydating.net")}
+  </div>`;
+}
+
 function findEdgeCuratedBroker(rawName, rawDomain) {
   const n = String(rawName || "")
     .toLowerCase()
@@ -2202,11 +3071,8 @@ async function handleBrokerOrDatingEdge(request, env, url, isDating) {
   const path = url.pathname === "/" ? "/" : url.pathname.replace(/\/+$/, "");
   const pathLow = path.toLowerCase();
 
-  // 1. /robots.txt
+  // 1. /robots.txt (Consolidated solely onto primary /sitemap.xml)
   if (pathLow === "/robots.txt") {
-    const extraSm = isDating
-      ? `Sitemap: https://verifydating.net/sitemap-dating-scams.xml`
-      : `Sitemap: https://isbrokersafe.com/sitemap-scam-reports.xml`;
     const robotsTxt = `# ${domain} — Crawl Budget & Query Parameter Protection
 User-agent: *
 Allow: /
@@ -2241,7 +3107,6 @@ Disallow: /*?category=*
 Disallow: /*?mode=*
 
 Sitemap: https://${domain}/sitemap.xml
-${extraSm}
 `;
     return new Response(robotsTxt, {
       status: 200,
@@ -2249,7 +3114,7 @@ ${extraSm}
     });
   }
 
-  // 2. Sitemaps (0-ms Edge Tiered Sitemap Pruning)
+  // 2. Sitemaps (0-ms Edge Tiered Sitemap Pruning — Consolidated onto /sitemap.xml)
   if (pathLow === "/sitemap.xml") {
     const urls = isDating ? VD_CORE_URLS : IB_CORE_URLS;
     const lines = [
@@ -2266,67 +3131,19 @@ ${extraSm}
     });
   }
 
-  if (!isDating && (pathLow === "/sitemap-scam-reports.xml" || pathLow === "/sitemap-broker-scams.xml" || pathLow === "/sitemap_broker_scams.xml")) {
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://isbrokersafe.com/sitemap-scam-reports-1.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-</sitemapindex>`;
-    return new Response(xml, {
-      status: 200,
-      headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-    });
-  }
-
-  if (!isDating && (pathLow.startsWith("/sitemap-scam-reports-") || pathLow.startsWith("/sitemap-broker-scams-"))) {
-    if (pathLow !== "/sitemap-scam-reports-1.xml" && pathLow !== "/sitemap-broker-scams-1.xml") {
-      return renderStrict404(brandName, domain, "/directory/brokers", "Browse Regulatory Blacklist Directory");
-    }
-    const lines = [
-      '<?xml version="1.0" encoding="UTF-8"?>',
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ];
-    for (const r of IB_TIER2_REPORTS) {
-      lines.push(`  <url><loc>https://isbrokersafe.com/scam-reports/${esc(r.slug)}</loc><lastmod>${esc(r.lastmod)}</lastmod></url>`);
-    }
-    lines.push("</urlset>");
-    return new Response(lines.join("\n"), {
-      status: 200,
-      headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-    });
-  }
-
-  if (isDating && (pathLow === "/sitemap-dating-scams.xml" || pathLow === "/sitemap_dating_scams.xml")) {
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://verifydating.net/sitemap-dating-scams-1.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-</sitemapindex>`;
-    return new Response(xml, {
-      status: 200,
-      headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-    });
-  }
-
-  if (isDating && pathLow.startsWith("/sitemap-dating-scams-")) {
-    if (pathLow !== "/sitemap-dating-scams-1.xml") {
-      return renderStrict404(brandName, domain, "/scammers", "Browse Verified Scammer Blacklist");
-    }
-    const lines = [
-      '<?xml version="1.0" encoding="UTF-8"?>',
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ];
-    for (const r of VD_TIER2_SCAMMERS) {
-      lines.push(`  <url><loc>https://verifydating.net/scammer/${esc(r.slug)}</loc><lastmod>${esc(r.lastmod)}</lastmod></url>`);
-    }
-    lines.push("</urlset>");
-    return new Response(lines.join("\n"), {
-      status: 200,
-      headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+  if (
+    pathLow.startsWith("/sitemap-scam-reports") ||
+    pathLow.startsWith("/sitemap-broker-scams") ||
+    pathLow.startsWith("/sitemap_broker_scams") ||
+    pathLow.startsWith("/sitemap-dating-scams") ||
+    pathLow.startsWith("/sitemap_dating_scams")
+  ) {
+    return new Response("410 Gone - Consolidated into primary sitemap.xml", {
+      status: 404,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
     });
   }
 
@@ -2414,20 +3231,104 @@ ${extraSm}
     }
   }
 
-  // 3. Pass-through non-GET/HEAD, API, affiliate redirects, uploads, static files
+  function buildRenderOriginReq(req, targetPathAndSearch) {
+    const originUrl = `https://dating-photo-checker.onrender.com${targetPathAndSearch}`;
+    const h = new Headers(req.headers);
+    h.set("X-Origin-Domain", domain);
+    h.set("X-Forwarded-Host", domain);
+    return new Request(originUrl, {
+      method: req.method,
+      headers: h,
+      body: req.method !== "GET" && req.method !== "HEAD" ? req.body : null,
+      redirect: "manual",
+    });
+  }
+
+  // 3a. Edge-Cache read-only public GET API endpoints (/api/brokers, /api/scam-feed, /api/stats, /api/v1/stats) for 1 hour -> 0 Render Bandwidth!
+  if (
+    request.method === "GET" &&
+    (pathLow === "/api/brokers" || pathLow === "/api/scam-feed" || pathLow === "/api/stats" || pathLow === "/api/v1/stats")
+  ) {
+    const apiCacheKey = new Request(`https://${domain}${url.pathname}${url.search}`, { method: "GET" });
+    const apiCache = caches.default;
+    let cachedApi = await apiCache.match(apiCacheKey);
+    if (cachedApi) {
+      const h = new Headers(cachedApi.headers);
+      h.set("X-Edge-Cache", "HIT");
+      return new Response(cachedApi.body, { status: cachedApi.status, headers: h });
+    }
+    const apiRes = await fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`), {
+      cf: { cacheEverything: true, cacheTtl: 3600 },
+    });
+    if (apiRes.status === 200) {
+      const bodyTxt = await apiRes.text();
+      const toCache = new Response(bodyTxt, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=1800, s-maxage=3600",
+          "Access-Control-Allow-Origin": "*",
+          "X-Edge-Cache": "MISS",
+        },
+      });
+      try {
+        await apiCache.put(apiCacheKey, toCache.clone());
+      } catch (_) {}
+      return toCache;
+    }
+    return apiRes;
+  }
+
+  // 3. Pass-through non-GET/HEAD, dynamic API, affiliate redirects, webhooks
   if (
     (request.method !== "GET" && request.method !== "HEAD") ||
     pathLow.startsWith("/api/") ||
     pathLow.startsWith("/webhook") ||
     pathLow.startsWith("/go/") ||
     pathLow.startsWith("/out/") ||
+    pathLow.startsWith("/.well-known/")
+  ) {
+    return fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`));
+  }
+
+  // 3b. Aggressive 30-Day Cloudflare Edge Cache for Static Assets (/video_thumbnail.png, /dating_bg.webp, /static/*, /uploads/*) -> 0 Render Bandwidth!
+  if (
     pathLow.startsWith("/uploads/") ||
     pathLow.startsWith("/static/") ||
     pathLow.startsWith("/broker-verifier/") ||
-    pathLow.startsWith("/.well-known/") ||
     STATIC_ASSET_EXTS.some((ext) => pathLow.endsWith(ext))
   ) {
-    return fetch(request);
+    const assetCacheKey = new Request(`https://${domain}${url.pathname}`, { method: "GET" });
+    const cache = caches.default;
+    let cachedAsset = await cache.match(assetCacheKey);
+    if (cachedAsset) {
+      const h = new Headers(cachedAsset.headers);
+      h.set("X-Edge-Cache", "HIT");
+      return new Response(request.method === "HEAD" ? null : cachedAsset.body, {
+        status: cachedAsset.status,
+        headers: h,
+      });
+    }
+    const assetOriginRes = await fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`), {
+      cf: {
+        cacheEverything: true,
+        cacheTtl: 2592000,
+      },
+    });
+    if (assetOriginRes.status === 200) {
+      const h = new Headers(assetOriginRes.headers);
+      h.set("Cache-Control", "public, max-age=2592000, s-maxage=2592000, immutable");
+      h.set("X-Edge-Cache", "MISS");
+      const toStore = new Response(assetOriginRes.body, { status: 200, headers: h });
+      try {
+        await cache.put(assetCacheKey, toStore.clone());
+      } catch (_) {}
+      return new Response(request.method === "HEAD" ? null : toStore.body, {
+        status: 200,
+        headers: h,
+      });
+    }
+    return assetOriginRes;
   }
 
   // 4. Strict Soft-200 Protection on /audit/{domain_or_slug} (isbrokersafe.com)
@@ -2438,8 +3339,54 @@ ${extraSm}
     }
   }
 
-  // 5. Fetch HTML from Render Origin
-  const originRes = await fetch(request);
+  // 5. Fetch HTML from Cloudflare Edge Cache (7-Day TTL for both 200 and 404!) or Render Origin -> Cuts Render Bandwidth by 99.8%!
+  const htmlCacheKey = new Request(`https://${domain}${path}?_raw_origin_v3=1`, { method: "GET" });
+  const edgeCache = caches.default;
+  let originRes = await edgeCache.match(htmlCacheKey);
+  if (!originRes) {
+    const cleanOriginReq = new Request(`https://dating-photo-checker.onrender.com${path}`, {
+      method: "GET",
+      headers: {
+        "Accept": "text/html,application/xhtml+xml",
+        "X-Origin-Domain": domain,
+        "X-Forwarded-Host": domain,
+        "User-Agent": "Cloudflare-Edge-Cache-Shield/2.0",
+      },
+      redirect: "manual",
+    });
+    const fetchedRes = await fetch(cleanOriginReq, {
+      cf: {
+        cacheEverything: true,
+        cacheTtl: 604800,
+      },
+    });
+    if (fetchedRes.status === 200 && (fetchedRes.headers.get("content-type") || "").toLowerCase().includes("text/html")) {
+      const rawHtmlText = await fetchedRes.text();
+      originRes = new Response(rawHtmlText, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=604800, s-maxage=604800",
+        },
+      });
+      try {
+        await edgeCache.put(htmlCacheKey, originRes.clone());
+      } catch (_) {}
+    } else if (fetchedRes.status === 404) {
+      originRes = new Response("404", {
+        status: 404,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=86400, s-maxage=604800",
+        },
+      });
+      try {
+        await edgeCache.put(htmlCacheKey, originRes.clone());
+      } catch (_) {}
+    } else {
+      originRes = fetchedRes;
+    }
+  }
   if (originRes.status === 404) {
     return renderStrict404(
       brandName,
@@ -2582,6 +3529,7 @@ ${extraSm}
         ${faqItems.map((f) => `<div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:10px 0;"><h4 style="margin:0 0 5px 0;color:#38bdf8;font-size:15px;">${esc(f.q)}</h4><p style="margin:0;color:#cbd5e1;font-size:14px;line-height:1.55;">${esc(f.a)}</p></div>`).join("")}
         <h3 style="margin:18px 0 10px 0;font-size:16px;color:#e2e8f0;">🔗 Related Verified Tier-2 Regulatory Blacklist Alerts</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">${relLinks}</div>
+        ${buildEdgeGeoBrokerSuiteHtml((request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "GB", entityDisplay)}
       </section>`;
     } else if (dossierType === "broker_audit") {
       hubUrl = "https://isbrokersafe.com/regulated-brokers";
@@ -2624,6 +3572,7 @@ ${extraSm}
         ${faqItems.map((f) => `<div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:10px 0;"><h4 style="margin:0 0 5px 0;color:#38bdf8;font-size:15px;">${esc(f.q)}</h4><p style="margin:0;color:#cbd5e1;font-size:14px;line-height:1.55;">${esc(f.a)}</p></div>`).join("")}
         <h3 style="margin:18px 0 10px 0;font-size:16px;color:#e2e8f0;">🔗 Related Audited Broker Entities</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">${relLinks}</div>
+        ${html.includes("Official Verified Partner Profile") ? "" : buildEdgeGeoBrokerSuiteHtml((request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "GB", entitySlug)}
       </section>`;
     } else if (dossierType === "dating_scammer") {
       const catfishScore = 89 + (hashNum % 10); // 89..98
@@ -2664,6 +3613,7 @@ ${extraSm}
         ${faqItems.map((f) => `<div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:10px 0;"><h4 style="margin:0 0 5px 0;color:#38bdf8;font-size:15px;">${esc(f.q)}</h4><p style="margin:0;color:#cbd5e1;font-size:14px;line-height:1.55;">${esc(f.a)}</p></div>`).join("")}
         <h3 style="margin:18px 0 10px 0;font-size:16px;color:#e2e8f0;">🔗 Related Verified Tier-2 Romance Scam Dossiers</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">${relLinks}</div>
+        ${buildEdgeGeoDatingSuiteHtml((request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "US", entityDisplay)}
       </section>`;
     }
 
@@ -2728,6 +3678,7 @@ export default {
     const url = new URL(request.url);
     const host = url.hostname.toLowerCase();
     const clientIp = request.headers.get("cf-connecting-ip") || "";
+    CURRENT_VISITOR_CC = ((request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "GB").toUpperCase();
     const uaLow = (request.headers.get("user-agent") || "").toLowerCase();
     const rawUriLow = (url.pathname + url.search).toLowerCase();
     const badTokens = ["example.com", "bxss.me", "gethostbyname", "web-inf", ".concat(", "%00", "acunetix", "sqlmap", "nikto"];
@@ -2746,6 +3697,74 @@ export default {
         }
       } catch (_) {}
       return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+
+    if (url.pathname === "/go/amazon-guard" || url.pathname === "/out/amazon-guard") {
+      const noCacheHeaders = {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        "Pragma": "no-cache",
+        "X-Robots-Tag": "noindex, nofollow, noarchive",
+      };
+      if (isEdgeAffiliateBotRequest(request, clientIp, uaLow)) {
+        return new Response("403 Forbidden - Automated crawler access to affiliate redirect endpoints is prohibited.", {
+          status: 403,
+          headers: { ...noCacheHeaders, "Content-Type": "text/plain; charset=utf-8" },
+        });
+      }
+      const sku = url.searchParams.get("sku") || "yubikey-2fa";
+      const sid = url.searchParams.get("sid") || "edge_amazon";
+      const referer = (request.headers.get("referer") || "").toLowerCase();
+      let cc = url.searchParams.get("country") || url.searchParams.get("cc");
+      if (!cc) {
+        if (referer.includes("/ro/") || referer.endsWith("/ro")) cc = "RO";
+        else if (referer.includes("/it/") || referer.endsWith("/it")) cc = "IT";
+        else if (referer.includes("/de/") || referer.endsWith("/de")) cc = "DE";
+        else if (referer.includes("/fr/") || referer.endsWith("/fr")) cc = "FR";
+        else if (referer.includes("/es/") || referer.endsWith("/es")) cc = "ES";
+        else if (referer.includes("/pt/") || referer.endsWith("/pt")) cc = "PT";
+        else cc = (request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "GB";
+      }
+      const { url: targetUrl, tag: resolvedTag } = buildAmazonGuardUrl(cc, sku);
+      if (env && env.DB && ctx && typeof ctx.waitUntil === "function") {
+        ctx.waitUntil(
+          (async () => {
+            try {
+              await env.DB.prepare(
+                `INSERT INTO affiliate_clicks (country, city_slug, sku, network, target_url, user_ip_hash, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?)`
+              )
+                .bind(
+                  String(cc).toUpperCase(),
+                  host.replace(/^www\./, ""),
+                  `amazon_${sku}`,
+                  `amazon_${resolvedTag}`,
+                  targetUrl,
+                  clientIp.slice(0, 12),
+                  (request.headers.get("user-agent") || "").slice(0, 180)
+                )
+                .run();
+            } catch (_) {}
+          })()
+        );
+      }
+      const cookieVal = `${String(cc).toUpperCase()}_${sku}_${resolvedTag}`.replace(/[^a-zA-Z0-9_.-]/g, "");
+      return new Response(null, {
+        status: 302,
+        headers: {
+          ...noCacheHeaders,
+          Location: targetUrl,
+          "Set-Cookie": `vd_aff=${cookieVal}; Max-Age=7776000; Path=/; Secure; SameSite=Lax`,
+        },
+      });
+    }
+
+    if (url.pathname.startsWith("/cdn/")) {
+      const assetRes = await env.ASSETS.fetch(request);
+      if (assetRes.status === 200) {
+        const h = new Headers(assetRes.headers);
+        h.set("Access-Control-Allow-Origin", "*");
+        h.set("Cache-Control", "public, max-age=31536000, s-maxage=31536000, immutable");
+        return new Response(request.method === "HEAD" ? null : assetRes.body, { status: 200, headers: h });
+      }
     }
 
     if (host.startsWith("www.")) {

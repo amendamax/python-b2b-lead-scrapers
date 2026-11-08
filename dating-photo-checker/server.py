@@ -94,17 +94,425 @@ def _ensure_seo_tier2_cache():
         pass
 
 # ==========================================================================
+# CLOUDFLARE WORKERS STATIC CDN OFFLOAD MAP (SAVES ~97% RENDER BANDWIDTH!)
+# ==========================================================================
+CF_CDN_BASE = "https://appscamradar.com/cdn"
+
+def _get_cf_cdn_target(path_low: str, is_dating: bool) -> str:
+    if path_low == "/video_thumbnail.png":
+        return f"{CF_CDN_BASE}/video_thumbnail.png"
+    if path_low == "/explainer.mp4":
+        return f"{CF_CDN_BASE}/explainer.mp4"
+    if path_low == "/catfish_profile.png":
+        return f"{CF_CDN_BASE}/catfish_profile.png"
+    if path_low == "/verifydating_og_banner.jpg":
+        return f"{CF_CDN_BASE}/verifydating_og_banner.jpg"
+    if path_low == "/isbrokersafe_og_banner.jpg":
+        return f"{CF_CDN_BASE}/isbrokersafe_og_banner.jpg"
+    if path_low == "/og_image.png":
+        return f"{CF_CDN_BASE}/og_image.png"
+    if path_low == "/og_image.jpg":
+        return f"{CF_CDN_BASE}/og_image.jpg"
+    if path_low == "/dating_bg.webp":
+        return f"{CF_CDN_BASE}/dating_bg.webp"
+    if path_low == "/dev_bg.webp":
+        return f"{CF_CDN_BASE}/dev_bg.webp"
+    if path_low in ("/tech_bg.webp", "/broker-verifier/tech_bg.webp", "/broker-verifier/broker-verifier/tech_bg.webp"):
+        return f"{CF_CDN_BASE}/tech_bg.webp"
+    if path_low == "/2ab18b31-5d07-453b-b743-bfbfe1ee49df.jpeg":
+        return f"{CF_CDN_BASE}/2ab18b31-5d07-453b-b743-bfbfe1ee49df.jpeg"
+    if path_low == "/index.css":
+        return f"{CF_CDN_BASE}/index.css"
+    if path_low in ("/broker-verifier/style.css", "/broker-verifier/broker-verifier/style.css"):
+        return f"{CF_CDN_BASE}/ib_style.css"
+    if path_low == "/style.css":
+        return f"{CF_CDN_BASE}/vd_style.css" if is_dating else f"{CF_CDN_BASE}/ib_style.css"
+    if path_low == "/broker-verifier/app.js":
+        return f"{CF_CDN_BASE}/ib_app.js"
+    if path_low == "/app.js":
+        return f"{CF_CDN_BASE}/vd_app.js" if is_dating else f"{CF_CDN_BASE}/ib_app.js"
+    return ""
+
+def _build_geo_affiliate_suite_html(is_dating: bool, country_code: str, disp_name: str) -> str:
+    cc = (country_code or "GB").upper().strip()
+    if is_dating:
+        return f'''
+        <div style="margin-top:18px;padding:18px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(49,16,66,0.88));border:1px solid rgba(236,72,153,0.45);border-radius:12px;">
+          <div style="font-size:14.5px;color:#f8fafc;font-weight:800;margin-bottom:10px;">
+            🔎 Complete OSINT Identity Verification &amp; Cyber Protection Suite for {disp_name} ({cc} Edition):
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">
+            <a href="/go/catfish-check?sid=ssr_dossier_catfish" target="_blank" rel="nofollow noopener sponsored" style="background:#ec4899;color:#fff;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🔍 1. Spokeo Reverse Photo &amp; Catfish Search &rarr;</a>
+            <a href="/go/background-report?sid=ssr_dossier_phone" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">📞 2. Phone, Email &amp; Court Records Check &rarr;</a>
+            <a href="/go/remove-data?sid=ssr_dossier_incogni" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🗑️ 3. Incogni — Erase Your Personal Data &rarr;</a>
+            <a href="/go/identity-monitoring?sid=ssr_dossier_omni" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🛡️ 4. OmniWatch Dark Web &amp; ID Theft Insurance &rarr;</a>
+            <a href="/go/vpn-shield?sid=ssr_dossier_vpn" target="_blank" rel="nofollow noopener sponsored" style="background:#6366f1;color:#fff;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🔒 5. NordVPN / Surfshark Anti-Doxxing Shield &rarr;</a>
+            <a href="/go/mac-antivirus?sid=ssr_dossier_intego" target="_blank" rel="nofollow noopener sponsored" style="background:#a855f7;color:#fff;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">💻 6. Intego Anti-Spyware &amp; Malware Suite &rarr;</a>
+            <a href="/go/verified-dating?sid=ssr_dossier_match" target="_blank" rel="nofollow noopener sponsored" style="background:#14b8a6;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">💚 7. Match.com Verified Singles Community &rarr;</a>
+            <a href="/go/senior-dating?sid=ssr_dossier_ourtime" target="_blank" rel="nofollow noopener sponsored" style="background:#fb7185;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🌟 8. OurTime 50+ Safe Verified Dating &rarr;</a>
+          </div>
+          {_build_amazon_guard_bar_html(True, cc)}
+        </div>'''
+    is_uk_de_fr_es = cc in ("GB", "UK", "DE", "AT", "CH", "FR", "ES", "NL", "BE", "IT", "SE", "DK", "NO", "IE", "AU", "NZ", "CA", "SG", "AE")
+    return f'''
+    <div style="margin-top:18px;padding:18px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(6,78,59,0.85));border:1px solid rgba(16,185,129,0.45);border-radius:12px;">
+      <div style="font-size:14.5px;color:#f8fafc;font-weight:800;margin-bottom:10px;">
+        🏛️ Official Tier-1 Regulated Alternatives to {disp_name} (Segregated Accounts &amp; Investor Protection — {cc} Jurisdiction):
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">
+        <a href="/go/ibkr?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🏛️ 1. Interactive Brokers (NYSE: IBKR • SEC/FCA) &rarr;</a>
+        <a href="/go/blackbull?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">⚡ 2. BlackBull Markets (ECN Prime • 0.0 Pips) &rarr;</a>
+        <a href="/go/etoro?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🌐 3. eToro (FCA / CySEC / ASIC CopyTrader) &rarr;</a>
+        <a href="/go/exness?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#fde047;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🚀 4. Exness ($4T Volume • Instant Withdrawal) &rarr;</a>
+        <a href="/go/xm?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#22c55e;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🛡️ 5. XM Group (CySEC / ASIC / DFSA Regulated) &rarr;</a>
+        <a href="/go/plus500?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#60a5fa;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">📈 6. Plus500 (LSE: PLUS Listed FTSE 250) &rarr;</a>
+        <a href="/go/avatrade?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#a78bfa;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🔒 7. AvaTrade (9 Global Central Bank Licenses) &rarr;</a>
+        <a href="/go/ftmo?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#fb923c;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">🏆 8. FTMO ($200k Prop Trading Evaluation) &rarr;</a>
+        <a href="/go/tradingview?sid=ssr_dossier" target="_blank" rel="nofollow noopener sponsored" style="background:#e2e8f0;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12.5px;text-align:center;">📊 9. TradingView Pro Charts &amp; Broker Hub &rarr;</a>
+      </div>
+      {_build_amazon_guard_bar_html(False, cc)}
+    </div>'''
+
+
+AMAZON_BANNER_I18N = {
+    "ro": {
+        "cc": "RO",
+        "broker": {
+            "title": "🔐 Securitate Hardware Cripto &amp; Protecție Cont (Magazinul Oficial Amazon — Livrare Rapidă în România):",
+            "sub": "Nu lăsa niciodată fondurile pe platforme nereglementate și nu expune codurile 2FA la phishing. Securizează-ți cheile private și conturile de tranzacționare cu protecție hardware:",
+            "b1": "🔐 1. Portofele Hardware Ledger Nano X &amp; Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Cheie Hardware 2FA YubiKey 5C NFC (Anti-Phishing) &rarr;",
+            "b3": "🛡️ 3. Husă Faraday Anti-Semnal &amp; Seif Oțel Seed Phrase &rarr;",
+            "b4": "📚 4. Cărți Bestseller #1 de Price Action &amp; Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Kit Fizic de Confidențialitate, Anti-Stalking &amp; Siguranță la Întâlniri (Bestseller Oficial Amazon):",
+            "sub": "Protejează-ți camera web, locația GPS și cardurile bancare împotriva escrocilor sentimentali, șantajului video (sextortion) și riscurilor la întâlnirile față în față:",
+            "b1": "📵 1. Husă Faraday Telefon &amp; Scut Cameră Web &rarr;",
+            "b2": "🚨 2. Localizator Smart GPS &amp; Alarmă Personală 130dB &rarr;",
+            "b3": "🔑 3. Cheie Fizică 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Portofel cu Blocare RFID Anti-Clonare Carduri &rarr;",
+        },
+    },
+    "it": {
+        "cc": "IT",
+        "broker": {
+            "title": "🔐 Sicurezza Hardware Crypto e Protezione Account (Negozio Ufficiale Amazon.it — Bestseller):",
+            "sub": "Non lasciare mai i tuoi fondi su broker non regolamentati e proteggi i codici 2FA dal phishing. Metti al sicuro le tue chiavi private e i conti di trading con dispositivi hardware certificati:",
+            "b1": "🔐 1. Hardware Wallet Ledger Nano X e Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Chiave di Sicurezza 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Custodia Faraday Schermata e Cassaforte Seed in Acciaio &rarr;",
+            "b4": "📚 4. Libri Bestseller #1 di Price Action e Analisi Tecnica &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Kit Privacy Fisica, Anti-Stalking e Sicurezza al Primo Appuntamento (Bestseller Ufficiali Amazon.it):",
+            "sub": "Proteggi fotocamera, posizione GPS e carte di credito da truffatori romantici, ricatti video (sextortion) e rischi durante gli incontri dal vivo (Consegna Rapida Prime):",
+            "b1": "📵 1. Bustina Faraday Anti-Tracciamento e Copri Webcam &rarr;",
+            "b2": "🚨 2. Localizzatore Smart GPS e Allarme Personale 130dB &rarr;",
+            "b3": "🔑 3. Chiave Hardware 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Portafoglio Schermato RFID Anti-Clonazione Carte &rarr;",
+        },
+    },
+    "de": {
+        "cc": "DE",
+        "broker": {
+            "title": "🔐 Physische Krypto- &amp; Kontosicherheit (Offizieller Amazon.de Store — Bestseller):",
+            "sub": "Lassen Sie niemals Gelder auf unregulierten Plattformen und schützen Sie 2FA-Codes vor Phishing. Sichern Sie Ihre Private Keys und Handelskonto-Zugänge mit zertifizierter Hardware:",
+            "b1": "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hardware-Wallets &rarr;",
+            "b2": "🔑 2. YubiKey 5C NFC 2FA-Sicherheitsschlüssel &rarr;",
+            "b3": "🛡️ 3. Faraday-Schutztasche &amp; Edelstahl Seed-Tresor &rarr;",
+            "b4": "📚 4. #1 Bestseller-Bücher für Price Action &amp; Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Physischer Datenschutz, Anti-Stalking &amp; Sicherheits-Kit fürs Erste Date (Amazon.de Bestseller):",
+            "sub": "Schützen Sie Kamera, GPS-Standort und Bankkarten vor Romance-Scammern, Sextortion-Erpressern und Risiken bei Offline-Treffen:",
+            "b1": "📵 1. Faraday-Handytasche &amp; Webcam-Abdeckung Set &rarr;",
+            "b2": "🚨 2. Smart GPS-Tracker &amp; 130dB Taschenalarm &rarr;",
+            "b3": "🔑 3. YubiKey 5C NFC Hardware 2FA-Schlüssel &rarr;",
+            "b4": "💳 4. RFID-Blocker Geldbörse gegen Karten-Skimming &rarr;",
+        },
+    },
+    "fr": {
+        "cc": "FR",
+        "broker": {
+            "title": "🔐 Sécurité Matérielle Crypto &amp; Protection de Compte (Boutique Officielle Amazon.fr — Meilleures Ventes) :",
+            "sub": "Ne laissez jamais vos fonds sur des courtiers non régulés et protégez vos codes 2FA contre le phishing. Sécurisez vos clés privées et vos comptes de trading avec du matériel certifié :",
+            "b1": "🔐 1. Portefeuilles Matériels Ledger Nano X &amp; Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Clé de Sécurité 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Pochette Faraday Anti-Signal &amp; Coffre Seed en Acier &rarr;",
+            "b4": "📚 4. Livres N°1 des Ventes sur le Price Action &amp; Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Kit de Confidentialité Physique, Anti-Harceleur &amp; Sécurité Premier Rendez-Vous (Amazon.fr) :",
+            "sub": "Protégez votre caméra, votre localisation GPS et vos cartes bancaires contre les brouteurs sentimentaux, le chantage vidéo (sextorsion) et les risques de rencontres :",
+            "b1": "📵 1. Pochette Faraday Téléphone &amp; Cache Webcam &rarr;",
+            "b2": "🚨 2. Traceur GPS Intelligent &amp; Alarme Personnelle 130dB &rarr;",
+            "b3": "🔑 3. Clé Matérielle 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Portefeuille Anti-RFID Contre le Piratage de Carte &rarr;",
+        },
+    },
+    "es": {
+        "cc": "ES",
+        "broker": {
+            "title": "🔐 Seguridad Física Cripto y Protección de Cuentas (Tienda Oficial Amazon.es — Más Vendidos):",
+            "sub": "Nunca deje fondos en brókers no regulados ni exponga sus códigos 2FA al phishing. Asegure sus claves privadas y cuentas de trading con protección por hardware:",
+            "b1": "🔐 1. Billeteras Frías Ledger Nano X y Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Llave de Seguridad 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Bolsa Faraday Antirrastreo y Placa Seed de Acero &rarr;",
+            "b4": "📚 4. Libros N.º 1 en Ventas de Price Action y Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Kit de Privacidad Física, Antiacoso y Seguridad para la Primera Cita (Más Vendidos en Amazon.es):",
+            "sub": "Proteja su cámara, ubicación GPS y tarjetas bancarias contra estafadores románticos, extorsión por vídeo (sextorsión) y riesgos en citas presenciales:",
+            "b1": "📵 1. Funda Faraday para Móvil y Cubierta de Webcam &rarr;",
+            "b2": "🚨 2. Localizador GPS Inteligente y Alarma Personal 130dB &rarr;",
+            "b3": "🔑 3. Llave Física 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Cartera con Bloqueo RFID Anticlonación &rarr;",
+        },
+    },
+    "pt": {
+        "cc": "PT",
+        "broker": {
+            "title": "🔐 Segurança Física Cripto e Proteção de Contas (Loja Oficial Amazon — Mais Vendidos):",
+            "sub": "Nunca deixe fundos em corretoras não regulamentadas nem exponha códigos 2FA a phishing. Proteja as suas chaves privadas e contas de trading com segurança de hardware:",
+            "b1": "🔐 1. Carteiras Hardware Ledger Nano X e Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Chave de Segurança 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Bolsa Faraday Anti-Sinal e Cofre Seed em Aço &rarr;",
+            "b4": "📚 4. Livros N.º 1 Mais Vendidos de Price Action e Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Kit de Privacidade Física, Anti-Stalking e Segurança no Primeiro Encontro (Amazon Oficial):",
+            "sub": "Proteja a sua câmara, localização GPS e cartões bancários contra burlões românticos, extorsão de vídeo (sextortion) e riscos em encontros presenciais:",
+            "b1": "📵 1. Bolsa Faraday para Telemóvel e Tampa de Webcam &rarr;",
+            "b2": "🚨 2. Localizador Smart GPS e Alarme Pessoal 130dB &rarr;",
+            "b3": "🔑 3. Chave Física 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Carteira com Bloqueio RFID Anti-Clonagem &rarr;",
+        },
+    },
+    "nl": {
+        "cc": "NL",
+        "broker": {
+            "title": "🔐 Fysieke Crypto- &amp; Accountbeveiliging (Officiële Amazon Winkel — Bestsellers):",
+            "sub": "Laat nooit tegoeden achter bij ongereguleerde brokers en bescherm 2FA-codes tegen phishing. Beveilig uw private keys en handelsaccounts met gecertificeerde hardware:",
+            "b1": "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hardware Wallets &rarr;",
+            "b2": "🔑 2. YubiKey 5C NFC Hardware 2FA-Beveiligingssleutel &rarr;",
+            "b3": "🛡️ 3. Faraday-Signaalhoes &amp; Stalen Seed Phrase Kluis &rarr;",
+            "b4": "📚 4. #1 Bestseller Boeken over Price Action &amp; Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Fysieke Privacy, Anti-Stalking &amp; Eerste-Date Veiligheidskit (Amazon Bestsellers):",
+            "sub": "Bescherm uw camera, GPS-locatie en bankpassen tegen datingoplichters, sextortion en risico's bij offline afspraken:",
+            "b1": "📵 1. Faraday Telefoonhoes &amp; Webcam Cover Kit &rarr;",
+            "b2": "🚨 2. Smart GPS-Tracker &amp; 130dB Persoonlijk Alarm &rarr;",
+            "b3": "🔑 3. YubiKey 5C NFC Hardware 2FA-Sleutel &rarr;",
+            "b4": "💳 4. RFID-Blokkerende Anti-Skimming Portemonnee &rarr;",
+        },
+    },
+    "pl": {
+        "cc": "PL",
+        "broker": {
+            "title": "🔐 Sprzętowe Bezpieczeństwo Krypto i Konta (Oficjalny Sklep Amazon.pl — Bestsellery):",
+            "sub": "Nigdy nie zostawiaj środków u nieregulowanych brokerów i chroń kody 2FA przed phishingiem. Zabezpiecz klucze prywatne i konta handlowe certyfikowanym sprzętem:",
+            "b1": "🔐 1. Portfele Sprzętowe Ledger Nano X i Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Klucz Bezpieczeństwa 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Etui Faraday Blokujące Sygnał i Stalowy Sejf Seed &rarr;",
+            "b4": "📚 4. Bestsellery #1 o Price Action i Inwestowaniu &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Zestaw Prywatności, Anty-Stalking i Bezpieczeństwa na Randce (Bestsellery Amazon.pl):",
+            "sub": "Chroń kamerę, lokalizację GPS i karty płatnicze przed oszustami matrymonialnymi, szantażem wideo (sextortion) i zagrożeniami na spotkaniach:",
+            "b1": "📵 1. Etui Faraday na Telefon i Osłona Kamery &rarr;",
+            "b2": "🚨 2. Lokalizator Smart GPS i Alarm Osobisty 130dB &rarr;",
+            "b3": "🔑 3. Klucz Sprzętowy 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Portfel z Blokadą RFID Anty-Skimming &rarr;",
+        },
+    },
+    "sv": {
+        "cc": "SE",
+        "broker": {
+            "title": "🔐 Fysisk Krypto- &amp; Kontosäkerhet (Officiell Amazon.se Butik — Bästsäljare):",
+            "sub": "Lämna aldrig kapital hos oreglerade mäklare och skydda 2FA-koder mot nätfiske. Säkra dina privata nycklar och handelskonton med hårdvaruskydd:",
+            "b1": "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Hårdvaruplånböcker &rarr;",
+            "b2": "🔑 2. YubiKey 5C NFC Hårdvaru-2FA Säkerhetsnyckel &rarr;",
+            "b3": "🛡️ 3. Faraday-Signalpåse &amp; Seed-Kassaskåp i Stål &rarr;",
+            "b4": "📚 4. #1 Bästsäljande Böcker inom Price Action &amp; Trading &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Fysisk Integritet, Anti-Stalking &amp; Säkerhetskit för Första Dejten (Amazon.se Bästsäljare):",
+            "sub": "Skydda din kamera, GPS-position och bankkort mot romansbedragare, sextortion och risker vid fysiska möten:",
+            "b1": "📵 1. Faraday-Mobilfodral &amp; Webbkameraskydd &rarr;",
+            "b2": "🚨 2. Smart GPS-Spårare &amp; 130dB Personlarm &rarr;",
+            "b3": "🔑 3. YubiKey 5C NFC Hårdvaru-2FA Nyckel &rarr;",
+            "b4": "💳 4. RFID-Blockerande Plånbok mot Kortskimming &rarr;",
+        },
+    },
+    "ru": {
+        "cc": "DE",
+        "broker": {
+            "title": "🔐 Аппаратная защита криптоактивов и счетов (Официальный магазин Amazon — Бестселлеры):",
+            "sub": "Никогда не храните средства у нерегулируемых брокеров и защищайте коды 2FA от фишинга. Защитите свои приватные ключи и торговые счета аппаратной защитой:",
+            "b1": "🔐 1. Аппаратные кошельки Ledger Nano X и Trezor Safe 3 &rarr;",
+            "b2": "🔑 2. Аппаратный ключ 2FA YubiKey 5C NFC &rarr;",
+            "b3": "🛡️ 3. Чехол Фарадея и стальная капсула для Seed-фразы &rarr;",
+            "b4": "📚 4. Книги-бестселлеры №1 по Price Action и трейдингу &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Набор физической приватности, анти-сталкинга и безопасности на свиданиях (Amazon):",
+            "sub": "Защитите камеру, GPS-локацию и банковские карты от брачных аферистов, видеошантажа (sextortion) и рисков на личных встречах:",
+            "b1": "📵 1. Чехол Фарадея для смартфона и шторка для веб-камеры &rarr;",
+            "b2": "🚨 2. Умный GPS-трекер и персональная сирена 130 дБ &rarr;",
+            "b3": "🔑 3. Аппаратный ключ 2FA YubiKey 5C NFC &rarr;",
+            "b4": "💳 4. Кошелек с RFID-защитой от скимминга карт &rarr;",
+        },
+    },
+    "en": {
+        "cc": "",
+        "broker": {
+            "title": "🔐 Physical Crypto &amp; Account Hardware Security (Amazon Official Store — Bestsellers):",
+            "sub": "Never leave funds on unregulated exchanges or expose 2FA codes to phishing. Secure your self-custody keys and trading accounts with hardware-grade protection:",
+            "b1": "🔐 1. Ledger Nano X &amp; Trezor Safe 3 Cold Wallets &rarr;",
+            "b2": "🔑 2. YubiKey 5C NFC Hardware 2FA Security Key &rarr;",
+            "b3": "🛡️ 3. Faraday Signal Bag &amp; Steel Seed Vault &rarr;",
+            "b4": "📚 4. #1 Bestselling Price Action &amp; Trading Books &rarr;",
+        },
+        "dating": {
+            "title": "🛡️ Physical Privacy, Anti-Stalking &amp; First-Date Safety Kit (Amazon Official Bestsellers):",
+            "sub": "Protect your camera, location, and credit cards against romance scammers, sextortion blackmailers, and offline meeting risks (Fast 24h Prime Delivery):",
+            "b1": "📵 1. Faraday Phone Bag &amp; Webcam Cover Kit &rarr;",
+            "b2": "🚨 2. Smart GPS Tracker &amp; 130dB Safety Alarm &rarr;",
+            "b3": "🔑 3. YubiKey 5C NFC Hardware 2FA Key &rarr;",
+            "b4": "💳 4. RFID-Blocking Anti-Skimming Wallet &rarr;",
+        },
+    },
+}
+
+
+def _resolve_amazon_banner_locale_py(url_path: str = "/", country_code: str = "GB"):
+    p = (url_path or "/").lower()
+    cc = (country_code or "GB").upper()
+    if p == "/ro" or p.startswith("/ro/"):
+        return "ro", "RO"
+    if p == "/it" or p.startswith("/it/"):
+        return "it", "IT"
+    if p == "/de" or p.startswith("/de/"):
+        return "de", "DE"
+    if p == "/fr" or p.startswith("/fr/"):
+        return "fr", "FR"
+    if p == "/es" or p.startswith("/es/"):
+        return "es", "ES"
+    if p == "/pt" or p.startswith("/pt/"):
+        return "pt", "PT"
+    if p == "/ru" or p.startswith("/ru/"):
+        return "ru", cc or "DE"
+
+    if cc in ("RO", "MD"):
+        return "ro", "RO"
+    if cc in ("IT", "SM", "VA"):
+        return "it", "IT"
+    if cc in ("DE", "AT", "CH"):
+        return "de", "DE"
+    if cc in ("FR", "MC", "LU"):
+        return "fr", "FR"
+    if cc in ("ES", "AD"):
+        return "es", "ES"
+    if cc in ("PT", "BR"):
+        return "pt", "PT"
+    if cc == "NL":
+        return "nl", "NL"
+    if cc == "BE":
+        return "nl", "BE"
+    if cc == "PL":
+        return "pl", "PL"
+    if cc == "SE":
+        return "sv", "SE"
+    return "en", cc or "GB"
+
+
+def _build_amazon_guard_bar_html(is_dating: bool, country_code: str = "GB", standalone: bool = False, url_path: str = "/") -> str:
+    lang, target_cc = _resolve_amazon_banner_locale_py(url_path, country_code)
+    pack = AMAZON_BANNER_I18N.get(lang, AMAZON_BANNER_I18N["en"])
+    cc_param = f"&amp;cc={target_cc}" if target_cc else ""
+    wrap_style = (
+        "max-width:960px;margin:24px auto;padding:18px;background:linear-gradient(135deg,rgba(15,23,42,0.97),rgba(30,41,59,0.94));border:1.5px solid rgba(245,158,11,0.5);border-radius:14px;font-family:system-ui,sans-serif;text-align:left;"
+        if standalone
+        else "margin-top:14px;padding:14px;background:rgba(2,6,23,0.78);border:1px solid rgba(245,158,11,0.45);border-radius:10px;text-align:left;"
+    )
+    if is_dating:
+        t = pack["dating"]
+        return f"""
+        <section class="amazon-guard-suite" style="{wrap_style}">
+          <div style="font-size:13.5px;color:#fbbf24;font-weight:800;margin-bottom:6px;">
+            {t["title"]}
+          </div>
+          <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
+            {t["sub"]}
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:8px;">
+            <a href="/go/amazon-guard?sku=faraday-webcam&amp;sid=vd_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b1"]}</a>
+            <a href="/go/amazon-guard?sku=safety-alarm&amp;sid=vd_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#ec4899;color:#fff;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b2"]}</a>
+            <a href="/go/amazon-guard?sku=yubikey-2fa&amp;sid=vd_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b3"]}</a>
+            <a href="/go/amazon-guard?sku=rfid-wallet&amp;sid=vd_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b4"]}</a>
+          </div>
+        </section>"""
+    t = pack["broker"]
+    return f"""
+    <section class="amazon-guard-suite" style="{wrap_style}">
+      <div style="font-size:13.5px;color:#fbbf24;font-weight:800;margin-bottom:6px;">
+        {t["title"]}
+      </div>
+      <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
+        {t["sub"]}
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:8px;">
+        <a href="/go/amazon-guard?sku=ledger-wallet&amp;sid=ibs_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b1"]}</a>
+        <a href="/go/amazon-guard?sku=yubikey-2fa&amp;sid=ibs_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b2"]}</a>
+        <a href="/go/amazon-guard?sku=faraday-vault&amp;sid=ibs_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b3"]}</a>
+        <a href="/go/amazon-guard?sku=trading-books&amp;sid=ibs_amazon{cc_param}" target="_blank" rel="nofollow noopener sponsored" style="background:#e2e8f0;color:#0f172a;font-weight:800;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:12px;text-align:center;">{t["b4"]}</a>
+      </div>
+    </section>"""
+
+# Register CORSMiddleware BEFORE add_performance_cache_headers so add_performance_cache_headers runs OUTSIDE CORSMiddleware and strips Vary: Origin!
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://vasiledev.com",
+        "https://isbrokersafe.com",
+        "https://verifydating.net",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:5500",
+        "http://localhost:8000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ==========================================================================
 # ULTRA-FAST HTTP CACHING & 5-STAGE SEO MIDDLEWARE (CORE WEB VITALS 98+)
 # ==========================================================================
 @app.middleware("http")
 async def add_performance_cache_headers(request: Request, call_next):
-    response = await call_next(request)
     raw_path = request.url.path or "/"
     path = raw_path.lower()
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
     brand_name = "VerifyDating.net" if is_dating else "IsBrokerSafe.com"
+
+    # 0a. Offload all heavy static media, CSS & JS to Cloudflare Workers Static Assets (0 Bytes Render Bandwidth!)
+    if request.method in ("GET", "HEAD"):
+        cdn_target = _get_cf_cdn_target(path, is_dating)
+        if cdn_target:
+            return RedirectResponse(
+                url=cdn_target,
+                status_code=302,
+                headers={
+                    "Cache-Control": "public, max-age=86400, s-maxage=604800",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            )
+
+    response = await call_next(request)
 
     # 0. Affiliate Redirect Cloaking Routes (/go/*, /out/*): NEVER cache at browser or Cloudflare Edge
     if path.startswith("/go/") or path.startswith("/out/"):
@@ -147,7 +555,7 @@ async def add_performance_cache_headers(request: Request, call_next):
         return HTMLResponse(
             content=strict_404_html,
             status_code=404,
-            headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "no-store"}
+            headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "public, max-age=3600, s-maxage=604800", "CDN-Cache-Control": "public, max-age=604800", "Cloudflare-CDN-Cache-Control": "public, max-age=604800"}
         )
 
     content_type = (response.headers.get("content-type") or "").lower()
@@ -236,18 +644,28 @@ async def add_performance_cache_headers(request: Request, call_next):
               </div>
               <h3 style="margin:0 0 12px 0;font-size:17px;color:#fff;">❓ Frequently Asked Questions — {disp_name}</h3>
               {faq_html}
-              <div style="margin-top:18px;padding:16px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.4);border-radius:10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
-                <div style="font-size:14px;color:#f8fafc;font-weight:700;">
-                  {"🔎 Need to verify phone records, real identity, or stolen photos for " + disp_name + "?" if is_dating else "🛡️ Looking for a 100% FCA / CySEC / ASIC Regulated Tier-1 Broker with segregated accounts?"}
-                </div>
-                <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                  {'<a href="/go/catfish-check?sid=ssr_dossier_catfish" target="_blank" rel="nofollow noopener sponsored" style="background:#ec4899;color:#fff;font-weight:800;padding:9px 14px;border-radius:8px;text-decoration:none;font-size:13px;">🔍 Reverse Photo &amp; Identity Check &rarr;</a><a href="/go/background-report?sid=ssr_dossier_phone" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:9px 14px;border-radius:8px;text-decoration:none;font-size:13px;">📞 Phone &amp; Background Report &rarr;</a>' if is_dating else '<a href="/go/xm" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:9px 14px;border-radius:8px;text-decoration:none;font-size:13px;">🏛️ Open Regulated XM Account &rarr;</a><a href="/go/exness" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:9px 14px;border-radius:8px;text-decoration:none;font-size:13px;">⚡ Exness (Instant Withdrawal) &rarr;</a><a href="/go/ftmo" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:9px 14px;border-radius:8px;text-decoration:none;font-size:13px;">🏆 FTMO $200k Prop Firm &rarr;</a>'}
-                </div>
-              </div>
+              {_build_geo_affiliate_suite_html(is_dating, request.headers.get("cf-ipcountry") or "GB", disp_name)}
             </section>
             <script type="application/ld+json">{json.dumps(graph_obj)}</script>
             '''
             html_str = html_str.replace("</body>", bench_html + "\n</body>")
+
+        if "/go/amazon-guard" not in html_str and (
+            dossier_type
+            or clean_low in ("/", "/ro", "/it", "/de", "/fr", "/es", "/pt", "/ru", "/directory/brokers", "/regulated-brokers", "/scammers", "/brokers")
+            or "/reviews/" in clean_low
+        ):
+            amz_bar = _build_amazon_guard_bar_html(is_dating, request.headers.get("cf-ipcountry") or "GB", standalone=True, url_path=clean_low)
+            if re.search(r'<section[^>]*id=["\']catfish-safety-check["\']', html_str, flags=re.I):
+                html_str = re.sub(r'(<section[^>]*id=["\']catfish-safety-check["\'])', amz_bar + "\n\\1", html_str, count=1, flags=re.I)
+            elif re.search(r'<div[^>]*class=["\'][^"\']*broker-table-container[^"\']*["\']', html_str, flags=re.I):
+                html_str = re.sub(r'(<div[^>]*class=["\'][^"\']*broker-table-container[^"\']*["\'])', amz_bar + "\n\\1", html_str, count=1, flags=re.I)
+            elif re.search(r'<section[^>]*class=["\'][^"\']*legal-entity-section[^"\']*["\']', html_str, flags=re.I):
+                html_str = re.sub(r'(<section[^>]*class=["\'][^"\']*legal-entity-section[^"\']*["\'])', amz_bar + "\n\\1", html_str, count=1, flags=re.I)
+            elif "<footer" in html_str:
+                html_str = html_str.replace("<footer", amz_bar + "\n<footer", 1)
+            else:
+                html_str = html_str.replace("</body>", amz_bar + "\n</body>", 1)
 
         should_noindex = has_query or is_tier3
         robots_meta = "noindex, follow" if should_noindex else "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -259,10 +677,30 @@ async def add_performance_cache_headers(request: Request, call_next):
         head_inject = f'<head>\n  <meta name="robots" content="{robots_meta}">\n  <meta name="googlebot" content="{robots_meta}">\n  <link rel="canonical" href="{canonical_href}">'
         html_str = re.sub(r'<head[^>]*>', head_inject, html_str, count=1, flags=re.I)
 
+        # Rewrite heavy static media directly to Cloudflare Workers Static Assets CDN (0 Bytes from Render!)
+        html_str = (
+            html_str
+            .replace('"/video_thumbnail.png"', f'"{CF_CDN_BASE}/video_thumbnail.png"')
+            .replace("'/video_thumbnail.png'", f"'{CF_CDN_BASE}/video_thumbnail.png'")
+            .replace('"/explainer.mp4"', f'"{CF_CDN_BASE}/explainer.mp4"')
+            .replace("'/explainer.mp4'", f"'{CF_CDN_BASE}/explainer.mp4'")
+            .replace('"/catfish_profile.png"', f'"{CF_CDN_BASE}/catfish_profile.png"')
+            .replace("'/catfish_profile.png'", f"'{CF_CDN_BASE}/catfish_profile.png'")
+            .replace('"/dating_bg.webp"', f'"{CF_CDN_BASE}/dating_bg.webp"')
+            .replace("'/dating_bg.webp'", f"'{CF_CDN_BASE}/dating_bg.webp'")
+            .replace('"/dev_bg.webp"', f'"{CF_CDN_BASE}/dev_bg.webp"')
+            .replace("'/dev_bg.webp'", f"'{CF_CDN_BASE}/dev_bg.webp'")
+            .replace('"/2ab18b31-5d07-453b-b743-bfbfe1ee49df.jpeg"', f'"{CF_CDN_BASE}/2ab18b31-5d07-453b-b743-bfbfe1ee49df.jpeg"')
+        )
         new_headers = dict(response.headers)
         new_headers.pop("content-length", None)
+        new_headers.pop("vary", None)
+        new_headers.pop("Vary", None)
+        new_headers["Vary"] = "Accept-Encoding"
         new_headers["X-Robots-Tag"] = x_robots
-        new_headers["Cache-Control"] = "public, max-age=0, must-revalidate" if has_query else "public, max-age=3600, s-maxage=604800, stale-while-revalidate=86400"
+        new_headers["Cache-Control"] = "public, max-age=300, s-maxage=86400" if has_query else "public, max-age=3600, s-maxage=604800, stale-while-revalidate=86400"
+        new_headers["CDN-Cache-Control"] = "public, max-age=86400" if has_query else "public, max-age=604800, s-maxage=604800"
+        new_headers["Cloudflare-CDN-Cache-Control"] = "public, max-age=86400" if has_query else "public, max-age=604800"
         return HTMLResponse(content=html_str, status_code=200, headers=new_headers)
 
     if has_query and not path.startswith("/api/"):
@@ -308,21 +746,8 @@ async def add_performance_cache_headers(request: Request, call_next):
                 
     return response
 
-app.add_middleware(GZipMiddleware, minimum_size=1000)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://vasiledev.com",
-        "https://isbrokersafe.com",
-        "https://verifydating.net",
-        "http://127.0.0.1:8000",
-        "http://127.0.0.1:5500",
-        "http://localhost:8000"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Outermost middleware: compresses all HTML & JSON responses by ~88% before leaving Render!
+app.add_middleware(GZipMiddleware, minimum_size=500)
 
 
 @app.get("/api/debug/import-error")
@@ -996,7 +1421,7 @@ async def sentinel_diagnostics():
 @app.get("/")
 @app.head("/")
 async def get_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/index.html"):
             return FileResponse("broker-verifier/index.html")
@@ -1005,7 +1430,7 @@ async def get_index(request: Request):
 @app.get("/ro")
 @app.get("/ro/")
 async def get_ro_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/ro/index.html"):
             return FileResponse("broker-verifier/ro/index.html")
@@ -1017,7 +1442,7 @@ async def get_ro_index(request: Request):
 @app.get("/it")
 @app.get("/it/")
 async def get_it_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/it/index.html"):
             return FileResponse("broker-verifier/it/index.html")
@@ -1029,7 +1454,7 @@ async def get_it_index(request: Request):
 @app.get("/es")
 @app.get("/es/")
 async def get_es_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/es/index.html"):
             return FileResponse("broker-verifier/es/index.html")
@@ -1041,7 +1466,7 @@ async def get_es_index(request: Request):
 @app.get("/fr")
 @app.get("/fr/")
 async def get_fr_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/fr/index.html"):
             return FileResponse("broker-verifier/fr/index.html")
@@ -1053,7 +1478,7 @@ async def get_fr_index(request: Request):
 @app.get("/de")
 @app.get("/de/")
 async def get_de_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/de/index.html"):
             return FileResponse("broker-verifier/de/index.html")
@@ -1065,7 +1490,7 @@ async def get_de_index(request: Request):
 @app.get("/pt")
 @app.get("/pt/")
 async def get_pt_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/pt/index.html"):
             return FileResponse("broker-verifier/pt/index.html")
@@ -1077,7 +1502,7 @@ async def get_pt_index(request: Request):
 @app.get("/ru")
 @app.get("/ru/")
 async def get_ru_index(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/ru/index.html"):
             return FileResponse("broker-verifier/ru/index.html")
@@ -1101,7 +1526,7 @@ async def get_broker_verifier_js():
 
 @app.get("/style.css")
 async def get_css(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/style.css"):
             return FileResponse("broker-verifier/style.css")
@@ -1116,7 +1541,7 @@ async def get_index_css(request: Request):
 @app.get("/favicon.svg")
 @app.get("/favicon.ico")
 async def get_favicon(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "isbrokersafe" in host or "broker" in host:
         if os.path.exists("broker-verifier/favicon.svg"):
             return FileResponse("broker-verifier/favicon.svg", media_type="image/svg+xml")
@@ -1128,7 +1553,7 @@ async def get_favicon(request: Request):
 
 @app.get("/app.js")
 async def get_js(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/app.js"):
             return FileResponse("broker-verifier/app.js")
@@ -1138,7 +1563,7 @@ async def get_js(request: Request):
 @app.get("/broker-verifier/tech_bg.webp")
 @app.get("/broker-verifier/broker-verifier/tech_bg.webp")
 async def get_tech_bg(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" not in host and "localhost" not in host and "127.0.0.1" not in host:
         if os.path.exists("broker-verifier/tech_bg.webp"):
             return FileResponse("broker-verifier/tech_bg.webp")
@@ -1501,7 +1926,7 @@ async def dating_safety_guides_hub(request: Request):
 
 @app.get("/guides/{filename}")
 async def get_guide(filename: str, request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host or "verifydating" in host
     clean_slug = filename[:-3] if filename.endswith(".md") else filename
     clean_slug = re.sub(r"[^a-zA-Z0-9_-]", "", clean_slug)
@@ -1610,7 +2035,7 @@ _DATACENTER_BOT_IP_PREFIXES = (
     "51.68.", "51.75.", "51.77.", "51.83.", "51.89.", "51.91.", "51.210.", "51.254.", "51.255.",
     "54.36.", "54.37.", "54.38.", "135.125.", "137.74.", "141.94.", "141.95.", "145.239.",
     "146.59.", "147.135.", "149.202.", "151.80.", "152.228.", "162.19.", "164.132.", "176.31.",
-    "178.32.", "178.33.", "188.165.", "193.70.", "213.32.", "213.186.", "217.182.",
+    "178.32.", "178.33.", "188.165.", "193.70.", "213.32.", "213.186.", "213.209.159.", "217.182.",
     # Alibaba Cloud crawler ranges
     "47.74.", "47.76.", "47.88.", "47.89.", "47.90.", "47.91.", "47.236.", "47.237.", "47.238.",
     "47.239.", "47.240.", "47.241.", "47.242.", "47.243.", "47.245.", "47.246.", "47.251.",
@@ -1671,6 +2096,177 @@ def safe_affiliate_redirect(request: Request, target_url: str, status_code: int 
             sep = "&" if "?" in final_url else "?"
             final_url = f"{final_url}{sep}sid={clean_sid}"
     return RedirectResponse(url=final_url, status_code=status_code, headers=no_cache_headers)
+
+
+_AMAZON_GUARD_SKU_EN = {
+    "ledger-wallet": "Ledger+Nano+X+Trezor+Safe+3+Crypto+Hardware+Wallet",
+    "yubikey-2fa": "YubiKey+5C+NFC+Two+Factor+Authentication+Security+Key",
+    "faraday-vault": "Faraday+Bag+Signal+Blocker+Crypto+Seed+Phrase+Steel+Backup",
+    "trading-books": "Technical+Analysis+Financial+Markets+Trading+Investing+Book",
+    "faraday-webcam": "Faraday+Bag+Phone+Signal+Blocker+Webcam+Cover+Privacy+Kit",
+    "safety-alarm": "Apple+AirTag+Samsung+SmartTag+Personal+Safety+Alarm+130dB",
+    "rfid-wallet": "RFID+Blocking+Wallet+Credit+Card+Protector+Anti+Skimming",
+    "omega-magnesium": "Magnesium+Bisglycinate+Omega+3+Fish+Oil+Lab+Tested",
+    "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Immune+Support+Certified",
+    "probiotics-gut": "Probiotics+60+Billion+CFU+Digestive+Enzymes+Certified",
+    "creatine-collagen": "Creatine+Monohydrate+Hydrolyzed+Collagen+Peptides+Pure",
+}
+
+_AMAZON_GUARD_SKU_LOCALIZED = {
+    "IT": {
+        "ledger-wallet": "Portafoglio+Hardware+Cripto+Ledger+Nano+X+Trezor+Safe+3",
+        "yubikey-2fa": "Chiavetta+Sicurezza+YubiKey+5C+NFC+Autenticazione+2FA",
+        "faraday-vault": "Bustina+Faraday+Schermata+Backup+Acciaio+Seed+Phrase+Crypto",
+        "trading-books": "Libri+Analisi+Tecnica+Trading+Mercati+Finanziari+Investimenti",
+        "faraday-webcam": "Bustina+Faraday+Blocca+Segnale+Copri+Webcam+Privacy",
+        "safety-alarm": "Localizzatore+GPS+Smart+Tag+Allarme+Personale+Sicurezza+130dB",
+        "rfid-wallet": "Portafoglio+Schermato+RFID+Anti+Clonazione+Carte",
+        "omega-magnesium": "Magnesio+Bisglicinato+Omega+3+Olio+Pesce+Certificato",
+        "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Immunitario+Certificata",
+        "probiotics-gut": "Fermenti+Lattici+Probiotici+60+Miliardi+Enzimi+Digestivi",
+        "creatine-collagen": "Creatina+Monoidrato+Pura+Collagene+Idrolizzato+Peptidi",
+    },
+    "DE": {
+        "ledger-wallet": "Ledger+Nano+X+Trezor+Safe+3+Krypto+Hardware+Wallet",
+        "yubikey-2fa": "YubiKey+5C+NFC+Sicherheitsschluessel+Zwei+Faktor+2FA",
+        "faraday-vault": "Faraday+Tasche+Funkschutz+Seed+Phrase+Stahl+Backup",
+        "trading-books": "Technische+Analyse+Finanzmaerkte+Trading+Boerse+Buch",
+        "faraday-webcam": "Faraday+Tasche+Handy+Signalblocker+Webcam+Abdeckung",
+        "safety-alarm": "SmartTag+AirTag+Taschenalarm+130dB+Persoenlicher+Alarm",
+        "rfid-wallet": "RFID+Schutz+Geldboerse+Kartenetui+Anti+Skimming",
+        "omega-magnesium": "Magnesium+Bisglycinat+Omega+3+Fischoel+Laborgeprueft",
+        "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Hochdosiert+Laborgeprueft",
+        "probiotics-gut": "Probiotika+Darmflora+60+Milliarden+KBE+Verdauungsenzyme",
+        "creatine-collagen": "Kreatin+Monohydrat+Kollagen+Hydrolysat+Pulver+Rein",
+    },
+    "FR": {
+        "ledger-wallet": "Portefeuille+Crypto+Materiel+Ledger+Nano+X+Trezor+Safe+3",
+        "yubikey-2fa": "Cle+Securite+YubiKey+5C+NFC+Authentification+2FA",
+        "faraday-vault": "Pochette+Faraday+Anti+Onde+Sauvegarde+Acier+Crypto",
+        "trading-books": "Livre+Analyse+Technique+Trading+Marchés+Financiers",
+        "faraday-webcam": "Pochette+Faraday+Telephone+Cache+Webcam+Confidentialite",
+        "safety-alarm": "Traceur+GPS+SmartTag+Alarme+Personnelle+Securite+130dB",
+        "rfid-wallet": "Portefeuille+Anti+RFID+Protection+Carte+Bancaire",
+        "omega-magnesium": "Magnesium+Bisglycinate+Omega+3+Huile+Poisson+Certifie",
+        "vitamin-d3-k2": "Vitamine+D3+K2+MK7+Immunite+Certifie",
+        "probiotics-gut": "Probiotiques+60+Milliards+Enzymes+Digestives+Flore",
+        "creatine-collagen": "Creatine+Monohydrate+Collagene+Hydrolyse+Peptides",
+    },
+    "ES": {
+        "ledger-wallet": "Cartera+Hardware+Cripto+Ledger+Nano+X+Trezor+Safe+3",
+        "yubikey-2fa": "Llave+Seguridad+YubiKey+5C+NFC+Autenticacion+2FA",
+        "faraday-vault": "Funda+Faraday+Bloqueador+Senal+Acero+Semilla+Cripto",
+        "trading-books": "Libro+Analisis+Tecnico+Mercados+Financieros+Trading",
+        "faraday-webcam": "Funda+Faraday+Movil+Tapa+Webcam+Privacidad",
+        "safety-alarm": "Localizador+GPS+Alarma+Personal+Seguridad+130dB",
+        "rfid-wallet": "Cartera+Bloqueo+RFID+Tarjetero+Anti+Clonacion",
+        "omega-magnesium": "Magnesio+Bisglicinato+Omega+3+Aceite+Pescado+Certificado",
+        "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Inmune+Certificada",
+        "probiotics-gut": "Probioticos+60+Mil+Millones+Enzimas+Digestivas",
+        "creatine-collagen": "Creatina+Monohidrato+Colageno+Hidrolizado+Puro",
+    },
+}
+
+_AMAZON_COUNTRY_TAGS = {
+    "IT": "vasiledev-21",
+    "SM": "vasiledev-21",
+    "VA": "vasiledev-21",
+    "MT": "vasiledev-21",
+    "DE": "vasiledev0c-21",
+    "AT": "vasiledev0c-21",
+    "CH": "vasiledev0c-21",
+    "RO": "vasiledev0c-21",
+    "DK": "vasiledev0c-21",
+    "CZ": "vasiledev0c-21",
+    "HU": "vasiledev0c-21",
+    "BG": "vasiledev0c-21",
+    "HR": "vasiledev0c-21",
+    "SI": "vasiledev0c-21",
+    "SK": "vasiledev0c-21",
+    "GR": "vasiledev0c-21",
+    "FI": "vasiledev0c-21",
+    "NO": "vasiledev0c-21",
+    "EE": "vasiledev0c-21",
+    "LV": "vasiledev0c-21",
+    "LT": "vasiledev0c-21",
+    "CY": "vasiledev0c-21",
+    "FR": "vasiledev0a-21",
+    "LU": "vasiledev0a-21",
+    "MC": "vasiledev0a-21",
+    "ES": "vasiledev09-21",
+    "PT": "vasiledev09-21",
+    "AD": "vasiledev09-21",
+    "UK": "vasiledev0b-21",
+    "GB": "vasiledev0b-21",
+    "IE": "vasiledev0b-21",
+    "NL": "vasiledev03-21",
+    "BE": "vasiledev0a9-21",
+    "PL": "vasiledev02-21",
+    "SE": "vasiledev09c-21",
+}
+
+
+def _build_amazon_guard_target_url(country_code: str, sku: str) -> tuple[str, str]:
+    cc = (country_code or "GB").upper().strip()
+    clean_sku = (sku or "yubikey-2fa").lower().strip()
+    tag = _AMAZON_COUNTRY_TAGS.get(cc, "vasiledev0b-21")
+    en_kw = _AMAZON_GUARD_SKU_EN.get(clean_sku, _AMAZON_GUARD_SKU_EN["yubikey-2fa"])
+
+    if cc in ("IT", "SM", "VA", "MT"):
+        kw = _AMAZON_GUARD_SKU_LOCALIZED["IT"].get(clean_sku, en_kw)
+        return f"https://www.amazon.it/s?tag={tag}&linkCode=ll2&k={kw}&s=exact-aware-popularity-rank", tag
+    if cc in ("DE", "AT", "CH"):
+        kw = _AMAZON_GUARD_SKU_LOCALIZED["DE"].get(clean_sku, en_kw)
+        return f"https://www.amazon.de/s?tag={tag}&linkCode=ll2&k={kw}&s=exact-aware-popularity-rank", tag
+    if cc in ("RO", "DK", "CZ", "HU", "BG", "HR", "SI", "SK", "GR", "FI", "NO", "EE", "LV", "LT", "CY"):
+        # Explicitly routed to amazon.de in English (&language=en_GB) with 100% English search terms and tag=vasiledev0c-21
+        return f"https://www.amazon.de/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank&language=en_GB", tag
+    if cc in ("FR", "LU", "MC"):
+        kw = _AMAZON_GUARD_SKU_LOCALIZED["FR"].get(clean_sku, en_kw)
+        return f"https://www.amazon.fr/s?tag={tag}&linkCode=ll2&k={kw}&s=exact-aware-popularity-rank", tag
+    if cc in ("ES", "PT", "AD"):
+        kw = _AMAZON_GUARD_SKU_LOCALIZED["ES"].get(clean_sku, en_kw)
+        lang_suffix = "&language=pt_PT" if cc == "PT" else ""
+        return f"https://www.amazon.es/s?tag={tag}&linkCode=ll2&k={kw}&s=exact-aware-popularity-rank{lang_suffix}", tag
+    if cc == "NL":
+        return f"https://www.amazon.nl/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank", tag
+    if cc == "BE":
+        return f"https://www.amazon.com.be/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank&language=nl_BE", tag
+    if cc == "PL":
+        return f"https://www.amazon.pl/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank", tag
+    if cc == "SE":
+        return f"https://www.amazon.se/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank", tag
+    return f"https://www.amazon.co.uk/s?tag={tag}&linkCode=ll2&k={en_kw}&s=exact-aware-popularity-rank", tag
+
+
+@app.api_route("/go/amazon-guard", methods=["GET", "HEAD", "POST", "OPTIONS"])
+@app.api_route("/out/amazon-guard", methods=["GET", "HEAD", "POST", "OPTIONS"])
+async def redirect_amazon_guard(request: Request):
+    sku = request.query_params.get("sku", "yubikey-2fa")
+    explicit_cc = request.query_params.get("country") or request.query_params.get("cc")
+    referer = (request.headers.get("referer") or "").lower()
+    if explicit_cc:
+        cc = explicit_cc
+    elif "/ro/" in referer or referer.endswith("/ro"):
+        cc = "RO"
+    elif "/it/" in referer or referer.endswith("/it"):
+        cc = "IT"
+    elif "/de/" in referer or referer.endswith("/de"):
+        cc = "DE"
+    elif "/fr/" in referer or referer.endswith("/fr"):
+        cc = "FR"
+    elif "/es/" in referer or referer.endswith("/es"):
+        cc = "ES"
+    elif "/pt/" in referer or referer.endswith("/pt"):
+        cc = "PT"
+    else:
+        cc = request.headers.get("cf-ipcountry") or "GB"
+    target, tag = _build_amazon_guard_target_url(cc, sku)
+    resp = safe_affiliate_redirect(request, target, status_code=307, forward_sid=False)
+    if resp.status_code in (302, 307):
+        cookie_val = re.sub(r"[^a-zA-Z0-9_.-]", "", f"{cc.upper()}_{sku}_{tag}")
+        resp.headers["Set-Cookie"] = f"vd_aff={cookie_val}; Max-Age=7776000; Path=/; Secure; SameSite=Lax"
+    return resp
 
 
 # Official Spokeo CJ Affiliate Endpoints (PID: 101863908 | Non-trademark display slugs per T&Cs)
@@ -1828,7 +2424,7 @@ async def get_lang_broker_review(lang: str, broker_name: str, request: Request):
 
 @app.get("/robots.txt")
 async def get_robots(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
     extra_sitemap = "\nSitemap: https://verifydating.net/sitemap-dating-scams.xml" if is_dating else "\nSitemap: https://isbrokersafe.com/sitemap-scam-reports.xml"
@@ -1918,7 +2514,7 @@ Sitemap: https://{domain}/sitemap.xml{extra_sitemap}
 
 @app.get("/llms.txt")
 async def get_llms_txt(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host or "verifydating" in host
     if is_dating:
         content = (
@@ -1955,7 +2551,7 @@ async def get_indexnow_key():
 
 @app.get("/sitemap.xml")
 async def get_sitemap(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host or "verifydating" in host
     domain = "verifydating.net" if is_dating else "isbrokersafe.com"
     today = "2026-11-02"
@@ -5450,10 +6046,17 @@ async def save_investor_lead(req: InvestorLeadRequest, request: Request):
         broker_low = broker_raw.lower()
         url_low = (req.source_url or "").strip().lower()
         combined = f"{clean_email} {broker_low} {url_low} {ua_low}"
-        bad_tokens = ("example.com", "bxss.me", "gethostbyname", "web-inf", ".concat(", "%00", "acunetix", "sqlmap", "nikto")
+        bad_tokens = (
+            "example.com", "email.tst", "sample@", "test@test", "testing@", "user@domain",
+            "bxss.me", "gethostbyname", "web-inf", ".concat(", "%00", "acunetix", "sqlmap",
+            "nikto", "censys", "nessus", "nuclei", "burpcollaborator", "zgrab"
+        )
+        blocked_ips = {"204.44.110.194", "66.234.150.165"}
+        email_tld = clean_email.rsplit(".", 1)[-1] if "." in clean_email else ""
         if (
-            client_ip == "204.44.110.194"
-            or not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", clean_email)
+            client_ip in blocked_ips
+            or not re.match(r"^[^\s@]+@[^\s@]+\.[a-z]{2,12}$", clean_email)
+            or email_tld in {"tst", "test", "invalid", "local", "localhost", "example", "lan"}
             or broker_raw == "()"
             or any(tok in combined for tok in bad_tokens)
         ):
@@ -7856,7 +8459,7 @@ async def safeshield_extension_page():
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Garessio (CN), Italy &amp; Odobești, Romania<br>
+                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -9287,7 +9890,7 @@ async def get_dating_badge_customizer_page():
 @app.get("/widget")
 @app.get("/badge")
 async def get_badge_customizer_page(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     if "dating" in host or "verifydating" in host:
         return await get_dating_badge_customizer_page()
     """
@@ -10901,7 +11504,7 @@ async def get_pricing_page(request: Request, claim: str = ""):
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Garessio (CN), Italy &amp; Odobești, Romania<br>
+                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -11182,7 +11785,7 @@ async def get_domain_audit_page(domain_or_slug: str):
         return HTMLResponse(
             content='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>404 — Broker Audit Dossier Not Found | IsBrokerSafe</title><meta name="robots" content="noindex, nofollow"><meta name="googlebot" content="noindex, nofollow"></head><body style="background:#05080f;color:#f8fafc;font-family:sans-serif;text-align:center;padding:60px 20px;"><h1>404 — Broker Audit Dossier Not Found</h1><p>This entity does not exist in the IsBrokerSafe regulated or blacklisted database.</p><a href="/regulated-brokers" style="color:#38bdf8;">&larr; Browse Regulated Brokers Registry</a></body></html>',
             status_code=404,
-            headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "no-store"}
+            headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "public, max-age=3600, s-maxage=604800", "CDN-Cache-Control": "public, max-age=604800", "Cloudflare-CDN-Cache-Control": "public, max-age=604800"}
         )
 
     partner_cta_html = ""
@@ -11225,16 +11828,48 @@ async def get_domain_audit_page(domain_or_slug: str):
                 <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px;">Verified Safe Brokers &amp; Funded Prop Accounts (Score 95+/100)</h2>
             </div>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
-            <a href="https://iclick.Quadcode.com/aff_c?offer_id=2691&aff_id=108580" target="_blank" rel="noopener" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px;">
+            <a href="/go/etoro" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-weight: 800; font-size: 16px; color: #fff;">SabioTrade Prop Firm</span>
-                    <span style="font-size: 10px; font-weight: 800; background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 3px 8px; border-radius: 6px;">98/100 VERIFIED</span>
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">eToro (Global / US)</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 3px 8px; border-radius: 6px;">98/100 TIER-1</span>
                 </div>
-                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">Up to $200k Funded Account &bull; 90% Profit Split &bull; Instant Payouts</div>
-                <span style="font-size: 12.5px; font-weight: 700; color: #10b981;">Open Verified Funded Account &rarr;</span>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">FCA, CySEC, ASIC &amp; FINRA Regulated &bull; 35M+ Verified Investors</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #10b981;">Visit Official eToro &rarr;</span>
             </a>
-            <a href="https://one.exnessonelink.com/a/hb0ywi6abh" target="_blank" rel="noopener" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 16px;">
+            <a href="/go/plus500" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">Plus500 (FTSE 250)</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 3px 8px; border-radius: 6px;">98/100 LSE LISTED</span>
+                </div>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">FCA, CySEC, ASIC &amp; BaFin Regulated &bull; Segregated Client Funds</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #38bdf8;">Trade on Plus500 &rarr;</span>
+            </a>
+            <a href="/go/ibkr" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">Interactive Brokers</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 3px 8px; border-radius: 6px;">99/100 NASDAQ: IBKR</span>
+                </div>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">SEC, FINRA, FCA &amp; CBI Licensed &bull; 150+ Global Exchanges</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #f59e0b;">Open IBKR Account &rarr;</span>
+            </a>
+            <a href="/go/blackbull" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(129, 140, 248, 0.35); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">BlackBull Markets ECN</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(129, 140, 248, 0.2); color: #818cf8; padding: 3px 8px; border-radius: 6px;">97/100 0.0 PIPS</span>
+                </div>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">FMA Registered Institutional ECN &bull; Free TradingView Pro+</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #818cf8;">Visit BlackBull ECN &rarr;</span>
+            </a>
+            <a href="/go/avatrade" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">AvaTrade Global</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(52, 211, 153, 0.2); color: #34d399; padding: 3px 8px; border-radius: 6px;">97/100 9 LICENSES</span>
+                </div>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">Central Bank of Ireland, ASIC &amp; ADGM Regulated &bull; AvaProtect</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #34d399;">Open AvaTrade Account &rarr;</span>
+            </a>
+            <a href="/go/exness" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                     <span style="font-weight: 800; font-size: 16px; color: #fff;">Exness Global</span>
                     <span style="font-size: 10px; font-weight: 800; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 3px 8px; border-radius: 6px;">97/100 TIER-1</span>
@@ -11242,13 +11877,21 @@ async def get_domain_audit_page(domain_or_slug: str):
                 <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">FCA &amp; CySEC Licensed &bull; Raw Zero Spreads &bull; Instant Withdrawals</div>
                 <span style="font-size: 12.5px; font-weight: 700; color: #38bdf8;">Trade with Exness &rarr;</span>
             </a>
-            <a href="https://med.etoro.com/B12087_A131664_TClick_Sisbrokersafe_main.aspx" target="_blank" rel="noopener" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 16px;">
+            <a href="/go/xm" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(251, 191, 36, 0.35); border-radius: 12px; padding: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-weight: 800; font-size: 16px; color: #fff;">eToro Multi-Asset</span>
-                    <span style="font-size: 10px; font-weight: 800; background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 3px 8px; border-radius: 6px;">98/100 TIER-1</span>
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">XM Group</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 3px 8px; border-radius: 6px;">96/100 MULTI-REG</span>
                 </div>
-                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">FCA, CySEC &amp; ASIC Regulated &bull; 35M+ Verified Investors</div>
-                <span style="font-size: 12.5px; font-weight: 700; color: #10b981;">Visit Official eToro &rarr;</span>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">CySEC, ASIC &amp; DFSA Regulated &bull; 99.35% Execution Under 1s</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #fbbf24;">Open XM Account &rarr;</span>
+            </a>
+            <a href="/go/sabiotrade" target="_blank" rel="nofollow noopener sponsored" style="display: block; text-decoration: none; background: rgba(0,0,0,0.35); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 16px; color: #fff;">SabioTrade / FTMO Prop</span>
+                    <span style="font-size: 10px; font-weight: 800; background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 3px 8px; border-radius: 6px;">98/100 FUNDED</span>
+                </div>
+                <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 10px;">Up to $200k Funded Account &bull; 90% Profit Split &bull; Instant Payouts</div>
+                <span style="font-size: 12.5px; font-weight: 700; color: #10b981;">Open Funded Prop Account &rarr;</span>
             </a>
         </div>
     </div>
@@ -11456,7 +12099,7 @@ async def get_domain_audit_page(domain_or_slug: str):
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Garessio (CN), Italy &amp; Odobești, Romania<br>
+                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -12570,7 +13213,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                     <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
                     <p style="margin: 0 0 8px 0; color: #ffffff; font-weight: 600; font-size: 0.85rem;">VasileDev Group</p>
                     <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: IT04226190041</p>
-                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Locations: Garessio (CN), Italy &amp; Odobești, Romania</p>
+                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
                     <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">amendamax@vasiledev.com</a></p>
                 </div>
                 <div>
@@ -12684,7 +13327,7 @@ def generate_az_page(title: str, base_url: str) -> str:
 
 @app.get("/directory")
 async def get_main_directory(request: Request):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating = "dating" in host
     if is_dating:
         return HTMLResponse(content=generate_az_page("Dating Scams Directory (A-Z)", "/directory/dating"))
@@ -12701,7 +13344,7 @@ async def get_dating_directory(request: Request):
 
 @app.get("/directory/{category}/{letter}")
 async def get_directory_letter_page(request: Request, category: str, letter: str, page: int = 1):
-    host = request.headers.get("host", "").lower()
+    host = (request.headers.get("x-origin-domain") or request.headers.get("x-forwarded-host") or request.headers.get("host", "")).lower()
     is_dating_domain = "dating" in host
     
     # Securizare stricta la nivel de domeniu (blocheaza accesul manual la URL-uri straine)
