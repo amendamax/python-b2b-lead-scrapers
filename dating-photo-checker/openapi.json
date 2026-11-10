@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "IsBrokerSafe Financial Threat Intelligence API",
-    "description": "Enterprise REST API providing real-time forensic verification against 34,670+ official regulatory enforcement blacklists across 15 Worldwide Supervisory Authorities (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) and licensed brokers.",
+    "description": "Enterprise REST API providing real-time forensic verification against 9,732+ official regulatory enforcement blacklists across 82+ Worldwide Supervisory Authorities (IOSCO) (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) and licensed brokers.",
     "version": "1.5.0",
     "contact": {
       "name": "VasileDev Group Support",

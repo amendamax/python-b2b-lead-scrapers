@@ -1,0 +1,30 @@
+[
+ {
+  "results": [
+   {
+    "id": 2,
+    "created_at": "2026-10-22 09:50:31",
+    "country": "RO",
+    "city_slug": "bucuresti",
+    "sku": "baterie-20kwh",
+    "network": "eu_warehouse_direct",
+    "target_url": "https://www.amazon.de/gp/aws/cart/add.html?AssociateTag=vasiledev-21&ASIN.1=B0CR6K8M2P&Quantity.1=1&ascsubtag=RO_bucuresti_baterie-20kwh_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 1,
+    "created_at": "2026-10-22 09:15:01",
+    "country": "RO",
+    "city_slug": "cluj-napoca",
+    "sku": "baterie-20kwh",
+    "network": "eu_warehouse_direct",
+    "target_url": "https://www.amazon.de/gp/aws/cart/add.html?AssociateTag=vpp-de-21&ASIN.1=B0CR6K8M2P&Quantity.1=1&ascsubtag=RO_cluj-napoca_baterie-20kwh_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0",
+    "vpp_prechecked": 1
+   }
+  ]
+ }
+]

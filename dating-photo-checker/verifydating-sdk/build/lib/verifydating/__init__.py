@@ -7,7 +7,7 @@ Official Python client library for VerifyDating B2B Anti-Catfish & Facial Scam I
 :license: MIT, see LICENSE for more details.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "VasileDev Group"
 
 from .client import Client, AsyncClient

@@ -67,3 +67,12 @@ If a person on Tinder seems suspicious or "too good to be true," use **[VerifyDa
 4.  The system will analyze facial features, run an advanced search in databases of reported romance scammers, and detect if the face is **AI-generated (Midjourney/Stable Diffusion) or manipulated via Deepfake**.
 
 **Stay safe online. Verify your partner's identity before investing feelings or sharing intimate moments!**
+
+---
+
+## 🕵️ Bonus Safety Step: Reverse Phone, Email & 120+ Dating Site Check
+If your match shared a **phone number, email address, full name, or username** (for example when asking to move to WhatsApp or iMessage), run a confidential background & social profile lookup before trusting them:
+* **[Uncover Hidden Online Dating Profiles Across 120+ Sites](/go/catfish-check?sid=vd_md_catfish)** (*As Seen on MTV's Catfish* — 100% confidential, they will never know).
+* **[Run an "Is He/She Cheating?" Reverse Email Check Across 70+ Social Networks](/go/email-profile-check?sid=vd_md_email)** to find hidden photos and aliases.
+* **[Get a Single-Page Background Report for Just $0.95](/go/background-report?sid=vd_md_95c)** via our #1 recommended background check partner, **Spokeo**.
+

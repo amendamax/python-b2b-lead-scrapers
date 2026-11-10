@@ -337,92 +337,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentScanId = null;
     let selectedPackage = 'bundle'; // 'single' or 'bundle'
 
-    // ==========================================================================
-    // STRIPE ELEMENTS INITIALIZATION (PCI-compliant card tokenization)
-    // ==========================================================================
-    const stripe = Stripe('pk_live_51U3ZRVAC2uDxXAG17N134qdabC5K02Q8GcagcQlZ1RlzDd4URGV7r9LseRCHmMuPEe8rDBH2ICt5QcoF9c4qQtl800sTtWaHjs');
-    const stripeElements = stripe.elements();
-    const cardElement = stripeElements.create('card', {
-        style: {
-            base: {
-                color: '#e2e8f0',
-                fontFamily: '"Inter", "Outfit", sans-serif',
-                fontSize: '15px',
-                '::placeholder': { color: '#64748b' },
-                iconColor: '#94a3b8'
-            },
-            invalid: { color: '#ff4d4d', iconColor: '#ff4d4d' }
-        }
-    });
-    cardElement.mount('#card-element');
-    cardElement.addEventListener('change', (e) => {
-        const errorDiv = document.getElementById('card-errors');
-        errorDiv.textContent = e.error ? e.error.message : '';
-    });
-
-    // ==========================================================================
-    // STRIPE NATIVE PAYMENT REQUEST BUTTON (GOOGLE PAY / APPLE PAY)
-    // ==========================================================================
-    const globalPR = stripe.paymentRequest({
-        country: 'US',
-        currency: 'usd',
-        total: {
-            label: 'VerifyDating Security Report',
-            amount: 199,
-        },
-        requestPayerEmail: true,
-    });
-
-    globalPR.canMakePayment().then(function(result) {
-        if (result) {
-            const prBtn = stripeElements.create('paymentRequestButton', {
-                paymentRequest: globalPR,
-                style: {
-                    paymentRequestButton: {
-                        theme: 'dark',
-                        height: '44px',
-                    },
-                },
-            });
-            const prContainer = document.getElementById('payment-request-button');
-            if (prContainer) {
-                prContainer.style.display = 'block';
-                prBtn.mount('#payment-request-button');
-            }
-        } else {
-            const prBtnBox = document.getElementById('payment-request-button');
-            if (prBtnBox) prBtnBox.style.display = 'none';
-        }
-    });
-
-    globalPR.on('paymentmethod', async (ev) => {
-        try {
-            const cardEmailInputEl = document.getElementById('card-email');
-            const userEmail = ev.payerEmail || (cardEmailInputEl ? cardEmailInputEl.value.trim() : '') || 'wallet_user@verifydating.net';
-            const response = await fetch('/api/pay-card', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    scan_id: currentScanId,
-                    email: userEmail,
-                    token_id: ev.paymentMethod.id,
-                    package: selectedPackage || 'basic'
-                })
-            });
-            const payRes = await response.json();
-            if (response.ok && payRes.success) {
-                ev.complete('success');
-                checkoutModal.classList.remove('open');
-                showUnlockedResults();
-            } else {
-                ev.complete('fail');
-                alert(payRes.detail || "Payment failed. Please try card checkout below.");
-            }
-        } catch (err) {
-            ev.complete('fail');
-            alert("Payment processing error. Please try card checkout below.");
-        }
-    });
+    // PayPal $2.99 Checkout Only (Stripe removed)
+    const stripe = null;
+    const stripeElements = null;
+    const cardElement = null;
 
     // ==========================================================================
     // INITIALIZATION & TICKER POPULATION
@@ -928,9 +846,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCheckoutModalUI(packageType) {
         selectedPackage = packageType;
-        const summaryAmountNode = checkoutModal.querySelector('.summary-amount');
-        const summaryTextNode = checkoutModal.querySelector('.payment-summary p');
-        const textNode = confirmPaymentBtn.querySelector('.btn-text');
+        const summaryAmountNode = checkoutModal ? checkoutModal.querySelector('.summary-amount') : null;
+        const summaryTextNode = checkoutModal ? checkoutModal.querySelector('.payment-summary p') : null;
+        const textNode = confirmPaymentBtn ? confirmPaymentBtn.querySelector('.btn-text') : null;
         const emailHelpNode = document.querySelector('#payment-form small');
         
         if (summaryAmountNode) {
@@ -1296,8 +1214,8 @@ if (workspaceEl) workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'start'
         });
     }
 
-    // Submit payment to Backend API
-    paymentForm.addEventListener('submit', async (e) => {
+    // Submit payment to Backend API (only if legacy card form exists)
+    if (paymentForm) paymentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         confirmPaymentBtn.disabled = true;

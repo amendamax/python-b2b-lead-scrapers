@@ -1,0 +1,1043 @@
+{
+  "DE": [
+    {
+      "cc": "DE",
+      "domain": "cbdirekt.de",
+      "ok": true,
+      "base_url": "https://www.cbdirekt.de",
+      "title": "CBdirekt – Informationen zum Online-Shop",
+      "cms": "UNKNOWN",
+      "html_lang": "de",
+      "email": "info@cbdirekt.de",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@cbdirekt.de"
+      ],
+      "mx_host": "v270094.kasserver.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "elektrowerkzeuge-bender.de",
+      "ok": true,
+      "base_url": "https://elektrowerkzeuge-bender.de",
+      "title": "elektrowerkzeuge-bender.de",
+      "cms": "UNKNOWN",
+      "html_lang": "en",
+      "email": "xe.iaso@techaro.lol",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "xe.iaso@techaro.lol"
+      ],
+      "mx_host": "smtp.google.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "maschinenhandel-gronau.de",
+      "ok": true,
+      "base_url": "https://www.maschinenhandel-gronau.de",
+      "title": "Holzmann Maschinen &amp; Zipper Maschinen billiger kaufen ? schneller Versand ⭐ 4,85/5 bei Trusted Shops ? Ers",
+      "cms": "Shopware 6",
+      "html_lang": "de",
+      "email": "shop@maschinenhandel-gronau.de",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "shop@maschinenhandel-gronau.de",
+        "info@maschinenhandel-gronau.de"
+      ],
+      "mx_host": "smtp.k4.pwdserver.net",
+      "vat_hints": [
+        "DE216464455"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "paulimot.de",
+      "ok": true,
+      "base_url": "https://www.paulimot.de",
+      "title": "paulimot Onlineshop",
+      "cms": "Shopware 6",
+      "html_lang": "de-de",
+      "email": "support@paulimot.de",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "support@paulimot.de",
+        "nutzer@beispiel.de",
+        "legal@shopware.com"
+      ],
+      "mx_host": "paulimot-de.mail.protection.outlook.com",
+      "vat_hints": [
+        "DE 147034032"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "fachhandel-plus.de",
+      "ok": true,
+      "base_url": "https://fachhandel-plus.de",
+      "title": "Fachhandel Plus",
+      "cms": "Shopify",
+      "html_lang": "de",
+      "email": "info@fachhandel-plus.de",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@fachhandel-plus.de"
+      ],
+      "mx_host": "mail.colourliving.de",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "bueromarkt-ag.de",
+      "ok": true,
+      "base_url": "https://www.bueromarkt-ag.de",
+      "title": "Pardon Our Interruption",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@bueromarkt-ag.de",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mail.bueromarkt-ag.de",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "DE",
+      "domain": "toptools24.de",
+      "ok": true,
+      "base_url": "https://www.toptools24.de",
+      "title": "toptools24.de",
+      "cms": "UNKNOWN",
+      "html_lang": "en",
+      "email": "info@toptools24.de",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "toptools24-de.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    }
+  ],
+  "UK": [
+    {
+      "cc": "UK",
+      "domain": "tooled-up.com",
+      "ok": true,
+      "base_url": "https://www.tooled-up.com",
+      "title": "Tooled-Up.com supplies Tools, Hand Tools, Power Tools &amp; Garden Tools",
+      "cms": "UNKNOWN",
+      "html_lang": "en-gb",
+      "email": "sales@tooled-up.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "sales@tooled-up.com"
+      ],
+      "mx_host": "tooledup-com01e.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "buyaparcel.com",
+      "ok": true,
+      "base_url": "https://www.buyaparcel.com",
+      "title": "Power Tools, Hand Tools, Plumbing, Bathroom Products, Showers, Garden Tools - Buyaparcel Buyaparcel",
+      "cms": "Magento 2",
+      "html_lang": "en",
+      "email": "johndoe@domain.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "johndoe@domain.com"
+      ],
+      "mx_host": "domain-com.mail.protection.outlook.com",
+      "vat_hints": [
+        "GB897358749"
+      ],
+      "used_proxy": true
+    },
+    {
+      "cc": "UK",
+      "domain": "dm-tools.co.uk",
+      "ok": true,
+      "base_url": "https://www.dm-tools.co.uk",
+      "title": "D &amp; M Tools - Power Tools, Hand Tools and Accessories",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "enquiries@dm-tools.co.uk",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "enquiries@dm-tools.co.uk"
+      ],
+      "mx_host": "mail.etabsltd.co.uk",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "alanwadkins.co.uk",
+      "ok": true,
+      "base_url": "https://www.alanwadkinstoolstore.co.uk",
+      "title": "Power Tools, Hand Tools &amp; Garden Equipment Specialists | Alan Wadkins Toolstore",
+      "cms": "UNKNOWN",
+      "html_lang": "en-gb",
+      "email": "sales@alanwadkinstoolstore.co.uk",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "sales@alanwadkinstoolstore.co.uk"
+      ],
+      "mx_host": "ASPMX.L.GOOGLE.COM",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "cromwell.co.uk",
+      "ok": true,
+      "base_url": "https://www.cromwell.co.uk",
+      "title": "Industry Tools, PPE And Equipment Specialists | Cromwell Tools",
+      "cms": "UNKNOWN",
+      "html_lang": "en-gb",
+      "email": "second@email.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "second@email.com",
+        "third@email.com"
+      ],
+      "mx_host": "mx00.mail.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "angliatoolcentre.co.uk",
+      "ok": true,
+      "base_url": "https://www.angliatoolcentre.co.uk",
+      "title": "DIY Hand &amp; Power Tools - Buy Online at Anglia Tool Centre",
+      "cms": "UNKNOWN",
+      "html_lang": "en-gb",
+      "email": "sales@angliatoolcentre.co.uk",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "angliatoolcentre-co-uk.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "axminstertools.com",
+      "ok": true,
+      "base_url": "https://www.axminstertools.com",
+      "title": "Axminster Tools | Woodworking Tools, Machinery &amp; More",
+      "cms": "Shopify",
+      "html_lang": "en",
+      "email": "sales@axminstertools.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "axminstertools-com.mail.protection.outlook.com",
+      "vat_hints": [
+        "GB502514046"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "UK",
+      "domain": "abbeypowertools.co.uk",
+      "ok": true,
+      "base_url": "https://www.abbeypowertools.co.uk",
+      "title": "UK Power Tool Guides | Abbey Power Tools",
+      "cms": "WooCommerce",
+      "html_lang": "en-us",
+      "email": "sales@abbeypowertools.co.uk",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "aupro5.fcomet.com",
+      "vat_hints": [],
+      "used_proxy": true
+    }
+  ],
+  "NL": [
+    {
+      "cc": "NL",
+      "domain": "kruis.nl",
+      "ok": true,
+      "base_url": "https://www.kruis.nl",
+      "title": "Kruis Gereedschappen, dé gereedschap specialist",
+      "cms": "UNKNOWN",
+      "html_lang": "nl",
+      "email": "info@kruis.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@kruis.nl"
+      ],
+      "mx_host": "www.kruis.nl",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "toolsidee.nl",
+      "ok": true,
+      "base_url": "https://toolsidee.com",
+      "title": "Toolsidee – Gereedschap Online Kopen | Professioneel & Betaalbaar",
+      "cms": "UNKNOWN",
+      "html_lang": "nl",
+      "email": "support@toolsidee.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "support@toolsidee.com"
+      ],
+      "mx_host": "toolsidee-com.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "gyzs.nl",
+      "ok": true,
+      "base_url": "https://www.gyzs.nl",
+      "title": "GYZS - De Online Bouwmarkt Voor Technische Professionals",
+      "cms": "Magento 2",
+      "html_lang": "nl",
+      "email": "klantenservice@gyzs.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@gyzs.nl"
+      ],
+      "mx_host": "gyzs-nl.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "elektramat.nl",
+      "ok": true,
+      "base_url": "https://www.elektramat.nl",
+      "title": "Elektramat | Specialist in groepenkasten en elektrotechnisch installatiemateriaal",
+      "cms": "Magento 2",
+      "html_lang": "nl",
+      "email": "klantenservice@elektramat.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@elektramat.nl"
+      ],
+      "mx_host": "alt4.aspmx.l.google.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "aic.nl",
+      "ok": true,
+      "base_url": "https://www.aicvisser.com",
+      "title": "AIC Visser Groep – Bijna alles voor de bouwplaats",
+      "cms": "UNKNOWN",
+      "html_lang": "nl-nl",
+      "email": "klantenservice@aicvisser.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@aicvisser.com"
+      ],
+      "mx_host": "aicvisser-com.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "keizers.nu",
+      "ok": true,
+      "base_url": "https://keizers.nu",
+      "title": "keizers.nu | Sinds 1956 specialist in tuin- en parkmachines",
+      "cms": "Shopify",
+      "html_lang": "nl",
+      "email": "klantenservice@keizers.nu",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@keizers.nu"
+      ],
+      "mx_host": "keizers-nu.mail.protection.outlook.com",
+      "vat_hints": [
+        "NL862303254B01"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "indi.nl",
+      "ok": true,
+      "base_url": "https://www.indi.nl",
+      "title": "INDI | Technische onderdelen",
+      "cms": "UNKNOWN",
+      "html_lang": "nl",
+      "email": "klantenservice@indi.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@indi.nl",
+        "indiboekeenafspraakmeteenproductspecialist@indi.nl"
+      ],
+      "mx_host": "indi-nl.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "gereedschapbestellen.nl",
+      "ok": true,
+      "base_url": "https://www.gereedschapbestellen.nl",
+      "title": "Gereedschapbestellen.nl – Wij sluiten onze deuren",
+      "cms": "UNKNOWN",
+      "html_lang": "nl",
+      "email": "info@gereedschapbestellen.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@gereedschapbestellen.nl"
+      ],
+      "mx_host": "mx.ns0.email",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "bouwmaat.nl",
+      "ok": true,
+      "base_url": "https://www.bouwmaat.nl",
+      "title": "Bouwmaat",
+      "cms": "Shopify",
+      "html_lang": "nl",
+      "email": "klantenservice@bouwmaat.nl",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "klantenservice@bouwmaat.nl"
+      ],
+      "mx_host": "bouwmaat-nl.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "destil.nl",
+      "ok": true,
+      "base_url": "https://www.destil.nl",
+      "title": "DESTIL | Groothandel voor bouw en industrie sinds 1865",
+      "cms": "UNKNOWN",
+      "html_lang": "nl",
+      "email": "info@destil.nl",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mxa-008a2003.gslb.pphosted.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "NL",
+      "domain": "vanmelis.nl",
+      "ok": true,
+      "base_url": "https://www.vanmelis.nl",
+      "title": "vanmelis.nl",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@vanmelis.nl",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mx.b.skyberate.net",
+      "vat_hints": [],
+      "used_proxy": true
+    }
+  ],
+  "IT": [
+    {
+      "cc": "IT",
+      "domain": "ferramentagiovannetti.it",
+      "ok": true,
+      "base_url": "https://www.ferramentagiovannetti.it",
+      "title": "Ferramenta Giovannetti | Serrature Chiavi Vernici Roma",
+      "cms": "WooCommerce",
+      "html_lang": "it-it",
+      "email": "gafdigiovannetti@libero.it",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "gafdigiovannetti@libero.it"
+      ],
+      "mx_host": "smtp-in.libero.it",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "ferramentavanoli.com",
+      "ok": true,
+      "base_url": "https://www.ferramentavanoli.com",
+      "title": "Ferramenta Vanoli: Tutto per Giardinaggio, Casa e Fai da Te",
+      "cms": "UNKNOWN",
+      "html_lang": "it",
+      "email": "mario.rossi@gmail.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "mario.rossi@gmail.com"
+      ],
+      "mx_host": "alt4.gmail-smtp-in.l.google.com",
+      "vat_hints": [
+        "00134650191"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "agrieuro.com",
+      "ok": true,
+      "base_url": "https://www.agrieuro.com",
+      "title": "Macchine Attrezzature Agricole e Giardinaggio: E-Shop AgriEuro",
+      "cms": "UNKNOWN",
+      "html_lang": "it",
+      "email": "agrieuro@agrieuro.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "agrieuro@agrieuro.com"
+      ],
+      "mx_host": "agrieuro-com.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "utilfer.it",
+      "ok": true,
+      "base_url": "https://www.utilfer.it",
+      "title": "Articoli per l’edilizia a Roma: forniture e utensili | Util.Fer",
+      "cms": "UNKNOWN",
+      "html_lang": "it",
+      "email": "info@edilarredofacile.it",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@edilarredofacile.it"
+      ],
+      "mx_host": "mx.edilarredofacile.it",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "tecnomat.it",
+      "ok": true,
+      "base_url": "https://www.tecnomat.it",
+      "title": "Edilizia, ristrutturazione casa, arredo bagno | Tecnomat",
+      "cms": "Magento 2",
+      "html_lang": "it",
+      "email": "support@tecnomat.zendesk.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "support@tecnomat.zendesk.com",
+        "bricoman@pec.bricoman.it"
+      ],
+      "mx_host": "mail-pod-17.int.zendesk.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "bricobravo.com",
+      "ok": true,
+      "base_url": "https://www.bricobravo.com",
+      "title": "BricoBravo: fai da te, bricolage, arredo e molto altro",
+      "cms": "Shopify",
+      "html_lang": "it",
+      "email": "info@bricobravo.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "bricobravo-com.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "IT",
+      "domain": "utensilbieffe.it",
+      "ok": true,
+      "base_url": "https://www.utensilbieffe.it",
+      "title": "Utensileria Bieffe - Zola Predosa (Bologna)",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@utensilbieffe.it",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "m-11b.th.seeweb.it",
+      "vat_hints": [],
+      "used_proxy": false
+    }
+  ],
+  "FR": [
+    {
+      "cc": "FR",
+      "domain": "outillage-online.fr",
+      "ok": true,
+      "base_url": "https://kobleo.com",
+      "title": "Kobleo by Outillage Online : bricoler, rénover, bâtir",
+      "cms": "PrestaShop",
+      "html_lang": "fr-fr",
+      "email": "contact@kobleo.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "contact@kobleo.com",
+        "votre@email.com"
+      ],
+      "mx_host": "mx2.mail.ovh.net",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "quincaillerie.pro",
+      "ok": true,
+      "base_url": "https://www.chausson.fr",
+      "title": "Chausson : Matériaux de construction, outillage, réseaux & TP",
+      "cms": "UNKNOWN",
+      "html_lang": "fr",
+      "email": "contact@chausson.fr",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "contact@chausson.fr"
+      ],
+      "mx_host": "chausson-fr.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "mabeo-direct.com",
+      "ok": true,
+      "base_url": "https://www.mabeo-industries.com",
+      "title": "Mabéo Industries : distributeur en protection individuelle (EPI) et fourniture industrielle pour les professio",
+      "cms": "Magento 2",
+      "html_lang": "fr",
+      "email": "service.clients@mabeo-industries.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "service.clients@mabeo-industries.com"
+      ],
+      "mx_host": "mxb-009b6801.gslb.pphosted.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "centrale-brico.com",
+      "ok": true,
+      "base_url": "https://www.centrale-brico.com",
+      "title": "Centrale Brico – Bricolage, chauffage et jardin en ligne",
+      "cms": "PrestaShop",
+      "html_lang": "fr-fr",
+      "email": "contact@centrale-brico.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "contact@centrale-brico.com"
+      ],
+      "mx_host": "mx0.mail.ovh.net",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "sider.biz",
+      "ok": true,
+      "base_url": "https://www.sider.biz",
+      "title": "SIDER - Fournisseur Plomberie Sanitaire Electricité pour Pros - Sider.biz",
+      "cms": "UNKNOWN",
+      "html_lang": "fr",
+      "email": "contact@sider.biz",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "contact@sider.biz"
+      ],
+      "mx_host": "sider-biz.mail.protection.outlook.com",
+      "vat_hints": [
+        "FR34775586852"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "manutan.fr",
+      "ok": true,
+      "base_url": "https://www.manutan.fr",
+      "title": "Manutan : fournitures et mobilier de bureau, manutention, outillage, emballage.",
+      "cms": "UNKNOWN",
+      "html_lang": "fr",
+      "email": "export@manutan.fr",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "export@manutan.fr",
+        "export@manutan.co.uk"
+      ],
+      "mx_host": "manutan-fr.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "FR",
+      "domain": "euro-expos.com",
+      "ok": true,
+      "base_url": "https://www.euro-expos.com",
+      "title": "Euro-Expos - Vérification",
+      "cms": "UNKNOWN",
+      "html_lang": "fr",
+      "email": "contact@euro-expos.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mail.euro-expos.com",
+      "vat_hints": [],
+      "used_proxy": false
+    }
+  ],
+  "ES": [
+    {
+      "cc": "ES",
+      "domain": "suministroslandaburu.com",
+      "ok": true,
+      "base_url": "https://suministroslandaburu.com",
+      "title": "Suministros Landaburu | Suministros industriales en Bilbao",
+      "cms": "WooCommerce",
+      "html_lang": "es",
+      "email": "contacto@suministroslandaburu.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "contacto@suministroslandaburu.com",
+        "admin@suministroslandaburu.com"
+      ],
+      "mx_host": "mx00.ionos.es",
+      "vat_hints": [
+        "B95660858"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "ES",
+      "domain": "ferreteriaxerez.es",
+      "ok": true,
+      "base_url": "https://ferreteriaxerez.com",
+      "title": "Ferreteria Xerez",
+      "cms": "WooCommerce",
+      "html_lang": "es",
+      "email": "presupuestos@ferreteriaxerez.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "presupuestos@ferreteriaxerez.com"
+      ],
+      "mx_host": "ferreteriaxerez.com",
+      "vat_hints": [
+        "B11668878"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "ES",
+      "domain": "modregohogar.com",
+      "ok": true,
+      "base_url": "https://www.modregohogar.com",
+      "title": "⇒ Ferretería online ▷ Comprar con los Mejores Precios. Ofertas online",
+      "cms": "PrestaShop",
+      "html_lang": "es-es",
+      "email": "info@modregohogar.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mail.modregohogar.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "ES",
+      "domain": "bricolemar.com",
+      "ok": true,
+      "base_url": "https://www.bricolemar.com",
+      "title": "Hardware Store Online - Buy DIY at the best price | Bricolemar S.L. ✅",
+      "cms": "UNKNOWN",
+      "html_lang": "en-us",
+      "email": "info@bricolemar.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "bricolemar-com.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "ES",
+      "domain": "ferreteriacampollano.com",
+      "ok": true,
+      "base_url": "https://www.ferreteriacampollano.com",
+      "title": "Suministro industrial online | Industrial Campollano",
+      "cms": "PrestaShop",
+      "html_lang": "es-es",
+      "email": "info@ferreteriacampollano.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mail.ferreteriacampollano.com",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "ES",
+      "domain": "totalferreteria.com",
+      "ok": true,
+      "base_url": "https://www.totalferreteria.com",
+      "title": "Próximamente",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@totalferreteria.com",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "smtp.google.com",
+      "vat_hints": [],
+      "used_proxy": false
+    }
+  ],
+  "AT": [
+    {
+      "cc": "AT",
+      "domain": "zgonc.at",
+      "ok": true,
+      "base_url": "https://zgonc.at",
+      "title": "ZGONC - Geschäft für Werkzeuge, Maschinen &amp; Gartengeräte",
+      "cms": "Shopify",
+      "html_lang": "de-at",
+      "email": "verleih@zgonc.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "verleih@zgonc.at",
+        "zwettl@zgonc.at",
+        "wr.neustadt@zgonc.at",
+        "wolfsberg@zgonc.at"
+      ],
+      "mx_host": "mx2.zgonc.at",
+      "vat_hints": [],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "spiral.at",
+      "ok": true,
+      "base_url": "https://shop.spiral.at",
+      "title": "Werkzeug und Industriebedarf online kaufen | Schwei&#223;technik, Arbeitsschutz und Zerspanung | Spiral.at",
+      "cms": "WooCommerce",
+      "html_lang": "de",
+      "email": "office@spiral.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "office@spiral.at"
+      ],
+      "mx_host": "mail.spiral.at",
+      "vat_hints": [
+        "ATU11574303"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "schachermayer.at",
+      "ok": true,
+      "base_url": "https://www.schachermayer.at",
+      "title": "Großhändler für technische Produkte und Designlösungen | SCHACHERMAYER ® [AT]",
+      "cms": "UNKNOWN",
+      "html_lang": "de-at",
+      "email": "info@schachermayer.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@schachermayer.at",
+        "info@schachermayer.com"
+      ],
+      "mx_host": "schachermayer-at.mail.protection.outlook.com",
+      "vat_hints": [
+        "ATU 23134409"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "haberkorn.com",
+      "ok": true,
+      "base_url": "https://www.haberkorn.com",
+      "title": "Haberkorn Online-Shop",
+      "cms": "UNKNOWN",
+      "html_lang": "de-at",
+      "email": "info.wolfurt@haberkorn.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info.wolfurt@haberkorn.com",
+        "info.wien@haberkorn.com",
+        "info.innsbruck@haberkorn.com",
+        "info.villach@haberkorn.com"
+      ],
+      "mx_host": "mx2.hc2570-62.eu.iphmx.com",
+      "vat_hints": [
+        "ATU54888000"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "neureiter-shop.at",
+      "ok": true,
+      "base_url": "https://neureiter-shop.at",
+      "title": "Holzbearbeitungsmaschinen &amp; Werkzeuge | Neureiter Maschinen Onlineshop | Neureiter Onlineshop",
+      "cms": "Magento 2",
+      "html_lang": "de-de",
+      "email": "kontakt@neureiter-maschinen.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "kontakt@neureiter-maschinen.at"
+      ],
+      "mx_host": "neureitermaschinen-at02c.mail.protection.outlook.com",
+      "vat_hints": [
+        "ATU73370639"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "kaindltech.at",
+      "ok": true,
+      "base_url": "https://www.kaindltech.at",
+      "title": "Technischer Handel - KAINDL KANN ALLES UND MEHR",
+      "cms": "UNKNOWN",
+      "html_lang": "de-de",
+      "email": "buero@kaindltech.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "buero@kaindltech.at"
+      ],
+      "mx_host": "kaindltech-at.mail.protection.outlook.com",
+      "vat_hints": [
+        "ATU22684307"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "baushop-express.at",
+      "ok": true,
+      "base_url": "https://www.baushop-express.com",
+      "title": "Baushop Express - Der Profi für Baugeräte und Bauzubehör",
+      "cms": "Magento 2",
+      "html_lang": "de",
+      "email": "kontakt@baushop-express.com",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "kontakt@baushop-express.com",
+        "service@baushop-express.com"
+      ],
+      "mx_host": "SMTP.GOOGLE.com",
+      "vat_hints": [
+        "DE303717587"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "AT",
+      "domain": "lagerhaus.at",
+      "ok": true,
+      "base_url": "https://lagerhaus.at",
+      "title": "Große Auswahl &amp; Top-Angebote bei Lagerhaus",
+      "cms": "OXID eShop",
+      "html_lang": "de",
+      "email": "servicecenter@lagerhaus.at",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "servicecenter@lagerhaus.at",
+        "office10@casasi.com",
+        "buchhaltung@stihl.at",
+        "buchhaltung@guede.com"
+      ],
+      "mx_host": "lagerhaus-at.mail.protection.outlook.com",
+      "vat_hints": [
+        "ATU 61138307"
+      ],
+      "used_proxy": false
+    }
+  ],
+  "BE": [
+    {
+      "cc": "BE",
+      "domain": "progear.be",
+      "ok": true,
+      "base_url": "https://www.progear.be",
+      "title": "Pro Gear | Expert in DJ gear, Licht & Geluid | Sint-Niklaas",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@progear.be",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@progear.be"
+      ],
+      "mx_host": "progear-be.mail.protection.outlook.com",
+      "vat_hints": [
+        "BE 0848 554 515"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "BE",
+      "domain": "santens.be",
+      "ok": true,
+      "base_url": "https://santens.be",
+      "title": "Santens: professioneel bouwbeslag &amp; gereedschap",
+      "cms": "Magento 2",
+      "html_lang": "nl",
+      "email": "info@santens.be",
+      "email_source": "scraped",
+      "all_scraped_emails": [
+        "info@santens.be"
+      ],
+      "mx_host": "santens-be.mail.protection.outlook.com",
+      "vat_hints": [
+        "BE 0419.937.447"
+      ],
+      "used_proxy": false
+    },
+    {
+      "cc": "BE",
+      "domain": "clabots.be",
+      "ok": true,
+      "base_url": "https://www.clabots.be",
+      "title": "clabots.be",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@clabots.be",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "clabots-be.mail.protection.outlook.com",
+      "vat_hints": [],
+      "used_proxy": true
+    },
+    {
+      "cc": "BE",
+      "domain": "fernandgeorges.be",
+      "ok": true,
+      "base_url": "https://www.fernandgeorges.be",
+      "title": "fernandgeorges.be",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@fernandgeorges.be",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "mail.fernandgeorges.be",
+      "vat_hints": [],
+      "used_proxy": true
+    },
+    {
+      "cc": "BE",
+      "domain": "toolcenter.be",
+      "ok": true,
+      "base_url": "https://www.toolcenter.be",
+      "title": "toolcenter.be",
+      "cms": "UNKNOWN",
+      "html_lang": "",
+      "email": "info@toolcenter.be",
+      "email_source": "mx_verified_role",
+      "all_scraped_emails": [],
+      "mx_host": "fallback.axc.eu",
+      "vat_hints": [],
+      "used_proxy": true
+    }
+  ]
+}

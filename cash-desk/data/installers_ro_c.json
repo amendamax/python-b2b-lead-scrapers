@@ -1,0 +1,240 @@
+[
+  {
+    "country": "RO",
+    "area": "Hunedoara",
+    "company": "BIO GREEN POWER SOLUTIONS S.R.L. (Black Solar)",
+    "city": "Luncoiu de Jos",
+    "county": "Hunedoara",
+    "phones": [
+      {
+        "number": "+40 775 151 676",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://blacksolar.ro",
+    "email": "contact@blacksolar.ro",
+    "services": "Instalare sisteme fotovoltaice rezidențiale și industriale on-grid, hibrid și off-grid, consultanță dosar prosumator, mentenanță",
+    "source_url": "https://blacksolar.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Hunedoara",
+    "company": "DRAGOȘ INSTAL TRUST S.R.L. (PanouSolar)",
+    "city": "Deva",
+    "county": "Hunedoara",
+    "phones": [
+      {
+        "number": "+40 730 300 925",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://panousolar.ro",
+    "email": "dragosinstaltrust@gmail.com",
+    "services": "Instalare panouri fotovoltaice on-grid și off-grid pentru clienți rezidențiali și comerciali, dosare prosumator, mentenanță",
+    "source_url": "https://panousolar.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Ialomița",
+    "company": "SC MIXAJ COM SRL (Sud Solar)",
+    "city": "Slobozia",
+    "county": "Ialomița",
+    "phones": [
+      {
+        "number": "+40 766 500 400",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://sudsolar.ro",
+    "email": "contact@efurtun.ro",
+    "services": "Furnizare și instalare sisteme fotovoltaice rezidențiale și industriale, invertoare solare, baterii de stocare",
+    "source_url": "https://sudsolar.ro/"
+  },
+  {
+    "country": "RO",
+    "area": "Ialomița",
+    "company": "PAN SOL EXPERT S.R.L.",
+    "city": "Mihail Kogălniceanu",
+    "county": "Ialomița",
+    "phones": [
+      {
+        "number": "+40 787 368 867",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://pansolexpert.ro",
+    "email": "office@pansolexpert.ro",
+    "services": "Proiectare și montaj sisteme fotovoltaice rezidențiale și industriale, montaj autorizat ANRE, întocmire dosar prosumator",
+    "source_url": "https://pansolexpert.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Maramureș",
+    "company": "Phoenixra Energy SRL (Solarcenter Romania)",
+    "city": "Baia Mare",
+    "county": "Maramureș",
+    "phones": [
+      {
+        "number": "+40 757 330 218",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://solarcenter.ro",
+    "email": "contact@solarcenter.ro",
+    "services": "Instalare panouri fotovoltaice, stocare energie în baterii, sisteme rezidențiale și industriale, atestat ANRE tip B",
+    "source_url": "https://solarcenter.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Maramureș",
+    "company": "ELECTRONET CONCEPT S.R.L.",
+    "city": "Baia Mare",
+    "county": "Maramureș",
+    "phones": [
+      {
+        "number": "+40 735 804 912",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://electro-net.ro",
+    "email": "office@electro-net.ro",
+    "services": "Proiectare și instalare sisteme fotovoltaice rezidențiale, comerciale și industriale, instalații electrice și dosare prosumator",
+    "source_url": "https://electro-net.ro/contact"
+  },
+  {
+    "country": "RO",
+    "area": "Mehedinți",
+    "company": "RED HIBRID DEVELOPMENT S.R.L. (Voltora)",
+    "city": "Drobeta-Turnu Severin",
+    "county": "Mehedinți",
+    "phones": [
+      {
+        "number": "+40 793 909 099",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://voltora.ro",
+    "email": "office@voltora.ro",
+    "services": "Proiectare și montaj sisteme fotovoltaice on-grid și hibride, stocare în baterii, kituri fotovoltaice personalizate, dosare prosumator",
+    "source_url": "https://voltora.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Mehedinți",
+    "company": "NISEMPRA ELECTRO SRL",
+    "city": "Drobeta-Turnu Severin",
+    "county": "Mehedinți",
+    "phones": [
+      {
+        "number": "+40 732 128 311",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://nisempra.ro",
+    "email": "nisempra@gmail.com",
+    "services": "Instalare panouri fotovoltaice, instalații electrice de medie și înaltă tensiune, certificate energetice",
+    "source_url": "https://nisempra.ro/"
+  },
+  {
+    "country": "RO",
+    "area": "Neamț",
+    "company": "LUCRIS SERV S.R.L.",
+    "city": "Piatra Neamț",
+    "county": "Neamț",
+    "phones": [
+      {
+        "number": "+40 751 587 441",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://lucrisserv.ro",
+    "email": "office@lucrisserv.ro",
+    "services": "Proiectare, execuție și mentenanță sisteme fotovoltaice, rețele electrice, programul Casa Verde",
+    "source_url": "https://lucrisserv.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Neamț",
+    "company": "AVO GRUP INVEST S.R.L. (SolarOne)",
+    "city": "Piatra Neamț",
+    "county": "Neamț",
+    "phones": [
+      {
+        "number": "+40 721 233 788",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://solarone.ro",
+    "email": "contact@solarone.ro",
+    "services": "Sisteme fotovoltaice la cheie pregătite pentru prosumator, invertoare, acumulatori, soluții rezidențiale și comerciale",
+    "source_url": "https://solarone.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Olt",
+    "company": "SPECTRUM ENERGY SOLUTION SRL",
+    "city": "Slatina",
+    "county": "Olt",
+    "phones": [
+      {
+        "number": "+40 773 727 357",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://spectrum-energy.ro",
+    "email": "contact@spectrumenergy.ro",
+    "services": "Instalare sisteme fotovoltaice rezidențiale și industriale, mentenanță, program Casa Verde",
+    "source_url": "https://spectrum-energy.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Olt",
+    "company": "ROMSTART INSTAL SRL",
+    "city": "Slatina",
+    "county": "Olt",
+    "phones": [
+      {
+        "number": "+40 761 522 826",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://romstartinstal.ro",
+    "email": "office@romstartinstal.ro",
+    "services": "Proiectare și configurare sisteme de panouri fotovoltaice, invertoare, instalații termice și climatizare",
+    "source_url": "https://romstartinstal.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Satu Mare",
+    "company": "M-SYS S.R.L.",
+    "city": "Satu Mare",
+    "county": "Satu Mare",
+    "phones": [
+      {
+        "number": "+40 749 056 305",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://www.m-sys.ro",
+    "email": "office@m-sys.ro",
+    "services": "Proiectare și execuție sisteme fotovoltaice on-grid și hibrid, instalații electrice de medie și joasă tensiune, dosare prosumator",
+    "source_url": "https://www.m-sys.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Satu Mare",
+    "company": "SC SAMGEC SRL",
+    "city": "Satu Mare",
+    "county": "Satu Mare",
+    "phones": [
+      {
+        "number": "+40 746 237 920",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://samgec.ro",
+    "email": "office@samgec.ro",
+    "services": "Instalator autorizat ANRE și partener AFM Casa Verde, sisteme fotovoltaice complete la cheie, dosare prosumator",
+    "source_url": "https://samgec.ro/"
+  }
+]

@@ -1,0 +1,50 @@
+================================================================================
+DESTINATAR B2B: Fotovoltaice Romania (fotovoltaice.ro)
+COMPANIE:       SECURISTIKA SRL | CUI: RO33108921
+PLATFORMA:      CS-Cart
+EMAIL CONTACT:  info@fotovoltaice.ro
+TELEFON:        0758 100 900
+ATAȘAMENT:      Teaser_BlackFriday_fotovoltaice.ro.xlsx
+================================================================================
+
+--------------------------------------------------------------------------------
+[1] VARIANTA EMAIL B2B
+--------------------------------------------------------------------------------
+Subiect: Prețurile la Huawei și Pylontech / Huawei pe fotovoltaice.ro vs. concurența (date extrase azi dimineață)
+
+Salut,
+
+Sunt Vasile, dezvoltator Python specializat pe extracție automată de date și sisteme de monitorizare prețuri.
+
+Cum săptămâna viitoare începe nebunia cu Black Friday, am pus azi dimineață un script făcut de mine să scaneze la sânge prețurile și stocurile reale pe cele 10 magazine principale de fotovoltaice din România (`esolar, e-acumulatori, genway, ecosolaris, solartech, voltexpert, novasol, solargreen` etc.), strict pe invertoare și baterii.
+
+M-am uitat pe rezultatele scoase pentru **fotovoltaice.ro** și am zis să vă dau un semn scurt, fiindcă sunt câteva diferențe mari unde pierdeți comenzi azi fără motiv:
+
+1. La **Huawei SUN2000-50KTL-M3**, voi îl aveți azi la **15.120 RON**, în timp ce pe `voltexpert.ro` este în stoc real la **14.447 RON** (sunteți cu **+672 RON** mai sus pe exact același cod de producător).
+2. La **Huawei SUN2000-3KTL-M1**, aveți o diferență de **+106 RON** față de cel mai mic preț în stoc din piață (verificat azi pe toate cele 10 magazine).
+3. În schimb — o veste bună pentru marja voastră — la **Huawei SUN2000-60KTL-M3**, concurenții care afișează preț mic au intrat deja în **Stoc Epuizat / La comandă**, deci acolo chiar nu are rost să lăsați din preț de Black Friday, că sunteți printre singurii cu marfă fizică.
+
+V-am atașat un Excel scurt cu 8 produse din catalogul vostru extrase acum două ore, ca să vedeți exact cum arată datele.
+
+Pentru că am deja toată infrastructura pornită pe cele 10 magazine (și am văzut din cod că site-ul vostru rulează pe **CS-Cart**, deci pot scoate tabelele direct pe codurile voastre interne de produs), vă pot ajuta în două moduri luna asta:
+
+- **Varianta 1 (Auditul Complet la zi – 150 €):** Vă trimit azi tabelul complet cu toate invertoarele și bateriile comune comparate între voi și ceilalți 9 concurenți (prețuri + media pieței + cine are stoc real și cine vinde doar pe hârtie).
+- **Varianta 2 (Radar Live de Black Friday pe 30 de zile – 450 €):** Scriptul meu verifică piața de 3 ori pe zi toată luna noiembrie și vă dă alertă direct pe WhatsApp sau Email în secunda în care un concurent taie prețul la un produs sau rămâne fără stoc (ca să știți când să vă aliniați la preț fără să vindeți în pierdere și când puteți păstra marja sus).
+
+*O singură mențiune cinstită:* tabelul de 150 € îl pot da oricui, dar **Radarul Live (450 €) îl activez pentru maximum 3 magazine din România**, iar fiecare dintre cele 3 își blochează exclusiv alertele prioritare pe 2 branduri principale (ex: Deye + Pylontech sau Huawei + Victron), ca să nu vă bateți cap în cap pe aceleași alerte.
+
+Aruncați un ochi pe fișierul atașat și dați-mi un semn aici sau pe WhatsApp dacă vreți să vă trimit toată matricea sau să blocăm două branduri pentru voi înainte să înceapă reducerile.
+
+Spor la vânzări,
+**Vasile Bratu**
+Python Automation & Price Intelligence (Facturare B2B intracomunitară 0% TVA)
+[Telefon / WhatsApp]
+
+--------------------------------------------------------------------------------
+[2] VARIANTA WHATSAPP DIRECT
+--------------------------------------------------------------------------------
+Salut! Sunt Vasile (lucrez pe automatizări Python și analiză de prețuri). Am rulat azi dimineață un script care a comparat la leu toate prețurile și stocurile la invertoare și baterii între **fotovoltaice.ro** și celelalte 9 magazine principale de fotovoltaice din RO (`esolar, e-acumulatori, genway, ecosolaris, solartech, voltexpert, novasol, solargreen`), înainte de Black Friday.
+
+Am văzut că la **Huawei SUN2000-50KTL-M3** sunteți azi cu **+672 RON** peste `voltexpert.ro` (care are stoc activ), iar la **Huawei SUN2000-3KTL-M1** cu **+106 RON**. În schimb, aveți câteva produse unde concurenții ieftini tocmai au rămas fără stoc, deci nu trebuie să tăiați din marjă.
+
+V-am trimis acum pe email un tabel Excel cu 8 exemple concrete din magazinul vostru. Îmi ziceți dacă vreți să vă arunc fișierul demonstrativ și aici pe WhatsApp ca să-l vedeți direct pe telefon?

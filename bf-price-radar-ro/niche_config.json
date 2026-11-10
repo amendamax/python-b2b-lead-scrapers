@@ -1,0 +1,183 @@
+{
+  "campaign": "Black Friday Romania 2026 - Fotovoltaice (Invertoare & Baterii LiFePO4)",
+  "currency": "RON",
+  "target_brands": [
+    "Deye",
+    "Huawei",
+    "Pylontech",
+    "Victron Energy",
+    "V-Tac",
+    "Fronius",
+    "Growatt",
+    "Solis",
+    "Renon Power"
+  ],
+  "search_queries": [
+    "deye",
+    "huawei",
+    "pylontech",
+    "victron",
+    "fronius",
+    "growatt",
+    "v-tac",
+    "luna2000",
+    "sun2000",
+    "us5000",
+    "multiplus",
+    "smartsolar",
+    "solis",
+    "renon"
+  ],
+  "stores": [
+    {
+      "domain": "e-acumulatori.ro",
+      "name": "e-Acumulatori",
+      "base_url": "https://www.e-acumulatori.ro",
+      "search_url_template": "https://www.e-acumulatori.ro/produse?c={query}",
+      "category_urls": [
+        "https://www.e-acumulatori.ro/invertoare-solare",
+        "https://www.e-acumulatori.ro/acumulatori-fotovoltaici"
+      ],
+      "contact_paths": ["/contact", "/termeni-si-conditii", "/despre-noi"]
+    },
+    {
+      "domain": "esolar.ro",
+      "name": "eSolar",
+      "base_url": "https://www.esolar.ro",
+      "search_url_template": "https://www.esolar.ro/index.php?dispatch=products.search&q={query}&subcats=Y&status=A&pshort=Y&pfull=Y&pname=Y&pkeywords=Y&search_performed=Y&items_per_page=96&currency=RON",
+      "category_urls": [
+        "https://www.esolar.ro/tehnologie-solara-fotovoltaica.html?currency=RON"
+      ],
+      "contact_paths": ["/contact.html", "/termeni-si-conditii.html", "/despre-noi.html"]
+    },
+    {
+      "domain": "solargreen.ro",
+      "name": "SolarGreen",
+      "base_url": "https://www.solargreen.ro",
+      "search_url_template": "https://www.solargreen.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://www.solargreen.ro/wp-json/wc/store/v1/products?per_page=100&page=1",
+        "https://www.solargreen.ro/wp-json/wc/store/v1/products?per_page=100&page=2"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "genway.ro",
+      "name": "Genway",
+      "base_url": "https://www.genway.ro",
+      "search_url_template": "https://www.genway.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://www.genway.ro/invertoare-solare-fotovoltaice/",
+        "https://www.genway.ro/acumulatori-baterii-solare/"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "ecosolaris.ro",
+      "name": "EcoSolaris",
+      "base_url": "https://ecosolaris.ro",
+      "search_url_template": "https://ecosolaris.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://ecosolaris.ro/invertoare-solare/",
+        "https://ecosolaris.ro/acumulatori-solari/"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "solartech.ro",
+      "name": "SolarTech",
+      "base_url": "https://solartech.ro",
+      "search_url_template": "https://solartech.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://solartech.ro/categorie-produs/invertoare/",
+        "https://solartech.ro/categorie-produs/acumulatori/"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "voltexpert.ro",
+      "name": "VoltExpert",
+      "base_url": "https://voltexpert.ro",
+      "search_url_template": "https://voltexpert.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://voltexpert.ro/wp-json/wc/store/v1/products?per_page=100&page=1",
+        "https://voltexpert.ro/wp-json/wc/store/v1/products?per_page=100&page=2"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "novasol.ro",
+      "name": "NovaSol",
+      "base_url": "https://novasol.ro",
+      "search_url_template": "https://novasol.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://novasol.ro/wp-json/wc/store/v1/products?per_page=100&page=1"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "solarenergysighet.ro",
+      "name": "Solar Energy Sighet",
+      "base_url": "https://solarenergysighet.ro",
+      "search_url_template": "https://solarenergysighet.ro/wp-json/wc/store/v1/products?search={query}&per_page=50",
+      "category_urls": [
+        "https://solarenergysighet.ro/wp-json/wc/store/v1/products?per_page=100&page=1"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    },
+    {
+      "domain": "fotovoltaice.ro",
+      "name": "Fotovoltaice Romania",
+      "base_url": "https://fotovoltaice.ro",
+      "search_url_template": "https://fotovoltaice.ro/index.php?dispatch=products.search&q={query}&subcats=Y&status=A&pshort=Y&pfull=Y&pname=Y&pkeywords=Y&search_performed=Y&items_per_page=96",
+      "category_urls": [
+        "https://fotovoltaice.ro/invertoare/hibride/?items_per_page=96",
+        "https://fotovoltaice.ro/invertoare/on-grid/?items_per_page=96",
+        "https://fotovoltaice.ro/invertoare/off-grid/?items_per_page=96",
+        "https://fotovoltaice.ro/acumulatori-si-baterii/?items_per_page=96"
+      ],
+      "contact_paths": ["/contact/", "/termeni-si-conditii/"]
+    }
+  ],
+  "benchmark": {
+    "domain": "emag.ro",
+    "name": "eMAG Marketplace",
+    "base_url": "https://www.emag.ro",
+    "search_url_template": "https://www.emag.ro/search/{query}",
+    "targeted_sku_only": true,
+    "max_requests_per_run": 40
+  },
+  "bandwidth_guard": {
+    "max_kb_per_page_target": 80,
+    "blocked_resource_types": [
+      "image",
+      "media",
+      "font",
+      "stylesheet",
+      "other"
+    ],
+    "blocked_url_patterns": [
+      "google-analytics.com",
+      "googletagmanager.com",
+      "doubleclick.net",
+      "facebook.net",
+      "facebook.com/tr",
+      "connect.facebook",
+      "hotjar.com",
+      "tiktok.com",
+      "analytics.tiktok.com",
+      "clarity.ms",
+      "tawk.to",
+      "livechatinc.com",
+      "smartlook.com",
+      "criteo.com",
+      "criteo.net",
+      "profitshare.ro",
+      "2performant.com",
+      "youtube.com",
+      "ytimg.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ]
+  }
+}

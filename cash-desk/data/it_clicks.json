@@ -1,0 +1,78 @@
+[
+ {
+  "results": [
+   {
+    "id": 6,
+    "created_at": "2026-10-22 12:40:03",
+    "country": "IT",
+    "city_slug": "bari",
+    "sku": "wallbox-11kw",
+    "network": "amazon_it_search",
+    "target_url": "https://www.amazon.it/s?k=Wallbox+11kW+Tipo+2+Smart+WiFi+OCPP&tag=vasiledev-21&ascsubtag=IT_bari_wallbox-11kw_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 5,
+    "created_at": "2026-10-22 12:30:37",
+    "country": "IT",
+    "city_slug": "bari",
+    "sku": "wallbox-11kw",
+    "network": "amazon_it_cart90",
+    "target_url": "https://www.amazon.it/gp/aws/cart/add.html?AssociateTag=vasiledev-21&ASIN.1=B0B49GJ7K8&Quantity.1=1&ascsubtag=IT_bari_wallbox-11kw_vpp1",
+    "user_ip_hash": "MmEwZTo0Mzg6ZDY3",
+    "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.1 Mobile/15E148 Safari/604.1",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 4,
+    "created_at": "2026-10-22 12:30:31",
+    "country": "IT",
+    "city_slug": "bari",
+    "sku": "wallbox-11kw",
+    "network": "amazon_it_cart90",
+    "target_url": "https://www.amazon.it/gp/aws/cart/add.html?AssociateTag=vasiledev-21&ASIN.1=B0B49GJ7K8&Quantity.1=1&ascsubtag=IT_bari_wallbox-11kw_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 3,
+    "created_at": "2026-10-22 12:30:12",
+    "country": "IT",
+    "city_slug": "bari",
+    "sku": "wallbox-11kw",
+    "network": "amazon_it_cart90",
+    "target_url": "https://www.amazon.it/gp/aws/cart/add.html?AssociateTag=vasiledev-21&ASIN.1=B0B49GJ7K8&Quantity.1=1&ascsubtag=IT_bari_wallbox-11kw_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "WhatsApp/2.2637.100 W",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 2,
+    "created_at": "2026-10-22 09:50:31",
+    "country": "IT",
+    "city_slug": "milano",
+    "sku": "baterie-15kwh",
+    "network": "amazon_it_cart90",
+    "target_url": "https://www.amazon.it/gp/aws/cart/add.html?AssociateTag=vasiledev-21&ASIN.1=B09R1X9V2K&Quantity.1=1&ascsubtag=IT_milano_baterie-15kwh_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0",
+    "vpp_prechecked": 1
+   },
+   {
+    "id": 1,
+    "created_at": "2026-10-22 09:15:01",
+    "country": "IT",
+    "city_slug": "roma",
+    "sku": "baterie-15kwh",
+    "network": "amazon_it_cart90",
+    "target_url": "https://www.amazon.it/gp/aws/cart/add.html?AssociateTag=vpp-it-21&ASIN.1=B09R1X9V2K&Quantity.1=1&ascsubtag=IT_roma_baterie-15kwh_vpp1",
+    "user_ip_hash": "MjE2LjEyOC4xMS4y",
+    "user_agent": "Mozilla/5.0",
+    "vpp_prechecked": 1
+   }
+  ]
+ }
+]

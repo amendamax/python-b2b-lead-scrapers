@@ -1,0 +1,5 @@
+Salut! Sunt Vasile (lucrez pe automatizări Python și analiză de prețuri). Am rulat azi dimineață un script care a comparat la leu toate prețurile și stocurile la invertoare și baterii între **volta-x.ro**, celelalte 9 magazine principale de fotovoltaice din RO și eMAG Marketplace, înainte de Black Friday.
+
+Am văzut că la **Huawei LUNA2000-5-S0** sunteți azi cu **+880 RON** peste `genway.ro` (care are stoc activ), iar la **Fronius Symo GEN24 10.0** cu **+820 RON**. În schimb, aveți câteva produse unde concurenții ieftini tocmai au rămas fără stoc, deci nu trebuie să tăiați din marjă.
+
+V-am trimis acum pe email un tabel Excel cu 8 exemple concrete din magazinul vostru. Îmi ziceți dacă vreți să vă arunc fișierul demonstrativ și aici pe WhatsApp ca să-l vedeți direct pe telefon?

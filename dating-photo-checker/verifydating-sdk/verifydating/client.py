@@ -44,7 +44,7 @@ class Client:
             url += "?" + urllib.parse.urlencode(params)
 
         headers = {
-            "User-Agent": "VerifyDating-Python-SDK/1.0.0",
+            "User-Agent": "VerifyDating-Python-SDK/1.1.0",
             "Accept": "application/json"
         }
 
@@ -105,12 +105,25 @@ class Client:
         data = self._request("/api/v1/face/check", method="POST", json_data=payload)
         return FaceCheckResult.from_dict(data)
 
+    def check_dossier(self, query: str, limit: int = 20) -> Dict[str, Any]:
+        """
+        Search the 5,842+ real romance & pig-butchering scam dossiers database (FBI IC3, FTC, Europol, UN, ASIC, SFC, CySEC, CONSOB, CSSF, IOSCO).
+
+        Args:
+            query (str): Persona name, domain, alias, or scam category (e.g. 'pig-butchering', 'military', 'ibroxasset.com').
+            limit (int, optional): Max records to return (default 20).
+
+        Returns:
+            dict: Matching romance & pig-butchering dossiers with risk scores and evidence URLs.
+        """
+        return self._request("/api/v1/dating/check", method="GET", params={"query": query, "limit": limit})
+
     def get_stats(self) -> DatingStats:
         """
         Get real-time global facial intelligence and database statistics.
 
         Returns:
-            DatingStats: Total monitored stolen faces and uptime metrics.
+            DatingStats: Total monitored romance & pig-butchering dossiers and uptime metrics.
         """
         data = self._request("/api/v1/face/stats")
         return DatingStats.from_dict(data)

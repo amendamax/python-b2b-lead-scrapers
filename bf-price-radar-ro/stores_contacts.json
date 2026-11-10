@@ -1,0 +1,170 @@
+[
+  {
+    "domain": "e-acumulatori.ro",
+    "store_name": "e-Acumulatori",
+    "detected_platform": "Gomag",
+    "company_name": "P PLUS 2002 SRL",
+    "cui": "RO14560121",
+    "reg_com": "J40/2719/2002",
+    "phone": "0734523766",
+    "all_phones": [
+      "0734523766"
+    ],
+    "email": "office@e-acumulatori.ro",
+    "all_emails": [
+      "office@e-acumulatori.ro",
+      "comenzi@e-acumulatori.ro",
+      "daprof@e-acumulatori.ro"
+    ]
+  },
+  {
+    "domain": "esolar.ro",
+    "store_name": "eSolar",
+    "detected_platform": "CS-Cart",
+    "company_name": "SC AMUR SOLAR ENERGY SRL",
+    "cui": "RO33108859",
+    "reg_com": "J22/1895/2012",
+    "phone": "0253943101",
+    "all_phones": [
+      "0253943101"
+    ],
+    "email": "info@esolar.ro",
+    "all_emails": [
+      "info@esolar.ro"
+    ]
+  },
+  {
+    "domain": "solargreen.ro",
+    "store_name": "SolarGreen",
+    "detected_platform": "WooCommerce",
+    "company_name": "SOLAR GREEN ENGINEERING S.R.L",
+    "cui": "RO45048041",
+    "reg_com": "J22/3455/2021",
+    "phone": "0749 124 855",
+    "all_phones": [
+      "0749 124 855"
+    ],
+    "email": "comenzi@solargreen.ro",
+    "all_emails": [
+      "comenzi@solargreen.ro"
+    ]
+  },
+  {
+    "domain": "genway.ro",
+    "store_name": "Genway",
+    "detected_platform": "WooCommerce",
+    "company_name": "S.C. ELECTRO-SERVICE DISTRIBUTIE S.R.L",
+    "cui": "RO21241885",
+    "reg_com": "J40/4862/2015",
+    "phone": "035 073 3035",
+    "all_phones": [
+      "035 073 3035",
+      "0773374932"
+    ],
+    "email": "office@genway.ro",
+    "all_emails": [
+      "office@genway.ro",
+      "sales@genway.ro",
+      "gabriel.chiroaba@genway.ro"
+    ]
+  },
+  {
+    "domain": "ecosolaris.ro",
+    "store_name": "EcoSolaris",
+    "detected_platform": "WooCommerce",
+    "company_name": "ECOSOLARIS S.R.L.",
+    "cui": "RO31489210",
+    "reg_com": "J40/4120/2013",
+    "phone": "0745 082 110",
+    "all_phones": [
+      "0745 082 110"
+    ],
+    "email": "oferta@ecosolaris.ro",
+    "all_emails": [
+      "oferta@ecosolaris.ro",
+      "contact@ecosolaris.ro"
+    ]
+  },
+  {
+    "domain": "solartech.ro",
+    "store_name": "SolarTech",
+    "detected_platform": "WooCommerce",
+    "company_name": "TRACK WEBSERVICE SOFT SRL",
+    "cui": "RO35568098",
+    "reg_com": "J29/214/2016",
+    "phone": "0799889266",
+    "all_phones": [
+      "0799889266"
+    ],
+    "email": "contact@solartech.ro",
+    "all_emails": [
+      "contact@solartech.ro"
+    ]
+  },
+  {
+    "domain": "voltexpert.ro",
+    "store_name": "VoltExpert",
+    "detected_platform": "WooCommerce",
+    "company_name": "ISR BACAU SRL",
+    "cui": "RO44855086",
+    "reg_com": "J40/9120/2018",
+    "phone": "0722 390 410",
+    "all_phones": [
+      "0722 390 410"
+    ],
+    "email": "office@voltexpert.ro",
+    "all_emails": [
+      "office@voltexpert.ro",
+      "razvan.bordeianu@voltexpert.ro",
+      "gabriel.agafitei@voltexpert.ro"
+    ]
+  },
+  {
+    "domain": "novasol.ro",
+    "store_name": "NovaSol",
+    "detected_platform": "WooCommerce",
+    "company_name": "DOMUS TRAVEL S.R.L",
+    "cui": "RO52527543",
+    "reg_com": "J12/4190/2021",
+    "phone": "0740 891 200",
+    "all_phones": [
+      "0740 891 200"
+    ],
+    "email": "energiesolara@novasol.ro",
+    "all_emails": [
+      "energiesolara@novasol.ro"
+    ]
+  },
+  {
+    "domain": "solarenergysighet.ro",
+    "store_name": "Solar Energy Sighet",
+    "detected_platform": "WooCommerce",
+    "company_name": "SOLAR ENERGY SIGHET S.R.L.",
+    "cui": "RO45773626",
+    "reg_com": "J24/1420/2022",
+    "phone": "0742 910 330",
+    "all_phones": [
+      "0742 910 330"
+    ],
+    "email": "bb.constructsrl@gmail.com",
+    "all_emails": [
+      "bb.constructsrl@gmail.com"
+    ]
+  },
+  {
+    "domain": "fotovoltaice.ro",
+    "store_name": "Fotovoltaice Romania",
+    "detected_platform": "CS-Cart",
+    "company_name": "SECURISTIKA SRL",
+    "cui": "RO33108921",
+    "reg_com": "J35/1105/2014",
+    "phone": "0758 100 900",
+    "all_phones": [
+      "0758 100 900"
+    ],
+    "email": "info@fotovoltaice.ro",
+    "all_emails": [
+      "info@fotovoltaice.ro"
+    ]
+  }
+]

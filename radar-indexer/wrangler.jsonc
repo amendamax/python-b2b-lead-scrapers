@@ -21,5 +21,19 @@
       "database_name": "master_romania",
       "database_id": "59928b3b-b4b7-45e2-8c79-7a2a6f0fa83a"
     }
+  ],
+  "services": [
+    {
+      "binding": "EU_GATEWAY",
+      "service": "eu-subsidies-gateway"
+    },
+    {
+      "binding": "RO_INDEXER",
+      "service": "ro-seo-indexer"
+    },
+    {
+      "binding": "IT_INDEXER",
+      "service": "seo-indexer"
+    }
   ]
 }

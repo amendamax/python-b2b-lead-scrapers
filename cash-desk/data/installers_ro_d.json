@@ -1,0 +1,264 @@
+[
+  {
+    "country": "RO",
+    "area": "Sălaj",
+    "company": "Solar Electro SRL",
+    "city": "Zalău",
+    "county": "Sălaj",
+    "phones": [
+      {
+        "number": "+40 745 386 185",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://solarelectro.ro",
+    "email": "septimiu@solarelectro.ro",
+    "services": "Proiectare, consultanță și instalare sisteme panouri fotovoltaice rezidențiale și industriale, on-grid/off-grid/hibrid, instalații electrice",
+    "source_url": "https://solarelectro.ro"
+  },
+  {
+    "country": "RO",
+    "area": "Sălaj",
+    "company": "Negton Pro SRL",
+    "city": "Zalău",
+    "county": "Sălaj",
+    "phones": [
+      {
+        "number": "+40 723 511 221",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://negtonpro.ro",
+    "email": "office@negtonpro.ro",
+    "services": "Consultanță, proiectare, montaj sisteme fotovoltaice și panouri solare, kituri stand-alone/on-grid, instalator validat AFM Casa Verde",
+    "source_url": "https://negtonpro.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Teleorman",
+    "company": "Scarlet Electrica Electronica si Automatizari S.R.L. (SEEA)",
+    "city": "Troianul",
+    "county": "Teleorman",
+    "phones": [
+      {
+        "number": "+40 763 678 714",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://seea.ro",
+    "email": "contact.seea@gmail.com",
+    "services": "Montaj panouri fotovoltaice, instalații electrice civile și industriale, branșamente electrice, electrician autorizat ANRE",
+    "source_url": "https://seea.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Teleorman",
+    "company": "Electrocerali SRL",
+    "city": "Alexandria",
+    "county": "Teleorman",
+    "phones": [
+      {
+        "number": "+40 722 338 929",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 767 667 555",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://cerali.ro",
+    "email": "office@cerali.ro",
+    "services": "Proiectare, instalare și mentenanță sisteme fotovoltaice rezidențiale, comerciale și industriale, instalator validat AFM Casa Verde, instalații electrice",
+    "source_url": "https://cerali.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Tulcea",
+    "company": "Alphadrill Solar SRL",
+    "city": "Tulcea",
+    "county": "Tulcea",
+    "phones": [
+      {
+        "number": "+40 740 205 109",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://alphadrill.ro",
+    "email": "mihai@alphadrill.ro",
+    "services": "Instalare panouri fotovoltaice, mentenanță, pompe solare de apă, instalator autorizat ANRE (autorizație 19439/23) și AFM Casa Verde",
+    "source_url": "https://alphadrill.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Tulcea",
+    "company": "Spiru Electra SRL",
+    "city": "Tulcea",
+    "county": "Tulcea",
+    "phones": [
+      {
+        "number": "+40 744 333 614",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 742 137 878",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://spiru.eu",
+    "email": "office@spiru.eu",
+    "services": "Servicii de energie regenerabilă, instalare sisteme fotovoltaice, instalator validat Casa Verde AFM, rețele și instalații electrice, autorizat ANRE",
+    "source_url": "https://spiru.eu/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Vaslui",
+    "company": "ELDAC GRUP SRL",
+    "city": "Vaslui",
+    "county": "Vaslui",
+    "phones": [
+      {
+        "number": "+40 720 960 123",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 722 654 266",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://eldac.ro",
+    "email": "office@eldac.ro",
+    "services": "Instalare sisteme panouri fotovoltaice, instalator autorizat ANRE, instalator validat AFM Casa Verde, instalații electrice",
+    "source_url": "https://eldac.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Vaslui",
+    "company": "Velaserv SRL",
+    "city": "Vaslui",
+    "county": "Vaslui",
+    "phones": [
+      {
+        "number": "+40 730 633 555",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://velaserv.ro",
+    "email": "contact@velaserv.ro",
+    "services": "Instalații fotovoltaice rezidențiale și comerciale, întocmire dosar de prosumator, atestat ANRE tip B, instalații electrice și verificări PRAM",
+    "source_url": "https://velaserv.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Vâlcea",
+    "company": "Valoris SRL",
+    "city": "Râmnicu Vâlcea",
+    "county": "Vâlcea",
+    "phones": [
+      {
+        "number": "+40 735 350 143",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 784 217 668",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://www.valoris-electrice.ro",
+    "email": "ofertare@valoris-electrice.ro",
+    "services": "Consultanță, proiectare, execuție și punere în funcțiune panouri fotovoltaice, instalații electrice și producție tablouri electrice",
+    "source_url": "https://www.valoris-electrice.ro/contact.html"
+  },
+  {
+    "country": "RO",
+    "area": "Vâlcea",
+    "company": "Alinadi Electric SRL",
+    "city": "Bălcești",
+    "county": "Vâlcea",
+    "phones": [
+      {
+        "number": "+40 720 719 725",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 764 397 543",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://alinadielectric.ro",
+    "email": "contact@alinadielectric.ro",
+    "services": "Montare sisteme panouri fotovoltaice (rezidențial, comercial, parcuri fotovoltaice), programul Casa Verde, branșamente electrice, verificări PRAM",
+    "source_url": "https://alinadielectric.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Ilfov",
+    "company": "Smart Photovoltaic Solutions SRL",
+    "city": "Otopeni",
+    "county": "Ilfov",
+    "phones": [
+      {
+        "number": "+40 770 999 555",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://smartphotovoltaic.ro",
+    "email": "contact@smartphotovoltaic.ro",
+    "services": "Consultanță, proiectare, execuție, mentenanță și punere în funcțiune sisteme fotovoltaice rezidențiale și industriale, instalator validat Casa Verde AFM",
+    "source_url": "https://smartphotovoltaic.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Ilfov",
+    "company": "Electrocoserv Industrial Energy SRL",
+    "city": "Bragadiru",
+    "county": "Ilfov",
+    "phones": [
+      {
+        "number": "+40 724 302 466",
+        "type": "mobile"
+      },
+      {
+        "number": "+40 769 297 619",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://electrocoserv.ro",
+    "email": "office@electrocoserv.ro",
+    "services": "Sisteme panouri fotovoltaice la cheie (on-grid, off-grid, hibrid), dosar prosumator, instalații electrice și mentenanță",
+    "source_url": "https://electrocoserv.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "București",
+    "company": "Amtech Construct Solutions SRL",
+    "city": "București",
+    "county": "București",
+    "phones": [
+      {
+        "number": "+40 722 116 979",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://firmepanourifotovoltaice.ro/bucuresti/amtech-construct-solutions/",
+    "email": "contact@amtech.ro",
+    "services": "Proiectare și montaj panouri fotovoltaice, instalații electrice de medie și joasă tensiune",
+    "source_url": "https://firmepanourifotovoltaice.ro"
+  },
+  {
+    "country": "RO",
+    "area": "București",
+    "company": "VORO Electric",
+    "city": "București",
+    "county": "București",
+    "phones": [
+      {
+        "number": "+40 741 346 155",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://voroelectric.ro",
+    "email": "contact@voroelectric.ro",
+    "services": "Soluții complete energie solară, instalații panouri fotovoltaice și stații de încărcare EV",
+    "source_url": "https://voroelectric.ro"
+  }
+]

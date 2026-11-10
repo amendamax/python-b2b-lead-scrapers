@@ -1,64 +1,53 @@
-# 🖥️ BATTLESTATION STEALTH DARK 2026/2027 — VASILEDEV GROUP (ROMÂNIA)
-*Configurația oficială definitivă bătută în cuie pentru biroul din România*
+# 🖥️ UZINA DE DATE „HEADLESS SERVER” (BPM-POWER TORINO — SUB 2.000 € GATA MONTAT) — VASILEDEV GROUP
+*Configurația oficială definitivă bătută în cuie pe 7 Noiembrie 2026 pentru Serverul Dedicat 24/7 (pus în altă cameră lângă router), comandat direct din Piemont (BPM-Power Torino) cu Fattura Elettronica SDI pe `P.IVA IT04226190041`*
 
-**Buget Total Setup Complet (PC + 2x Monitoare 4K/OLED + Mobilier + Audio ANC)**: ~ 8.000 € EUR (~ 40.000 RON)  
-**Stil Vizual**: 100% Stealth Dark (Negru Mat, Geam Securizat Fumuriu, Display LCD Telemetrie Temperaturi, Zero Cabluri pe Birou, Zero RGB Țipător)
-
----
-
-## 🖥️ 1. UNITATEA CENTRALĂ MONSTRU (TOTAL 6 TB NVMe + DISPLAY LCD)
-
-| Componentă | Model Exact | Rol & Performanță | Preț Magazin |
-| :--- | :--- | :--- | :---: |
-| 🧠 **Procesor (CPU)** | **AMD Ryzen 9 9950X3D** (16C/32T, 128MB 3D V-Cache, AM5) | 16 nuclee, 32 fire de execuție, 128MB 3D V-Cache (muncă grea quant, AI & gaming suprem). | **3.349 RON (~670 €)** |
-| 🎮 **Placă Video (GPU)** | **GIGABYTE GeForce RTX 5080 16GB GDDR7** *(sau RTX 5090 32GB la așezarea prețurilor)* | Memorie nouă GDDR7, PCIe 5.0, DLSS 4.0, performanță masivă 4K/8K și AI. | **8.299 RON (~1.660 €)** |
-| 📟 **Cooler CPU LCD** | **NZXT Kraken Elite 360 RGB Black (Display LCD 2.7")** | Ecran rotund color 2.7" care arată în timp real temperaturile CPU & GPU (°C). | **1.399 RON (~280 €)** |
-| 🗄️ **Placă de Bază** | **MSI MAG X870E TOMAHAWK WIFI / GIGABYTE X870E AORUS ELITE WIFI7** | PCIe 5.0, Wi-Fi 7, radiatoare negre masive, compatibilitate AM5 pe termen lung. | **1.749 RON (~350 €)** |
-| ⚡ **Memorie RAM** | **Corsair Vengeance 64GB (2x32GB) DDR5 6000MHz CL30 Black** | 64 GB DDR5, latență minimă CL30, design 100% negru mat, fără LED-uri. | **1.149 RON (~230 €)** |
-| 💾 **SSD 1 (OS & Apps)** | **2 TB Samsung 990 PRO M.2 NVMe (7.450 MB/s)** | Viteză maximă pentru Windows, MetaTrader 5, Python, IDE-uri și unelte de lucru. | **899 RON (~180 €)** |
-| 💾 **SSD 2 (Stocare Masivă)** | **4 TB Samsung 990 PRO M.2 NVMe (7.450 MB/s)** | Baze de date bursă, dataset-uri masive, mașini virtuale, jocuri 4K și backup. | **1.699 RON (~340 €)** |
-| 🔌 **Sursă (PSU)** | **Seasonic Vertex GX-1200 / PRIME TX-1300 80+ ATX 3.0 PCIe 5.0** | Eficiență maximă Gold/Titanium, cabluri negre mate, silențioasă, 10-12 ani garanție. | **1.349 RON (~270 €)** |
-| 🖤 **Carcasă (Case)** | **Fractal Design Torrent Black TG Dark Tint** | Panou lateral din sticlă securizată fumurie, flux de aer uriaș, evidențiază ecranul LCD. | **1.049 RON (~210 €)** |
-| 💰 **Subtotal Unitate Centrală** | — | — | **~20.940 RON (~4.190 €)** |
+**Furnizor Oficial Italia (Piemont)**: **BPM-Power.com** (*Zona Web S.r.l.* — P.IVA `11772600018`)  
+**Adresă Depozit & Laborator Asamblare**: `Via Paolo Veronese 134/17, 10148 Torino (TO)` • **Telefon**: `011 19838989`  
+**Facturare**: **Fattura Elettronica SDI** direct pe `BRATU VASILE — P.IVA IT04226190041` (0 bătăi de cap cu F24 / VIES la Forfettario!)  
+**Preț Total Complet (7 Piese + Montaj în Laborator + Testare 24h + Curier Torino → Garessio + 22% IVA inclus)**: **~1.930 € – 1.995 € (SUB 2.000 €!)**
 
 ---
 
-## 🌌🖥️ 2. DISPLAY SETUP DUAL (PRINCIPAL OLED G9 49" + SECUNDAR 4K 27" VERTICAL)
-*(Ambele monitoare vin din fabrică cu propriile picioare reglabile pe înălțime și pivot – zero bani pe brațe separate!)*
+## 🔗 CELE 7 COMPONENTE + LINKURI DIRECTE DE COMANDĂ PE BPM-POWER.COM (TORINO)
 
-| Echipament | Model Exact | Detalii & Performanță | Preț Magazin |
-| :--- | :--- | :--- | :---: |
-| 🖥️ **Monitor 1 (Principal UltraWide)** | **Samsung Odyssey OLED G9 49" (G93SC / G95SC)** | Panou 49" Curbat 32:9 DQHD (5120x1440), **0.03 ms GTG**, **240 Hz**, QD-OLED cu negru infinit și boxe 2x5W integrate. | **5.899 RON (~1.180 €)** |
-| 📐 **Monitor 2 (Secundar Vertical 4K)** | **Dell UltraSharp U2723QE 27" 4K IPS Black** | Rezoluție 4K UHD (3840x2160), contrast IPS Black 2000:1, **picior cu rotire la 90° inclus** (pentru zeci de linii de cod Python și documentații). | **2.899 RON (~580 €)** |
-| 💰 **Subtotal Display-uri Duale** | — | — | **~8.798 RON (~1.760 €)** |
-
----
-
-## 🪑🛋️ 3. ZONA DE CONFORT & SĂNĂTATE ERGONOMICĂ
-
-| Echipament | Model Exact | Detalii de Confort | Preț Magazin |
-| :--- | :--- | :--- | :---: |
-| 🪑 **Scaun Ergonomic cu Footrest** | **SIHOO Doro C300 Pro V2 (Nero Moderno)** | Suport lombar adaptiv automat, plasă mesh neagră respirabilă, cotiere Bio-Sync 8D, **Poggiapiedi integrat (suport picioare retractabil)** și înclinare la 135°. | **~600 € (~3.000 RON)** |
-| ⚡ **Birou Reglabil Electric** | **Secretlab Magnus Pro XL Black / Flexispot E7 Pro 180cm** | Blat masiv 180x80 cm negru, motoare duale silențioase, memorii digitale de înălțime, canal magnetic pentru ascuns toate cablurile. | **~850 € (~4.250 RON)** |
-| 💰 **Subtotal Mobilier & Confort** | — | — | **~1.450 € (~7.250 RON)** |
+| # | Componentă | Model Exact (Server 24/7) | Link Direct BPM-Power Torino | Preț Italia (IVA Inclus) | Preț România (PCGarage) | Economie în Italia |
+| :-: | :--- | :--- | :--- | :---: | :---: | :---: |
+| **1** | 🧠 **Procesor (CPU)** | **AMD Ryzen 9 9950X** *(16 Nuclee / 32 Fire, 5.7 GHz, Socket AM5 + Placă Video Radeon Integrată)* | [Deschide pe BPM-Power (`b2223706`)](https://www.bpm-power.com/it/online/componenti-pc/processori/cpu-amd-ryzen-9-b2223706) | **~540 €** *(430 € pe Trovaprezzi)* | ~610 € *(3.049 RON)* | **-70 € / -180 €** |
+| **2A** | 💾 **SSD 1 Principal PCIe 5.0 (14.800 MB/s!)** | **2 TB Samsung 9100 PRO M.2 NVMe PCIe 5.0 (`MZ-VAP2T0BW`)** | [Deschide pe BPM-Power (`b2266675`)](https://www.bpm-power.com/it/online/componenti-pc/ssd/2tb-samsung-9100-pro-b2266675) | **~385 € – 400 €** | ~415 € *(2.079 RON)* | **-20 € – 30 €** |
+| **2B** | 💾 **SSD 2 Stocare Masivă (2 TB NVMe — Mutat din PC-ul actual!)** | **2 TB TEAM `TM8FPK002T` M.2 NVMe PCIe 4.0 (Mutat de pe discul `D:` al PC-ului actual = 4 TB NVMe în Total!)** | *Deja în proprietatea ta (0 € cost!)* | **0 € (Gratis!)** | ~220 € | **Economisești 100%!** |
+| **3** | ⚡ **Memorie RAM (64 GB)** | **64 GB (2x32GB) DDR5 6000MHz CL30 AMD EXPO (Corsair / Patriot / Kingston)** | [Deschide pe BPM-Power (`b2117721`)](https://www.bpm-power.com/it/online/componenti-pc/memorie/ram-dimm-ddr5-64gb-b2117721) | **~500 € – 535 €** | ~590 € *(2.950 RON)* | **-55 € – 90 €** |
+| **4** | ❄️ **Răcire Lichid 360mm** | **Arctic Liquid Freezer III 360 Black (Fără RGB/LCD)** | [Deschide pe BPM-Power (`b1864579`)](https://www.bpm-power.com/it/online/componenti-pc/dissipatori/dissipatore-cpu-liquido-arctic-b1864579) | **~75 € – 80 €** | ~85 € *(420 RON)* | **-10 €** |
+| **5** | 🗄️ **Placă de Bază** | **GIGABYTE X870E AORUS ELITE WIFI7 / MSI X870 TOMAHAWK (LAN 2.5G + Wi-Fi 7 + PCIe 5.0)** | [Deschide Schede Madri AM5 pe BPM-Power](https://www.bpm-power.com/it/online/componenti-pc/schede-madri) | **~280 € – 295 €** | ~325 € *(1.640 RON)* | **-30 €** |
+| **6** | 🔌 **Sursă 24/7 (PSU)** | **Seasonic Focus GX-750 / GX-850 ATX 3.1 (80+ Gold, 10 Ani Garanție)** | [Deschide Seasonic pe BPM-Power](https://www.bpm-power.com/it/marche/seasonic/alimentatori-pc) | **~110 € – 115 €** | ~115 € *(580 RON)* | **Egal** |
+| **7** | 🖤 **Carcasă Antifonată** | **be quiet! Pure Base / Fractal Design Black Solid (Fără geam de sticlă, antifonată)** | [Deschide Case PC pe BPM-Power](https://www.bpm-power.com/it/online/componenti-pc/case-pc) | **~105 € – 110 €** | ~110 € *(550 RON)* | **Egal** |
+| **8** | 🛠️ **Asamblare & Testare** | **Servizio Assemblaggio e Test PC BPM-Power Torino + Spedizione Assicurata Garessio** | [Detalii Serviciu Asamblare BPM-Power](https://www.bpm-power.com/it/video/play/assemblaggio-pc-bpm-power-funziona) | **~50 € – 60 €** | ~100 € *(Montaj + Curier RO-IT)* | **-40 €** |
+| 🏆 | **TOTAL GENERAL** | **Uzina Completă Gata Montată & Livrată în Garessio** | — | **~1.930 € – 1.995 €** | **~2.265 €** | **🔥 Economisești ~270 € – 330 € în Italia!** |
 
 ---
 
-## 🎧⌨️🖱️ 4. AUDIO DE TOP, PERIFERICE & SIGURANȚĂ ELECTRICĂ
-
-| Echipament | Model Exact | Detalii | Preț Magazin |
-| :--- | :--- | :--- | :---: |
-| 🎧 **Căști Wireless ANC de Top** | **Sony WH-1000XM5 Black** | Izolare fonică activă (ANC) de top mondial, sunet 3D imersiv, autonomie 30h, suport ascuns sub birou. | **1.599 RON (~320 €)** |
-| 🖱️ **Mouse de Precizie** | **Logitech G502 X / G502 HERO Black** | Senzor HERO 25K, 11 butoane programabile, rotiță dual-mode hyper-fast scroll. | **349 RON (~70 €)** |
-| ⌨️ **Tastatură Mecanică** | **Redragon K550 YAMA Black Mechanical** | Mecanică masivă neagră, 12 taste macro dedicate (G1-G12), efect reactiv la tastare (*Ripple Mode*). | **319 RON (~65 €)** |
-| 🔋 **UPS Curent 24/7** | **APC BV1500I-MS 1500VA (Prize Schuko)** | Protecție completă la căderi de tensiune, scurtcircuite și furtuni în rețeaua din România. | **849 RON (~170 €)** |
-| 💰 **Subtotal Audio, Periferice & UPS** | — | — | **~3.116 RON (~625 €)** |
+## 💰 BUGETUL GENERAL POST-12 NOIEMBRIE PE `P.IVA IT04226190041` (TOTUL PE SPRÂNCEANĂ):
+1. 🖥️ **Uzina de Date „Headless Server” (BPM-Power Torino, gata montat, sub 2.000 €):** `~1.950 €`
+2. 🌐 **Toate cele 165 Domenii Non-Concurente (100 Wikipedia + 65 Fandom/Wikivoyage/GitHub) luate câte 20/zi:** `~1.650 €`
+3. 📱 **Telefonul-Seif Bancar (Apple iPhone 16e 128GB Negru Mat + 2x YubiKey 5C NFC + Samsung T7 Shield 1TB):** `~900 €`
+4. 👑 **TOTAL INVESTIȚIE COMPLETĂ ÎN IMPERIUL DIGITAL:** **`~4.500 € (cu toate taxele incluse!)`** — iar restul banilor din finanțarea Intesa Sanpaolo / Alpifidi rămân **100% lichizi în contul tău bancar!**
 
 ---
 
-## 🏆 RECAPITULARE GENERALĂ DEFINITIVĂ:
-* 🖥️ **Unitate Centrală (PC Monstru 6TB + LCD Telemetrie + RTX 5080)**: ~ 20.940 RON (~ 4.190 €)
-* 🌌🖥️ **Monitoare Duale (Samsung OLED G9 49" + Dell UltraSharp 27" 4K Vertical)**: ~ 8.798 RON (~ 1.760 €)
-* 🪑🛋️ **Mobilier Ergonomic (Scaun Sihoo cu Footrest + Birou Electric 180cm)**: ~ 7.250 RON (~ 1.450 €)
-* 🎧🖱️ **Audio & Periferice (Căști Sony ANC + Mouse G502 + Tastatură Yama + UPS APC)**: ~ 3.116 RON (~ 625 €)
-* 👑 **TOTAL INVESTIȚIE SETUP COMPLET DE VIS**: **~ 40.104 RON (~ 8.025 € EUR)**
+## 🗞️ MISIUNEA #1 A SERVERULUI 24/7: AGENȚIA MONDIALĂ DE PRESĂ & SINDICATUL DE ȘTIRI VASILEDEV
+*„Cine are informația primul, câștigă întotdeauna!”*
+
+### Cele 5 Domenii cu Backlink Wikipedia Rezervate pentru Trustul Propriu de Presă (Prioritate Ziua 1 — NU se vând!):
+1. 🏛️ **`business-and-economics.com`** — Agenție Centrală de Știri Economice, Fonduri Europene, Subvenții & Macroeconomie
+2. 📡 **`expatnewswire.com`** — Flux Internațional de Presă (Newswire Global), Taxe, Imobiliare & Investiții
+3. 📈 **`brokernewsblog.com`** — Știri Trading, Brokeri & Alerte Oficiale de la cele 82 Autorități Financiare (IOSCO)
+4. 📊 **`managedfuturestodaymag.com`** — Revistă Piețe de Capital, Burse, Aur, Mărfuri & FinTech
+5. 🚗 **`newsmotors.net`** — Știri Auto Electrice, Baterii LiFePO4, Rabla/Ecobonus & Mobilitate Verde
+
+### Cele 7 Motoare Automate care vor rula 24/7 pe Serverul din Cealaltă Cameră:
+1. **Redacția Automată în 15 Limbi (în 60 secunde de la publicarea legii/alertei):** Alimentează simultan cele 5 domenii de Agenție de Presă (`Google News` & `Google Discover`) + secțiunile `/news` de pe toate cele 300 de site-uri din portofoliu.
+2. **Citare Încrucișată de Autoritate:** Agenția de Presă citează portalurile naționale (`calcolaincentivi.it`, `ussolarrebates.com`, `chikudenchi-hojyo.com`, `isbrokersafe.com`) ca surse oficiale de calcul.
+3. **Vânzare Automată de Comunicate de Presă B2B (€199 / articol sponsorizat)** pe `business-and-economics.com` și `expatnewswire.com`.
+4. **Vânătorul Mondial 24/7 de Domenii Expirate** din Wikipedia (300 limbi), Guverne (`.gov`), Universități (`.edu`) și Marile Ziare.
+5. **Fabrica Automată Wayback Machine** (reconstruiește câte 20 de site-uri pe zi cu tot istoricul lor).
+6. **Radarul Global de Reduceri & Erori de Preț Amazon (14 Țări)**.
+7. **Robotul B2B de Găsit Clienți & Cumpărători Direcți** pentru instalatori (€99–€299/lună) și pentru revânzarea domeniilor la 6 luni (€2.500–€12.000/buc.).

@@ -8459,7 +8459,7 @@ async def safeshield_extension_page():
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
+                    <strong>Locations:</strong> 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -11504,7 +11504,7 @@ async def get_pricing_page(request: Request, claim: str = ""):
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
+                    <strong>Locations:</strong> 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -12099,7 +12099,7 @@ async def get_domain_audit_page(domain_or_slug: str):
                 <p style="line-height: 1.7;">
                     <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
                     <strong>VAT / Partita IVA:</strong> IT04226190041<br>
-                    <strong>Locations:</strong> Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy<br>
+                    <strong>Locations:</strong> 12075 Garessio (CN), Piemonte, Italy<br>
                     <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
                 </p>
             </div>
@@ -13213,7 +13213,7 @@ async def dating_scammer_profile_dossier(slug: str, lang: str = "en"):
                     <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #ec4899; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
                     <p style="margin: 0 0 8px 0; color: #ffffff; font-weight: 600; font-size: 0.85rem;">VasileDev Group</p>
                     <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: IT04226190041</p>
-                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
+                    <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: 12075 Garessio (CN), Piemonte, Italy</p>
                     <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">amendamax@vasiledev.com</a></p>
                 </div>
                 <div>

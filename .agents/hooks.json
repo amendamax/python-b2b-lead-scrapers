@@ -1,0 +1,19 @@
+{
+  "vasile-memory-etalon": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python \"C:\\Users\\bratu\\.gemini\\config\\hook_handler.py\" session_start",
+        "timeout": 25
+      }
+    ],
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "python \"C:\\Users\\bratu\\.gemini\\config\\hook_handler.py\" pre_invocation",
+        "timeout": 25
+      }
+    ]
+  }
+}

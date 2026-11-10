@@ -11,6 +11,7 @@ import {
   VD_TIER2_SCAMMERS,
   VD_TIER2_SLUG_SET,
 } from "./broker_dating_tier2.js";
+import { handleBrokerDatingNative } from "./broker_dating_native.js";
 import {
   JOB_INDEX_HTML,
   PILL_INDEX_HTML,
@@ -112,6 +113,8 @@ const AMAZON_GUARD_SKU_EN = {
   "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Immune+Support+Certified",
   "probiotics-gut": "Probiotics+60+Billion+CFU+Digestive+Enzymes+Certified",
   "creatine-collagen": "Creatine+Monohydrate+Hydrolyzed+Collagen+Peptides+Pure",
+  "hair-biotin-rosemary": "Rosemary+Oil+Biotin+Saw+Palmetto+Hair+Growth+Serum",
+  "joint-turmeric-glucosamine": "Turmeric+Curcumin+Glucosamine+Chondroitin+MSM+Joint+Support",
 };
 
 const AMAZON_GUARD_SKU_LOCALIZED = {
@@ -127,6 +130,8 @@ const AMAZON_GUARD_SKU_LOCALIZED = {
     "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Immunitario+Certificata",
     "probiotics-gut": "Fermenti+Lattici+Probiotici+60+Miliardi+Enzimi+Digestivi",
     "creatine-collagen": "Creatina+Monoidrato+Pura+Collagene+Idrolizzato+Peptidi",
+    "hair-biotin-rosemary": "Olio+Rosmarino+Biotina+Serenoa+Repens+Anticaduta+Capelli",
+    "joint-turmeric-glucosamine": "Curcuma+Glucosamina+Condroitina+Articolazioni+Certificato",
   },
   DE: {
     "ledger-wallet": "Ledger+Nano+X+Trezor+Safe+3+Krypto+Hardware+Wallet",
@@ -140,6 +145,8 @@ const AMAZON_GUARD_SKU_LOCALIZED = {
     "vitamin-d3-k2": "Vitamin+D3+K2+MK7+Hochdosiert+Laborgeprueft",
     "probiotics-gut": "Probiotika+Darmflora+60+Milliarden+KBE+Verdauungsenzyme",
     "creatine-collagen": "Kreatin+Monohydrat+Kollagen+Hydrolysat+Pulver+Rein",
+    "hair-biotin-rosemary": "Rosmarinoel+Biotin+Saegepalme+Haarwuchs+Serum",
+    "joint-turmeric-glucosamine": "Kurkuma+Glucosamin+Chondroitin+MSM+Gelenke+Kapseln",
   },
   FR: {
     "ledger-wallet": "Portefeuille+Crypto+Materiel+Ledger+Nano+X+Trezor+Safe+3",
@@ -153,6 +160,8 @@ const AMAZON_GUARD_SKU_LOCALIZED = {
     "vitamin-d3-k2": "Vitamine+D3+K2+MK7+Immunite+Certifie",
     "probiotics-gut": "Probiotiques+60+Milliards+Enzymes+Digestives+Flore",
     "creatine-collagen": "Creatine+Monohydrate+Collagene+Hydrolyse+Peptides",
+    "hair-biotin-rosemary": "Huile+Romarin+Biotine+Saw+Palmetto+Croissance+Cheveux",
+    "joint-turmeric-glucosamine": "Curcuma+Glucosamine+Chondroitine+Articulations+Bio",
   },
   ES: {
     "ledger-wallet": "Cartera+Hardware+Cripto+Ledger+Nano+X+Trezor+Safe+3",
@@ -166,6 +175,8 @@ const AMAZON_GUARD_SKU_LOCALIZED = {
     "vitamin-d3-k2": "Vitamina+D3+K2+MK7+Sistema+Inmune+Certificada",
     "probiotics-gut": "Probioticos+60+Mil+Millones+Enzimas+Digestivas",
     "creatine-collagen": "Creatina+Monohidrato+Colageno+Hidrolizado+Puro",
+    "hair-biotin-rosemary": "Aceite+Romero+Biotina+Saw+Palmetto+Crecimiento+Cabello",
+    "joint-turmeric-glucosamine": "Curcuma+Glucosamina+Condroitina+Articulaciones+Certificado",
   },
 };
 
@@ -205,13 +216,33 @@ const AMAZON_COUNTRY_TAGS = {
   BE: "vasiledev0a9-21",
   PL: "vasiledev02-21",
   SE: "vasiledev09c-21",
+  US: "vasiledev-20",
+  PR: "vasiledev-20",
+  VI: "vasiledev-20",
+  GU: "vasiledev-20",
+  CA: "vasiledev-20",
+  MX: "vasiledev-20",
+  BR: "vasiledev-20",
+  AU: "vasiledev-22",
+  NZ: "vasiledev-22",
+  JP: "vasiledev08-22",
 };
 
 function buildAmazonGuardUrl(countryCode, sku) {
   const cc = String(countryCode || "GB").toUpperCase().trim();
   const cleanSku = String(sku || "yubikey-2fa").toLowerCase().trim();
-  const tag = AMAZON_COUNTRY_TAGS[cc] || "vasiledev0b-21";
+  const tag = AMAZON_COUNTRY_TAGS[cc] || "vasiledev-20";
   const enKw = AMAZON_GUARD_SKU_EN[cleanSku] || AMAZON_GUARD_SKU_EN["yubikey-2fa"];
+
+  if (["US", "PR", "VI", "GU", "CA", "MX", "BR"].includes(cc)) {
+    return { url: `https://www.amazon.com/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (["AU", "NZ"].includes(cc)) {
+    return { url: `https://www.amazon.com.au/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  if (cc === "JP") {
+    return { url: `https://www.amazon.co.jp/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
 
   if (["IT", "SM", "VA", "MT"].includes(cc)) {
     const kw = AMAZON_GUARD_SKU_LOCALIZED.IT[cleanSku] || enKw;
@@ -246,16 +277,27 @@ function buildAmazonGuardUrl(countryCode, sku) {
   if (cc === "SE") {
     return { url: `https://www.amazon.se/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
   }
-  return { url: `https://www.amazon.co.uk/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  if (["UK", "GB", "IE"].includes(cc)) {
+    return { url: `https://www.amazon.co.uk/s?tag=${tag}&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag };
+  }
+  return { url: `https://www.amazon.com/s?tag=vasiledev-20&linkCode=ll2&k=${enKw}&s=exact-aware-popularity-rank`, tag: "vasiledev-20" };
 }
 
 function isEdgeAffiliateBotRequest(request, clientIp, uaLow) {
   if (request.method !== "GET") return true;
+  const cf = request.cf || {};
+  const cfCountry = String(cf.country || request.headers.get("cf-ipcountry") || "").toUpperCase();
+  if (!cfCountry || cfCountry === "T1" || cfCountry === "XX") return true;
+  if (cf.botManagement && cf.botManagement.verifiedBot) return true;
+  const asn = Number(cf.asn || 0);
+  const asOrg = String(cf.asOrganization || "");
+  const DATACENTER_ASNS = new Set([16276, 45102, 37963, 24940, 14061, 16509, 14618, 15169, 396982, 8075, 63949, 20473, 136907, 51167, 12876, 60068, 9009, 212238, 132203, 20940, 13335, 54113, 36352, 46606, 62567, 206092, 211252, 49505, 57523]);
+  if (DATACENTER_ASNS.has(asn) || /ovh|alibaba|alicloud|hetzner|digitalocean|amazon|aws|google cloud|microsoft|azure|choopa|vultr|linode|akamai|contabo|scaleway|m247|datacamp|leaseweb|huawei|tencent|bytedance|dataforseo|babbar|semrush|ahrefs|hostinger|ionos|kamatera|upcloud/i.test(asOrg)) return true;
   if (!uaLow || uaLow.length < 25 || !uaLow.startsWith("mozilla/5.0")) return true;
-  if (/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegrambot|discordbot|linkedinbot|headless|lighthouse|pagespeed|gtmetrix|pingdom|uptimerobot|semrush|ahrefs|mj12bot|dotbot|bytespider|petalbot|claudebot|gptbot|oai-searchbot|perplexity|amazonbot|applebot|yandex|baiduspider|sogou|exabot|ia_archiver|curl|wget|python-requests|httpx|aiohttp|go-http-client|java\/|libwww|okhttp|scrapy|undici|apache-httpclient|postmanruntime/i.test(uaLow)) {
+  if (/probe|scanner|mapper|fuzz|nuclei|sqlmap|nikto|zgrab|masscan|censys|shodan|bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegrambot|discordbot|linkedinbot|headless|phantom|puppeteer|playwright|selenium|cypress|lighthouse|pagespeed|gtmetrix|pingdom|uptimerobot|semrush|ahrefs|mj12bot|dotbot|bytespider|petalbot|claudebot|gptbot|oai-searchbot|perplexity|amazonbot|applebot|yandex|baiduspider|sogou|exabot|ia_archiver|curl|wget|python|httpx|aiohttp|go-http-client|java\/|libwww|okhttp|scrapy|undici|apache-httpclient|postmanruntime/i.test(uaLow)) {
     return true;
   }
-  if (/chrome\/(?:14[89]|1[5-9]\d|[2-9]\d\d)\./i.test(uaLow)) return true;
+  if (/chrome\/(?:[1-9]\d|1[01]\d|12[01]|14[89]|1[5-9]\d|[2-9]\d\d)\.|firefox\/(?:[1-9]\d|10\d|11[0-4])\.|windows nt [56]\.|iphone os (?:1[0-4]|[1-9])_|android [1-9][;)]|version\/(?:2[5-9]|[3-9]\d)\.\d+ safari|applewebkit\/537\.36$/i.test(uaLow)) return true;
   const purpose = (
     request.headers.get("purpose") ||
     request.headers.get("sec-purpose") ||
@@ -265,7 +307,10 @@ function isEdgeAffiliateBotRequest(request, clientIp, uaLow) {
   ).toLowerCase();
   if (purpose.includes("prefetch") || purpose.includes("preview") || purpose.includes("prerender")) return true;
   const secMode = (request.headers.get("sec-fetch-mode") || "").toLowerCase();
-  if (secMode && secMode !== "navigate" && secMode !== "nested-navigate") return true;
+  if (!secMode || (secMode !== "navigate" && secMode !== "nested-navigate")) return true;
+  const secSite = (request.headers.get("sec-fetch-site") || "").toLowerCase();
+  const isSuspiciousProxyGeo = ["BR", "VN", "SG", "HK", "ID", "TH", "PH", "MY", "BD", "IN", "PK", "LK", "NP", "NG", "KE", "GH", "TZ", "UG", "EG", "MA", "DZ", "TN", "CO", "PE", "AR", "CL", "VE", "EC", "BO", "PY", "UY", "RU", "BY", "CN", "IR", "IQ", "SY", "TR", "UA", "KZ", "UZ"].includes(cfCountry);
+  if (secSite === "none" && isSuspiciousProxyGeo) return true;
   if (clientIp && (clientIp.startsWith("213.209.159.") || clientIp.startsWith("47.74.") || clientIp.startsWith("47.88.") || clientIp.startsWith("51.210.") || clientIp.startsWith("54.36."))) {
     return true;
   }
@@ -859,7 +904,7 @@ const JOB_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="backg
       <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #ffffff; font-weight: 600; font-size: 0.85rem;">VasileDev Group</p>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">amendamax@vasiledev.com</a></p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">WhatsApp: <strong style="color: #cbd5e1;">+39 320 948 1876</strong></p>
     </div>
@@ -1393,7 +1438,7 @@ JobScamRadar monitors, curates, and indexes fraudulent job offers, imposter recr
     const content = `
       <div class="dossier">
         <div class="header"><h1>Privacy Policy, GDPR &amp; Legal Disclosure</h1></div>
-        <p style="color:#cbd5e1;line-height:1.65;"><strong>JobScamRadar.com</strong> is a public-interest cybersecurity and employment fraud awareness portal operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
+        <p style="color:#cbd5e1;line-height:1.65;"><strong>JobScamRadar.com</strong> is a public-interest cybersecurity and employment fraud awareness portal operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in 12075 Garessio (CN), Piemonte, Italy.</p>
         <h3 style="color:#38bdf8;">1. Data Collection &amp; GDPR Compliance (EU Reg. 2016/679)</h3>
         <p style="color:#cbd5e1;line-height:1.65;">Queries submitted to our instant Job &amp; Recruiter Verifier are processed transiently to match known fraud patterns and public regulatory alerts. For GDPR inquiries or data removal requests, contact <a href="mailto:amendamax@vasiledev.com" style="color:#38bdf8;">amendamax@vasiledev.com</a>.</p>
       </div>`;
@@ -1435,7 +1480,7 @@ const PILL_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="back
     <div>
       <h4 style="font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
     </div>
     <div>
@@ -1804,6 +1849,19 @@ async function handlePillScamRadar(request, env, url) {
         <div class="detail-item"><strong>Date Logged</strong> ${safeDate}</div>
         <div class="detail-item" style="grid-column: 1 / -1;"><strong>Affected Lots / Regulatory Authority</strong> ${safeReg}</div>
       </div>
+      <div style="margin-top:20px;padding:20px;background:linear-gradient(135deg,rgba(6,78,59,0.92),rgba(15,23,42,0.98));border:2px solid #10b981;border-radius:12px;box-shadow:0 8px 25px rgba(16,185,129,0.2);">
+        <div style="font-size:12px;font-weight:900;color:#34d399;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">✅ Safe Lab-Tested Replacements for ${safeName} (GMP &amp; ISO Certified)</div>
+        <h3 style="margin:0 0 8px 0;color:#fff;font-size:18px;">Do Not Risk Counterfeit Pills — Switch to 100% Certified Amazon Best-Sellers (From $14 / 14 €)</h3>
+        <p style="margin:0 0 14px 0;font-size:13.5px;color:#cbd5e1;">Instead of unapproved or recalled batches (${safeId}), choose third-party lab-tested supplements with verified purity and fast Prime delivery:</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:10px;">
+          <a href="/go/amazon-guard?sku=omega-magnesium&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#f59e0b;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">💊 Magnesium Bisglycinate &amp; Omega-3 (From 15 €) →</a>
+          <a href="/go/amazon-guard?sku=vitamin-d3-k2&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">☀️ Vitamin D3 + K2 MK7 Certified (From 14 €) →</a>
+          <a href="/go/amazon-guard?sku=probiotics-gut&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">🧬 60B Probiotics &amp; Metabolism (From 18 €) →</a>
+          <a href="/go/amazon-guard?sku=creatine-collagen&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#a78bfa;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">💪 Pure Creatine &amp; Collagen Peptides (From 19 €) →</a>
+          <a href="/go/amazon-guard?sku=hair-biotin-rosemary&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#34d399;color:#022c22;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">🌿 Rosemary Oil, Biotin &amp; Saw Palmetto (From 14 €) →</a>
+          <a href="/go/amazon-guard?sku=joint-turmeric-glucosamine&amp;sid=pill_top" target="_blank" rel="nofollow noopener sponsored" style="background:#fbbf24;color:#0f172a;font-weight:800;padding:11px 14px;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;">🦴 Curcumin, Glucosamine &amp; Joint Care (From 16 €) →</a>
+        </div>
+      </div>
       <div style="margin-top:24px;padding:18px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:10px;">
         <h3 style="margin:0 0 10px 0;color:#34d399;font-size:17px;">📊 SSR Toxicological &amp; Regulatory Benchmark</h3>
         <div class="details-grid">
@@ -1871,7 +1929,7 @@ async function handlePillScamRadar(request, env, url) {
   <div class="container">
     <p><a href="/">&larr; Back to PillScamRadar</a></p>
     <h1>Privacy Policy, GDPR &amp; Regulatory Disclaimer</h1>
-    <p><strong>PillScamRadar.com</strong> is a public healthcare regulatory intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
+    <p><strong>PillScamRadar.com</strong> is a public healthcare regulatory intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in 12075 Garessio (CN), Piemonte, Italy.</p>
   </div>
   ${PILL_FOOTER_HTML}
 </body>
@@ -1912,7 +1970,7 @@ const APP_FOOTER_HTML = `<footer class="vasiledev-ecosystem-footer" style="backg
     <div>
       <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: #38bdf8; margin: 0 0 14px 0;">VasileDev Group Ecosystem</h4>
       <p style="margin: 0 0 8px 0; color: #cbd5e1; font-size: 0.85rem;">VAT / P.IVA: <code style="background: rgba(255, 255, 255, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace;">IT04226190041</code></p>
-      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy</p>
+      <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 0.85rem;">Headquarters: 12075 Garessio (CN), Piemonte, Italy</p>
       <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Direct: <a href="mailto:amendamax@vasiledev.com" style="color: #cbd5e1; text-decoration: none;">amendamax@vasiledev.com</a></p>
     </div>
     <div>
@@ -2350,7 +2408,7 @@ async function handleAppScamRadar(request, env, url) {
   <div class="container">
     <p><a href="/">&larr; Back to AppScamRadar</a></p>
     <h1>Privacy Policy, GDPR &amp; Legal Disclosure</h1>
-    <p><strong>AppScamRadar.com</strong> is an open-source mobile malware and APK threat intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in Via Valcasotto, 12075 Garessio (CN), Piemonte, Italy.</p>
+    <p><strong>AppScamRadar.com</strong> is an open-source mobile malware and APK threat intelligence platform operated by <strong>VasileDev Group (Bratu Vasile)</strong>, registered in the European Union under VAT / P.IVA <code>IT04226190041</code> (VIES Verified), headquartered in 12075 Garessio (CN), Piemonte, Italy.</p>
   </div>
   ${APP_FOOTER_HTML}
 </body>
@@ -2727,8 +2785,66 @@ function buildEdgeGeoBrokerSuiteHtml(countryCode, entityLabel) {
       </div>
     </a>`).join("");
 
+  const safeEnt = esc(entityLabel || "Target Entity");
+  const cleanEntSlug = String(entityLabel || "broker")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "broker";
+  const etoroHref = zone === "US" ? "/go/etoro-us" : "/go/etoro";
+  const knownRegulated = /^(etoro|ibkr|interactive-brokers|avatrade|blackbull|plus500|exness|xm|ftmo|sabiotrade|pepperstone|icmarkets)/i.test(cleanEntSlug);
+
+  const vsMatrixHtml = `
+    <div style="margin-bottom:18px;padding:16px;background:rgba(2,6,23,0.75);border:1px solid rgba(56,189,248,0.35);border-radius:12px;overflow-x:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <h4 style="margin:0;font-size:15.5px;font-weight:800;color:#38bdf8;">⚔️ Compare ${safeEnt} Head-to-Head (10-Point Regulatory &amp; Fee Matrix):</h4>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <a href="/compare/${cleanEntSlug}-vs-etoro" style="font-size:11.5px;font-weight:800;color:#34d399;background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs eToro</a>
+          <a href="/compare/${cleanEntSlug}-vs-interactive-brokers" style="font-size:11.5px;font-weight:800;color:#38bdf8;background:rgba(56,189,248,0.14);border:1px solid rgba(56,189,248,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs IBKR</a>
+          <a href="/compare/${cleanEntSlug}-vs-avatrade" style="font-size:11.5px;font-weight:800;color:#a78bfa;background:rgba(167,139,250,0.14);border:1px solid rgba(167,139,250,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs AvaTrade</a>
+          <a href="/compare/${cleanEntSlug}-vs-blackbull" style="font-size:11.5px;font-weight:800;color:#fbbf24;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs BlackBull</a>
+          <a href="/compare/${cleanEntSlug}-vs-plus500" style="font-size:11.5px;font-weight:800;color:#f472b6;background:rgba(244,114,182,0.14);border:1px solid rgba(244,114,182,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs Plus500</a>
+          <a href="/compare/${cleanEntSlug}-vs-exness" style="font-size:11.5px;font-weight:800;color:#2dd4bf;background:rgba(45,212,191,0.14);border:1px solid rgba(45,212,191,0.4);padding:4px 10px;border-radius:6px;text-decoration:none;">⚔️ ${safeEnt} vs Exness</a>
+        </div>
+      </div>
+      ${knownRegulated ? "" : `<table style="width:100%;border-collapse:collapse;font-size:12.5px;color:#e2e8f0;min-width:600px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.12);text-align:left;color:#94a3b8;">
+            <th style="padding:8px;">Regulatory Criteria</th>
+            <th style="padding:8px;color:#f87171;">⚠️ ${safeEnt}</th>
+            <th style="padding:8px;color:#10b981;">🛡️ eToro Tier-1</th>
+            <th style="padding:8px;color:#38bdf8;">🏛️ Interactive Brokers</th>
+            <th style="padding:8px;color:#a78bfa;">⚡ BlackBull / AvaTrade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:8px;font-weight:700;">Tier-1 Supervision</td>
+            <td style="padding:8px;color:#f87171;font-weight:700;">Unverified / High Risk</td>
+            <td style="padding:8px;color:#34d399;font-weight:700;">FCA, CySEC, ASIC, SEC</td>
+            <td style="padding:8px;color:#38bdf8;font-weight:700;">SEC, FINRA, FCA (NASDAQ: IBKR)</td>
+            <td style="padding:8px;color:#c4b5fd;font-weight:700;">FMA, Central Bank IE, ASIC</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:8px;font-weight:700;">Investor Protection</td>
+            <td style="padding:8px;color:#f87171;">€0 (Uninsured)</td>
+            <td style="padding:8px;color:#e2e8f0;">Up to €20k / £85k + Lloyd's</td>
+            <td style="padding:8px;color:#e2e8f0;">Up to $500,000 SIPC / £85k</td>
+            <td style="padding:8px;color:#e2e8f0;">Segregated Tier-1 Trust Bank</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;font-weight:700;">Official Verified Link</td>
+            <td style="padding:8px;color:#f87171;font-weight:700;">🚫 Avoid Deposit</td>
+            <td style="padding:8px;"><a href="${etoroHref}" target="_blank" rel="nofollow noopener sponsored" style="background:#10b981;color:#022c22;font-weight:800;padding:5px 10px;border-radius:6px;text-decoration:none;display:inline-block;">Open eToro →</a></td>
+            <td style="padding:8px;"><a href="/go/ibkr" target="_blank" rel="nofollow noopener sponsored" style="background:#38bdf8;color:#0f172a;font-weight:800;padding:5px 10px;border-radius:6px;text-decoration:none;display:inline-block;">Open IBKR →</a></td>
+            <td style="padding:8px;"><a href="/go/blackbull" target="_blank" rel="nofollow noopener sponsored" style="background:#a78bfa;color:#0f172a;font-weight:800;padding:5px 10px;border-radius:6px;text-decoration:none;display:inline-block;">Open BlackBull →</a></td>
+          </tr>
+        </tbody>
+      </table>`}
+    </div>`;
+
   return `
   <div style="margin-top:22px;padding:20px;background:linear-gradient(145deg,rgba(6,78,59,0.28),rgba(15,23,42,0.96));border:1.5px solid rgba(16,185,129,0.45);border-radius:14px;">
+    ${vsMatrixHtml}
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
       <div>
         <span style="font-size:11px;font-weight:800;color:#34d399;text-transform:uppercase;letter-spacing:0.7px;">🛡️ Geo-Matched Regulated Alternatives (${cc} — ${zoneLabelMap[zone]})</span>
@@ -3065,7 +3181,7 @@ function injectIsBrokerSafeMobileScanFix(html) {
   return out.replace(/<\/body>/i, `${mobileScanFixBlock}\n</body>`);
 }
 
-async function handleBrokerOrDatingEdge(request, env, url, isDating) {
+async function handleBrokerOrDatingEdge(request, env, url, isDating, ctx = null) {
   const domain = isDating ? "verifydating.net" : "isbrokersafe.com";
   const brandName = isDating ? "VerifyDating.net" : "IsBrokerSafe.com";
   const path = url.pathname === "/" ? "/" : url.pathname.replace(/\/+$/, "");
@@ -3115,6 +3231,398 @@ Sitemap: https://${domain}/sitemap.xml
   }
 
   // 2. Sitemaps (0-ms Edge Tiered Sitemap Pruning — Consolidated onto /sitemap.xml)
+  if (!isDating && pathLow.startsWith("/compare/")) {
+    const rawPair = decodeURIComponent(path.slice("/compare/".length)).toLowerCase().trim();
+    const vsIdx = rawPair.indexOf("-vs-");
+    if (vsIdx > 0) {
+      const slugA = rawPair.slice(0, vsIdx).trim();
+      const slugB = rawPair.slice(vsIdx + 4).trim();
+      const visitorCc = (request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "GB";
+      const zone = getEdgeVisitorZone(visitorCc);
+      const etoroHref = zone === "US" ? "/go/etoro-us" : "/go/etoro";
+
+      const TIER1_SPECS = {
+        etoro: {
+          name: "eToro",
+          status: "✅ Verified Tier-1 Regulated",
+          score: "98 / 100",
+          scoreColor: "#10b981",
+          regulators: "FCA (UK #583263), CySEC (EU #109/10), ASIC (AU #491139), SEC & FINRA (US)",
+          founded: "2007 (19 Years) • London / Limassol / Tel Aviv",
+          protection: "Up to €20,000 (EU) / £85,000 (UK) + $1M/€1M Excess Lloyd's Policy",
+          minDeposit: "$50 ($100 in select regions)",
+          spreads: "From 1.0 pip EUR/USD • $0 Commission on Real Stocks & ETFs",
+          leverage: "1:30 Retail (EU/UK/AU) • Up to 1:400 Professional",
+          platforms: "eToro WebTrader, Mobile App & CopyTrader™ (35M+ Investors)",
+          withdrawals: "Same-Day Automated Processing (PayPal, Card, SEPA, Bank Wire)",
+          pros: ["World's #1 CopyTrader™ social investing network (copy top traders automatically)", "6,000+ real stocks, ETFs, indices, commodities, forex & crypto", "Tier-1 multi-continental licenses (FCA, CySEC, ASIC, SEC/FINRA)"],
+          cons: ["$5 flat withdrawal fee on USD investment accounts (free in GBP/EUR)", "Does not support external MetaTrader 4 / MetaTrader 5"],
+          ctaHref: etoroHref,
+          ctaLabel: "Open Official eToro Account →",
+          ctaBg: "#10b981"
+        },
+        avatrade: {
+          name: "AvaTrade",
+          status: "✅ Verified Tier-1 Regulated",
+          score: "97 / 100",
+          scoreColor: "#a78bfa",
+          regulators: "Central Bank of Ireland (#C53877), ASIC (#406684), FSCA, FSA Japan, ADGM",
+          founded: "2006 (20 Years) • Dublin, Ireland",
+          protection: "Up to €20,000 (ICCL Ireland) + Segregated Tier-1 Bank Trust Accounts",
+          minDeposit: "$100 / €100",
+          spreads: "From 0.9 pips EUR/USD • 0% Deposit & Withdrawal Fees",
+          leverage: "1:30 Retail (EU/AU) • Up to 1:400 International",
+          platforms: "MT4, MT5, AvaTradeGO, AvaOptions & AvaProtect™ Loss Shield",
+          withdrawals: "24 Hours Automated Processing ($0 Withdrawal Fee)",
+          pros: ["9 Central Bank regulatory licenses across 5 continents since 2006", "Exclusive AvaProtect™ built-in trade loss insurance", "Full MetaTrader 4, MetaTrader 5, DupliTrade & Vanilla Options"],
+          cons: ["Inactivity fee charged after 3 consecutive months without login", "No direct physical spot stock ownership (CFD & Options specialist)"],
+          ctaHref: "/go/avatrade",
+          ctaLabel: "Open Official AvaTrade Account →",
+          ctaBg: "#a78bfa"
+        },
+        blackbull: {
+          name: "BlackBull Markets",
+          status: "✅ Verified Institutional ECN",
+          score: "97 / 100",
+          scoreColor: "#fbbf24",
+          regulators: "FMA New Zealand (#FSP403326), FSA (#SD045)",
+          founded: "2014 (12 Years) • Auckland, New Zealand",
+          protection: "Segregated ANZ / Tier-1 Bank Client Trust Accounts + Negative Balance Shield",
+          minDeposit: "$0 (ECN Standard) / $2,000 (ECN Prime)",
+          spreads: "From 0.0 pips Raw ECN (Equinix NY4 / LD4 Servers <20ms)",
+          leverage: "Up to 1:500 Institutional ECN Leverage",
+          platforms: "Free TradingView Pro+, MT4, MT5, cTrader & BlackBull CopyTrader",
+          withdrawals: "Fast Same-Day ECN Payouts (< 4 Hours)",
+          pros: ["True 0.0 pip institutional ECN execution with Equinix NY4/LD4 fiber servers", "Free TradingView Pro+ subscription included for active traders", "26,000+ tradable equities, forex pairs, indices, futures & commodities"],
+          cons: ["ECN Prime account requires $2,000 minimum deposit for lowest $3/lot commission", "Does not accept US retail residents"],
+          ctaHref: "/go/blackbull",
+          ctaLabel: "Open BlackBull ECN Account →",
+          ctaBg: "#fbbf24"
+        },
+        ibkr: {
+          name: "Interactive Brokers (IBKR)",
+          status: "✅ Institutional NASDAQ Listed",
+          score: "99 / 100",
+          scoreColor: "#38bdf8",
+          regulators: "SEC, FINRA, CFTC (US), FCA (UK), Central Bank of Ireland, ASIC, MAS",
+          founded: "1978 (48 Years) • Greenwich, CT, USA (NASDAQ: IBKR • $16B+ Equity)",
+          protection: "Up to $500,000 SIPC (US) / £85,000 FSCS (UK) + $30M Lloyd's Excess",
+          minDeposit: "$0 Minimum Deposit",
+          spreads: "From 0.1 pips Direct Interbank • Lowest Margin Loan Rates Worldwide",
+          leverage: "Reg T / Portfolio Margin (US) • 1:30 Retail (EU/UK)",
+          platforms: "IBKR Trader Workstation (TWS), IBKR Desktop, GlobalTrader (150+ Exchanges)",
+          withdrawals: "1 Free Automated Bank Wire / ACH / SEPA Withdrawal Daily",
+          pros: ["Publicly listed on NASDAQ (IBKR) with over $16 Billion in equity capital", "Direct market access to 150+ stock, options, futures & bond exchanges in 34 countries", "Highest institutional investor protection ($500k SIPC + $30M excess Lloyd's)"],
+          cons: ["Trader Workstation (TWS) interface is complex for casual beginners", "No built-in one-click social copy-trading for retail accounts"],
+          ctaHref: "/go/ibkr",
+          ctaLabel: "Open Interactive Brokers Account →",
+          ctaBg: "#38bdf8"
+        },
+        plus500: {
+          name: "Plus500",
+          status: "✅ LSE FTSE-250 Listed Broker",
+          score: "98 / 100",
+          scoreColor: "#38bdf8",
+          regulators: "FCA (UK #509909), CySEC (#250/14), ASIC (#417727), BaFin, MAS",
+          founded: "2008 (18 Years) • London Stock Exchange FTSE-250 (Ticker: PLUS)",
+          protection: "Up to £85,000 FSCS (UK) / €20,000 ICF (EU) + Segregated Trust Accounts",
+          minDeposit: "$100 / €100",
+          spreads: "Tight Dynamic Spreads • 0% Commission on Trades",
+          leverage: "1:30 Retail (EU/UK/AU) • Up to 1:300 Professional",
+          platforms: "Plus500 Proprietary WebTrader & Mobile App (Guaranteed Stop Loss)",
+          withdrawals: "Fast Zero-Fee Withdrawals via Card, PayPal, Skrill & Bank",
+          pros: ["Listed on the London Stock Exchange FTSE 250 Index with full audited financials", "Guaranteed Stop-Loss orders and intuitive proprietary WebTrader", "Zero commission on deposits, withdrawals, and real-time price quotes"],
+          cons: ["Does not support third-party MetaTrader 4 (MT4) or MetaTrader 5 (MT5)", "No automated social copy-trading"],
+          ctaHref: "/go/plus500",
+          ctaLabel: "Open Official Plus500 Account →",
+          ctaBg: "#38bdf8"
+        },
+        exness: {
+          name: "Exness",
+          status: "✅ Verified High-Volume Broker",
+          score: "98 / 100",
+          scoreColor: "#2dd4bf",
+          regulators: "FCA (UK #730729), CySEC (#178/12), FSCA, FSA",
+          founded: "2008 (18 Years) • Over $4 Trillion Monthly Trading Volume",
+          protection: "Segregated Tier-1 Bank Accounts + Deloitte Audited Financial Reports",
+          minDeposit: "$10 (Standard Account)",
+          spreads: "From 0.0 pips (Raw Spread / Zero Account) • Ultra-Low Gold & FX Spreads",
+          leverage: "1:30 (EU) • High Dynamic Leverage (International Entities)",
+          platforms: "MT4, MT5, Exness Web Terminal & Exness Social Trading",
+          withdrawals: "Instant Automated Withdrawals 24/7 (Processed in Seconds)",
+          pros: ["World's #1 broker by monthly trading volume ($4+ Trillion Deloitte-audited)", "Instant 24/7 automated withdrawals in seconds with zero manual delay", "Ultra-tight 0.0 pip spreads on EUR/USD, Gold (XAU/USD) and Crypto (Swap-Free)"],
+          cons: ["Retail CFD accounts are not available to EU/UK retail residents (B2B/Intl focus)", "High international leverage requires disciplined stop-loss management"],
+          ctaHref: "/go/exness",
+          ctaLabel: "Open Official Exness Account →",
+          ctaBg: "#2dd4bf"
+        },
+        xm: {
+          name: "XM Group",
+          status: "✅ Verified Multi-Regulated",
+          score: "96 / 100",
+          scoreColor: "#fbbf24",
+          regulators: "CySEC (#120/10), ASIC (#443670), DFSA Dubai, FSC",
+          founded: "2009 (17 Years) • 10M+ Clients in 190 Countries",
+          protection: "Up to €20,000 ICF (EU) + Negative Balance Protection",
+          minDeposit: "$5 Minimum Deposit (Micro & Ultra-Low Accounts)",
+          spreads: "From 0.6 pips on XM Ultra-Low Account • Zero Requotes",
+          leverage: "1:30 (EU/AU) • Up to 1:1000 (International)",
+          platforms: "MT4, MT5, XM App & XM Copy Trading (Free VPS Hosting)",
+          withdrawals: "Same-Day Zero-Fee Withdrawals (All Fees Covered by XM)",
+          pros: ["Ultra-accessible $5 minimum deposit with Micro-Lot support for testing strategies", "99.35% of all orders executed in under 1 second with zero requotes", "Free daily live market education, research & automated VPS hosting"],
+          cons: ["Limited crypto CFD range compared to eToro or BlackBull", "Administrative inactivity fee after 90 days of dormancy"],
+          ctaHref: "/go/xm",
+          ctaLabel: "Open Official XM Account →",
+          ctaBg: "#fbbf24"
+        },
+        ftmo: {
+          name: "FTMO Prop Trading",
+          status: "✅ #1 Funded Prop Firm",
+          score: "98 / 100",
+          scoreColor: "#2dd4bf",
+          regulators: "Verified Proprietary Evaluation Leader (ISO/IEC 27001 Certified • Prague, EU)",
+          founded: "2015 (11 Years) • Prague, Czech Republic (Deloitte Technology Fast 50)",
+          protection: "100% Personal Savings Protection (You Never Deposit Personal Trading Capital)",
+          minDeposit: "From €155 Evaluation Fee (100% Refunded with 1st Profit Split)",
+          spreads: "0.0 pips Institutional Raw Liquidity Feed",
+          leverage: "1:100 Institutional Prop Leverage",
+          platforms: "MT4, MT5, cTrader & DXtrade + FTMO Performance Coach",
+          withdrawals: "Up to 90% Profit Split Paid Bi-Weekly / On-Demand ($200M+ Paid to Traders)",
+          pros: ["Trade up to $200,000 (scaling to $2M) without risking your own savings", "Keep up to 90% of all profits with bi-weekly payouts and fee refund", "Supports MT4, MT5, cTrader, and custom institutional analytics"],
+          cons: ["Requires passing a 2-step risk discipline challenge (10% profit target / 10% max loss)", "Not a traditional spot stock brokerage"],
+          ctaHref: "/go/ftmo",
+          ctaLabel: "Start FTMO $200k Prop Challenge →",
+          ctaBg: "#2dd4bf"
+        },
+        sabiotrade: {
+          name: "SabioTrade Prop Firm",
+          status: "✅ Verified Funded Prop Firm",
+          score: "98 / 100",
+          scoreColor: "#34d399",
+          regulators: "EU Registered Proprietary Trading Assessment (Dublin, Ireland)",
+          founded: "2021 • Dublin, Ireland",
+          protection: "100% Personal Capital Shield (Zero Risk to Personal Savings)",
+          minDeposit: "From $50 One-Step Assessment",
+          spreads: "0.0 pips Raw Institutional Feed",
+          leverage: "Up to 1:30 – 1:100 Prop Leverage",
+          platforms: "Sabio Traderoom (100+ Built-In Indicators & Instant Dashboard)",
+          withdrawals: "Up to 90% Profit Split with Fast Weekly Payouts",
+          pros: ["Fast 1-Step evaluation — no waiting for 2 separate challenge phases", "Get funded up to $200,000 and keep up to 90% of your trading profits", "All-in-one Sabio Traderoom with zero platform setup required"],
+          cons: ["Strict 3% daily trailing drawdown rule requires disciplined position sizing", "Proprietary platform instead of legacy MT4"],
+          ctaHref: "/go/sabiotrade",
+          ctaLabel: "Get SabioTrade $200k Funded Account →",
+          ctaBg: "#34d399"
+        }
+      };
+      TIER1_SPECS["interactive-brokers"] = TIER1_SPECS.ibkr;
+      TIER1_SPECS["interactivebrokers"] = TIER1_SPECS.ibkr;
+      TIER1_SPECS["blackbull-markets"] = TIER1_SPECS.blackbull;
+      TIER1_SPECS["xm-group"] = TIER1_SPECS.xm;
+      TIER1_SPECS["etoro-com"] = TIER1_SPECS.etoro;
+      TIER1_SPECS["etoro-us"] = TIER1_SPECS.etoro;
+
+      async function resolveBrokerProfile(slug) {
+        const clean = slug.replace(/-(com|net|org|io|co-uk|eu|ltd)$/i, "");
+        if (TIER1_SPECS[slug]) return TIER1_SPECS[slug];
+        if (TIER1_SPECS[clean]) return TIER1_SPECS[clean];
+        for (const k of Object.keys(TIER1_SPECS)) {
+          if (slug === k || clean === k) return TIER1_SPECS[k];
+        }
+        if (env && env.DB) {
+          try {
+            const regRow = await env.DB.prepare("SELECT entity_name, domain, regulator, license_number, jurisdiction FROM ib_regulated_brokers WHERE slug = ? OR domain LIKE ? LIMIT 1").bind(slug, `%${clean}%`).first();
+            if (regRow) {
+              return {
+                name: regRow.entity_name || slugToTitle(slug),
+                status: `✅ Regulated (${regRow.regulator || "Licensed"})`,
+                score: "86 / 100",
+                scoreColor: "#38bdf8",
+                regulators: `${regRow.regulator || "National Regulator"} (License: ${regRow.license_number || "Verified"} • ${regRow.jurisdiction || "Global"})`,
+                founded: `Registered Domain: ${regRow.domain || slug}`,
+                protection: "Standard Statutory Regulatory Supervision (Verify Entity Tier Before Deposit)",
+                minDeposit: "Varies by Account Type",
+                spreads: "Standard Variable Broker Spreads",
+                leverage: "1:30 Retail (Regulated Jurisdiction)",
+                platforms: "Proprietary Web / Standard Trading Terminal",
+                withdrawals: "2–5 Business Days Bank Wire / Card",
+                pros: [`Listed in ${regRow.regulator || "official"} regulatory registry (${regRow.license_number || "active"})`, `Verified official domain: ${regRow.domain || slug}`],
+                cons: ["Higher fee structure or fewer global licenses than Tier-1 leaders (eToro / IBKR / AvaTrade)", "Always verify exact subsidiary protection limits before funding"],
+                ctaHref: `/audit/${encodeURIComponent(regRow.domain || slug)}`,
+                ctaLabel: `View ${regRow.entity_name} Audit →`,
+                ctaBg: "#475569"
+              };
+            }
+            const scamRow = await env.DB.prepare("SELECT entity_name, domain, regulator, warning_type, warning_date FROM ib_scam_reports WHERE slug = ? OR domain LIKE ? LIMIT 1").bind(slug, `%${clean}%`).first();
+            if (scamRow) {
+              return {
+                name: scamRow.entity_name || slugToTitle(slug),
+                status: `🚨 BLACKLISTED (${scamRow.regulator || "REGULATOR ALERT"})`,
+                score: "08 / 100 (HIGH RISK)",
+                scoreColor: "#ef4444",
+                regulators: `⚠️ FLAGGED BY ${scamRow.regulator || "Financial Watchdog"} (${scamRow.warning_type || "Unauthorized Solicitation"} • ${scamRow.warning_date || "Active Alert"})`,
+                founded: `Flagged Domain: ${scamRow.domain || slug}`,
+                protection: "❌ €0 / $0 UNINSURED (No FSCS, ICF, or SIPC Coverage)",
+                minDeposit: "⚠️ Unregulated Deposit Trap ($250+ Cold-Call / Crypto Solicitation)",
+                spreads: "Manipulated / Unaudited Internal Dealing Desk",
+                leverage: "Illegal / Unregulated Offshore Leverage (1:500+)",
+                platforms: "Unregulated WebTrader / Clone Platform",
+                withdrawals: "🚨 High Risk of Blocked Withdrawals & Advance-Fee 'Tax' Demands",
+                pros: ["None — Officially flagged in regulatory enforcement records"],
+                cons: [`Flagged by ${scamRow.regulator || "financial regulators"} (${scamRow.warning_date || "active warning"})`, "No segregated client bank accounts or investor compensation fund", "High risk of total capital loss"],
+                ctaHref: `/scam-reports/${encodeURIComponent(slug)}`,
+                ctaLabel: "🚫 View Official Blacklist Warning →",
+                ctaBg: "#ef4444"
+              };
+            }
+          } catch (_) {}
+        }
+        const fallbackName = slugToTitle(slug);
+        return {
+          name: fallbackName,
+          status: "⚠️ Unverified / Offshore Entity",
+          score: "35 / 100 (Caution)",
+          scoreColor: "#f59e0b",
+          regulators: "No Tier-1 FCA, SEC, CySEC, or ASIC License Found in Primary Registry",
+          founded: `Unverified Entity (${fallbackName})`,
+          protection: "€0 Verified Tier-1 Statutory Insurance",
+          minDeposit: "Unverified ($250 Typical)",
+          spreads: "Unaudited Spreads & Overnight Swaps",
+          leverage: "Unregulated Leverage",
+          platforms: "Web Terminal",
+          withdrawals: "Unverified Processing Time",
+          pros: ["None verified by Tier-1 central banks"],
+          cons: ["Lacks top-tier FCA / SEC / CySEC / ASIC investor compensation protection", "Strongly recommended to use a verified Tier-1 broker instead"],
+          ctaHref: etoroHref,
+          ctaLabel: "Switch to Regulated Tier-1 Broker →",
+          ctaBg: "#f59e0b"
+        };
+      }
+
+      const [specA, specB] = await Promise.all([resolveBrokerProfile(slugA), resolveBrokerProfile(slugB)]);
+      const nameA = specA.name;
+      const nameB = specB.name;
+      const suiteHtml = buildEdgeGeoBrokerSuiteHtml(visitorCc, nameA);
+
+      const quickPairs = [
+        ["etoro-vs-avatrade", "⚔️ eToro vs AvaTrade"],
+        ["etoro-vs-blackbull", "⚔️ eToro vs BlackBull ECN"],
+        ["etoro-vs-interactive-brokers", "⚔️ eToro vs Interactive Brokers"],
+        ["etoro-vs-plus500", "⚔️ eToro vs Plus500"],
+        ["avatrade-vs-blackbull", "⚔️ AvaTrade vs BlackBull"],
+        ["exness-vs-xm", "⚔️ Exness vs XM Group"],
+        ["ftmo-vs-sabiotrade", "⚔️ FTMO vs SabioTrade Prop"],
+        ["interactive-brokers-vs-plus500", "⚔️ IBKR vs Plus500"]
+      ];
+      const quickBarHtml = quickPairs.map(([pair, label]) => {
+        const isCurrent = `${slugA}-vs-${slugB}` === pair;
+        return `<a href="/compare/${pair}" style="font-size:12px;font-weight:800;padding:6px 11px;border-radius:8px;text-decoration:none;border:1px solid ${isCurrent ? "#10b981" : "rgba(56,189,248,0.3)"};background:${isCurrent ? "rgba(16,185,129,0.22)" : "rgba(15,23,42,0.85)"};color:${isCurrent ? "#34d399" : "#cbd5e1"};">${label}</a>`;
+      }).join("");
+
+      const rows = [
+        ["Regulatory Status", `<strong style="color:${specA.scoreColor};">${esc(specA.status)}</strong>`, `<strong style="color:${specB.scoreColor};">${esc(specB.status)}</strong>`],
+        ["Compliance Trust Score", `<span style="font-size:16px;font-weight:900;color:${specA.scoreColor};">${esc(specA.score)}</span>`, `<span style="font-size:16px;font-weight:900;color:${specB.scoreColor};">${esc(specB.score)}</span>`],
+        ["Tier-1 Licenses & Supervision", esc(specA.regulators), esc(specB.regulators)],
+        ["Founded & Headquarters", esc(specA.founded), esc(specB.founded)],
+        ["Investor Compensation & Insurance", esc(specA.protection), esc(specB.protection)],
+        ["Minimum Deposit", esc(specA.minDeposit), esc(specB.minDeposit)],
+        ["Spreads & Commissions", esc(specA.spreads), esc(specB.spreads)],
+        ["Max Leverage", esc(specA.leverage), esc(specB.leverage)],
+        ["Trading Platforms & Tools", esc(specA.platforms), esc(specB.platforms)],
+        ["Withdrawal Speed & Reliability", esc(specA.withdrawals), esc(specB.withdrawals)]
+      ];
+
+      const tableRowsHtml = rows.map(([crit, valA, valB]) => `
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+          <td style="padding:12px 10px;font-weight:800;color:#94a3b8;width:24%;">${crit}</td>
+          <td style="padding:12px 10px;color:#f8fafc;width:38%;background:rgba(255,255,255,0.02);">${valA}</td>
+          <td style="padding:12px 10px;color:#f8fafc;width:38%;">${valB}</td>
+        </tr>`).join("");
+
+      const compareHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(nameA)} vs. ${esc(nameB)} — 2026 Regulatory Safety, License &amp; Fee Comparison | IsBrokerSafe</title>
+  <meta name="description" content="Direct 10-point regulatory comparison: ${esc(nameA)} (${esc(specA.score)}) vs. ${esc(nameB)} (${esc(specB.score)}). Compare FCA/SEC/CySEC/ASIC licenses, spreads, minimum deposit, investor insurance, and withdrawal speed.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://isbrokersafe.com/compare/${esc(slugA)}-vs-${esc(slugB)}">
+  <style>
+    body { margin:0; padding:0; background:#020617; color:#f8fafc; font-family:system-ui,-apple-system,sans-serif; line-height:1.6; }
+    .wrap { max-width:1060px; margin:32px auto; padding:0 18px; }
+    .card { background:rgba(15,23,42,0.95); border:1px solid rgba(56,189,248,0.3); border-radius:16px; padding:26px; box-shadow:0 15px 35px rgba(0,0,0,0.5); }
+    .badge { display:inline-block; background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-size:12px; font-weight:800; padding:4px 12px; border-radius:999px; text-transform:uppercase; margin-bottom:10px; }
+    h1 { margin:0 0 10px 0; font-size:28px; color:#fff; }
+    .pros-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin:22px 0; }
+    .pros-box { background:rgba(2,6,23,0.8); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav style="font-size:13px;color:#94a3b8;margin-bottom:16px;">
+      <a href="/" style="color:#38bdf8;text-decoration:none;font-weight:700;">🏛️ IsBrokerSafe.com</a> &rsaquo;
+      <a href="/regulated-brokers" style="color:#38bdf8;text-decoration:none;">Regulated Brokers Registry</a> &rsaquo;
+      <span>${esc(nameA)} vs. ${esc(nameB)}</span>
+    </nav>
+    <div class="card">
+      <span class="badge">⚔️ 10-Point Head-to-Head Regulatory Audit (2026)</span>
+      <h1>${esc(nameA)} vs. ${esc(nameB)}: Which Broker Is Safer &amp; Cheaper?</h1>
+      <p style="color:#cbd5e1;font-size:15px;margin-bottom:14px;">Complete side-by-side comparison between <strong>${esc(nameA)}</strong> (${esc(specA.score)}) and <strong>${esc(nameB)}</strong> (${esc(specB.score)}) covering central bank regulation, client deposit insurance, trading spreads, platforms, and payout reliability.</p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+        ${quickBarHtml}
+      </div>
+
+      <div style="overflow-x:auto;border:1px solid rgba(56,189,248,0.3);border-radius:12px;background:rgba(2,6,23,0.75);">
+        <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;">
+          <thead>
+            <tr style="background:rgba(15,23,42,0.98);border-bottom:2px solid rgba(56,189,248,0.35);text-align:left;">
+              <th style="padding:14px 10px;color:#38bdf8;font-size:13px;text-transform:uppercase;">Audit Parameter</th>
+              <th style="padding:14px 10px;color:#fff;font-size:16px;">🏛️ ${esc(nameA)}</th>
+              <th style="padding:14px 10px;color:#fff;font-size:16px;">🏛️ ${esc(nameB)}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRowsHtml}
+            <tr style="background:rgba(16,185,129,0.08);">
+              <td style="padding:14px 10px;font-weight:800;color:#34d399;">Official Verified Action</td>
+              <td style="padding:14px 10px;"><a href="${specA.ctaHref}" target="_blank" rel="nofollow noopener sponsored" style="background:${specA.ctaBg};color:#020617;font-weight:900;padding:10px 16px;border-radius:8px;text-decoration:none;display:inline-block;">${esc(specA.ctaLabel)}</a></td>
+              <td style="padding:14px 10px;"><a href="${specB.ctaHref}" target="_blank" rel="nofollow noopener sponsored" style="background:${specB.ctaBg};color:#020617;font-weight:900;padding:10px 16px;border-radius:8px;text-decoration:none;display:inline-block;">${esc(specB.ctaLabel)}</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pros-grid">
+        <div class="pros-box">
+          <h3 style="margin:0 0 10px 0;font-size:17px;color:${specA.scoreColor};">📋 ${esc(nameA)} — Key Strengths &amp; Watchouts</h3>
+          <div style="font-size:13.5px;color:#cbd5e1;margin-bottom:10px;">
+            ${specA.pros.map(p => `<div style="margin-bottom:6px;">✅ ${esc(p)}</div>`).join("")}
+          </div>
+          <div style="font-size:13px;color:#94a3b8;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+            ${specA.cons.map(c => `<div style="margin-bottom:4px;">⚠️ ${esc(c)}</div>`).join("")}
+          </div>
+        </div>
+        <div class="pros-box">
+          <h3 style="margin:0 0 10px 0;font-size:17px;color:${specB.scoreColor};">📋 ${esc(nameB)} — Key Strengths &amp; Watchouts</h3>
+          <div style="font-size:13.5px;color:#cbd5e1;margin-bottom:10px;">
+            ${specB.pros.map(p => `<div style="margin-bottom:6px;">✅ ${esc(p)}</div>`).join("")}
+          </div>
+          <div style="font-size:13px;color:#94a3b8;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+            ${specB.cons.map(c => `<div style="margin-bottom:4px;">⚠️ ${esc(c)}</div>`).join("")}
+          </div>
+        </div>
+      </div>
+
+      ${suiteHtml}
+    </div>
+  </div>
+</body>
+</html>`;
+      return finalizeHtmlResponse(compareHtml, url, domain, `/compare/${slugA}-vs-${slugB}`, false, 200);
+    }
+  }
+
   if (pathLow === "/sitemap.xml") {
     const urls = isDating ? VD_CORE_URLS : IB_CORE_URLS;
     const lines = [
@@ -3147,191 +3655,7 @@ Sitemap: https://${domain}/sitemap.xml
     });
   }
 
-  // 2b. Ultra-Fast 0ms Cloudflare Edge Broker Scan & Geo-Meta for IsBrokerSafe.com
-  if (!isDating && pathLow === "/api/v1/geo-meta" && request.method === "GET") {
-    const country = (request.cf && request.cf.country) || request.headers.get("cf-ipcountry") || "IT";
-    return new Response(JSON.stringify({ country }), {
-      status: 200,
-      headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
-    });
-  }
-
-  if (!isDating && pathLow === "/api/broker/scan" && request.method === "POST") {
-    try {
-      const cloned = request.clone();
-      const body = await cloned.json();
-      const hit = findEdgeCuratedBroker(body && body.name, body && body.domain);
-      if (hit && !body.regulation && !body.leverage && !body.promises) {
-        return new Response(
-          JSON.stringify({
-            scan_id: `edge-${hit.key}`,
-            score: hit.score,
-            ip_address: hit.ip_address,
-            hosting_provider: hit.hosting_provider,
-            domain_age: hit.domain_age,
-          }),
-          {
-            status: 200,
-            headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
-          }
-        );
-      }
-    } catch (_) {}
-    return fetch(request);
-  }
-
-  if (!isDating && pathLow.startsWith("/api/broker/results/edge-") && request.method === "GET") {
-    const key = decodeURIComponent(pathLow.slice("/api/broker/results/edge-".length)).trim();
-    const hit = EDGE_CURATED_BROKERS[key];
-    if (hit) {
-      return new Response(
-        JSON.stringify({
-          scan_id: `edge-${hit.key}`,
-          payment_status: "paid",
-          score: hit.score,
-          broker_name: hit.broker_name,
-          broker_domain: hit.broker_domain,
-          ip_address: hit.ip_address,
-          hosting_provider: hit.hosting_provider,
-          domain_age: hit.domain_age,
-          red_flags: hit.red_flags,
-          green_flags: hit.green_flags,
-          verdict_title: hit.verdict_title,
-          verdict_text: hit.verdict_text,
-          affiliate_link: hit.affiliate_link || null,
-        }),
-        {
-          status: 200,
-          headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
-        }
-      );
-    }
-  }
-
-  if (!isDating && pathLow.startsWith("/api/broker/report/edge-") && request.method === "GET") {
-    const key = decodeURIComponent(pathLow.slice("/api/broker/report/edge-".length)).trim();
-    const hit = EDGE_CURATED_BROKERS[key];
-    if (hit) {
-      try {
-        const scanReq = new Request("https://isbrokersafe.com/api/broker/scan", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: hit.broker_name, domain: hit.broker_domain }),
-        });
-        const scanRes = await fetch(scanReq);
-        if (scanRes.ok) {
-          const scanData = await scanRes.json();
-          if (scanData && scanData.scan_id) {
-            const pdfUrl = new URL(request.url);
-            pdfUrl.pathname = `/api/broker/report/${scanData.scan_id}`;
-            return fetch(new Request(pdfUrl.toString(), request));
-          }
-        }
-      } catch (_) {}
-    }
-  }
-
-  function buildRenderOriginReq(req, targetPathAndSearch) {
-    const originUrl = `https://dating-photo-checker.onrender.com${targetPathAndSearch}`;
-    const h = new Headers(req.headers);
-    h.set("X-Origin-Domain", domain);
-    h.set("X-Forwarded-Host", domain);
-    return new Request(originUrl, {
-      method: req.method,
-      headers: h,
-      body: req.method !== "GET" && req.method !== "HEAD" ? req.body : null,
-      redirect: "manual",
-    });
-  }
-
-  // 3a. Edge-Cache read-only public GET API endpoints (/api/brokers, /api/scam-feed, /api/stats, /api/v1/stats) for 1 hour -> 0 Render Bandwidth!
-  if (
-    request.method === "GET" &&
-    (pathLow === "/api/brokers" || pathLow === "/api/scam-feed" || pathLow === "/api/stats" || pathLow === "/api/v1/stats")
-  ) {
-    const apiCacheKey = new Request(`https://${domain}${url.pathname}${url.search}`, { method: "GET" });
-    const apiCache = caches.default;
-    let cachedApi = await apiCache.match(apiCacheKey);
-    if (cachedApi) {
-      const h = new Headers(cachedApi.headers);
-      h.set("X-Edge-Cache", "HIT");
-      return new Response(cachedApi.body, { status: cachedApi.status, headers: h });
-    }
-    const apiRes = await fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`), {
-      cf: { cacheEverything: true, cacheTtl: 3600 },
-    });
-    if (apiRes.status === 200) {
-      const bodyTxt = await apiRes.text();
-      const toCache = new Response(bodyTxt, {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Cache-Control": "public, max-age=1800, s-maxage=3600",
-          "Access-Control-Allow-Origin": "*",
-          "X-Edge-Cache": "MISS",
-        },
-      });
-      try {
-        await apiCache.put(apiCacheKey, toCache.clone());
-      } catch (_) {}
-      return toCache;
-    }
-    return apiRes;
-  }
-
-  // 3. Pass-through non-GET/HEAD, dynamic API, affiliate redirects, webhooks
-  if (
-    (request.method !== "GET" && request.method !== "HEAD") ||
-    pathLow.startsWith("/api/") ||
-    pathLow.startsWith("/webhook") ||
-    pathLow.startsWith("/go/") ||
-    pathLow.startsWith("/out/") ||
-    pathLow.startsWith("/.well-known/")
-  ) {
-    return fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`));
-  }
-
-  // 3b. Aggressive 30-Day Cloudflare Edge Cache for Static Assets (/video_thumbnail.png, /dating_bg.webp, /static/*, /uploads/*) -> 0 Render Bandwidth!
-  if (
-    pathLow.startsWith("/uploads/") ||
-    pathLow.startsWith("/static/") ||
-    pathLow.startsWith("/broker-verifier/") ||
-    STATIC_ASSET_EXTS.some((ext) => pathLow.endsWith(ext))
-  ) {
-    const assetCacheKey = new Request(`https://${domain}${url.pathname}`, { method: "GET" });
-    const cache = caches.default;
-    let cachedAsset = await cache.match(assetCacheKey);
-    if (cachedAsset) {
-      const h = new Headers(cachedAsset.headers);
-      h.set("X-Edge-Cache", "HIT");
-      return new Response(request.method === "HEAD" ? null : cachedAsset.body, {
-        status: cachedAsset.status,
-        headers: h,
-      });
-    }
-    const assetOriginRes = await fetch(buildRenderOriginReq(request, `${url.pathname}${url.search}`), {
-      cf: {
-        cacheEverything: true,
-        cacheTtl: 2592000,
-      },
-    });
-    if (assetOriginRes.status === 200) {
-      const h = new Headers(assetOriginRes.headers);
-      h.set("Cache-Control", "public, max-age=2592000, s-maxage=2592000, immutable");
-      h.set("X-Edge-Cache", "MISS");
-      const toStore = new Response(assetOriginRes.body, { status: 200, headers: h });
-      try {
-        await cache.put(assetCacheKey, toStore.clone());
-      } catch (_) {}
-      return new Response(request.method === "HEAD" ? null : toStore.body, {
-        status: 200,
-        headers: h,
-      });
-    }
-    return assetOriginRes;
-  }
-
-  // 4. Strict Soft-200 Protection on /audit/{domain_or_slug} (isbrokersafe.com)
+  // 3. Strict Soft-200 Protection on /audit/{domain_or_slug} (isbrokersafe.com)
   if (!isDating && pathLow.startsWith("/audit/")) {
     const rawAuditSlug = decodeURIComponent(path.slice("/audit/".length)).toLowerCase().trim();
     if (!rawAuditSlug || (!IB_ALL_AUDIT_SET.has(rawAuditSlug) && !IB_TIER2_SLUG_SET.has(rawAuditSlug))) {
@@ -3339,55 +3663,12 @@ Sitemap: https://${domain}/sitemap.xml
     }
   }
 
-  // 5. Fetch HTML from Cloudflare Edge Cache (7-Day TTL for both 200 and 404!) or Render Origin -> Cuts Render Bandwidth by 99.8%!
-  const htmlCacheKey = new Request(`https://${domain}${path}?_raw_origin_v3=1`, { method: "GET" });
-  const edgeCache = caches.default;
-  let originRes = await edgeCache.match(htmlCacheKey);
-  if (!originRes) {
-    const cleanOriginReq = new Request(`https://dating-photo-checker.onrender.com${path}`, {
-      method: "GET",
-      headers: {
-        "Accept": "text/html,application/xhtml+xml",
-        "X-Origin-Domain": domain,
-        "X-Forwarded-Host": domain,
-        "User-Agent": "Cloudflare-Edge-Cache-Shield/2.0",
-      },
-      redirect: "manual",
-    });
-    const fetchedRes = await fetch(cleanOriginReq, {
-      cf: {
-        cacheEverything: true,
-        cacheTtl: 604800,
-      },
-    });
-    if (fetchedRes.status === 200 && (fetchedRes.headers.get("content-type") || "").toLowerCase().includes("text/html")) {
-      const rawHtmlText = await fetchedRes.text();
-      originRes = new Response(rawHtmlText, {
-        status: 200,
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "public, max-age=604800, s-maxage=604800",
-        },
-      });
-      try {
-        await edgeCache.put(htmlCacheKey, originRes.clone());
-      } catch (_) {}
-    } else if (fetchedRes.status === 404) {
-      originRes = new Response("404", {
-        status: 404,
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "public, max-age=86400, s-maxage=604800",
-        },
-      });
-      try {
-        await edgeCache.put(htmlCacheKey, originRes.clone());
-      } catch (_) {}
-    } else {
-      originRes = fetchedRes;
-    }
+  // 4. 100% Native Cloudflare Execution (D1 + Static Assets — Zero Render Bandwidth!)
+  const nativeRes = await handleBrokerDatingNative(request, env, ctx, domain);
+  if (nativeRes.type === "response") {
+    return nativeRes.response;
   }
-  if (originRes.status === 404) {
+  if (nativeRes.status === 404 || !nativeRes.html) {
     return renderStrict404(
       brandName,
       domain,
@@ -3395,16 +3676,9 @@ Sitemap: https://${domain}/sitemap.xml
       isDating ? "Browse Scammer Blacklist" : "Browse Regulatory Blacklist Directory"
     );
   }
-  if (originRes.status >= 300 && originRes.status < 400) {
-    return originRes;
-  }
 
-  const contentType = (originRes.headers.get("content-type") || "").toLowerCase();
-  if (!contentType.includes("text/html")) {
-    return originRes;
-  }
-
-  let html = await originRes.text();
+  let html = nativeRes.html;
+  const originRes = { status: nativeRes.status || 200 };
 
   // Extra safety: if /audit/ page returned UNVERIFIED ENTITY fallback from cache, return strict 404
   if (!isDating && pathLow.startsWith("/audit/") && html.includes("UNVERIFIED ENTITY — CAUTION REQUIRED")) {
@@ -3666,6 +3940,16 @@ Sitemap: https://${domain}/sitemap.xml
   html = html.replace(/<div[^>]*>🏛️ <strong>Official (Archival|Regulatory) Heritage[\s\S]*?<\/div>/gi, "");
   html = html.replace(/<script type="application\/ld\+json">[^<]*(christianspeeddate\.com|bonusbinaryoptions\.net)[^<]*<\/script>/gi, "");
 
+  // Normalize CSS & JS asset paths to root + fresh cache-buster after native Edge migration
+  html = html.replace(
+    /href=(["'])(?:\/broker-verifier\/broker-verifier\/style\.css|\/broker-verifier\/style\.css|\.\.\/style\.css|\/style\.css|style\.css)(?:\?[^"']*)?\1/gi,
+    'href="/style.css?v=20261109"'
+  );
+  html = html.replace(
+    /src=(["'])(?:\/broker-verifier\/app\.js|\.\.\/app\.js|\/app\.js|app\.js)(?:\?[^"']*)?\1/gi,
+    'src="/app.js?v=20261109"'
+  );
+
   if (!isDating) {
     html = injectIsBrokerSafeMobileScanFix(html);
   }
@@ -3685,6 +3969,97 @@ export default {
     if (clientIp === "204.44.110.194" || badTokens.some((t) => rawUriLow.includes(t) || uaLow.includes(t))) {
       return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "Content-Type": "application/json" } });
     }
+    if (url.pathname === "/api/v1/global-check") {
+      const corsHeaders = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Cache-Control": "public, max-age=120",
+      };
+      if (request.method === "OPTIONS") {
+        return new Response(null, { status: 204, headers: corsHeaders });
+      }
+      const q = String(url.searchParams.get("q") || "").trim().slice(0, 64);
+      const wantsHtml = (request.headers.get("accept") || "").includes("text/html") && url.searchParams.get("format") !== "json";
+      if (q.length < 2 || !env.DB) {
+        if (!wantsHtml) {
+          return new Response(JSON.stringify({ query: q, total_database_records: 39209, results: [] }), { status: 200, headers: corsHeaders });
+        }
+      }
+      const patAny = `%${q}%`;
+      const patStart = `${q}%`;
+      const patWord = `% ${q}%`;
+      const patSlug = `%-${q}%`;
+      let items = [];
+      if (q.length >= 2 && env.DB) {
+        try {
+          const [ibScam, ibReg, vdProf, pills, apps, jobs] = await Promise.all([
+            env.DB.prepare("SELECT slug, entity_name, domain, regulator, warning_type FROM ib_scam_reports WHERE entity_name LIKE ? OR domain LIKE ? LIMIT 6").bind(patAny, patAny).all(),
+            env.DB.prepare("SELECT slug, entity_name, domain, regulator, license_number FROM ib_regulated_brokers WHERE entity_name LIKE ? OR domain LIKE ? LIMIT 6").bind(patAny, patAny).all(),
+            env.DB.prepare("SELECT slug, persona_name, scam_category, claimed_location FROM vd_scam_profiles WHERE persona_name LIKE ? OR persona_name LIKE ? OR slug LIKE ? LIMIT 5").bind(patStart, patWord, patStart).all(),
+            env.DB.prepare("SELECT slug, entity_name, scam_type, severity_level FROM regulatory_scam_reports WHERE entity_name LIKE ? OR entity_name LIKE ? OR slug LIKE ? LIMIT 5").bind(patStart, patWord, patSlug).all(),
+            env.DB.prepare("SELECT slug, app_name, threat_type, risk_level FROM malicious_apps WHERE app_name LIKE ? OR app_name LIKE ? OR package_id LIKE ? LIMIT 4").bind(patStart, patWord, patAny).all(),
+            env.DB.prepare("SELECT slug, entity_name, domain, warning_type FROM job_scam_reports WHERE entity_name LIKE ? OR entity_name LIKE ? OR domain LIKE ? LIMIT 4").bind(patStart, patWord, patAny).all(),
+          ]);
+          for (const r of (ibReg.results || [])) {
+            const cmpTarget = String(r.slug || "").includes("etoro") ? "interactive-brokers" : "etoro";
+            items.push({ type: "REGULATED_BROKER", title: r.entity_name, badge: `✅ ${r.regulator} (${r.license_number || "Tier-1"})`, url: `https://isbrokersafe.com/audit/${r.domain || r.slug}`, compare_url: `https://isbrokersafe.com/compare/${r.slug}-vs-${cmpTarget}` });
+          }
+          for (const r of (ibScam.results || [])) {
+            items.push({ type: "BROKER_BLACKLIST", title: r.entity_name, badge: `🚨 ${r.regulator || "BLACKLISTED"}`, url: `https://isbrokersafe.com/scam-reports/${r.slug}`, compare_url: `https://isbrokersafe.com/compare/${r.slug}-vs-etoro` });
+          }
+          for (const r of (vdProf.results || [])) {
+            items.push({ type: "DATING_SCAM", title: r.persona_name, badge: `🚩 ${r.scam_category || "Romance Scam"}`, url: `https://verifydating.net/scammer/${r.slug}` });
+          }
+          for (const r of (pills.results || [])) {
+            items.push({ type: "PILL_RECALL", title: r.entity_name, badge: `💊 FDA/EMA ${r.severity_level || "Alert"}`, url: `https://pillscamradar.com/scam/${r.slug}` });
+          }
+          for (const r of (apps.results || [])) {
+            items.push({ type: "MALICIOUS_APP", title: r.app_name, badge: `📱 ${r.threat_type || "Malware"}`, url: `https://appscamradar.com/app/${r.slug}` });
+          }
+          for (const r of (jobs.results || [])) {
+            items.push({ type: "JOB_SCAM", title: r.entity_name, badge: `💼 ${r.warning_type || "Fake Job"}`, url: `https://jobscamradar.com/scam/${r.slug}` });
+          }
+        } catch (err) {}
+      }
+      if (!wantsHtml) {
+        return new Response(JSON.stringify({ query: q, total_database_records: 39209, count: items.length, results: items }), { status: 200, headers: corsHeaders });
+      }
+      const rowsHtml = items.length > 0 ? items.map((it) => {
+        const isGood = it.type === "REGULATED_BROKER";
+        const borderCol = isGood ? "rgba(16,185,129,0.45)" : "rgba(239,68,68,0.45)";
+        const badgeBg = isGood ? "rgba(16,185,129,0.16)" : "rgba(239,68,68,0.16)";
+        const badgeCol = isGood ? "#6ee7b7" : "#fca5a5";
+        return `<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:rgba(15,23,42,0.85);border:1px solid ${borderCol};border-radius:12px;margin-bottom:10px;">
+          <div>
+            <span style="display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:800;background:${badgeBg};color:${badgeCol};margin-right:8px;">${esc(it.badge)}</span>
+            <strong style="color:#f8fafc;font-size:15px;">${esc(it.title)}</strong>
+            <div style="font-size:11px;color:#64748b;margin-top:4px;">Category: ${esc(it.type)} • Direct URL: ${esc(it.url)}</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="${it.url}" style="padding:8px 14px;border-radius:8px;background:#1e293b;color:#38bdf8;font-size:12px;font-weight:800;text-decoration:none;border:1px solid #334155;">Open Dossier →</a>
+            ${it.compare_url ? `<a href="${it.compare_url}" style="padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:12px;font-weight:800;text-decoration:none;">⚔️ Compare Head-to-Head →</a>` : ""}
+          </div>
+        </div>`;
+      }).join("") : `<div style="padding:20px;background:rgba(15,23,42,0.8);border:1px solid #334155;border-radius:12px;color:#cbd5e1;">No direct matches found for <strong>"${esc(q)}"</strong> across our 39,209 regulatory records. Try searching for a broker name (e.g. <code>etoro</code>, <code>avatrade</code>, <code>blackbull</code>, <code>ftmo</code>), domain, or FDA supplement recall.</div>`;
+      const searchPageHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Global D1 Intelligence Search: ${esc(q || "All Records")} (39,209 Dossiers)</title>
+      <style>body{margin:0;background:#070b14;color:#f8fafc;font-family:system-ui,-apple-system,sans-serif;padding:28px 16px}.wrap{max-width:960px;margin:0 auto}</style></head>
+      <body><div class="wrap">
+        <div style="margin-bottom:14px;font-size:13px;"><a href="https://isbrokersafe.com" style="color:#38bdf8;text-decoration:none;font-weight:700;">← Back to IsBrokerSafe.com</a> • <a href="/api/v1/global-check?q=${encodeURIComponent(q)}&format=json" style="color:#94a3b8;text-decoration:none;">View Raw JSON API</a></div>
+        <div style="background:linear-gradient(145deg,#0f172a,#090d16);border:1px solid rgba(56,189,248,0.35);border-radius:16px;padding:24px;box-shadow:0 12px 32px rgba(0,0,0,0.45);">
+          <div style="display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(56,189,248,0.15);color:#38bdf8;font-size:11px;font-weight:800;letter-spacing:0.05em;margin-bottom:10px;">⚡ LIVE CLOUDFLARE D1 MULTI-RADAR SEARCH ENGINE</div>
+          <h1 style="margin:0 0 8px;font-size:26px;color:#fff;">Global Regulatory & Scam Search (${items.length} Matches for "${esc(q)}")</h1>
+          <p style="margin:0 0 18px;font-size:14px;color:#94a3b8;">Querying <strong>39,209 verified dossiers</strong> across FCA/ASIC/SEC/CONSOB Broker Blacklists (9,009), Regulated Tier-1 Brokers (737), FDA/EMA Supplement Recalls (20,647), Romance Scam Profiles (5,871), Malicious Apps (2,127) & Fake Job Advisories (818).</p>
+          <form method="GET" action="/api/v1/global-check" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;">
+            <input name="q" value="${esc(q)}" placeholder="Search broker, domain, supplement, app or persona..." style="flex:1;min-width:240px;padding:12px 16px;border-radius:10px;border:1px solid #334155;background:#020617;color:#fff;font-size:15px;">
+            <button type="submit" style="padding:12px 22px;border-radius:10px;border:none;background:linear-gradient(135deg,#0284c7,#2563eb);color:#fff;font-weight:800;font-size:14px;cursor:pointer;">🔍 Search 39,209 Dossiers</button>
+          </form>
+          ${rowsHtml}
+        </div>
+      </div></body></html>`;
+      return new Response(searchPageHtml, { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=60" } });
+    }
+
     if (url.pathname === "/api/v1/investor-lead" && request.method === "POST") {
       try {
         const body = await request.json();
@@ -3711,10 +4086,18 @@ export default {
           headers: { ...noCacheHeaders, "Content-Type": "text/plain; charset=utf-8" },
         });
       }
-      const sku = url.searchParams.get("sku") || "yubikey-2fa";
+      const rawSku = url.searchParams.get("sku") || "yubikey-2fa";
+      const rawCcParam = url.searchParams.get("country") || url.searchParams.get("cc") || "";
+      if (!/^[a-z0-9_-]{1,64}$/i.test(rawSku) || (rawCcParam && !/^[a-zA-Z]{2}$/.test(rawCcParam))) {
+        return new Response("403 Forbidden - Invalid parameters.", {
+          status: 403,
+          headers: { ...noCacheHeaders, "Content-Type": "text/plain; charset=utf-8" },
+        });
+      }
+      const sku = rawSku.toLowerCase();
       const sid = url.searchParams.get("sid") || "edge_amazon";
       const referer = (request.headers.get("referer") || "").toLowerCase();
-      let cc = url.searchParams.get("country") || url.searchParams.get("cc");
+      let cc = rawCcParam;
       if (!cc) {
         if (referer.includes("/ro/") || referer.endsWith("/ro")) cc = "RO";
         else if (referer.includes("/it/") || referer.endsWith("/it")) cc = "IT";
@@ -3782,10 +4165,10 @@ export default {
       return handleAppScamRadar(request, env, url);
     }
     if (host.includes("isbrokersafe")) {
-      return handleBrokerOrDatingEdge(request, env, url, false);
+      return handleBrokerOrDatingEdge(request, env, url, false, ctx);
     }
     if (host.includes("verifydating")) {
-      return handleBrokerOrDatingEdge(request, env, url, true);
+      return handleBrokerOrDatingEdge(request, env, url, true, ctx);
     }
 
     return handleJobScamRadar(request, env, url);

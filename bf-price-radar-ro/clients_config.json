@@ -1,0 +1,34 @@
+{
+  "max_active_clients": 3,
+  "package_price_eur": 450,
+  "runs_per_day": 3,
+  "clients": [
+    {
+      "client_id": "SLOT_1_DEYE_PYLONTECH",
+      "store_domain": "esolar.ro",
+      "store_name": "eSolar",
+      "exclusive_brands": ["Deye", "Pylontech"],
+      "whatsapp_phone": "+40700000001",
+      "alert_email": "office@esolar.ro",
+      "active": true
+    },
+    {
+      "client_id": "SLOT_2_HUAWEI_VICTRON",
+      "store_domain": "e-acumulatori.ro",
+      "store_name": "e-Acumulatori",
+      "exclusive_brands": ["Huawei", "Victron Energy"],
+      "whatsapp_phone": "+40700000002",
+      "alert_email": "office@e-acumulatori.ro",
+      "active": true
+    },
+    {
+      "client_id": "SLOT_3_FRONIUS_VTAC",
+      "store_domain": "genway.ro",
+      "store_name": "Genway",
+      "exclusive_brands": ["Fronius", "V-Tac"],
+      "whatsapp_phone": "+40700000003",
+      "alert_email": "office@genway.ro",
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://verifydating.net/extension">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeShield Browser Extension (Manifest V3) — Real-Time Broker &amp; Romance Scam Guard</title>
+    <meta name="description" content="Official SafeShield Chrome, Brave & Edge Extension by VasileDev Group. Automatic real-time blacklist alerts across 15 financial regulators and dating platforms.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #070b14;
+            --card-bg: rgba(13, 20, 36, 0.92);
+            --card-border: rgba(56, 189, 248, 0.25);
+            --primary: #38bdf8;
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 36px 20px;
+            background-image: radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+        }
+        .container { max-width: 980px; margin: 0 auto; }
+        .nav-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 24px; background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; margin-bottom: 32px;
+        }
+        .logo-box {
+            display: flex; align-items: center; gap: 10px; text-decoration: none;
+            color: #fff; font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800;
+        }
+        .hero-card {
+            background: var(--card-bg); border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 22px; padding: 40px 32px; text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); margin-bottom: 28px;
+        }
+        .pill-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399; font-size: 12px; font-weight: 800; padding: 6px 14px;
+            border-radius: 99px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; }
+        h1 span { color: var(--success); }
+        .lead { color: var(--text-muted); font-size: 16px; max-width: 680px; margin: 0 auto 28px; line-height: 1.6; }
+        .btn-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #000; font-weight: 800; font-size: 15px; padding: 14px 26px;
+            border-radius: 12px; text-decoration: none; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8; font-weight: 700; font-size: 14.5px; padding: 14px 24px;
+            border-radius: 12px; text-decoration: none; transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: rgba(56, 189, 248, 0.22); }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 28px; }
+        .step-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; padding: 24px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px; background: rgba(56, 189, 248, 0.15);
+            color: var(--primary); font-weight: 800; font-size: 14px; margin-bottom: 12px;
+        }
+        .step-card h3 { font-family: 'Outfit', sans-serif; font-size: 17px; margin-bottom: 8px; color: #fff; }
+        .step-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+        code { background: rgba(255,255,255,0.08); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 12.5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="nav-bar">
+        <a href="/" class="logo-box"><i class="fa-solid fa-shield-halved" style="color: var(--success);"></i> SafeShield Guard</a>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <a href="/" style="color: var(--text-muted); text-decoration: none; font-size: 13.5px; font-weight: 600;">&larr; Back to Scanner</a>
+            <a href="/api/v1/docs" style="color: var(--primary); text-decoration: none; font-size: 13.5px; font-weight: 700;">API Docs</a>
+        </div>
+    </nav>
+
+    <div class="hero-card">
+        <div class="pill-badge"><i class="fa-brands fa-chrome"></i> Manifest V3 Verified &bull; 100+ Active Installations &bull; 100% Free</div>
+        <h1>SafeShield <span>Browser Guard</span> v1.0</h1>
+        <p class="lead">Automatic real-time domain auditing for Chrome, Brave, Edge &amp; Opera. Instantly detects blacklisted Forex/Crypto brokers across 82+ regulatory authorities (CONSOB, FCA, CySEC, BaFin, SEC, ASIC) and romance scam traps.</p>
+        <div class="btn-row">
+            <a href="/extension/download" download="SafeShield-Chrome-Extension.zip" class="btn-primary">
+                <i class="fa-solid fa-download"></i> Download Official Extension (.ZIP — Instant Install)
+            </a>
+        </div>
+        <div style="font-size: 12.5px; color: #64748b;">Zero tracking &bull; Zero browsing history stored &bull; Powered by IsBrokerSafe &amp; VerifyDating Threat API</div>
+    </div>
+
+    <div class="grid-3">
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Download &amp; Extract ZIP</h3>
+            <p>Click <strong>Download Official Extension (.ZIP)</strong> above and unzip <code>SafeShield-Chrome-Extension.zip</code> to any folder on your computer.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Open Extensions Manager</h3>
+            <p>In Chrome, Brave, or Edge, type <code>chrome://extensions</code> in your address bar and toggle on <strong>Developer mode</strong> in the top-right corner.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Click "Load Unpacked"</h3>
+            <p>Click <strong>Load unpacked</strong> in the top-left corner and select the extracted folder. SafeShield Guard is now active on every website you visit!</p>
+        </div>
+    </div>
+
+    <footer style="margin-top: 40px; padding: 32px 28px; background: rgba(13, 20, 36, 0.92); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 20px; color: #94a3b8; font-size: 13px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-bottom: 24px;">
+            <div>
+                <div style="font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 8px;">🛡️ SafeShield Browser Guard</div>
+                <p style="line-height: 1.6; margin-bottom: 10px;">Independent algorithmic financial audit &amp; regulatory compliance intelligence across 82+ global authorities (FCA, CONSOB, CySEC, BaFin, SEC/CFTC, ASIC, FINMA).</p>
+                <span style="display: inline-block; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #10b981; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">✓ EU VIES Verified: IT04226190041</span>
+            </div>
+            <div>
+                <div style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px;">VasileDev Group Ecosystem</div>
+                <p style="line-height: 1.7;">
+                    <strong>Corporate Entity:</strong> <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: none;">VasileDev Group</a><br>
+                    <strong>VAT / Partita IVA:</strong> IT04226190041<br>
+                    <strong>Locations:</strong> 12075 Garessio (CN), Piemonte, Italy<br>
+                    <strong>Compliance Desk:</strong> <a href="mailto:amendamax@vasiledev.com" style="color: #38bdf8; text-decoration: none;">amendamax@vasiledev.com</a>
+                </p>
+            </div>
+            <div>
+                <div style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px;">Official Network</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 12.5px;">
+                    <a href="https://vasiledev.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">🌐 VasileDev.com</a>
+                    <a href="https://isbrokersafe.com" style="color: #38bdf8; text-decoration: none; font-weight: 700;">🛡️ IsBrokerSafe.com</a>
+                    <a href="https://verifydating.net" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">❤️ VerifyDating.net</a>
+                    <a href="https://calcolaincentivi.it" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">⚡ CalcolaIncentivi.it</a>
+                    <a href="https://calculeazasubventii.ro" target="_blank" rel="noopener" style="color: #cbd5e1; font-weight: 400; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><span>🇷🇴</span><span>CalculeazaSubventii.ro</span></a>
+                    <a href="https://dreamcarhunt.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">🏎️ DreamCarHunt.com</a>
+                    <a href="https://airparkrefund.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">✈️ AirParkRefund.com</a>
+                    <a href="https://jobscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">💼 JobScamRadar.com</a>
+                    <a href="https://pillscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">💊 PillScamRadar.com</a>
+                    <a href="https://appscamradar.com" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; white-space: nowrap;">📱 AppScamRadar.com</a>
+                </div>
+            </div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 12px; color: #64748b;">
+            <div>&copy; 2026 <strong>VasileDev Group</strong> (Vasile Bratu &bull; P.IVA IT04226190041). All rights reserved.</div>
+            <div><a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none;">Privacy &amp; GDPR Policy</a> &bull; <a href="/pricing" style="color: #94a3b8; text-decoration: none;">B2B API Pricing</a></div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

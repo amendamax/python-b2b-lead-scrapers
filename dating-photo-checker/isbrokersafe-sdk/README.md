@@ -1,22 +1,22 @@
 # IsBrokerSafe Python SDK 🛡️⚡
 
-[![PyPI Version](https://img.shields.io/badge/pypi-v1.2.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
+[![PyPI Version](https://img.shields.io/badge/pypi-v1.3.0-blue.svg)](https://pypi.org/project/isbrokersafe/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-brightgreen.svg)](https://www.python.org/)
 
 The official Python client library for the **[IsBrokerSafe.com](https://isbrokersafe.com)** Threat Intelligence and Financial Broker Legitimacy API.
 
-Audit any Forex broker, Crypto platform, or CFD entity in real-time across **34,670+ verified regulatory enforcement dossiers** and **15 Worldwide Supervisory Authorities** (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) with sub-5ms latency and WHOIS forensic age inspection.
+Audit any Forex broker, Crypto platform, or CFD entity in real-time across **9,732+ official regulatory records (8,995+ scam warnings & 737+ licensed brokers)** and **82+ Worldwide Supervisory Authorities (IOSCO Network)** (`IOSCO`, `SEC`, `CFTC`, `NFA`, `FCA`, `BaFin`, `FINMA`, `AMF`, `CNMV`, `CONSOB`, `CySEC`, `CSSF`, `FSMA`, `ASIC`, `SFC`, `CSA`, `MAS`, `DFSA`) with sub-5ms latency and WHOIS forensic age inspection.
 
 ---
 
 ## 📦 Installation
 
 ```bash
-pip install isbrokersafe
+pip install --upgrade isbrokersafe
 ```
 
-*(Zero external dependencies! Works right out of the box with standard library).*
+*(Zero external dependencies! Works right out of the box with the Python standard library).*
 
 ---
 
@@ -31,26 +31,31 @@ client = isbrokersafe.Client(api_key="YOUR_API_KEY")
 # 1. Audit a broker or crypto domain
 result = client.check("exness.com")
 
-print(f"Status: {result.status}")              # 'SAFE'
-print(f"Safety Score: {result.safety_score}/100") # 95
-print(f"Is Regulated: {result.is_regulated}")  # True
-print(f"Regulators: {result.regulators}")      # ['FCA', 'CySEC', 'FSA']
+print(f"Status: {result.status}")                 # 'SAFE'
+print(f"Safety Score: {result.safety_score}/100") # 96
+print(f"Is Regulated: {result.is_regulated}")     # True
+print(f"Regulators: {result.regulators}")         # ['FCA (UK), CySEC (Cyprus), FSCA, FSA']
 print(f"Verdict: {result.trust_verdict}")
 
 # 2. Check for scam / blacklisted domain
-scam = client.check("apexcryptofx.com")
-print(f"Status: {scam.status}")                # 'BLACKLISTED'
-print(f"Risk Factors: {scam.risk_factors}")    # ['Unregulated Entity', 'Domain < 30 days']
+scam = client.check("cryptonomy.finance")
+print(f"Status: {scam.status}")                   # 'BLACKLISTED'
+print(f"Risk Factors: {scam.risk_factors}")       # ['BLACKLISTED BY ASIC (Australia)']
+
+# 3. Search the 737+ Licensed & Regulated Brokers Registry
+licensed = client.get_licensed(regulator="FINMA", limit=10)
+for b in licensed["results"]:
+    print(f"{b['entity_name']} ({b['domain']}) - {b['regulator']} [{b['license_number']}]")
 ```
 
 ---
 
 ## 🔍 Features
 
-* 🏛️ **Real-Time Regulatory Verification**: Audits official license statuses from Tier-1 and Tier-2 regulators (*FCA, ASIC, CySEC, CFTC, BaFin, CONSOB*).
-* 🚨 **Global Blacklist Feeds**: Cross-references international fraud warnings and clone entity databases.
-* 🌐 **WHOIS Forensic Age Inspection**: Detects fly-by-night domains registered less than 90 days ago.
-* ⚡ **Ultra-Fast & Lightweight**: Sub-50ms response times worldwide.
+* 🏛️ **Real-Time Regulatory Verification**: Audits official license statuses from **737+ licensed financial institutions** across Tier-1 & EU MiFID II / Swiss regulators (*FCA, SEC/NFA, FINMA, CySEC, ASIC, BaFin, CONSOB, AMF, CNMV, MAS, DFSA*).
+* 🚨 **Global Blacklist Feeds (`8,995+ Alerts`)**: Cross-references international enforcement warnings from **IOSCO (82 Global Authorities)**, **ASIC**, **SFC Hong Kong**, **CySEC**, **CSSF Luxembourg**, **US SEC**, **CONSOB**, **FSMA Belgium**, and **UK FCA**.
+* 🌐 **WHOIS Forensic Age Inspection**: Detects newly registered domains claiming false regulatory history.
+* ⚡ **Ultra-Fast & Lightweight**: Sub-5ms response times worldwide.
 
 ---
 
@@ -59,18 +64,27 @@ print(f"Risk Factors: {scam.risk_factors}")    # ['Unregulated Entity', 'Domain 
 ### Fetching Latest Regulatory Warnings
 
 ```python
-warnings = client.get_warnings(regulator="fca", limit=20)
+warnings = client.get_warnings(regulator="asic", limit=20)
 
 for w in warnings:
     print(f"[{w.warning_date}] {w.entity_name} ({w.domain}) - {w.reason}")
+```
+
+### Querying Licensed & Regulated Brokers
+
+```python
+licensed_data = client.get_licensed(query="swissquote", limit=10)
+print(f"Total matching licensed institutions: {licensed_data['total_matching']}")
 ```
 
 ### Global Threat Intelligence Stats
 
 ```python
 stats = client.get_stats()
-print(f"Total Audited Entities: {stats.total_brokers:,}")
-print(f"Blacklisted Scams: {stats.blacklisted_entities:,}")
+print(f"Total Official Records: {stats.total_brokers:,}")
+print(f"Regulated Institutions: {stats.regulated_entities:,}")
+print(f"Blacklisted Scam Alerts: {stats.blacklisted_entities:,}")
+print(f"Global Regulators Monitored: {stats.total_regulators_monitored}+")
 ```
 
 ### Error Handling
@@ -83,7 +97,7 @@ try:
 except AuthenticationError:
     print("Invalid API Key! Get one free at https://isbrokersafe.com/api/v1/docs")
 except QuotaExceededError:
-    print("Monthly quota exceeded. Upgrade to Pro at https://isbrokersafe.com")
+    print("Monthly quota exceeded. Upgrade to Pro at https://isbrokersafe.com/pricing")
 except IsBrokerSafeError as e:
     print(f"API Error: {e}")
 ```
@@ -99,4 +113,4 @@ Generate a free developer API key (100 requests/month) instantly at:
 
 ## 📄 License
 
-Distributed under the MIT License. Copyright © 2026 **VasileDev Group**.
+Distributed under the MIT License. Copyright © 2026 **VasileDev Group** (EU VIES: `IT04226190041`).

@@ -1,0 +1,240 @@
+[
+  {
+    "country": "RO",
+    "area": "Călărași",
+    "company": "Domarex '94 SRL",
+    "city": "Călărași",
+    "county": "Călărași",
+    "phones": [
+      {
+        "number": "+40 728 305 601",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://domarex94.ro",
+    "email": "office@domarex94.ro",
+    "services": "Sisteme fotovoltaice rezidențiale și industriale, stații încărcare auto, rețele și branșamente electrice autorizate ANRE",
+    "source_url": "https://domarex94.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Călărași",
+    "company": "Electro Instal Constantin SRL",
+    "city": "Coconi",
+    "county": "Călărași",
+    "phones": [
+      {
+        "number": "+40 737 767 972",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://electroinstalconstantin.ro",
+    "email": "office@electroinstalconstantin.ro",
+    "services": "Sisteme fotovoltaice off-grid și on-grid, instalații electrice, tablouri electrice și branșamente",
+    "source_url": "https://electroinstalconstantin.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Covasna",
+    "company": "Villex SRL (Villex Electric)",
+    "city": "Târgu Secuiesc",
+    "county": "Covasna",
+    "phones": [
+      {
+        "number": "+40 720 845 539",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://villex.ro",
+    "email": "office@villex.ro",
+    "services": "Consultanță, proiectare și execuție la cheie de sisteme fotovoltaice, întocmire dosar prosumator",
+    "source_url": "https://villex.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Covasna",
+    "company": "P.C.E. Electric SRL",
+    "city": "Întorsura Buzăului",
+    "county": "Covasna",
+    "phones": [
+      {
+        "number": "+40 745 160 569",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://www.afm.ro",
+    "email": "",
+    "services": "Instalator validat AFM Casa Verde Fotovoltaice, sisteme fotovoltaice și instalații electrice autorizate ANRE (Covasna)",
+    "source_url": "https://www.afm.ro/main/programe/sisteme_fotovoltaice/2023/lista_instalatori_validati.pdf"
+  },
+  {
+    "country": "RO",
+    "area": "Dâmbovița",
+    "company": "Showmine Tech SRL",
+    "city": "Târgoviște",
+    "county": "Dâmbovița",
+    "phones": [
+      {
+        "number": "+40 726 211 010",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://www.iluminatsolar.com",
+    "email": "office@showmine.ro",
+    "services": "Montaj panouri fotovoltaice Casa Verde, sisteme fotovoltaice rezidențiale, partener autorizat Fronius",
+    "source_url": "https://www.iluminatsolar.com/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Dâmbovița",
+    "company": "In Case Energy S.R.L.",
+    "city": "Vulcana-Pandele",
+    "county": "Dâmbovița",
+    "phones": [
+      {
+        "number": "+40 721 800 340",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://incaseromania.ro",
+    "email": "contact@incaseromania.ro",
+    "services": "Montaj panouri fotovoltaice Dâmbovița, stații de încărcare, branșamente și instalații electrice",
+    "source_url": "https://incaseromania.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Galați",
+    "company": "DUNAVOLT ENERGY S.R.L.",
+    "city": "Pechea",
+    "county": "Galați",
+    "phones": [
+      {
+        "number": "+40 751 413 977",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://dunavolt.ro",
+    "email": "contact@dunavolt.ro",
+    "services": "Sisteme fotovoltaice la cheie: dimensionare, montaj panouri fotovoltaice, punere în funcțiune și dosar prosumator",
+    "source_url": "https://dunavolt.ro/"
+  },
+  {
+    "country": "RO",
+    "area": "Galați",
+    "company": "S.C. Power Pure Energy S.R.L.",
+    "city": "Galați",
+    "county": "Galați",
+    "phones": [
+      {
+        "number": "+40 753 496 596",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://powerpureenergy.ro",
+    "email": "office@powerpureenergy.ro",
+    "services": "Panouri fotovoltaice, kit-uri fotovoltaice on-grid, turbine eoliene, acumulatoare solare, consultanță Casa Verde",
+    "source_url": "https://powerpureenergy.ro/contact"
+  },
+  {
+    "country": "RO",
+    "area": "Giurgiu",
+    "company": "S.C. Electroconstrucția Elco Giurgiu S.A.",
+    "city": "Giurgiu",
+    "county": "Giurgiu",
+    "phones": [
+      {
+        "number": "+40 744 429 959",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://elco-giurgiu.ro",
+    "email": "contact@elco-giurgiu.ro",
+    "services": "Panouri fotovoltaice Giurgiu, program Casa Verde, servicii electrice complete autorizate ANRE",
+    "source_url": "https://elco-giurgiu.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Giurgiu",
+    "company": "Instal Sistem Energy SRL (Instal Energy)",
+    "city": "Giurgiu",
+    "county": "Giurgiu",
+    "phones": [
+      {
+        "number": "+40 721 886 304",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://solare-fotovoltaice.ro",
+    "email": "contact@solare-fotovoltaice.ro",
+    "services": "Panouri fotovoltaice, panouri solare ACM, programul Casa Verde, instalații electrice și termice",
+    "source_url": "https://solare-fotovoltaice.ro/contact.php"
+  },
+  {
+    "country": "RO",
+    "area": "Gorj",
+    "company": "EUROCAM CONCEPT SRL",
+    "city": "Târgu Jiu",
+    "county": "Gorj",
+    "phones": [
+      {
+        "number": "+40 764 825 959",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://www.panouri-fotovoltaice-tg-jiu.ro",
+    "email": "contact@panouri-fotovoltaice-tg-jiu.ro",
+    "services": "Panouri fotovoltaice cu montaj la cheie în Târgu Jiu și Gorj, dosar de prosumator, Casa Verde Baterii",
+    "source_url": "https://www.panouri-fotovoltaice-tg-jiu.ro/date-de-contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Gorj",
+    "company": "COSMIC ELECTRIC POWER SRL",
+    "city": "Târgu Jiu",
+    "county": "Gorj",
+    "phones": [
+      {
+        "number": "+40 759 495 461",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://sisteme-solare.ro",
+    "email": "office@sisteme-solare.ro",
+    "services": "Sisteme fotovoltaice monofazate și trifazate hibrid, programe Casa Verde și Electric-Up, mentenanță",
+    "source_url": "https://sisteme-solare.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Harghita",
+    "company": "Zozovill SRL",
+    "city": "Odorheiu Secuiesc",
+    "county": "Harghita",
+    "phones": [
+      {
+        "number": "+40 744 377 381",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://zozovill.ro",
+    "email": "office@zozovill.ro",
+    "services": "Sisteme fotovoltaice, instalații electrice autorizate ANRE, branșamente, mentenanță rețele",
+    "source_url": "https://zozovill.ro/contact/"
+  },
+  {
+    "country": "RO",
+    "area": "Harghita",
+    "company": "PRODSERVICE SRL",
+    "city": "Toplița",
+    "county": "Harghita",
+    "phones": [
+      {
+        "number": "+40 758 308 227",
+        "type": "mobile"
+      }
+    ],
+    "website": "https://prod-service.ro",
+    "email": "office@prod-service.ro",
+    "services": "Instalații fotovoltaice on și off-grid, montaj, punere în funcțiune, dosar prosumator, automatizări",
+    "source_url": "https://prod-service.ro/contact/"
+  }
+]

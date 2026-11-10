@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsBrokerSafe Commercial API v1.5 | Threat Intelligence & 3-Tier Plans</title>
+    <link rel="canonical" href="https://isbrokersafe.com/api/v1/docs" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #05080f;
+            --bg-card: rgba(11, 21, 40, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --cyan: #38bdf8;
+            --green: #10b981;
+            --red: #ef4444;
+            --gold: #eab308;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+        .header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 2.3rem; color: #fff; margin: 0 0 8px 0; }
+        .badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
+        
+        /* Key Generator Box */
+        .key-gen-box {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.18) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .key-gen-box:hover {
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 15px 45px rgba(56, 189, 248, 0.25), 0 0 30px rgba(2, 132, 199, 0.2);
+            transform: translateY(-2px);
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .key-input {
+            flex: 1;
+            min-width: 260px;
+            background: #030712;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .btn-gen {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        @keyframes pulse-cyan-glow {
+            0% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.8), 0 4px 18px rgba(0,0,0,0.6); }
+            100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+        }
+        @keyframes pulse-pink-glow {
+            0% { box-shadow: 0 0 10px rgba(236, 72, 153, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 0 22px rgba(236, 72, 153, 0.85), 0 4px 18px rgba(0,0,0,0.6); }
+            100% { box-shadow: 0 0 10px rgba(236, 72, 153, 0.4), 0 4px 14px rgba(0,0,0,0.4); }
+        }
+
+        .btn-gen {
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+            color: #fff;
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: pulse-cyan-glow 2.5s infinite ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gen:hover {
+            transform: translateY(-3px) scale(1.04);
+            filter: brightness(1.25);
+            border-color: #38bdf8;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.95), 0 6px 20px rgba(0,0,0,0.6) !important;
+        }
+        .btn-gen:active {
+            transform: scale(0.98);
+        }
+        
+        /* 4-Tier Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        @media (max-width: 1050px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+        .plan-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer;
+        }
+        .plan-card:hover {
+            transform: translateY(-8px) scale(1.02) !important;
+        }
+        .plan-card.card-tier-free:hover {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 18px 45px rgba(56, 189, 248, 0.35), 0 0 25px rgba(56, 189, 248, 0.2) !important;
+        }
+        .plan-card.popular {
+            border: 1.5px solid #38bdf8;
+            box-shadow: 0 0 30px rgba(2, 132, 199, 0.35);
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.popular:hover {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 20px 50px rgba(56, 189, 248, 0.55), 0 0 35px rgba(2, 132, 199, 0.4) !important;
+        }
+        .plan-card.card-tier-scale {
+            border: 1.5px solid rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.25);
+            background: linear-gradient(180deg, rgba(168, 85, 247, 0.1) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.card-tier-scale:hover {
+            border-color: #c084fc !important;
+            box-shadow: 0 20px 50px rgba(168, 85, 247, 0.55), 0 0 35px rgba(168, 85, 247, 0.4) !important;
+        }
+        .plan-card.card-tier-ent {
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, rgba(11, 21, 40, 0.95) 100%);
+        }
+        .plan-card.card-tier-ent:hover {
+            border-color: #fbbf24 !important;
+            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.55), 0 0 35px rgba(245, 158, 11, 0.4) !important;
+        }
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+            animation: pulse-cyan-glow 2.5s infinite ease-in-out;
+        }
+        .plan-badge.badge-purple {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            animation: pulse-pink-glow 2.5s infinite ease-in-out;
+        }
+        .plan-title { font-size: 1.3rem; font-family: 'Outfit'; font-weight: 800; margin: 0 0 6px 0; }
+        .plan-price { font-size: 2rem; font-family: 'Outfit'; font-weight: 900; color: #fff; margin-bottom: 15px; }
+        .plan-price span { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+        .plan-feat { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .plan-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 13px;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+        }
+        .btn-free {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(2, 132, 199, 0.2) 100%);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-free:hover {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(2, 132, 199, 0.4) 100%);
+            border-color: #38bdf8;
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.85), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-pro {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        }
+        .btn-pro:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-scale-tier {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+        .btn-scale-tier:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #c084fc;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn-ent {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+        }
+        .btn-ent:hover {
+            transform: translateY(-3px) scale(1.03);
+            filter: brightness(1.2);
+            border-color: #fbbf24;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .nav-btn-glow {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn-glow:hover {
+            transform: translateY(-2px) scale(1.04);
+            color: #38bdf8 !important;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        .pypi-btn-glow:hover {
+            transform: translateY(-2px) scale(1.04);
+            background: rgba(56, 189, 248, 0.3) !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.7) !important;
+        }
+
+        /* Endpoints */
+        .endpoint-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .method {
+            display: inline-block;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        .get { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.4); }
+        .post { background: rgba(56, 189, 248, 0.2); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.4); }
+        .endpoint-url { font-family: 'Fira Code', monospace; font-size: 1.1rem; color: #fff; font-weight: 600; }
+        pre {
+            background: #020408;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            overflow-x: auto;
+        }
+        .tag { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; display: block; }
+        .nav-btn-pricing, .nav-btn-widget, .nav-btn-pypi, .nav-btn-dating, .nav-logo-btn {
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            cursor: pointer !important;
+        }
+        .nav-logo-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+        .nav-logo-btn:hover .logo-shield-mini {
+            filter: drop-shadow(0 0 16px rgba(56,189,248,1)) !important;
+            transform: scale(1.15);
+        }
+        .nav-btn-pricing:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(16, 185, 129, 0.35) !important;
+            border-color: #10b981 !important;
+            box-shadow: 0 0 22px rgba(16, 185, 129, 0.8), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-widget:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(168, 85, 247, 0.35) !important;
+            border-color: #a855f7 !important;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.8), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-pypi:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(56, 189, 248, 0.35) !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.85), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+        .nav-btn-dating:hover {
+            transform: translateY(-2px) scale(1.04) !important;
+            background: rgba(236, 72, 153, 0.35) !important;
+            border-color: #ec4899 !important;
+            box-shadow: 0 0 22px rgba(236, 72, 153, 0.85), 0 4px 14px rgba(0,0,0,0.5) !important;
+            color: #ffffff !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; flex-wrap: wrap; gap: 12px;">
+            <a href="/" class="nav-logo-btn" style="color: #fff; font-weight: 800; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 18px; display: inline-flex; align-items: center; gap: 8px;">
+                <span class="logo-shield-mini" style="color: #38bdf8; font-size: 20px; transition: all 0.3s;">🛡️</span> IsBrokerSafe
+            </a>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <a href="/pricing" class="nav-btn-pricing" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">💳 Pricing Plans</a>
+                <a href="/widget" class="nav-btn-widget" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">🛡️ Trust Widget</a>
+                <a href="https://pypi.org/project/isbrokersafe/" target="_blank" class="nav-btn-pypi" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">🐍 PyPI SDK ↗</a>
+                <a href="https://verifydating.net/" target="_blank" class="nav-btn-dating" style="background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">❤️ VerifyDating ↗</a>
+            </div>
+        </div>
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                <h1>IsBrokerSafe Financial Threat Intelligence API</h1>
+                <span class="badge">v1.5 PRODUCTION</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">
+                Programmatic access to 9,732+ official regulatory records (8,995+ scam blacklists & 737+ licensed brokers) (CONSOB, FCA, BaFin, CySEC, SEC/CFTC) & verified tier-1 brokers.
+            </p>
+        </div>
+
+        <!-- 100 Free Queries Key Generator -->
+        <div class="key-gen-box">
+            <h3 style="font-family: 'Outfit'; font-size: 20px; color: #fff; margin: 0 0 6px 0; font-weight: 800;">
+                ⚡ Get Instant Free API Key (100 Requests/Month Included)
+            </h3>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">
+                Enter your developer email below to instantly generate a sandbox API key and begin querying the blacklist registry in seconds.
+            </p>
+            <div class="input-group">
+                <input type="email" id="dev-email" class="key-input" placeholder="developer@fintech.com" required>
+                <button class="btn-gen" onclick="generateApiKey()">Generate API Key ⚡</button>
+            </div>
+            <div id="key-result" style="display: none; margin-top: 15px; background: #030712; border: 1px solid #10b981; border-radius: 8px; padding: 14px; color: #10b981; font-family: 'Fira Code', monospace; font-size: 13px;">
+                <div style="font-weight: 700; margin-bottom: 4px;">✓ API KEY GENERATED:</div>
+                <div id="key-val" style="color: #fff; font-size: 14px; user-select: all;"></div>
+                <div id="key-info" style="color: #94a3b8; font-size: 11px; margin-top: 6px;"></div>
+            </div>
+        </div>
+
+        <!-- 4-TIER PRICING PLANS -->
+        <h2 style="font-family: 'Outfit'; font-size: 24px; color: #fff; margin: 0 0 20px 0;">💳 Developer & B2B Subscription Tiers</h2>
+        <div class="pricing-grid">
+            <!-- Tier 1: Free Developer -->
+            <div class="plan-card card-tier-free">
+                <div>
+                    <h4 class="plan-title" style="color: #38bdf8;">Developer Free</h4>
+                    <div class="plan-price">$0 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>100 Requests</strong> / month</div>
+                    <div class="plan-feat">✓ 9,732+ Official Records (82+ Regulators)</div>
+                    <div class="plan-feat">✓ Official Python SDK (PyPI)</div>
+                    <div class="plan-feat">✓ Rate limit: 5 req / sec</div>
+                    <div class="plan-feat">✓ Community Support</div>
+                </div>
+                <a href="#dev-email" class="plan-btn btn-free">Generate Free Key</a>
+            </div>
+
+            <!-- Tier 2: Pro Fintech ($49) -->
+            <div class="plan-card popular">
+                <span class="plan-badge">MOST POPULAR</span>
+                <div>
+                    <h4 class="plan-title" style="color: #38bdf8;">Pro Business</h4>
+                    <div class="plan-price">$49 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>10,000 Requests</strong> / month</div>
+                    <div class="plan-feat">✓ Live Webhook Notifications</div>
+                    <div class="plan-feat">✓ Real-Time Daily Threat Feed</div>
+                    <div class="plan-feat">✓ Embeddable Trust Badges</div>
+                    <div class="plan-feat">✓ 99.9% Uptime Guarantee</div>
+                </div>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=49.00&item_name=IsBrokerSafe+API+Pro+Business+Monthly&no_shipping=1&landing_page=billing&notify_url=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fpay-paypal-ipn&return=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fv1%2Fdocs%3Fb2b_paid%3Dpro" target="_blank" class="plan-btn btn-pro">Subscribe to Pro ($49/mo) ↗</a>
+            </div>
+
+            <!-- Tier 3: Scale Growth Business ($99) -->
+            <div class="plan-card card-tier-scale">
+                <span class="plan-badge badge-purple">BEST VALUE</span>
+                <div>
+                    <h4 class="plan-title" style="color: #c084fc;">Scale Growth</h4>
+                    <div class="plan-price">$99 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>40,000 Requests</strong> / month</div>
+                    <div class="plan-feat">✓ Pre-Deposit Fraud Screening</div>
+                    <div class="plan-feat">✓ Multi-Key Team Access</div>
+                    <div class="plan-feat">✓ High-Frequency (50 req/s)</div>
+                    <div class="plan-feat">✓ Priority Fast-Track Support</div>
+                </div>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=99.00&item_name=IsBrokerSafe+API+Scale+Growth+Monthly&no_shipping=1&landing_page=billing&notify_url=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fpay-paypal-ipn&return=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fv1%2Fdocs%3Fb2b_paid%3Dscale" target="_blank" class="plan-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #fff; border: none; font-weight: 700; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.35);">Subscribe to Scale ($99/mo) ↗</a>
+            </div>
+
+            <!-- Tier 4: Enterprise ($199) -->
+            <div class="plan-card card-tier-ent">
+                <div>
+                    <h4 class="plan-title" style="color: #e5b842;">Enterprise Intel</h4>
+                    <div class="plan-price">$199 <span>/ month</span></div>
+                    <div class="plan-feat">✓ <strong>100,000+ Requests</strong> / month</div>
+                    <div class="plan-feat">✓ Raw Blacklist JSON/CSV Streams</div>
+                    <div class="plan-feat">✓ Custom White-Label Badges</div>
+                    <div class="plan-feat">✓ Dedicated Account Manager</div>
+                    <div class="plan-feat">✓ Custom SLA & Contract</div>
+                </div>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=amendamax%40gmail.com&currency_code=USD&amount=199.00&item_name=IsBrokerSafe+API+Enterprise+Intel+Monthly&no_shipping=1&landing_page=billing&notify_url=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fpay-paypal-ipn&return=https%3A%2F%2Fisbrokersafe.com%2Fapi%2Fv1%2Fdocs%3Fb2b_paid%3Denterprise" target="_blank" class="plan-btn btn-ent">Get Enterprise ($199/mo) ↗</a>
+            </div>
+        </div>
+
+        <!-- Endpoints Documentation -->
+        <h2 style="font-family: 'Outfit'; font-size: 24px; color: #fff; margin: 30px 0 20px 0;">📡 API Reference Endpoints</h2>
+
+        <!-- Endpoint 1 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="method post">POST</span>
+                <span class="endpoint-url">/api/v1/broker/check</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Forensic investigation of any broker name or website domain. Returns blacklist enforcement orders, risk scores (4% scam vs 98% safe), and verified alternatives.
+            </p>
+            <span class="tag">Example Request (with API Key):</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/broker/check?query=apexcryptofx.com&api_key=YOUR_API_KEY"</pre>
+            
+            <span class="tag" style="margin-top: 15px;">Sample Response (Blacklisted Fraud):</span>
+            <pre>{
+  "status": "BLACKLISTED_FRAUD",
+  "risk_level": "CRITICAL_RISK",
+  "safety_score": 4,
+  "entity_name": "ApexCryptoFX",
+  "queried_domain": "apexcryptofx.com",
+  "regulator": "CONSOB (Italy)",
+  "enforcement_type": "Abusivismo Finanziario (Ordine di Oscuramento)",
+  "decision_date": "2026-02-14",
+  "official_reason": "Offerta abusiva di servizi di investimento finanziario e trading FX non autorizzato.",
+  "recommended_alternatives": [ ... ]
+}</pre>
+        </div>
+
+        <!-- Endpoint 2 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/v1/regulatory/warnings</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Real-time paginated feed of official regulatory enforcement decisions. Filter by jurisdiction (CONSOB, FCA, BaFin, CySEC, SEC).
+            </p>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/regulatory/warnings?regulator=consob&limit=50&api_key=YOUR_API_KEY"</pre>
+        </div>
+
+        <!-- Endpoint 3 -->
+        <div class="endpoint-card">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/v1/stats</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                Global statistical metrics on monitored financial entities, localized index pages, and regulatory enforcement counts.
+            </p>
+            <span class="tag">Example Request:</span>
+            <pre>curl -X GET "https://isbrokersafe.com/api/v1/stats"</pre>
+        </div>
+
+        <footer style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 50px; border-top: 1px solid var(--border); padding-top: 20px;">
+            &copy; 2026 IsBrokerSafe.com &bull; VasileDev Group (P.IVA IT04226190041). High-Performance Threat Intel REST API.
+        </footer>
+    </div>
+
+    <script>
+        async function generateApiKey() {
+            const email = document.getElementById('dev-email').value.trim();
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid developer email.');
+                return;
+            }
+            try {
+                const res = await fetch('/api/v1/keys/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    document.getElementById('key-result').style.display = 'block';
+                    document.getElementById('key-val').innerText = data.api_key;
+                    document.getElementById('key-info').innerText = 'Monthly Quota: ' + data.monthly_quota + ' requests | Tier: ' + data.tier.toUpperCase() + ' | Remaining: ' + data.remaining;
+                } else {
+                    alert(data.message || 'Error generating key');
+                }
+            } catch (e) {
+                alert('Error connecting to API server: ' + e);
+            }
+        }
+    </script>
+
+<script>
+    // Geo-Location Filter for US visitors (CFTC Restrictions)
+    fetch('/api/v1/geo-meta').then(r => r.json()).then(geo => {{
+        if (geo.country === "US") {{
+            const propCard = document.querySelector('.prop-trading-card');
+            if (propCard) {{
+                const props = propCard.querySelectorAll('a');
+                if (props.length > 0) {{
+                    const sabio = props[0]; 
+                    sabio.href = "https://apextraderfunding.com"; // We will replace this with his affiliate link later
+                    
+                    const name = sabio.querySelector('span[style*="color: #fff"]');
+                    if (name) name.innerText = "Apex Trader Funding";
+                    
+                    const badge = sabio.querySelectorAll('span')[1];
+                    if (badge) {{ 
+                        badge.innerText = "FUTURES TRADING"; 
+                        badge.style.background = "rgba(14, 165, 233, 0.2)"; 
+                        badge.style.color = "#38bdf8"; 
+                    }}
+                    
+                    const desc = sabio.querySelector('div[style*="color: #94a3b8"]');
+                    if (desc) desc.innerHTML = "US Traders Accepted &bull; Keep 100% of First $25k";
+                }}
+            }}
+        }}
+    }}).catch(e => console.error(e));
+</script>
+
+</body>
+</html>

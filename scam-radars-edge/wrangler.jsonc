@@ -1,0 +1,29 @@
+{
+  "name": "scam-radars-edge",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-10",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "routes": [
+    { "pattern": "jobscamradar.com/*", "zone_name": "jobscamradar.com" },
+    { "pattern": "www.jobscamradar.com/*", "zone_name": "jobscamradar.com" },
+    { "pattern": "pillscamradar.com/*", "zone_name": "pillscamradar.com" },
+    { "pattern": "www.pillscamradar.com/*", "zone_name": "pillscamradar.com" },
+    { "pattern": "appscamradar.com/*", "zone_name": "appscamradar.com" },
+    { "pattern": "www.appscamradar.com/*", "zone_name": "appscamradar.com" },
+    { "pattern": "isbrokersafe.com/*", "zone_name": "isbrokersafe.com" },
+    { "pattern": "www.isbrokersafe.com/*", "zone_name": "isbrokersafe.com" },
+    { "pattern": "verifydating.net/*", "zone_name": "verifydating.net" },
+    { "pattern": "www.verifydating.net/*", "zone_name": "verifydating.net" }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "radar-network-db",
+      "database_id": "fb926a0f-f76c-4a9c-addf-abaf17f3fd2a"
+    }
+  ]
+}

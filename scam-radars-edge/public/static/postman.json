@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "8f3e2d1a-4b5c-6e7f-8a9b-0c1d2e3f4a5b",
+    "name": "IsBrokerSafe & VerifyDating Unified Cyber Intelligence API",
+    "description": "Official Postman Collection for IsBrokerSafe? & VerifyDating? Threat Intelligence REST APIs. Aggregates real-time regulatory enforcement actions, blacklist orders, and broker safety ratings across 82+ Worldwide Supervisory Authorities (IOSCO) (SEC, CFTC, NFA, FCA, BaFin, FINMA, AMF, CNMV, CONSOB, CySEC, ASIC, CSA, MAS, SFC, DFSA) with sub-5ms latency and 9,732+ live enforcement dossiers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "broker_base_url",
+      "value": "https://isbrokersafe.com",
+      "type": "string"
+    },
+    {
+      "key": "dating_base_url",
+      "value": "https://verifydating.net",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "ibs_live_your_api_key_here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "System Health",
+      "item": [
+        {
+          "name": "Get Gateway Health Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://isbrokersafe.com/health",
+              "host": [
+                "isbrokersafe",
+                "com"
+              ],
+              "path": [
+                "health"
+              ],
+              "protocol": "https"
+            },
+            "description": "Returns system uptime, database connection state, and total indexed dossiers count."
+          }
+        }
+      ]
+    },
+    {
+      "name": "IsBrokerSafe API",
+      "item": [
+        {
+          "name": "Check Domain / Broker Safety",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://isbrokersafe.com/api/v1/broker/check?domain=xm.com",
+              "host": [
+                "isbrokersafe",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "broker",
+                "check"
+              ],
+              "query": [
+                {
+                  "key": "domain",
+                  "value": "xm.com",
+                  "description": "The domain name or broker identifier to verify"
+                }
+              ],
+              "protocol": "https"
+            },
+            "description": "Real-time multi-jurisdiction lookup against CONSOB (IT), FCA (UK), BaFin (DE), and CySEC databases."
+          }
+        },
+        {
+          "name": "Search Broker Database",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://isbrokersafe.com/api/v1/broker/search?q=etoro",
+              "host": [
+                "isbrokersafe",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "broker",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "etoro",
+                  "description": "Fuzzy search keyword for regulated or blacklisted brokers"
+                }
+              ],
+              "protocol": "https"
+            },
+            "description": "Full-text fuzzy search across regulated brokers and scam warnings."
+          }
+        },
+        {
+          "name": "Get Global Threat Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://isbrokersafe.com/api/v1/stats",
+              "host": [
+                "isbrokersafe",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "stats"
+              ],
+              "protocol": "https"
+            },
+            "description": "Returns aggregated stats on blocked domains, active alerts, and regulatory coverage."
+          }
+        }
+      ]
+    },
+    {
+      "name": "VerifyDating API",
+      "item": [
+        {
+          "name": "Scan Dating Photo (Biometric / Deepfake)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \"image_url\": \"https://example.com/suspect_dating_profile.jpg\",\\n  \"check_deepfake\": true,\\n  \"search_scammer_database\": true\\n}"
+            },
+            "url": {
+              "raw": "https://verifydating.net/api/v1/face/check",
+              "protocol": "https",
+              "host": [
+                "verifydating",
+                "net"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "face",
+                "check"
+              ]
+            },
+            "description": "Performs AI face extraction, reverse image search across 1.43M stolen romance scammer photos, and deepfake synthetic probability analysis."
+          }
+        },
+        {
+          "name": "Get Dating Scammer Database Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://verifydating.net/api/v1/face/stats",
+              "protocol": "https",
+              "host": [
+                "verifydating",
+                "net"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "face",
+                "stats"
+              ]
+            },
+            "description": "Returns total indexed catfish faces, active pig-butchering personas, and military romance scam clusters."
+          }
+        }
+      ]
+    }
+  ]
+}

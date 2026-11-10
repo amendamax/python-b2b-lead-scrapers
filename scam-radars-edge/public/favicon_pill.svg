@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <filter id="heartGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#ff2a85" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#12051c" stroke="#ec4899" stroke-width="2.5" stroke-opacity="0.45"/>
+  <path d="M32 50 C18 40 12 30 12 21 C12 14 17 9 24 9 C28 9 30.5 11 32 13.5 C33.5 11 36 9 40 9 C47 9 52 14 52 21 C52 30 46 40 32 50 Z" 
+        fill="url(#heartGrad)" filter="url(#heartGlow)"/>
+  <path d="M32 18 L40 22 C40 30 36 36 32 40 C28 36 24 30 24 22 Z" fill="#140620" opacity="0.92"/>
+  <path d="M28 29 L31 32 L36 25" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

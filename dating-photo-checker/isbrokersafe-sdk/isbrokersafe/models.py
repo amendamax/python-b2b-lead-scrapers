@@ -80,9 +80,9 @@ class GlobalStats:
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "GlobalStats":
         return cls(
-            total_brokers=data.get("total_brokers", 14600),
-            regulated_entities=data.get("regulated_entities", 2850),
-            blacklisted_entities=data.get("blacklisted_entities", 11750),
-            total_regulators_monitored=data.get("total_regulators_monitored", 18),
+            total_brokers=data.get("total_brokers", 9732),
+            regulated_entities=data.get("regulated_entities", 737),
+            blacklisted_entities=data.get("blacklisted_entities", 8995),
+            total_regulators_monitored=data.get("total_regulators_monitored", 82),
             last_sync=data.get("last_sync", "")
         )

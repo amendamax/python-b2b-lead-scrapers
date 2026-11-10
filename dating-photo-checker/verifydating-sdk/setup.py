@@ -5,14 +5,15 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="verifydating",
-    version="1.0.0",
+    version="1.1.0",
     author="VasileDev Group",
     author_email="support@verifydating.net",
-    description="Official Python SDK for VerifyDating Real-Time Facial Scam Intelligence & Anti-Catfish API",
+    description="Official Python SDK for VerifyDating Real-Time Facial Scam Intelligence, Romance Scam & Pig-Butchering Blacklist API (5,842+ Official Dossiers)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://verifydating.net/api/v1/dating-docs",
     project_urls={
+        "Homepage": "https://verifydating.net",
         "Documentation": "https://verifydating.net/api/v1/dating-docs",
         "Source": "https://github.com/amendamax/verifydating-python-sdk",
         "Tracker": "https://github.com/amendamax/verifydating-python-sdk/issues",
@@ -35,5 +36,5 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[],
-    keywords="dating catfish romance scam detection facial recognition deepfake defense trust safety identity moderation",
+    keywords="dating catfish romance scam pig-butchering detection facial recognition deepfake defense trust safety identity moderation fbi-ic3 ftc europol iosco",
 )

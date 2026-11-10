@@ -1,0 +1,12 @@
+name = "b2b-audit-checkout"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[[kv_namespaces]]
+binding = "B2B_AUDIT_VAULT"
+id = "41c7299628c7424e9649fd92bc20ebc4"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "radar-network-db"
+database_id = "fb926a0f-f76c-4a9c-addf-abaf17f3fd2a"

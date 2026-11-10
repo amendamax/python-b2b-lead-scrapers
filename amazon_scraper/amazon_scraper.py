@@ -5,6 +5,24 @@ import urllib.parse
 import time
 import random
 
+AFFILIATE_QUERY_KEYS = {"tag", "associatetag", "linkcode", "ascsubtag", "linkid", "camp", "creative"}
+
+def strip_amazon_affiliate_params(raw_url: str) -> str:
+    """Safety guard: strips any Amazon Associates affiliate tag parameters before outbound HTTP requests."""
+    if not raw_url:
+        return raw_url
+    parsed = urllib.parse.urlsplit(raw_url)
+    if "/api/v1/go-offer" in parsed.path:
+        raise ValueError(f"Blocked internal scraper access to affiliate redirect endpoint: {raw_url}")
+    if "amazon." in parsed.netloc.lower() or "amzn." in parsed.netloc.lower():
+        clean_qs = [
+            (k, v) for k, v in urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+            if k.lower() not in AFFILIATE_QUERY_KEYS and not str(v).lower().startswith("vasiledev")
+        ]
+        clean_path = re.sub(r"/ref=[^/?#]+", "", parsed.path)
+        return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, clean_path, urllib.parse.urlencode(clean_qs), ""))
+    return raw_url
+
 class AmazonPhoneScraper:
     """
     A professional, high-performance Amazon scraper built to extract ONLY actual phones or laptops
@@ -118,7 +136,7 @@ class AmazonPhoneScraper:
                 progress_callback(page, max_pages, f"Fetching page {page}...")
                 
             try:
-                response = self.session.get(url, timeout=20)
+                response = self.session.get(strip_amazon_affiliate_params(url), timeout=20)
                 if response.status_code != 200:
                     if progress_callback:
                         progress_callback(page, max_pages, f"Finished (reached end of pages or blocked). Status: {response.status_code}")

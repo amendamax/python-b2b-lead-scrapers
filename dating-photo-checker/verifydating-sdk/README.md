@@ -5,9 +5,9 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/verifydating.svg)](https://pypi.org/project/verifydating/)
 [![API Status](https://img.shields.io/badge/API-Online%20(99.99%25)-success)](https://verifydating.net/api/v1/dating-docs)
 
-The official Python client library for the **[VerifyDating.net](https://verifydating.net/api/v1/dating-docs) B2B Anti-Catfish & Facial Scam Intelligence API**. 
+The official Python client library for the **[VerifyDating.net](https://verifydating.net/api/v1/dating-docs) B2B Anti-Catfish, Romance Scam & Pig-Butchering Intelligence API**.
 
-Protect dating platforms, social communities, classified marketplaces, and trust & safety workflows against fake profiles, stolen model photos, AI deepfakes, and organized romance scam syndicates.
+Protect dating platforms, social communities, classified marketplaces, and trust & safety workflows against fake profiles, stolen photos, AI deepfakes, and organized romance-crypto ("Pig Butchering") syndicates across **5,842+ verified official dossiers** (`FBI IC3`, `FTC`, `Europol`, `UN`, `ASIC`, `SFC`, `CySEC`, `CONSOB`, `CSSF`, and `IOSCO`).
 
 ---
 
@@ -15,16 +15,16 @@ Protect dating platforms, social communities, classified marketplaces, and trust
 
 - 🎯 **Sub-100ms Facial Screening**: Detect catfish profiles instantly upon user registration.
 - 🤖 **Deepfake AI Detection**: Identify synthetic generative AI faces (Midjourney, Stable Diffusion, StyleGAN).
-- 🗄️ **Global Stolen Face Database**: Cross-reference 480,000+ monitored stolen identities and romance scam photo signatures.
+- 🗄️ **5,842+ Official Romance & Pig-Butchering Dossiers**: Cross-reference verified romance scam archetypes and regulator-blacklisted investment-romance domains across **82+ global authorities**.
 - 🛑 **Automated Moderation Actions**: Pre-calculated decision recommendations (`APPROVE_PROFILE`, `REQUEST_LIVE_ID`, `REJECT_PROFILE_AND_AUTO_BAN`).
-- 🔒 **Zero External Dependencies**: Lightweight Vanilla Python client using standard library.
+- 🔒 **Zero External Dependencies**: Lightweight Vanilla Python client using the standard library.
 
 ---
 
 ## 📦 Installation
 
 ```bash
-pip install verifydating
+pip install --upgrade verifydating
 ```
 
 ---
@@ -51,9 +51,20 @@ if result.is_catfish:
     print(f"🚨 AUTO-BAN TRIGGERED: Profile photo matches {result.forensic_details.matches_count} known scam syndicates.")
 ```
 
----
+### 2. Query the 5,842+ Romance & Pig-Butchering Dossiers Database
 
-### 2. Screen a Local Image File Upload
+```python
+from verifydating import Client
+
+client = Client()
+search = client.check_dossier("pig-butchering")
+
+print(f"Status: {search['status']} (Total matches: {search['total_matches']})")
+for dossier in search["results"][:3]:
+    print(f"- {dossier['persona_name']} [{dossier['scam_category']}] -> {dossier['dossier_url']}")
+```
+
+### 3. Screen a Local Image File Upload
 
 ```python
 from verifydating import Client
@@ -105,9 +116,9 @@ print(f"Your API Key: {key_info['api_key']}")
 | Plan | Monthly Price | Monthly Scans | Features |
 | :--- | :---: | :---: | :--- |
 | **Developer Free** | **$0** | 100 scans | Sandbox testing, JSON REST |
-| **Starter App** | **$99** | 2,500 scans | Real-time registration screening |
-| **Pro Growth** | **$299** | 25,000 scans | Deepfake AI detection & Auto-ban Webhooks |
-| **Enterprise Scale** | **$699** | 100,000+ scans | Dedicated SLA (99.99%) & Custom Face Hash Stream |
+| **Starter App** | **$49** | 2,500 scans | Real-time registration screening |
+| **Pro Growth** | **$99** | 25,000 scans | Deepfake AI detection & Auto-ban Webhooks |
+| **Enterprise Scale** | **$199** | 100,000+ scans | Dedicated SLA (99.99%) & Custom Scam Hash Stream |
 
 For enterprise contracts and high-volume streams, contact [support@verifydating.net](mailto:support@verifydating.net).
 
@@ -115,4 +126,4 @@ For enterprise contracts and high-volume streams, contact [support@verifydating.
 
 ## 📄 License
 
-MIT License © 2026 VasileDev Group / VerifyDating.net
+MIT License © 2026 VasileDev Group (EU VIES: `IT04226190041`) / VerifyDating.net

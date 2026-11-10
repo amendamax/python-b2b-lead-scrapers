@@ -1,0 +1,28 @@
+[
+ {
+  "results": [
+   {
+    "id": 11,
+    "vertical_slug": "mobilita",
+    "comune_istat": "Treglio",
+    "customer_name": "Bruno D'Orazio",
+    "customer_phone": "3477466572",
+    "customer_email": null,
+    "details": "{\"mode\":\"ev_charging\",\"full_name\":\"Bruno D'Orazio\",\"email\":\"brunodorazio@virgilio.it\",\"vertical_key\":\"ev_charging\",\"friendly_mode\":\"Infrastruttura EV & Colonnine (Bonus MASE 80%)\",\"fields\":[{\"label\":\"🏢 Destinazione d'Uso\",\"value\":\"Garage / Parcheggio Condominiale\"},{\"label\":\"🔌 Punti di Ricarica Richiesti\",\"value\":\"1 postazioni Wallbox\"},{\"label\":\"⚡ Potenza & Agevolazione\",\"value\":\"11 kW (Bonus MASE 80%)\"}],\"sqm\":1,\"bill\":11,\"target_type\":\"Garage / Parcheggio Condominiale\",\"comune\":\"Treglio\",\"province\":\"Chieti\",\"region\":\"Abruzzo\",\"installer\":\"Abruzzo Solare & Clima\",\"alert_consent\":true,\"technical_snapshot\":{\"system_title\":\"Infrastruttura Ricarica Condominiale (Bonus MASE 80%)\",\"system_specs\":\"1x Wallbox Smart 11 kW con Load Balancing & Contabilizzatore RFID\",\"estimated_cost_gross\":2300,\"bonus_percentage\":80,\"estimated_cost_with_ecobonus\":460,\"savings_per_year\":1232,\"payback_years\":0.7},\"future_upsell_targets\":[\"Impianto Fotovoltaico / Pensilina Solare di Ricarica (50% / Transizione 5.0)\",\"Batteria d'Accumulo BESS per Picchi di Potenza\",\"Voucher Digitalizzazione PMI & Gestione Flotte\"],\"timestamp\":\"2026-10-20T08:25:01.615Z\"}",
+    "status": "claimed",
+    "created_at": "2026-10-20 08:25:01"
+   },
+   {
+    "id": 10,
+    "vertical_slug": "mobilita",
+    "comune_istat": "Bari",
+    "customer_name": "Cliente Web",
+    "customer_phone": "3274015326",
+    "customer_email": null,
+    "details": "{\"mode\":\"ev_charging\",\"full_name\":\"Cliente Web\",\"email\":\"\",\"vertical_key\":\"ev_charging\",\"friendly_mode\":\"Infrastruttura EV & Colonnine (Bonus MASE 80%)\",\"fields\":[{\"label\":\"🏢 Destinazione d'Uso\",\"value\":\"Garage / Parcheggio Condominiale\"},{\"label\":\"🔌 Punti di Ricarica Richiesti\",\"value\":\"1 postazioni Wallbox\"},{\"label\":\"⚡ Potenza & Agevolazione\",\"value\":\"7 kW (Bonus MASE 80%)\"}],\"sqm\":1,\"bill\":7,\"target_type\":\"Garage / Parcheggio Condominiale\",\"comune\":\"Bari\",\"province\":\"Bari\",\"region\":\"Puglia\",\"installer\":\"Puglia Sun Energy Srl\",\"alert_consent\":true,\"technical_snapshot\":{\"system_title\":\"Infrastruttura Ricarica Condominiale (Bonus MASE 80%)\",\"system_specs\":\"1x Wallbox Smart 7.4 kW con Load Balancing & Contabilizzatore RFID\",\"estimated_cost_gross\":1900,\"bonus_percentage\":80,\"estimated_cost_with_ecobonus\":380,\"savings_per_year\":1348,\"payback_years\":0.7},\"future_upsell_targets\":[\"Impianto Fotovoltaico / Pensilina Solare di Ricarica (50% / Transizione 5.0)\",\"Batteria d'Accumulo BESS per Picchi di Potenza\",\"Voucher Digitalizzazione PMI & Gestione Flotte\"],\"timestamp\":\"2026-10-19T21:50:31.516Z\"}",
+    "status": "NEW",
+    "created_at": "2026-10-19 21:50:31"
+   }
+  ]
+ }
+]

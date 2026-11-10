@@ -1,0 +1,5 @@
+Salut! Sunt Vasile (lucrez pe automatizări Python și analiză de prețuri). Am rulat azi dimineață un script care a comparat la leu toate prețurile și stocurile la invertoare și baterii între **genway.ro** și celelalte 9 magazine principale de fotovoltaice din RO (`esolar, e-acumulatori, genway, ecosolaris, solartech, voltexpert, novasol, solargreen`), înainte de Black Friday.
+
+Am văzut că la **Huawei SUN2000-17KTL-M2** sunteți azi cu **+4.218 RON** peste `fotovoltaice.ro` (care are stoc activ), iar la **Huawei SUN2000-30KTL-M3** cu **+2.592 RON**. În schimb, aveți câteva produse unde concurenții ieftini tocmai au rămas fără stoc, deci nu trebuie să tăiați din marjă.
+
+V-am trimis acum pe email un tabel Excel cu 8 exemple concrete din magazinul vostru. Îmi ziceți dacă vreți să vă arunc fișierul demonstrativ și aici pe WhatsApp ca să-l vedeți direct pe telefon?

@@ -16,7 +16,7 @@ Basic usage:
 """
 
 __title__ = "isbrokersafe"
-__version__ = "1.0.0"
+__version__ = "1.3.0"
 __author__ = "VasileDev Group"
 __license__ = "MIT"
 __copyright__ = "Copyright 2026 VasileDev Group"

@@ -47,3 +47,12 @@ Here is how to do it:
 4.  Our AI will run a facial search to check if the exact same face exists on other websites under a different name.
 
 **Stay safe while swiping. Verify before you invest your emotions!**
+
+---
+
+## 🕵️ Bonus Safety Step: Reverse Phone, Email & 120+ Dating Site Check
+If your match shared a **phone number, email address, full name, or username** (for example when asking to move to WhatsApp or iMessage), run a confidential background & social profile lookup before trusting them:
+* **[Uncover Hidden Online Dating Profiles Across 120+ Sites](/go/catfish-check?sid=vd_md_catfish)** (*As Seen on MTV's Catfish* — 100% confidential, they will never know).
+* **[Run an "Is He/She Cheating?" Reverse Email Check Across 70+ Social Networks](/go/email-profile-check?sid=vd_md_email)** to find hidden photos and aliases.
+* **[Get a Single-Page Background Report for Just $0.95](/go/background-report?sid=vd_md_95c)** via our #1 recommended background check partner, **Spokeo**.
+

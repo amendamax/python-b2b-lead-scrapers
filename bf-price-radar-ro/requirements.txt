@@ -1,0 +1,9 @@
+playwright==1.64.1
+greenlet==3.1.1
+httpx[http2]>=0.27.0
+anyio==4.8.0
+selectolax>=0.3.21
+polars>=1.7.0
+xlsxwriter>=3.2.0
+openpyxl>=3.1.5
+python-dotenv>=1.0.1

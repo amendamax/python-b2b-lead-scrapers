@@ -44,7 +44,7 @@ class Client:
             url += "?" + urllib.parse.urlencode(params)
 
         headers = {
-            "User-Agent": "IsBrokerSafe-Python-SDK/1.0.0",
+            "User-Agent": "IsBrokerSafe-Python-SDK/1.3.0",
             "Accept": "application/json"
         }
 
@@ -74,7 +74,7 @@ class Client:
 
     def check(self, query: str) -> BrokerCheckResult:
         """
-        Perform a comprehensive forensic audit on a broker domain or name.
+        Perform a comprehensive forensic audit on a broker domain or name across 82+ global authorities.
 
         Args:
             query (str): Domain (e.g. 'exness.com') or company name (e.g. 'Interactive Brokers').
@@ -86,18 +86,37 @@ class Client:
         data = self._request("/api/v1/broker/check", params={"query": clean_query})
         return BrokerCheckResult.from_dict(data)
 
-    def get_warnings(self, regulator: Optional[str] = None, limit: int = 50) -> List[RegulatoryWarning]:
+    def get_licensed(self, query: Optional[str] = None, regulator: Optional[str] = None, limit: int = 100) -> Dict[str, Any]:
         """
-        Retrieve live regulatory warnings and blacklisted entities.
+        Query the 737+ official licensed & regulated brokers registry (FCA, SEC/NFA, FINMA, CySEC, ASIC, BaFin, etc.).
 
         Args:
-            regulator (str, optional): Filter by regulator code (fca, cysec, consob, cnbv, etc.).
+            query (str, optional): Filter by broker name, domain, or license number.
+            regulator (str, optional): Filter by regulator code (e.g. 'FINMA', 'CySEC', 'FCA', 'ASIC').
+            limit (int, optional): Number of records to retrieve (default 100).
+
+        Returns:
+            dict: Paginated registry of licensed financial institutions.
+        """
+        params: Dict[str, Any] = {"limit": limit}
+        if query:
+            params["query"] = query
+        if regulator:
+            params["regulator"] = regulator
+        return self._request("/api/v1/broker/licensed", params=params)
+
+    def get_warnings(self, regulator: Optional[str] = None, limit: int = 50) -> List[RegulatoryWarning]:
+        """
+        Retrieve live regulatory warnings and blacklisted entities across 82+ global authorities (IOSCO).
+
+        Args:
+            regulator (str, optional): Filter by regulator code (fca, cysec, consob, asic, sfc, sec, cssf, fsma, iosco).
             limit (int, optional): Number of records to retrieve (default 50).
 
         Returns:
             List[RegulatoryWarning]: List of active regulatory warnings.
         """
-        params = {"limit": limit}
+        params: Dict[str, Any] = {"limit": limit}
         if regulator:
             params["regulator"] = regulator
         data = self._request("/api/v1/regulatory/warnings", params=params)

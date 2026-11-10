@@ -1,19 +1,19 @@
 from setuptools import setup, find_packages
-import os
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="isbrokersafe",
-    version="1.2.0",
+    version="1.3.0",
     author="VasileDev Group",
     author_email="support@isbrokersafe.com",
-    description="Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API across 15 Worldwide Regulatory Authorities",
+    description="Official Python SDK for IsBrokerSafe Real-Time Financial Broker & Crypto Fraud Intelligence API across 82+ Worldwide Regulatory Authorities (IOSCO)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://isbrokersafe.com/api/v1/docs",
     project_urls={
+        "Homepage": "https://isbrokersafe.com",
         "Documentation": "https://isbrokersafe.com/api/v1/docs",
         "Source": "https://github.com/amendamax/isbrokersafe-python-sdk",
         "Tracker": "https://github.com/amendamax/isbrokersafe-python-sdk/issues",
@@ -36,5 +36,5 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[],
-    keywords="broker fraud forex crypto scam detection finance security compliance sec cftc nfa fca bafin finma amf cnmv consob cysec asic csa mas sfc dfsa whois threat-intelligence",
+    keywords="broker fraud forex crypto scam detection finance security compliance iosco sec cftc nfa fca bafin finma amf cnmv consob cysec cssf fsma asic csa mas sfc dfsa whois threat-intelligence",
 )

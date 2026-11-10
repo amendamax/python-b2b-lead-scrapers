@@ -1,0 +1,1156 @@
+{
+  "engine": "BPS™ Cloud Autopilot Engine v2.6",
+  "brand": "Bratu Power Systems (Engineered in Italy 🇮🇹 | Assembled in EU - Odobești, Romania 🇷🇴)",
+  "generated_at_utc": "2026-10-24T14:05:09.282079+00:00",
+  "cloud_api_status": {
+    "connected": false,
+    "mode": "DRY_RUN_READY",
+    "reason": "SOLARMAN_APP_ID / SECRET not set in environment; commands prepared in Modbus register payload format."
+  },
+  "fleet_summary": {
+    "active_nodes": 3,
+    "evening_grid_import_w": 0,
+    "ups_backup_autonomy_hours": 72,
+    "total_annual_savings_eur": 2741.15
+  },
+  "nodes": [
+    {
+      "site_profile": {
+        "site_id": "BPS-RO-ODOBESTI-01",
+        "client_name": "Nod Pilot #1 — Odobești / Focșani (Hybrid PV + Deye 15kWh)",
+        "country": "RO",
+        "city": "Odobești (VN)",
+        "latitude": 45.7667,
+        "longitude": 27.0667,
+        "inverter_brand": "Deye SUN-10K-SG04LP3-EU",
+        "inverter_sn": "DEYE-RO-24098812",
+        "has_solar_pv": true,
+        "pv_kwp": 8.0,
+        "battery_capacity_kwh": 15.0,
+        "current_soc_pct": 32,
+        "min_backup_soc_pct": 20,
+        "max_charge_soc_pct": 95,
+        "max_charge_kw": 5.0,
+        "evening_peak_load_kw": 2.8
+      },
+      "market_name": "OPCOM PZU (RO)",
+      "weather_summary": {
+        "expected_pv_24h_kwh": 12.62,
+        "avg_cloud_cover_pct": 84.7,
+        "usable_battery_cycle_kwh": 11.25
+      },
+      "ai_decision": {
+        "strategy_code": "PURE_SOLAR_SELF_CONSUMPTION_PEAK_SHAVING",
+        "summary_ro": "Producție solară suficientă (12.62 kWh prognozați): încărcare 100% gratuită din panouri ziua și înghețarea contorului la 0 W în vârful de seară (18:00–22:00).",
+        "charge_window_hours": [
+          "11:00",
+          "12:00",
+          "13:00",
+          "14:00"
+        ],
+        "evening_zero_meter_hours": [
+          "18:00",
+          "19:00",
+          "20:00",
+          "21:00"
+        ],
+        "avg_charge_tariff_eur_kwh": 0.3588,
+        "avg_peak_tariff_eur_kwh": 0.38,
+        "effective_spread_eur_kwh": 0.325
+      },
+      "savings": {
+        "daily_eur": 3.66,
+        "daily_ron": 18.21,
+        "daily_huf": 1446,
+        "monthly_eur": 109.8,
+        "monthly_ron": 546.25,
+        "monthly_huf": 43371,
+        "annual_eur": 1335.9,
+        "annual_ron": 6646.1,
+        "annual_huf": 527680
+      },
+      "remote_command_dispatched": {
+        "protocol": "SOLARMAN_V5_MODBUS_WRITE",
+        "deviceSn": "DEYE-RO-24098812",
+        "workModeRegister_142": {
+          "value": 2,
+          "label": "ZERO_EXPORT_TO_CT (Freeze Grid Meter at 0 W)"
+        },
+        "touSchedule": [
+          {
+            "slot": 1,
+            "window": "11:00-15:00",
+            "gridCharge": true,
+            "targetSocPct": 95,
+            "maxPowerW": 5000,
+            "action": "FORCE_CHARGE_FROM_GRID_AT_MIN_SPOT"
+          },
+          {
+            "slot": 2,
+            "window": "06:00-17:59",
+            "gridCharge": false,
+            "targetSocPct": 20,
+            "maxPowerW": 5000,
+            "action": "SOLAR_SELF_USE_OR_HOLD_SOC"
+          },
+          {
+            "slot": 3,
+            "window": "18:00-22:00",
+            "gridCharge": false,
+            "targetSocPct": 20,
+            "maxPowerW": 5000,
+            "action": "ZERO_EXPORT_DISCHARGE_PEAK_FREEZE_0W"
+          }
+        ]
+      },
+      "hourly_curve_24h": [
+        {
+          "hour": 0,
+          "timestamp_iso": "2026-10-24T00:00:00",
+          "spot_eur_mwh": 304.56,
+          "retail_eur_kwh": 0.3896,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 55.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 1,
+          "timestamp_iso": "2026-10-24T01:00:00",
+          "spot_eur_mwh": 326.6,
+          "retail_eur_kwh": 0.4116,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 66.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 2,
+          "timestamp_iso": "2026-10-24T02:00:00",
+          "spot_eur_mwh": 348.51,
+          "retail_eur_kwh": 0.4335,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 74.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 3,
+          "timestamp_iso": "2026-10-24T03:00:00",
+          "spot_eur_mwh": 312.24,
+          "retail_eur_kwh": 0.3972,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 93.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 4,
+          "timestamp_iso": "2026-10-24T04:00:00",
+          "spot_eur_mwh": 283.61,
+          "retail_eur_kwh": 0.3686,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 5,
+          "timestamp_iso": "2026-10-24T05:00:00",
+          "spot_eur_mwh": 282.62,
+          "retail_eur_kwh": 0.3676,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 6,
+          "timestamp_iso": "2026-10-24T06:00:00",
+          "spot_eur_mwh": 280.29,
+          "retail_eur_kwh": 0.3653,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 7,
+          "timestamp_iso": "2026-10-24T07:00:00",
+          "spot_eur_mwh": 287.53,
+          "retail_eur_kwh": 0.3725,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 8,
+          "timestamp_iso": "2026-10-24T08:00:00",
+          "spot_eur_mwh": 280.32,
+          "retail_eur_kwh": 0.3653,
+          "shortwave_wm2": 2.0,
+          "cloud_cover_pct": 97.0,
+          "expected_pv_kwh": 0.01,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 9,
+          "timestamp_iso": "2026-10-24T09:00:00",
+          "spot_eur_mwh": 267.69,
+          "retail_eur_kwh": 0.3527,
+          "shortwave_wm2": 36.0,
+          "cloud_cover_pct": 95.0,
+          "expected_pv_kwh": 0.24,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 10,
+          "timestamp_iso": "2026-10-24T10:00:00",
+          "spot_eur_mwh": 286.04,
+          "retail_eur_kwh": 0.371,
+          "shortwave_wm2": 112.0,
+          "cloud_cover_pct": 87.0,
+          "expected_pv_kwh": 0.73,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 32,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 11,
+          "timestamp_iso": "2026-10-24T11:00:00",
+          "spot_eur_mwh": 273.13,
+          "retail_eur_kwh": 0.3581,
+          "shortwave_wm2": 226.0,
+          "cloud_cover_pct": 79.0,
+          "expected_pv_kwh": 1.48,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 65,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 12,
+          "timestamp_iso": "2026-10-24T12:00:00",
+          "spot_eur_mwh": 290.06,
+          "retail_eur_kwh": 0.3751,
+          "shortwave_wm2": 289.0,
+          "cloud_cover_pct": 97.0,
+          "expected_pv_kwh": 1.9,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 13,
+          "timestamp_iso": "2026-10-24T13:00:00",
+          "spot_eur_mwh": 263.83,
+          "retail_eur_kwh": 0.3488,
+          "shortwave_wm2": 349.0,
+          "cloud_cover_pct": 92.0,
+          "expected_pv_kwh": 2.29,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 14,
+          "timestamp_iso": "2026-10-24T14:00:00",
+          "spot_eur_mwh": 268.11,
+          "retail_eur_kwh": 0.3531,
+          "shortwave_wm2": 301.0,
+          "cloud_cover_pct": 99.0,
+          "expected_pv_kwh": 1.97,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 15,
+          "timestamp_iso": "2026-10-24T15:00:00",
+          "spot_eur_mwh": 273.59,
+          "retail_eur_kwh": 0.3586,
+          "shortwave_wm2": 233.0,
+          "cloud_cover_pct": 96.0,
+          "expected_pv_kwh": 1.53,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 16,
+          "timestamp_iso": "2026-10-24T16:00:00",
+          "spot_eur_mwh": 280.8,
+          "retail_eur_kwh": 0.3658,
+          "shortwave_wm2": 201.0,
+          "cloud_cover_pct": 97.0,
+          "expected_pv_kwh": 1.32,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 17,
+          "timestamp_iso": "2026-10-24T17:00:00",
+          "spot_eur_mwh": 279.49,
+          "retail_eur_kwh": 0.3645,
+          "shortwave_wm2": 130.0,
+          "cloud_cover_pct": 55.0,
+          "expected_pv_kwh": 0.85,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 18,
+          "timestamp_iso": "2026-10-24T18:00:00",
+          "spot_eur_mwh": 295.34,
+          "retail_eur_kwh": 0.3803,
+          "shortwave_wm2": 45.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.3,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 76,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 19,
+          "timestamp_iso": "2026-10-24T19:00:00",
+          "spot_eur_mwh": 294.74,
+          "retail_eur_kwh": 0.3797,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 92.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 58,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 20,
+          "timestamp_iso": "2026-10-24T20:00:00",
+          "spot_eur_mwh": 296.47,
+          "retail_eur_kwh": 0.3815,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 96.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 39,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 21,
+          "timestamp_iso": "2026-10-24T21:00:00",
+          "spot_eur_mwh": 293.46,
+          "retail_eur_kwh": 0.3785,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 20,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 22,
+          "timestamp_iso": "2026-10-24T22:00:00",
+          "spot_eur_mwh": 272.68,
+          "retail_eur_kwh": 0.3577,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 37.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 20,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 23,
+          "timestamp_iso": "2026-10-24T23:00:00",
+          "spot_eur_mwh": 273.76,
+          "retail_eur_kwh": 0.3588,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 25.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 20,
+          "grid_import_w": 320
+        }
+      ]
+    },
+    {
+      "site_profile": {
+        "site_id": "BPS-HU-BUDAPEST-01",
+        "client_name": "Nod Pilot #2 — Budapest / Debrecen (Bruttó Elszámolás + 15kWh LFP)",
+        "country": "HU",
+        "city": "Budapest",
+        "latitude": 47.4979,
+        "longitude": 19.0402,
+        "inverter_brand": "Huawei SUN2000 / Deye Hybrid",
+        "inverter_sn": "BPS-HU-99104210",
+        "has_solar_pv": true,
+        "pv_kwp": 6.0,
+        "battery_capacity_kwh": 15.0,
+        "current_soc_pct": 28,
+        "min_backup_soc_pct": 20,
+        "max_charge_soc_pct": 95,
+        "max_charge_kw": 5.0,
+        "evening_peak_load_kw": 2.7
+      },
+      "market_name": "HUPX DAM (HU)",
+      "weather_summary": {
+        "expected_pv_24h_kwh": 9.33,
+        "avg_cloud_cover_pct": 98.9,
+        "usable_battery_cycle_kwh": 11.25
+      },
+      "ai_decision": {
+        "strategy_code": "NIGHT_SPOT_ARBITRAGE_FORCE_CHARGE",
+        "summary_ro": "Mod Zi Înnorată / Iarnă (PV insuficient): Force Charge din rețea la 95% în fereastra minimă de noapte (01:00–04:00) și descărcare Zero-Export (0 W din rețea) pe vârful scump de seară (18:00–22:00).",
+        "charge_window_hours": [
+          "02:00",
+          "04:00",
+          "05:00"
+        ],
+        "evening_zero_meter_hours": [
+          "18:00",
+          "19:00",
+          "20:00",
+          "21:00"
+        ],
+        "avg_charge_tariff_eur_kwh": 0.3523,
+        "avg_peak_tariff_eur_kwh": 0.3672,
+        "effective_spread_eur_kwh": 0.11
+      },
+      "savings": {
+        "daily_eur": 1.24,
+        "daily_ron": 6.17,
+        "daily_huf": 490,
+        "monthly_eur": 37.2,
+        "monthly_ron": 185.07,
+        "monthly_huf": 14694,
+        "annual_eur": 452.6,
+        "annual_ron": 2251.68,
+        "annual_huf": 178777
+      },
+      "remote_command_dispatched": {
+        "protocol": "SOLARMAN_V5_MODBUS_WRITE",
+        "deviceSn": "BPS-HU-99104210",
+        "workModeRegister_142": {
+          "value": 2,
+          "label": "ZERO_EXPORT_TO_CT (Freeze Grid Meter at 0 W)"
+        },
+        "touSchedule": [
+          {
+            "slot": 1,
+            "window": "02:00-06:00",
+            "gridCharge": true,
+            "targetSocPct": 95,
+            "maxPowerW": 5000,
+            "action": "FORCE_CHARGE_FROM_GRID_AT_MIN_SPOT"
+          },
+          {
+            "slot": 2,
+            "window": "06:00-17:59",
+            "gridCharge": false,
+            "targetSocPct": 20,
+            "maxPowerW": 5000,
+            "action": "SOLAR_SELF_USE_OR_HOLD_SOC"
+          },
+          {
+            "slot": 3,
+            "window": "18:00-22:00",
+            "gridCharge": false,
+            "targetSocPct": 20,
+            "maxPowerW": 5000,
+            "action": "ZERO_EXPORT_DISCHARGE_PEAK_FREEZE_0W"
+          }
+        ]
+      },
+      "hourly_curve_24h": [
+        {
+          "hour": 0,
+          "timestamp_iso": "2026-10-24T00:00:00",
+          "spot_eur_mwh": 306.93,
+          "retail_eur_kwh": 0.3719,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 28,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 1,
+          "timestamp_iso": "2026-10-24T01:00:00",
+          "spot_eur_mwh": 295.67,
+          "retail_eur_kwh": 0.3607,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 28,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 2,
+          "timestamp_iso": "2026-10-24T02:00:00",
+          "spot_eur_mwh": 287.33,
+          "retail_eur_kwh": 0.3523,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "FORCE_CHARGE_GRID",
+          "target_soc_pct": 61,
+          "grid_import_w": 5000
+        },
+        {
+          "hour": 3,
+          "timestamp_iso": "2026-10-24T03:00:00",
+          "spot_eur_mwh": 302.26,
+          "retail_eur_kwh": 0.3673,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 61,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 4,
+          "timestamp_iso": "2026-10-24T04:00:00",
+          "spot_eur_mwh": 293.32,
+          "retail_eur_kwh": 0.3583,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "FORCE_CHARGE_GRID",
+          "target_soc_pct": 95,
+          "grid_import_w": 5000
+        },
+        {
+          "hour": 5,
+          "timestamp_iso": "2026-10-24T05:00:00",
+          "spot_eur_mwh": 281.23,
+          "retail_eur_kwh": 0.3462,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "FORCE_CHARGE_GRID",
+          "target_soc_pct": 95,
+          "grid_import_w": 5000
+        },
+        {
+          "hour": 6,
+          "timestamp_iso": "2026-10-24T06:00:00",
+          "spot_eur_mwh": 293.03,
+          "retail_eur_kwh": 0.358,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 7,
+          "timestamp_iso": "2026-10-24T07:00:00",
+          "spot_eur_mwh": 291.89,
+          "retail_eur_kwh": 0.3569,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 99.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 8,
+          "timestamp_iso": "2026-10-24T08:00:00",
+          "spot_eur_mwh": 295.74,
+          "retail_eur_kwh": 0.3607,
+          "shortwave_wm2": 6.0,
+          "cloud_cover_pct": 98.0,
+          "expected_pv_kwh": 0.03,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 9,
+          "timestamp_iso": "2026-10-24T09:00:00",
+          "spot_eur_mwh": 272.78,
+          "retail_eur_kwh": 0.3378,
+          "shortwave_wm2": 85.0,
+          "cloud_cover_pct": 99.0,
+          "expected_pv_kwh": 0.42,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 10,
+          "timestamp_iso": "2026-10-24T10:00:00",
+          "spot_eur_mwh": 283.53,
+          "retail_eur_kwh": 0.3485,
+          "shortwave_wm2": 200.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.98,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 11,
+          "timestamp_iso": "2026-10-24T11:00:00",
+          "spot_eur_mwh": 303.95,
+          "retail_eur_kwh": 0.369,
+          "shortwave_wm2": 275.0,
+          "cloud_cover_pct": 88.0,
+          "expected_pv_kwh": 1.35,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 12,
+          "timestamp_iso": "2026-10-24T12:00:00",
+          "spot_eur_mwh": 291.74,
+          "retail_eur_kwh": 0.3567,
+          "shortwave_wm2": 355.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 1.75,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 13,
+          "timestamp_iso": "2026-10-24T13:00:00",
+          "spot_eur_mwh": 299.13,
+          "retail_eur_kwh": 0.3641,
+          "shortwave_wm2": 318.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 1.56,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 14,
+          "timestamp_iso": "2026-10-24T14:00:00",
+          "spot_eur_mwh": 324.81,
+          "retail_eur_kwh": 0.3898,
+          "shortwave_wm2": 253.0,
+          "cloud_cover_pct": 90.0,
+          "expected_pv_kwh": 1.24,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 15,
+          "timestamp_iso": "2026-10-24T15:00:00",
+          "spot_eur_mwh": 341.56,
+          "retail_eur_kwh": 0.4066,
+          "shortwave_wm2": 225.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 1.11,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 16,
+          "timestamp_iso": "2026-10-24T16:00:00",
+          "spot_eur_mwh": 315.5,
+          "retail_eur_kwh": 0.3805,
+          "shortwave_wm2": 131.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.64,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 17,
+          "timestamp_iso": "2026-10-24T17:00:00",
+          "spot_eur_mwh": 325.84,
+          "retail_eur_kwh": 0.3908,
+          "shortwave_wm2": 47.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.23,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 18,
+          "timestamp_iso": "2026-10-24T18:00:00",
+          "spot_eur_mwh": 295.15,
+          "retail_eur_kwh": 0.3601,
+          "shortwave_wm2": 4.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.02,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 77,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 19,
+          "timestamp_iso": "2026-10-24T19:00:00",
+          "spot_eur_mwh": 310.72,
+          "retail_eur_kwh": 0.3757,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 59,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 20,
+          "timestamp_iso": "2026-10-24T20:00:00",
+          "spot_eur_mwh": 297.73,
+          "retail_eur_kwh": 0.3627,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 41,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 21,
+          "timestamp_iso": "2026-10-24T21:00:00",
+          "spot_eur_mwh": 305.31,
+          "retail_eur_kwh": 0.3703,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 23,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 22,
+          "timestamp_iso": "2026-10-24T22:00:00",
+          "spot_eur_mwh": 280.95,
+          "retail_eur_kwh": 0.3459,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 23,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 23,
+          "timestamp_iso": "2026-10-24T23:00:00",
+          "spot_eur_mwh": 235.03,
+          "retail_eur_kwh": 0.3,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 23,
+          "grid_import_w": 320
+        }
+      ]
+    },
+    {
+      "site_profile": {
+        "site_id": "BPS-IT-GARESSIO-BESS15K",
+        "client_name": "Nod Pilot #3 — Dulap BPS-15K Plug & Play (Fără Panouri • Grid-Only Arbitrage + 72h UPS)",
+        "country": "IT",
+        "city": "Garessio / Torino (CN)",
+        "latitude": 44.2019,
+        "longitude": 8.0192,
+        "inverter_brand": "BPS-15K Smart BESS (Deye + LiFePO4 Rack)",
+        "inverter_sn": "BPS15K-IT-0001",
+        "has_solar_pv": false,
+        "pv_kwp": 0.0,
+        "battery_capacity_kwh": 15.0,
+        "current_soc_pct": 25,
+        "min_backup_soc_pct": 25,
+        "max_charge_soc_pct": 95,
+        "max_charge_kw": 5.0,
+        "evening_peak_load_kw": 2.6
+      },
+      "market_name": "GME PUN (IT)",
+      "weather_summary": {
+        "expected_pv_24h_kwh": 0.0,
+        "avg_cloud_cover_pct": 59.0,
+        "usable_battery_cycle_kwh": 10.5
+      },
+      "ai_decision": {
+        "strategy_code": "MIDDAY_NEGATIVE_PRICE_AND_SOLAR_ABSORPTION",
+        "summary_ro": "Soare puternic / prețuri spot zero-negative la prânz (12:00–15:00): blocăm încărcarea de noapte, absorbim vârful de la prânz și înghețăm contorul la 0 W seara (18:00–22:00).",
+        "charge_window_hours": [
+          "11:00",
+          "12:00",
+          "13:00"
+        ],
+        "evening_zero_meter_hours": [
+          "18:00",
+          "19:00",
+          "20:00",
+          "21:00"
+        ],
+        "avg_charge_tariff_eur_kwh": 0.091,
+        "avg_peak_tariff_eur_kwh": 0.3728,
+        "effective_spread_eur_kwh": 0.2482
+      },
+      "savings": {
+        "daily_eur": 2.61,
+        "daily_ron": 12.98,
+        "daily_huf": 1031,
+        "monthly_eur": 78.3,
+        "monthly_ron": 389.54,
+        "monthly_huf": 30928,
+        "annual_eur": 952.65,
+        "annual_ron": 4739.43,
+        "annual_huf": 376297
+      },
+      "remote_command_dispatched": {
+        "protocol": "SOLARMAN_V5_MODBUS_WRITE",
+        "deviceSn": "BPS15K-IT-0001",
+        "workModeRegister_142": {
+          "value": 2,
+          "label": "ZERO_EXPORT_TO_CT (Freeze Grid Meter at 0 W)"
+        },
+        "touSchedule": [
+          {
+            "slot": 1,
+            "window": "11:00-14:00",
+            "gridCharge": true,
+            "targetSocPct": 95,
+            "maxPowerW": 5000,
+            "action": "FORCE_CHARGE_FROM_GRID_AT_MIN_SPOT"
+          },
+          {
+            "slot": 2,
+            "window": "06:00-17:59",
+            "gridCharge": false,
+            "targetSocPct": 25,
+            "maxPowerW": 5000,
+            "action": "SOLAR_SELF_USE_OR_HOLD_SOC"
+          },
+          {
+            "slot": 3,
+            "window": "18:00-22:00",
+            "gridCharge": false,
+            "targetSocPct": 25,
+            "maxPowerW": 5000,
+            "action": "ZERO_EXPORT_DISCHARGE_PEAK_FREEZE_0W"
+          }
+        ]
+      },
+      "hourly_curve_24h": [
+        {
+          "hour": 0,
+          "timestamp_iso": "2026-10-24T00:00:00",
+          "spot_eur_mwh": 71.68,
+          "retail_eur_kwh": 0.1667,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 12.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 1,
+          "timestamp_iso": "2026-10-24T01:00:00",
+          "spot_eur_mwh": 47.04,
+          "retail_eur_kwh": 0.142,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 84.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 2,
+          "timestamp_iso": "2026-10-24T02:00:00",
+          "spot_eur_mwh": 39.2,
+          "retail_eur_kwh": 0.1342,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 92.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 3,
+          "timestamp_iso": "2026-10-24T03:00:00",
+          "spot_eur_mwh": 34.72,
+          "retail_eur_kwh": 0.1297,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 61.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 4,
+          "timestamp_iso": "2026-10-24T04:00:00",
+          "spot_eur_mwh": 40.32,
+          "retail_eur_kwh": 0.1353,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 87.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 5,
+          "timestamp_iso": "2026-10-24T05:00:00",
+          "spot_eur_mwh": 58.24,
+          "retail_eur_kwh": 0.1532,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 86.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 6,
+          "timestamp_iso": "2026-10-24T06:00:00",
+          "spot_eur_mwh": 109.76,
+          "retail_eur_kwh": 0.2048,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 99.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 7,
+          "timestamp_iso": "2026-10-24T07:00:00",
+          "spot_eur_mwh": 151.2,
+          "retail_eur_kwh": 0.2462,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 8,
+          "timestamp_iso": "2026-10-24T08:00:00",
+          "spot_eur_mwh": 165.76,
+          "retail_eur_kwh": 0.2608,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 9,
+          "timestamp_iso": "2026-10-24T09:00:00",
+          "spot_eur_mwh": 140.0,
+          "retail_eur_kwh": 0.235,
+          "shortwave_wm2": 49.0,
+          "cloud_cover_pct": 90.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 10,
+          "timestamp_iso": "2026-10-24T10:00:00",
+          "spot_eur_mwh": 107.52,
+          "retail_eur_kwh": 0.2025,
+          "shortwave_wm2": 197.5,
+          "cloud_cover_pct": 71.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 25,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 11,
+          "timestamp_iso": "2026-10-24T11:00:00",
+          "spot_eur_mwh": 5.0,
+          "retail_eur_kwh": 0.1,
+          "shortwave_wm2": 344.8,
+          "cloud_cover_pct": 45.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 58,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 12,
+          "timestamp_iso": "2026-10-24T12:00:00",
+          "spot_eur_mwh": -8.5,
+          "retail_eur_kwh": 0.0865,
+          "shortwave_wm2": 471.0,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 92,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 13,
+          "timestamp_iso": "2026-10-24T13:00:00",
+          "spot_eur_mwh": -8.5,
+          "retail_eur_kwh": 0.0865,
+          "shortwave_wm2": 543.5,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "SOLAR_NEGATIVE_ABSORB",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 14,
+          "timestamp_iso": "2026-10-24T14:00:00",
+          "spot_eur_mwh": -8.5,
+          "retail_eur_kwh": 0.0865,
+          "shortwave_wm2": 553.0,
+          "cloud_cover_pct": 27.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 15,
+          "timestamp_iso": "2026-10-24T15:00:00",
+          "spot_eur_mwh": 5.0,
+          "retail_eur_kwh": 0.1,
+          "shortwave_wm2": 409.3,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 16,
+          "timestamp_iso": "2026-10-24T16:00:00",
+          "spot_eur_mwh": 132.16,
+          "retail_eur_kwh": 0.2272,
+          "shortwave_wm2": 211.6,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 17,
+          "timestamp_iso": "2026-10-24T17:00:00",
+          "spot_eur_mwh": 188.16,
+          "retail_eur_kwh": 0.2832,
+          "shortwave_wm2": 165.5,
+          "cloud_cover_pct": 63.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 95,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 18,
+          "timestamp_iso": "2026-10-24T18:00:00",
+          "spot_eur_mwh": 263.2,
+          "retail_eur_kwh": 0.3582,
+          "shortwave_wm2": 95.3,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 78,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 19,
+          "timestamp_iso": "2026-10-24T19:00:00",
+          "spot_eur_mwh": 311.36,
+          "retail_eur_kwh": 0.4064,
+          "shortwave_wm2": 6.0,
+          "cloud_cover_pct": 100.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 60,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 20,
+          "timestamp_iso": "2026-10-24T20:00:00",
+          "spot_eur_mwh": 295.68,
+          "retail_eur_kwh": 0.3907,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 43,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 21,
+          "timestamp_iso": "2026-10-24T21:00:00",
+          "spot_eur_mwh": 240.8,
+          "retail_eur_kwh": 0.3358,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "ZERO_EXPORT_DISCHARGE",
+          "target_soc_pct": 26,
+          "grid_import_w": 0
+        },
+        {
+          "hour": 22,
+          "timestamp_iso": "2026-10-24T22:00:00",
+          "spot_eur_mwh": 147.84,
+          "retail_eur_kwh": 0.2428,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 26,
+          "grid_import_w": 320
+        },
+        {
+          "hour": 23,
+          "timestamp_iso": "2026-10-24T23:00:00",
+          "spot_eur_mwh": 94.08,
+          "retail_eur_kwh": 0.1891,
+          "shortwave_wm2": 0.0,
+          "cloud_cover_pct": 0.0,
+          "expected_pv_kwh": 0.0,
+          "inverter_mode": "AI_UPS_STANDBY",
+          "target_soc_pct": 26,
+          "grid_import_w": 320
+        }
+      ]
+    }
+  ]
+}

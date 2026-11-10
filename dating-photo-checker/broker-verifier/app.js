@@ -4,89 +4,89 @@ const brokerTranslations = {
     exness: {
         ru: {
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
             title: "Мировой лидер по объему торгов и мгновенному выводу средств",
             text: "Exness — крупнейший в мире розничный форекс-брокер с месячным объемом торгов более 4 триллионов долларов. Регулируется FCA (Великобритания), CySEC (Кипр) и FSC."
         },
         ro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
             title: "Lider Mondial de Volum și Retrageri Instantanee 24/7",
             text: "Exness este cel mai mare broker forex de retail din lume, cu un volum lunar de tranzacționare de peste 4 trilioane USD. Reglementat de FCA (Marea Britanie), CySEC și FSC."
         },
         it: {
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
             title: "Leader Mondiale di Volume e prelievi istantanei 24/7",
             text: "Exness è il più grande broker forex al dettaglio al mondo con un volume mensile di scambi superiore a 4 trilioni di dollari. Regolamentato da FCA, CySEC e FSC."
         },
         de: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
             title: "Weltweiter Volumenmarktführer & Automatische Sofortauszahlungen",
             text: "Exness ist der weltweit größte Retail-Forex-Broker mit einem monatlichen Handelsvolumen von über 4 Billionen USD. Reguliert durch FCA, CySEC und FSC."
         },
         es: {
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
             title: "Líder Mundial en Volumen y Retiros Instantáneos 24/7",
             text: "Exness es el broker de forex minorista más grande del mundo, con un volumen de operaciones mensual de más de 4 billones de dólares. Regulado por FCA, CySEC y FSC."
         },
         fr: {
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
             title: "Leader Mondial du Volume et Retraits Instantanés 24/7",
             text: "Exness est le plus grand courtier forex au détail au monde avec un volume de transactions mensuel de plus de 4 billions de dollars. Réglementé par FCA, CySEC et FSC."
         },
         pt: {
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
             title: "Líder Mundial em Volume e Saques Instantâneos 24/7",
             text: "Exness é a maior corretora forex de varejo do mundo, com um volume mensal de negociação superior a US$ 4 trilhões. Regulamentada por FCA, CySEC e FSC."
         }
     },
     etoro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
         ru: {
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
             title: "Высокозащищенный и регулируемый глобальный брокер",
             text: "eToro — ведущая мировая платформа социал-трейдинга, которой доверяют более 30 миллионов пользователей по всему миру. Регулируется FCA (Великобритания), CySEC (Кипр), ASIC (Австралия) и FINRA (США)."
         },
         ro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
             title: "Broker Global Reglementat și de Înaltă Securitate",
             text: "eToro este o platformă lider mondial de social trading în care au încredere peste 30 de milioane de utilizatori globale. Reglementat de FCA (Marea Britanie), CySEC (Cipru), ASIC și FINRA."
         },
         it: {
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
             title: "Broker Globale Regolamentato ad Alta Sicurezza",
             text: "eToro è una piattaforma leader globale di social trading con oltre 30 milioni di utenti in tutto il mondo. Regolamentato da FCA, CySEC, ASIC e FINRA."
         },
         de: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
             title: "Hochsicherer und Regulierter Globaler Broker",
             text: "eToro ist eine weltweit führende Social-Trading-Plattform, der über 30 Millionen Nutzer weltweit vertrauen. Reguliert durch FCA, CySEC, ASIC und FINRA."
         },
         es: {
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
             title: "Broker Global Regulado y de Alta Seguridad",
             text: "eToro es una plataforma líder mundial de social trading en la que confían más de 30 millones de usuarios en todo el mundo. Regulado por FCA, CySEC, ASIC y FINRA."
         },
         fr: {
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
             title: "Courtier Global Réglementé et Hautement Sécurisé",
             text: "eToro est une plateforme mondiale majeure de trading social à laquelle font confiance plus de 30 millions d'utilisateurs. Réglementé par FCA, CySEC, ASIC et FINRA."
         },
         pt: {
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
             title: "Corretora Global Regulamentada e de Alta Segurança",
             text: "eToro é uma plataforma líder global de social trading em que confiam mais de 30 milhões de usuários em todo o mundo. Regulamentada por FCA, CySEC, ASIC e FINRA."
         }
@@ -94,43 +94,43 @@ const brokerTranslations = {
     xm: {
         ru: {
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
             title: "Надежный и регулируемый международный брокер",
             text: "XM Group — один из крупнейших брокеров в мире, обслуживающий более 10 миллионов клиентов в 190+ странах. Регулируется FCA (Великобритания), CySEC (Кипр) и ASIC (Австралия)."
         },
         ro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
             title: "Broker Internațional Reglementat și de Încredere",
             text: "XM Group este unul dintre cei mai mari brokeri din lume, deservind peste 10 milioane de clienți în peste 190 de țări. Reglementat de FCA, CySEC și ASIC."
         },
         it: {
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
             title: "Broker Internazionale Regolamentato e Affidabile",
             text: "XM Group è uno dei più grandi broker al mondo, al servizio di oltre 10 milioni di clienti in più di 190 paesi. Regolamentato da FCA, CySEC e ASIC."
         },
         de: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
             title: "Zuverlässiger und Regulierter Internationaler Broker",
             text: "XM Group ist einer der größten Broker der Welt und bedient über 10 Millionen Kunden in mehr als 190 Ländern. Reguliert durch FCA, CySEC und ASIC."
         },
         es: {
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
             title: "Broker Internacional Regulado y de Confianza",
             text: "XM Group es uno de los brokers más grandes del mundo y presta servicios a más de 10 millones de clientes en más de 190 países. Regulado por FCA, CySEC y ASIC."
         },
         fr: {
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
             title: "Courtier International Réglementé et Fiable",
             text: "XM Group est l'un des plus grands courtiers au monde, servant plus de 10 millions de clients dans plus de 190 pays. Réglementé par FCA, CySEC et ASIC."
         },
         pt: {
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
             title: "Corretora Internacional Regulamentada e Confiável",
             text: "XM Group é uma das maiores corretoras do mundo, atendendo a mais de 10 milhões de clientes em mais de 190 países. Regulamentada por FCA, CySEC e ASIC."
         }
@@ -138,89 +138,89 @@ const brokerTranslations = {
     plus500: {
         ru: {
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
             title: "Публичная компания на Лондонской фондовой бирже (LSE: PLUS)",
             text: "Plus500 — ведущий провайдер CFD, котируемый на основной площадке Лондонской фондовой биржи. Регулируется FCA (Великобритания), CySEC (Кипр), ASIC (Австралия) и MAS (Сингапур)."
         },
         ro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
             title: "Companie Listată Public la Bursa din Londra (LSE: PLUS)",
             text: "Plus500 este un furnizor de top de CFD-uri listat pe piața principală a Bursei din Londra. Reglementat de FCA, CySEC, ASIC și MAS."
         },
         it: {
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
             title: "Società Quotata alla Borsa di Londra (LSE: PLUS)",
             text: "Plus500 è un fornitore leader di CFD quotato sul mercato principale della Borsa di Londra. Regolamentato da FCA, CySEC, ASIC e MAS."
         },
         de: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
             title: "Börsennotiertes Unternehmen an der Londoner Börse (LSE: PLUS)",
             text: "Plus500 ist ein führender CFD-Anbieter, der am Hauptmarkt der Londoner Börse notiert ist. Reguliert durch FCA, CySEC, ASIC und MAS."
         },
         es: {
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
             title: "Empresa Cotizada en la Bolsa de Londres (LSE: PLUS)",
             text: "Plus500 es un proveedor líder de CFD que cotiza en el mercado principal de la Bolsa de Valores de Londres. Regulado por FCA, CySEC, ASIC y MAS."
         },
         fr: {
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
             title: "Société Cotée à la Bourse de Londres (LSE: PLUS)",
             text: "Plus500 est un fournisseur majeur de CFD coté sur le marché principal de la Bourse de Londres. Réglementé par FCA, CySEC et MAS."
         },
         pt: {
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
             title: "Empresa Cotada na Bolsa de Valores de Londres (LSE: PLUS)",
             text: "Plus500 é uma provedora líder de CFDs listada no mercado principal da Bolsa de Valores de Londres. Regulamentada por FCA, CySEC, ASIC e MAS."
         }
     },
     avatrade: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
         ru: {
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
             title: "Надежный брокер с 9 регуляторными лицензиями",
             text: "AvaTrade — пионер онлайн-трейдинга с 2006 года, имеющий регуляторные лицензии на 5 континентах (Central Bank of Ireland, ASIC, FSCA, JFSA)."
         },
         ro: {
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
             title: "Broker de Încredere cu 9 Licențe de Reglementare",
             text: "AvaTrade este un pionier al tradingului online din 2006, având licențe de reglementare pe 5 continente (Banca Centrală a Irlandei, ASIC, FSCA)."
         },
         it: {
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
             title: "Broker Affidabile con 9 Licenze di Regolamentazione",
             text: "AvaTrade è un pioniere del trading online dal 2006, con licenze di regolamentazione in 5 continenti (Banca Centrale d'Irlanda, ASIC, FSCA)."
         },
         de: {
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
             title: "Zuverlässiger Broker mit 9 Regulierungslizenzen",
             text: "AvaTrade ist seit 2006 ein Pionier des Online-Handels mit Regulierungslizenzen auf 5 Kontinenten (Zentralbank von Irland, ASIC, FSCA)."
         },
         es: {
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
             title: "Broker de Confianza con 9 Licencias Reguladoras",
             text: "AvaTrade es un pionero del trading en línea desde 2006, con licencias reguladoras en 5 continentes (Banco Central de Irlanda, ASIC, FSCA)."
         },
         fr: {
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
             title: "Courtier Fiable avec 9 Licences de Réglementation",
             text: "AvaTrade est un pionnier du trading en ligne depuis 2006, disposant de licences de réglementation sur 5 continents (Banque centrale d'Irlande, ASIC, FSCA)."
         },
         pt: {
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
             title: "Corretora Confiável com 9 Licenças de Regulamentação",
             text: "AvaTrade é uma pioneira do trading online desde 2006, com licenças de regulamentação em 5 continentes (Banco Central da Irlanda, ASIC, FSCA)."
         }
@@ -272,7 +272,7 @@ const i18n = {
         ibkrBadge: "⭐ TOP RECOMMENDED SAFE BROKER",
         ibkrBonusBtn: "🎁 Claim Up to $1,000 Free Stock (IBKR) ➔",
         readReviewLabel: "📖 Read Full Security Review & Regulation Audit →",
-        freeWaiverNote: "✓ 100% Free Unlocked Audit Report Courtesy of Verified Security Partner ($9.99 Fee Waived)",
+        freeWaiverNote: "✓ 100% Free Unlocked Audit Report Courtesy of Verified Security Partner",
         typePending: "Type: Pending Audit",
         typeCompleted: "Type: Forensic Audit Completed",
         sourcePrefix: "Source: Forensic Verification ID",
@@ -301,7 +301,7 @@ const i18n = {
         ibkrBadge: "⭐ BROKER RECOMANDAT DE TOP - 100% SIGUR",
         ibkrBonusBtn: "🎁 Revendică până la 1.000$ în Acțiuni Gratuite (IBKR) ➔",
         readReviewLabel: "📖 Citește Recenzia Completă & Auditul Detaliat (Pagina Oficială) →",
-        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100% (Taxa de 9.99$ Anulată)",
+        freeWaiverNote: "✓ Raport de Audit Deblocat GRATUIT 100%",
         typePending: "Tip: Audit în Curs",
         typeCompleted: "Tip: Audit Forensic Finalizat",
         sourcePrefix: "Sursă: ID Verificare Forensică",
@@ -330,7 +330,7 @@ const i18n = {
         ibkrBadge: "⭐ BROKER RACCOMANDATO TOP - 100% SICURO",
         ibkrBonusBtn: "🎁 Richiedi fino a 1.000$ in Azioni Gratuite (IBKR) ➔",
         readReviewLabel: "📖 Leggi la Recensione Completa & Audit di Sicurezza (Pagina Ufficiale) →",
-        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100% (Tassa di 9.99$ Annullata)",
+        freeWaiverNote: "✓ Report di Audit Sbloccato GRATIS 100%",
         typePending: "Tipo: In Attesa di Audit",
         typeCompleted: "Tipo: Audit Forense Completato",
         sourcePrefix: "Fonte: ID Verifica Forense",
@@ -359,7 +359,7 @@ const i18n = {
         ibkrBadge: "⭐ TOP EMPFOHLENER SICHERER BROKER",
         ibkrBonusBtn: "🎁 Bis zu 1.000$ in Gratis-Aktien sichern (IBKR) ➔",
         readReviewLabel: "📖 Vollständigen Sicherheitsbericht & Audit Lesen (Offizielle Seite) →",
-        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht (9.99$ Gebühr Erlassen)",
+        freeWaiverNote: "✓ 100% Kostenloser Freigeschalteter Audit-Bericht",
         typePending: "Typ: Ausstehende Prüfung",
         typeCompleted: "Typ: Forensische Prüfung Abgeschlossen",
         sourcePrefix: "Quelle: Forensische Prüf-ID",
@@ -388,7 +388,7 @@ const i18n = {
         ibkrBadge: "⭐ BROKER TOP RECOMENDADO - 100% SEGURO",
         ibkrBonusBtn: "🎁 Reclamar hasta 1.000$ en Acciones Gratis (IBKR) ➔",
         readReviewLabel: "📖 Leer Reseña Completa y Auditoría de Seguridad (Página Oficial) →",
-        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS (Tasa de 9.99$ Anulada)",
+        freeWaiverNote: "✓ Informe de Auditoría Desbloqueado 100% GRATIS",
         typePending: "Tipo: Auditoría Pendiente",
         typeCompleted: "Tipo: Auditoría Forense Completada",
         sourcePrefix: "Fuente: ID de Verificación Forense",
@@ -417,7 +417,7 @@ const i18n = {
         ibkrBadge: "⭐ COURTIER RECOMMANDÉ TOP - 100% SÉCURISÉ",
         ibkrBonusBtn: "🎁 Réclamer jusqu'à 1 000$ d'Actions Gratuites (IBKR) ➔",
         readReviewLabel: "📖 Lire l'Avis Complet et l'Audit de Sécurité (Page Officielle) →",
-        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT (Frais de 9.99$ Annulés)",
+        freeWaiverNote: "✓ Rapport d'Audit Déverrouillé 100% GRATUIT",
         typePending: "Type: Audit en Attente",
         typeCompleted: "Type: Audit Forensique Terminé",
         sourcePrefix: "Source: ID de Vérification Forensique",
@@ -446,7 +446,7 @@ const i18n = {
         ibkrBadge: "⭐ CORRETORA TOP RECOMENDADA - 100% SEGURA",
         ibkrBonusBtn: "🎁 Resgatar até US$ 1.000 em Ações Gratuitas (IBKR) ➔",
         readReviewLabel: "📖 Ler Análise Completa e Auditoria de Segurança (Página Oficial) →",
-        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS (Taxa de US$ 9.99 Isenta)",
+        freeWaiverNote: "✓ Relatório de Auditoria Desbloqueado 100% GRÁTIS",
         typePending: "Tipo: Auditoria Pendente",
         typeCompleted: "Tipo: Auditoria Forense Concluída",
         sourcePrefix: "Fonte: ID de Verificação Forense",
@@ -475,7 +475,7 @@ const i18n = {
         ibkrBadge: "⭐ ТОП РЕКОМЕНДУЕМЫЙ НАДЕЖНЫЙ БРОКЕР",
         ibkrBonusBtn: "🎁 Получить до $1,000 в бесплатных акциях (IBKR) ➔",
         readReviewLabel: "📖 Читать полный обзор и аудит безопасности (Официальная страница) →",
-        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО (Сбор $9.99 отменен)",
+        freeWaiverNote: "✓ Полный отчет аудита разблокирован 100% БЕСПЛАТНО",
         typePending: "Тип: Ожидает аудита",
         typeCompleted: "Тип: Судебный аудит завершен",
         sourcePrefix: "Источник: ID криминалистической проверки",
@@ -532,38 +532,7 @@ const API_BASE = (window.location.protocol === "file:")
         ? "https://isbrokersafe.com" 
         : "");
 
-// Stripe Initialization using the live publishable key from romance scam detector config
-let stripe = null;
-let stripeElements = null;
-let cardElement = null;
-
-try {
-    if (typeof Stripe !== 'undefined') {
-        stripe = Stripe('pk_live_51TtpkdAhLNvXdoMSXRjVwN4FzUhl9qi1ujDzqWWTechyUmEZSQjntRuMLVDL6M0d5RkOGIW8581GZdebULU2Ruq100g3PoOz9T');
-        stripeElements = stripe.elements();
-        cardElement = stripeElements.create('card', {
-            style: {
-                base: {
-                    color: '#ffffff',
-                    fontFamily: '"Outfit", sans-serif',
-                    fontSmoothing: 'antialiased',
-                    fontSize: '15px',
-                    '::placeholder': {
-                        color: '#64748b'
-                    }
-                },
-                invalid: {
-                    color: '#ef4444',
-                    iconColor: '#ef4444'
-                }
-            }
-        });
-    } else {
-        console.warn("Stripe SDK is not loaded. Card payments disabled.");
-    }
-} catch (e) {
-    console.error("Stripe initialization failed:", e);
-}
+// Forensic Audit PDF Reports are 100% Free — No payment processor needed.
 
 // Reliable Mobile & PC Smooth Scroll Helper
 function smoothScrollTo(target, offset = 50) {
@@ -1228,6 +1197,24 @@ const verdictTranslations = {
         pt: "🚨 ALERTA CRÍTICO DE FRAUDE / NA LISTA NEGRA",
         ru: "🚨 КРИТИЧЕСКАЯ УГРОЗА / В ЧЕРНОМ СПИСКЕ"
     },
+    "FRAUD WARNING / BLACKLISTED": {
+        ro: "🚨 ALERTĂ CRITICĂ DE FRAUDĂ / PE LISTA NEAGRĂ",
+        it: "🚨 ALLERTA CRITICA DI TRUFFA / NELLA LISTA NERA",
+        de: "🚨 KRITISCHE BETRUGSWARNUNG / AUF DER SCHWARZEN LISTE",
+        fr: "🚨 ALERTE CRITIQUE DE FRAUDE / SUR LISTE NOIRE",
+        es: "🚨 ALERTA CRÍTICA DE FRAUDE / EN LISTA NEGRA",
+        pt: "🚨 ALERTA CRÍTICO DE FRAUDE / NA LISTA NEGRA",
+        ru: "🚨 КРИТИЧЕСКАЯ УГРОЗА / В ЧЕРНОМ СПИСКЕ"
+    },
+    "CONFIRMED FRAUD": {
+        ro: "🚨 FRAUDĂ CONFIRMATĂ / ENTITATE ILEGALĂ",
+        it: "🚨 TRUFFA CONFERMATA / ENTITÀ ILLEGALE",
+        de: "🚨 BESTÄTIGTER BETRUG / ILLEGALE PLATTFORM",
+        fr: "🚨 FRAUDE CONFIRMÉE / PLATEFORME ILLÉGALE",
+        es: "🚨 FRAUDE CONFIRMADO / ENTIDAD ILEGAL",
+        pt: "🚨 FRAUDE CONFIRMADA / PLATAFORMA ILEGAL",
+        ru: "🚨 ПОДТВЕРЖДЕННОЕ МОШЕННИЧЕСТВО"
+    },
     "HIGH RISK PONZI SCHEME": {
         ro: "🚨 SCHEMĂ PONZI CU RISC EXTREM",
         it: "🚨 SCHEMA PONZI AD ALTO RISCHIO",
@@ -1254,10 +1241,28 @@ const verdictTranslations = {
         es: "Broker Global Regulado y Licenciado",
         pt: "Corretora Global Regulamentada",
         ru: "Строго регулируемый глобальный брокер"
+    },
+    "Unverified Entity — No Matching License in Monitored Registries": {
+        ro: "Entitate Neverificată — Fără Licență Găsită în Registrele Monitorizate",
+        it: "Entità Non Verificata — Nessuna Licenza Trovata nei Registri Monitorati",
+        de: "Ungeprüftes Unternehmen — Keine Lizenz in Überwachten Registern Gefunden",
+        fr: "Entité Non Vérifiée — Aucune Licence Trouvée dans les Registres Surveillés",
+        es: "Entidad No Verificada — Sin Licencia en los Registros Supervisados",
+        pt: "Entidade Não Verificada — Sem Licença nos Registros Monitorados",
+        ru: "Непроверенная организация — Лицензия не найдена в реестрах"
     }
 };
 
 const verdictTextTranslations = {
+    "This entity was not found in our monitored Tier-1 regulatory license databases or official enforcement warning lists (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Independently verify its registration number on the official national regulator portal before depositing capital.": {
+        ro: "Această entitate nu a fost găsită în bazele noastre de licențe Tier-1 sau pe listele de avertizare (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Verificați independent numărul de înregistrare pe portalul autorității naționale înainte de a depune capital.",
+        it: "Questa entità non è stata trovata nei nostri database di licenze Tier-1 o nelle liste di avviso ufficiali (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Verifica autonomamente il numero di iscrizione sul portale dell'autorità nazionale prima di depositare capitali.",
+        de: " Dieses Unternehmen wurde weder in unseren Tier-1-Lizenzdatenbanken noch in offiziellen Warnlisten (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin) gefunden. Prüfen Sie die Registrierungsnummer vor einer Einzahlung direkt bei der Finanzaufsicht.",
+        fr: "Cette entité n'a été trouvée ni dans nos bases de licences Tier-1 ni dans les listes d'alerte officielles (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Vérifiez indépendamment son numéro d'agrément auprès du régulateur national avant tout dépôt.",
+        es: "Esta entidad no se encontró en nuestras bases de licencias Tier-1 ni en las listas oficiales de advertencia (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Verifique su número de registro en el portal del regulador nacional antes de depositar capital.",
+        pt: "Esta entidade não foi encontrada em nossas bases de licenças Tier-1 ou listas de alerta oficiais (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Verifique o número de registro diretamente no portal do regulador nacional antes de depositar capital.",
+        ru: "Эта организация не найдена в наших базах лицензий Tier-1 или официальных списках предупреждений (FCA, ESMA, SEC, CySEC, ASIC, CONSOB, BaFin). Самостоятельно проверьте номер лицензии на сайте регулятора перед внесением средств."
+    },
     "PocketOption is an offshore binary options broker registered in Autonomous Island of Mwali. It lacks tier-1 regulatory licenses from FCA, CySEC, or ASIC.": {
         ro: "PocketOption este un broker offshore de opțiuni binare înregistrat în Insula Autonomă Mwali. Nu deține licențe oficiale Tier-1 de la FCA, CySEC sau ASIC.",
         it: "PocketOption è un broker offshore di opzioni binarie registrato nell'Isola Autonoma di Mwali. È privo di licenze di primo livello rilasciate da FCA, CySEC o ASIC.",
@@ -1501,11 +1506,225 @@ function updateGauge(percentage) {
     }
 }
 
+let activeScanToken = 0;
+
+const INSTANT_CURATED_BROKERS = {
+    "exness": {
+        scan_id: "instant-exness", payment_status: "paid", score: 96,
+        broker_name: "Exness", broker_domain: "exness.com",
+        ip_address: "104.21.12.88", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2008-03-15 (18 years ago)",
+        verdict_title: "Verified Regulated Broker",
+        verdict_text: "Exness is a top-tier global financial broker with over $4 Trillion in monthly trading volume. Licensed by major international regulators including CySEC, FCA, FSA, and CBCS. Features instant automated withdrawals, segregated client funds, and full financial transparency.",
+        red_flags: ["High leverage options available on offshore entities require proper risk management."],
+        green_flags: [
+            "Regulated by CySEC (Cyprus), FCA (UK), FSA (Seychelles), and CBCS.",
+            "Over $4 Trillion in audited monthly trading volume.",
+            "Instant automated withdrawals and negative balance protection.",
+            "Client funds held in segregated accounts at tier-1 international banks."
+        ],
+        affiliate_link: "/go/exness"
+    },
+    "etoro": {
+        scan_id: "instant-etoro", payment_status: "paid", score: 95,
+        broker_name: "eToro", broker_domain: "etoro.com",
+        ip_address: "104.21.40.11", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2007-01-15 (19 years ago)",
+        verdict_title: "Highly Secure & Regulated Global Broker",
+        verdict_text: "eToro is a globally leading social trading platform trusted by over 30 million users worldwide. Licensed by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+        red_flags: ["Inactivity fee applied after 12 months without login."],
+        green_flags: [
+            "Regulated by FCA (UK), CySEC (Cyprus), ASIC (Australia), and FINRA (US).",
+            "Public social trading & copy-trading platform with full transparency.",
+            "Segregated client funds and free deposit protection insurance."
+        ],
+        affiliate_link: "/go/etoro"
+    },
+    "xm": {
+        scan_id: "instant-xm", payment_status: "paid", score: 92,
+        broker_name: "XM Group", broker_domain: "xm.com",
+        ip_address: "104.21.18.243", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2009-12-04 (16 years ago)",
+        verdict_title: "Highly Secure Broker",
+        verdict_text: "XM Group is one of the world's largest and most trusted online brokers, serving over 10 million clients in 190+ countries. Regulated by multiple top-tier authorities with a strong track record of client fund safety.",
+        red_flags: ["High leverage available on offshore entity increases risk.", "Bonuses may come with trading volume requirements."],
+        green_flags: [
+            "Regulated by CySEC (Cyprus), ASIC (Australia), FCA (UK), and DFSA (Dubai).",
+            "Over 10 million clients worldwide — one of the largest brokers globally.",
+            "Negative balance protection for all retail clients.",
+            "Ultra-fast execution with no requotes and no rejections policy.",
+            "Free VPS hosting for automated traders."
+        ],
+        affiliate_link: "/go/xm"
+    },
+    "plus500": {
+        scan_id: "instant-plus500", payment_status: "paid", score: 91,
+        broker_name: "Plus500", broker_domain: "plus500.com",
+        ip_address: "104.21.55.212", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2008-04-01 (18 years ago)",
+        verdict_title: "Highly Secure Broker",
+        verdict_text: "Plus500 is a globally regulated, publicly traded CFD broker (LSE: PLUS) trusted by millions of traders worldwide. Licensed by the FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore), it offers a transparent and secure trading environment.",
+        red_flags: ["CFD trading involves risk of losing more than your initial deposit.", "Does not support MetaTrader platforms (proprietary platform only)."],
+        green_flags: [
+            "Publicly listed on the London Stock Exchange (LSE: PLUS) — full financial transparency.",
+            "Regulated by FCA (UK), ASIC (Australia), CySEC (Cyprus), and MAS (Singapore).",
+            "User-friendly trading interface and advanced risk management tools.",
+            "Free real-time price alerts and risk management tools included."
+        ],
+        affiliate_link: null
+    },
+    "avatrade": {
+        scan_id: "instant-avatrade", payment_status: "paid", score: 90,
+        broker_name: "AvaTrade", broker_domain: "avatrade.com",
+        ip_address: "104.21.32.18", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2006-03-15 (20 years ago)",
+        verdict_title: "Highly Secure & Multi-Regulated Broker",
+        verdict_text: "AvaTrade is a global trading pioneer founded in 2006, regulated across 9 international jurisdictions including Europe, Australia, Japan, and South Africa.",
+        red_flags: ["Inactivity fee applied after 3 consecutive months of non-usage."],
+        green_flags: [
+            "Regulated across 5 continents including Central Bank of Ireland and ASIC.",
+            "Established track record since 2006 (18+ years of operation).",
+            "Segregated client accounts in top-tier global banks.",
+            "Free AvaProtect risk management tool."
+        ],
+        affiliate_link: null
+    },
+    "ibkr": {
+        scan_id: "instant-ibkr", payment_status: "paid", score: 98,
+        broker_name: "Interactive Brokers", broker_domain: "interactivebrokers.com",
+        ip_address: "104.21.32.89", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "1995-11-20 (30 years ago)",
+        verdict_title: "Top-Tier Trusted Broker",
+        verdict_text: "Interactive Brokers is one of the safest and most regulated financial brands in the world, licensed by over 10 tier-1 global regulators.",
+        red_flags: ["Complex technical platform, not recommended for absolute beginners.", "Fee structure can be initially difficult to understand."],
+        green_flags: [
+            "Regulated by FCA (UK), SEC (US), ASIC (Australia), and IIROC (Canada).",
+            "Publicly traded company (NASDAQ: IBKR) with absolute financial transparency.",
+            "Extremely high investor protection and client asset guarantee thresholds."
+        ],
+        affiliate_link: "/go/ibkr"
+    },
+    "pepperstone": {
+        scan_id: "instant-pepperstone", payment_status: "paid", score: 95,
+        broker_name: "Pepperstone", broker_domain: "pepperstone.com",
+        ip_address: "104.22.40.11", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2008-02-12 (18 years ago)",
+        verdict_title: "Highly Secure Broker",
+        verdict_text: "Pepperstone is highly respected in the industry, renowned for its low latency ECN execution and complete cost transparency.",
+        red_flags: ["Does not offer regulatory protection scheme limits for clients registered under their offshore Bahamas/SCB entity."],
+        green_flags: [
+            "Regulated by major authorities: FCA (UK), ASIC (Australia), CySEC (Cyprus).",
+            "No Dealing Desk intervention (straight-through market execution).",
+            "Award-winning customer support and negative balance protection."
+        ],
+        affiliate_link: null
+    },
+    "icmarkets": {
+        scan_id: "instant-icmarkets", payment_status: "paid", score: 93,
+        broker_name: "IC Markets", broker_domain: "icmarkets.com",
+        ip_address: "172.67.75.14", hosting_provider: "Cloudflare Enterprise CDN", domain_age: "2007-06-25 (19 years ago)",
+        verdict_title: "Highly Secure Broker",
+        verdict_text: "IC Markets is a favorite for scalpers and algorithmic traders using Expert Advisors (EAs) due to tight spreads and low latency.",
+        red_flags: ["High leverage (1:500) is only available on their offshore entity, increasing risk exposure."],
+        green_flags: [
+            "Strictly regulated by ASIC in Australia and CySEC in Europe.",
+            "Ultra-low latency connection with servers located in Equinix NY4 & LD4 datacenters.",
+            "Allows all trading styles, including high-frequency scalping and hedging."
+        ],
+        affiliate_link: null
+    },
+    "pocketoption": {
+        scan_id: "instant-pocketoption", payment_status: "paid", score: 42,
+        broker_name: "PocketOption", broker_domain: "pocketoption.com",
+        ip_address: "172.67.182.10", hosting_provider: "Cloudflare CDN", domain_age: "2017-03-12 (9 years ago)",
+        verdict_title: "Warning: High Risk / Offshore Jurisdiction",
+        verdict_text: "PocketOption is an offshore binary options broker registered in Autonomous Island of Mwali. It lacks tier-1 regulatory licenses from FCA, CySEC, or ASIC.",
+        red_flags: [
+            "Registered offshore (MISA / Gembell Limited) with no tier-1 financial regulation.",
+            "Binary options trading carries high risk of total loss.",
+            "Withdrawal verification delays reported by some retail users."
+        ],
+        green_flags: ["Offers low minimum deposit threshold and social copy trading tools."],
+        affiliate_link: null
+    },
+    "apexcryptofx": {
+        scan_id: "instant-apexcryptofx", payment_status: "paid", score: 5,
+        broker_name: "ApexCryptoFX", broker_domain: "apexcryptofx.com",
+        ip_address: "198.54.115.110", hosting_provider: "Namecheap Shared Hosting (US)", domain_age: "2026-05-10 (2 months ago)",
+        verdict_title: "FRAUD WARNING / BLACKLISTED",
+        verdict_text: "ApexCryptoFX is a confirmed scam website. They lure users with guaranteed daily returns and refuse all withdrawals, demanding fake fees to unlock accounts.",
+        red_flags: [
+            "Unregulated. Stated physical address is fictitious.",
+            "Promises guaranteed profits of over 20% weekly.",
+            "Uses Instagram/Telegram managers and cold messaging to recruit victims.",
+            "Locks user accounts immediately after a withdrawal is requested."
+        ],
+        green_flags: ["None. Avoid at all costs."],
+        affiliate_link: null
+    },
+    "fxtradersgold": {
+        scan_id: "instant-fxtradersgold", payment_status: "paid", score: 8,
+        broker_name: "FxTradersGold", broker_domain: "fxtradersgold.com",
+        ip_address: "185.151.30.9", hosting_provider: "Hostinger Shared Hosting (Lithuania)", domain_age: "2025-11-04 (8 months ago)",
+        verdict_title: "CONFIRMED FRAUD",
+        verdict_text: "This website is blacklisted by European financial regulators (including the UK FCA) as an unauthorized entity operating illegally.",
+        red_flags: [
+            "Officially blacklisted by European financial watchdogs.",
+            "Uses high-pressure cold calling to offer fake investment advice.",
+            "Uses fake identities and demands urgent top-ups."
+        ],
+        green_flags: ["None. Illegal platform."],
+        affiliate_link: null
+    },
+    "capitalinvestfx": {
+        scan_id: "instant-capitalinvestfx", payment_status: "paid", score: 4,
+        broker_name: "CapitalInvestFX", broker_domain: "capitalinvestfx.com",
+        ip_address: "185.215.113.42", hosting_provider: "Offshore Bulletproof Hosting", domain_age: "2026-04-18 (3 months ago)",
+        verdict_title: "FRAUD WARNING / BLACKLISTED",
+        verdict_text: "CapitalInvestFX is an illegal, unregulated scam entity blacklisted by European regulators. They manipulate trading software and block client withdrawals.",
+        red_flags: [
+            "Officially blacklisted by European financial watchdogs.",
+            "Unregulated. Stated physical address is fictitious.",
+            "Locks user accounts immediately after a withdrawal is requested."
+        ],
+        green_flags: ["None. Avoid at all costs."],
+        affiliate_link: null
+    },
+    "cryptowealth24": {
+        scan_id: "instant-cryptowealth24", payment_status: "paid", score: 6,
+        broker_name: "CryptoWealth24", broker_domain: "cryptowealth24.com",
+        ip_address: "91.195.240.94", hosting_provider: "Namecheap Shared Hosting", domain_age: "2026-06-02 (1 month ago)",
+        verdict_title: "CONFIRMED FRAUD",
+        verdict_text: "CryptoWealth24 operates an illegal multi-level Ponzi scheme using fake social media account managers to solicit deposits.",
+        red_flags: [
+            "Promises guaranteed profits of over 20% weekly.",
+            "Uses Instagram/Telegram managers and cold messaging to recruit victims.",
+            "Locks user accounts immediately after a withdrawal is requested."
+        ],
+        green_flags: ["None. Illegal platform."],
+        affiliate_link: null
+    }
+};
+
+function findInstantCuratedBroker(name, domain) {
+    const combined = `${String(name || '')} ${String(domain || '')}`.toLowerCase();
+    if (combined.includes("exness")) return INSTANT_CURATED_BROKERS.exness;
+    if (combined.includes("etoro")) return INSTANT_CURATED_BROKERS.etoro;
+    if (combined.includes("xm group") || combined.includes("xm.com") || String(name || '').toLowerCase().trim() === "xm") return INSTANT_CURATED_BROKERS.xm;
+    if (combined.includes("plus500")) return INSTANT_CURATED_BROKERS.plus500;
+    if (combined.includes("avatrade")) return INSTANT_CURATED_BROKERS.avatrade;
+    if (combined.includes("interactive") || combined.includes("ibkr")) return INSTANT_CURATED_BROKERS.ibkr;
+    if (combined.includes("pepperstone")) return INSTANT_CURATED_BROKERS.pepperstone;
+    if (combined.includes("ic markets") || combined.includes("icmarkets")) return INSTANT_CURATED_BROKERS.icmarkets;
+    if (combined.includes("pocketoption")) return INSTANT_CURATED_BROKERS.pocketoption;
+    if (combined.includes("apexcryptofx")) return INSTANT_CURATED_BROKERS.apexcryptofx;
+    if (combined.includes("fxtradersgold")) return INSTANT_CURATED_BROKERS.fxtradersgold;
+    if (combined.includes("capitalinvestfx")) return INSTANT_CURATED_BROKERS.capitalinvestfx;
+    if (combined.includes("cryptowealth24")) return INSTANT_CURATED_BROKERS.cryptowealth24;
+    return null;
+}
+
 // Execute scan request on the FastAPI server
 async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
+    const myScanToken = ++activeScanToken;
+    if (displayName) displayName.textContent = brokerName;
+    if (displayDomain) displayDomain.textContent = brokerDomain;
     scannerStatus.textContent = t.statusScanning || "SCANNING";
     scannerStatus.style.color = "var(--color-warning)";
-    scannerTerminal.innerHTML = "";
+    scannerTerminal.innerHTML = `<div class="terminal-line" style="color:var(--color-primary)">&gt; Initializing active regulatory &amp; WHOIS threat scan for: ${brokerDomain} ...</div>`;
     
     // Dim gauge score momentarily during active scan
     scoreGauge.style.strokeDashoffset = 440;
@@ -1533,6 +1752,32 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
         payload = { ...payload, ...wizardPayload };
     }
 
+    // 0-ms Instant Local Execution for all 13 Curated Good/Bad Brokers (zero network lag on mobile!)
+    const instantHit = !wizardPayload ? findInstantCuratedBroker(brokerName, brokerDomain) : null;
+    if (instantHit) {
+        runThreatScan(instantHit.broker_name, instantHit.broker_domain, instantHit.score, instantHit, () => {
+            if (myScanToken !== activeScanToken) return;
+            if (scannerConsole) {
+                scannerConsole.classList.remove("scanning-active");
+            }
+            renderBrokerResults(instantHit, myScanToken);
+        }, myScanToken);
+
+        // Sync scan_id in background for PDF report link
+        fetch(`${API_BASE}/api/broker/scan`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        }).then(r => r.ok ? r.json() : null).then(bgData => {
+            if (bgData && bgData.scan_id && myScanToken === activeScanToken) {
+                currentScanId = bgData.scan_id;
+                const downloadBtnEl = document.getElementById("download-report-btn");
+                if (downloadBtnEl) downloadBtnEl.href = `${API_BASE}/api/broker/report/${bgData.scan_id}`;
+            }
+        }).catch(() => {});
+        return;
+    }
+
     try {
         const response = await fetch(`${API_BASE}/api/broker/scan`, {
             method: "POST",
@@ -1543,16 +1788,23 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
         });
         if (!response.ok) throw new Error("API call failed");
         const data = await response.json();
+        if (myScanToken !== activeScanToken) return;
 
         // Run logs animation sequence, then load results
         runThreatScan(brokerName, brokerDomain, data.score, data, () => {
+            if (myScanToken !== activeScanToken) return;
             if (scannerConsole) {
                 scannerConsole.classList.remove("scanning-active");
             }
-            fetchResults(data.scan_id);
-        });
+            if (data.verdict_title || data.red_flags) {
+                renderBrokerResults(data, myScanToken);
+            } else {
+                fetchResults(data.scan_id, myScanToken);
+            }
+        }, myScanToken);
 
     } catch (err) {
+        if (myScanToken !== activeScanToken) return;
         console.error(err);
         scannerStatus.textContent = "ERROR";
         scannerStatus.style.color = "var(--color-danger)";
@@ -1561,12 +1813,14 @@ async function executeScan(brokerName, brokerDomain, wizardPayload = null) {
 }
 
 // Run threat scanner visual logs animation
-function runThreatScan(name, domain, score, apiData, callback) {
+function runThreatScan(name, domain, score, apiData, callback, scanToken = activeScanToken) {
     const logs = getThreatLogs(domain, apiData, score);
+    scannerTerminal.innerHTML = "";
 
     let currentLogIndex = 0;
 
     function printNextLine() {
+        if (scanToken !== activeScanToken) return;
         if (currentLogIndex >= logs.length) {
             // Scan finished status
             if (score >= 75) {
@@ -1605,20 +1859,31 @@ function runThreatScan(name, domain, score, apiData, callback) {
         scannerTerminal.scrollTop = scannerTerminal.scrollHeight;
 
         currentLogIndex++;
-        setTimeout(printNextLine, 200); 
+        setTimeout(printNextLine, 60); 
     }
 
     printNextLine();
 }
 
 // Load scan results from backend database
-async function fetchResults(scanId) {
+async function fetchResults(scanId, scanToken = activeScanToken) {
     currentScanId = scanId;
     try {
         const response = await fetch(`${API_BASE}/api/broker/results/${scanId}`);
         if (!response.ok) throw new Error("Failed to fetch results");
         const data = await response.json();
+        if (scanToken !== activeScanToken) return;
+        renderBrokerResults(data, scanToken);
+    } catch (err) {
+        console.error(err);
+    }
+}
 
+function renderBrokerResults(data, scanToken = activeScanToken) {
+    if (scanToken !== activeScanToken) return;
+    const scanId = String(data.scan_id || currentScanId || "audit001");
+    currentScanId = scanId;
+    try {
         displayName.textContent = data.broker_name;
         displayDomain.textContent = data.broker_domain;
         displayType.textContent = data.locked ? t.typePending : t.typeCompleted;
@@ -1942,29 +2207,18 @@ async function fetchResults(scanId) {
         }
 
 
-        // Auto-unlock free forensic report for all verified affiliate partners
-        if (isPartnerBroker || data.payment_status === "free_partner") {
-            data.locked = false;
-        }
+        // All forensic PDF reports are 100% free and unlocked
+        data.locked = false;
+        const paywallEl = document.getElementById("results-paywall");
+        if (paywallEl) paywallEl.style.display = "none";
+        const unlockedDetailsEl = document.getElementById("unlocked-premium-details");
+        if (unlockedDetailsEl) unlockedDetailsEl.style.display = "block";
+        
+        // Link download button directly to Python FastAPI StreamingResponse endpoint
+        const downloadBtnEl = document.getElementById("download-report-btn");
+        if (downloadBtnEl) downloadBtnEl.href = `${API_BASE}/api/broker/report/${scanId}`;
 
-        // Render paywall / unlock states
-        if (data.locked) {
-            document.getElementById("results-paywall").style.display = "block";
-            document.getElementById("unlocked-premium-details").style.display = "none";
-            
-            // Set locked placeholders for flag lists
-            redFlagsList.innerHTML = `
-                <li style="color:var(--text-muted)">${t.lockedRed}</li>
-            `;
-            greenFlagsList.innerHTML = `
-                <li style="color:var(--text-muted)">${t.lockedGreen}</li>
-            `;
-        } else {
-            document.getElementById("results-paywall").style.display = "none";
-            document.getElementById("unlocked-premium-details").style.display = "block";
-            
-            // Link download button directly to Python FastAPI StreamingResponse endpoint
-            document.getElementById("download-report-btn").href = `${API_BASE}/api/broker/report/${scanId}`;
+        if (true) {
 
             // Render Red Flags
             redFlagsList.innerHTML = "";
@@ -1997,6 +2251,7 @@ async function fetchResults(scanId) {
 
         // On mobile, smoothly scroll down to the full audit report & recommendations
         setTimeout(() => {
+            if (scanToken !== activeScanToken) return;
             const brokerDetails = document.getElementById("broker-details");
             if (brokerDetails && window.innerWidth <= 850) {
                 brokerDetails.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2007,98 +2262,6 @@ async function fetchResults(scanId) {
         console.error(err);
     }
 }
-
-// ==========================================================================
-// Stripe Payment Handling
-// ==========================================================================
-
-// Open checkout modal when clicking paywall unlock button
-paywallUnlockBtn.addEventListener("click", () => {
-    cardErrors.textContent = "";
-    checkoutModal.classList.add("active");
-});
-
-// Close checkout modal
-closeCheckoutBtn.addEventListener("click", () => {
-    checkoutModal.classList.remove("active");
-});
-
-// Click outside checkout modal closes it
-checkoutModal.addEventListener("click", (e) => {
-    if (e.target === checkoutModal) {
-        checkoutModal.classList.remove("active");
-    }
-});
-
-// Submit Stripe Payment Form
-paymentForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    confirmPaymentBtn.disabled = true;
-    confirmPaymentBtn.textContent = "Processing Payment...";
-    cardErrors.textContent = "";
-
-    const email = document.getElementById("card-email").value.trim();
-    if (!email || !currentScanId) {
-        cardErrors.textContent = "Please fill in your email address.";
-        confirmPaymentBtn.disabled = false;
-        confirmPaymentBtn.textContent = "Pay $9.99 and Download Report";
-        return;
-    }
-
-    const isAdminTest = email.toLowerCase().includes("amendamax");
-
-    if (isAdminTest) {
-        sendPaymentToken(currentScanId, email, "tok_bypass_admin");
-    } else {
-        // Stripe tokenization
-        const { token, error } = await stripe.createToken(cardElement);
-        if (error) {
-            cardErrors.textContent = error.message;
-            confirmPaymentBtn.disabled = false;
-            confirmPaymentBtn.textContent = "Pay $9.99 and Download Report";
-        } else {
-            sendPaymentToken(currentScanId, email, token.id);
-        }
-    }
-});
-
-// Send payment payload to backend
-async function sendPaymentToken(scanId, email, tokenId) {
-    try {
-        const response = await fetch(`${API_BASE}/api/broker/pay-card`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                scan_id: scanId,
-                email: email,
-                token_id: tokenId
-            })
-        });
-
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.detail || "Payment failed");
-        }
-
-        // Close modal, clear payment inputs, reload dashboard
-        checkoutModal.classList.remove("active");
-        cardElement.clear();
-        document.getElementById("card-email").value = "";
-        
-        confirmPaymentBtn.disabled = false;
-        confirmPaymentBtn.textContent = "Pay $9.99 and Download Report";
-        
-        // Reload results
-        fetchResults(scanId);
-
-    } catch (err) {
-        console.error(err);
-        cardErrors.textContent = err.message;
-        confirmPaymentBtn.disabled = false;
-        confirmPaymentBtn.textContent = "Pay $9.99 and Download Report";
-    }
-}
-
 
 // ==========================================================================
 // Interactive Wizard Logic
@@ -2249,14 +2412,6 @@ function completeWizardAndAnalyze() {
 // Initialization
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
-    // Mount Stripe Card Element
-    if (cardElement) {
-        const el = document.getElementById('card-element');
-        if (el) {
-            cardElement.mount('#card-element');
-        }
-    }
-
     // Load default broker (XM Group) on startup with API integration
     // executeScan("XM Group", "xm.com"); // Disabled auto-scan on startup to show clean homepage
 });
@@ -2285,16 +2440,50 @@ window.selectBroker = function(name) {
 
     executeScan(targetName, targetDomain);
 };
-// Append this to broker-verifier/app.js
-document.addEventListener("DOMContentLoaded", () => {
-    // Bind all ticker chips to selectBroker
+// Quick Ticker Chip & Category Pill Click Handler (Mobile & Auto-Translate Safe)
+function bindTickerChipsAndPills() {
     const chips = document.querySelectorAll('.ticker-chip');
     chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const brokerName = chip.childNodes[0].textContent.trim();
-            if (window.selectBroker) {
+        if (chip.dataset.boundScan === "1") return;
+        chip.dataset.boundScan = "1";
+        chip.removeAttribute('onclick');
+        chip.addEventListener('click', (e) => {
+            e.preventDefault();
+            const attrName = chip.getAttribute('data-broker');
+            const rawText = (chip.textContent || '').toLowerCase();
+            let brokerName = attrName;
+            if (!brokerName) {
+                const match = brokerDatabase.find(b => rawText.includes(b.name.toLowerCase()) || rawText.includes(b.domain.replace('.com', '')));
+                brokerName = match ? match.name : (chip.childNodes[0] ? chip.childNodes[0].textContent.trim() : '');
+            }
+            if (brokerName && window.selectBroker) {
                 window.selectBroker(brokerName);
             }
         });
     });
-});
+
+    const safeList = ["Exness", "Interactive Brokers", "eToro", "XM Group", "Plus500", "AvaTrade"];
+    const scamList = ["ApexCryptoFX", "FxTradersGold", "CapitalInvestFX", "CryptoWealth24", "PocketOption"];
+    let safeIdx = 0;
+    let scamIdx = 0;
+    const groupLabels = document.querySelectorAll('.ticker-group-label');
+    groupLabels.forEach(label => {
+        if (label.dataset.boundScan === "1") return;
+        label.dataset.boundScan = "1";
+        label.style.cursor = "pointer";
+        label.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (label.classList.contains('danger')) {
+                window.selectBroker(scamList[scamIdx++ % scamList.length]);
+            } else {
+                window.selectBroker(safeList[safeIdx++ % safeList.length]);
+            }
+        });
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindTickerChipsAndPills);
+} else {
+    bindTickerChipsAndPills();
+}

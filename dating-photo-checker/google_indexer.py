@@ -1,4 +1,4 @@
-﻿import os
+import os
 import json
 import sqlite3
 import requests
@@ -17,8 +17,9 @@ ENDPOINT = "https://indexing.googleapis.com/v3/urlNotifications:publish"
 TRACKER_BROKER = "last_id_broker.txt"
 TRACKER_DATING = "last_id_dating.txt"
 
-DOMAIN_BROKER = "https://isbrokersafe.com/scam-reports"
-DOMAIN_DATING = "https://verifydating.net/scam-profile" # SAU CUM E URL-UL TAU EXACT (ex: /profile/)
+DOMAIN_BROKER = "https://isbrokersafe.com"
+DOMAIN_DATING = "https://verifydating.net"
+LANGS = ["en", "ro", "it", "es", "fr", "de", "pt", "ru"]
 
 def get_last_id(filename):
     if os.path.exists(filename):
@@ -56,7 +57,7 @@ def submit_to_google(url, token):
     return requests.post(ENDPOINT, headers=headers, json=payload)
 
 def main():
-    print(f"[{datetime.now()}] Incepem Job-ul de Indexare...")
+    print(f"[{datetime.now()}] Incepem Job-ul de Indexare (8 limbi)...")
     
     # Incarcam ambele chei in memorie
     keys = [KEY_1_PATH, KEY_2_PATH]
@@ -73,26 +74,30 @@ def main():
 
     # --- 1. PRELUAM NOII BROKERI ---
     last_broker_id = get_last_id(TRACKER_BROKER)
-    cursor.execute("SELECT id, slug FROM regulatory_scam_reports WHERE id > ? ORDER BY id ASC LIMIT 200", (last_broker_id,))
+    cursor.execute("SELECT id, slug FROM regulatory_scam_reports WHERE id > ? ORDER BY id ASC LIMIT 25", (last_broker_id,))
     new_brokers = cursor.fetchall()
     
     # --- 2. PRELUAM NOILE PROFILE DATING ---
     last_dating_id = get_last_id(TRACKER_DATING)
-    cursor.execute("SELECT id, slug FROM dating_scam_profiles WHERE id > ? ORDER BY id ASC LIMIT 200", (last_dating_id,))
+    cursor.execute("SELECT id, slug FROM dating_scam_profiles WHERE id > ? ORDER BY id ASC LIMIT 25", (last_dating_id,))
     new_dating = cursor.fetchall()
 
-    # Generam lista mixta de joburi: (url, type, id)
+    # Generam lista mixta de joburi in toate cele 8 limbi: (url, type, id)
     jobs = []
     for row in new_brokers:
-        jobs.append((f"{DOMAIN_BROKER}/{row[1]}", "broker", row[0]))
+        for lang in LANGS:
+            prefix = "" if lang == "en" else f"/{lang}"
+            jobs.append((f"{DOMAIN_BROKER}{prefix}/broker/{row[1]}", "broker", row[0]))
     for row in new_dating:
-        jobs.append((f"{DOMAIN_DATING}/{row[1]}", "dating", row[0]))
+        for lang in LANGS:
+            prefix = "" if lang == "en" else f"/{lang}"
+            jobs.append((f"{DOMAIN_DATING}{prefix}/scammer/{row[1]}", "dating", row[0]))
 
     if not jobs:
         print("Nu exista inregistrari noi in baza de date. Totul e la zi!")
         return
 
-    print(f"Avem de trimis {len(jobs)} URL-uri (noi).")
+    print(f"Avem de trimis {len(jobs)} URL-uri (noi, pe 8 limbi).")
     
     success_count = 0
     quota_exhausted = False

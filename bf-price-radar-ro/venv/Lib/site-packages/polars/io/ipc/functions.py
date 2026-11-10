@@ -1,0 +1,504 @@
+from __future__ import annotations
+
+import contextlib
+from pathlib import Path
+from typing import IO, TYPE_CHECKING, Any, Literal
+
+import polars._reexport as pl
+import polars.functions as F
+from polars._dependencies import import_optional
+from polars._utils.expired import RemovedParameter, RenamedParameter, removed_parameters
+from polars._utils.various import (
+    normalize_filepath,
+)
+from polars._utils.wrap import wrap_df, wrap_ldf
+from polars.io._utils import (
+    get_sources,
+    parse_columns_arg,
+    parse_row_index_args,
+    prepare_file_arg,
+)
+from polars.io.cloud.credential_provider._builder import (
+    _init_credential_provider_builder,
+)
+from polars.io.scan_options._options import ScanOptions
+
+with contextlib.suppress(ImportError):  # Module not available when building docs
+    from polars._plr import PyDataFrame, PyLazyFrame
+    from polars._plr import read_ipc_schema as _read_ipc_schema
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from polars import DataFrame, DataType, LazyFrame
+    from polars._typing import SchemaDict, StorageOptionsDict
+    from polars.io.cloud import CredentialProviderFunction
+
+
+@removed_parameters(
+    RenamedParameter(
+        name="row_count_name",
+        new_name="row_index_name",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RenamedParameter(
+        name="row_count_offset",
+        new_name="row_index_offset",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RemovedParameter(
+        name="rechunk",
+        removed_in="2.0",
+        hint="call `rechunk()` on the resulting Dataframe if you need contiguous memory.",
+    ),
+)
+def read_ipc(
+    source: str | Path | IO[bytes] | bytes,
+    *,
+    columns: list[int] | list[str] | None = None,
+    n_rows: int | None = None,
+    use_pyarrow: bool = False,
+    storage_options: StorageOptionsDict | None = None,
+    row_index_name: str | None = None,
+    row_index_offset: int = 0,
+) -> DataFrame:
+    """
+    Read into a DataFrame from Arrow IPC (Feather v2) file.
+
+    See "File or Random Access format" on https://arrow.apache.org/docs/python/ipc.html.
+    Arrow IPC files are also known as Feather (v2) files.
+
+    .. versionchanged:: 0.20.4
+        * The `row_count_name` parameter was renamed `row_index_name`.
+        * The `row_count_offset` parameter was renamed `row_index_offset`.
+
+    Parameters
+    ----------
+    source
+        Path to a file or a file-like object (by "file-like object" we refer to objects
+        that have a `read()` method, such as a file handler like the builtin `open`
+        function, or a `BytesIO` instance). If `fsspec` is installed, it might be used
+        to open remote files. For file-like objects, the stream position may not be
+        updated accordingly after reading.
+    columns
+        Columns to select. Accepts a list of column indices (starting at zero) or a list
+        of column names.
+    n_rows
+        Stop reading from IPC file after reading `n_rows`.
+        Only valid when `use_pyarrow=False`.
+    use_pyarrow
+        Use pyarrow or the native Rust reader.
+    storage_options
+        Extra options that make sense for `fsspec.open()` or a particular storage
+        connection, e.g. host, port, username, password, etc.
+    row_index_name
+        Insert a row index column with the given name into the DataFrame as the first
+        column. If set to `None` (default), no row index column is created.
+    row_index_offset
+        Start the row index at this offset. Cannot be negative.
+        Only used if `row_index_name` is set.
+
+    Returns
+    -------
+    DataFrame
+
+    See Also
+    --------
+    scan_ipc : Lazily read from an IPC file or multiple files via glob patterns.
+
+    Warnings
+    --------
+    Calling `read_ipc().lazy()` is an antipattern as this forces Polars to materialize
+    a full csv file and therefore cannot push any optimizations into the reader.
+    Therefore always prefer `scan_ipc` if you want to work with `LazyFrame` s.
+
+    If `memory_map` is set, the bytes on disk are mapped 1:1 to memory.
+        That means that:
+
+        - Arrow data in the file is not validated to be correct and invalid arrow
+          data is UB! Ensure this file is correct or set `memory_map=False`.
+        - You cannot write to the same filename.
+          E.g. `pl.read_ipc("my_file.arrow").write_ipc("my_file.arrow")`
+          will fail.
+    """
+    projection, column_names = parse_columns_arg(columns)
+    del columns
+    row_index = parse_row_index_args(row_index_name, row_index_offset)
+    del row_index_name
+    del row_index_offset
+
+    if use_pyarrow:
+        if n_rows:
+            msg = (
+                "`n_rows` cannot be used with `use_pyarrow=True` and `memory_map=False`"
+            )
+            raise ValueError(msg)
+
+        if (isinstance(v := source, (str, Path))) and str(v).startswith("hf://"):
+            msg = "`use_pyarrow=True` is not supported for Hugging Face"
+            raise ValueError(msg)
+
+        with prepare_file_arg(
+            source, use_pyarrow=use_pyarrow, storage_options=storage_options
+        ) as data:
+            pyarrow_ipc = import_optional(
+                "pyarrow.ipc",
+                err_prefix="",
+                err_suffix="is required when using 'read_ipc(..., use_pyarrow=True)'",
+            )
+
+            if column_names is not None:
+                initial_pos: Any = None
+
+                if hasattr(data, "tell") and callable(data.tell):
+                    initial_pos = data.tell()
+
+                with pyarrow_ipc.open_file(data) as ipc_f:
+                    schema = ipc_f.schema
+
+                idx_lookup = {name: i for i, name in enumerate(schema.names)}
+                projection = [idx_lookup[name] for name in column_names]
+
+                if (
+                    initial_pos is not None
+                    and hasattr(data, "seek")
+                    and callable(data.seek)
+                ):
+                    data.seek(initial_pos)
+
+            with pyarrow_ipc.open_file(
+                data,
+                options=pyarrow_ipc.IpcReadOptions(included_fields=projection),
+            ) as ipc_f:
+                tbl = ipc_f.read_all()
+
+            df = pl.DataFrame._from_arrow(tbl)
+
+            if n_rows is not None:
+                df = df.head(n_rows)
+
+            if row_index is not None:
+                name, offset = row_index
+                df = df.with_row_index(name, offset)
+
+            return df
+
+    lf = scan_ipc(
+        source,
+        n_rows=n_rows,
+        storage_options=storage_options,
+    )
+
+    if column_names is not None:
+        lf = lf.select(column_names)
+    elif projection is not None:
+        lf = lf.select(F.nth(projection))
+
+    if row_index is not None:
+        name, offset = row_index
+        lf = lf.with_row_index(name, offset)
+
+    return lf._collect_eager()
+
+
+@removed_parameters(
+    RenamedParameter(
+        name="row_count_name",
+        new_name="row_index_name",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RenamedParameter(
+        name="row_count_offset",
+        new_name="row_index_offset",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RemovedParameter(
+        name="rechunk",
+        removed_in="2.0",
+        hint="call `rechunk()` on the resulting Dataframe if you need contiguous memory.",
+    ),
+)
+def read_ipc_stream(
+    source: str | Path | IO[bytes] | bytes,
+    *,
+    columns: list[int] | list[str] | None = None,
+    n_rows: int | None = None,
+    use_pyarrow: bool = False,
+    storage_options: StorageOptionsDict | None = None,
+    row_index_name: str | None = None,
+    row_index_offset: int = 0,
+) -> DataFrame:
+    """
+    Read into a DataFrame from Arrow IPC record batch stream.
+
+    See "Streaming format" on https://arrow.apache.org/docs/python/ipc.html.
+
+    .. versionchanged:: 0.20.4
+        * The `row_count_name` parameter was renamed `row_index_name`.
+        * The `row_count_offset` parameter was renamed `row_index_offset`.
+
+    Parameters
+    ----------
+    source
+        Path to a file or a file-like object (by "file-like object" we refer to objects
+        that have a `read()` method, such as a file handler like the builtin `open`
+        function, or a `BytesIO` instance). If `fsspec` is installed, it might be used
+        to open remote files. For file-like objects, the stream position may not be
+        updated accordingly after reading.
+    columns
+        Columns to select. Accepts a list of column indices (starting at zero) or a list
+        of column names.
+    n_rows
+        Stop reading from IPC stream after reading `n_rows`.
+        Only valid when `use_pyarrow=False`.
+    use_pyarrow
+        Use pyarrow or the native Rust reader.
+    storage_options
+        Extra options that make sense for `fsspec.open()` or a particular storage
+        connection, e.g. host, port, username, password, etc.
+    row_index_name
+        Insert a row index column with the given name into the DataFrame as the first
+        column. If set to `None` (default), no row index column is created.
+    row_index_offset
+        Start the row index at this offset. Cannot be negative.
+        Only used if `row_index_name` is set.
+
+    Returns
+    -------
+    DataFrame
+    """
+    with prepare_file_arg(
+        source, use_pyarrow=use_pyarrow, storage_options=storage_options
+    ) as data:
+        if use_pyarrow:
+            pyarrow_ipc = import_optional(
+                "pyarrow.ipc",
+                err_prefix="",
+                err_suffix="is required when using 'read_ipc_stream(..., use_pyarrow=True)'",
+            )
+            with pyarrow_ipc.RecordBatchStreamReader(data) as reader:
+                tbl = reader.read_all()
+                df = pl.DataFrame._from_arrow(tbl)
+                if row_index_name is not None:
+                    df = df.with_row_index(row_index_name, row_index_offset)
+                if n_rows is not None:
+                    df = df.slice(0, n_rows)
+                return df
+
+        return _read_ipc_stream_impl(
+            data,
+            columns=columns,
+            n_rows=n_rows,
+            row_index_name=row_index_name,
+            row_index_offset=row_index_offset,
+        )
+
+
+def _read_ipc_stream_impl(
+    source: str | Path | IO[bytes] | bytes,
+    *,
+    columns: Sequence[int] | Sequence[str] | None = None,
+    n_rows: int | None = None,
+    row_index_name: str | None = None,
+    row_index_offset: int = 0,
+) -> DataFrame:
+    if isinstance(source, (str, Path)):
+        source = normalize_filepath(source, check_not_directory=False)
+    if isinstance(columns, str):
+        columns = [columns]
+
+    projection, columns = parse_columns_arg(columns)
+    pydf = PyDataFrame.read_ipc_stream(
+        source,
+        columns,
+        projection,
+        n_rows,
+        parse_row_index_args(row_index_name, row_index_offset),
+        rechunk=False,
+    )
+    return wrap_df(pydf)
+
+
+def read_ipc_schema(source: str | Path | IO[bytes] | bytes) -> dict[str, DataType]:
+    """
+    Get the schema of an IPC file without reading data.
+
+    Parameters
+    ----------
+    source
+        Path to a file or a file-like object (by "file-like object" we refer to objects
+        that have a `read()` method, such as a file handler like the builtin `open`
+        function, or a `BytesIO` instance). For file-like objects, the stream position
+        may not be updated accordingly after reading.
+
+    Returns
+    -------
+    dict
+        Dictionary mapping column names to datatypes
+    """
+    if isinstance(source, (str, Path)):
+        source = normalize_filepath(source, check_not_directory=False)
+
+    return _read_ipc_schema(source)
+
+
+@removed_parameters(
+    RenamedParameter(
+        name="row_count_name",
+        new_name="row_index_name",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RenamedParameter(
+        name="row_count_offset",
+        new_name="row_index_offset",
+        deprecated_in="0.20.4",
+        removed_in="2.0",
+    ),
+    RemovedParameter(
+        name="rechunk",
+        removed_in="2.0",
+        hint="call `rechunk()` on the resulting Dataframe if you need contiguous memory.",
+    ),
+)
+@removed_parameters(
+    RemovedParameter(
+        name="retries",
+        deprecated_in="1.37.1",
+        removed_in="2.0",
+        hint='Pass {"max_retries": n} via `storage_options` instead.',
+    ),
+    RemovedParameter(
+        name="file_cache_ttl",
+        deprecated_in="1.40.0",
+        removed_in="2.0",
+        hint="The file cache is no longer supported.",
+    ),
+    RemovedParameter(
+        name="cache",
+        deprecated_in="1.40.0",
+        removed_in="2.0",
+        hint="The file cache is no longer supported.",
+    ),
+)
+def scan_ipc(
+    source: (
+        str
+        | Path
+        | IO[bytes]
+        | bytes
+        | list[str]
+        | list[Path]
+        | list[IO[bytes]]
+        | list[bytes]
+    ),
+    *,
+    n_rows: int | None = None,
+    row_index_name: str | None = None,
+    row_index_offset: int = 0,
+    glob: bool = True,
+    storage_options: StorageOptionsDict | None = None,
+    credential_provider: CredentialProviderFunction | Literal["auto"] | None = "auto",
+    hive_partitioning: bool | None = None,
+    hive_schema: SchemaDict | None = None,
+    try_parse_hive_dates: bool = True,
+    include_file_paths: str | None = None,
+    _record_batch_statistics: bool = False,
+) -> LazyFrame:
+    """
+    Lazily read from an Arrow IPC (Feather v2) file or multiple files via glob patterns.
+
+    This allows the query optimizer to push down predicates and projections to the scan
+    level, thereby potentially reducing memory overhead.
+
+    .. engine-support:: in-memory, streaming, distributed
+
+    Parameters
+    ----------
+    source
+        Path(s) to a file or directory
+        When needing to authenticate for scanning cloud locations, see the
+        `storage_options` parameter.
+    n_rows
+        Stop reading from IPC file after reading `n_rows`.
+    row_index_name
+        If not None, this will insert a row index column with give name into the
+        DataFrame
+    row_index_offset
+        Offset to start the row index column (only use if the name is set)
+    glob
+        Expand path given via globbing rules.
+    storage_options
+        Options that indicate how to connect to a cloud provider.
+
+        The cloud providers currently supported are AWS, GCP, and Azure.
+        See supported keys here:
+
+        * `aws <https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html>`_
+        * `gcp <https://docs.rs/object_store/latest/object_store/gcp/enum.GoogleConfigKey.html>`_
+        * `azure <https://docs.rs/object_store/latest/object_store/azure/enum.AzureConfigKey.html>`_
+        * Hugging Face (`hf://`): Accepts an API key under the `token` parameter: \
+          `{'token': '...'}`, or by setting the `HF_TOKEN` environment variable.
+
+        If `storage_options` is not provided, Polars will try to infer the information
+        from environment variables.
+    credential_provider
+        Provide a function that can be called to provide cloud storage
+        credentials. The function is expected to return a dictionary of
+        credential keys along with an optional credential expiry time.
+
+        .. warning::
+            This functionality is considered **unstable**. It may be changed
+            at any point without it being considered a breaking change.
+
+    hive_partitioning
+        Infer statistics and schema from Hive partitioned URL and use them
+        to prune reads. This is unset by default (i.e. `None`), meaning it is
+        automatically enabled when a single directory is passed, and otherwise
+        disabled.
+    hive_schema
+        The column names and data types of the columns by which the data is partitioned.
+        If set to `None` (default), the schema of the Hive partitions is inferred.
+
+        .. warning::
+            This functionality is considered **unstable**. It may be changed
+            at any point without it being considered a breaking change.
+    try_parse_hive_dates
+        Whether to try parsing hive values as date/datetime types.
+    include_file_paths
+        Include the path of the source file(s) as a column with this name.
+    """
+    sources = get_sources(source)
+
+    credential_provider_builder = _init_credential_provider_builder(
+        credential_provider, sources, storage_options, "scan_parquet"
+    )
+    del credential_provider
+
+    pylf = PyLazyFrame.new_from_ipc(
+        sources=sources,
+        record_batch_statistics=_record_batch_statistics,
+        scan_options=ScanOptions(
+            row_index=(
+                (row_index_name, row_index_offset)
+                if row_index_name is not None
+                else None
+            ),
+            pre_slice=(0, n_rows) if n_rows is not None else None,
+            include_file_paths=include_file_paths,
+            glob=glob,
+            hive_partitioning=hive_partitioning,
+            hive_schema=hive_schema,
+            try_parse_hive_dates=try_parse_hive_dates,
+            rechunk=False,
+            cache=False,
+            storage_options=storage_options,
+            credential_provider=credential_provider_builder,
+        ),
+    )
+
+    return wrap_ldf(pylf)
