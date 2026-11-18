@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2R1MB69T64"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2R1MB69T64');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Quantum Combinatorial Optimization (QAOA p=2) for Discrete Portfolio Selection &amp; VPP BESS Dispatch | Vasile Bratu</title>
+    <meta name="description" content="Bilingual (EN/IT) technical research paper by Vasile Bratu (VasileDev Group, P.IVA IT04226190041): 5-qubit QUBO-to-Ising QAOA (p=2) in Qiskit 2.6 for minimum-correlation Markowitz asset selection and distributed LiFePO4 Virtual Power Plant (BPS Cloud) dispatch.">
+    <meta name="author" content="Vasile Bratu">
+    <link rel="canonical" href="https://vasiledev.com/research/quantum-qaoa-portfolio-vpp/">
+    <link rel="stylesheet" href="/index.css?v=2.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vasiledev.com/research/quantum-qaoa-portfolio-vpp/">
+    <meta property="og:title" content="Quantum QAOA (p=2) for Discrete Portfolio Optimization &amp; VPP BESS Dispatch | VasileDev Research">
+    <meta property="og:description" content="5-Qubit Ising Hamiltonian formulation, Qiskit 2.6 AerSimulator benchmark (38.44% ground-state amplification, 90.38% approx. ratio), IBM Quantum QPU pipeline, and BPS Cloud VPP unit-commitment.">
+    <meta property="og:image" content="https://vasiledev.com/research/quantum-qaoa-portfolio-vpp/qaoa_classical_vs_sim.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vasiledev.com/research/quantum-qaoa-portfolio-vpp/qaoa_classical_vs_sim.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Quantum Combinatorial Optimization (QAOA p=2): From Discrete Markowitz Portfolio Selection to Virtual Power Plant BESS Dispatch",
+      "image": "https://vasiledev.com/research/quantum-qaoa-portfolio-vpp/qaoa_classical_vs_sim.png",
+      "datePublished": "2026-11-18",
+      "dateModified": "2026-11-18",
+      "inLanguage": ["en", "it"],
+      "author": {
+        "@type": "Person",
+        "@id": "https://vasiledev.com/#vasile-bratu",
+        "name": "Vasile Bratu",
+        "jobTitle": "Data Engineer & Founder",
+        "url": "https://vasiledev.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://vasiledev.com/#organization",
+        "name": "Ditta Individuale Vasile Bratu (VasileDev Group)",
+        "vatID": "IT04226190041",
+        "url": "https://vasiledev.com/"
+      },
+      "description": "Mathematical QUBO-to-Ising mapping and 5-qubit QAOA (p=2) implementation in Qiskit 2.6 for minimum-correlation asset selection and distributed LiFePO4 battery fleet dispatch."
+    }
+    </script>
+
+    <style>
+        .q-container {
+            max-width: 960px;
+            margin: 7.5rem auto 5rem auto;
+            padding: 0 1.5rem;
+        }
+        .q-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .q-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 13px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: rgba(229, 184, 66, 0.12);
+            border: 1px solid rgba(229, 184, 66, 0.38);
+            color: var(--primary);
+        }
+        .lang-pill-group {
+            display: inline-flex;
+            background: #0c1018;
+            border: 1px solid rgba(229, 184, 66, 0.3);
+            border-radius: 999px;
+            padding: 3px;
+            gap: 4px;
+        }
+        .lang-pill-btn {
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-pill-btn.active {
+            background: var(--primary);
+            color: #07090e;
+        }
+        .q-title {
+            font-size: clamp(1.85rem, 3.6vw, 2.65rem);
+            line-height: 1.22;
+            margin-bottom: 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #ffffff 35%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .q-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 2rem 0 2.5rem 0;
+        }
+        .q-kpi {
+            background: rgba(12, 16, 24, 0.9);
+            border: 1px solid rgba(229, 184, 66, 0.22);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+        .q-kpi .k-lbl {
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+        .q-kpi .k-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            margin-top: 4px;
+            color: var(--primary);
+        }
+        .q-kpi .k-sub {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
+        .q-section {
+            margin-bottom: 2.8rem;
+        }
+        .q-section h2 {
+            font-size: 1.48rem;
+            margin-bottom: 0.9rem;
+            color: #ffffff;
+            border-left: 3px solid var(--primary);
+            padding-left: 12px;
+        }
+        .q-section p, .q-section li {
+            color: #cbd5e1;
+            font-size: 1.0rem;
+            line-height: 1.78;
+        }
+        .q-math-box {
+            background: #0b0f17;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 1.2rem 0;
+            overflow-x: auto;
+        }
+        .q-code {
+            background: #090d14;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 18px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin: 1.2rem 0;
+        }
+        .q-table-wrap {
+            overflow-x: auto;
+            margin: 1.2rem 0;
+        }
+        .q-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            background: rgba(11, 15, 23, 0.88);
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .q-table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 700;
+            border-bottom: 1px solid #1e293b;
+        }
+        .q-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+            color: #cbd5e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .q-qpu-box {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(7, 9, 14, 0.96));
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin: 1.6rem 0;
+        }
+        .q-vpp-box {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.25), rgba(11, 15, 23, 0.95));
+            border: 1.5px solid rgba(16, 185, 129, 0.45);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin: 1.6rem 0;
+        }
+        [data-lang="it"] { display: none; }
+        body.lang-it [data-lang="en"] { display: none !important; }
+        body.lang-it [data-lang="it"] { display: block !important; }
+        body.lang-it span[data-lang="it"] { display: inline !important; }
+        span[data-lang="it"] { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><span class="terminal-pulse-icon"><i class="fa-solid fa-terminal"></i></span> <span class="git-prefix">git commit --amend</span> <span class="git-target"><span class="git-quote">"</span>Vasile<span>Dev</span><span class="git-quote">"</span></span></a>
+            <ul class="nav-links">
+                <li><a href="/#capabilities">Capabilities</a></li>
+                <li><a href="/#projects">Elite Projects</a></li>
+                <li><a href="/#articles">Research &amp; Guides</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li class="lang-switcher">
+                    <a href="/" class="lang-link">EN</a> |
+                    <a href="/ro/" class="lang-link">RO</a> |
+                    <a href="/it/" class="lang-link">IT</a>
+                </li>
+            </ul>
+            <button class="hamburger-menu" aria-label="Toggle Menu" id="hamburger-btn">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="q-container">
+        <div class="q-topbar">
+            <span class="q-badge">
+                <i class="fa-solid fa-atom"></i>
+                <span data-lang="en">Applied Quantum Optimization &bull; Qiskit 2.6 Research Note</span>
+                <span data-lang="it">Ottimizzazione Quantistica Applicata &bull; Nota di Ricerca Qiskit 2.6</span>
+            </span>
+            <div class="lang-pill-group" role="group" aria-label="Language Switcher">
+                <button type="button" id="btn-lang-en" class="lang-pill-btn active" onclick="setResearchLang('en')">🇬🇧 EN &middot; English</button>
+                <button type="button" id="btn-lang-it" class="lang-pill-btn" onclick="setResearchLang('it')">🇮🇹 IT &middot; Italiano</button>
+            </div>
+        </div>
+
+        <h1 class="q-title" data-lang="en">
+            Quantum Combinatorial Optimization (QAOA <em>p</em>=2): Discrete Markowitz Portfolio Selection &amp; Virtual Power Plant BESS Dispatch
+        </h1>
+        <h1 class="q-title" data-lang="it">
+            Ottimizzazione Combinatoria Quantistica (QAOA <em>p</em>=2): Selezione di Portafoglio Markowitz Discreto &amp; Dispacciamento Flotte BESS VPP
+        </h1>
+
+        <div style="display:flex;align-items:center;gap:14px;padding-bottom:1.4rem;margin-bottom:1.8rem;border-bottom:1px solid rgba(229,184,66,0.2);">
+            <img src="/vasile-bratu.jpg" alt="Vasile Bratu — Data Engineer &amp; Founder, VasileDev Group" width="50" height="50" style="border-radius:50%;border:2px solid var(--primary);object-fit:cover;">
+            <div>
+                <div style="font-weight:700;color:#fff;font-size:0.96rem;">Vasile Bratu — Data Engineer &amp; Founder</div>
+                <div style="font-size:0.82rem;color:#94a3b8;">
+                    Ditta Individuale Vasile Bratu (P.IVA <code>IT04226190041</code> &bull; Garessio, CN, Italy) &bull; November 18, 2026
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI SUMMARY -->
+        <div class="q-kpi-grid">
+            <div class="q-kpi">
+                <div class="k-lbl" data-lang="en">Hilbert Space &amp; Depth</div>
+                <div class="k-lbl" data-lang="it">Spazio di Hilbert &amp; Profondità</div>
+                <div class="k-val">5 Qubits (<em>p</em>=2)</div>
+                <div class="k-sub">\(2^5 = 32\) <span data-lang="en">states &bull; \(K = 2\) cardinality</span><span data-lang="it">stati &bull; cardinalità \(K = 2\)</span></div>
+            </div>
+            <div class="q-kpi">
+                <div class="k-lbl" data-lang="en">Ground-State Probability</div>
+                <div class="k-lbl" data-lang="it">Probabilità Stato Fondamentale</div>
+                <div class="k-val" style="color:#10b981;">38.44%</div>
+                <div class="k-sub"><strong style="color:#fff;">12.3&times;</strong> <span data-lang="en">vs uniform random (3.125%)</span><span data-lang="it">rispetto a scelta casuale (3,125%)</span></div>
+            </div>
+            <div class="q-kpi">
+                <div class="k-lbl" data-lang="en">Approximation Ratio</div>
+                <div class="k-lbl" data-lang="it">Rapporto di Approssimazione</div>
+                <div class="k-val" style="color:#38bdf8;">90.38%</div>
+                <div class="k-sub"><code>|01010&rangle;</code> = <strong>XAUUSD + GBPJPY</strong> (\(R=-0.19\))</div>
+            </div>
+            <div class="q-kpi">
+                <div class="k-lbl" data-lang="en">QPU Budget Discipline</div>
+                <div class="k-lbl" data-lang="it">Disciplina Quota QPU</div>
+                <div class="k-val">0.0s / ~15s</div>
+                <div class="k-sub"><span data-lang="en">0s variational tuning &bull; 2,048 QPU shots</span><span data-lang="it">0s ottimizzazione locale &bull; 2.048 shot QPU</span></div>
+            </div>
+        </div>
+
+        <!-- SECTION 1 -->
+        <section class="q-section">
+            <h2 data-lang="en">1. Problem Statement: Minimum-Correlation Discrete Asset Selection</h2>
+            <h2 data-lang="it">1. Formulazione del Problema: Selezione Discreta di Asset a Minima Correlazione</h2>
+
+            <p data-lang="en" style="margin-bottom:1rem;">
+                In multi-strategy quantitative execution under strict daily drawdown caps, simultaneously activating highly correlated instruments (such as <code>NAS100</code> and <code>US30</code>, \(\rho = +0.91\)) concentrates tail risk. Given \(N = 5\) candidate instruments — <code>q0: EURUSD</code>, <code>q1: XAUUSD</code>, <code>q2: NAS100</code>, <code>q3: GBPJPY</code>, and <code>q4: US30</code> — we seek the optimal binary subset \(x \in \{0, 1\}^5\) of exact cardinality \(K = 2\) minimizing pairwise cross-correlation while preserving standalone Sharpe edge \(\mu_i\).
+            </p>
+            <p data-lang="it" style="margin-bottom:1rem;">
+                Nell'esecuzione quantitativa multi-strategia soggetta a limiti rigorosi di drawdown giornaliero, l'attivazione simultanea di strumenti fortemente correlati (come <code>NAS100</code> e <code>US30</code>, \(\rho = +0.91\)) concentra il rischio di coda. Dati \(N = 5\) strumenti candidati — <code>q0: EURUSD</code>, <code>q1: XAUUSD</code>, <code>q2: NAS100</code>, <code>q3: GBPJPY</code> e <code>q4: US30</code> — cerchiamo il sottoinsieme binario ottimo \(x \in \{0, 1\}^5\) con cardinalità esatta \(K = 2\) che minimizza la correlazione incrociata preservando il rendimento corretto per il rischio \(\mu_i\).
+            </p>
+
+            <div class="q-math-box">
+                $$E(x) = q \sum_{0 \le i < j < N} R_{ij}\, x_i x_j \;-\; \alpha \sum_{i=0}^{N-1} \mu_i\, x_i \;+\; \lambda \left(\sum_{i=0}^{N-1} x_i - K\right)^2, \qquad x_i \in \{0, 1\}$$
+            </div>
+
+            <div class="q-table-wrap">
+                <table class="q-table">
+                    <thead>
+                        <tr>
+                            <th>Qubit</th>
+                            <th>Instrument</th>
+                            <th>Edge \(\mu_i\)</th>
+                            <th>Corr vs EURUSD</th>
+                            <th>Corr vs XAUUSD</th>
+                            <th>Corr vs NAS100</th>
+                            <th>Corr vs GBPJPY</th>
+                            <th>Corr vs US30</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>q0</code></td><td><strong>EURUSD</strong></td><td>0.22</td><td>1.00</td><td>+0.34</td><td>+0.18</td><td>-0.12</td><td>+0.15</td></tr>
+                        <tr style="background:rgba(229,184,66,0.08);"><td><code>q1</code></td><td><strong style="color:#e5b842;">XAUUSD</strong></td><td>0.31</td><td>+0.34</td><td>1.00</td><td>+0.09</td><td><strong>-0.19</strong></td><td>+0.06</td></tr>
+                        <tr><td><code>q2</code></td><td><strong>NAS100</strong></td><td>0.28</td><td>+0.18</td><td>+0.09</td><td>1.00</td><td>+0.46</td><td>+0.91</td></tr>
+                        <tr style="background:rgba(229,184,66,0.08);"><td><code>q3</code></td><td><strong style="color:#e5b842;">GBPJPY</strong></td><td>0.26</td><td>-0.12</td><td><strong>-0.19</strong></td><td>+0.46</td><td>1.00</td><td>+0.44</td></tr>
+                        <tr><td><code>q4</code></td><td><strong>US30</strong></td><td>0.24</td><td>+0.15</td><td>+0.06</td><td>+0.91</td><td>+0.44</td><td>1.00</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="q-section">
+            <h2 data-lang="en">2. Exact QUBO &rarr; 5-Qubit Ising Cost Hamiltonian Mapping</h2>
+            <h2 data-lang="it">2. Mappatura Esatta QUBO &rarr; Hamiltoniana di Costo di Ising a 5 Qubit</h2>
+
+            <p data-lang="en" style="margin-bottom:1rem;">
+                Using \(x_i^2 = x_i\) and substituting the spin-1/2 operator mapping \(x_i = \frac{1 - Z_i}{2}\) (where computational basis states satisfy \(Z_i |0\rangle = +|0\rangle\) and \(Z_i |1\rangle = -|1\rangle\)), the QUBO objective (\(q = 2.40, \alpha = 0.80, \lambda = 0.95, K = 2\)) maps algebraically onto the diagonal 5-qubit Ising Hamiltonian \(H_C\) with zero approximation error (\(|E_{\text{QUBO}}(x) - \langle x | H_C | x \rangle| < 10^{-12}\) across all 32 basis states):
+            </p>
+            <p data-lang="it" style="margin-bottom:1rem;">
+                Sfruttando l'idempotenza \(x_i^2 = x_i\) e sostituendo la trasformazione in operatori di Pauli \(x_i = \frac{1 - Z_i}{2}\) (con \(Z_i |0\rangle = +|0\rangle\) e \(Z_i |1\rangle = -|1\rangle\)), la funzione QUBO (\(q = 2.40, \alpha = 0.80, \lambda = 0.95, K = 2\)) si mappa esattamente sull'Hamiltoniana diagonale di Ising a 5 qubit \(H_C\) con errore numerico inferiore a \(10^{-12}\) su tutti i 32 stati della base computazionale:
+            </p>
+
+            <div class="q-math-box">
+                $$H_C = C_0 I + \sum_{i=0}^{4} h_i Z_i + \sum_{0 \le i < j < 5} J_{ij} Z_i Z_j, \qquad J_{ij} = \frac{Q_{ij}}{4}, \quad h_i = -\frac{Q_{ii}}{2} - \frac{1}{4}\sum_{j \neq i} Q_{\min(i,j),\max(i,j)}$$
+                $$h = [-0.717,\; -0.531,\; -1.347,\; -0.725,\; -1.315], \qquad C_0 = +2.293$$
+            </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section class="q-section">
+            <h2 data-lang="en">3. Qiskit 2.6 QAOA (<em>p</em>=2) Implementation &amp; Local AerSimulator Benchmark</h2>
+            <h2 data-lang="it">3. Implementazione QAOA (<em>p</em>=2) in Qiskit 2.6 &amp; Benchmark Locale su AerSimulator</h2>
+
+            <p data-lang="en" style="margin-bottom:1rem;">
+                To preserve quantum hardware quota, all variational angle optimization is performed locally on Qiskit <code>AerSimulator</code> (consuming <strong>0.0 seconds</strong> of IBM QPU time). Each QAOA layer alternates the problem phase separator \(U_C(\gamma_l) = e^{-i \gamma_l H_C}\) (decomposed into single-qubit <code>RZ</code> and two-qubit <code>RZZ</code> entangling gates) with the transverse-field mixer \(U_B(\beta_l) = \prod_{i=0}^{4} e^{-i \beta_l X_i}\):
+            </p>
+            <p data-lang="it" style="margin-bottom:1rem;">
+                Per preservare integralmente il budget QPU reale, l'intera ottimizzazione variazionale degli angoli viene eseguita localmente su <code>AerSimulator</code> (<strong>0,0 secondi</strong> QPU consumati). Ogni livello QAOA alterna l'operatore di costo \(U_C(\gamma_l) = e^{-i \gamma_l H_C}\) (decomposto in porte <code>RZ</code> e <code>RZZ</code>) con il mixer trasversale \(U_B(\beta_l) = \prod_{i=0}^{4} e^{-i \beta_l X_i}\):
+            </p>
+
+<pre class="q-code"><code>from qiskit import QuantumCircuit
+from qiskit.circuit import ParameterVector
+
+def build_qaoa_circuit(p_layers: int, h, J) -&gt; QuantumCircuit:
+    gammas = ParameterVector("gamma", p_layers)
+    betas  = ParameterVector("beta", p_layers)
+
+    qc = QuantumCircuit(5, name=f"QAOA_Portfolio_p{p_layers}")
+    qc.h(range(5))  # Uniform superposition |+&gt;^5
+
+    for layer in range(p_layers):
+        for i in range(5):
+            qc.rz(2.0 * gammas[layer] * float(h[i]), i)
+        for i in range(5):
+            for j in range(i + 1, 5):
+                qc.rzz(2.0 * gammas[layer] * float(J[i, j]), i, j)
+        for i in range(5):
+            qc.rx(2.0 * betas[layer], i)
+
+    qc.measure_all()
+    return qc  # Optimal p=2: gamma*=[2.7796, 3.4544], beta*=[0.5234, 2.6806]</code></pre>
+
+            <figure style="margin:1.8rem 0;">
+                <img src="./qaoa_classical_vs_sim.png" alt="QAOA p=2 5-Asset Discrete Markowitz Benchmark — AerSimulator vs Classical Ground Truth" style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(229,184,66,0.3);box-shadow:0 16px 40px rgba(0,0,0,0.55);">
+                <figcaption style="font-size:0.82rem;color:#94a3b8;margin-top:8px;text-align:center;">
+                    <span data-lang="en">Figure 1 — Exact 32-state classical spectrum vs 8,192-shot QAOA (<em>p</em>=2) sampling on Qiskit <code>AerSimulator</code>. The unique global minimum <code>|01010&rangle;</code> (<strong>XAUUSD + GBPJPY</strong>, \(E = -0.912\)) captures <strong>38.44%</strong> of probability mass, followed by runner-up <code>|01001&rangle;</code> (<strong>EURUSD + GBPJPY</strong>, \(E = -0.672\)) at <strong>8.3%</strong>.</span>
+                    <span data-lang="it">Figura 1 — Spettro esatto classico a 32 stati rispetto al campionamento QAOA (<em>p</em>=2, 8.192 shot) su Qiskit <code>AerSimulator</code>. Il minimo globale unico <code>|01010&rangle;</code> (<strong>XAUUSD + GBPJPY</strong>, \(E = -0.912\)) concentra il <strong>38,44%</strong> della probabilità, seguito dal secondo miglior stato <code>|01001&rangle;</code> (<strong>EURUSD + GBPJPY</strong>, \(E = -0.672\)) all'<strong>8,3%</strong>.</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- SECTION 4: IBM REAL QPU PANEL -->
+        <section class="q-section">
+            <h2 data-lang="en">4. Physical Superconducting QPU Execution Pipeline (IBM Quantum Runtime)</h2>
+            <h2 data-lang="it">4. Pipeline di Esecuzione su QPU Superconduttiva Reale (IBM Quantum Runtime)</h2>
+
+            <p data-lang="en" style="margin-bottom:1rem;">
+                With optimal angles \((\gamma^*, \beta^*)\) locked offline, physical execution requires only a single <code>SamplerV2</code> hardware submission (<code>2,048</code> shots, ~15 seconds of superconducting QPU time) transpiled at <code>optimization_level=3</code> onto native Eagle/Heron <code>ECR</code>/<code>CZ</code> gates via <code>02_ibm_real_qpu_run.py</code>:
+            </p>
+            <p data-lang="it" style="margin-bottom:1rem;">
+                Con gli angoli ottimi \((\gamma^*, \beta^*)\) fissati offline, l'esecuzione su hardware fisico richiede un singolo invio <code>SamplerV2</code> (<code>2.048</code> shot, ~15 secondi di tempo QPU superconduttivo) transpilato con <code>optimization_level=3</code> sulle porte native Eagle/Heron <code>ECR</code>/<code>CZ</code> tramite <code>02_ibm_real_qpu_run.py</code>:
+            </p>
+
+            <div class="q-qpu-box" id="ibm-qpu-verification">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+                    <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem;color:#38bdf8;">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span data-lang="en">IBM Quantum Hardware Verification Ledger</span>
+                        <span data-lang="it">Registro di Verifica Hardware IBM Quantum</span>
+                    </div>
+                    <span style="background:rgba(56,189,248,0.14);border:1px solid rgba(56,189,248,0.4);color:#7dd3fc;font-size:0.75rem;font-weight:700;padding:4px 10px;border-radius:999px;">
+                        SamplerV2 &bull; 2,048 Shots &bull; Opt Level 3
+                    </span>
+                </div>
+                <div class="q-table-wrap" style="margin:0;">
+                    <table class="q-table">
+                        <tbody>
+                            <tr>
+                                <td style="width:36%;font-weight:700;color:#fff;">Runtime Channel &amp; Selector</td>
+                                <td><code>QiskitRuntimeService</code> &rarr; <code>service.least_busy(operational=True, simulator=False, min_num_qubits=5)</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700;color:#fff;">IBM Quantum Job ID</td>
+                                <td><code style="color:var(--primary);">[Pending Physical Run — 02_ibm_real_qpu_run.py -&gt; ibm_qpu_report.json]</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700;color:#fff;">Target Superconducting QPU</td>
+                                <td>IBM Eagle r3 / Heron r2 (127+ / 156 qubits &bull; ISA Transpilation <code>optimization_level=3</code>)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:700;color:#fff;">Pre-Locked Variational Angles</td>
+                                <td><code>&gamma;* = [2.77960972, 3.45442059]</code> &bull; <code>&beta;* = [0.52336261, 2.68055544]</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: INDUSTRIAL VPP BRIDGE -->
+        <section class="q-section">
+            <h2 data-lang="en">5. Industrial Bridge: Distributed <code>LiFePO4</code> BESS Dispatch in <code>BPS™ Cloud</code> VPP</h2>
+            <h2 data-lang="it">5. Ponte Industriale: Dispacciamento Flotte BESS <code>LiFePO4</code> in <code>BPS™ Cloud</code> VPP</h2>
+
+            <div class="q-vpp-box">
+                <p data-lang="en" style="margin-bottom:1rem;">
+                    Crucially, the exact same QUBO / Ising mathematical kernel governs real-time dispatch across distributed residential and commercial <strong>LiFePO4 Battery Energy Storage Systems (15&ndash;64 kWh)</strong> aggregated under <a href="https://calcolaincentivi.it/bps-cloud" style="color:#34d399;font-weight:700;text-decoration:underline;">BPS™ Cloud Autopilot</a>. Let \(x_i \in \{0, 1\}\) denote whether storage node \(i\) discharges into the day-ahead / balancing market window (GME Italy, OPCOM Romania, EPEX Spot) during a peak price interval:
+                </p>
+                <p data-lang="it" style="margin-bottom:1rem;">
+                    Lo stesso identico nucleo matematico QUBO / Ising governa il dispacciamento in tempo reale di flotte distribuite di accumulo <strong>LiFePO4 residenziali e industriali (15&ndash;64 kWh)</strong> aggregate tramite <a href="https://calcolaincentivi.it/bps-cloud" style="color:#34d399;font-weight:700;text-decoration:underline;">BPS™ Cloud Autopilot</a>. Sia \(x_i \in \{0, 1\}\) la variabile binaria di scarica del nodo BESS \(i\) in una finestra di picco sui mercati elettrici (GME Italia, OPCOM Romania, EPEX Spot):
+                </p>
+                <ul style="margin-left:1.3rem;space-y:0.5rem;">
+                    <li data-lang="en" style="margin-bottom:0.6rem;"><strong>Linear field \(h_i\):</strong> Net arbitrage spread minus cell cycle-degradation cost and CAN-bus BMS state-of-charge reserve margin (\(40\%\) homeowner reserve vs \(60\%\) VPP dispatchable pool).</li>
+                    <li data-lang="it" style="margin-bottom:0.6rem;"><strong>Campo lineare \(h_i\):</strong> Spread netto di arbitraggio orario meno costo di ciclaggio celle LiFePO4 e margine di riserva BMS CAN-bus (\(40\%\) riserva utente vs \(60\%\) quota dispacciabile VPP).</li>
+                    <li data-lang="en" style="margin-bottom:0.6rem;"><strong>Quadratic coupling \(J_{ij}\):</strong> Local LV/MV substation feeder congestion covariance and aggregate flexibility commitment target \(P_{\text{target}} = \sum_i P_i x_i\) for Terna / Transelectrica balancing blocks.</li>
+                    <li data-lang="it" style="margin-bottom:0.6rem;"><strong>Accoppiamento quadratico \(J_{ij}\):</strong> Covarianza di congestione sulla cabina BT/MT locale e vincolo di potenza aggregata \(P_{\text{target}} = \sum_i P_i x_i\) per i blocchi di bilanciamento Terna / Transelectrica.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.08);font-size:0.88rem;">
+            <a href="/" style="color:var(--primary);text-decoration:none;font-weight:700;">&larr; <span data-lang="en">Back to VasileDev.com</span><span data-lang="it">Torna a VasileDev.com</span></a>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                <a href="https://calcolaincentivi.it/bps-cloud" target="_blank" rel="noopener" style="color:#34d399;text-decoration:none;font-weight:700;">⚡ BPS™ Cloud Italy &rarr;</a>
+                <a href="https://calculeazasubventii.ro/bps-cloud" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:none;font-weight:700;">⚡ BPS™ Cloud Romania &rarr;</a>
+            </div>
+        </div>
+    </main>
+
+    <footer style="border-top: 1px solid rgba(255,255,255,0.08); padding: 28px 20px; text-align: center; font-size: 0.82rem; color: #64748b;">
+        <p>&copy; 2026 Ditta Individuale Vasile Bratu (VasileDev.com &bull; EU VIES VAT: <code>IT04226190041</code> &bull; Garessio, CN, Italy). All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function setResearchLang(lang) {
+            var isIt = (lang === 'it');
+            document.body.classList.toggle('lang-it', isIt);
+            document.documentElement.lang = isIt ? 'it' : 'en';
+            var bEn = document.getElementById('btn-lang-en');
+            var bIt = document.getElementById('btn-lang-it');
+            if (bEn) bEn.classList.toggle('active', !isIt);
+            if (bIt) bIt.classList.toggle('active', isIt);
+            try {
+                var u = new URL(window.location.href);
+                if (isIt) u.searchParams.set('lang', 'it');
+                else u.searchParams.delete('lang');
+                window.history.replaceState({}, '', u.toString());
+            } catch (_e) {}
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('lang') === 'it') {
+                setResearchLang('it');
+            }
+            var hamburgerBtn = document.getElementById('hamburger-btn');
+            var navLinks = document.querySelector('.nav-links');
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', function() {
+                    hamburgerBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
